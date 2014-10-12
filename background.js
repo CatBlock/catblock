@@ -49,7 +49,7 @@ storage_set = function(key, value) {
 if (!SAFARI) {
   // Open options on button click.
   chrome.browserAction.onClicked.addListener(function() {
-    var page = chrome.extension.getURL("options/index.html");
+    var page = chrome.extension.getURL("options/general.html");
     chrome.tabs.query({url:page}, function(results) {
       if (results.length > 0)
         chrome.tabs.update(results[0].id, {active:true, url:page});
