@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    Testing adblock_start_new_style.elementPurger._srcsFor.  See console.log for errors.
+    <script src="/functions.js"></script>
+    <script src="/filtering/filteroptions.js"></script>
+    <script src="/adblock_start_common.js"></script>
+    <script src="/adblock_start_new_style.js"></script>
+    <script>
+      var s = elementPurger._srcsFor.bind(elementPurger);
+      function test(page, url, srcs) {
+        elementPurger._page_location = parseUri(page);
+        var results = s(url);
+        for (var i = 0; i < results.length; i++) {
+          var r = (results[i] || {text:"<none>"}).text;
+          if (r !== srcs[i])
+          console.log("FAIL:", url, "on", page, "expected", srcs[i], "but got", r);
+        }
+      }
+      console.log("Starting _srcsFor test");
+      // Fragments
+      test("http://a.com/b/c/d.html#e", "http://a.com/b/c/d.html#f", ["//a.com/b/c/d.html#f", "/b/c/d.html#f", "d.html#f"]);
+      test("http://a.com/b/c/d.html#e/f/g", "http://a.com/b/c/d.html#a/b/c/d/e/f", ["//a.com/b/c/d.html#a/b/c/d/e/f", "/b/c/d.html#a/b/c/d/e/f", "d.html#a/b/c/d/e/f"]);
+      test("http://a.com/b/c/d.html", "http://a.com/b/c/e.html#f", ["//a.com/b/c/e.html#f", "/b/c/e.html#f", "e.html#f"]);
+      test("http://a.com/b/c/#", "http://a.com/b/c/d/#", ["//a.com/b/c/d/#", "/b/c/d/#", "d/#"]);
+      // Ignore queryparams in page but not in url
+      test("http://a.com/b/c/d.html?e/f/g/h#i/j", "http://a.com/b/c/k.html?/l/m#n#o", ["//a.com/b/c/k.html?/l/m#n#o", "/b/c/k.html?/l/m#n#o", "k.html?/l/m#n#o"]);
+      test("http://a.com/b/c/d.html?e/f/g/h#i/j", "http://a.com/b/c/k.html?l/m#n#o", ["//a.com/b/c/k.html?l/m#n#o", "/b/c/k.html?l/m#n#o", "k.html?l/m#n#o"]);
+      // Different domain
+      test("http://a.com/b/c/d.html", "http://e.com/f.html", ["//e.com/f.html"]);
+      test("http://a.com/b/c/d.html", "http://e.com/f.html#http://g.com/h/i/#j#k#l", ["//e.com/f.html#http://g.com/h/i/#j#k#l"]);
+      // Same doc, different doc in same dir
+      test("http://a.com/b/c/d.html", "http://a.com/b/c/d.html", ["//a.com/b/c/d.html", "/b/c/d.html", "d.html"]);
+      test("http://a.com/b/c/d.html", "http://a.com/b/c/e.html", ["//a.com/b/c/e.html", "/b/c/e.html", "e.html"]);
+      // Different doc in parent dirs
+      test("http://a.com/b/c/d.html", "http://a.com/b/e.html", ["//a.com/b/e.html", "/b/e.html", "../e.html"]);
+      test("http://a.com/b/c/d.html", "http://a.com/e.html", ["//a.com/e.html", "/e.html", "../../e.html"]);
+      test("http://a.com/b/c/d.html", "http://a.com/", ["//a.com/", "/", "../../"]);
+      // Different doc in subdirs of same or parent dir
+      test("http://a.com/b/c/d.html", "http://a.com/b/c/e/f/g.html", ["//a.com/b/c/e/f/g.html", "/b/c/e/f/g.html", "e/f/g.html"]);
+      test("http://a.com/b/c/d.html", "http://a.com/b/e/f/g.html", ["//a.com/b/e/f/g.html", "/b/e/f/g.html", "../e/f/g.html"]);
+      // Empty page dir
+      test("http://a.com/b/c/", "http://a.com/b/c/d/e.html", ["//a.com/b/c/d/e.html", "/b/c/d/e.html", "d/e.html"]);
+      test("http://a.com/b/c/", "http://a.com/b/c/d.html", ["//a.com/b/c/d.html", "/b/c/d.html", "d.html"]);
+      test("http://a.com/b/c/", "http://a.com/b/", ["//a.com/b/", "/b/", "../"]);
+      // Lack of trailing url slash
+      test("http://a.com/b/c/", "http://a.com/b", ["//a.com/b", "/b", "../../b"]);
+      test("http://a.com/b/c/", "http://a.com/b/c", ["//a.com/b/c", "/b/c", "../c"]);
+      console.log("Done");
+    </script>
+  </body>
+</html>
+

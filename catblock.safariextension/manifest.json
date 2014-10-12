@@ -1,0 +1,57 @@
+{
+  "name": "AdBlock",
+  "version": "2.5.33",
+  "description": "__MSG_description1__",
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "permissions": [
+    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation"
+  ],
+  "minimum_chrome_version": "17",
+  "background_page": "background.html",
+  "options_page": "options/index.html",
+  "incognito": "spanning",
+  "browser_action": {
+    "default_icon": "img/icon19.png",
+    "default_title": "__MSG_optionstitle__",
+    "popup": "button/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+        "port.js",
+        "functions.js", 
+        "filtering/filteroptions.js",
+        "adblock_start_common.js",
+        "adblock_start_new_style.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "*://*.mail.live.com/*",
+        "*://*.hk-pub.com/forum/thread-*",
+        "*://*.mastertoons.com/*"
+      ],
+      "js": [
+        "bandaids.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+        "uiscripts/blacklisting/rightclick_hook.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "default_locale": "en"
+}

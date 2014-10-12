@@ -1,0 +1,30 @@
+{
+  "name": "CatBlock",
+  "version": "2.5.33",
+  "description": "__MSG_catblock_description1__",
+  "permissions": [
+    "http://*/*", "https://*/*", "tabs"
+  ],
+  "background_page": "background.html",
+  "options_page": "options/index.html",
+  "minimum_chrome_version": "17",
+  "incognito": "spanning",
+  "browser_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "__MSG_catblock_optionstitle__"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+        "port.js",
+        "functions.js",
+        "contentscript.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "update_url": "https://chromeadblock.com/catblock/update.xml",
+  "default_locale": "en"
+}

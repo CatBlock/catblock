@@ -1,0 +1,57 @@
+/* Don't let page CSS bleed into our modals. */
+
+.ui-dialog a[href] {
+  text-decoration: underline !important;
+}
+.ui-dialog *,.ui-dialog-title * { 
+  font-size: 12px !important;
+  font-family: Verdana, Arial, sans-serif !important; 
+  color: #222;
+}
+span.ui-dialog-title {
+  color: white !important;
+}
+.ui-dialog .ui-dialog-titlebar {
+  display: block !important;
+  padding-left: 38px !important;
+  background: #2191C0 url(../../img/icon24.png) center left no-repeat !important;
+}
+.ui-dialog  .ui-dialog-content {
+  display: block !important;
+}
+.ui-dialog button { 
+  font-family: Verdana, Arial, sans-serif !important;
+  color: white !important;
+  margin: 2px !important;
+  padding: 0px 6px !important;
+  height: 20px !important; 
+  display: inline-block !important;
+  text-indent: 0px !important;
+}
+.ui-dialog:not(.ui-state-hover) button { 
+  background: #0078AE !important;
+}
+.ui-dialog.ui-state-hover button { 
+  background: #79C9EC !important;
+}
+.ui-dialog #adblock-details input {
+  min-width: 13px !important;
+}
+.ui-dialog .ui-dialog-titlebar-close {
+  background-image: none !important;
+}
+.ui-dialog .ui-dialog-content #slider {
+  height: 9px !important;
+  background-image: none !important;
+}
+.ui-dialog .ui-dialog-content div {
+  display: block;
+}
+.ui-dialog br {
+  display: inline !important;
+}
+.ui-dialog input[type="range"] {
+  outline: none;
+  margin: 10px;
+  vertical-align: middle;
+}
