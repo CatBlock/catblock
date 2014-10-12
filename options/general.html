@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body { font-family: sans-serif; }
+      .channel-ui input { margin-right: 1em }
+      .channel-ui a { 
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 20px;
+
+      }
+      .channel-photos { 
+        display:none;
+        overflow: auto;
+        white-space: nowrap;
+        margin-bottom: 1em;
+      }
+      .channel-photos img {
+        padding: 2px;
+        margin-right: 20px;
+        border: 1px solid gray;
+      }
+      .channel-name { margin-right: 10px }
+    </style>
+    <script src="../port.js"></script>
+    <script src="../jquery.min.js"></script>
+    <script src="../functions.js"></script>
+    <script src="../channels.js"></script>
+  </head>
+  <body>
+    <h1>CatBlock Options</h1>
+
+    <div id="channel-options">
+      Check the checkbox by the sets of pictures that you want to use.
+      <br/><br/>
+
+      <div id="channels">
+      </div>
+
+      <br/>
+      <b>Add some photos</b> from Flickr!  You can enter:
+      <ul>
+        <li>a search for photos (e.g. <i>sailboat race</i>)
+        <li>a Flickr photoset ID (e.g. <i>346406</i>)
+        <li>a Flickr photoset URL (e.g. <i>www.flickr.com/photos/michael_hughes/sets/346406/</i>)
+      </ul>
+      <input id="flickr-param" placeholder="sailboat race">
+      <input id="btnGo" type="button" value="Add photos">
+      <br/>
+      <br/>
+    </div>
+
+    <script src="general1.js"></script>
+
+    <!--
+    <hr/>
+    <h2>Want your cat to be famous?</h2>
+    Send me pictures of your cats and they may end up in CatBlock for <b>everyone</b> to see!<br/><br/>
+
+    The rules:
+    <ol>
+      <li>Please save them as high-quality <b>JPG</b>s about <b>1024px</b> on the longest edge.
+      <li>I'll use the filename for the <b>text to show users</b> when they hover over the photo.  For example, to show "Felix asleep", name it "Felix asleep.jpg".
+      <li><b>Crop your photo</b> pretty close to your cat's body or face, so that even if it replaces a small ad your photo will look good on a web page.
+      <li>No more than <b>2</b> photos, please!</li>
+      <li>Email them to <b>adblockforchrome+catblockpix@gmail.com</b>.
+    </ol>
+
+    Love,<br/>
+    Michael.
+    <br/><br/>
+    <i>(Legal mumbo jumbo: by sending me the photo, you are agreeing to let me do whatever I want with it, including publish it on the internet without credit.<br/>
+      If I choose not to use your photo, you promise not to get really angry.)</i>
+    -->
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CatBlock setup</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html" />
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      .waiting {
+        cursor: wait;
+      }
+      .section {
+        display: none;
+      }
+    </style>
+    <script src="../jquery.min.js"></script>
+    <script src="../port.js"></script>
+    <script src="setup1.js"></script>
+  </head>
+  <body>
+    <h1 id="welcome-header" style="display:none">Welcome to CatBlock!</h1>
+    <h1 id="catblock-setup-header" style="display:none">CatBlock setup</h1>
+
+    <div id="enter-email" class="section">
+      <div>
+        Enter the email address you are using to support AdBlock monthly:<br/>
+        <input type="email" id="email" style="width: 300px">
+        <input type="button" id="btn" value="Next">
+      </div>
+
+      <div id="there-is-a-problem" style="visibility:hidden; margin:1em">
+        <span style="color: red; font-weight: bold">There is a problem:</span>
+        <span id="disabled-message" style="font-style:italic"></span>
+      </div>
+
+      <br/>
+      <i>If you have trouble, just drop me an email at adblockforchrome+catblock@gmail.com.</i>
+    </div>
+
+    <div id="license-enabled" class="section">
+      CatBlock is ready to go!<br/><br/>
+    
+      Click the CatBlock button by the address bar for options.
+    </div>
+  </body>
+</html>
