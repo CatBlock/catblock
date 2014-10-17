@@ -11,5 +11,4 @@ BGcall = function() {
   var has_callback = (typeof args[args.length - 1] == "function");
   var callback = (has_callback ? args.pop() : function() {});
   chrome.extension.sendRequest({command: "call", fn:fn, args:args}, callback);
-}
-
+};

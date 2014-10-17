@@ -45,7 +45,6 @@ Channels.prototype = {
     this._channelGuide[id] = {
       name: data.name,
       param: data.param,
-      //enabled: data.enabled,
       enabled: true,
       channel: channel
     };

@@ -1,152 +1,51 @@
-      // TODO: Star and remove photos in a channel
+// Check or uncheck each loaded DOM option checkbox according to the 
+// user's saved settings.
+$(function() {
+  for (var name in optionalSettings) {
+    $("#enable_" + name).
+      attr("checked", optionalSettings[name]);
+  }
+  $("input.feature:checkbox").change(function() {
+    var is_enabled = $(this).is(':checked');
+    var name = this.id.substring(7); // TODO: hack
+    BGcall("set_setting", name, is_enabled);
+  });
+});
 
-      function mayDelete(channelData) {
-        if (channelData.name === "AprilFoolsCatsChannel")
-          return false;
-        if (channelData.name === "TheCatsOfCatBlockUsersChannel")
-          return false;
-        return true;
-      }
-      function displayName(channelData) {
-        var name = channelData.name, param = channelData.param;
-        name = name.replace(/Channel$/, '');
-        name = name.replace(/([^A-Z])([A-Z])/g, '$1 $2'); // Spaces b/w words
-        name = name.replace(/ Block/g, "Block"); // AdBlock, CatBlock...
-        if (name === "Flickr Search")
-          name = "Flickr search for";
-        return name + " <b>" + (param || "") + "</b>";
-      }
-      function addEmptyChannelUI(id, data) {
-        var theUI = $("<div>", {
-          "class": "channel-ui",
-          id: "chan-" + id
-        });
-        var cb = $("<input>", {
-          type: "checkbox",
-          click: function() { 
-            BGcall("channels.setEnabled", id, this.checked);
-          },
-          checked: data.enabled
-        });
-        var deleteMe = $("<a>", {
-          html: "<sup>x</sup>",
-          href: "#",
-          click: function() {
-            BGcall("channels.remove", id);
-            theUI.remove();
-            return false;
-          },
-          css: {
-            display: (mayDelete(data) ? undefined : "none")
-          }
-        });
-        var btn = $("<input>", {
-          type: "button",
-          id: "fill-photos-btn-" + id,
-          val: "Preview photos",
-          click: function() {
-            fillChannelUIWithPhotos(id);
-          }
-        });
-        var title = $("<div>", {id: "chan-" + id + "-title"}).
-          append(cb).
-          append($("<span>", {
-            "class": 'channel-name',
-            html: displayName(data)
-          })).
-          append(deleteMe).
-          append(btn);
-        var photos = $("<div>", {
-          "class": "channel-photos",
-          id: "chan-" + id + "-photos",
-        });
-        theUI.html(title).append(photos).appendTo("#channels");
-      }
 
-      function fillChannelUIWithPhotos(id) {
-        $("#fill-photos-btn-" + id).hide();
-        BGcall("channels.getListings", id, function(listings) {
-          var holder = $("#chan-" + id + "-photos");
-          holder.html("");
-          holder.show();
-          for (var i=0; i < listings.length; i++) {
-            var link = $("<a>", {
-              href: listings[i].attribution_url,
-              target: "_blank"
-            });
-            $("<img>", { 
-              src: listings[i].url,
-              height: 100,
-              id: "chan-" + id + "-listing-" + (i+1) + "-render",
-              title: listings[i].title
-            }).appendTo(link);
-            link.appendTo(holder);
-          }
-        });
-      }
+// TODO: This is a dumb race condition, and still has a bug where
+// if the user reloads/closes the options page within a second
+// of clicking this, the filters aren't rebuilt.  Call this inside
+// the feature change handler if it's this checkbox being clicked.
+$("#enable_show_google_search_text_ads").change(function() {
+  // Give the setting a sec to get saved by the other
+  // change handler before recalculating filters.
+  window.setTimeout(function() { 
+    BGcall("update_filters");
+  }, 1000);
+});
 
-      function addChannel(name, param) {
-        var data = {
-          name: name,
-          param: param,
-          enabled: true
-        };
-        BGcall("channels.add", data, function(id) {
-          if (id) {
-            addEmptyChannelUI(id, data);
-            $("#flickr-param").val("");
-          }
-        });
-      }
+$("#enable_show_advanced_options").change(function() {
+  // Reload the page to show or hide the advanced options on the
+  // options page -- after a moment so we have time to save the option.
+  // Also, disable all advanced options, so that non-advanced users will
+  // not end up with debug/beta/test options enabled.
+  if (!this.checked)
+    $(".advanced :checkbox:checked").each(function() {
+      BGcall("set_setting", this.id.substr(7), false);
+    });
+  window.setTimeout(function() {
+    window.location.reload();
+  }, 50);
+});
 
-      BGcall("channels.getGuide", function(guide) {
-        for (var id in guide) {
-          addEmptyChannelUI(id, guide[id]);
-          if (guide[id].name === "TheCatsOfCatBlockUsersChannel" &&
-              guide[id].enabled)
-            setMascot(id);
-        }
-        chrome.extension.onRequest.addListener(
-          function(request, sender, sendResponse) {
-            if (request.command !== 'channel-updated')
-              return;
-            var channelUI = $("#chan-" + request.id);
-            if ($('#fill-photos-btn-' + request.id).is(":visible"))
-              return; // They haven't asked for it yet
-            fillChannelUIWithPhotos(request.id);
-          }
-        );
-        $("#btnGo").click(function() {
-          var input = $("#flickr-param").val();
-          if (/^\W*$/.test(input))
-            return;
-          if (/^\d+$/.test(input)) {
-            addChannel("FlickrPhotosetChannel", input);
-            return;
-          }
-          var match = input.match(/sets\/(\d+)/);
-          if (match) {
-            addChannel("FlickrPhotosetChannel", match[1]);
-            return;
-          }
-          addChannel("FlickrSearchChannel", input);
-        });
-
-      });
-
-      $('#channel-options input:text').keyup(function(event) {
-        if (event.keyCode === 13)
-          $(this).next().click();
-          // todo handle enter
-      });
-
-      function setMascot(id) {
-        BGcall("channels.randomListing", {channelId: id}, function(listing) {
-          var folder = (SAFARI ? "catblock/icons/" : "icons/");
-          $("body").css({ 
-            "background": "url(" + chrome.extension.getURL(folder) + "white-bg.png), url(" + listing.url + ") 95% 5% no-repeat",
-            "background-size": "200px",
-            "background-attachment": "fixed"
-          });
-        });
-      }
+// Replace missing CatBlock checkbox with a message for those who are confused about where to find it.
+BGcall("storage_get", "saw_catblock_explanation_options_msg", function(saw) {
+  if (!saw) {
+    $("#catblock-explanation").show();
+    $("#catblock-explanation-close").click(function() {
+      $("#catblock-explanation").slideUp();
+      BGcall("storage_set", 'saw_catblock_explanation_options_msg', true);
+    });
+  }
+});
