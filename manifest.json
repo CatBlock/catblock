@@ -1,67 +1,57 @@
 {
-"update_url": "https://clients2.google.com/service/update2/crx",
-
-  "name": "CatBlock",
-  "version": "2.7.1",
-  "description": "__MSG_catblock_description1__",
-  "permissions": [
-    "http://*/*", "https://*/*", "tabs"
-  ],
-  "background": {
-    "scripts": [
-      "port.js",
-      "jquery.min.js",
-      "channels.js",
-      "background.js"
-    ]
+  "name": "AdBlock",
+  "version": "2.5.33",
+  "description": "__MSG_description1__",
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
   },
-  "options_page": "options/general.html",
+  "permissions": [
+    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation"
+  ],
   "minimum_chrome_version": "17",
+  "background_page": "background.html",
+  "options_page": "options/index.html",
   "incognito": "spanning",
   "browser_action": {
-    "default_icon": "icons/icon19.png",
-    "default_title": "__MSG_catblock_optionstitle__"
+    "default_icon": "img/icon19.png",
+    "default_title": "__MSG_optionstitle__",
+    "popup": "button/popup.html"
   },
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
       "js": [
         "port.js",
-        "functions.js",
-        "contentscript.js"
+        "functions.js", 
+        "filtering/filteroptions.js",
+        "adblock_start_common.js",
+        "adblock_start_new_style.js"
       ],
       "run_at": "document_start",
       "all_frames": true
+    },
+    {
+      "matches": [
+        "*://*.mail.live.com/*",
+        "*://*.hk-pub.com/forum/thread-*",
+        "*://*.mastertoons.com/*"
+      ],
+      "js": [
+        "bandaids.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+        "uiscripts/blacklisting/rightclick_hook.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
     }
   ],
-  "default_locale": "en",
-  "manifest_version": 2,
-  "web_accessible_resources": [
-    "pix/1.jpg",
-    "pix/5.jpg",
-    "pix/6.jpg",
-    "pix/7.jpg",
-    "pix/8.jpg",
-    "pix/9.jpg",
-    "pix/big1.jpg",
-    "pix/big2.jpg",
-    "pix/big3.jpg",
-    "pix/big4.jpg",
-    "pix/small1.jpg",
-    "pix/small2.jpg",
-    "pix/small3.jpg",
-    "pix/small4.jpg",
-    "pix/small5.jpg",
-    "pix/small6.jpg",
-    "pix/small7.jpg",
-    "pix/small8.jpg",
-    "pix/tall3.jpg",
-    "pix/tall4.jpg",
-    "pix/tall5.jpg",
-    "pix/tall6.jpg",
-    "pix/wide1.jpg",
-    "pix/wide2.jpg",
-    "pix/wide3.jpg",
-    "pix/wide4.jpg"
-  ]
+  "default_locale": "en"
 }
