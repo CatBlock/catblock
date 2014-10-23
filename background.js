@@ -1,30 +1,5 @@
 DEBUG_ADBLOCK = true;
 
-storage_get = function(key) {
-  var store = (window.SAFARI ? safari.extension.settings : localStorage);
-  var json = store.getItem(key);
-  if (json == null)
-    return undefined;
-  try {
-    return JSON.parse(json);
-  } catch (e) {
-    log("Couldn't parse json for " + key);
-    return undefined;
-  }
-};
-
-// Inputs: key:string, value:object.
-// Returns undefined.
-storage_set = function(key, value) {
-  var store = (window.SAFARI ? safari.extension.settings : localStorage);
-  try {
-    store.setItem(key, JSON.stringify(value));
-  } catch (ex) {
-    // Safari throws ex.name === "QUOTA_EXCEEDED_ERR" for all writes in Private
-    // Browsing mode.
-  }
-};
-
 // BGcall DISPATCH
 (function() {
   chrome.extension.onRequest.addListener(
@@ -45,6 +20,39 @@ storage_set = function(key, value) {
     }
   );
 })();
+
+storage_get = function(key) {
+  var store = (window.SAFARI ? safari.extension.settings : localStorage);
+  var json = store.getItem(key);
+  if (json == null)
+    return undefined;
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    log("Couldn't parse json for " + key);
+    return undefined;
+  }
+};
+
+// Inputs: key:string, value:object.
+// Returns undefined.
+storage_set = function(key, value) {
+  var store = (window.SAFARI ? safari.extension.settings : localStorage);
+  if (value === undefined) {
+    store.removeItem(key);
+    return;
+  }
+  try {
+    store.setItem(key, JSON.stringify(value));
+  } catch (ex) {
+    // Safari throws this error for all writes in Private Browsing mode.
+    // TODO: deal with the Safari case more gracefully.
+    if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
+      alert(translate("storage_quota_exceeded"));
+      openTab("options/index.html#ui-tabs-2");
+    }
+  }
+};
 
 if (!SAFARI) {
   // Open options on button click.
@@ -81,10 +89,5 @@ if (!SAFARI) {
     }
   );
 }
-
-// Yes, you could hack my code to not check the license.  But please don't.
-// Paying for this extension supports my work on AdBlock.  Thanks very much.
-// - Michael Gundlach (adblockforchrome at gmail)
-//license.updatePeriodically();
 
 channels = new Channels();
