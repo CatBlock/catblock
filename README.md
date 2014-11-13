@@ -7,4 +7,4 @@ If you want to contribute any improvements, please go ahead and send us a pull r
 
 If we see that you are a dedicated contributor, we may provide you with contributor permissions.
 
-The people to contact for this project are @kpeckett at @tomasko126
+The people to contact for this project are @kpeckett and @tomasko126
