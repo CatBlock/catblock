@@ -26,6 +26,7 @@ var picinjection = {
 //   offsetleft - amount to pad with blank space to left of picture
 //                These are used to center a picture in a tall or wide target
 _fit: function (pic, target) {
+
   var p=pic, t=target;
   // Step 0: if t.ratio > p.ratio, rotate |p| and |t| about their NW<->SE axes.
 
@@ -62,7 +63,7 @@ _fit: function (pic, target) {
   var crop_left = p.left * (crop_x / crop_max);
 
   // Step 3: Calculate how much we must scale up or down the original picture.
-  
+
   var scale = t.x / (p.width - crop_x);
 
   // Scale the original picture and crop amounts in order to determine the width
@@ -89,7 +90,8 @@ _fit: function (pic, target) {
 
 // Rotate a picture/target about its NW<->SE axis.
 _rotate: function(o) {
-  var pairs = [ ["x", "y"], ["top", "left"], ["bot", "right"], 
+
+  var pairs = [ ["x", "y"], ["top", "left"], ["bot", "right"],
                 ["offsettop", "offsetleft"], ["width", "height"] ];
   pairs.forEach(function(pair) {
     var a = pair[0], b = pair[1], tmp;
@@ -100,11 +102,14 @@ _rotate: function(o) {
 },
 
 _dim: function(el, prop) {
+
   function intFor(val) {
     // Match two or more digits; treat < 10 as missing.  This lets us set
     // dims that look good for e.g. 1px tall ad holders (cnn.com footer.)
     var match = (val || "").match(/^([1-9][0-9]+)(px)?$/);
-    if (!match) return undefined;
+    if (!match)
+        return undefined;
+
     return parseInt(match[1]);
   }
   return ( intFor(el.getAttribute(prop)) ||
@@ -112,6 +117,7 @@ _dim: function(el, prop) {
 },
 
 _parentDim: function(el, prop) {
+
   // Special hack for Facebook, so Sponsored links are huge and beautiful
   // pictures instead of tiny or missing.
   if (/facebook/.test(document.location.href))
@@ -125,7 +131,9 @@ _parentDim: function(el, prop) {
 },
 
 _targetSize: function(el) {
+
   var t = { x: this._dim(el, "width"), y: this._dim(el, "height") };
+
   // Make it rectangular if ratio is appropriate, or if we only know one dim
   // and it's so big that the 180k pixel max will force the pic to be skinny.
   if (t.x && !t.y && t.x > 400)
@@ -137,15 +145,19 @@ _targetSize: function(el) {
 
   if (!t.type) // we didn't choose wide/tall
     t.type = ((t.x || t.y) > 125 ? "big" : "small");
+
   return t;
 },
 
 // Call callbock with placement details for |el|, or with undefined if we don't
 // have enough info.
 _getPlacementFor: function(el, callback) {
+
   var that = this;
   var t = this._targetSize(el);
+
   BGcall("channels.randomListing", {width:t.x, height:t.y}, function(pic) {
+
     if (!pic) {
       callback();
       return;
@@ -181,12 +193,14 @@ _getPlacementFor: function(el, callback) {
 // Given a target element, augment it with a picture if possible.
 // Calls callback when finished.
 _augment: function(el, callback) {
+
   if (!this.enabled) {
     callback();
     return;
   }
   var that = this;
   this._getPlacementFor(el, function(placement) {
+
     if (!placement) {
       callback();
       return;
@@ -227,7 +241,7 @@ _augment: function(el, callback) {
     that._addInfoCardTo(newPic, placement);
 
     el.dataset.picinjectionaugmented = "true";
-    el.parentNode.insertBefore(newPic, el);
+    el.parentNode.insertBefore(newPic, el);    
 
     callback();
   });
@@ -235,6 +249,7 @@ _augment: function(el, callback) {
 
 // Add an info card to |newPic| that appears on hover.
 _addInfoCardTo: function(newPic, placement) {
+
   if (newPic.infoCard)
     return;
   // We use a direct sendRequest onmouseenter to avoid modifying
@@ -245,9 +260,9 @@ _addInfoCardTo: function(newPic, placement) {
     if (newPic.infoCard)
       return; // already created card
     function after_jquery_is_available() {
-      var cardsize = { 
-        width: Math.max(placement.width, 180), 
-        height: Math.max(placement.height, 100) 
+      var cardsize = {
+        width: Math.max(placement.width, 180),
+        height: Math.max(placement.height, 100)
       };
       function position_card(card) {
         var pos = $(newPic).offset();
@@ -259,7 +274,7 @@ _addInfoCardTo: function(newPic, placement) {
 
       newPic.infoCard = $("<div>", {
         "class": "picinjection-infocard",
-        css: { 
+        css: {
           "position": "absolute",
           "min-width": cardsize.width,
           "min-height": cardsize.height,
@@ -274,13 +289,29 @@ _addInfoCardTo: function(newPic, placement) {
       newPic.infoCard.appendTo("body");
       var folder = (SAFARI ? "catblock/icons/" : "icons/");
       newPic.infoCard.
+        append($("<a>", {
+          href: "#",
+          text: "X",
+          title: "Remove (just this once)",
+          css: {
+            float: "right",
+            "font": "bold 20px sans-serif",
+            "text-decoration": "none",
+            color: "blue",
+            "margin-left": 10,
+          },
+          click: function() {
+            newPic.infoCard.remove();
+            $(newPic).remove();
+          }
+        })).
         append($("<img>", {
           css: {
             float: "right",
             // independent.co.uk borders all imgs
             border: "none",
           },
-          src: chrome.extension.getURL(folder + "icon19.png") 
+          src: chrome.extension.getURL(folder + "icon19.png")
         })).
         append("<br>");
 
@@ -295,7 +326,7 @@ _addInfoCardTo: function(newPic, placement) {
       wrapper.
         append($("<i>", { text: placement.photo_title })).
         append("<br/><br/>").
-        append($("<a>", { 
+        append($("<a>", {
             href: placement.attribution_url,
             target: "_blank",
             text: "See Original"
@@ -315,24 +346,16 @@ _addInfoCardTo: function(newPic, placement) {
       });
       // Known bug: mouseleave is not called if you mouse over only 1 pixel
       // of newPic, then leave.  So infoCard is not removed.
-      newPic.infoCard.mouseleave(function() { 
+      newPic.infoCard.mouseleave(function() {
         $(".picinjection-infocard:visible").hide();
       });
-
-      // The first time I show the card, the button is disabled.  Enable after
-      // a moment so the user can read the card first.
-      window.setTimeout(function() {
-        newPic.infoCard.find("input").
-          attr("disabled", null).
-          animate({opacity: 1});
-      }, 2000);
     }
     if (typeof jQuery !== "undefined") {
       after_jquery_is_available();
     }
     else {
       chrome.extension.sendRequest(
-        { command:"inject_jquery", allFrames: (window !== window.top) }, 
+        { command:"inject_jquery", allFrames: (window !== window.top) },
         after_jquery_is_available
       );
     }
@@ -347,6 +370,7 @@ _inHiddenSection: function(el) {
 // Find the ancestor of el that was hidden by AdBlock, and augment it
 // with a picture.  Assumes _inHiddenSection(el) is true.
 _augmentHiddenSectionContaining: function(el) {
+
   // Find the top hidden node (the one AdBlock originally hid)
   while (this._inHiddenSection(el.parentNode))
     el = el.parentNode;
@@ -354,17 +378,17 @@ _augmentHiddenSectionContaining: function(el) {
   this._forceToOriginalSizeAndAugment(el, "block");
 },
 
-// This is called by a hook in AdBlock.  If you change its name,
-// change it in AdBlock as well.
 augmentBlockedElIfRightType: function(el) {
   if (el.nodeName in { IMG: 1, IFRAME: 1, 'OBJECT': 1, EMBED: 1 })
     picinjection._forceToOriginalSizeAndAugment(el, "");
 },
 
 _forceToOriginalSizeAndAugment: function(el, displayValue) {
+
   // We may have already augmented this element...
-  if (el.dataset.picinjectionaugmented)
+  if (el.dataset.picinjectionaugmented) {
     return;
+  }
 
   var oldCssText = el.style.cssText;
   el.style.setProperty("visibility", "hidden", "important");
@@ -383,10 +407,20 @@ _forceToOriginalSizeAndAugment: function(el, displayValue) {
 
   this._augment(el, function() {
     el.style.cssText = oldCssText; // Re-hide the section
+    var addedImgs = document.getElementsByClassName("picinjection-image");
+    for (var i = 0; i < addedImgs.length; i++) {
+        var displayVal = window.getComputedStyle(addedImgs[i])["display"];
+        if (displayVal === 'none') {
+            addedImgs[i].style.display = "";
+        }
+    }    
+    
   });
+  
 },
 
 translate: function(key) {
+
   var text = {
     "explanation": {
       en: "AdBlock now shows you cats instead of ads!",
@@ -452,53 +486,54 @@ translate: function(key) {
   return msg[locale] || msg["en"];
 },
 
-_picdata: { 
+_picdata: {
+
   "big": [
-    { filename: "5.jpg", 
+    { filename: "5.jpg",
       x: 270, y: 256, left: 20, right: 5, top: 27, bot: 0 },
-    { filename: "6.jpg", 
+    { filename: "6.jpg",
       x: 350, y: 263, left: 153, right: 54, top: 45, bot: 87 },
-    { filename: "big1.jpg", 
+    { filename: "big1.jpg",
       x: 228, y: 249, left: 96, right: 52, top: 68, bot: 67 },
-    { filename: "big2.jpg", 
+    { filename: "big2.jpg",
       x: 236, y: 399, left: 41, right: 0, top: 0, bot: 50 },
-    { filename: "big3.jpg", 
+    { filename: "big3.jpg",
       x: 340, y: 375, left: 0, right: 52, top: 42, bot: 10 },
-    { filename: "big4.jpg", 
+    { filename: "big4.jpg",
       x: 170, y: 240, left: 28, right: 87, top: 20, bot: 4 },
-    { filename: "1.jpg", 
+    { filename: "1.jpg",
       x: 384, y: 288, left: 52, right: 121, top: 73, bot: 36 },
   ],
   "small": [
-    { filename: "7.jpg", 
+    { filename: "7.jpg",
       x: 132, y: 91, left: 33, right: 26, top: 0, bot: 0 },
-    { filename: "9.jpg", 
+    { filename: "9.jpg",
       x: 121, y: 102, left: 0, right: 0, top: 0, bot: 0 },
-    { filename: "small1.jpg", 
+    { filename: "small1.jpg",
       x: 115, y: 125, left: 0, right: 0, top: 0, bot: 0 },
-    { filename: "small2.jpg", 
+    { filename: "small2.jpg",
       x: 126, y: 131, left: 0, right: 0, top: 0, bot: 0 },
-    { filename: "small3.jpg", 
+    { filename: "small3.jpg",
       x: 105, y: 98, left: 0, right: 0, top: 0, bot: 0 },
-    { filename: "small4.jpg", 
+    { filename: "small4.jpg",
       x: 135, y: 126, left: 0, right: 0, top: 0, bot: 0 },
-    { filename: "small5.jpg", 
+    { filename: "small5.jpg",
       x: 133, y: 108, left: 0, right: 0, top: 0, bot: 0 },
-    { filename: "small6.jpg", 
+    { filename: "small6.jpg",
       x: 120, y: 99, left: 0, right: 0, top: 0, bot: 0 },
-    { filename: "small7.jpg", 
+    { filename: "small7.jpg",
       x: 124, y: 96, left: 0, right: 0, top: 0, bot: 0 },
-    { filename: "small8.jpg", 
+    { filename: "small8.jpg",
       x: 119, y: 114, left: 0, right: 0, top: 0, bot: 0 },
   ],
   "wide": [
     { filename: "wide1.jpg",
       x: 382, y: 137, left: 0, right: 0, top: 9, bot: 5 },
-    { filename: "wide2.jpg", 
+    { filename: "wide2.jpg",
       x: 470, y: 102, left:0, right: 0, top: 0, bot: 0 },
-    { filename: "wide3.jpg", 
+    { filename: "wide3.jpg",
       x: 251, y: 90, left:0, right: 0, top: 0, bot: 0 },
-    { filename: "wide4.jpg", 
+    { filename: "wide4.jpg",
       x: 469, y: 162, left:0, right: 0, top: 22, bot: 12 },
     { filename: "big3.jpg",  // big
       x: 340, y: 375, left: 0, right: 0, top: 66, bot: 226 },
@@ -508,15 +543,15 @@ _picdata: {
       x: 350, y: 263, left: 0, right: 0, top: 73, bot: 100 },
   ],
   "tall": [
-    { filename: "8.jpg", 
+    { filename: "8.jpg",
       x: 240, y: 480, left: 69, right: 51, top: 0, bot: 0 },
-    { filename: "tall3.jpg", 
+    { filename: "tall3.jpg",
       x: 103, y: 272, left: 0, right: 0, top: 0, bot: 0 },
-    { filename: "tall4.jpg", 
+    { filename: "tall4.jpg",
       x: 139, y: 401, left: 0, right: 0, top: 0, bot: 0 },
     { filename: "tall5.jpg",
       x: 129, y: 320, left: 5, right: 28, top: 0, bot: 0 },
-    { filename: "tall6.jpg", 
+    { filename: "tall6.jpg",
       x: 109, y: 385, left: 9, right: 7, top: 0, bot: 0 },
     { filename: "5.jpg",  // big
       x: 270, y: 256, left: 180, right: 45, top: 0, bot: 0 },
@@ -538,21 +573,28 @@ enabled: (function() {
 
 
 if (!SAFARI) {
+
   chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     if (request.command !== "purge-elements"
         || request.frameUrl !== document.location.href)
       return;
 
     var ads = document.querySelectorAll(request.selector);
+
     for (var i = 0; i < ads.length; i++)
       picinjection.augmentBlockedElIfRightType(ads[i]);
+
 
     sendResponse(true);
   });
 }
 
 document.addEventListener("beforeload", function(event) {
+
   if (picinjection._inHiddenSection(event.target)) {
+
     picinjection._augmentHiddenSectionContaining(event.target);
   }
 }, true);
+
+

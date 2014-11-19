@@ -42,10 +42,10 @@ Channels.prototype = {
     }
     var id = Math.floor(Math.random() * Date.now());
     var channel = new klass(data.param);
-    this._channelGuide[id] = { 
+    this._channelGuide[id] = {
       name: data.name,
       param: data.param,
-      enabled: data.enabled,
+      enabled: true,
       channel: channel
     };
     this._saveToStorage();
@@ -67,7 +67,7 @@ Channels.prototype = {
     this._saveToStorage();
   },
 
-  // Return read-only map from each channel ID to 
+  // Return read-only map from each channel ID to
   // { name, param, enabled }.
   getGuide: function() {
     var results = {};
@@ -102,8 +102,9 @@ Channels.prototype = {
   // Returns a random Listing from all enabled channels or from channel
   // |channelId| if specified, trying to match the ratio of |width| and
   // |height| decently.  Returns undefined if there are no enabled channels.
-  randomListing: function(opts) { 
+  randomListing: function(opts) {
     var allListings = [];
+
     for (var id in this._channelGuide) {
       var data = this._channelGuide[id];
       if (opts.channelId === id || (data.enabled && !opts.channelId))
@@ -197,29 +198,29 @@ AprilFoolsCatsChannel.prototype = {
     // the listings never change
     callback([
       L(270, 256, "5.jpg"),
-      L(350, 263, "6.jpg"), 
-      L(228, 249, "big1.jpg"), 
-      L(236, 399, "big2.jpg"), 
-      L(340, 375, "big3.jpg"), 
-      L(170, 240, "big4.jpg"), 
-      L(384, 288, "1.jpg"), 
-      L(132, 91,  "7.jpg"), 
-      L(121, 102, "9.jpg"), 
-      L(115, 125, "small1.jpg"), 
-      L(126, 131, "small2.jpg"), 
-      L(105, 98,  "small3.jpg"), 
-      L(135, 126, "small4.jpg"), 
-      L(133, 108, "small5.jpg"), 
-      L(120, 99,  "small6.jpg"), 
-      L(124, 96,  "small7.jpg"), 
-      L(119, 114, "small8.jpg"), 
-      L(382, 137, "wide1.jpg"), 
-      L(470, 102, "wide2.jpg"), 
-      L(251, 90,  "wide3.jpg"), 
-      L(469, 162, "wide4.jpg"), 
-      L(240, 480, "8.jpg"), 
-      L(103, 272, "tall3.jpg"), 
-      L(139, 401, "tall4.jpg"), 
+      L(350, 263, "6.jpg"),
+      L(228, 249, "big1.jpg"),
+      L(236, 399, "big2.jpg"),
+      L(340, 375, "big3.jpg"),
+      L(170, 240, "big4.jpg"),
+      L(384, 288, "1.jpg"),
+      L(132, 91,  "7.jpg"),
+      L(121, 102, "9.jpg"),
+      L(115, 125, "small1.jpg"),
+      L(126, 131, "small2.jpg"),
+      L(105, 98,  "small3.jpg"),
+      L(135, 126, "small4.jpg"),
+      L(133, 108, "small5.jpg"),
+      L(120, 99,  "small6.jpg"),
+      L(124, 96,  "small7.jpg"),
+      L(119, 114, "small8.jpg"),
+      L(382, 137, "wide1.jpg"),
+      L(470, 102, "wide2.jpg"),
+      L(251, 90,  "wide3.jpg"),
+      L(469, 162, "wide4.jpg"),
+      L(240, 480, "8.jpg"),
+      L(103, 272, "tall3.jpg"),
+      L(139, 401, "tall4.jpg"),
       L(129, 320, "tall5.jpg"),
       L(109, 385, "tall6.jpg"),
     ]);
@@ -256,8 +257,8 @@ FlickrChannel.prototype = {
     };
     $.extend(params, args);
     $.get(
-      "http://api.flickr.com/services/rest", 
-      params, 
+        "https://api.flickr.com/services/rest",
+      params,
       function(resp) {
         if (resp && resp.stat == "ok")
           callback(resp);
@@ -272,14 +273,17 @@ FlickrChannel.prototype = {
     var result = [];
     for (var i=0; i < photos.photo.length; i++) {
       var photo = photos.photo[i];
-      result.push(new Listing({
+      var listing = new Listing({
         width: photo["width_" + s],
         height: photo["height_" + s],
         url: photo["url_" + s],
         title: photo.title,
-        attribution_url: 'http://www.flickr.com/photos/' + 
-                         (photo.owner || photos.owner) + '/' + photo.id
-      }));
+        attribution_url: 'http://www.flickr.com/photos/' +
+            (photo.owner || photos.owner) + '/' + photo.id
+      });
+      if (typeof listing.url !== "undefined") {
+        result.push(listing);
+      }
     }
     return result;
   }
@@ -296,8 +300,8 @@ FlickrSearchChannel.prototype = {
 
   _getLatestListings: function(callback) {
     var that = this;
-    this._api("flickr.photos.search", { text: this._query }, 
-      function(resp) { 
+    this._api("flickr.photos.search", { text: this._query },
+      function(resp) {
         callback(that._toListings(resp.photos));
       }
     );
@@ -317,7 +321,7 @@ FlickrPhotosetChannel.prototype = {
   _getLatestListings: function(callback) {
     var that = this;
     this._api("flickr.photosets.getPhotos", { photoset_id: this._id },
-      function(resp) { 
+      function(resp) {
         callback(that._toListings(resp.photoset));
       }
     );
