@@ -40,7 +40,7 @@ beforeLoadHandler = function(event) {
   var el = event.target;
   // Cancel the load if canLoad is false.
   var elType = typeForElement(el);
-  var data = { 
+  var data = {
     url: relativeToAbsoluteUrl(event.url),
     elType: elType,
     frameDomain: document.location.hostname
@@ -65,10 +65,10 @@ picinjection.augmentBlockedElIfRightType(event.target);
 beforeLoadHandler.blockCount = 0;
 
 adblock_begin({
-  startPurger: function() { 
+  startPurger: function() {
     document.addEventListener("beforeload", beforeLoadHandler, true);
   },
-  stopPurger: function() { 
+  stopPurger: function() {
     document.removeEventListener("beforeload", beforeLoadHandler, true);
   },
   success: function() {

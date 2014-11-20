@@ -70,7 +70,7 @@ if (!SAFARI) {
     function(request, sender, sendResponse) {
       if (request.command === "inject_jquery") {
         chrome.tabs.executeScript(undefined,
-          {allFrames: request.allFrames, file: "jquery.min.js"},
+          {allFrames: request.allFrames, file: "../jquery/jquery.min.js"},
           function() { sendResponse({}); }
         );
       }
