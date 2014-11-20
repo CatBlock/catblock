@@ -2,17 +2,17 @@
 function typeForElement(el) {
   // TODO: handle background images that aren't just the BODY.
   switch (el.nodeName.toUpperCase()) {
-    case 'INPUT': 
+    case 'INPUT':
     case 'IMG': return ElementTypes.image;
     case 'SCRIPT': return ElementTypes.script;
-    case 'OBJECT': 
+    case 'OBJECT':
     case 'EMBED': return ElementTypes.object;
-    case 'VIDEO': 
-    case 'AUDIO': 
+    case 'VIDEO':
+    case 'AUDIO':
     case 'SOURCE': return ElementTypes.media;
-    case 'FRAME': 
+    case 'FRAME':
     case 'IFRAME': return ElementTypes.subdocument;
-    case 'LINK': 
+    case 'LINK':
       // favicons are reported as 'other' by onBeforeRequest.
       // if this is changed, we should update this too.
       if (/(^|\s)icon($|\s)/i.test(el.rel))
@@ -45,7 +45,7 @@ function relativeToAbsoluteUrl(url) {
 
   // Remove filename and add relative URL to it
   var base = document.baseURI.match(/.+\//);
-  if (!base) 
+  if (!base)
     return document.baseURI + "/" + url;
   return base[0] + url;
 }
@@ -108,7 +108,7 @@ function block_list_via_css(selectors) {
     for (var i = 0; i < selectors.length; i += GROUPSIZE) {
       var line = selectors.slice(i, i + GROUPSIZE);
       var rule = line.join(",") + " { display:none !important; orphans: 4321 !important; }";
-      css_chunk.sheet.insertRule(rule);
+      css_chunk.sheet.insertRule(rule, 0);
     }
   }
   fill_in_css_chunk();
@@ -177,9 +177,9 @@ function adblock_begin(inputs) {
     }
 
     if (data.settings.debug_logging)
-      log = function() { 
+      log = function() {
         if (VERBOSE_DEBUG || arguments[0] !== '[DEBUG]')
-          console.log.apply(console, arguments); 
+          console.log.apply(console, arguments);
       };
 
     block_list_via_css(data.selectors);

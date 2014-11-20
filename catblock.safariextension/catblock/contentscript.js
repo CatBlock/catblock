@@ -241,7 +241,7 @@ _augment: function(el, callback) {
     that._addInfoCardTo(newPic, placement);
 
     el.dataset.picinjectionaugmented = "true";
-    el.parentNode.insertBefore(newPic, el);    
+    el.parentNode.insertBefore(newPic, el);
 
     callback();
   });
@@ -287,7 +287,7 @@ _addInfoCardTo: function(newPic, placement) {
           "background-color": "rgba(188, 188, 188, 0.7)",
         } });
       newPic.infoCard.appendTo("body");
-      var folder = (SAFARI ? "catblock/icons/" : "icons/");
+      var folder = "catblock/icons/";
       newPic.infoCard.
         append($("<a>", {
           href: "#",
@@ -413,10 +413,10 @@ _forceToOriginalSizeAndAugment: function(el, displayValue) {
         if (displayVal === 'none') {
             addedImgs[i].style.display = "";
         }
-    }    
-    
+    }
+
   });
-  
+
 },
 
 translate: function(key) {

@@ -24,6 +24,8 @@
       "filtering/myfilters.js",
       "filtering/filternormalizer.js",
       "idlehandler.js",
+      "catblock/channels.js",
+      "catblock/background.js",
       "background.js"
     ]
   },
@@ -40,9 +42,11 @@
       "js": [
         "port.js",
         "functions.js",
+        "catblock/jquery.min.js",
         "filtering/filteroptions.js",
         "adblock_start_common.js",
-        "adblock_start_new_style.js"
+        "adblock_start_new_style.js",
+        "catblock/contentscript.js"
       ],
       "run_at": "document_start",
       "all_frames": true
@@ -68,5 +72,34 @@
       "all_frames": false
     }
   ],
-  "default_locale": "en"
+  "default_locale": "en",
+  "web_accessible_resources": [
+    "catblock/pix/1.jpg",
+    "catblock/pix/5.jpg",
+    "catblock/pix/6.jpg",
+    "catblock/pix/7.jpg",
+    "catblock/pix/8.jpg",
+    "catblock/pix/9.jpg",
+    "catblock/pix/big1.jpg",
+    "catblock/pix/big2.jpg",
+    "catblock/pix/big3.jpg",
+    "catblock/pix/big4.jpg",
+    "catblock/pix/small1.jpg",
+    "catblock/pix/small2.jpg",
+    "catblock/pix/small3.jpg",
+    "catblock/pix/small4.jpg",
+    "catblock/pix/small5.jpg",
+    "catblock/pix/small6.jpg",
+    "catblock/pix/small7.jpg",
+    "catblock/pix/small8.jpg",
+    "catblock/pix/tall3.jpg",
+    "catblock/pix/tall4.jpg",
+    "catblock/pix/tall5.jpg",
+    "catblock/pix/tall6.jpg",
+    "catblock/pix/wide1.jpg",
+    "catblock/pix/wide2.jpg",
+    "catblock/pix/wide3.jpg",
+    "catblock/pix/wide4.jpg",
+    "catblock/icons/icon19.png"
+  ]
 }
