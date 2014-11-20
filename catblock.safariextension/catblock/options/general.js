@@ -23,7 +23,7 @@
         });
         var cb = $("<input>", {
           type: "checkbox",
-          click: function() { 
+          click: function() {
             BGcall("channels.setEnabled", id, this.checked);
           },
           checked: data.enabled
@@ -74,7 +74,7 @@
               href: listings[i].attribution_url,
               target: "_blank"
             });
-            $("<img>", { 
+            $("<img>", {
               src: listings[i].url,
               height: 100,
               id: "chan-" + id + "-listing-" + (i+1) + "-render",
@@ -102,9 +102,10 @@
       BGcall("channels.getGuide", function(guide) {
         for (var id in guide) {
           addEmptyChannelUI(id, guide[id]);
-          if (guide[id].name === "TheCatsOfCatBlockUsersChannel" &&
-              guide[id].enabled)
-            setMascot(id);
+          // TODO: Enable after styling fixes
+          //if (guide[id].name === "TheCatsOfCatBlockUsersChannel" &&
+            //guide[id].enabled)
+            //setMascot(id);
         }
         chrome.extension.onRequest.addListener(
           function(request, sender, sendResponse) {
@@ -142,8 +143,8 @@
 
       function setMascot(id) {
         BGcall("channels.randomListing", {channelId: id}, function(listing) {
-          var folder = (SAFARI ? "catblock/icons/" : "icons/");
-          $("body").css({ 
+          var folder = "catblock/icons/";
+          $("body").css({
             "background": "url(" + chrome.extension.getURL(folder) + "white-bg.png), url(" + listing.url + ") 95% 5% no-repeat",
             "background-size": "200px",
             "background-attachment": "fixed"

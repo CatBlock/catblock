@@ -3,16 +3,8 @@ function load_options() {
   BGcall("get_settings", function(settings) {
     optionalSettings = settings;
     $("#tabpages").
-      tabs({ 
+      tabs({
         spinner: "",
-select: function(event, ui) {
-if (ui.index === 1) {
-BGcall("openTab", "catblock/options/index.html", function() {
-$("#tabpages").tabs("select", 0);
-});
-}
-},
-
         cache: true,
         cookie: {},
         load: function(event, ui) {
@@ -33,8 +25,6 @@ $("#tabpages").tabs("select", 0);
         },
       }).
       show();
-
-
   });
 }
 

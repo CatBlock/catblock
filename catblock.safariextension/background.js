@@ -403,6 +403,10 @@
   }
 
   if (!SAFARI) {
+
+    // Set popup for Chrome/Opera
+    chrome.browserAction.setPopup({popup: "button/popup.html"});
+
     // Set the button image and context menus according to the URL
     // of the current tab.
     updateButtonUIAndContextMenus = function() {

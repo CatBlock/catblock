@@ -10,16 +10,7 @@
     <script src="../functions.js"></script>
   </head>
   <body>
-    <div style="float:right;"> 
-      <div>
-        <span id="version_number"></span>
-        (<a href="http://code.google.com/p/adblockforchrome/wiki/Changelog" target="_blank" i18n="optionschangelog"></a>) 
-      </div>
-      <div>
-        <a href="http://code.google.com/p/adblockforchrome" target="_blank" i18n="project_home"></a> |
-        <a href="http://code.google.com/p/adblockforchrome/wiki/GetHelp?tm=3" target="_blank" i18n="help"></a> |
-        <a href="http://code.google.com/p/adblockforchrome/wiki/FrequentlyAskedQuestions" target="_blank" i18n="faq"></a>
-      </div>
+    <div style="float:right;">
       <div id="translation_credits"></div>
     </div>
     <h1 class="icon" i18n="optionstitle"></h1>
@@ -36,7 +27,7 @@
     <div id="tabpages">
       <ul>
         <li><a href="general.html" data-scripts="general.js"><span i18n="tabgeneral"></span></a></li>
-<li><a href="about:blank" data-scripts="dummy.js">CatBlock</a></li>
+        <li><a href="../catblock/options/general.html" data-scripts="../catblock/options/general.js"><span>CatBlock</span></a></li>
         <li><a href="filters.html" data-scripts="filters.js"><span i18n="tabfilterlists"></span></a></li>
         <!-- Safari requires ../filtering instead of /filtering because safari.extension.baseURI ends with /a/path/ -->
         <li><a href="customize.html" data-scripts="../filtering/filternormalizer.js ../filtering/filtertypes.js ../filtering/filteroptions.js customize.js"><span i18n="tabcustomize"></span></a></li>
