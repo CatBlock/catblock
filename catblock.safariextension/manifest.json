@@ -1,6 +1,7 @@
 {
   "name": "AdBlock",
   "version": "2.5.33",
+  "manifest_version": 2,
   "description": "__MSG_description1__",
   "icons": {
     "16": "img/icon16.png",
@@ -10,8 +11,22 @@
   "permissions": [
     "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation"
   ],
-  "minimum_chrome_version": "17",
-  "background_page": "background.html",
+  "minimum_chrome_version": "23",
+  "background": {
+    "scripts": [
+      "jquery/jquery.min.js",
+      "port.js",
+      "functions.js",
+      "filtering/filteroptions.js",
+      "filtering/fifocache.js",
+      "filtering/filtertypes.js",
+      "filtering/filterset.js",
+      "filtering/myfilters.js",
+      "filtering/filternormalizer.js",
+      "idlehandler.js",
+      "background.js"
+    ]
+  },
   "options_page": "options/index.html",
   "incognito": "spanning",
   "browser_action": {
@@ -24,7 +39,7 @@
       "matches": ["http://*/*", "https://*/*"],
       "js": [
         "port.js",
-        "functions.js", 
+        "functions.js",
         "filtering/filteroptions.js",
         "adblock_start_common.js",
         "adblock_start_new_style.js"

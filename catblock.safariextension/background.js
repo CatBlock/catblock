@@ -182,7 +182,7 @@
         // the frame, ignore the anchor when matching.
         var frameUrl = frameData.get(tabId, requestingFrameId).url.replace(/#.*$/, "");
         var data = { command: "purge-elements", tabId: tabId, frameUrl: frameUrl, url:details.url, elType: elType };
-        chrome.tabs.sendRequest(tabId, data); 
+        chrome.tabs.sendRequest(tabId, data);
       }
 
       log("[DEBUG]", "Block result", blocked, details.type, frameDomain, details.url.substring(0, 100));
@@ -571,7 +571,7 @@
           allFrames: true,
           include: [
             "jquery/jquery.min.js",
-            // we must get jQuery into every frame, but that clobbers 
+            // we must get jQuery into every frame, but that clobbers
             // jquery UI installed by top_open_blacklist_ui but not
             // needed by us.  Reinstall on top_open_blacklist_ui's behalf.
             "jquery/jquery-ui.custom.min.js",
@@ -676,10 +676,6 @@
     version_to_notify = '2.3.0';
 
     // Brand new users don't see badge (or popup's info div).
-    if (STATS.firstRun) {
-      storage_set('saw_badge_version', version_to_notify);
-      storage_set('saw_badge_info_version', version_to_notify);
-    }
 
     // TEMP: As this wasn't stored as string initially, storage_get
     // throws an error and returns undefined
@@ -707,15 +703,6 @@
 
   _myfilters = new MyFilters();
 
-  // Record that we exist.
-  STATS.startPinging();
-
-  if (STATS.firstRun) { // show the walkthrough
-    // Safari has race condition where userId may not be available inside
-    // index.html, so pass it in explicitly.
-false;
-  }
-
   if (!SAFARI) {
     // Chrome blocking code.  Near the end so synchronous request handler
     // doesn't hang Chrome while AdBlock initializes.
@@ -728,7 +715,7 @@ false;
   if (SAFARI) {
     $.getScript("safari_bg.js");
   }
-  
+
   // Temp (4-20-12):
   localStorage.removeItem('saw_prune_note');
   localStorage.removeItem('pruned_oversubscription');
