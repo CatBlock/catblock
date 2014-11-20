@@ -563,9 +563,6 @@ _picdata: {
 },
 
 enabled: (function() {
-  chrome.extension.sendRequest({command: 'get-license'}, function(theLicense) {
-    picinjection.enabled = (theLicense.state === "enabled");
-  });
   return true;
 })(),
 
