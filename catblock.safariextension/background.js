@@ -368,6 +368,9 @@
   // Returns: null (asynchronous)
   getCurrentTabInfo = function(callback) {
     chrome.tabs.getSelected(undefined, function(tab) {
+      if (!tab.url)
+          return;
+
       var disabled_site = page_is_unblockable(tab.url);
 
       var result = {
@@ -513,6 +516,9 @@
   //           include_texts?:bool true if PatternFilter._text should be
   //                               appended to block filters.
   get_content_script_data = function(options, sender) {
+    if (!sender.tab.url)
+        return;
+
     var whitelisted = page_is_whitelisted(sender.tab.url);
     var settings = get_settings();
     var result = {
