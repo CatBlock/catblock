@@ -1,14 +1,18 @@
 ! Chrome AdBlock auxiliarly filters
-! Last update: Mon Apr 16 12:34:10 EDT 2012
-
-! Unsupported by the official lists
-@@|safari-extension://com.betafish.adblockforsafari-uamuu4s2d9/$document
-@@|safari-extension://com.betteradvertising.ghostery-
+! Last update: Thu Sep 28 02:43:00 EST 2014
 
 ! Ad providers. Filter lists don't care they are blocked
 @@||advertising.apple.com^$domain=advertising.apple.com
+@@||ads.tapit.com^$domain=ads.tapit.com
+@@||google.co.uk/ads/$domain=google.co.uk
 @@||google.com/adsense/$document,domain=google.com
 @@||openx.com^$domain=openx.com
+@@||support.google.com/adwords/$document,domain=support.google.com
+@@||ads.senddroid.com/$document,domain=ads.senddroid.com
+@@||ads.socialbakers.com$domain=ads.socialbakers.com
+
+! Over-aggressive EasyList rules
+#@#.mw > #rcnt > #center_col > #taw + div[style]
 
 ! Because of the asdf[style] Chrome bug
 @@||apollohq.com^$elemhide,domain=apollohq.com
@@ -19,5 +23,32 @@
 ! Because acid3 doesn't like our style block
 @@||acid3.acidtests.org^$document,domain=acid3.acidtests.org
 
-! Because we cut off urls at 200 characters
-@@||24ur.com/adserver/adall.php
+! WebKit-specific
+@@||doubleclick.net/adj/ftd-rubriken/$script,domain=ftd.de
+@@||washingtonpost.com^*=/ad/audsci.js$domain=washingtonpost.com
+||gamecopyworld.com/games/js/abd.js$domain=gamecopyworld.com
+
+! Don't block extension resources injected in pages
+@@|chrome-extension:
+@@|safari-extension:
+
+! They contain spaces in the URL so purging doesn't work properly
+cistor.pl##img[src*="/ads_files/"]
+nysa.eu##img[src*="/ads_files/"]
+wrzesnia.pl##img[src*="/ads_files/"]
+
+! Opera doesn't support regex rules
+74.ru##.banner
+74.ru##object[id^="ban"]
+74.ru##div[id^="sb_"]
+
+! Should bypass pirateproxy.net's popup mechanism
+||*^$popup,domain=pirateproxy.net
+
+! Unblock Mixpanel on our website
+@@||getadblock.com/js/mixpanel.js
+@@||mxpnl.com$domain=getadblock.com
+@@||mixpanel.com$domain=getadblock.com
+
+! Don't break navigation on Flickr.com
+@@.com/ad?$domain=flickr.com

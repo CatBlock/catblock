@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr" id="html">
+<head>
+    
+   <!--
+   Steps to run these tests in Safari:
+   
+    - install the extension locally using the Extension Builder, be sure to include all of the folders,
+      for the adblock project (including tools/tests/*
+      
+    - once installed, obtain the URL to access the local resources of the extension by completing the following:
+    
+    - in the extension builder window, click the 'inspect global page' of the extension
+    
+    - in the JavaScript console, type the following:  safari.extension.baseURI
+    
+    - a URL similiar to the following will be displayed.  Copy it to the clipboard.
+    
+        "safari-extension://com.betafish.adblockforsafari-KU3C4BJ8BD/20da60a1/"
+      Note: each time the extension is loaded or reloaded, the above URL changes.
+      
+    - in Safari, in the address paste the above URL (no quotes), and append the following on to the end:
+      "tools/tests/safari_test.html" (no quotes)
+      
+    - the QUnit tests will be run, and the results will be displayed.
+    
+    - if any files in the Extension is updated (Qunit, JavaScript, etc.), the extension will need to be 
+       reloaded, and the baseURI of the extension obtained.
+       
+    - How to view test coverage using blanket.js 
+      Each of the extension javascript files have a 'data-cover' attribute below.
+      This is used by blanket.js to track test coverage, or rather how effective the unit test cases are
+       (which lines of the source code are covered by the tests).
+      
+      To see the coverage, click the the 'Enable coverage' check box on the top of the page. The tests will be
+      executed.  Scroll down the page to see coverage percent for each JavaScript file.
+      
+      Clicking on the 'View Source' link will display the JavaScript source code, with highlighting.  
+      Highlighted lines are not executed by the unit tests.
+      
+      see http://blanketjs.org/ for more information.       
+   -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>AdBlock test cases</title>
+  <link rel="Stylesheet" media="screen" href="qunit.css" />
+  
+  <script src="../../port.js" type="text/javascript"  data-cover></script>
+  <script src="../../functions.js" type="text/javascript"  data-cover></script>
+  <script src="../../filtering/filtertypes.js" type="text/javascript"  data-cover></script>
+  <script src="../../filtering/filteroptions.js" type="text/javascript"  data-cover></script>
+  <script src="../../filtering/domainset.js" type="text/javascript"  data-cover></script>
+  <script src="../../filtering/myfilters.js" type="text/javascript"  data-cover></script>
+  <script src="../../filtering/filternormalizer.js" type="text/javascript"  data-cover></script>
+  <script src="../../adblock_start_common.js" type="text/javascript"  data-cover></script>
+  <script src="../../adblock_start_safari.js" type="text/javascript"  data-cover></script>
+  
+  
+  <script src="qunit.js" type="text/javascript"></script>
+  <script src="blanket.js" type="text/javascript"></script>
+  <script src="test.js" type="text/javascript"></script>
+</head>
+
+<body id="body">
+  <h1 id="qunit-header">AdBlock test suite</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+</body>
+</html>
+
+
+

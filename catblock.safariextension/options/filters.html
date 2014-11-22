@@ -1,27 +1,36 @@
   <!doctype html><!-- required to help Safari not get confused when injecting this fragment -->
   <div>
+    <div id="message_holder" class="failed_fetch"></div>
     <h2 i18n="filterstabtitle"></h2>
-    <p class="footnote" i18n="filterlistlink" i18n_replacement_el="footnotelink"></p>
-    <a id="footnotelink" href="http://adblockplus.org/en/subscriptions"
+    <p class="footnote padding" i18n="filterlistlink" i18n_replacement_el="footnotelink"></p>
+    <a id="footnotelink" href="https://adblockplus.org/en/subscriptions"
        target="_blank"></a>
-    <span i18n="updatenowmessage" i18n_replacement_el="btnUpdateNow"></span>
+    <span i18n="updatenowmessage2" class="padding" i18n_replacement_el="btnUpdateNow"></span>
     <input type="button" id="btnUpdateNow" />
-    <div>
-      <div id="subscription_message" class="ok_message"></div>
-      <div id="filter_subscriptions" style="padding-left:30px;">
+    <div class="padding">
+      <div id="filter_subscriptions">
+        <h3 i18n="adblockinglist"></h2>
+        <div id="ad_blocking_list"></div>
+        <div id="language_list"></div>
+        <div id="language_dropdown_container">
+          <span i18n="languagedropdowndescription"></span>
+          <select id='language_select'>
+              <option value="" i18n="selectlanguage"></option>
+          </select>
+        </div>
+        <h3 i18n="otherfilters"></h3>
+        <div id="other_filter_lists"></div>
+        <h3 i18n="customfilters"></h3>
+        <div id="custom_filter_lists"></div>
       </div>
-      <div style="padding-left:34px;">
+      <div class="padding" style="margin-top:10px;">
         <span i18n="orenteraurl"></span>
         <input id="txtNewSubscriptionUrl" style="width:300px;" type="text" />
         <input type="button" id="btnNewSubscriptionUrl" i18n_value="subscribebutton" />
       </div>
     </div>
-
-    <p style="margin-bottom:0px;" class="advanced">
-      <span i18n="showlinkstolists"></span>
-      <input type="button" id="btnShowLinks" i18n_value="buttonok" />
-    </p>
-
-    <p class="forDebug advanced" style="margin-top:0px;" i18n="subscribe_unsubscribe_all">
+    
+    <p id="btnShowLinks" class="advanced">
+     <span id="btnShowLinks" i18n="showlinkstolists2"></span>
     </p>
   </div>

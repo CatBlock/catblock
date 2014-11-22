@@ -6,6 +6,8 @@ function top_open_whitelist_ui() {
   if (!may_open_dialog_ui)
     return;
 
+  may_open_dialog_ui = false;
+
   var domain = document.location.host;
 
   // Safari's document.location breaks in the feed reader if the feed is fetched via https. Normal
@@ -17,47 +19,74 @@ function top_open_whitelist_ui() {
     domain = parseUri(document.location.pathname).host;
   }
 
+  // Get Flash objects out of the way of our UI
+  BGcall('emit_page_broadcast', {fn:'send_content_to_back', options:{}});
+
   // defined in blacklister.js
   load_jquery_ui(function() {
-    may_open_dialog_ui = false;
+    //check if we're running on website with a frameset, if so, tell
+    //the user we can't run on it.
+    if ($("frameset").length >= 1) {
+        alert(translate('wizardcantrunonframesets'));
+        may_open_dialog_ui = true;
+        $(".adblock-ui-stylesheet").remove();
+        return;
+    }
 
+    var adblock_default_button_text = translate("buttonexclude");
     var btns = {};
+    btns[adblock_default_button_text] = {
+      text: adblock_default_button_text,
+      'class': 'adblock_default_button',
+      click: function() {
+        var filter = '@@||' + generateUrl() + '$document';
+        BGcall('add_custom_filter', filter, function() {
+            if ($('#reload_page').is(':checked')) {
+                document.location.reload();
+            } else {
+                may_open_dialog_ui = true;
+                $(".adblock-ui-stylesheet").remove();
+                page.remove();
+            }
+        });
+      }
+    }
     btns[translate("buttoncancel")] = function() { page.dialog('close');}
-    btns[translate("buttonexclude")] = 
-        function() {
-          var filter = '@@||' + generateUrl() + '$document';
-          BGcall('add_custom_filter', filter, function() {
-            document.location.reload();
-          });
-        }
 
     var page = $("<div>").
-      append('<span>' + translate("adblock_wont_run_on_pages_matching") + 
+      append('<span>' + translate('adblock_wont_run_on_pages_matching') +
              '</span>').
-      // issue chromium:110084
-      append('<br/><br/><i id="domainpart" style="font-size: medium !important"></i><i id="pathpart" style="font-size: medium !important"></i>').
-      append("<br/><br/><br/><span id='whitelister_dirs'>" + 
-             translate('you_can_slide_to_change') + "</span>").
+      append('<br/><br/><i id="domainpart"></i><i id="pathpart"></i>').
+      append('<br/><br/><br/><span id="whitelister_dirs">' +
+             translate('you_can_slide_to_change') + '</span>').
       append('<br/><span id="modifydomain">' + translate('modifydomain') +
-             "<input id='domainslider' type='range' min='0' value='0'/></span>").
+             '<input id="domainslider" type="range" min="0" value="0"/></span>').
       append('<span id="modifypath">' + translate('modifypath') +
-             "<input id='pathslider' type='range' min='0' value='0'/></span>").
+             '<input id="pathslider" type="range" min="0" value="0"/></span>').
+      append('<br/><input type="checkbox" id="reload_page" checked/>'+
+             '<label style="display: inline;" for="reload_page">' + translate('reloadpageafterwhitelist') + '</label>').
       dialog({
         title: translate("whitelistertitle2"),
+        dialogClass: "adblock-whitelist-dialog",
         width: 600,
-        minHeight: 50,
+        minHeight: 130,
         buttons: btns,
         close: function() {
           may_open_dialog_ui = true;
+          $(".adblock-ui-stylesheet").remove();
           page.remove();
         }
       });
 
-    var domainparts = domain.split('.');
-    if (domainparts[domainparts.length - 2] == "co") {
-      var newTLD = "co." + domainparts[domainparts.length - 1];
-      domainparts.splice(domainparts.length - 2, 2, newTLD);
-    }
+    changeTextDirection($("body .adblock-whitelist-dialog"));
+
+    $(".adblock-whitelist-dialog").parent().css({position: 'relative'});
+    $(".adblock-whitelist-dialog").css({top: 200, left: 200, position:'absolute'});
+
+    var fixedDomainPart = parseUri.secondLevelDomainOnly(domain, true);
+    var domainparts = domain.substr(0, domain.lastIndexOf(fixedDomainPart)).split('.');
+    domainparts.splice(domainparts.length-1, 1, fixedDomainPart);
+
     var location = document.location.pathname.match(/(.*?)(\/?)(\?|$)/);
     var pathparts = location[1].split('/');
 
@@ -65,7 +94,7 @@ function top_open_whitelist_ui() {
     // - sites without a third level domain name (e.g. foo.com)
     // - sites with an ip domain (e.g. 1.2.3.4)
     // Don't show the location slider on domain-only locations
-    var noThirdLevelDomain = (domainparts.length == 2);
+    var noThirdLevelDomain = (domainparts.length === 1);
     var domainIsIp = /^(\d+\.){3}\d+$/.test(domain);
     var showDomain = !(noThirdLevelDomain || domainIsIp);
     $("#modifydomain", page).toggle(showDomain);
@@ -73,19 +102,12 @@ function top_open_whitelist_ui() {
     $("#modifypath", page).toggle(showPath);
     $("#whitelister_dirs", page).toggle(showDomain || showPath);
 
-    
-    // issue chromium:110084
-    // $("#domainpart, #pathpart", page).
-    //   css("fontSize", "medium !important");
-    $("#pathpart").css("color", "grey");
-
     $("#domainslider", page).
-      attr("max", Math.max(domainparts.length - 2, 1));
+      attr("max", Math.max(domainparts.length - 1, 1));
     $("#pathslider", page).
       attr("max", Math.max(pathparts.length - 1, 1));
     $("#pathslider, #domainslider", page).
-      css('width', '100px').
-      change(onSliderChange);
+      on("input change", function() { onSliderChange(); });
 
     function onSliderChange() {
       generateUrl(true);
@@ -103,10 +125,10 @@ function top_open_whitelist_ui() {
         result = "*.";
 
       // Append the chosen parts of a domain
-      for (var i = domainsliderValue; i<=(domainparts.length - 2); i++) 
+      for (var i = domainsliderValue; i<=(domainparts.length - 2); i++)
         result += domainparts[i] + '.';
       result += domainparts[domainparts.length - 1];
-      for (var i = 1; i<=pathsliderValue; i++) 
+      for (var i = 1; i<=pathsliderValue; i++)
         result += '/' + pathparts[i];
 
       // Append a final slash for for example filehippo.com/download_dropbox/
@@ -132,6 +154,8 @@ function top_open_whitelist_ui() {
       } else
         return result;
     }
+
+    bind_enter_click_to_default();
   });
 }
 

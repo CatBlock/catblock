@@ -1,41 +1,51 @@
 {
-  "name": "AdBlock with CatBlock",
-  "version": "1.1",
-  "manifest_version": 2,
-  "description": "__MSG_description1__",
-  "icons": {
-    "16": "img/icon16.png",
-    "48": "img/icon48.png",
-    "128": "img/icon128.png"
-  },
-  "permissions": [
-    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation"
-  ],
-  "minimum_chrome_version": "23",
+  "name": "AdBlock",
+  "version": "2.13.2",
   "background": {
     "scripts": [
       "jquery/jquery.min.js",
       "port.js",
       "functions.js",
+      "filtering/domainset.js",
       "filtering/filteroptions.js",
-      "filtering/fifocache.js",
       "filtering/filtertypes.js",
       "filtering/filterset.js",
       "filtering/myfilters.js",
       "filtering/filternormalizer.js",
       "idlehandler.js",
+      "dropbox-datastores.js",
       "catblock/channels.js",
       "background.js"
     ]
   },
-  "options_page": "options/index.html",
-  "incognito": "spanning",
   "browser_action": {
-    "default_icon": "img/icon19.png",
-    "default_title": "__MSG_optionstitle__",
-    "popup": "button/popup.html"
+    "default_icon": {
+      "19": "img/icon19.png",
+      "38": "img/icon38.png"
+    },
+    "default_popup": "button/popup.html",
+    "default_title": "__MSG_adblock_click_for_details__"
   },
   "content_scripts": [
+    {
+      "matches": [
+        "*://*.mail.live.com/*",
+        "*://*.mastertoons.com/*",
+        "*://*.getadblock.com/*",
+        "*://*.mobilmania.cz/*",
+        "*://*.zive.cz/*",
+        "*://*.doupe.cz/*",
+        "*://*.e15.cz/*",
+        "*://*.sportrevue.cz/*",
+        "*://*.autorevue.cz/*",
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "bandaids.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
     {
       "matches": ["http://*/*", "https://*/*"],
       "js": [
@@ -43,22 +53,9 @@
         "functions.js",
         "jquery/jquery.min.js",
         "filtering/filteroptions.js",
-        "bandaids.js",
         "adblock_start_common.js",
         "adblock_start_chrome.js",
         "catblock/contentscript.js"
-      ],
-      "run_at": "document_start",
-      "all_frames": true
-    },
-    {
-      "matches": [
-        "*://*.mail.live.com/*",
-        "*://*.hk-pub.com/forum/thread-*",
-        "*://*.mastertoons.com/*"
-      ],
-      "js": [
-        "bandaids.js"
       ],
       "run_at": "document_start",
       "all_frames": true
@@ -72,8 +69,29 @@
       "all_frames": false
     }
   ],
+  "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; frame-src 'self' https://chromeadblock.com https://getadblock.com; img-src *;",
   "default_locale": "en",
+  "description": "__MSG_description2__",
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "incognito": "spanning",
+  "manifest_version": 2,
+  "minimum_chrome_version": "23",
+  "options_page": "options/index.html",
+  "permissions": [
+    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage"
+  ],
   "web_accessible_resources": [
+    "img/icon24.png",
+    "jquery/css/images/ui-bg_inset-hard_100_fcfdfd_1x100.png",
+    "jquery/css/images/ui-icons_056b93_256x240.png",
+    "jquery/css/images/ui-icons_d8e7f3_256x240.png",
+    "jquery/css/jquery-ui.custom.css",
+    "jquery/css/override-page.css",
+    "chrome_oauth_receiver.html",
     "catblock/pix/1.jpg",
     "catblock/pix/5.jpg",
     "catblock/pix/6.jpg",
@@ -100,12 +118,6 @@
     "catblock/pix/wide2.jpg",
     "catblock/pix/wide3.jpg",
     "catblock/pix/wide4.jpg",
-    "catblock/icons/icon19.png",
-    "jquery/css/override-page.css",
-    "jquery/css/custom-theme/jquery-ui-1.8.custom.css",
-    "jquery/css/custom-theme/images/ui-icons_056b93_256x240.png",
-    "img/icon24.png",
-    "jquery/css/custom-theme/images/ui-bg_inset-hard_100_fcfdfd_1x100.png",
-    "jquery/css/custom-theme/images/ui-icons_d8e7f3_256x240.png"
+    "catblock/icons/icon19.png"
   ]
 }

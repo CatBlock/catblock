@@ -1,25 +1,17 @@
 // Requires clickwatcher.js and elementchain.js and jQuery
 
 
-// Hide the specified CSS selector on the page, or if null, stop hiding.
-function preview(selector) {
-  $("#adblock_blacklist_preview_css").remove();
-  if (!selector) return;
-  var css_preview = document.createElement("style");
-  css_preview.type = "text/css";
-  css_preview.id = "adblock_blacklist_preview_css";
-  var d = "body .ui-dialog:last-child ";
-
-  // Show the blacklist UI.
-  css_preview.innerText = d + "input {display:inline-block!important;} " +
-      d + ", " + d + "div:not(#filter_warning), " + d + ".ui-icon, " + d +
-      "a, " + d + "center, " + d +
-      "button {display:block!important;} " +  d + "#adblock-details, " + d +
-      "span, " + d + "b, " + d + "i {display:inline!important;} ";
-  // Hide the specified selector.
-  css_preview.innerText += selector + " {display:none!important;}";
-
-  document.documentElement.appendChild(css_preview);
+// Create a selector that matches an element.
+function selector_from_elm(el) {
+  var attrs = ['id', 'class', 'name', 'src', 'href', 'data'];
+  var result = [el.prop('nodeName')];
+  for (var i = 0; i < attrs.length; i++) {
+    var attr = attrs[i];
+    var val = el.attr(attr);
+    if (val)
+      result.push('[' + attr + '=' + JSON.stringify(val) + ']');
+  }
+  return result.join('');
 }
 
 // Wizard that walks the user through selecting an element and choosing
@@ -30,6 +22,9 @@ function BlacklistUi(clicked_item, advanced_user) {
   // If a dialog is ever closed without setting this to false, the
   // object fires a cancel event.
   this._cancelled = true;
+
+  // steps through dialog - see _preview() 
+  this._current_step = 0;
 
   this._callbacks = { 'cancel': [], 'block': [] };
 
@@ -53,6 +48,7 @@ BlacklistUi.prototype._onClose = function() {
   if (this._cancelled == true) {
     this._ui_page1.empty().remove();
     this._ui_page2.empty().remove();
+    $(".adblock-ui-stylesheet").remove();
     this._chain.current().show();
     this._fire('cancel');
   }
@@ -63,6 +59,7 @@ BlacklistUi.prototype.handle_change = function() {
   this._last = this._chain.current();
   this._redrawPage1();
   this._redrawPage2();
+  this._preview(selector_from_elm(this._chain.current()));
 }
 
 
@@ -72,12 +69,14 @@ BlacklistUi.prototype.show = function() {
     var clickWatcher = new ClickWatcher();
     var that = this;
     clickWatcher.cancel(function() {
+      that._preview(null);
       that._fire('cancel');
     });
     clickWatcher.click(function(element) {
       that._clicked_item = element;
       that.show();
     });
+    this._preview("*");
     clickWatcher.show();
     return;
   }
@@ -85,12 +84,14 @@ BlacklistUi.prototype.show = function() {
   // If we do know the clicked element, go straight to the slider.
   else {
     this._chain = new ElementChain(this._clicked_item);
+    
+    this._ui_page1 = this._build_page1();
+    this._ui_page2 = this._build_page2();
+    
     this._last = this._chain.current();
     this._chain.change(this, this.handle_change);
     this._chain.change();
 
-    this._ui_page1 = this._build_page1();
-    this._ui_page2 = this._build_page2();
     this._redrawPage1();
     this._ui_page1.dialog('open');
   }
@@ -99,15 +100,12 @@ BlacklistUi.prototype.show = function() {
 BlacklistUi.prototype._build_page1 = function() {
   var that = this;
 
-  var link_to_block = $("<a>", {
-    id: "block_by_url_link",
-    href: "#",
-    tabIndex: -1,
-    css: { 
-      "display": "none"
-    },
-    text: translate("block_by_url_instead"),
-    click: function(e) {
+  var link_to_block = $("<a>").
+    attr("id", "block_by_url_link").
+    attr("href", "#").
+    attr("tabIndex", "-1").
+    text(translate("block_by_url_instead")).
+    click(function(e) {
       var el = that._chain.current();
       var elType = typeForElement(el[0]);
       var type = ElementTypes.NONE;
@@ -123,53 +121,55 @@ BlacklistUi.prototype._build_page1 = function() {
       var tabUrl = document.location.href;
       var query = '?itemType=' + type + '&itemUrl=' + escape(srcUrl) + 
                   '&url=' + escape(tabUrl);
-      window.open(chrome.extension.getURL('pages/resourceblock.html' 
-            + query), "_blank", 'location=0,width=1024,height=590');
+      BGcall("launch_resourceblocker", query);
       e.preventDefault();
       that._ui_page1.dialog('close');
       return false;
-    }
-  });
-  link_to_block[0].style.setProperty("font-size", "11px", "important"); // crbug.com/110084
+    });
 
   var page = $("<div>").
     append(translate("sliderexplanation")).
     append("<br/>").
     append("<input id='slider' type='range' min='0' value='0'/>").
-    append("<div id='selected_data' style='font-size:smaller; height:7em'></div>").
+    append("<div id='selected_data'></div>").
     append(link_to_block);
 
   var btns = {};
-  btns[translate("buttonlooksgood")] = 
-      function() {
-        that._cancelled = false;
-        that._ui_page1.dialog('close');
-        that._cancelled = true;
-        that._redrawPage2();
-        that._ui_page2.dialog('open');
-        preview($('#summary', that._ui_page2).text());
-      }
+  var adblock_default_button_text = translate("buttonlooksgood");
+  btns[adblock_default_button_text] = {
+    text: adblock_default_button_text,
+    'class': 'adblock_default_button',
+    click: function() {
+      that._cancelled = false;
+      that._ui_page1.dialog('close');
+      that._cancelled = true;
+      that._redrawPage2();
+      that._ui_page2.dialog('open');
+    }
+  }
   btns[translate("buttoncancel")] = 
       function() {
         that._ui_page1.dialog('close');
       }
 
   page.dialog({
-      zIndex: 10000000, 
+      dialogClass: "adblock-blacklist-dialog",
       position: [50, 50],
       width: 410,
       autoOpen: false,
       title: translate("slidertitle"),
       buttons: btns,
+      open: function() {
+        that._current_step = 1;
+        that._preview(selector_from_elm(that._chain.current()));
+      },
       close: function() {
+        that._preview(null);
         that._onClose();
       }
-    }).css({
-      'background': 'white',
-      'text-align': 'left',
-      'font-size': '12px',
     });
   page.dialog("widget").css("position", "fixed");
+  changeTextDirection($("body .adblock-blacklist-dialog"));
 
   var depth = 0;
   var guy = this._chain.current();
@@ -178,9 +178,8 @@ BlacklistUi.prototype._build_page1 = function() {
     depth++;
   }
   $("#slider", page).
-    css('width', '364px').
     attr("max", Math.max(depth - 1, 1)).
-    change(function() {
+    on("input change", function() { 
       that._chain.moveTo(this.valueAsNumber);
     });
 
@@ -192,41 +191,40 @@ BlacklistUi.prototype._build_page2 = function() {
   
   var page = $("<div>" + translate("blacklisteroptions1") +
     "<div>" +
-    "<div style='margin-left:15px' id='adblock-details'></div><br/>" +
-    "<div style='background:#eeeeee;border: 1px solid #dddddd;" +
-    " padding: 3px;' id='count'></div>" +
+      "<div id='adblock-details'></div><br/>" +
+      "<div id='count'></div>" +
     "</div>" +
     "<div>" +
-    "<br/>" + translate("blacklisternotsure") +
-    "<br/><br/></div>" +
-    "<div style='clear:left; font-size:smaller'>" +
-    "<br/>" + translate("blacklisterthefilter") +
-    "  <div style='margin-left:15px;margin-bottom:15px'>" +
-    "    <div>" +
-    "      <div id='summary'></div><br/>" +
-    "      <div id='filter_warning'></div>" +
-    "    </div>" +
-    "  </div>" +
+      "<br/>" + translate("blacklisternotsure") +
+      "<br/><br/></div>" +
+    "<div style='clear:left; font-size:smaller; margin-top: -20px;'>" +
+      "<br/>" + translate("blacklisterthefilter") +
+      "<div style='margin-left:15px;margin-bottom:15px'>" +
+        "<div>" +
+          "<div id='summary'></div><br/>" +
+          "<div id='filter_warning'></div>" +
+        "</div>" +
+      "</div>" +
     "</div>" +
     "</div>");
 
   var btns = {};
-  btns[translate("buttonblockit")] =
-      function() {
-        var rule = $("#summary", that._ui_page2).text();
-        if (rule.length > 0) {
-          var filter = document.location.hostname + "##" + rule;
-          BGcall('add_custom_filter', filter, function() {
-            block_list_via_css([rule]);
-            that._ui_page2.dialog('close');
-            that._fire('block');
-          });
-        } else {alert(translate("blacklisternofilter"));}
-      }
-  btns[translate("buttoncancel")] =
-      function() {
-        that._ui_page2.dialog('close');
-      }
+  var adblock_default_button_text = translate("buttonblockit");
+  btns[adblock_default_button_text] = {
+    text: adblock_default_button_text,
+    'class': 'adblock_default_button',
+    click: function() {
+      var rule = $("#summary", that._ui_page2).text();
+      if (rule.length > 0) {
+        var filter = document.location.hostname + "##" + rule;
+        BGcall('add_custom_filter', filter, function() {
+          block_list_via_css([rule]);
+          that._ui_page2.dialog('close');
+          that._fire('block');
+        });
+      } else {alert(translate("blacklisternofilter"));}
+    }
+  }
   if (that._advanced_user)
     btns[translate("buttonedit")] =
       function() {
@@ -253,23 +251,29 @@ BlacklistUi.prototype._build_page2 = function() {
         that._redrawPage1();
         that._ui_page1.dialog('open');
       }
+  btns[translate("buttoncancel")] =
+      function() {
+        that._ui_page2.dialog('close');
+      }
 
   page.dialog({
-      zIndex:10000000, 
+      dialogClass: "adblock-blacklist-dialog ui-page-2",
       position:[50, 50],
       width: 500,
       autoOpen: false,
       title: translate("blacklisteroptionstitle"),
       buttons: btns,
+      open: function() {
+        that._current_step = 2;
+        that._preview($('#summary', that._ui_page2).text());
+      },
       close: function() {
+        that._preview(null);
         that._onClose();
-        preview(null); // cancel preview
       }
-    }).css({
-      'background': 'white',
-      'text-align': 'left',
-      'font-size': '12px',
     });
+  page.dialog("widget").css("position", "fixed");
+  changeTextDirection($("body .adblock-blacklist-dialog"));
 
   return page;
 }
@@ -304,7 +308,7 @@ BlacklistUi.prototype._makeFilter = function() {
   var el = this._chain.current();
   var detailsDiv = $("#adblock-details", this._ui_page2);
 
-  if ($("input:checkbox#cknodeName", detailsDiv).is(':checked')) {
+  if ($("input[type='checkbox']#cknodeName", detailsDiv).is(':checked')) {
     result.push(el.prop('nodeName'));
     // Some iframed ads are in a bland iframe.  If so, at least try to
     // be more specific by walking the chain from the body to the iframe
@@ -318,24 +322,18 @@ BlacklistUi.prototype._makeFilter = function() {
     }
   }
   var attrs = ['id', 'class', 'name', 'src', 'href', 'data'];
-  function fixStr(str) {
-    var q = str.indexOf('"') != -1 ? "'" : '"';
-    return q + str + q;
-  }
   for (var i in attrs) {
-    if ($("input:checkbox#ck" + attrs[i], detailsDiv).is(':checked'))
-      result.push('[' + attrs[i] + '=' + fixStr(el.attr(attrs[i])) + ']');
+    if ($("input[type='checkbox']#ck" + attrs[i], detailsDiv).is(':checked'))
+      result.push('[' + attrs[i] + '=' + JSON.stringify(el.attr(attrs[i])) + ']');
   }
 
   var warningMessage;
   if (result.length == 0)
     warningMessage = translate("blacklisterwarningnofilter");
-  else if (result.length == 1 && $("input:checkbox#cknodeName", detailsDiv).is(':checked'))
+  else if (result.length == 1 && $("input[type='checkbox']#cknodeName", detailsDiv).is(':checked'))
     warningMessage = translate("blacklisterblocksalloftype", [result[0]]);
   $("#filter_warning", this._ui_page2).
     css("display", (warningMessage ? "block" : "none")).
-    css("font-weight", "bold").
-    css("color", "red").
     text(warningMessage);
   return result.join('');
 }
@@ -384,8 +382,7 @@ BlacklistUi.prototype._redrawPage2 = function() {
       html(translate("blacklisterattrwillbe", 
            ["<b>" + (attr == 'nodeName' ? translate("blacklistertype") : attr) +
             "</b>", "<i></i>"])).
-      attr("for", "ck" + attr).
-      css("cursor", "pointer");
+      attr("for", "ck" + attr);
     $('i', checkboxlabel).replaceWith(italic);
 
     var checkbox = $("<div></div>").
@@ -395,13 +392,54 @@ BlacklistUi.prototype._redrawPage2 = function() {
 
     checkbox.find("input").change(function() {
       updateFilter();
-      preview($("#summary", this._ui_page2).text());
+      that._preview($("#summary", that._ui_page2).text());
     });
 
     detailsDiv.append(checkbox);
   }
 
   updateFilter();
+}
+
+// Change the appearance of a CSS selector on the page, or if null, undo the change.
+// Inputs: selector:string - the selector generated by the blacklist wizard
+BlacklistUi.prototype._preview = function(selector) {
+  $("#adblock_blacklist_preview_css").remove();
+  if (!selector) return;
+  
+  var css_preview = document.createElement("style");
+  css_preview.type = "text/css";
+  css_preview.id = "adblock_blacklist_preview_css";
+  
+  var d = "body .adblock-blacklist-dialog";
+  
+  switch (this._current_step) {
+  case 0:
+    // Raise highlight.
+    css_preview.innerText = "body .adblock-highlight-node,";
+    break;
+  case 1:
+    // Show ui_page1.
+    css_preview.innerText = d + ", " + d + " * {opacity:1!important;} ";
+    // Fade the selector, while skipping any matching children.
+    css_preview.innerText += selector + " {opacity:.1!important;} " +
+      selector + " " + selector + " {opacity:1!important;}";
+    break;
+  case 2:
+    // Show ui_page2.
+    css_preview.innerText = d + " input, " + d +
+      " button {display:inline-block!important;} " + d + ".ui-page-2, " + d +
+      " div:not(#filter_warning), " + d + " .ui-icon, " + d + " a, " + d +
+      " center {display:block!important;} " +  d + " #adblock-details, " + d +
+      " span, " + d + " b, " + d + " i {display:inline!important;} ";
+    // Hide the specified selector.
+    css_preview.innerText += selector + " {display:none!important;}";
+  }
+  
+  // Finally, raise the UI above *all* website UI, using max 32-bit signed int.
+  css_preview.innerText += " " + d + " {z-index:2147483647!important;}";
+
+  document.documentElement.appendChild(css_preview);
 }
 
 // Return a copy of value that has been truncated with an ellipsis in
