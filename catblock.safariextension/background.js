@@ -691,4 +691,20 @@
     $.getScript("safari_bg.js");
   }
 
+  if (!SAFARI) {
+      // Listens for message from CatBlock content script asking to load jQuery.
+      chrome.extension.onRequest.addListener(
+          function(request, sender, sendResponse) {
+              if (request.command === "inject_jquery") {
+                  chrome.tabs.executeScript(undefined,
+                      { allFrames: request.allFrames, file: "../jquery/jquery.min.js" },
+                      function() { sendResponse({});
+                  });
+              }
+          }
+      );
+  }
+
+  channels = new Channels();
+
   log("\n===FINISHED LOADING===\n\n");
