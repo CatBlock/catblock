@@ -57,7 +57,7 @@ beforeLoadHandler = function(event) {
     } else
       event.preventDefault();
 
-picinjection.augmentBlockedElIfRightType(event.target);
+    picinjection.augmentBlockedElIfRightType(event.target);
     if (!weakDestroyElement(el, elType))
       destroyElement(el, elType);
   }

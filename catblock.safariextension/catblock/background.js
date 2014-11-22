@@ -1,5 +1,3 @@
-DEBUG_ADBLOCK = true;
-
 // BGcall DISPATCH
 (function() {
   chrome.extension.onRequest.addListener(
@@ -55,16 +53,6 @@ storage_set = function(key, value) {
 };
 
 if (!SAFARI) {
-  // Listens for message from AdBlock with info about the selector that will
-  // match ads on the page.
-  chrome.extension.onRequestExternal.addListener(
-    function(request, sender, sendResponse) {
-      if (!DEBUG_ADBLOCK)
-        return;
-      chrome.tabs.sendRequest(request.tabId, request);
-    }
-  );
-
   // Listens for message from CatBlock content script asking to load jQuery.
   chrome.extension.onRequest.addListener(
     function(request, sender, sendResponse) {
