@@ -2,6 +2,7 @@
   <head>
     <title i18n="optionstitle"></title>
     <link rel="stylesheet" href="options.css" />
+    <link rel="stylesheet" href="../catblock/options/catblock.css" />
     <link rel="stylesheet" href="../jquery/css/custom-theme/jquery-ui-1.8.custom.css" />
     <script src="../jquery/jquery.min.js"></script>
     <script src="../port.js"></script>
@@ -28,9 +29,9 @@
     <div id="tabpages">
       <ul>
         <li><a href="general.html" data-scripts="general.js"><span i18n="tabgeneral"></span></a></li>
-        <li><a href="../catblock/options/general.html" data-scripts="../catblock/options/general.js ../catblock/channels.js"><span>CatBlock</span></a></li>
-        <li><a href="filters.html" data-scripts="filters.js"><span i18n="tabfilterlists"></span></a></li>
         <!-- Safari requires ../filtering instead of /filtering because safari.extension.baseURI ends with /a/path/ -->
+        <li><a href="../catblock/options/catblock.html" data-scripts="../catblock/options/catblock.js ../catblock/channels.js"><span>CatBlock</span></a></li>
+        <li><a href="filters.html" data-scripts="filters.js"><span i18n="tabfilterlists"></span></a></li>
         <li><a href="customize.html" data-scripts="../filtering/filternormalizer.js ../filtering/filtertypes.js ../filtering/filteroptions.js customize.js"><span i18n="tabcustomize"></span></a></li>
       </ul>
     </div>
