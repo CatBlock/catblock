@@ -17,6 +17,8 @@
         return name + " <b>" + (param || "") + "</b>";
       }
       function addEmptyChannelUI(id, data) {
+        if (document.getElementById("chan-" + id))
+            return;
         var theUI = $("<div>", {
           "class": "channel-ui",
           id: "chan-" + id
