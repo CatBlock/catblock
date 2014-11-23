@@ -65,11 +65,6 @@
 
   }
 
-  //called from bandaids, for use on our getadblock.com site
-  var get_adblock_user_id = function() {
-    return storage_get("userid");
-  };
-
   // OPTIONAL SETTINGS
 
   function Settings() {
@@ -912,6 +907,8 @@
           allFrames: false,
           include: [
             "jquery/jquery.min.js",
+            "port.js",
+            "functions.js",
             "jquery/jquery-ui.custom.min.js",
             "uiscripts/load_jquery_ui.js",
             "uiscripts/top_open_whitelist_ui.js"
@@ -922,6 +919,8 @@
           include: [
             "jquery/jquery.min.js",
             "jquery/jquery-ui.custom.min.js",
+            "port.js",
+            "functions.js",
             "uiscripts/load_jquery_ui.js",
             "uiscripts/blacklisting/overlay.js",
             "uiscripts/blacklisting/clickwatcher.js",
@@ -1118,6 +1117,7 @@
   getDebugInfo = function() {
 
       // Is this installed build of AdBlock the official one?
+      // TODO: Change IDs once ABwC is published
       var AdBlockBuild = function() {
           if (!SAFARI) {
               if (chrome.runtime.id === "pljaalgmajnlogcgiohkhdmgpomjcihk") {
@@ -1151,9 +1151,6 @@
       // Get last known error
       var adblock_error = storage_get("error");
 
-      // Get total pings
-      var adblock_pings = storage_get("total_pings");
-
       // Get custom filters
       var adblock_custom_filters = storage_get("custom_filters");
 
@@ -1182,10 +1179,9 @@
       info.push("==== Settings ====");
       info.push(adblock_settings);
       info.push("==== Other info: ====");
-      info.push("AdBlock version number: " + AdBlockVersion + AdBlockBuild());
+      info.push("AdBlock with CatBlock version number: " + AdBlockVersion + AdBlockBuild());
       if (adblock_error)
           info.push("Last known error: " + adblock_error);
-      info.push("Total pings: " + adblock_pings);
       info.push("UserAgent: " + navigator.userAgent.replace(/;/,""));
 
       return info.join('  \n');
@@ -1238,6 +1234,7 @@
 
   // Sync settings, filter lists & custom filters
   // after authentication with Dropbox
+  // TODO: Change redirect uri, so DB sync can work
   if (!SAFARI) {
       var db_client = new Dropbox.Client({key: "3unh2i0le3dlzio"});
       var settingstable = null;

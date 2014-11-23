@@ -13,25 +13,24 @@ $(document).ready(function() {
     // Check for updates
     $("#checkupdate").html(translate("checkforupdates"));
     checkupdates("help");
-    
+
     if (navigator.language.substring(0, 2) != "en") {
         $(".english-only").css("display", "inline");
     }
 
     // Show debug info
     $("#debug").click(function(){
-        $("#debugInfo").css({ width: "450px", height: "100px"});
+        $("#debugInfo").css({width: "450px", height: "100px"});
         $("#debugInfo").html(debug_info);
         $("#debugInfo").fadeIn();
     });
 
     // Report us the bug
     $("#report").click(function(){
-        var result = "http://support.getadblock.com/discussion/new" +
-        "?category_id=problems&discussion[body]=" + report;
-        document.location.href = result; 
+        var result = "https://github.com/kpeckett/catblock/issues/new?body=" + report;
+        document.location.href = result;
     });
-    
+
     // Show the changelog
     $("#whatsnew a").click(function() {
         var xhr = new XMLHttpRequest();

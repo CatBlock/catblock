@@ -6,15 +6,12 @@ function checkupdates(page) {
     dataType: "json",
     success: function(json) {
       AdBlockVersion = json.version;
-      var checkURL = (SAFARI ? "https://safariadblock.com/update.plist" :
-            "https://clients2.google.com/service/update2/crx?" +
-            "x=id%3Dgighmmpiobklfepjocnamgkkbiglidom%26v%3D" +
-            AdBlockVersion + "%26uc");
+      var checkURL = "https://github.com/kpeckett/catblock/releases";
 
       //fetch the version check file
       $.ajax({
         cache: false,
-        dataType: "xml",
+        dataType: "html",
         url: checkURL,
         error: function() {
           if (page === "help") {
@@ -24,24 +21,10 @@ function checkupdates(page) {
           }
         },
         success: function(response) {
-          if (!SAFARI) {
-            if ($("updatecheck[status='ok'][codebase]", response).length) {
-              $("#checkupdate").html(translate("adblock_outdated_chrome")).show().
-                find("a").click(function() {
-                 if (OPERA) {
-                   chrome.tabs.create({url: 'opera://extensions/'});
-                 } else {
-                   chrome.tabs.create({url: 'chrome://extensions/'});
-                 }
-                });
-                $(".step").hide();
-            } else {
-              if (page === "help") {
-                $("#checkupdate").html(translate("latest_version")).show();
-              }
-            }
-          } else {
-            var version = $("key:contains(CFBundleShortVersionString) + string",response).text();
+            var parser = new DOMParser();
+            var document = parser.parseFromString(response, "text/html")
+            var version = document.querySelector(".release-timeline > .label-latest > " +
+            ".release-meta > .tag-references >li > .css-truncate > .css-truncate-target").textContent;
             if (isNewerVersion(version)) {
               $("#checkupdate").html(translate("update_available"));
               var updateURL = $("key:contains(URL) + string", response).text();
@@ -49,10 +32,10 @@ function checkupdates(page) {
               $(".step").hide();
             } else {
               if (page === "help") {
+                // TODO: Change string for translation
                 $("#checkupdate").html(translate("latest_version")).show();
               }
             }
-          }
         }
       });
     }
