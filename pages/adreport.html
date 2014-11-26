@@ -1,0 +1,134 @@
+<!--
+   URL:
+   chrome-extension://gighmmpiobklfepjocnamgkkbiglidom/pages/adreport.html
+   ?url={domain_href}
+-->
+<html>
+  <head>
+    <title i18n="adblockreportinganad"></title>
+    <link rel="stylesheet" href="../options/options.css" />
+    <script src="../jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="../port.js" type="text/javascript"></script>
+    <script src="../functions.js" type="text/javascript"></script>
+    <style type="text/css">
+      .section h2 {
+        font-size: 1.2em;
+        margin-left: 10px;
+      }
+      label {
+        margin-right: 15px;
+      }
+      div.form {
+        margin-left: 15px;
+      }
+      #whattodo {
+        font-weight: bold;
+        color: red;
+        font-size: 15px;
+        margin: 20px;
+      }
+      .answer {
+        color: blue;
+        font-weight: bold;
+      }
+      .section {
+        display:none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="icon">AdBlock</h1>
+
+
+    <!--STEP 0-->
+    <div style="padding-left:5px; margin-bottom:20px;" i18n="adreport2"></div>
+
+    <!--STEP 1-->
+    <div class="section" id="step1DIV" style="display:block;">
+      <h2 i18n="updateyourlists"></h2>
+      <ol>
+        <li i18n="clickupdatefilters" i18n_replacement_el="UpdateFilters"></li>
+        <li i18n="reloadadpage"></li>
+      </ol>
+      <input type="button" value="Update my filters!" id="UpdateFilters" />
+      <span i18n="adstillappear"></span><br/>
+      <div id="step1" class="form">
+        <input type="radio" id="step1_yes" name="step1"/>
+        <label for="step1_yes" i18n="yes"></label>
+        <input type="radio" id="step1_no" name="step1" />
+        <label for="step1_no" i18n="no"></label>
+      </div>
+    </div>
+
+
+    <!--STEP 2-->
+    <div class="section" id="step2DIV">
+      <h2 i18n="correctfilters"></h2>
+      <span i18n="pagelanguagecheck"></span>
+      <div id="step2" class="form">
+        <select id="step2_lang">
+          <option disabled="disabled" selected="selected"></option>
+          <option value="easylist;http://forums.lanik.us/" i18n="lang_english"></option>
+          <option value="easylist;easylist_plus_bulgarian;mailto:alex at stanev.org" i18n="lang_bulgarian"></option>
+          <option value="chinese;http://code.google.com/p/adblock-chinalist/issues/list" i18n="lang_chinese"></option>
+          <option value="czech;http://adblock.dajbych.net/" i18n="lang_czech"></option>
+          <option value="danish;mailto:henrik at schack.dk" i18n="lang_danish"></option>
+          <option value="easylist;dutch;http://code.google.com/p/dutchadblockfilters/issues/list" i18n="lang_dutch"></option>
+          <option value="easylist;easylist_plus_finnish;http://www.wiltteri.net/?page_id=157/wiltteri-lista/" i18n="lang_finnish"></option>
+          <option value="easylist;easylist_plus_french;http://forums.lanik.us/viewforum.php?f=91" i18n="lang_french"></option>
+          <option value="easylist;easylist_plus_german;http://forums.lanik.us/viewforum.php?f=90" i18n="lang_german"></option>
+          <option value="easylist;easylist_plus_greek;mailto:kargig at void.gr" i18n="lang_greek"></option>
+          <option value="hungarian;mailto:pete at teamlupus.hu" i18n="lang_hungarian"></option>
+          <option value="israeli;http://code.google.com/p/israellist/issues/list" i18n="lang_israeli"></option>
+          <option value="italian;mailto:giovanni at gfsolone.com" i18n="lang_italian"></option>
+          <option value="japanese;mailto:mp3geek at gmail.com" i18n="lang_japanese"></option>
+          <option value="easylist_plun_korean;mailto:mp3geek at gmail.com" i18n="lang_korean"></option>
+          <option value="easylist;easylist_plus_polish;polish;mailto:admin at adblocklist.org" i18n="lang_polish"></option>
+          <option value="easylist;easylist_plus_romanian;mailto:mail at zoso.ro" i18n="lang_romanian"></option>
+          <option value="easylist;russian;http://forum.mozilla-russia.org/viewtopic.php?id=3679" i18n="lang_russian"></option>
+          <option value="easylist_plus_spanish;mailto:nauscopio at gmail.com" i18n="lang_spanish"></option>
+          <option value="easylist;russian;http://forum.mozilla-russia.org/viewtopic.php?id=3679" i18n="lang_ukranian"></option>
+          <option value="" i18n="other"></option>
+        </select>
+      </div>
+    </div>
+
+
+    <!--STEP 3-->
+    <div class="section" id="step3DIV">
+      <h2 id="checkinfirefox"></h2>
+      <ol>
+        <li id="checkinfirefox1"></li>
+        <li id="checkinfirefox2"></li>
+        <li i18n="checkinfirefox_3"></li>
+        <li i18n="checkinfirefox_4"></li>
+      </ol>
+      <span i18n="checkinfirefox_5"></span>
+      <div class="form" id="step3">
+        <input type="radio" id="step3_yes" name="step3"/>
+        <label for="step3_yes" i18n="yes"></label>
+        <input type="radio" id="step3_no" name="step3" />
+        <label for="step3_no" i18n="no"></label>
+        <input type="radio" id="step3_wontcheck" name="step3" />
+        <label for="step3_wontcheck" i18n="refusetocheck"></label>
+      </div>
+    </div>
+
+
+    <!--STEP 4-->
+    <div class="section" id="step4DIV">
+      <h2 i18n="flashads"></h2>
+      <span i18n="cantblockflashwarning"></span>
+      <div class="form" id="step4">
+        <input type="radio" id="step4_yes" name="step4"/>
+        <label for="step4_yes" i18n="yes"></label>
+        <input type="radio" id="step4_no" name="step4" />
+        <label for="step4_no" i18n="no"></label>
+      </div>
+    </div>
+
+    <div id="whattodo"></div>
+
+    <script src="adreport.js"></script>
+  </body>
+</html>
