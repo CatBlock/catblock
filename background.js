@@ -157,8 +157,8 @@
       }
   }
 
-  // Chrome 38 has bug in WebRequest API, see onBeforeRequestHandler
-  var invalidChromeRequestType = /Chrome\/38/.test(navigator.userAgent);
+  // Chrome 38+ has bug in WebRequest API, see onBeforeRequestHandler
+  var invalidChromeRequestType = /Chrome\/(38|39|40)?/.test(navigator.userAgent);
 
   // Implement blocking via the Chrome webRequest API.
   if (!SAFARI) {

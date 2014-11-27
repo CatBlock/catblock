@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"Najbolj priljubljena razširitev za brskalnik Google Chrome z več kot 15 milijonov uporabnikov!  Blokira oglase po vsem spletu.",
+    "message":"Najbolj priljubljena razširitev za brskalnik Chrome z več kot 40 milijoni uporabnikov!  Blokira oglase po vsem spletu.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -178,6 +178,10 @@
   "buttonexclude":{
     "message":"Izvzemi",
     "description":"Button for excluding a domain in the whitelister dialog"
+  },
+  "reloadpageafterwhitelist":{
+    "message":"Ponovno naložite stran.",
+    "description":"Checkbox on whitelist wizard"
   },
   "subscribingtitle":{
     "message":"Poteka naročanje na seznam filtrov...",
@@ -465,6 +469,14 @@
     "message":"Ste ravnokar našli oglas na spletni strani? Pomagali vam bomo najti primeren kraj za prijavo!<br\/> Ne pozabite: prijavljanje oglasov je prostovoljno. V kolikor tega ne želite storiti, preprosto zaprite to okno in blokirajte oglas le zase. To storite tako, da dodate filter za oglas preko zavihka 'Prilagodi' na straneh z nastavitvami te razširitve.",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
   },
+  "malwarewarning":{
+    "message":"Vaš računalnik je morda okužen z nezaželeno programsko opremo. Kliknite <a>sem<\/a> za dodatne informacije.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
+  },
+  "malwarenotfound":{
+    "message":"Zlonamerna programska oprema ni bila najdena.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
+  },
   "updateyourlists":{
     "message":"Poskrbite, da bodo vaši seznami filtrov posodobljeni",
     "description":"Section header on the ad report page"
@@ -678,6 +690,30 @@
   "checkinfirefox_5":{
     "message":"Ali se oglas prikaže tudi v tistem v brskalniku?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"Preverite v brskalniku Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Namestite Google Chrome, v kolikor ga še nimate.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Namestite AdBlock za brskalnik Chrome, v kolikor ga že niste.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"V brskalniku Chrome se naročite na iste filtre kot tu.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"V brskalniku Chrome odprite stran z oglasom.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Ali se oglas pojavi tudi v brskalniku Chrome?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"Tega ne želim preveriti",
@@ -1085,7 +1121,7 @@
   },
   "firefox_explanation":{
     "message":"Namen tega vprašanja je ugotoviti kdo naj prejme vaše poročilo. V kolikor na to vprašanje odgovorite nepravilno, bo bilo poročilo poslano napačni skupini in zaradi tega ne bo obravnavano.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Blokirani oglasi:",

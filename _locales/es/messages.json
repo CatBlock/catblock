@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"¡La extensión más popular de Chrome, con más de 15 millones de usuarios! Bloquea anuncios de todo internet.",
+    "message":"¡La extensión más popular de Chrome, con más de 40 millones de usuarios! Bloquea anuncios de todo internet.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -182,6 +182,10 @@
   "reloadpageafterwhitelist":{
     "message":"Recargar la página.",
     "description":"Checkbox on whitelist wizard"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Esta característica de AdBlock no funciona en este sitio porque utiliza tecnología obsoleta. Puedes prohibir o permitir recursos manualmente en la pestaña 'Personalizar' de la página de opciones.",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
   },
   "subscribingtitle":{
     "message":"Subscribiéndose a la lista de filtros...",
@@ -449,6 +453,10 @@
     "message":"Editar manualmente tus filtros:",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"Editar filtros desactivados:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"Ten cuidado: ¡si cometes un error muchos filtros, incluyendo los oficiales, podrían estropearse también!<br\/>Lee el <a>tutorial de la sintaxis de filtros<\/a> para aprender como añadir filtros avanzados a la lista negra y blanca.",
     "description":"Warning when blacklisting manually"
@@ -468,6 +476,18 @@
   "adreport2":{
     "message":"¿Así que acabas de encontrar un anuncio en una página web? ¡Bien, voy a ayudarte a encontrar el lugar correcto para reportarlo!<br\/> Recuerda: Informar sobre un anuncio es voluntario. ¡Si no deseas hacerlo simplemente cierra esta ventana y bloquéalo solo para ti añadiéndolo en la pestaña de \"Personalizar\" en las opciones!",
     "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "malwarecheck":{
+    "message":"Comprobación de malware",
+    "description":"Section header on the ad report page"
+  },
+  "malwarewarning":{
+    "message":"Tu ordenador puede estar infectado por malware. Haz click <a>aquí<\/a> para obtener más información.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
+  },
+  "malwarenotfound":{
+    "message":"No se ha encontrado malware conocido.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "updateyourlists":{
     "message":"¡Asegúrate de que tus filtros estén actualizados!",
@@ -682,6 +702,30 @@
   "checkinfirefox_5":{
     "message":"¿Aparece el anuncio también en ese navegador?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"Comprobar en Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Instala Chrome, si no lo tienes.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Instala AdBlock para Chrome, si no lo tienes.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"En Chrome, suscríbete a las mismas listas de filtros que tienes aquí.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"En Chrome, carga la página con el anuncio.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"¿El anuncio aparece también en Chrome?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"No quiero comprobar esto",
@@ -1089,7 +1133,7 @@
   },
   "firefox_explanation":{
     "message":"El propósito de esta pregunta es determinar quién debe recibir su informe. Si contestas de forma equivocada, el informe se enviará a las personas equivocadas, y podría ser ignorado.",
-    "description":"Explanation of the Check-in-Firefox step in the ad reporter"
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
   "blocked_ads":{
     "message":"Anuncios bloqueados:",
