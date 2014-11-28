@@ -18,7 +18,7 @@ function load_options() {
                     event.preventDefault();
                     return;
                 }
- 
+
                 ui.jqXHR.success(function() {
                     ui.tab.data("loaded", true);
                 });
@@ -108,12 +108,6 @@ function displayVersionNumber() {
   } catch (ex) {} // silently fail
 }
 
-BGcall("storage_get", "userid", function(userId) {
-    var paymentHREFhref = "https://getadblock.com/pay/?source=O&u=" + userId;
-    $("#paymentlink").attr("href", paymentHREFhref);
-});
-
-
 function displayTranslationCredit() {
     if (navigator.language.substring(0, 2) != "en") {
         var translators = [];
@@ -136,7 +130,7 @@ function displayTranslationCredit() {
                               var name = text[lang].translators[translator].credit;
                               translators.push(" " + name);
                           }
-                       } 
+                       }
                     }
                 } else {
                     if (lang.substring(0, 2) === id) {

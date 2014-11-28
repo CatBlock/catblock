@@ -1239,6 +1239,8 @@
       var db_client = new Dropbox.Client({key: "3unh2i0le3dlzio"});
       var settingstable = null;
 
+      // TODO: Change receiver URL - db_client._driver.receiverUrl once we get official ID
+
       // Return true, if user is authenticated
       function dropboxauth() {
           return db_client.isAuthenticated();
