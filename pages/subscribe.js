@@ -32,7 +32,7 @@ $(function() {
         // It was a well known id, so assume it succeeded, or the
         // last_update property exists, so it succeeded
         finished(true);
-      } else if (sub.last_update_failed)
+      } else if (sub.last_update_failed_at)
         finished(false);
     });
   });

@@ -92,6 +92,8 @@ function destroyElement(el, elType) {
 
 // Add style rules hiding the given list of selectors.
 function block_list_via_css(selectors) {
+  if (!selectors.length)
+    return;
   // Issue 6480: inserting a <style> tag too quickly ignored its contents.
   // Use ABP's approach: wait for .sheet to exist before injecting rules.
   var css_chunk = document.createElement("style");
@@ -107,7 +109,7 @@ function block_list_via_css(selectors) {
     var GROUPSIZE = 1000; // Hide in smallish groups to isolate bad selectors
     for (var i = 0; i < selectors.length; i += GROUPSIZE) {
       var line = selectors.slice(i, i + GROUPSIZE);
-      var rule = line.join(",") + " { display:none !important; orphans: 4321 !important; }";
+      var rule = line.join(",") + " { display:none !important; visibility: none !important; orphans: 4321 !important; }";
       css_chunk.sheet.insertRule(rule, 0);
     }
   }
@@ -126,7 +128,7 @@ function debug_print_selector_matches(selectors) {
       }
       if (SAFARI) {
         log("Debug: CSS '" + selector + "' hid:");
-        console.log(matches);
+        log(matches);
       }
       else
         BGcall("debug_report_elemhide", selector, matches);
@@ -144,10 +146,18 @@ function handleABPLinkClicks() {
       var loc = queryparts.location;
       var reqLoc = queryparts.requiresLocation;
       var reqList = (reqLoc ? "url:" + reqLoc : undefined);
-      BGcall("subscribe", {id: "url:" + loc, requires: reqList});
-      window.open(chrome.extension.getURL('pages/subscribe.html?' + loc),
-                  "_blank",
-                  'scrollbars=0,location=0,resizable=0,width=450,height=140');
+      var title = queryparts.title;
+      BGcall("subscribe", {id: "url:" + loc, requires: reqList, title: title});
+      // Open subscribe popup
+      if (SAFARI) {
+          // In Safari, window.open() cannot be used
+          // to open a new window from our global HTML file
+          window.open(chrome.extension.getURL('pages/subscribe.html?' + loc),
+                      "_blank",
+                      'scrollbars=0,location=0,resizable=0,width=450,height=150');
+      } else {
+          BGcall("launch_subscribe_popup", loc);
+      }
     }
   };
   for (var i=0; i<elems.length; i++) {
@@ -162,34 +172,45 @@ function handleABPLinkClicks() {
 //               AdBlock should not be running.
 //   success?: function called at the end if AdBlock should run on the page.
 function adblock_begin(inputs) {
-  if (document.location === 'about:blank') // Safari does this
+
+  if (document.location.href === 'about:blank') // Safari does this
     return;
+  if (document.location.href === 'topsites://') // Safari does this
+    return;
+  if (document.location.href === 'favorites://') // Safari does this
+    return;
+
+
   if (!(document.documentElement instanceof HTMLElement))
     return; // Only run on HTML pages
+
+  if (typeof before_ready_bandaids === "function") {
+        before_ready_bandaids("new");
+  }
 
   inputs.startPurger();
 
   var opts = { domain: document.location.hostname };
+
   BGcall('get_content_script_data', opts, function(data) {
-    if (data.page_is_whitelisted || data.adblock_is_paused) {
+    if (data && data.settings && data.settings.debug_logging)
+      logging(true);
+
+    if (!data.running) {
       inputs.stopPurger();
       return;
     }
 
-    if (data.settings.debug_logging)
-      log = function() {
-        if (VERBOSE_DEBUG || arguments[0] !== '[DEBUG]')
-          console.log.apply(console, arguments);
-      };
-
-    block_list_via_css(data.selectors);
-
     onReady(function() {
-      if (data.settings.debug_logging)
-        debug_print_selector_matches(data.selectors);
+      // TODO: ResourceList could pull html.innerText from page instead: we
+      // could axe this (and Safari's .selectors calculation in debug mode)
+      if (data && data.settings && data.settings.debug_logging)
+        debug_print_selector_matches(data.selectors || []);
       // Chrome doesn't load bandaids.js unless the site needs a bandaid.
-      if (typeof run_bandaids === "function")
+      if (typeof run_bandaids === "function") {
         run_bandaids("new");
+      }
+
       handleABPLinkClicks();
     });
 

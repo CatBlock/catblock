@@ -287,7 +287,7 @@ _addInfoCardTo: function(newPic, placement) {
           "background-color": "rgba(188, 188, 188, 0.7)",
         } });
       newPic.infoCard.appendTo("body");
-      var folder = "catblock/icons/";
+      var folder = "../img";
       newPic.infoCard.
         append($("<a>", {
           href: "#",
@@ -311,7 +311,7 @@ _addInfoCardTo: function(newPic, placement) {
             // independent.co.uk borders all imgs
             border: "none",
           },
-          src: chrome.extension.getURL(folder + "icon19.png")
+          src: chrome.extension.getURL(folder + "catblock.png")
         })).
         append("<br>");
 

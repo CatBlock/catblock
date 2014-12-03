@@ -19,7 +19,7 @@
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
-		<string>background.html</string>
+		<string>background_safari.html</string>
 		<key>Toolbar Items</key>
 		<array>
 			<dict>
@@ -28,13 +28,13 @@
 				<key>Identifier</key>
 				<string>AdBlockOptions</string>
 				<key>Image</key>
-				<string>img/icon16-grayscale.png</string>
+				<string>img/icon16_grayscale.png</string>
 				<key>Label</key>
 				<string>Options</string>
 				<key>Palette Label</key>
 				<string></string>
 				<key>Tool Tip</key>
-				<string>AdBlock Options</string>
+				<string>AdBlock with CatBlock Options</string>
 			</dict>
 		</array>
 	</dict>
@@ -44,13 +44,15 @@
 		<dict>
 			<key>End</key>
 			<array>
+				<string>ytchannel.js</string>
+				<string>jquery/jquery.min.js</string>
 				<string>uiscripts/load_jquery_ui.js</string>
 				<string>uiscripts/blacklisting/rightclick_hook.js</string>
 				<string>uiscripts/blacklisting/overlay.js</string>
 				<string>uiscripts/blacklisting/clickwatcher.js</string>
 				<string>uiscripts/blacklisting/elementchain.js</string>
 				<string>uiscripts/blacklisting/blacklistui.js</string>
-				<string>uiscripts/blacklisting/send_content_to_back.js</string>
+				<string>uiscripts/send_content_to_back.js</string>
 				<string>uiscripts/top_open_blacklist_ui.js</string>
 				<string>uiscripts/top_open_whitelist_ui.js</string>
 				<string>uiscripts/safari_hooks.js</string>
@@ -59,7 +61,6 @@
 			<array>
 				<string>port.js</string>
 				<string>functions.js</string>
-				<string>catblock/jquery.min.js</string>
 				<string>filtering/filteroptions.js</string>
 				<string>bandaids.js</string>
 				<string>adblock_start_common.js</string>
@@ -69,7 +70,7 @@
 		</dict>
 	</dict>
 	<key>Description</key>
-	<string>Blocks ads and replaces them with pleasant pictures.</string>
+	<string>Replaces ads with pictures of cats, or whatever you want</string>
 	<key>DeveloperIdentifier</key>
 	<string>G3ZTT88753</string>
 	<key>ExtensionInfoDictionaryVersion</key>
@@ -84,6 +85,7 @@
 			<string>All</string>
 		</dict>
 	</dict>
+	<key>Update Manifest URL</key>
 	<key>Website</key>
 	<string>https://github.com/CatBlock/catblock</string>
 </dict>

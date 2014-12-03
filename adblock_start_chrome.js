@@ -60,12 +60,13 @@ var elementPurger = {
     var url_parts = parseUri(url), page_parts = this._page_location;
     var results = [];
     // Case 1: absolute (of the form "abc://de.f/ghi" or "//de.f/ghi")
-    results.push({ op:"$=", text: url.match(':(//.*)$')[1] });
+    results.push({ op:"$=", text: url.match(/\:(\/\/.*)$/)[1] });
     if (url_parts.hostname === page_parts.hostname) {
       var url_search_and_hash = url_parts.search + url_parts.hash;
       // Case 2: The kind that starts with '/'
       results.push({ op:"=", text: url_parts.pathname + url_search_and_hash });
-      // Case 3: Relative URL
+      // Case 3: Relative URL (of the form "ab.cd", "./ab.cd", "../ab.cd" and
+      // "./../ab.cd")
       var page_dirs = page_parts.pathname.split('/');
       var url_dirs = url_parts.pathname.split('/');
       var i = 0;
@@ -74,10 +75,14 @@ var elementPurger = {
              && i < url_dirs.length - 1) {
         i++; // i is set to first differing position
       }
-      var dir = new Array(page_dirs.length - i).join("/..").substring(1);
+      var dir = new Array(page_dirs.length - i).join("../");
       var path = url_dirs.slice(i).join("/") + url_search_and_hash;
-      var src = dir + (dir ? "/" : "") + path;
-      results.push({ op:"=", text: src });
+      if (dir) {
+        results.push({ op:"$=", text: dir + path });
+      } else {
+        results.push({ op:"=", text: path });
+        results.push({ op:"=", text: "./" + path });
+      }
     }
 
     return results;
