@@ -287,7 +287,7 @@ _addInfoCardTo: function(newPic, placement) {
           "background-color": "rgba(188, 188, 188, 0.7)",
         } });
       newPic.infoCard.appendTo("body");
-      var folder = "../img/";
+      var folder = "img/";
       newPic.infoCard.
         append($("<a>", {
           href: "#",
