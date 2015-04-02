@@ -1,6 +1,18 @@
 {
   "name": "AdBlock with CatBlock",
-  "version": "1.1",
+  "short_name": "CatBlock",
+  "version": "1.1.2",
+  "manifest_version": 2,
+  "description": "CatBlock, it's AdBlock but with cats...",
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "permissions": [
+    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation"
+  ],
+  "minimum_chrome_version": "41",
   "background": {
     "scripts": [
       "jquery/jquery.min.js",
@@ -118,6 +130,8 @@
     "catblock/pix/wide2.jpg",
     "catblock/pix/wide3.jpg",
     "catblock/pix/wide4.jpg",
-    "img/catblock.png"
+    "img/icon19.png",
+    "img/icon24.png",
+    "jquery/css/override-page.css"
   ]
 }

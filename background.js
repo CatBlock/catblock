@@ -1406,19 +1406,20 @@
       }
   }
 
-if (!SAFARI) {
-      // Listens for message from CatBlock content script asking to load jQuery.
-      chrome.extension.onRequest.addListener(
-          function(request, sender, sendResponse) {
-              if (request.command === "inject_jquery") {
-                  chrome.tabs.executeScript(undefined,
-                      { allFrames: request.allFrames, file: "../jquery/jquery.min.js" },
-                      function() { sendResponse({});
+  // Listens for message from CatBlock content script asking to load jQuery.
+  chrome.extension.onRequest.addListener(
+      function(request, sender, sendResponse) {
+          if (request.command === "inject_jquery") {
+              if (!SAFARI) {
+                  chrome.tabs.executeScript(undefined, { allFrames: request.allFrames, file: "../jquery/jquery.min.js" },
+                                            function() { sendResponse({});
                   });
+              } else {
+                  safari.extension.addContentScriptFromURL(safari.extension.baseURI + "jquery/jquery.min.js", [], [], false);
               }
           }
-      );
-  }
+      }
+  );
 
   channels = new Channels();
 

@@ -311,7 +311,7 @@ _addInfoCardTo: function(newPic, placement) {
             // independent.co.uk borders all imgs
             border: "none",
           },
-          src: chrome.extension.getURL(folder + "catblock.png")
+          src: chrome.extension.getURL(folder + "icon19.png")
         })).
         append("<br>");
 
