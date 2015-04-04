@@ -51,7 +51,7 @@ onReady = function(callback) {
 };
 
 translate = function(messageID, args) {
-  return chrome.i18n.getMessage(messageID, args);
+  return chrome._i18n.getMessage(messageID, args);
 };
 
 localizePage = function() {
