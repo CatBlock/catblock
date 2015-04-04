@@ -372,10 +372,11 @@ if (SAFARI) {
             syncFetch(file, function(text) {
               result.messages[locale] = JSON.parse(text);
             });
+            // We also need to fetch specific CatBlock translation files
             syncFetch(cb_file, function(text) {
-              var test = JSON.parse(text);
-              for (message in test) {
-                result.messages[locale][message] = test[message];
+              var json = JSON.parse(text);
+              for (message in json) {
+                result.messages[locale][message] = json[message];
               }
             });
           }
