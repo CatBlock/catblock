@@ -8,16 +8,6 @@ function Highlighter() {
   var enabled = false;
   var then = Date.now();
   var box = $("<div class='adblock-highlight-node'></div>");
-  var css = {
-    "background-color": "rgba(130, 180, 230, 0.5)",
-    outline: "solid 1px #0F4D9A",
-    "box-sizing": "border-box",
-    position: "absolute", 
-    display: "none"
-  };
-  for (var key in css) {
-    box[0].style.setProperty(key, css[key], "important"); // crbug.com/110084
-  }
   box.appendTo("body");
   
   function handler(e) {
@@ -31,20 +21,23 @@ function Highlighter() {
       box.hide();
       el = document.elementFromPoint(e.clientX, e.clientY);
     }
+    if (el === target) {
+      box.show();
+      return;
+    }
     if (el === document.body || el.className === "adblock-killme-overlay") {
       box.hide(); 
       return;
     }
-    target = $(el);
-    offset = target.offset();
+    el = $(el);
+    target = el[0];
+    offset = el.offset();
     box.css({
-      height: target.outerHeight(), 
-      width: target.outerWidth(), 
+      height: el.outerHeight(),
+      width: el.outerWidth(),
       left: offset.left, 
       top: offset.top 
     });
-    var zIndex = (parseInt(target.css("z-index")) || 1);
-    box[0].style.setProperty("z-index", zIndex, "important"); // crbug.com/110084
     box.show(); 
   }
   
@@ -68,7 +61,7 @@ function Highlighter() {
     this.disable();
     if (box) {
       box.remove();
-      delete box;
+      box = null;
     }
   };
 }
@@ -95,18 +88,14 @@ ClickWatcher.prototype.show = function() {
   var that = this;
   var wait = $("<div></div>").
     append(translate("findingads")).
-    css({
-      'background': 'white',
-      'text-align': 'left',
-      'font-size': '12px',
-    }).
     dialog({
-      zIndex: 10000000, 
+      dialogClass: "adblock-blacklist-dialog",
       position: [50, 50],
       height: 120,
-      minHeight: 50,
+      minHeight: 120,
       title: translate("blockanadtitle")
     });
+    changeTextDirection($("body .adblock-blacklist-dialog"));
   // setTimeout to give 'wait' a chance to display
   window.setTimeout(function() {
     that._ui = that._build_ui();
@@ -153,16 +142,8 @@ ClickWatcher.prototype._build_ui = function() {
 
 
   // Most things can be blacklisted with a simple click handler.
-  $("*").
-    not("body,html").         // Don't remove the body that the UI lives on!
-    not("embed,object").      // Dealt with separately below
-    click(click_catch_this);  // Everybody else, blacklist upon click
-
-  // Send all objects and embeds to the background, and send any z-index
-  // crazies to a lower z-index.  I'd do it here, but objects within iframes
-  // will still block our click catchers over the iframes, so we have to tell
-  // all subframes to do it too.
-  BGcall('emit_page_broadcast', {fn:'send_content_to_back', options:{}});
+  $("body").on("click", ".adblock-killme-overlay, .adblock-highlight-node",
+    click_catch_this);
 
   // Since iframes that will get clicked will almost always be an entire
   // ad, and I *really* don't want to figure out inter-frame communication
@@ -178,26 +159,25 @@ ClickWatcher.prototype._build_ui = function() {
   });
 
   var btn = {};
-  btn[translate("buttoncancel")] = function() { page.dialog('close'); }
+  btn[translate("buttoncancel")] = function() { 
+    $(".adblock-ui-stylesheet").remove();
+    page.dialog('close');
+  }
 
   var page = $("<div></div>").
     append(translate("clickthead")).
     append("<br/><br/>").
-    css({
-      'background': 'white',
-      'text-align': 'left',
-      'font-size': '12px',
-    }).
     dialog({
-      zIndex:10000000, 
+      dialogClass: "adblock-blacklist-dialog",
       position:[50, 50],
       width:400,
       minHeight:125,
       autoOpen: false,
       title: translate("blockanadtitle"),
       buttons: btn,
-      close: function() { 
-        $("*").unbind('click', click_catch_this);
+      close: function() {   
+        $("body").off("click",
+          ".adblock-killme-overlay, .adblock-highlight-node", click_catch_this);
         Overlay.removeAll();
         that._onClose();
         page.remove();
@@ -214,7 +194,7 @@ ClickWatcher.prototype._build_ui = function() {
       bind("mouseleave",function() {
         that._highlighter.enable();
       });
-
+    changeTextDirection($("body .adblock-blacklist-dialog"));
   return page;
 }
 

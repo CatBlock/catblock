@@ -1,41 +1,63 @@
 <!DOCTYPE HTML>
-<!-- Chrome-only popup.  Safari popup is created programmatically in safari_bg.js -->
 <html>
   <head>
     <link rel="stylesheet" href="popup.css"/>
-    <link rel="stylesheet" href="../jquery/css/custom-theme/jquery-ui-1.8.custom.css"/>
+    <script src="../port.js"></script>
     <script src="../jquery/jquery.min.js"></script>
-    <script src="../jquery/jquery-ui.custom.min.js"></script>
     <script src="../functions.js"></script>
   </head>
-  <body>
+  <body style="overflow:hidden;">
     <div id="wrapper">
       <div id="menu-items">
-        <div id="titletext"><span>AdBlock with CatBlock</span></div>
+        <div id="titletext">
+          <img src="../img/logo.png" class="logo" />
+          </div>
+
+        <div id="block_counts" class="box">
+          <div i18n="blocked_ads" class="header"></div>
+          <div style="padding:2px 0px 0px 2px;">
+            <div i18n="blocked_n_on_this_page" i18n_replacement_el="page_blocked_count"></div>
+            <span class="block_count_number" id="page_blocked_count"></span>
+            <div i18n="blocked_n_in_total" i18n_replacement_el="total_blocked_count"></div>
+            <span class="block_count_number" id="total_blocked_count"></span>
+          </div>
+
+          <div id="block_counts_controls">
+            <input type="checkbox" id="toggle_badge_checkbox" checked="checked">
+            <label for="toggle_badge_checkbox" i18n="show_on_adblock_button"></label>
+          </div>
+        </div>
+
+        <div id="div_status_whitelisted" class="menu-status-italic">
+          <span i18n="disabled_on_this_page"></span>
+        </div>
+
+        <div id="div_status_paused" class="menu-status-italic">
+          <span i18n="status_paused"></span>
+        </div>
 
         <!-- ************ Standard menu entries *********** -->
 
-        <div id="div_status_whitelisted" class="menu-entry">
-          <span style="font-style:italic;" i18n="disabled_on_this_page"></span>
-          <a i18n="enable" href="#" class="blue"></a>
+        <div i18n="undo_last_block" id="div_undo" class="menu-entry">
         </div>
 
-        <div i18n="status_disabled" id="div_status_disabled" class="menu-entry" style="font-style: italic;">
-        </div>
-
-        <div id="div_status_paused" class="menu-entry">
-          <span i18n="status_paused" style="font-style:italic;"></span>
-          <a i18n="unpause" href="#" class="blue"></a>
+        <div i18n="whitelist_youtube_channel" id="div_whitelist_channel" class="menu-entry">
         </div>
 
         <div id="separator0" class="separator"></div>
 
+        <div i18n="enable_adblock" id="div_enable_adblock_on_this_page" class="menu-entry">
+        </div>
+
         <div i18n="pause_adblock" id="div_pause_adblock" class="menu-entry">
         </div>
 
-        <div i18n="block_an_ad_on_this_page" id="div_blacklist" class="menu-entry">
+        <div i18n="unpause_adblock" id="div_paused_adblock" class="menu-entry">
         </div>
 
+
+        <div i18n="block_an_ad_on_this_page" id="div_blacklist" class="menu-entry">
+        </div>
 
         <div i18n="dont_run_on_this_page" id="div_whitelist_page" class="menu-entry">
         </div>
@@ -60,11 +82,12 @@
 
         <div id="div_help_hide">
           <div id="div_help_hide_start" i18n="hide_this_button" class="menu-entry"></div>
-          <div id="help_hide_explanation" class="info" i18n="chromebutton_how_to_hide" style="display:none;">
+          <div id="help_hide_explanation" class="info" i18n="chromebutton_how_to_hide2" style="display:none;">
           </div>
         </div>
       </div> <!-- menu-items-->
     </div> <!-- wrapper -->
+
 
     <script src="popup.js"></script>
   </body>

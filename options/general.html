@@ -1,23 +1,40 @@
   <!doctype html><!-- required to help Safari not get confused when injecting this fragment -->
   <div>
     <h2 i18n="generaloptions"></h2>
+
     <p>
       <input type="checkbox" class="feature" id="enable_show_google_search_text_ads"/>
-      <label for="enable_show_google_search_text_ads" i18n="googletextads"></label>
+      <label for="enable_show_google_search_text_ads" i18n="googletextads2"></label>
+    </p>
+
+    <p>
+      <input type="checkbox" class="feature" id="enable_youtube_channel_whitelist"/>
+      <label for="enable_youtube_channel_whitelist" i18n="allow_whitelisting_youtube_channels"></label>
     </p>
 
     <p>
       <input type="checkbox" class="feature" id="enable_show_context_menu_items" />
-      <label for="enable_show_context_menu_items" i18n="showcontextmenus"></label>
+      <label for="enable_show_context_menu_items" i18n="showcontextmenus2"></label>
     </p>
 
     <p>
       <input type="checkbox" class="feature" id="enable_show_advanced_options" />
-      <label for="enable_show_advanced_options" i18n="advanced_options"></label>
+      <label for="enable_show_advanced_options" i18n="advanced_options2"></label>
+    </p>
+
+    <p class="advanced chrome-only">
+      <input type="checkbox" class="feature" id="enable_whitelist_hulu_ads" />
+      <label for="enable_whitelist_hulu_ads" i18n="work_around_hulu_problems"></label>
     </p>
 
     <p class="forDebug advanced">
       <input type="checkbox" class="feature" id="enable_debug_logging" />
       <label for="enable_debug_logging" i18n="debuginlogoption"></label>
     </p>
+
+    <div id="dropbox">
+      <div id="dbauth"></div>
+      <abbr id="dbauthinfo"></abbr>
+      <label id="dropboxlabel" i18n="betalabel"></label>
+    </div>
   </div>

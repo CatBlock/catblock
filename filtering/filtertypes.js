@@ -6,8 +6,7 @@ Filter._lastId = 0;
 
 // Maps filter text to Filter instances.  This is important, as it allows
 // us to throw away and rebuild the FilterSet at will.
-// TODO(gundlach): is the extra memory worth it if we only rebuild the
-// FilterSet upon subscribe/unsubscribe/refresh?
+// Will be cleared after a fixed time interval
 Filter._cache = {};
 
 // Return a Filter instance for the given filter text.
@@ -24,8 +23,16 @@ Filter.fromText = function(text) {
   return cache[text];
 }
 
+// Test if pattern#@#pattern or pattern##pattern
 Filter.isSelectorFilter = function(text) {
-  return /\#\#/.test(text);
+  // This returns true for both hiding rules as hiding whitelist rules
+  // This means that you'll first have to check if something is an excluded rule
+  // before checking this, if the difference matters.
+  return /\#\@?\#./.test(text);
+}
+
+Filter.isSelectorExcludeFilter = function(text) {
+  return /\#\@\#./.test(text);
 }
 
 Filter.isWhitelistFilter = function(text) {
@@ -33,56 +40,70 @@ Filter.isWhitelistFilter = function(text) {
 }
 
 Filter.isComment = function(text) {
-  return text.length == 0 ||
-         text[0] == '!' ||
-         (text[0] == '[' && /^\[adblock/i.test(text)) ||
-         (text[0] == '(' && /^\(adblock/i.test(text));
+  return text.length === 0 ||
+         text[0] === '!' ||
+         (/^\[adblock/i.test(text)) ||
+         (/^\(adblock/i.test(text));
 }
 
-// Given a comma-separated list of domain includes and excludes, return
-// { applied_on:array, not_applied_on:array }.  An empty applied_on array
-// means "on all domains except those in the not_applied_on array."  An
-// empty not_applied_on array means "defer to the applied_on array."
-//
-// If a rule runs on *all* domains:
-//   { applied_on: [], not_applied_on: [] }
-// If a rule runs on *some* domains:
-//   { applied_on: [d1, d2,...], not_applied_on: [] }
-// If a rule is not run on *some* domains:
-//   { applied_on: [], not_applied_on: [ d1, d2, d3... ] }
-// If a rule runs on *some* domains but not on *other* domains:
-//   { applied_on: [ d1, d2,...], not_applied_on: [ d1, d2,...] }
-Filter._domainInfo = function(domainText, divider) {
+// Convert a comma-separated list of domain includes and excludes into a
+// DomainSet.
+Filter._toDomainSet = function(domainText, divider) {
   var domains = domainText.split(divider);
 
-  var result = {
-    applied_on: [],
-    not_applied_on: []
-  };
+  var data = {};
+  data[DomainSet.ALL] = true;
 
   if (domains == '')
-    return result;
+    return new DomainSet(data);
 
   for (var i = 0; i < domains.length; i++) {
     var domain = domains[i];
     if (domain[0] == '~') {
-      result.not_applied_on.push(domain.substring(1));
+      data[domain.substring(1)] = false;
     } else {
-      result.applied_on.push(domain);
+      data[domain] = true;
+      data[DomainSet.ALL] = false;
     }
   }
 
-  return result;
+  return new DomainSet(data);
 }
 
 // Filters that block by CSS selector.
 var SelectorFilter = function(text) {
   Filter.call(this); // call base constructor
 
-  var parts = text.split('##');
-  this._domains = Filter._domainInfo(parts[0], ',');
-  this.selector = parts[1];
+  var parts = text.match(/(^.*?)\#\@?\#(.+$)/);
+  this._domains = Filter._toDomainSet(parts[1], ',');
+  this.selector = parts[2];
+  // Preserve _text for resourceblock. Don't do so in Safari, where
+  // resources aren't recorded
+  if (document.location.pathname === '/pages/resourceblock.html')
+    this._text = text;
 };
+
+// If !|excludeFilters|, returns filter.
+// Otherwise, returns a new SelectorFilter that is the combination of
+// |filter| and each selector exclusion filter in the given list.
+SelectorFilter.merge = function(filter, excludeFilters) {
+  if (!excludeFilters)
+    return filter;
+
+  var domains = filter._domains.clone();
+  for (var i = 0; i < excludeFilters.length; i++) {
+    domains.subtract(excludeFilters[i]._domains);
+  }
+
+  var result = new SelectorFilter("_##_");
+  result.selector = filter.selector;
+  if (filter._text)
+    result._text = filter._text;
+  result._domains = domains;
+
+  return result;
+};
+
 SelectorFilter.prototype = {
   // Inherit from Filter.
   __proto__: Filter.prototype,
@@ -98,7 +119,9 @@ PatternFilter.fromData = function(data) {
   result._rule = new RegExp(data[0]);
   result._allowedElementTypes = data[1];
   result._options = data[2];
-  result._domains = { applied_on: [], not_applied_on: [] };
+  var data = {};
+  data[DomainSet.ALL] = true;
+  result._domains = new DomainSet(data);
   return result;
 }
 // Text is the original filter text of a blocking or whitelist filter.
@@ -107,17 +130,14 @@ PatternFilter.fromText = function(text) {
   var data = PatternFilter._parseRule(text);
 
   var result = new PatternFilter();
-  result._domains = Filter._domainInfo(data.domainText, '|');
+  result._domains = Filter._toDomainSet(data.domainText, '|');
   result._allowedElementTypes = data.allowedElementTypes;
   result._options = data.options;
   result._rule = data.rule;
   result._key = data.key;
-  // Preserve _text for later in Chrome's background page and in
-  // resourceblock.html.  Don't do so in safari or in content scripts, where
-  // it's not needed.
-  // TODO once Chrome has a real blocking API, we can change this to
-  //   if (/resourceblock.html/.test(document.location.href))
-  if (document.location.protocol == 'chrome-extension:')
+  // Preserve _text for resourceblock. Don't do so in Safari, where
+  // resources aren't recorded
+  if (document.location.pathname === '/pages/resourceblock.html')
     result._text = text;
   return result;
 }
@@ -128,6 +148,11 @@ PatternFilter._parseRule = function(text) {
 
   var result = {
     domainText: '',
+    // TODO: when working on this code again, consider making options a
+    // dictionary with boolean values instead of a bitset. This would
+    // - make more sense, because these options are only checked individually
+    // - collapse the two bitwise checks in Filter.matches into a single
+    // boolean compare
     options: FilterOptions.NONE
   };
 
@@ -178,7 +203,7 @@ PatternFilter._parseRule = function(text) {
       }
     }
     else if (option === 'third_party') {
-      result.options |= 
+      result.options |=
           (inverted ? FilterOptions.FIRSTPARTY : FilterOptions.THIRDPARTY);
     }
     else if (option === 'match_case') {
@@ -209,27 +234,25 @@ PatternFilter._parseRule = function(text) {
   // Convert regexy stuff.
 
   // First, check if the rule itself is in regex form.  If so, we're done.
+  var matchcase = (result.options & FilterOptions.MATCHCASE) ? "" : "i";
   if (/^\/.+\/$/.test(rule)) {
     result.rule = rule.substr(1, rule.length - 2); // remove slashes
-    result.rule = new RegExp(result.rule);
+    result.rule = new RegExp(result.rule, matchcase);
     return result;
   }
 
-  if (!(result.options & FilterOptions.MATCHCASE))
-    rule = rule.toLowerCase();
-
-  var key = rule.match(/\w{5,}/);
+  var key = rule.match(/[\w&=]{5,}/);
   if (key)
-    result.key = new RegExp(key);
+    result.key = new RegExp(key, matchcase);
 
   // ***** -> *
-  rule = rule.replace(/\*+/g, '*');
+  //replace, excessive wildcard sequences with a single one
+  rule = rule.replace(/\*-\*-\*-\*-\*/g, '*');
 
-  // If it starts or ends with *, strip that -- it's a no-op.
-  rule = rule.replace(/^\*/, '');
-  rule = rule.replace(/\*$/, '');
+  rule = rule.replace(/\*\*+/g, '*');
+
   // Some chars in regexes mean something special; escape it always.
-  // Escaped characters are also faster. 
+  // Escaped characters are also faster.
   // - Do not escape a-z A-Z 0-9 and _ because they can't be escaped
   // - Do not escape | ^ and * because they are handled below.
   rule = rule.replace(/([^a-zA-Z0-9_\|\^\*])/g, '\\$1');
@@ -239,15 +262,18 @@ PatternFilter._parseRule = function(text) {
   rule = rule.replace(/\*/g, '.*');
   // Starting with || means it should start at a domain or subdomain name, so
   // match ://<the rule> or ://some.domains.here.and.then.<the rule>
-  rule = rule.replace(/^\|\|/, '\\:\\/\\/([^\\/]+\\.)?');
+  rule = rule.replace(/^\|\|/, '^[^\\/]+\\:\\/\\/([^\\/]+\\.)?');
   // Starting with | means it should be at the beginning of the URL.
   rule = rule.replace(/^\|/, '^');
   // Rules ending in | means the URL should end there
   rule = rule.replace(/\|$/, '$');
   // Any other '|' within a string should really be a pipe.
   rule = rule.replace(/\|/g, '\\|');
+  // If it starts or ends with *, strip that -- it's a no-op.
+  rule = rule.replace(/^\.\*/, '');
+  rule = rule.replace(/\.\*$/, '');
 
-  result.rule = new RegExp(rule);
+  result.rule = new RegExp(rule, matchcase);
   return result;
 }
 
@@ -256,13 +282,13 @@ PatternFilter.prototype = {
   // Inherit from Filter.
   __proto__: Filter.prototype,
 
-  // Returns true if an element of the given type loaded from the given URL 
+  // Returns true if an element of the given type loaded from the given URL
   // would be matched by this filter.
   //   url:string the url the element is loading.
   //   elementType:ElementTypes the type of DOM element.
   //   isThirdParty: true if the request for url was from a page of a
   //       different origin
-  matches: function(url, loweredUrl, elementType, isThirdParty) {
+  matches: function(url, elementType, isThirdParty) {
     if (!(elementType & this._allowedElementTypes))
       return false;
 
@@ -274,9 +300,6 @@ PatternFilter.prototype = {
 
     if ((this._options & FilterOptions.FIRSTPARTY) && isThirdParty)
       return false;
-
-    if (!(this._options & FilterOptions.MATCHCASE))
-      url = loweredUrl;
 
     if (this._key && !this._key.test(url))
       return false;

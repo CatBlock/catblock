@@ -1,6 +1,6 @@
 // Chrome to Safari port
 // Author: Michael Gundlach (gundlach@gmail.com)
-// License: GPLv3 as part of adblockforchrome.googlecode.com
+// License: GPLv3 as part of code.getadblock.com
 //          or MIT if GPLv3 conflicts with your code's license.
 //
 // Porting library to make Chrome extensions work in Safari.
@@ -10,7 +10,7 @@
 //
 // Then you can use chrome.* APIs as usual, and check the SAFARI
 // global boolean variable to see if you're in Safari or Chrome
-// for doing browser-specific stuff.  The safari.* APIs will 
+// for doing browser-specific stuff.  The safari.* APIs will
 // still be available in Safari, and the chrome.* APIs will be
 // unchanged in Chrome.
 
@@ -18,10 +18,23 @@ if (typeof SAFARI == "undefined") {
 (function() {
 
 // True in Safari, false in Chrome.
-SAFARI = (typeof safari !== "undefined");
+SAFARI = (function() {
+  if (typeof safari === "undefined" && typeof chrome === "undefined") {
+    // Safari bug: window.safari undefined in iframes with JS src in them.
+    // Must get it from an ancestor.
+    var w = window;
+    while (w.safari === undefined && w !== window.top) {
+      w = w.parent;
+    }
+    window.safari = w.safari;
+  }
+  return (typeof safari !== "undefined");
+})();
 
 // Safari 5.0 (533.x.x) with no menu support
 LEGACY_SAFARI = SAFARI && (navigator.appVersion.match(/\sSafari\/(\d+)\./) || [null,0])[1] < 534;
+// Safari 5.1 (534.x.x) with no undo support
+LEGACY_SAFARI_51 = SAFARI && (navigator.appVersion.match(/\sSafari\/(\d+)\./) || [null,0])[1] <= 534;
 
 if (SAFARI) {
 
@@ -36,9 +49,9 @@ if (SAFARI) {
       return safari.application;
     console.log("No add/remove event listener possible at this location!");
     console.trace();
-    return { 
-      addEventListener: function() {}, 
-      removeEventListener: function() {} 
+    return {
+      addEventListener: function() {},
+      removeEventListener: function() {}
     };
   };
   var listenFor = function(messageName, handler) {
@@ -54,7 +67,8 @@ if (SAFARI) {
   };
   // Return the object on which you can dispatch messages -- globally, or on the
   // messageEvent if specified.  If there isn't one, don't explode.
-  var dispatchContext = function(messageEvent) {
+  // Make this globally available (don't use 'var') as it is used outside port.js
+  dispatchContext = function(messageEvent) {
     // Can we dispatch on the messageEvent target?
     var m = messageEvent;
     if (m && m.target && m.target.page && m.target.page.dispatchMessage)
@@ -70,33 +84,13 @@ if (SAFARI) {
       return p;
     console.log("No dispatchMessage possible at this location!");
     console.trace();
-    return { 
-      dispatchMessage: function() {}
+    return {
+      dispatchMessage: function(msg, data) {
+        console.warn("Failed to call dispatchMessage(", msg, ",", data, ")");
+        console.trace();
+      }
     };
   };
-
-  // Track tabs that make requests to the global page, assigning them
-  // IDs so we can recognize them later.
-  var getTabId = (function() {
-    // Tab objects are destroyed when no one has a reference to them,
-    // so we keep a list of them, lest our IDs get lost.
-    var tabs = [];
-    var lastAssignedTabId = 0;
-    var theFunction = function(tab) {
-      // Clean up closed tabs, to avoid memory bloat.
-      tabs = tabs.filter(function(t) { return t.browserWindow != null; });
-
-      if (tab.id == undefined) {
-        // New tab
-        tab.id = lastAssignedTabId + 1;
-        lastAssignedTabId = tab.id;
-        tabs.push(tab); // save so it isn't garbage collected, losing our ID.
-      }
-      return tab.id;
-    };
-    return theFunction;
-  })();
-
 
   // Replace the 'chrome' object with a Safari adapter.
   chrome = {
@@ -105,7 +99,7 @@ if (SAFARI) {
         return safari.extension.globalPage.contentWindow;
       },
 
-      getURL: function(path) { 
+      getURL: function(path) {
         return safari.extension.baseURI + path;
       },
 
@@ -137,7 +131,11 @@ if (SAFARI) {
 
           // Dispatch to each recipient.
           dispatchTargets.forEach(function(target) {
-            var message = { data: data, callbackToken: callbackToken };
+            var message = {
+              data: data,
+              frameInfo: chrome._tabInfo.gatherFrameInfo(),
+              callbackToken: callbackToken
+            };
             target.dispatchMessage("request", message);
           });
 
@@ -170,8 +168,10 @@ if (SAFARI) {
 
             var sender = {}; // Empty in onRequest in non-global contexts.
             if (isOnGlobalPage) { // But filled with sender data otherwise.
-              var id = getTabId(messageEvent.target);
-              sender.tab = { id: id, url: messageEvent.target.url };
+              var tab = messageEvent.target;
+              var frameInfo = messageEvent.message.frameInfo;
+              chrome._tabInfo.notice(tab, frameInfo);
+              sender.tab = chrome._tabInfo.info(tab, frameInfo.visible);
             }
 
             var sendResponse = function(dataToSend) {
@@ -183,61 +183,86 @@ if (SAFARI) {
         }
       },
 
-      // TODO: axe this, it's only used in Safari-specific code
-      connect: function(port_data) {
-        var portUuid = "portUuid" + Math.random();
-        var message = {name: port_data.name, uuid: portUuid};
-        dispatchContext().dispatchMessage("port-create", message);
-
-        var newPort = {
-          name: port_data.name,
-          onMessage: { 
-            addListener: function(listener) {
-              listenFor("port-postMessage", function(messageEvent) {
-                // If the message was a port.postMessage to our port, notify our listener.
-                if (messageEvent.message.portUuid != portUuid)
-                  return;
-                listener(messageEvent.message.data);
-              });
-            } 
-          }
-        };
-        return newPort;
-      },
-
-      // TODO: axe this, it's only used in Safari-specific code
-      onConnect: {
-        addListener: function(handler) {
-          // Listen for port creations
-          listenFor("port-create", function(messageEvent) {
-            var portName = messageEvent.message.name;
-            var portUuid = messageEvent.message.uuid;
-
-            var id = getTabId(messageEvent.target);
-
-            var newPort = {
-              name: portName,
-              sender: { tab: { id: id, url: messageEvent.target.url } },
-              onDisconnect: { 
-                addListener: function() { 
-                  // CHROME PORT LIBRARY: chrome.extension.onConnect.addListener: port.onDisconnect is not implemented, so I'm doing nothing.
-                }
-              },
-              postMessage: function(data) {
-                dispatchContext(messageEvent).dispatchMessage("port-postMessage", { portUuid: portUuid, data: data });
-              }
-            };
-
-            // Inform the onNewPort caller about the new port
-            handler(newPort);
-          });
-        }
-      },
-
       onRequestExternal: {
         addListener: function() {
           // CHROME PORT LIBRARY: onRequestExternal not supported.
         }
+      }
+    },
+
+    runtime: {
+        getManifest: function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", chrome.extension.getURL("manifest.json"), false);
+            xhr.send();
+            var object = JSON.parse(xhr.responseText);
+            return object;
+        }
+    },
+
+    // Helper object to ensure that tabs sending requests to the global page
+    // get some extra attributes for the global page to use:
+    //   id: an ID assigned by us so we can refer to the tab by ID elsewhere.
+    //   visible_url: the URL of the top-level frame in the tab, if any.
+    //   invisible_url: the URL of the top-level frame in the invisible page
+    //                  being preloaded by the tab, if any (new in Safari 6.1).
+    //
+    // We are forced to store the *_url properties because the Safari API
+    // doesn't currently give us a messageEvent.target.page.url property.  See
+    // Issue #29.
+    _tabInfo: {
+      // Returns an object that can be passed to chrome._tabInfo.notice().
+      //
+      // Called by a frame sending a request to the global page.
+      gatherFrameInfo: function() {
+        return {
+          visible: !document.hidden,
+          top_level: (window === window.top),
+          url: document.location.href
+        };
+      },
+
+      // Tab objects are destroyed when no one has a reference to them, so we
+      // keep a list of them, lest our data get lost.
+      _tabs: [],
+      _lastAssignedTabId: 0,
+
+      // Ensure |tab| has a .id property assigned, and possibly update its
+      // |visible_url| or |invisible_url| property.
+      //
+      // info is an object passed from the requesting frame, containing
+      //   visible: whether the frame is on a visible or preloading page
+      //   url: url of the frame
+      //   top_level: true if the frame is top level in its page
+      //
+      // Called by the global page.
+      notice: function(tab, info) {
+        // Clean up closed tabs, to avoid memory bloat.
+        this._tabs = this._tabs.filter(function(t) { return t.browserWindow != null; });
+
+        if (tab.id == undefined) {
+          // New tab
+          tab.id = this._lastAssignedTabId + 1;
+          this._lastAssignedTabId = tab.id;
+          this._tabs.push(tab); // save so it isn't garbage collected, losing our data.
+        }
+
+        if (info.top_level) {
+          tab[info.visible ? 'visible_url' : 'invisible_url'] = info.url;
+        }
+      },
+
+      // Return an {id, url} object for the given tab's top level frame if
+      // visible is true, or the given tab's preloaded page's top level frame,
+      // if visible is false.  Assumes this.notice() has been called for every
+      // request from a frame to the global page.
+      //
+      // Called by the global page.
+      info: function(tab, visible) {
+        return {
+          id: tab.id,
+          url: (visible ? tab.visible_url : tab.invisible_url)
+        };
       }
     },
 
@@ -358,7 +383,7 @@ if (SAFARI) {
 
         getMessage: function(messageID, args) {
           if (l10nData == undefined) {
-            // Assume that we're not in a content script, because content 
+            // Assume that we're not in a content script, because content
             // scripts are supposed to have set l10nData already
             chrome.i18n._setL10nData(chrome.i18n._getL10nData());
           }

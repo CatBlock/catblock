@@ -147,7 +147,7 @@
         BGcall("channels.randomListing", {channelId: id}, function(listing) {
           var folder = "img/";
           $("body").css({
-            "background": "url(" + chrome.extension.getURL(folder) + "white-bg.png), url(" + listing.url + ") 95% 5% no-repeat",
+            "background": "url(" + listing.url + ") 95% 5% no-repeat",
             "background-size": "200px",
             "background-attachment": "fixed"
           });

@@ -8,6 +8,9 @@ if (window.location.origin + "/" === chrome.extension.getURL("")) {
     window.location.replace("about:blank");
 }
 
+// Global variable for Opera, so we can make specific things for Opera
+OPERA = navigator.userAgent.indexOf("OPR") > -1;
+
 // Run a function on the background page.
 // Inputs (positional):
 //   first, a string - the name of the function to call
@@ -21,25 +24,37 @@ BGcall = function() {
   var has_callback = (typeof args[args.length - 1] == "function");
   var callback = (has_callback ? args.pop() : function() {});
   chrome.extension.sendRequest({command: "call", fn:fn, args:args}, callback);
-}
+};
 
-// These are replaced with console.log in adblock_start_common.js and
-// background.html if the user chooses.
-log = function() { };
+// Enabled in adblock_start_common.js and background.js if the user wants
+logging = function(enabled) {
+  if (enabled) {
+    log = function() {
+      if (VERBOSE_DEBUG || arguments[0] != '[DEBUG]') // comment out for verbosity
+        console.log.apply(console, arguments);
+    };
+    logGroup = function() { console.group.apply(console, arguments); };
+    logGroupEnd = function() { console.groupEnd(); };
+  }
+  else {
+    log = logGroup = logGroupEnd = function() {};
+  }
+};
+logging(false); // disabled by default
 
 // Behaves very similarly to $.ready() but does not require jQuery.
-function onReady(callback) {
+onReady = function(callback) {
   if (document.readyState === "complete")
     window.setTimeout(callback, 0);
   else
     window.addEventListener("load", callback, false);
-}
+};
 
-function translate(messageID, args) {
+translate = function(messageID, args) {
   return chrome.i18n.getMessage(messageID, args);
-}
+};
 
-function localizePage() {
+localizePage = function() {
   //translate a page into the users language
   $("[i18n]:not(.i18n-replaced)").each(function() {
     $(this).html(translate($(this).attr("i18n")));
@@ -49,6 +64,9 @@ function localizePage() {
   });
   $("[i18n_title]:not(.i18n-replaced)").each(function() {
     $(this).attr("title", translate($(this).attr("i18n_title")));
+  });
+  $("[i18n_placeholder]:not(.i18n-replaced)").each(function() {
+    $(this).attr("placeholder", translate($(this).attr("i18n_placeholder")));
   });
   $("[i18n_replacement_el]:not(.i18n-replaced)").each(function() {
     // Replace a dummy <a/> inside of localized text with a real element.
@@ -61,7 +79,21 @@ function localizePage() {
     // clobber our work
     $(this).addClass("i18n-replaced");
   });
-}
+
+  // Make a right-to-left translation for Arabic and Hebrew languages
+  var language = determineUserLanguage();
+  if (language === "ar" || language === "he" ) {
+    $("#main_nav").removeClass("right").addClass("left");
+    $(".adblock-logo").removeClass("left").addClass("right");
+    $(".closelegend").css("float","left");
+    document.documentElement.dir = "rtl";
+  }
+};
+
+// Determine what language the user's browser is set to use
+determineUserLanguage = function() {
+  return navigator.language.match(/^[a-z]+/i)[0];
+};
 
 // Parse a URL. Based upon http://blog.stevenlevithan.com/archives/parseuri
 // parseUri 1.2.2, (c) Steven Levithan <stevenlevithan.com>, MIT License
@@ -73,7 +105,7 @@ parseUri = function(url) {
   var keys = ["href", "origin", "protocol", "host", "hostname", "port",
               "pathname", "search", "hash"];
   var uri = {};
-  for (var i=0; i<keys.length; i++)
+  for (var i=0; (matches && i<keys.length); i++)
     uri[keys[i]] = matches[i] || "";
   return uri;
 };
@@ -87,9 +119,17 @@ parseUri.parseSearch = function(search) {
     if (arguments[1]) queryKeys[arguments[1]] = unescape(arguments[2]);
   });
   return queryKeys;
-}
+};
+// Strip third+ level domain names from the domain and return the result.
+// Inputs: domain: the domain that should be parsed
+//         keepDot: true if trailing dots should be preserved in the domain
+// Returns: the parsed domain
+parseUri.secondLevelDomainOnly = function(domain, keepDot) {
+  var match = domain.match(/([^\.]+\.(?:co\.)?[^\.]+)\.?$/) || [domain, domain];
+  return match[keepDot ? 0 : 1].toLowerCase();
+};
 
-// TODO: move back into background.html since Safari can't use this
+// TODO: move back into background.js since Safari can't use this
 // anywhere but in the background.  Do it after merging 6101 and 6238
 // and 5912 to avoid merge conflicts.
 // Inputs: key:string.
@@ -105,12 +145,17 @@ storage_get = function(key) {
     log("Couldn't parse json for " + key);
     return undefined;
   }
-}
+};
 
 // Inputs: key:string, value:object.
+// If value === undefined, removes key from storage.
 // Returns undefined.
 storage_set = function(key, value) {
   var store = (window.SAFARI ? safari.extension.settings : localStorage);
+  if (value === undefined) {
+    store.removeItem(key);
+    return;
+  }
   try {
     store.setItem(key, JSON.stringify(value));
   } catch (ex) {
@@ -121,4 +166,11 @@ storage_set = function(key, value) {
       openTab("options/index.html#ui-tabs-2");
     }
   }
-}
+};
+
+// Return obj[value], first setting it to |defaultValue| if it is undefined.
+setDefault = function(obj, value, defaultValue) {
+  if (obj[value] === undefined)
+    obj[value] = defaultValue;
+  return obj[value];
+};
