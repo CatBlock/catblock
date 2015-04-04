@@ -986,10 +986,10 @@
     return frameData.get(tabId);
   }
 
-  // Return chrome.i18n._getL10nData() for content scripts who cannot
+  // Return chrome._i18n._getL10nData() for content scripts who cannot
   // call that function (since it loads extension files from disk.)
   // Only defined in Safari.
-  get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
+  get_l10n_data = (SAFARI ? chrome._i18n._getL10nData : undefined);
 
 
   // BGcall DISPATCH
@@ -1190,7 +1190,7 @@
   // Code for making a bug report
   makeReport = function() {
       var body = [];
-      body.push(chrome.i18n.getMessage("englishonly") + "!");
+      body.push(chrome._i18n.getMessage("englishonly") + "!");
       body.push("");
       body.push("Please answer the following questions so that we can process your bug report, otherwise, we may have to ignore it.");
       body.push("Also, please put your name, or a screen name, and your email above so that we can contact you if needed.");

@@ -264,11 +264,13 @@ if (SAFARI) {
           url: (visible ? tab.visible_url : tab.invisible_url)
         };
       }
-    },
+    }
+  }
+}
 
-    i18n: (function() {
-
-      function syncFetch(file, fn) {
+  // CatBlock translations
+  chrome._i18n = (function() {
+    function syncFetch(file, fn) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", chrome.extension.getURL(file), false);
         xhr.onreadystatechange = function() {
@@ -328,19 +330,19 @@ if (SAFARI) {
       var l10nData = undefined;
 
       var theI18nObject = {
-        // chrome.i18n.getMessage() may be used in any extension resource page
+        // chrome._i18n.getMessage() may be used in any extension resource page
         // without any preparation.  But if you want to use it from a content
         // script in Safari, the content script must first run code like this:
         //
         //   get_localization_data_from_global_page_async(function(data) {
-        //     chrome.i18n._setL10nData(data);
-        //     // now I can call chrome.i18n.getMessage()
+        //     chrome._i18n._setL10nData(data);
+        //     // now I can call chrome._i18n.getMessage()
         //   });
         //   // I cannot call getMessage() here because the above call
         //   // is asynchronous.
         //
         // The global page will need to receive your request message, call
-        // chrome.i18n._getL10nData(), and return its result.
+        // chrome._i18n._getL10nData(), and return its result.
         //
         // We can't avoid this, because the content script can't load
         // l10n data for itself, because it's not allowed to make the xhr
@@ -364,17 +366,24 @@ if (SAFARI) {
           for (var i = 0; i < result.locales.length; i++) {
             var locale = result.locales[i];
             var file = "_locales/" + locale + "/messages.json";
+            // Find translation messages for CatBlock
+            var cb_file = "catblock/_locales/" + locale + "/messages.json";
             // Doesn't call the callback if file doesn't exist
             syncFetch(file, function(text) {
               result.messages[locale] = JSON.parse(text);
             });
+            syncFetch(cb_file, function(text) {
+              var test = JSON.parse(text);
+              for (message in test) {
+                result.messages[locale][message] = test[message];
+              }
+            });
           }
-
           return result;
         },
 
         // Manually set the localization data.  You only need to call this
-        // if using chrome.i18n.getMessage() from a content script, before
+        // if using chrome._i18n.getMessage() from a content script, before
         // the first call.  You must pass the value of _getL10nData(),
         // which can only be called by the global page.
         _setL10nData: function(data) {
@@ -385,7 +394,7 @@ if (SAFARI) {
           if (l10nData == undefined) {
             // Assume that we're not in a content script, because content
             // scripts are supposed to have set l10nData already
-            chrome.i18n._setL10nData(chrome.i18n._getL10nData());
+            chrome._i18n._setL10nData(chrome._i18n._getL10nData());
           }
           if (typeof args == "string")
             args = [args];
@@ -400,9 +409,6 @@ if (SAFARI) {
       };
 
       return theI18nObject;
-    })()
-
-  };
-}
-
-})(); } // end if (typeof SAFARI == "undefined") { (function() {
+    })();
+})();
+} // end if (typeof SAFARI == "undefined") { (function() {
