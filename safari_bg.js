@@ -1,262 +1,265 @@
-emit_page_broadcast = (function() {
-  // Private list of connected ports for emit_page_broadcast()
-  var broadcast_ports = [];
-  chrome.extension.onConnect.addListener(function(port) {
-    port.onDisconnect.addListener(function(disconnected_port) {
-      var where = broadcast_ports.indexOf(disconnected_port);
-      if (where != -1) {
-        broadcast_ports.splice(where, 1);
-      }
-    });
-    broadcast_ports.push(port);
-  });
+emit_page_broadcast = function(request) {
+    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('page-broadcast', request);
+};
 
-  // The emit_page_broadcast() function
-  var theFunction = function(request, sender) {
-    $.each(broadcast_ports, function(i, port) {
-        // issue 5416, fixed in Chrome and probably never happens in
-        // Safari: port.sender.tab could be null for an unknown reason.
-        if (!port.sender.tab)
-          return;
-      if (port.sender.tab.id == sender.tab.id)
-        port.postMessage(request);
-    });
-  };
-  return theFunction;
+//frameData object for Safari
+frameData = (function() {
+    return {
+        // Get frameData for the tab.
+        // Input:
+        //   tabId: Integer - id of the tab you want to get
+        get: function(tabId) {
+            return frameData[tabId] || {};
+        },
+
+        // Create a new frameData
+        // Input:
+        //   tabId: Integerc - id of the tab you want to add in the frameData
+        create: function(tabId, url, domain) {
+            return frameData._initializeMap(tabId, url, domain);
+        },
+        // Reset a frameData
+        // Inputs:
+        //   tabId: Integer - id of the tab you want to add in the frameData
+        //   url: new URL for the tab
+        reset: function(tabId, url) {
+            var domain = parseUri(url).hostname;
+            return frameData._initializeMap(tabId, url, domain);
+        },
+        // Initialize map
+        // Inputs:
+        //   tabId: Integer - id of the tab you want to add in the frameData
+        //   url: new URL for the tab
+        //   domain: domain of the request
+        _initializeMap: function(tabId, url, domain) {
+            var tracker = frameData[tabId];
+
+            var shouldTrack = !tracker || tracker.url !== url;
+            if (shouldTrack) {
+                frameData[tabId] = {
+                    resources: {},
+                    domain: domain,
+                    url: url,
+                };
+            }
+            return tracker;
+        },
+        // Store resource
+        // Inputs:
+        //   tabId: Numeric - id of the tab you want to delete in the frameData
+        //   url: url of the resource
+        storeResource: function(tabId, url, elType) {
+            if (!get_settings().show_advanced_options)
+                return;
+            var data = this.get(tabId);
+            if (data !== undefined &&
+                data.resources !== undefined) {
+                data.resources[elType + ':|:' + url] = null;
+            }
+        },
+        // Delete tabId from frameData
+        // Input:
+        //   tabId: Numeric - id of the tab you want to delete in the frameData
+        close: function(tabId) {
+            delete frameData[tabId];
+        }
+    }
 })();
-
-function adblockIsPaused() {
-  return sessionStorage.getItem('adblock_is_paused');
-}
 
 // True blocking support.
 safari.application.addEventListener("message", function(messageEvent) {
-  if (messageEvent.name != "canLoad")
-    return;
 
-  if (adblockIsPaused() || page_is_whitelisted(messageEvent.target.url)) {
-    messageEvent.message = true;
-    return;
-  }
+  if (messageEvent.name === "request" &&
+      messageEvent.message.data.args.length >= 2 &&
+      messageEvent.message.data.args[0] &&
+      messageEvent.message.data.args[1] &&
+      messageEvent.message.data.args[1].tab &&
+      messageEvent.message.data.args[1].tab.url) {
+        var args = messageEvent.message.data.args;
+        if (!messageEvent.target.url ||
+            messageEvent.target.url === args[1].tab.url) {
+            frameData.create(messageEvent.target.id, args[1].tab.url, args[0].domain);
+        } else if (messageEvent.target.url === frameData.get(messageEvent.target.id).url) {
+            frameData.reset(messageEvent.target.id, args[1].tab.url);
+        }
+        return;
+    }
 
-  var url = messageEvent.message.url;
-  var elType = messageEvent.message.elType;
-  var frameDomain = messageEvent.message.frameDomain;
+    if (messageEvent.name != "canLoad")
+        return;
 
-  var isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain));
-  if (isMatched)
-    log("SAFARI TRUE BLOCK " + url + ": " + isMatched);
-  messageEvent.message = !isMatched;
+    var tab = messageEvent.target;
+    var frameInfo = messageEvent.message.frameInfo;
+    chrome._tabInfo.notice(tab, frameInfo);
+    var sendingTab = chrome._tabInfo.info(tab, frameInfo.visible);
+
+    if (adblock_is_paused() || page_is_unblockable(sendingTab.url) ||
+        page_is_whitelisted(sendingTab.url)) {
+        messageEvent.message = true;
+        return;
+    }
+
+    var url = messageEvent.message.url;
+    var elType = messageEvent.message.elType;
+    var frameDomain = messageEvent.message.frameDomain;
+
+    frameData.storeResource(tab.id, url, elType);
+
+    var isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain));
+    if (isMatched)
+        log("SAFARI TRUE BLOCK " + url + ": " + isMatched);
+    messageEvent.message = !isMatched;
 }, false);
 
-// Allows us to figure out the window for commands sent from the menu. Not used in Safari 5.0.
-var windowByMenuId = {};
-
-safari.application.addEventListener("command", function(event) {
-  // It is possible to do perform a command without activating a window
-  // (at least on Mac). That means we can't blindly perform actions in activeWindow,
-  // otherwise users would be very confused. So let's figure out which window sent the command.
-
-  var browserWindow;
-  if (event.target.browserWindow) {
-    // Context menu item event or button event on Safari 5.0, browserWindow is available in event.target.
-    browserWindow = event.target.browserWindow;
-  } else if (event.target instanceof SafariExtensionMenuItem) {
-    // Identifier will be of the form menuId:command, let's use this to get our window
-    var menuId = event.target.identifier.split(':')[0];
-    browserWindow = windowByMenuId[menuId];
-  } else {
-    // browserWindow is not available in event.target for context menu item events in Safari 5.1.
-    browserWindow = safari.application.activeBrowserWindow;
-  }
-  var command = event.command;
-
-  if (command === "AdBlockOptions") {
-    openTab("options/index.html", false, browserWindow);
-  } else if (command === "toggle-pause") {
-    if (adblockIsPaused()) {
-      sessionStorage.removeItem('adblock_is_paused');
-    } else {
-      sessionStorage.setItem('adblock_is_paused', true);
-    }
-  } else if (command === "whitelist-currentpage") {
-    var tab = browserWindow.activeTab;
-    create_page_whitelist_filter(tab.url);
-    tab.url = tab.url;
-  } else if (command === "unwhitelist-currentpage") {
-    var tab = browserWindow.activeTab;
-    var unwhitelisted = false;
-    while (try_to_unwhitelist(tab.url)) {
-      unwhitelisted = true;
-    }
-    if (unwhitelisted) {
-      tab.url = tab.url;
-    }
-  } else if (command === "report-ad") {
-    var url = "pages/adreport.html?url=" + escape(browserWindow.activeTab.url);
-    openTab(url, true, browserWindow);
-  } else if (command in {"show-whitelist-wizard": 1, "show-blacklist-wizard": 1, "show-clickwatcher-ui": 1 }) {
-    browserWindow.activeTab.page.dispatchMessage(command);
-  }
-}, false);
-
-// Starting with 5.1, we can attach menus to toolbar items. If safari.extension.createMenu is available,
-// we can make the toolbar button display a proper menu with items from Chrome's popup.
+// Code for creating popover, not available on Safari 5.0
 if (!LEGACY_SAFARI) {
-  (function() {
-    // Unfortunately, Safari API kinda sucks. Command events sent from toolbar menu items don't include a
-    // reference to the browser window that sent them, same goes for the Menu events. This unfortunately
-    // means that we have to create a separate instance of menu for each browser window.
+    var ABPopover = safari.extension.createPopover("AdBlock", safari.extension.baseURI + "button/popup.html");
 
-    // Menu identifiers must be unique, we'll just name them sequentially.
-    var nextMenuId = (function() {
-      var counter = 0;
-      return function() {
-        var id = counter++;
-        return "ABMainMenu_" + id;
-      }
-    })();
-
-    function createMenu(toolbarItem) {
-      var menu = safari.extension.createMenu(nextMenuId());
-
-      windowByMenuId[menu.identifier] = toolbarItem.browserWindow;
-
-      // Attach the menu to the toolbar item
-      toolbarItem.menu = menu;
-      toolbarItem.toolTip = "AdBlock"; // change the tooltop on Safari 5.1+
-      toolbarItem.command = null; // otherwise Safari will only show the menu on long-press
+    function setPopover(popover) {
+        for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
+            safari.extension.toolbarItems[i].popover = popover;
+            var toolbarItem = safari.extension.toolbarItems[i];
+            toolbarItem.popover = popover;
+            toolbarItem.toolTip = "AdBlock"; // change the tooltip on Safari 5.1+
+            toolbarItem.command = null;
+        }
     }
 
-    function removeMenu(menu) {
-      delete windowByMenuId[menu.identifier];
-      safari.extension.removeMenu(menu.identifier);
+    // Code for removing popover
+    function removePopover(popover) {
+        safari.extension.removePopover(popover);
     }
+
+    // Reload popover when opening/activating tab, or URL was changed
+    safari.application.addEventListener("activate", function(event) {
+        if (event.target instanceof SafariBrowserTab) {
+            safari.extension.popovers[0].contentWindow.location.reload();
+            // Hide popover, when new tab has been opened
+            if (ABPopover.visible)
+                ABPopover.hide();
+        }
+    }, true);
+
+    safari.application.addEventListener("popover", function(event) {
+        safari.extension.popovers[0].contentWindow.location.reload();
+    }, true);
 
     safari.application.addEventListener("validate", function(event) {
-      if (event.target instanceof SafariExtensionToolbarItem) {
-        var item = event.target;
-
-        if (item.browserWindow && !item.menu) {
-          // Check if only this item lacks a menu (which means user just opened a new window) or there are multiple items
-          // lacking a menu (which only happens on browser startup or when the user removes AdBlock toolbar item and later
-          // drags it back).
-          var uninitializedItems = 0;
-          for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
-            var item = safari.extension.toolbarItems[i];
-            if (!item.menu) {
-              uninitializedItems++;
-            }
-          }
-
-          if (uninitializedItems > 1) {
-            // Browser startup or toolbar item added back to the toolbar. To prevent memory leaks in the second case,
-            // we need to remove all previously created menus and window mappings (as they are now invalid).
-            var menus = safari.extension.menus;
-            for (var i = 0; i < menus.length; i++) {
-              removeMenu(menus[i]);
-            }
-
-            // And now recreate the menus for toolbar items in all windows.
-            for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
-              createMenu(safari.extension.toolbarItems[i]);
-            }
-          } else {
-            // New window opened, just create a menu for this window's item.
-            createMenu(item);
-          }
+        if (event.target instanceof SafariExtensionToolbarItem) {
+            var item = event.target;
+                if (item.browserWindow && !item.popover) {
+                    // Check if only this item lacks a popover (which means user just opened a new window) or there are multiple items
+                    // lacking a popover (which only happens on browser startup or when the user removes AdBlock toolbar item and later
+                    // drags it back).
+                    var uninitializedItems = 0;
+                    for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
+                        var item = safari.extension.toolbarItems[i];
+                        if (!item.popover) {
+                            uninitializedItems++;
+                        }
+                    }
+                    if (uninitializedItems > 1) {
+                        // Browser startup or toolbar item added back to the toolbar. To prevent memory leaks in the second case,
+                        // we need to remove all previously created popovers.
+                        for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
+                            removePopover(ABPopover);
+                        }
+                        // And now recreate the popover for toolbar items in all windows.
+                        setPopover(ABPopover);
+                    } else {
+                        // New window has been opened, create popover for it
+                        setPopover(ABPopover);
+                    }
+                }
         }
-      }
     }, true);
 
-    // Remove the menu when the window closes so we don't leak memory.
+    // Remove the popover when the window closes so we don't leak memory.
     safari.application.addEventListener("close", function(event) {
-      if (event.target instanceof SafariBrowserWindow) { // don't handle tabs
-        for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
-          var item = safari.extension.toolbarItems[i];
-          if (item.browserWindow === event.target) {
-            var menu = item.menu;
+        if (event.target instanceof SafariBrowserWindow) { // don't handle tabs
+            for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
+                var item = safari.extension.toolbarItems[i];
+                if (item.browserWindow === event.target) {
+                    var popover = item.popover;
 
-            // Safari docs say that we must detach menu from toolbar items before removing.
-            item.menu = null;
+                    // Safari docs say that we must detach popover from toolbar items before removing.
+                    item.popover = null;
 
-            // Remove the menu and window mapping.
-            removeMenu(menu);
-            break;
-          }
+                    // Remove the popover.
+                    removePopover(ABPopover);
+                    break;
+                }
+            }
         }
-      }
     }, true);
-
-    // As there is no API to toggle visibility of toolbar items, we'd have to dynamically append and remove
-    // them when something changes. Instead, let's just cheat and recreate the whole menu when the user
-    // tries to open it.
-    safari.application.addEventListener("menu", function(event) {
-      var menu = event.target;
-
-      if (menu.identifier.indexOf("ABMainMenu_") === 0) {
-        while (menu.menuItems.length > 0) {
-          menu.removeMenuItem(0);
-        }
-
-        // Menu item identifiers must be unique and we need some way to figure out the
-        // window by menu item, so let's prefix them with menu ID.
-        function itemIdentifier(identifier) {
-          return menu.identifier + ':' + identifier;
-        }
-        function appendMenuItem(command, title, checked) {
-          var item = menu.appendMenuItem(itemIdentifier(command), title, command);
-          if (checked) {
-            item.checkedState = SafariExtensionMenuItem.CHECKED;
-          }
-        }
-
-        var url = windowByMenuId[menu.identifier].activeTab.url;
-        var paused = adblockIsPaused();
-        var canBlock = !page_is_unblockable(url);
-        var whitelisted = page_is_whitelisted(url);
-
-        appendMenuItem("toggle-pause", translate("pause_adblock"), paused);
-        if (!paused && canBlock) {
-          if (whitelisted) {
-            // Show one checked "Don't run on this page" item that would un-whitelist the page.
-            // That doesn't correspond one-to-one with whitelisting items (there are two of them,
-            // one that whitelists specific page and one that whitelists the domain), but this doesn't
-            // require changing anything in translations and works nice anyway.
-            appendMenuItem("unwhitelist-currentpage", translate("dont_run_on_this_page"), true);
-          } else {
-            appendMenuItem("show-clickwatcher-ui", translate("block_an_ad_on_this_page"));
-            appendMenuItem("whitelist-currentpage", translate("dont_run_on_this_page"));
-            appendMenuItem("show-whitelist-wizard", translate("dont_run_on_pages_on_domain"));
-          }
-        }
-        menu.appendSeparator(itemIdentifier("separator"));
-        if (!paused && canBlock && !whitelisted && get_settings().show_advanced_options) {
-          appendMenuItem("report-ad", translate("report_ad_on_page"));
-        }
-        appendMenuItem("AdBlockOptions", translate("options"));
-      }
-    })
-  })();
 }
+
+// Set commands for whitelist, blacklist and undo my blocks wizards
+safari.application.addEventListener("command", function(event) {
+    var browserWindow;
+    if (event.target.browserWindow) {
+        // Context menu item event or button event on Safari 5.0, browserWindow is available in event.target.
+        browserWindow = event.target.browserWindow;
+    } else {
+        // browserWindow is not available in event.target for context menu item events in Safari 5.1.
+        browserWindow = safari.application.activeBrowserWindow;
+    }
+    var command = event.command;
+
+    if (command === "AdBlockOptions") {
+        openTab("options/index.html", false, browserWindow);
+    } else if (command in {"show-whitelist-wizard": 1, "show-blacklist-wizard": 1, "show-clickwatcher-ui": 1 }) {
+        browserWindow.activeTab.page.dispatchMessage(command);
+    }
+}, false);
+
+var dispatchMessage = function(command) {
+    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage(command);
+};
 
 // Open Options page upon settings checkbox click.
 safari.extension.settings.openAdBlockOptions = false;
 safari.extension.settings.addEventListener("change", function(e) {
-  if (e.key == 'openAdBlockOptions')
-    openTab("options/index.html");
+    if (e.key == 'openAdBlockOptions')
+        openTab("options/index.html");
 }, false);
 
 // Add context menus
 safari.application.addEventListener("contextmenu", function(event) {
-  if (!event.userInfo)
-    return;
-  if (!get_settings().show_context_menu_items || adblockIsPaused())
-    return;
+    if (!event.userInfo)
+        return;
+    if (!get_settings().show_context_menu_items || adblock_is_paused())
+        return;
 
-  var url = event.target.url;
-  if (!page_is_unblockable(url) && !page_is_whitelisted(url)) {
+    var url = event.target.url;
+    if (page_is_unblockable(url) || page_is_whitelisted(url))
+        return;
+
     event.contextMenu.appendContextMenuItem("show-blacklist-wizard", translate("block_this_ad"));
     event.contextMenu.appendContextMenuItem("show-clickwatcher-ui", translate("block_an_ad_on_this_page"));
-  }
+
+    var host = parseUri(url).host;
+    if (count_cache.getCustomFilterCount(host) && !LEGACY_SAFARI_51)
+        event.contextMenu.appendContextMenuItem("undo-last-block", translate("undo_last_block"));
 }, false);
+
+// On close event fires when tab is about to close,
+// not when tab was closed. Therefore we need to remove
+// frameData[tabId] after "close" event has been fired.
+safari.application.addEventListener("close", function(event) {
+    setTimeout(function() {
+        if (safari.application.activeBrowserWindow) {
+            var opened_tabs = [];
+            var safari_tabs = safari.application.activeBrowserWindow.tabs;
+
+            for (var i=0; i < safari_tabs.length; i++)
+                opened_tabs.push(safari_tabs[i].id);
+
+            for (tab in frameData) {
+                if (typeof frameData[tab] === "object" && opened_tabs.indexOf(parseInt(tab)) === -1) {
+                    frameData.close(parseInt(tab));
+                }
+            }
+        }
+    }, 150);
+}, true);

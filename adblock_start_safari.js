@@ -1,24 +1,22 @@
 // If the background image is an ad, remove it.
 function blockBackgroundImageAd() {
-  var bgImage = window.getComputedStyle(document.body)["background-image"] || "";
-  var match = bgImage.match(/^url\((.*)\)$/);
-  if (match)
-    bgImage = match[1];
-  if (bgImage && bgImage !== "none") {
-    var hiddenImage = document.createElement("img");
-      hiddenImage.src = bgImage;
-      hiddenImage.setAttribute("width", "0");
-      hiddenImage.setAttribute("height", "0");
-      hiddenImage.style.setProperty("display", "none", "important");
-      hiddenImage.style.setProperty("visibility", "hidden", "important");
-    document.body.appendChild(hiddenImage);
-    window.setTimeout(function() {
-      if (hiddenImage.style.opacity === "0") {
-        document.body.style.setProperty("background-image", "none", "important");
-      }
-      document.body.removeChild(hiddenImage);
-    }, 1);
-  }
+  var bgImage = getComputedStyle(document.body)["background-image"] || "";
+  var match = bgImage.match(/^url\((.+)\)$/);
+  if (!match)
+    return;
+  var hiddenImage = document.createElement("img");
+    hiddenImage.src = match[1];
+    hiddenImage.setAttribute("width", "0");
+    hiddenImage.setAttribute("height", "0");
+    hiddenImage.style.setProperty("display", "none");
+    hiddenImage.style.setProperty("visibility", "hidden");
+  document.body.appendChild(hiddenImage);
+  window.setTimeout(function() {
+    if (hiddenImage.style.opacity === "0") {
+      document.body.style.setProperty("background-image", "none");
+    }
+    document.body.removeChild(hiddenImage);
+  }, 1);
 }
 
 // Remove background images and purged elements.
@@ -38,12 +36,14 @@ function weakDestroyElement(el, elType) {
 
 beforeLoadHandler = function(event) {
   var el = event.target;
+  if (!el.nodeName) return; // issue 6256
   // Cancel the load if canLoad is false.
   var elType = typeForElement(el);
   var data = {
     url: relativeToAbsoluteUrl(event.url),
     elType: elType,
-    frameDomain: document.location.hostname
+    frameDomain: document.location.hostname,
+    frameInfo: chrome._tabInfo.gatherFrameInfo()
   };
   if (!safari.self.tab.canLoad(event, data)) {
 

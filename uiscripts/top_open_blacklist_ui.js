@@ -8,6 +8,9 @@ function top_open_blacklist_ui(options) {
 
   may_open_dialog_ui = false;
 
+  // Get Flash objects out of the way of our UI
+  BGcall('emit_page_broadcast', {fn:'send_content_to_back', options:{}});
+
   load_jquery_ui(function() {
     // If they chose "Block an ad on this page..." ask them to click the ad
     if (options.nothing_clicked)
@@ -23,6 +26,16 @@ function top_open_blacklist_ui(options) {
     }
     if (rightclicked_item && rightclicked_item.nodeName == "BODY")
       rightclicked_item = null;
+    //check if we're running on website with a frameset, if so, tell
+    //the user we can't run on it.
+    if ($("frameset").length >= 1) {
+        alert(translate('wizardcantrunonframesets'));
+        may_open_dialog_ui = true;
+        $(".adblock-ui-stylesheet").remove();
+        return;
+    }
+
+
     BGcall("get_settings", function(settings) {
       var advanced_user = settings.show_advanced_options;
       var blacklist_ui = new BlacklistUi(rightclicked_item, advanced_user);
@@ -37,8 +50,9 @@ function top_open_blacklist_ui(options) {
       });
       blacklist_ui.show();
     });
-
+    bind_enter_click_to_default();
   });
 }
+
 
 //@ sourceURL=/uiscripts/top_open_blacklist_ui.js

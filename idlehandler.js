@@ -4,10 +4,12 @@
 //         seconds: maximum time to wait upon idle, in seconds. 600 if omitted.
 var idleHandler = {
   scheduleItemOnce:
-    // In  Safari, execute the function immediately. It doesn't support idle
     function(callback, seconds) {
+      // In  Safari, execute the function with only the minimum idle delay.
+      // It doesn't support idle, but at least we make sure that functions
+      // don't execute when we're too busy to handle them.
       if (SAFARI) {
-        callback();
+        window.setTimeout(callback, 15000);
         return;
       }
       // In Chrome, schedule the item to be executed

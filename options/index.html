@@ -1,40 +1,48 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title i18n="optionstitle"></title>
+    <link rel="stylesheet" href="../jquery/css/jquery-ui.custom.css" />
     <link rel="stylesheet" href="options.css" />
     <link rel="stylesheet" href="../catblock/options/catblock.css" />
-    <link rel="stylesheet" href="../jquery/css/custom-theme/jquery-ui-1.8.custom.css" />
     <script src="../jquery/jquery.min.js"></script>
     <script src="../port.js"></script>
     <script src="../jquery/jquery.cookie.js"></script>
     <script src="../jquery/jquery-ui.custom.min.js"></script>
     <script src="../functions.js"></script>
+    <script src="../checkupdates.js"></script>
+    <script src="../dropbox-datastores.js"></script>
+    <script src="index.js"></script>
   </head>
   <body>
-    <div style="float:right;">
-      <div id="translation_credits"></div>
-      <span id="version_number"></span>
-    </div>
-    <h1 class="icon" i18n="optionstitle"></h1>
 
-    <div class="noticecontainer">
-      <div class="notice" id="safari50_updatenotice" i18n="safari50_updatenotice" i18n_replacement_el="safari50_update_link"></div>
-      <a id="safari50_update_link" href="http://www.apple.com/safari/" target="_blank"></a>
-    </div>
+   <header id="header">
+      <div class="wrap">
+        <a class="left adblock-logo"><img src="../img/logo.png"></a>
+      </div>
+     <div id="small_nav"></div>
+    </header>
 
-    <div style="margin: 1em 0px; font-size: 16px">
-      <div class="link" id="paymentlink" i18n="did_you_know_this_is_my_full_time_job"></div>
-    </div>
+    <div id="translation_credits"><span id="translator_credit"></span> <span id="translator_names"></span></div>
 
     <div id="tabpages">
       <ul>
-        <li><a href="general.html" data-scripts="general.js"><span i18n="tabgeneral"></span></a></li>
+        <li data-scripts="general.js"><a href="general.html"><span i18n="tabgeneral"></span></a></li>
+        <li data-scripts="filters.js"><a href="filters.html"><span i18n="tabfilterlists"></span></a></li>
+        <li data-scripts="../catblock/options/catblock.js"><a href="../catblock/options/catblock.html"><span>CatBlock</span></a></li>
         <!-- Safari requires ../filtering instead of /filtering because safari.extension.baseURI ends with /a/path/ -->
-        <li><a href="../catblock/options/catblock.html" data-scripts="../catblock/options/catblock.js ../catblock/channels.js"><span>CatBlock</span></a></li>
-        <li><a href="filters.html" data-scripts="filters.js"><span i18n="tabfilterlists"></span></a></li>
-        <li><a href="customize.html" data-scripts="../filtering/filternormalizer.js ../filtering/filtertypes.js ../filtering/filteroptions.js customize.js"><span i18n="tabcustomize"></span></a></li>
+        <li data-scripts="../filtering/domainset.js ../filtering/filternormalizer.js ../filtering/filtertypes.js ../filtering/filteroptions.js customize.js"><a href="customize.html"><span i18n="tabcustomize" class="menubuttons"></span></a></li>
+        <li data-scripts="support.js"><a href="support.html"><span i18n="tabsupport"></span></a></li>
       </ul>
     </div>
-    <script src="index.js"></script>
+
+       <div class="noticecontainer">
+      <div class="notice" id="safari50_updatenotice" i18n="safari50_updatenotice" i18n_replacement_el="safari50_update_link"></div>
+      <a id="safari50_update_link" href="https://www.apple.com/safari/" target="_blank"></a>
+    </div>
+
+    <footer>
+     <span id="version_number"></span>
+    </footer>
   </body>
 </html>

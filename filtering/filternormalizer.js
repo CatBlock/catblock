@@ -2,6 +2,16 @@
 // invalid filters.
 var FilterNormalizer = {
 
+  userExcludedFilterArray: [],
+
+  setExcludeFilters: function(text) {
+    if (text) {
+        userExcludedFilterArray = text.split('\n');
+    } else {
+        userExcludedFilterArray = null;
+    }
+  },
+
   // Normalize a set of filters.
   // Remove broken filters, useless comments and unsupported things.
   // Input: text:string filter strings separated by '\n'
@@ -50,11 +60,17 @@ var FilterNormalizer = {
         return false;
 
     // Convert old-style hiding rules to new-style.
-    if (/#[\*a-z0-9_\-]*(\(|$)/.test(filter) && !/##/.test(filter)) {
+    if (/#[\*a-z0-9_\-]*(\(|$)/.test(filter) && !/\#\@?\#./.test(filter)) {
       // Throws exception if unparseable.
       var oldFilter = filter;
       filter = FilterNormalizer._old_style_hiding_to_new(filter);
       log('Converted ' + oldFilter + ' to ' + filter);
+    }
+    if (typeof userExcludedFilterArray !== 'undefined' &&
+        userExcludedFilterArray &&
+        userExcludedFilterArray.length > 0 &&
+        userExcludedFilterArray.indexOf(filter) >= 0) {
+            return null;
     }
 
     // If it is a hiding rule...
@@ -63,7 +79,7 @@ var FilterNormalizer = {
 
       try {
         // Throws if the filter is invalid...
-        var selectorPart = filter.substr(filter.indexOf("##") + 2);
+        var selectorPart = filter.replace(/^.*?\#\@?\#/, '');
         if (document.querySelector(selectorPart + ',html').length === 0)
           throw "Causes other filters to fail";
       } catch(ex) {
@@ -73,18 +89,13 @@ var FilterNormalizer = {
 
       // On a few sites, we have to ignore [style] rules.
       // Affects Chrome (crbug 68705) and Safari (issue 6225).
+      // Don't exclude the sites unless the filter would apply to them, or
+      // loading the site will hang in Safari 6 while Safari creates a bunch of
+      // one-off style sheets (issue 7356).
       if (/style([\^\$\*]?=|\])/.test(filter)) {
-        var ignoreStyleRulesOnTheseSites = "~mail.google.com,~mail.yahoo.com";
-        if (filter.indexOf(ignoreStyleRulesOnTheseSites) == -1) {
-          if (filter[0] != "#") ignoreStyleRulesOnTheseSites += ",";
-          filter = ignoreStyleRulesOnTheseSites + filter;
-        }
+        var excludedDomains = ["mail.google.com", "mail.yahoo.com"];
+        filter = FilterNormalizer._ensureExcluded(filter, excludedDomains);
       }
-
-      // This was a filter which only worked in older Gecko browsers (FF3)
-      // They'll never match in WebKit browsers.
-      if (/\~pregecko2.*\#\#/.test(filter))
-        return null;
 
       var parsedFilter = new SelectorFilter(filter);
 
@@ -97,16 +108,47 @@ var FilterNormalizer = {
       if (!Filter.isWhitelistFilter(filter) && hasWhitelistOptions)
         throw "$document and $elemhide may only be used on whitelist filters";
 
+      // We are ignoring Hulu whitelist filter, so user won't see ads in videos
+      // but just a message about using AdBlock - Issue 7178
+      // We are also ignoring Google whitelist filter to prevent whitelisting some ads
+      // e.g. on YouTube by Danish filter list - Issue #264
+      if (!SAFARI &&
+          (/^\@\@\|\|hulu\.com\/published\/\*\.(flv|mp4)$/.test(filter) ||
+         /^\@\@\googleads.g.doubleclick.net/.test(filter))) {
+        return null; // Hulu-only: background.js implements this rule more specifically
+      }
+
       // In Safari, ignore rules with only Chrome-specific types (no-ops).
       if (SAFARI && types === (types & ElementTypes.CHROMEONLY))
         return null;
     }
 
     // Ignore filters whose domains aren't formatted properly.
-    FilterNormalizer._verifyDomains(parsedFilter._domains);
+    FilterNormalizer.verifyDomains(parsedFilter._domains);
+
+    // Ensure filter doesn't break AdBlock
+    FilterNormalizer._checkForObjectProperty(filter);
 
     // Nothing's wrong with the filter.
     return filter;
+  },
+
+  // Return |selectorFilterText| modified if necessary so that it applies to no
+  // domain in the |excludedDomains| list.
+  // Throws if |selectorFilterText| is not a valid filter.
+  // Example: ("a.com##div", ["sub.a.com", "b.com"]) -> "a.com,~sub.a.com##div"
+  _ensureExcluded: function(selectorFilterText, excludedDomains) {
+    var text = selectorFilterText;
+    var filter = new SelectorFilter(text);
+    var mustExclude = excludedDomains.filter(function(domain) {
+      return filter._domains._computedHas(domain);
+    });
+    if (mustExclude.length > 0) {
+      var toPrepend = "~" + mustExclude.join(",~");
+      if (text[0] != "#") toPrepend += ",";
+      text = toPrepend + text;
+    }
+    return text;
   },
 
   // Convert an old-style hiding rule to a new one.
@@ -155,15 +197,26 @@ var FilterNormalizer = {
     return domain + "##" + resultFilter;
   },
 
-  // Throw an exception if the input contains invalid domains.
-  // Input: domainInfo: { applied_on:array, not_applied_on:array }, where each
-  //                    array entry is a domain.
-  _verifyDomains: function(domainInfo) {
-    for (var name in { "applied_on":1, "not_applied_on":1 }) {
-      for (var i = 0; i < domainInfo[name].length; i++) {
-        if (/^([a-z0-9\-_\u00DF-\u00F6\u00F8-\uFFFFFF]+\.)*[a-z0-9\u00DF-\u00F6\u00F8-\uFFFFFF]+$/i.test(domainInfo[name][i]) == false)
-          throw "Invalid domain: " + domainInfo[name][i];
-      }
+  // Checks if the filter is an object property, which we should not overwrite.
+  // See Issue 7117.
+  // Throw an exeption if that's the case
+  // Input: text (string): the item to check
+  _checkForObjectProperty: function(text) {
+    if (text in Object)
+      throw "Filter causes problems in the code";
+  },
+
+  // Throw an exception if the DomainSet |domainSet| contains invalid domains.
+  verifyDomains: function(domainSet) {
+    for (var domain in domainSet.has) {
+      if (domain === DomainSet.ALL)
+        continue;
+      if (/^([a-z0-9\-_\u00DF-\u00F6\u00F8-\uFFFFFF]+\.)*[a-z0-9\u00DF-\u00F6\u00F8-\uFFFFFF]+\.?$/i.test(domain) == false)
+        throw Error("Invalid domain: " + domain);
+      // Ensure domain doesn't break AdBlock
+      FilterNormalizer._checkForObjectProperty(domain);
     }
   }
 }
+//Initialize the exclude filters at startup
+FilterNormalizer.setExcludeFilters(storage_get('exclude_filters'));

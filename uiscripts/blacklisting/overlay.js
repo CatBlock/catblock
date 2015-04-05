@@ -4,15 +4,11 @@ Overlay = function(options) {
 
   this.image = $("<div class='adblock-killme-overlay'></div>").
     css({
-      "position": "absolute",
       "left": el.position().left,
-      "top": el.position().top,
-      "z-index": 1000000
+      "top": el.position().top
     }).
     width(el.width()).
     height(el.height());
-  this.image[0].style.setProperty(
-    "background-color", "transparent", "important"); // crbug.com/110084
   this.el = el;
   this.click_handler = options.click_handler;
   
