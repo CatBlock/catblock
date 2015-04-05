@@ -1,3 +1,6 @@
+//cache a reference to window.confirm
+//so that web sites can not clobber the default implementation
+var abConfirm = window.confirm;
 // Return the ElementType element type of the given element.
 function typeForElement(el) {
   // TODO: handle background images that aren't just the BODY.
@@ -126,12 +129,7 @@ function debug_print_selector_matches(selectors) {
         var el = elems[i];
         matches += "        " + el.nodeName + "#" + el.id + "." + el.className + "\n";
       }
-      if (SAFARI) {
-        log("Debug: CSS '" + selector + "' hid:");
-        log(matches);
-      }
-      else
-        BGcall("debug_report_elemhide", selector, matches);
+      BGcall("debug_report_elemhide", selector, matches);
     });
 }
 
@@ -147,17 +145,21 @@ function handleABPLinkClicks() {
       var reqLoc = queryparts.requiresLocation;
       var reqList = (reqLoc ? "url:" + reqLoc : undefined);
       var title = queryparts.title;
-      BGcall("subscribe", {id: "url:" + loc, requires: reqList, title: title});
-      // Open subscribe popup
-      if (SAFARI) {
-          // In Safari, window.open() cannot be used
-          // to open a new window from our global HTML file
-          window.open(chrome.extension.getURL('pages/subscribe.html?' + loc),
-                      "_blank",
-                      'scrollbars=0,location=0,resizable=0,width=450,height=150');
-      } else {
-          BGcall("launch_subscribe_popup", loc);
-      }
+      BGcall('translate', "subscribeconfirm",(title || loc), function(translatedMsg) {
+        if (abConfirm(translatedMsg)) {
+          BGcall("subscribe", {id: "url:" + loc, requires: reqList, title: title});
+          // Open subscribe popup
+          if (SAFARI) {
+            // In Safari, window.open() cannot be used
+            // to open a new window from our global HTML file
+            window.open(chrome.extension.getURL('pages/subscribe.html?' + loc),
+                        "_blank",
+                        'scrollbars=0,location=0,resizable=0,width=450,height=150');
+          } else {
+            BGcall("launch_subscribe_popup", loc);
+          }
+        }
+      });
     }
   };
   for (var i=0; i<elems.length; i++) {
@@ -195,6 +197,8 @@ function adblock_begin(inputs) {
   BGcall('get_content_script_data', opts, function(data) {
     if (data && data.settings && data.settings.debug_logging)
       logging(true);
+
+    inputs.handleHiding(data);
 
     if (!data.running) {
       inputs.stopPurger();

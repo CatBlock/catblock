@@ -2,10 +2,19 @@ function load_options() {
     // Check or uncheck each option.
     BGcall("get_settings", function(settings) {
         optionalSettings = settings;
+        var activeTab  = $.cookie('activetab');
+        if (window.location && 
+            window.location.search) {
+            var searchQuery = parseUri.parseSearch(window.location.search);
+            if (searchQuery &&
+                searchQuery.tab) {
+                activeTab = searchQuery.tab;
+            }
+        }        
         $("#tabpages").
         tabs({
             // Go to the last opened tab
-            active: $.cookie('activetab'),
+            active: activeTab,
             activate: function(event, ui) {
                 $.cookie('activetab', ui.newTab.index(), {
                     expires : 10
@@ -32,6 +41,8 @@ function load_options() {
                     $(".advanced").hide();
                 if (SAFARI)
                     $(".chrome-only").hide();
+                if (!SAFARI)
+                    $(".safari-only").hide();
 
                 // Must load tab .js here: CSP won't let injected html inject <script>
                 // see index.html:data-scripts
@@ -107,6 +118,12 @@ function displayVersionNumber() {
     xhr.send();
   } catch (ex) {} // silently fail
 }
+
+BGcall("storage_get", "userid", function(userId) {
+    var paymentHREFhref = "https://getadblock.com/pay/?source=O&u=" + userId;
+    $("#paymentlink").attr("href", paymentHREFhref);
+});
+
 
 function displayTranslationCredit() {
     if (navigator.language.substring(0, 2) != "en") {

@@ -403,6 +403,16 @@ if (SAFARI) {
     })()
 
   };
+  //the property id is defined here so that we can invoke it without
+  //the need for parentheses
+  //for example `chrome.runtime.id`
+  //should return "com.betafish.adblockforsafari-UAMUU452D9"
+  Object.defineProperty(chrome.runtime, "id", {
+    get: function() {
+      return parseUri(safari.extension.baseURI).host;
+    },
+    set: undefined
+  });
 }
 
 })(); } // end if (typeof SAFARI == "undefined") { (function() {

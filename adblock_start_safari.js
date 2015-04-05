@@ -35,6 +35,10 @@ function weakDestroyElement(el, elType) {
 };
 
 beforeLoadHandler = function(event) {
+  // Since we don't block non-HTTP requests, return
+  // without asking the background page.
+  if (/^(?!https?:)[\w-]+:/.test(event.url))
+    return;  
   var el = event.target;
   if (!el.nodeName) return; // issue 6256
   // Cancel the load if canLoad is false.
@@ -54,10 +58,24 @@ beforeLoadHandler = function(event) {
     if (beforeLoadHandler.blockCount > 250) {
       log("ABORTING: blocked over 250 requests, probably an infinite loading loop");
       beforeLoadHandler.blockCount = 0;
-    } else
+    } else {
       event.preventDefault();
-
-    picinjection.augmentBlockedElIfRightType(event.target);
+      // from ABP - content.js 
+      // Safari doesn't dispatch the expected events for elements that have been
+      // prevented from loading by having their "beforeload" event cancelled.
+      // That is a "load" event for blocked frames, and an "error" event for
+      // other blocked elements. We need to dispatch those events manually here
+      // to avoid breaking element collapsing and pages that rely on those events.
+      var eventName = "error";
+      if (event.target.localName === "iframe") {
+        eventName = "load";    
+      }
+      setTimeout(function() {
+        var evt = document.createEvent("Event");
+        evt.initEvent(eventName);
+        event.target.dispatchEvent(evt);
+      }, 0);      
+    }
     if (!weakDestroyElement(el, elType))
       destroyElement(el, elType);
   }

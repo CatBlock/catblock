@@ -81,10 +81,10 @@ var FilterNormalizer = {
         // Throws if the filter is invalid...
         var selectorPart = filter.replace(/^.*?\#\@?\#/, '');
         if (document.querySelector(selectorPart + ',html').length === 0)
-          throw "Causes other filters to fail";
+          throw new Error("Causes other filters to fail");
       } catch(ex) {
         // ...however, the thing it throws is not human-readable. This is.
-        throw "Invalid CSS selector syntax";
+        throw new Error("Invalid CSS selector syntax");
       }
 
       // On a few sites, we have to ignore [style] rules.
@@ -106,7 +106,7 @@ var FilterNormalizer = {
       var whitelistOptions = (ElementTypes.document | ElementTypes.elemhide);
       var hasWhitelistOptions = types & whitelistOptions;
       if (!Filter.isWhitelistFilter(filter) && hasWhitelistOptions)
-        throw "$document and $elemhide may only be used on whitelist filters";
+        throw new Error("$document and $elemhide may only be used on whitelist filters");
 
       // We are ignoring Hulu whitelist filter, so user won't see ads in videos
       // but just a message about using AdBlock - Issue 7178
@@ -169,7 +169,7 @@ var FilterNormalizer = {
     //    the ()s can't be empty, and can't start with '='
     if (rule.length == 0 ||
         !/^(?:\*|[a-z0-9\-_]*)(?:\([^=][^\)]*?\))*$/i.test(rule))
-      throw "bad selector filter";
+      throw new Error("bad selector filter");
 
     var first_segment = rule.indexOf('(');
 
@@ -203,7 +203,7 @@ var FilterNormalizer = {
   // Input: text (string): the item to check
   _checkForObjectProperty: function(text) {
     if (text in Object)
-      throw "Filter causes problems in the code";
+      throw new Error("Filter causes problems in the code");
   },
 
   // Throw an exception if the DomainSet |domainSet| contains invalid domains.
@@ -212,11 +212,15 @@ var FilterNormalizer = {
       if (domain === DomainSet.ALL)
         continue;
       if (/^([a-z0-9\-_\u00DF-\u00F6\u00F8-\uFFFFFF]+\.)*[a-z0-9\u00DF-\u00F6\u00F8-\uFFFFFF]+\.?$/i.test(domain) == false)
-        throw Error("Invalid domain: " + domain);
+        throw new Error("Invalid domain: " + domain);
       // Ensure domain doesn't break AdBlock
       FilterNormalizer._checkForObjectProperty(domain);
     }
   }
 }
 //Initialize the exclude filters at startup
-FilterNormalizer.setExcludeFilters(storage_get('exclude_filters'));
+try { 
+    FilterNormalizer.setExcludeFilters(storage_get('exclude_filters'));
+} catch(e) {
+    //ignore exception in Safari on options / resource block pages
+}

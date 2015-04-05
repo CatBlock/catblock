@@ -114,11 +114,19 @@ parseUri = function(url) {
 // Inputs: search: the search query of a URL. Must have &-separated values.
 parseUri.parseSearch = function(search) {
   // Fails if a key exists twice (e.g., ?a=foo&a=bar would return {a:"bar"}
-  var queryKeys = {};
-  search.replace(/(?:^\?|&)([^&=]*)=?([^&]*)/g, function () {
-    if (arguments[1]) queryKeys[arguments[1]] = unescape(arguments[2]);
-  });
-  return queryKeys;
+  search = search.substring(search.indexOf("?")+1).split("&");
+  var params = {}, pair;
+  for (var i = 0; i < search.length; i++) {
+    pair = search[i].split("=");
+    if (pair[0] && !pair[1])
+        pair[1] = "";
+    if (!params[decodeURIComponent(pair[0])] && decodeURIComponent(pair[1]) === "undefined") {
+        continue;
+    } else {
+        params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+    }
+  }
+  return params;
 };
 // Strip third+ level domain names from the domain and return the result.
 // Inputs: domain: the domain that should be parsed

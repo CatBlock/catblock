@@ -18,7 +18,7 @@
        return;
     }
     sessionStorage.setItem("errorOccurred", true);
-    storage_set("error", str);
+    storage_set("error", "Date added:" + new Date() + " " + str);
     log(str);
   });
 
@@ -76,6 +76,7 @@
       show_context_menu_items: true,
       show_advanced_options: false,
       display_stats: true,
+      display_menu_stats: true,
       show_block_counts_help_link: true,
       dropbox_sync: false,
       show_survey: true,
@@ -106,37 +107,73 @@
   //     to active window. Because Safari supports clickthrough on extension elements, Safari code will almost
   //    always need to pass this argument. Chrome doesn't support it, so leave this argument empty in Chrome code.
   function openTab(url, nearActive, safariWindow) {
-    if (!SAFARI) {
-      if (!nearActive) {
-        chrome.tabs.create({url: url});
+      if (!SAFARI) {
+          chrome.windows.getCurrent(function(current) {
+              // Normal window - open tab in it
+              if (!current.incognito) {
+                  if (!nearActive) {
+                      chrome.tabs.create({url: url});
+                  } else {
+                      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                          chrome.tabs.create({ url: url, index: (tabs[0] ? tabs[0].index + 1 : undefined)});
+                      });
+                  }
+              } else {
+                  // Get all windows
+                  chrome.windows.getAll(function(window) {
+                      var windowId = null;
+                      for (var i=0; i<window.length; i++) {
+                          // We have found a normal (non-incognito) window
+                          if (!window[i].incognito && window[i].type === "normal") {
+                              // If more normal windows were found,
+                              // overwrite windowId, so we get the most recent
+                              // opened normal window
+                              windowId = window[i].id;
+                          }
+                      }
+                      // Create a new tab in found normal window
+                      if (windowId) {
+                          if (!nearActive) {
+                              chrome.tabs.create({windowId: windowId, url: url, active: true});
+                          } else {
+                              chrome.tabs.query({active: true, windowId: windowId}, function(tabs) {
+                                  chrome.tabs.create({windowId: windowId, url: url,
+                                                      index: (tabs[0] ? tabs[0].index + 1 : undefined), active: true});
+                                  chrome.windows.update(windowId, {focused: true});
+                              });
+                          }
+                          chrome.windows.update(windowId, {focused: true});
+                      } else {
+                          // Normal window is not currently opened,
+                          // so create a new one
+                          chrome.tabs.create({url: url});
+                      }
+                  });
+              }
+          });
       } else {
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-           chrome.tabs.create({ url: url, index: (tabs[0] ? tabs[0].index + 1 : undefined) });
-        });
-      }
-    } else {
-      safariWindow = safariWindow || safari.application.activeBrowserWindow;
-      var index = undefined;
-      if (nearActive && safariWindow && safariWindow.activeTab) {
-        for (var i = 0; i < safariWindow.tabs.length; i++) {
-          if (safariWindow.tabs[i] === safariWindow.activeTab) {
-            index = i + 1;
-            break;
+          safariWindow = safariWindow || safari.application.activeBrowserWindow;
+          var index = undefined;
+          if (nearActive && safariWindow && safariWindow.activeTab) {
+              for (var i = 0; i < safariWindow.tabs.length; i++) {
+                  if (safariWindow.tabs[i] === safariWindow.activeTab) {
+                      index = i + 1;
+                      break;
+                  }
+              }
           }
-        }
+          var tab;
+          if (safariWindow) {
+              tab = safariWindow.openTab("foreground", index); // index may be undefined
+              if (!safariWindow.visible) {
+                  safariWindow.activate();
+              }
+          } else {
+              tab = safari.application.openBrowserWindow().tabs[0];
+          }
+          var relative = (!/:\/\//.test(url)); // fix relative URLs
+          tab.url = (relative ? chrome.extension.getURL(url) : url);
       }
-      var tab;
-      if (safariWindow) {
-        tab = safariWindow.openTab("foreground", index); // index may be undefined
-        if (!safariWindow.visible) {
-          safariWindow.activate();
-        }
-      } else {
-        tab = safari.application.openBrowserWindow().tabs[0];
-      }
-      var relative = (!/:\/\//.test(url)); // fix relative URLs
-      tab.url = (relative ? chrome.extension.getURL(url) : url);
-    }
   };
 
   // Reload already opened tab
@@ -156,9 +193,6 @@
           });
       }
   }
-
-  // Chrome 38+ has bug in WebRequest API, see onBeforeRequestHandler
-  var invalidChromeRequestType = /Chrome\/(38|39|40)?/.test(navigator.userAgent);
 
   // Implement blocking via the Chrome webRequest API.
   if (!SAFARI) {
@@ -200,7 +234,6 @@
         if (tabId === -1) {
            return false;
         }
-
         if (details.type === 'main_frame') { // New tab
           delete fd[tabId];
           fd.record(tabId, 0, details.url);
@@ -247,6 +280,31 @@
       }
     };
 
+    var normalizeRequestType = function(details) {
+        // normalize type, because of issue with Chrome 38+
+        var type = details.type;
+        if (type !== 'other') {
+            return type;
+        }
+        var url = parseUri(details.url);
+        if (url && url.pathname) {
+          var pos = url.pathname.lastIndexOf('.');
+          if (pos > -1) {
+            var ext = url.pathname.slice(pos) + '.';
+            if ('.eot.ttf.otf.svg.woff.woff2.'.indexOf(ext) !== -1) {
+              return 'font';
+            }
+            // Still need this because often behind-the-scene requests are wrongly
+            // categorized as 'other'
+            if ('.ico.png.gif.jpg.jpeg.webp.'.indexOf(ext) !== -1) {
+              return 'image';
+            }
+          }
+        }
+        // see crbug.com/410382
+        return 'object';
+    };
+
     // When a request starts, perhaps block it.
     function onBeforeRequestHandler(details) {
       if (adblock_is_paused())
@@ -256,7 +314,7 @@
         return { cancel: false };
 
       var tabId = details.tabId;
-      var reqType = details.type;
+      var reqType = normalizeRequestType({url: details.url, type: details.type});
 
       if (frameData.get(tabId, 0).whitelisted) {
         log("[DEBUG]", "Ignoring whitelisted tab", tabId, details.url.substring(0, 100));
@@ -267,11 +325,6 @@
       // But for iframe loads, we consider the request to be sent by the outer
       // frame, while Chrome claims it's sent by the new iframe.  Adjust accordingly.
       var requestingFrameId = (reqType === 'sub_frame' ? details.parentFrameId : details.frameId);
-
-      // Because of bug in WebRequest API on Chrome 38,
-      // requests of type "object" are reported as type "other", see crbug.com/410382
-      if (invalidChromeRequestType && reqType === "other")
-          reqType = "object";
 
       var elType = ElementTypes.fromOnBeforeRequestType(reqType);
 
@@ -337,17 +390,42 @@
     chrome.webNavigation.onTabReplaced.addListener(function(details) {
         frameData.onTabClosedHandler(details.replacedTabId);
     });
+
+    chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
+        if (details &&
+            details.hasOwnProperty("frameId") &&
+            details.hasOwnProperty("tabId") &&
+            details.hasOwnProperty("url") &&
+            details.hasOwnProperty("transitionType") &&
+            details.transitionType === "link") {
+            //on some single page sites that update the URL using the History API pushState(),
+            //but they don't actually load a new page, we need to get notified when this happens
+            //and track these updates in the frameData object.
+            var tabData = frameData.get(details.tabId, details.frameId);
+            if (tabData &&
+                tabData.url !== details.url) {
+                details.type = 'main_frame';
+                frameData.track(details);
+            }
+        }
+    })
   }
 
   debug_report_elemhide = function(selector, matches, sender) {
     if (!window.frameData)
       return;
-    frameData.storeResource(sender.tab.id, 0, selector, "HIDE");
+    if (SAFARI) {
+        frameData.storeResource(sender.tab.id, selector, "HIDE");
+    } else {
+        frameData.storeResource(sender.tab.id, 0, selector, "HIDE");
+    }
     var data = frameData.get(sender.tab.id, 0);
     if (data) {
       log(data.domain, ": hiding rule", selector, "matched:\n", matches);
-      blockCounts.recordOneAdBlocked(sender.tab.id);
-      updateBadge(sender.tab.id);
+      if (!SAFARI) {
+        blockCounts.recordOneAdBlocked(sender.tab.id);
+        updateBadge(sender.tab.id);
+      }
     }
   }
 
@@ -613,6 +691,13 @@
       }
   }
 
+  // Get the current (loaded) malware domains
+  // Returns: an object with all of the malware domains
+  // will return undefined, if the user is not subscribed to the Malware 'filter list'.
+  getMalwareDomains = function() {
+    return _myfilters.getMalwareDomains();
+  }
+
   // Returns true if the url cannot be blocked
   page_is_unblockable = function(url) {
     if (!url) { // Safari empty/bookmarks/top sites page
@@ -655,6 +740,7 @@
   //     total_blocked: int - # of ads blocked since install
   //     tab_blocked: int - # of ads blocked on this tab
   //     display_stats: bool - whether block counts are displayed on button
+  //     display_menu_stats: bool - whether block counts are displayed on the popup menu
   //   }
   // Returns: null (asynchronous)
   getCurrentTabInfo = function(callback, secondTime) {
@@ -679,13 +765,15 @@
         var total_blocked = blockCounts.getTotalAdsBlocked();
         var tab_blocked = blockCounts.getTotalAdsBlocked(tab.id);
         var display_stats = get_settings().display_stats;
+        var display_menu_stats = get_settings().display_menu_stats;
 
         var result = {
           tab: tab,
           disabled_site: disabled_site,
           total_blocked: total_blocked,
           tab_blocked: tab_blocked,
-          display_stats: display_stats
+          display_stats: display_stats,
+          display_menu_stats: display_menu_stats
         };
 
         if (!disabled_site)
@@ -725,12 +813,18 @@
     return whitelist.matches(url, type, parseUri(url).hostname, false);
   }
 
-  updateDisplayStats = function(isChecked, tabId) {
-    set_setting("display_stats", isChecked);
-    updateBadge(tabId);
-  }
-
   if (!SAFARI) {
+    var setBrowserActions = function(options) {
+        var iconCallback = function() {
+            if (chrome.runtime.lastError) {
+                return;
+            }
+            chrome.browserAction.setBadgeText({text: options.badge_text, tabId: options.tabId});
+            chrome.browserAction.setBadgeBackgroundColor({ color: options.color });
+        };
+        chrome.browserAction.setIcon({ tabId: options.tabId, path: options.iconPaths }, iconCallback);
+    }
+
     updateBadge = function(tabId) {
       var display = get_settings().display_stats;
       var badge_text = "";
@@ -740,13 +834,18 @@
 
       var isBlockable = !page_is_unblockable(main_frame.url) && !page_is_whitelisted(main_frame.url) && !/chrome\/newtab/.test(main_frame.url);
 
-      if(display && (main_frame && isBlockable) && !adblock_is_paused()){
-        badge_text = blockCounts.getTotalAdsBlocked(tabId).toString();
+      if (display && (main_frame && isBlockable) && !adblock_is_paused()) {
+        var browsersBadgeOptions = {};
+        browsersBadgeOptions.tabId = tabId;
+        browsersBadgeOptions.color = "#555";
+        var badge_text = blockCounts.getTotalAdsBlocked(tabId).toString();
         if (badge_text === "0")
-          badge_text = ""; // Only show the user when we've done something useful
+            badge_text = ""; // Only show the user when we've done something useful
+        browsersBadgeOptions.badge_text = badge_text;
+        browsersBadgeOptions.iconPaths = {'19': 'img/icon19.png', '38': 'img/icon38.png'};
+        //see for more details - https://code.google.com/p/chromium/issues/detail?id=410868#c8
+        setBrowserActions(browsersBadgeOptions);
       }
-      chrome.browserAction.setBadgeText({text: badge_text, tabId: tabId});
-      chrome.browserAction.setBadgeBackgroundColor({ color: "#555" });
     };
 
     // Set the button image and context menus according to the URL
@@ -792,21 +891,25 @@
       }
 
       function setBrowserButton(info) {
-        var tabId = info.tab.id;
-        chrome.browserAction.setBadgeText({text: "", tabId: tabId});
+        var browsersBadgeOptions = {};
+        browsersBadgeOptions.tabId = info.tab.id;
+        browsersBadgeOptions.color = "#555";
+        browsersBadgeOptions.badge_text = "";
         if (adblock_is_paused()) {
-          chrome.browserAction.setIcon({path:{'19': "img/icon19-grayscale.png", '38': "img/icon38-grayscale.png"}, tabId: tabId});
+          browsersBadgeOptions.iconPaths = {'19': "img/icon19-grayscale.png", '38': "img/icon38-grayscale.png"};
+          setBrowserActions(browsersBadgeOptions);
         } else if (info.disabled_site &&
             !/^chrome-extension:.*pages\/install\//.test(info.tab.url)) {
           // Show non-disabled icon on the installation-success page so it
           // users see how it will normally look. All other disabled pages
           // will have the gray one
-          chrome.browserAction.setIcon({path:{'19': "img/icon19-grayscale.png", '38': "img/icon38-grayscale.png"}, tabId: tabId});
+          browsersBadgeOptions.iconPaths = {'19': "img/icon19-grayscale.png", '38': "img/icon38-grayscale.png"};
+          setBrowserActions(browsersBadgeOptions);
         } else if (info.whitelisted) {
-          chrome.browserAction.setIcon({path:{'19': "img/icon19-whitelisted.png", '38': "img/icon38-whitelisted.png"}, tabId: tabId});
+          browsersBadgeOptions.iconPaths = {'19': "img/icon19-whitelisted.png", '38': "img/icon38-whitelisted.png"};
+          setBrowserActions(browsersBadgeOptions);
         } else {
-          chrome.browserAction.setIcon({path:{'19': "img/icon19.png", '38': "img/icon38.png"}, tabId: tabId});
-          updateBadge(tabId);
+          updateBadge(info.tab.id);
         }
       }
 
@@ -837,7 +940,9 @@
       }
       return "This filter is unsupported";
     } catch(ex) {
-      return ex;
+        //convert to a string so that Safari can pass
+        //it back to content scripts
+      return ex.toString();
     }
   };
 
@@ -863,12 +968,12 @@
     return add_custom_filter(filter);
   }
 
-  // Creates a custom filter entry that whitelists YouTube channel
+  // Creates a custom filter entry that whitelists a YouTube channel
   // Inputs: url:string url of the page
   // Returns: null if successful, otherwise an exception
   create_whitelist_filter_for_youtube_channel = function(url) {
-    if (/channel=/.test(url)) {
-      var yt_channel = url.match(/channel=([^]*)/)[1];
+    if (/ab_channel=/.test(url)) {
+      var yt_channel = url.match(/ab_channel=([^]*)/)[1];
     } else {
       var yt_channel = url.split('/').pop();
     }
@@ -907,8 +1012,6 @@
           allFrames: false,
           include: [
             "jquery/jquery.min.js",
-            "port.js",
-            "functions.js",
             "jquery/jquery-ui.custom.min.js",
             "uiscripts/load_jquery_ui.js",
             "uiscripts/top_open_whitelist_ui.js"
@@ -919,8 +1022,6 @@
           include: [
             "jquery/jquery.min.js",
             "jquery/jquery-ui.custom.min.js",
-            "port.js",
-            "functions.js",
             "uiscripts/load_jquery_ui.js",
             "uiscripts/blacklisting/overlay.js",
             "uiscripts/blacklisting/clickwatcher.js",
@@ -996,20 +1097,17 @@
   (function() {
     chrome.extension.onRequest.addListener(
       function(request, sender, sendResponse) {
-            if (request.command != "call")
-                return; // not for us
-
-            var target = window;
-            var parts = request.fn.split('.');
-            for (var i=0; i < parts.length-1; i++) {
-                target = target[parts[i]];
-            }
-            var fnName = parts[parts.length-1];
-            var fn = target[fnName];
-            request.args.push(sender);
-            var result = fn.apply(target, request.args);
-            sendResponse(result);
-        }
+        if (request.command != "call")
+          return; // not for us
+        // +1 button in browser action popup loads a frame which
+        // runs content scripts.  Ignore their cries for ad blocking.
+        if ((sender.tab === undefined) || (sender.tab === null))
+          return;
+        var fn = window[request.fn];
+        request.args.push(sender);
+        var result = fn.apply(window, request.args);
+        sendResponse(result);
+      }
     );
   })();
 
@@ -1062,6 +1160,57 @@
 
   _myfilters = new MyFilters();
   _myfilters.init();
+  createMalwareNotification = function() {
+    if (!SAFARI &&
+        chrome &&
+        chrome.notifications &&
+        storage_get('malware-notification')) {
+
+        //get the current tab, so we only create 1 notification per tab
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            if (tabs.length === 0) {
+                return; // For example: only the background devtools or a popup are opened
+            }
+
+            var tab = tabs[0];
+            if (sessionStorage.getItem("malwareNotification" + tab.id)) {
+                //we've already notified the user, just return.
+                return;
+            } else {
+                sessionStorage.setItem("malwareNotification" + tab.id, true);
+            }
+            var notificationOptions = {
+                title: "AdBlock",
+                iconUrl: chrome.extension.getURL('img/icon48.png'),
+                type: 'basic',
+                priority: 2,
+                message: translate('malwarenotificationmessage'),
+                buttons: [{title:translate('malwarenotificationlearnmore'),
+                           iconUrl:chrome.extension.getURL('img/icon24.png')},
+                          {title:translate('malwarenotificationdisablethesemessages'),
+                           iconUrl:chrome.extension.getURL('img/icon24.png')}]
+            }
+            //OPERA currently doesn't support buttons on notifications, so remove them from the options.
+            if (OPERA) {
+                delete notificationOptions.buttons;
+            } else {
+            //But, Chrome does, so add button click handlers to process the button click events
+                chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {
+                    if (buttonIndex === 0) {
+                        openTab("http://support.getadblock.com/kb/im-seeing-an-ad/im-seeing-similar-ads-on-every-website/");
+                    }
+                    if (buttonIndex === 1) {
+                        storage_set('malware-notification', false);
+                    }
+                });
+            }
+            // Pop up a notification to the user.
+            chrome.notifications.create((Math.floor(Math.random() * 3000)).toString(), notificationOptions, function(id) {
+                    //do nothing in callback
+            });
+        });//end of chrome.tabs.query
+    }//end of if
+  }//end of createMalwareNotification function
 
   if (!SAFARI) {
     // Chrome blocking code.  Near the end so synchronous request handler
@@ -1087,27 +1236,34 @@
     chrome.tabs.query({url: "https://*/*"}, handleEarlyOpenedTabs);
   }
 
-  /* YouTube Channel Whitelist implementation */
+  // YouTube Channel Whitelist
+  // Script injection logic for Safari is done in safari_bg.js
   if (!SAFARI) {
-      function run_yt_channel_whitelist(url) {
-          if (/youtube.com/.test(url) && get_settings().youtube_channel_whitelist)
-              chrome.tabs.executeScript({file:"ytchannel.js"});
+      var runChannelWhitelist = function(tabUrl, tabId) {
+          if (/youtube.com/.test(tabUrl) && get_settings().youtube_channel_whitelist && !parseUri.parseSearch(tabUrl).ab_channel) {
+              chrome.tabs.executeScript(tabId, {file: "ytchannel.js", runAt: "document_start"});
+          }
       }
 
-      chrome.tabs.onCreated.addListener(function() {
-          chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
-            if (tabs.length === 0)
-                return;
-              run_yt_channel_whitelist(tabs[0].url);
+      chrome.tabs.onCreated.addListener(function(tab) {
+          chrome.tabs.get(tab.id, function(tabs) {
+              if (tabs && tabs.url && tabs.id) {
+                  runChannelWhitelist(tabs.url, tabs.id);
+              }
           });
       });
 
-      chrome.tabs.onUpdated.addListener(function() {
-          chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
-            if (tabs.length === 0)
-                return; // For example: only the background devtools or a popup are opened
-            run_yt_channel_whitelist(tabs[0].url);
+      chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+        if (changeInfo.status === "loading") {
+          chrome.tabs.get(tabId, function(tabs) {
+            if (tabs && tabs.url && tabs.id) {
+              runChannelWhitelist(tabs.url, tabs.id);
+            }
           });
+        }
+      });
+  }
+
       });
   }
 
@@ -1144,12 +1300,17 @@
       var subscribed_filter_names = [];
       var get_subscriptions = get_subscriptions_minus_text();
       for (var id in get_subscriptions) {
-          if (get_subscriptions[id].subscribed)
+          if (get_subscriptions[id].subscribed) {
               subscribed_filter_names.push(id);
+              subscribed_filter_names.push("  last updated: " + new Date(get_subscriptions[id].last_update).toUTCString());
+          }
       }
 
       // Get last known error
       var adblock_error = storage_get("error");
+
+      // Get total pings
+      var adblock_pings = storage_get("total_pings");
 
       // Get custom filters
       var adblock_custom_filters = storage_get("custom_filters");
@@ -1158,7 +1319,10 @@
       var adblock_settings = [];
       var settings = get_settings();
       for (setting in settings)
-          adblock_settings.push(setting + ": "+ get_settings()[setting] + "\n");
+          adblock_settings.push(setting + ": " + JSON.stringify(settings[setting]) + "\n");
+      // We need to hardcode malware-notification setting,
+      // because it isn't included in _settings object, but just in localStorage
+      adblock_settings.push("malware-notification: " + storage_get('malware-notification') + "\n");
       adblock_settings = adblock_settings.join('');
 
       // Create debug info for a bug report or an ad report
@@ -1182,6 +1346,7 @@
       info.push("AdBlock with CatBlock version number: " + AdBlockVersion + AdBlockBuild());
       if (adblock_error)
           info.push("Last known error: " + adblock_error);
+      info.push("Total pings: " + adblock_pings);
       info.push("UserAgent: " + navigator.userAgent.replace(/;/,""));
 
       return info.join('  \n');
@@ -1234,8 +1399,10 @@
 
   // Sync settings, filter lists & custom filters
   // after authentication with Dropbox
-  // TODO: Change redirect uri, so DB sync can work
-  if (!SAFARI) {
+  if (!SAFARI &&
+       chrome &&
+       chrome.runtime &&
+       chrome.runtime.onMessage) {
       var db_client = new Dropbox.Client({key: "3unh2i0le3dlzio"});
       var settingstable = null;
 
@@ -1283,6 +1450,7 @@
                   show_context_menu_items: get_settings().show_context_menu_items,
                   show_advanced_options: get_settings().show_advanced_options,
                   display_stats: get_settings().display_stats,
+                  display_menu_stats: get_settings().display_menu_stats,
                   show_block_counts_help_link: get_settings().show_block_counts_help_link,
                   show_survey: get_settings().show_survey
               });
@@ -1293,15 +1461,23 @@
               var local = localStorage.custom_filters;
               var filters;
               if (sync === local) {
-                  filters = "";
-              } else if (local === undefined && sync !== "") {
+                  filters = null;
+              } else if (!local && sync && sync !== "") {
                   filters = sync;
-              } else if (sync !== "" && local) {
-                  filters = local + sync;
+              } else if (local && sync && sync !== "") {
+                  if (local.charAt(local.length - 1) === '"') {
+                    //remove the ending "
+                    local = local.substring(0, local.length - 1);
+                  }
+                  if (sync.charAt(0) === '"') {
+                    //remove the begining "
+                    sync = sync.substring(1);
+                  }
+                  filters = local + "\\" + "n" + sync;
               } else {
                   filters = local;
               }
-              if (filters && filters !== "" && filters !== undefined) {
+              if (filters) {
                   filters = filters.replace(/\""/g, "");
                   settingstable.set("custom_filters", filters);
               }
@@ -1312,15 +1488,23 @@
               var eXlocal = localStorage.exclude_filters;
               var eXfilters;
               if (eXsync === eXlocal) {
-                  eXfilters = "";
-              } else if (eXlocal === undefined && eXsync !== "") {
+                  eXfilters = null;
+              } else if (!eXlocal && eXsync && eXsync !== "") {
                   eXfilters = eXsync;
-              } else if (eXsync !== "" && eXlocal) {
-                  eXfilters = eXlocal + "\n" + eXsync;
+              } else if (eXlocal && eXsync && eXsync !== "") {
+                  if (eXlocal.charAt(eXlocal.length - 1) === '"') {
+                    //remove the ending "
+                    eXlocal = eXlocal.substring(0, eXlocal.length - 1);
+                  }
+                  if (eXsync.charAt(0) === '"') {
+                    //remove the begining "
+                    eXsync = eXsync.substring(1);
+                  }
+                  eXfilters = eXlocal + "\\" + "n" + eXsync;
               } else {
                   eXfilters = eXlocal;
               }
-              if (eXfilters && eXfilters !== "" && eXfilters !== undefined) {
+              if (eXfilters) {
                   eXfilters = eXfilters.replace(/\""/g, "");
                   settingstable.set("exclude_filters", eXfilters);
               }
@@ -1370,6 +1554,8 @@
                   set_setting("show_context_menu_items", showcontextmenu);
                   var stats = settingstable.get("display_stats");
                   set_setting("display_stats", stats);
+                  var menu_stats = settingstable.get("display_menu_stats");
+                  set_setting("display_menu_stats", menu_stats);
                   var blockcountslink = settingstable.get("show_block_counts_help_link");
                   set_setting("show_block_counts_help_link", blockcountslink);
                   var showsurvey = settingstable.get("show_survey");
