@@ -1098,14 +1098,16 @@
     chrome.extension.onRequest.addListener(
       function(request, sender, sendResponse) {
         if (request.command != "call")
-          return; // not for us
-        // +1 button in browser action popup loads a frame which
-        // runs content scripts.  Ignore their cries for ad blocking.
-        if ((sender.tab === undefined) || (sender.tab === null))
-          return;
-        var fn = window[request.fn];
+            return; // not for us
+        var target = window;
+        var parts = request.fn.split('.');
+        for (var i=0; i < parts.length-1; i++) {
+            target = target[parts[i]];
+        }
+        var fnName = parts[parts.length-1];
+        var fn = target[fnName];
         request.args.push(sender);
-        var result = fn.apply(window, request.args);
+        var result = fn.apply(target, request.args);
         sendResponse(result);
       }
     );
@@ -1261,9 +1263,6 @@
             }
           });
         }
-      });
-  }
-
       });
   }
 
