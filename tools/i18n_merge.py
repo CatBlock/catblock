@@ -12,8 +12,9 @@ os.chdir("..") # Move CWD to root of repo
 
 locales = os.listdir(r"catblock/_locales") # Load a list of all locales in the CatBlock locales folder.
 for locale in locales: # "locale" below is the locale selected for this loop
+	print "Merging i18n file for locale: " + locale
 	with open("_locales/" + locale + "/messages.json", "rU") as ab_read: # Opens the AdBlock i18n file in a secure manner for read-only
-		with open("catblock/_locales/" + locale + "/messages.json", "r") as cb_file: # Opens the CatBlock i18n file in a secure manner
+		with open("catblock/_locales/" + locale + "/messages.json", "rU") as cb_file: # Opens the CatBlock i18n file in a secure manner
 			ab_messages = json.load(ab_read) # Creates a dict of all messages in the AdBlock file
 			cb_messages = json.load(cb_file) # Creates a dict of all messgaes in the CatBlock file
 			ab_messages.update(cb_messages) # Updates the AdBlock strings with the CatBlock ones
