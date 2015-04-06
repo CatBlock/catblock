@@ -381,7 +381,7 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
     cache: false,
     headers: {
       "Accept": "text/plain",
-      "X-Client-ID": "AdBlock/" + STATS.version,
+      "X-Client-ID": "CatBlock/" + chrome.runtime.getManifest().version,
       "If-Modified-Since": this._subscriptions[id].last_modified || undefined
     },
     success: function(text, status, xhr) {

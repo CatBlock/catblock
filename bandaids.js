@@ -5,9 +5,6 @@ var run_bandaids = function() {
   var apply_bandaid_for = "";
   if (/mail\.live\.com/.test(document.location.hostname))
     apply_bandaid_for = "hotmail";
-  else if (/getadblock\.com$/.test(document.location.hostname) &&
-           window.top === window.self)
-    apply_bandaid_for = "getadblock";
   else if (/mobilmania\.cz|zive\.cz|doupe\.cz|e15\.cz|sportrevue\.cz|autorevue\.cz/.test(document.location.hostname))
     apply_bandaid_for = "czech_sites";
   else if (/thepiratebay/.test(document.location.hostname))
@@ -41,20 +38,6 @@ var run_bandaids = function() {
         el.style.setProperty("display", "none", null);
         el.style.setProperty("position", "absolute", null);
         el.style.setProperty("right", "0px", null);
-      }
-    },
-    getadblock: function() {
-      BGcall('get_adblock_user_id', function(adblock_user_id) {
-        var elemDiv = document.createElement("div");
-        elemDiv.id = "adblock_user_id";
-        elemDiv.innerText = adblock_user_id;
-        elemDiv.style.display = "none";
-        document.body.appendChild(elemDiv);
-      });
-      if (document.getElementById("enable_show_survey")) {
-        document.getElementById("enable_show_survey").onclick = function(event) {
-            BGcall("set_setting", "show_survey", !document.getElementById("enable_show_survey").checked, true);
-         };
       }
     },
     czech_sites: function() {

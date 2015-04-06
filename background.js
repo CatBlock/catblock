@@ -5,14 +5,6 @@
              (e.filename||"anywhere").replace(chrome.extension.getURL(""), "") +
              ":" + (e.lineno||"anywhere") +
              ":" + (e.colno||"anycol");
-    if (chrome && chrome.runtime &&
-       (chrome.runtime.id === "pljaalgmajnlogcgiohkhdmgpomjcihk")) {
-        var stack = "-" + (e.error ||"") +
-                    "-" + (e.message ||"") +
-                    "-" + (e.stack ||"");
-        stack = stack.replace(/:/gi, ";").replace(/\n/gi, "");
-        str += stack;
-    }
     //check to see if there's any URL info in the stack trace, if so, don't log it
     if (str.indexOf("http") >= 0) {
        return;
@@ -1308,9 +1300,6 @@
       // Get last known error
       var adblock_error = storage_get("error");
 
-      // Get total pings
-      var adblock_pings = storage_get("total_pings");
-
       // Get custom filters
       var adblock_custom_filters = storage_get("custom_filters");
 
@@ -1345,7 +1334,6 @@
       info.push("AdBlock with CatBlock version number: " + AdBlockVersion + AdBlockBuild());
       if (adblock_error)
           info.push("Last known error: " + adblock_error);
-      info.push("Total pings: " + adblock_pings);
       info.push("UserAgent: " + navigator.userAgent.replace(/;/,""));
 
       return info.join('  \n');
