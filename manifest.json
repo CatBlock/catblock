@@ -10,7 +10,7 @@
     "128": "img/icon128.png"
   },
   "permissions": [
-    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation"
+    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"
   ],
   "minimum_chrome_version": "41",
   "background": {
@@ -83,7 +83,6 @@
   ],
   "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; frame-src 'self' https://chromeadblock.com https://getadblock.com; img-src *;",
   "default_locale": "en",
-  "description": "__MSG_description2__",
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
