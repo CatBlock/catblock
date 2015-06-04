@@ -98,5 +98,9 @@ adblock_begin({
   },
   stopPurger: function() {
     chrome.extension.onRequest.removeListener(elementPurger.onPurgeRequest);
+  },
+  handleHiding: function(data) {
+    if (data.hiding)
+      block_list_via_css(data.selectors);
   }
 });
