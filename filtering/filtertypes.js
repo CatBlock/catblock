@@ -77,10 +77,12 @@ var SelectorFilter = function(text) {
   var parts = text.match(/(^.*?)\#\@?\#(.+$)/);
   this._domains = Filter._toDomainSet(parts[1], ',');
   this.selector = parts[2];
-  // Preserve _text for resourceblock. Don't do so in Safari, where
-  // resources aren't recorded
-  if (document.location.pathname === '/pages/resourceblock.html')
+  // Preserve _text for resourceblock.
+  if (document.location &&
+      document.location.pathname &&
+      document.location.pathname.indexOf('/pages/resourceblock.html') >= 0) {
     this._text = text;
+  }
 };
 
 // If !|excludeFilters|, returns filter.
@@ -135,10 +137,12 @@ PatternFilter.fromText = function(text) {
   result._options = data.options;
   result._rule = data.rule;
   result._key = data.key;
-  // Preserve _text for resourceblock. Don't do so in Safari, where
-  // resources aren't recorded
-  if (document.location.pathname === '/pages/resourceblock.html')
+  // Preserve _text for resourceblock.
+  if (document.location &&
+      document.location.pathname &&
+      document.location.pathname.indexOf('/pages/resourceblock.html') >= 0) {
     result._text = text;
+  }
   return result;
 }
 
@@ -216,7 +220,7 @@ PatternFilter._parseRule = function(text) {
       // option, without returning that the filter was invalid.
     }
     else {
-      throw "Unknown option in filter " + option;
+      throw new Error("Unknown option in filter " + option);
     }
   }
   // If no element types are mentioned, the default set is implied.

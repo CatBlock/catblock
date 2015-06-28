@@ -174,8 +174,32 @@ if (!LEGACY_SAFARI) {
         }
     }, true);
 
-    // Remove the popover when the window closes so we don't leak memory.
+
+    // Close event fires when tab/window is about to close,
+    // not when tab has been closed. Therefore we need to wait
+    // and then remove frameData[tabId] after close event.
     safari.application.addEventListener("close", function(event) {
+        setTimeout(function() {
+            if (safari && 
+                safari.application && 
+                safari.application.activeBrowserWindow && 
+                safari.application.activeBrowserWindow.tabs) {
+                    
+                var safari_tabs = safari.application.activeBrowserWindow.tabs;
+
+                var opened_tabs = [];
+                for (var i=0; i < safari_tabs.length; i++)
+                    opened_tabs.push(safari_tabs[i].id);
+
+                for (tab in frameData) {
+                    if (typeof frameData[tab] === "object" && opened_tabs.indexOf(parseInt(tab)) === -1) {
+                        frameData.close(parseInt(tab));
+                    }
+                }
+            }//end of if
+        }, 150);//end of setTimeout
+
+        // Remove the popover when the window closes so we don't leak memory.
         if (event.target instanceof SafariBrowserWindow) { // don't handle tabs
             for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
                 var item = safari.extension.toolbarItems[i];
@@ -193,6 +217,15 @@ if (!LEGACY_SAFARI) {
         }
     }, true);
 }
+
+// YouTube Channel Whitelist
+safari.application.addEventListener("beforeNavigate", function(event) {
+    if (/youtube.com/.test(event.url) && get_settings().youtube_channel_whitelist && !parseUri.parseSearch(event.url).ab_channel) {
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "ytchannel.js", [], [], false);
+    } else {
+        safari.extension.removeContentScript(safari.extension.baseURI + "ytchannel.js");
+    }
+}, true);
 
 // Set commands for whitelist, blacklist and undo my blocks wizards
 safari.application.addEventListener("command", function(event) {
@@ -242,24 +275,3 @@ safari.application.addEventListener("contextmenu", function(event) {
     if (count_cache.getCustomFilterCount(host) && !LEGACY_SAFARI_51)
         event.contextMenu.appendContextMenuItem("undo-last-block", translate("undo_last_block"));
 }, false);
-
-// On close event fires when tab is about to close,
-// not when tab was closed. Therefore we need to remove
-// frameData[tabId] after "close" event has been fired.
-safari.application.addEventListener("close", function(event) {
-    setTimeout(function() {
-        if (safari.application.activeBrowserWindow) {
-            var opened_tabs = [];
-            var safari_tabs = safari.application.activeBrowserWindow.tabs;
-
-            for (var i=0; i < safari_tabs.length; i++)
-                opened_tabs.push(safari_tabs[i].id);
-
-            for (tab in frameData) {
-                if (typeof frameData[tab] === "object" && opened_tabs.indexOf(parseInt(tab)) === -1) {
-                    frameData.close(parseInt(tab));
-                }
-            }
-        }
-    }, 150);
-}, true);

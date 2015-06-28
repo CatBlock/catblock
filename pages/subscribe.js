@@ -20,7 +20,7 @@ $(function() {
   //Show the URL being subscribed.  If it's really long, make it wrap nicely.
   $('#listUrl').text(listUrl.replace(/(.{48,64}\W)/g, '$1 '));
 
-  chrome.extension.onRequest.addListener(function(request) {
+  chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     if (request.command != "filters_updated")
       return;
     if ($('#result').text())
@@ -35,6 +35,7 @@ $(function() {
       } else if (sub.last_update_failed_at)
         finished(false);
     });
+    sendResponse({});
   });
 
 });

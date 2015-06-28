@@ -1,3 +1,4 @@
+var malwareDomains = null;
 $(function() {
     localizePage();
 
@@ -68,23 +69,23 @@ function generateReportURL() {
               "than what you give us in your report. Otherwise, we might not be able to fix it.");
     body.push("");
     if (!options.url) {
-        body.push(count + ". Paste the URL of the webpage showing an ad: ");
+        body.push("**" + count + ". Paste the URL of the webpage showing an ad:** ");
         body.push("");
         body.push("");
         count++;
     }
-    body.push(count + ". Exactly where on that page is the ad? What does it " +
+    body.push("**" + count + ". Exactly where on that page is the ad? What does it " +
               "look like? Attach a screenshot, with the ad clearly marked, " +
-              "if you can.");
+              "if you can.**");
     body.push("");
     body.push("");
     count++;
-    body.push(count + ". If you have created the filter which removes reported ad, please paste it here: ");
+    body.push("**" + count + ". If you have created the filter which removes reported ad, please paste it here:** ");
     body.push("");
     body.push("");
     count++;
-    body.push(count + ". Any other information that would be helpful, besides " +
-              "what is listed below: ");
+    body.push("**" + count + ". Any other information that would be helpful, besides " +
+              "what is listed below:** ");
     body.push("");
     body.push("");
     body.push("-------- Please don't touch below this line. ---------");
@@ -151,7 +152,7 @@ var checkmalware = function() {
 
         // Compare domains of loaded resources with domain.json
         for (var i=0; i < extracted_domains.length; i++) {
-            if (malwareDomains.adware.indexOf(extracted_domains[i]) > -1) {
+            if (malwareDomains && malwareDomains.adware.indexOf(extracted_domains[i]) > -1) {
                 // User is probably infected by some kind of malware,
                 // because resource has been downloaded from malware/adware/spyware site.
                 var infected = true;
@@ -161,7 +162,7 @@ var checkmalware = function() {
         if (infected) {
             $('#step_update_filters_DIV').hide();
             $("#malwarewarning").html(translate("malwarewarning"));
-            $("a", "#malwarewarning").attr("href", "http://support.getadblock.com/kb/im-seeing-an-ad/im-seeing-similar-ads-on-every-website/")
+            $("a", "#malwarewarning").attr("href", "http://support.getadblock.com/kb/im-seeing-an-ad/im-seeing-similar-ads-on-every-website/");
         } else {
             $('#step_update_filters_DIV').show();
             $("#malwarewarning").html(translate("malwarenotfound"));
@@ -179,45 +180,63 @@ $("input, select").change(function(event) {
 
 
 // STEP 1: Malware/adware detection
+var checkAdvanceOptions = function() {
+     // Check, if downloaded resources are available,
+    // if not, just reload tab with parsed tabId
+    BGcall("get_settings", "show_advanced_options", function(status) {
+        if (status.show_advanced_options) {
+            checkmalware();
+        } else {
+            BGcall("set_setting", "show_advanced_options");
+            BGcall("reloadTab", parseInt(tabId));
+            chrome.extension.onRequest.addListener(
+                function(message, sender, sendResponse) {
+                    if (message.command  === "reloadcomplete") {
+                        BGcall("disable_setting", "show_advanced_options");
+                        checkmalware();
+                        sendResponse({});
+                    }
+             });
+        }
+    });
+}
 
 // Fetch file with malware-known domains
-var xhr = new XMLHttpRequest();
-//the timestamp is add to the URL to prevent caching by the browser
-xhr.open("GET", "https://data.getadblock.com/filters/domains.json?timestamp=" + new Date().getTime(), false);
-xhr.send();
-var malwareDomains = JSON.parse(xhr.responseText);
+var fetchMalware = function() {
+    var xhr = new XMLHttpRequest();
+    // The timestamp is add to the URL to prevent caching by the browser
+    xhr.open("GET", "https://data.getadblock.com/filters/domains.json?timestamp=" + new Date().getTime(), true);
+    xhr.onload = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            malwareDomains = JSON.parse(xhr.responseText);
+            checkAdvanceOptions();
+        }
+    };
+    xhr.send();
+}
+//Attempt to get the malwareDomains from the background page first
+//if the returned domains is null, then fetch them directly from the host.
+BGcall('getMalwareDomains', function(domains) {
+    if (domains) {
+        malwareDomains = domains;
+        checkAdvanceOptions();
+    } else {
+        fetchMalware();
+    }
+});
 
 var domain = parseUri(options.url).hostname.replace(/((http|https):\/\/)?(www.)?/g, "");
 var tabId = options.tabId.replace(/[^0-9]/g,'');
-
-// Check, if downloaded resources are available,
-// if not, just reload tab with parsed tabId
-BGcall("get_settings", "show_advanced_options", function(status) {
-    if (status.show_advanced_options) {
-        checkmalware();
-    } else {
-        BGcall("set_setting", "show_advanced_options");
-        BGcall("reloadTab", parseInt(tabId));
-        chrome.extension.onRequest.addListener(
-            function(message, sender, sendResponse) {
-                if (message.command  === "reloadcomplete") {
-                    BGcall("disable_setting", "show_advanced_options");
-                    checkmalware();
-                }
-            }
-        );
-    }
-});
 
 // STEP 2: update filters
 
 //Updating the users filters
 $("#UpdateFilters").click(function() {
-  $(this).prop("disabled", true);
-  BGcall("update_subscriptions_now", function() {
-    $(".afterFilterUpdate input").prop('disabled', false);
-    $(".afterFilterUpdate").removeClass('afterFilterUpdate');
-  });
+    $(this).prop("disabled", true);
+    BGcall("update_subscriptions_now", function() {
+        $(".afterFilterUpdate input").prop('disabled', false);
+        $(".afterFilterUpdate").removeClass('afterFilterUpdate');
+    });
 });
 //if the user clicks a radio button
 $("#step_update_filters_no").click(function() {

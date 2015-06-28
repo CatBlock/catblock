@@ -5,6 +5,9 @@
   z-index: 10000;
   padding: 0px;
 }
+.ui-button-text {
+  display: block !important;
+}
 .ui-dialog a[href] {
   text-decoration: underline !important;
 }
@@ -59,7 +62,10 @@
   outline: none;
   box-shadow: none;
 }
-.ui-dialog.ui-state-hover button {
+.ui-dialog .ui-corner-all {
+  border-radius: 5px;
+}
+.ui-dialog .ui-state-hover button {
   background: #79C9EC !important;
 }
 .ui-dialog .ui-dialog-titlebar-close {
@@ -83,7 +89,7 @@
 .ui-dialog label {
   cursor: pointer;
 }
-.ui-dialog .ui-dialog-buttonpane { 
+.ui-dialog .ui-dialog-buttonpane {
   display: block !important;
   background-color: white;
   margin: 0px;

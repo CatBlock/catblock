@@ -14,7 +14,7 @@
 // all of its subdomains not otherwise mentioned are/are not in the set."
 function DomainSet(data) { 
   if (data[DomainSet.ALL] === undefined)
-    throw Error("DomainSet: data[DomainSet.ALL] is undefined.");
+    throw new Error("DomainSet: data[DomainSet.ALL] is undefined.");
   this.has = data; // The internal representation of our set of domains.
 }
 

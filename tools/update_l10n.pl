@@ -24,7 +24,7 @@ use File::Find;
 use File::Path;
 use File::Copy::Recursive qw(dirmove);
 use JSON qw(decode_json);
-use List::MoreUtils qw(uniq);
+use List::MoreUtils qw(uniq any);
 use LWP::Simple qw(getstore is_success);
 use Archive::Extract qw(new extract error);
 use Term::ANSIColor;
@@ -217,16 +217,19 @@ sub strings_in_use {
 }
 
 sub html_js_files {
-    # take path to a folder to search as input
-    my $folder = shift(@_);
+    # take paths to folders to search as input
+    my @folders = @_;
     
-    # search for html and js files and store list
     my @files;
-    find(sub{
-        return unless -f;
-        return unless (/\.html$/ || /\.js$/);
-        push(@files,$File::Find::name);
-    },$folder);
+    
+    foreach my $folder (@folders){
+        # search for html and js files and store list
+        find(sub{
+            return unless -f;
+            return unless (/\.html$/ || /\.js$/);
+            push(@files,$File::Find::name);
+        },$folder);
+    }
     
     # return list of files found
     return @files;
@@ -240,24 +243,28 @@ sub missing_unused {
     
     my @files, my @strings;
     
-    # get a list of used strings in the correct project
-    if ($project eq "contributors" || $project eq "installed"){
+    # find html/js files for the relevant project
+    if ($project eq "contributors"){
         @files = html_js_files("$locale_dirs{$project}/../../");
-        @strings = strings_in_use(@files);
+    } elsif ($project eq "installed"){
+        # l10n for /installed also contains l10n for /pay
+        @files = html_js_files("$locale_dirs{$project}/../../", "$locale_dirs{$project}/../../../pay/");
     } elsif ($project eq "getadblock_com"){
         find(sub{
             # don't look in directories that are separate projects
-            return $File::Find::prune = 1 if ($_ ~~ ["contributors", "installed", "pay"]);
+            my $file = $_; # current filename
+            return $File::Find::prune = 1 if (any {$file eq $_} @{["contributors", "installed", "pay"]});
+            
             return unless -f;
             return unless (/\.html$/ || /\.js$/);
             push(@files,$File::Find::name);
         },"$locale_dirs{$project}/../../");
-        @strings = strings_in_use(@files);
     } else {
-        # find all the strings that are used in html/js files
         @files = html_js_files($root);
-        @strings = strings_in_use(@files);
     }
+    
+    # find all the strings that are used in the html/js files
+    @strings = strings_in_use(@files);
     
     # get includes from include/exclude file
     my @includes, my @excludes;
@@ -316,7 +323,7 @@ sub print_unused_missing {
         }
         
         if (@{$strings{missing}}){
-            print colored("!", 'red'), " Found $missingcount MISSING strings:\n";
+            print colored("!", 'red'), " Found $missingcount ", colored("MISSING", 'bold'), " strings:\n";
             foreach my $string (@{$strings{missing}}){
                 print "  - $string\n";
             }

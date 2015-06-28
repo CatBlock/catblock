@@ -176,7 +176,7 @@ function generateTable() {
   }
   if (!rows.length) {
     alert(translate('noresourcessend2'));
-    self.close();
+    window.close();
     return;
   }
   $("#loading").remove();
@@ -328,6 +328,11 @@ function createResourceblockFilterset(id, text) {
   local_filtersets[id].hiding = FilterSet.fromFilters(h);
   local_filtersets[id].blocking =
     new BlockingFilterSet(FilterSet.fromFilters(b), FilterSet.fromFilters(w));
+  if (id === "malware") {
+    BGcall('getMalwareDomains', function(domains) {
+        local_filtersets["malware"].blocking.setMalwareDomains(domains);
+    });
+  }
 }
 
 // Check an URL for it's validity
@@ -720,15 +725,18 @@ $(function() {
     }
   }
 
-
   var opts = {
     domain: parseUri(url || "x://y/").hostname
   };
   BGcall('storage_get', 'filter_lists', function(filter_lists) {
-
     for (var id in filter_lists) {
-      if (filter_lists[id].subscribed) {
+      if (filter_lists[id].subscribed &&
+          filter_lists[id].text &&
+          id !== "malware") {
         createResourceblockFilterset(id, filter_lists[id].text.split('\n'));
+      } else if (id === "malware" &&
+                 filter_lists[id].subscribed) {
+        createResourceblockFilterset(id, []);
       }
     }
 
@@ -749,27 +757,31 @@ $(function() {
           for (var thisFrame in loaded_frames) {
             var frame = loaded_frames[thisFrame];
 
-            if (Number(thisFrame) === 0) {
+            if ((Number(thisFrame) === 0 ||
+                 Number(frame) === 0) &&
+                frame.url) {
               // We don't parse $document and $elemhide rules for subframes
               resources[frame.url] = {
                 type: ElementTypes.document | ElementTypes.elemhide,
-                domain: frame.domain,
+                domain: frame.domain || loaded_frames.domain,
                 resource: frame.url
               };
             }
+            var resors = frame.resources || frame;
+            for (var res in resors) {
 
-            for (var res in frame.resources) {
               if (/^HIDE\:\|\:.+/.test(res)) {
                 var filter = "##" + res.substring(7);
                 resources[filter] = {
                   filter: filter,
-                  domain: frame.domain,
+                  domain: frame.domain || loaded_frames.domain,
                   resource: filter
                 };
               } else {
-                if (/\<|\"/.test(res)) continue;
+                if (/\<|\"/.test(res))
+                   continue;
                 var blockmatches = res.split(':|:');
-                if (blockmatches[1].indexOf(chrome.extension.getURL("")) === 0)
+                if (blockmatches && blockmatches.length > 1 && blockmatches[1].indexOf(chrome.extension.getURL("")) === 0)
                   continue; // Blacklister resources shouldn't be visible
                 if (!/^[a-z\-]+\:\/\//.test(blockmatches[1]))
                   continue; // Ignore about: and data: urls
@@ -778,7 +790,7 @@ $(function() {
                   continue;
                 resources[blockmatches[1]] = {
                   type: elemType,
-                  domain: frame.domain,
+                  domain: frame.domain || loaded_frames.domain,
                   resource: blockmatches[1]
                 };
               }

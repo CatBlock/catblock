@@ -7,7 +7,6 @@ $(function() {
     $(".menu-entry, .menu-status, .separator").hide();
 
     BG.getCurrentTabInfo(function(info) {
-        console.log(info);
         var shown = {};
         function show(L) { L.forEach(function(x) { shown[x] = true;  }); }
         function hide(L) { L.forEach(function(x) { shown[x] = false; }); }
@@ -27,7 +26,7 @@ $(function() {
             show(["div_pause_adblock", "div_blacklist", "div_whitelist",
                   "div_whitelist_page", "div_show_resourcelist",
                   "div_report_an_ad", "separator1", "div_options",
-                  "div_help_hide_start", "separator3","block_counts"]);
+                  "div_help_hide_start", "separator3", "block_counts"]);
 
             var page_count = info.tab_blocked || "0";
             $("#page_blocked_count").text(page_count);
@@ -45,14 +44,20 @@ $(function() {
             !LEGACY_SAFARI_51)
             show(["div_undo", "separator0"]);
 
-        if (SAFARI || !advanced_option)
+        if (!advanced_option)
             hide(["div_show_resourcelist"]);
 
         if (SAFARI && !advanced_option)
             hide(["div_report_an_ad", "separator1"]);
 
-        var path = info.tab.url;
-        if (host === "www.youtube.com" && /channel|user/.test(path) && eligible_for_undo && BG.get_settings().youtube_channel_whitelist) {
+        var url = info.tab.url;
+        if (host === "www.youtube.com" &&
+            /channel|user/.test(url) &&
+            /ab_channel/.test(url) &&
+            eligible_for_undo &&
+            BG.get_settings().youtube_channel_whitelist) {
+            $("#div_whitelist_channel").html(translate("whitelist_youtube_channel",
+                                                       parseUri.parseSearch(url).ab_channel));
             show(["div_whitelist_channel"]);
         }
 
@@ -63,6 +68,14 @@ $(function() {
         for (var div in shown)
             if (shown[div])
                 $('#' + div).show();
+
+        if (SAFARI ||
+            !info.display_menu_stats ||
+            paused ||
+            info.disabled_site ||
+            info.whitelisted) {
+            $("#block_counts").hide();
+        }
     });
 
     if (SAFARI) {
@@ -189,6 +202,7 @@ $(function() {
     $("#div_show_resourcelist").click(function() {
         BG.getCurrentTabInfo(function(info) {
             BG.launch_resourceblocker("?tabId=" + info.tab.id);
+            closeAndReloadPopup();
         });
     });
 
@@ -196,11 +210,13 @@ $(function() {
         BG.getCurrentTabInfo(function(info) {
             var url = "pages/adreport.html?url=" + escape(info.tab.url) + "&tabId=" + info.tab.id;
             BG.openTab(url, true);
+            closeAndReloadPopup();
         });
     });
 
     $("#div_options").click(function() {
         BG.openTab("options/index.html");
+        closeAndReloadPopup();
     });
 
     $("#div_help_hide").click(function() {
@@ -215,5 +231,12 @@ $(function() {
         } else {
             $("#help_hide_explanation").slideToggle();
         }
+    });
+
+    $("#link_open").click(function() {
+        var linkHref = "https://getadblock.com/share/";
+        BG.openTab(linkHref);
+        closeAndReloadPopup();
+        return;
     });
 });

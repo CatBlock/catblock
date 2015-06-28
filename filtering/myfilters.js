@@ -94,7 +94,7 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
     // Convert subscribed ex-user-submitted lists into official lists.
     else {
       // TODO: Remove this logic after a few releases
-      if (id === "easylist_plus_spanish") {
+      if (id === "easylist_plus_spanish" || id === "norwegian") {
           delete this._subscriptions[id];
           continue;
       }
@@ -227,7 +227,17 @@ MyFilters.prototype.rebuild = function() {
     FilterSet.fromFilters(filters.pattern),
     FilterSet.fromFilters(filters.whitelist)
   );
+
   handlerBehaviorChanged(); // defined in background
+
+  //if the user is subscribed to malware, then get it
+
+  if (this._subscriptions &&
+      this._subscriptions.malware &&
+      this._subscriptions.malware.subscribed &&
+      !this.getMalwareDomains()) {
+    this._initializeMalwareDomains();
+  }
 
   // After 90 seconds, delete the cache. That way the cache is available when
   // rebuilding multiple times in a row (when multiple lists have to update at
@@ -244,6 +254,50 @@ MyFilters.prototype.rebuild = function() {
 MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
   var subscribeRequiredListToo = false;
   var listDidntExistBefore = false;
+
+  // Check if the list has to be updated
+  function out_of_date(subscription) {
+    if (forceFetch) return true;
+    // After a failure, wait at least a day to refetch (overridden below if
+    // it's a new filter list, having no .text)
+    var failed_at = subscription.last_update_failed_at || 0;
+    if (Date.now() - failed_at < HOUR_IN_MS * 24)
+      return false;
+    // Don't let expiresAfterHours delay indefinitely (Issue 7443)
+    var hardStop = subscription.expiresAfterHoursHard || 240;
+    var smallerExpiry = Math.min(subscription.expiresAfterHours, hardStop);
+    var millis = Date.now() - subscription.last_update;
+    return (millis > HOUR_IN_MS * smallerExpiry);
+  }
+
+  //since the malware ID isn't really a filter list, we need to process it seperately
+  if (id === "malware") {
+    // Apply all changes from subData
+    for (var property in subData) {
+      if (subData[property] !== undefined) {
+        this._subscriptions[id][property] = subData[property];
+      }
+    }
+
+    if (this._subscriptions[id].subscribed) {
+        //if forceFetch, set the last update timestamp of the malware to zero, so it's updated now.
+        if (forceFetch) {
+            this._subscriptions.malware.last_update = 0;
+        }
+        //load the malware domains
+        this._loadMalwareDomains();
+    } else {
+        this.blocking.setMalwareDomains(null);
+        // If unsubscribed, remove properties
+        delete this._subscriptions[id].text;
+        delete this._subscriptions[id].last_update;
+        delete this._subscriptions[id].expiresAfterHours;
+        delete this._subscriptions[id].last_update_failed_at;
+        delete this._subscriptions[id].last_modified;
+    }
+    this._onSubscriptionChange(subData.subscribed == false);
+    return;
+  }
 
   // Working with an unknown list: create the list entry
   if (!this._subscriptions[id]) {
@@ -278,20 +332,6 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
     delete this._subscriptions[id].last_modified;
 
   if (this._subscriptions[id].subscribed) {
-    // Check if the list has to be updated
-    function out_of_date(subscription) {
-      if (forceFetch) return true;
-      // After a failure, wait at least a day to refetch (overridden below if
-      // it's a new filter list, having no .text)
-      var failed_at = subscription.last_update_failed_at || 0;
-      if (Date.now() - failed_at < HOUR_IN_MS * 24)
-        return false;
-      // Don't let expiresAfterHours delay indefinitely (Issue 7443)
-      var hardStop = subscription.expiresAfterHoursHard || 240;
-      var smallerExpiry = Math.min(subscription.expiresAfterHours, hardStop);
-      var millis = Date.now() - subscription.last_update;
-      return (millis > HOUR_IN_MS * smallerExpiry);
-    }
 
     if (!this._subscriptions[id].text || out_of_date(this._subscriptions[id]))
       this.fetch_and_update(id, listDidntExistBefore);
@@ -341,7 +381,7 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
     cache: false,
     headers: {
       "Accept": "text/plain",
-      "X-Client-ID": "CatBlock/1.2",
+      "X-Client-ID": "CatBlock/" + chrome.runtime.getManifest().version,
       "If-Modified-Since": this._subscriptions[id].last_modified || undefined
     },
     success: function(text, status, xhr) {
@@ -425,6 +465,7 @@ MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
 // Checks if subscriptions have to be updated
 // Inputs: force? (boolean), true if every filter has to be updated
 MyFilters.prototype.checkFilterUpdates = function(force) {
+
   var key = 'last_subscriptions_check';
   var now = Date.now();
   var delta = now - (storage_get(key) || now);
@@ -458,6 +499,73 @@ MyFilters.prototype.customToDefaultId = function(id) {
   return id;
 }
 
+//Retreive the list of malware domains from our site.
+//and set the response (list of domains) on the blocking
+//filter set for processing.
+//Retreive the list of malware domains from our site.
+//and set the response (list of domains) on the blocking
+//filter set for processing.
+MyFilters.prototype._loadMalwareDomains = function() {
+
+    function out_of_date(subscription) {
+        // After a failure, wait at least a day to refetch (overridden below if
+        // it has no .text)
+        var failed_at = subscription.last_update_failed_at || 0;
+        if (Date.now() - failed_at < HOUR_IN_MS * 24)
+          return false;
+        var hardStop = subscription.expiresAfterHoursHard || 240;
+        var smallerExpiry = Math.min((subscription.expiresAfterHours || 24), hardStop);
+        var millis = Date.now() - (subscription.last_update || 0);
+        return (millis > HOUR_IN_MS * smallerExpiry);
+    }
+
+    if (!this._subscriptions.malware.text ||
+        !this.getMalwareDomains() ||
+        out_of_date(this._subscriptions.malware)) {
+        //the timestamp is add to the URL to prevent caching by the browser
+        var url = this._subscriptions.malware.url + "?timestamp=" + new Date().getTime();
+        // Fetch file with malware-known domains
+        var xhr = new XMLHttpRequest();
+        var that = this;
+        xhr.onerror = function(e) {
+            //if the request fail, retry the next time
+            that._subscriptions.malware.last_update_failed_at = Date.now();
+        }
+        xhr.onload = function(e) {
+           that.blocking.setMalwareDomains(JSON.parse(xhr.responseText));
+           //set the response text on the 'text' property so it's persisted to storage
+           that._subscriptions.malware.text = JSON.parse(xhr.responseText);
+           that._subscriptions.malware.last_update = Date.now();
+           that._subscriptions.malware.last_modified = Date.now();
+           delete that._subscriptions.malware.last_update_failed_at;
+           //since the AdBlock Malware Domains.json file is only updated once a day
+           //on the server, expiration is around 24 hours.
+           that._subscriptions.malware.expiresAfterHours = 24;
+           var smear = Math.random() * 0.4 + 0.8;
+           that._subscriptions.malware.expiresAfterHours *= smear;
+           chrome.extension.sendRequest({command: "filters_updated"});
+           log("Fetched " + url);
+        }
+        xhr.open("GET",  url);
+        xhr.send();
+    }
+}
+//Retreive the list of malware domains from our site.
+//and set the response (list of domains) on the blocking
+//filter set for processing.
+MyFilters.prototype._initializeMalwareDomains = function() {
+    if (this._subscriptions.malware.text) {
+        this.blocking.setMalwareDomains(this._subscriptions.malware.text);
+    } else {
+        this._loadMalwareDomains();
+    }
+}
+//Get the current list of malware domains
+//will return undefined, if the user is not subscribed to the Malware 'filter list'.
+MyFilters.prototype.getMalwareDomains = function() {
+    return this.blocking.getMalwareDomains();
+}
+
 // If the user wasn't subscribed to any lists, subscribe to
 // EasyList, AdBlock custom and (if any) a localized subscription
 // Inputs: none.
@@ -484,7 +592,6 @@ MyFilters.prototype._load_default_subscriptions = function() {
       case 'ko': return 'easylist_plun_korean';
       case 'lv': return 'latvian';
       case 'nl': return 'dutch';
-      case 'no': return 'norwegian';
       case 'pl': return 'easylist_plus_polish';
       case 'ro': return 'easylist_plus_romanian';
       case 'ru': return 'russian';
@@ -578,17 +685,13 @@ MyFilters.prototype._make_subscription_options = function() {
       url: "http://mozilla.gfsolone.com/filtri.txt",
     },
     "japanese": { // Japanese filters
-      url: "https://secure.fanboy.co.nz/fanboy-japanese.txt",
+      url: "https://raw.githubusercontent.com/k2jp/abp-japanese-filters/master/abpjf.txt",
     },
     "easylist_plun_korean": {  // Korean filters
       url: "https://secure.fanboy.co.nz/fanboy-korean.txt",
     },
     "latvian": {  // Latvian filters
       url: "https://gitorious.org/adblock-latvian/adblock-latvian/blobs/raw/master/lists/latvian-list.txt",
-    },
-    "norwegian": {  // Additional Norwegian filters
-      url: "http://home.fredfiber.no/langsholt/adblock.txt",
-      requiresList: "easylist",
     },
     "swedish": {  // Swedish filters
       url: "http://fanboy.co.nz/fanboy-swedish.txt",
@@ -603,7 +706,7 @@ MyFilters.prototype._make_subscription_options = function() {
       url: "https://easylist-downloads.adblockplus.org/fanboy-social.txt",
     },
     "malware": { // Malware protection
-      url: "https://easylist-downloads.adblockplus.org/malwaredomains_full.txt",
+      url: "https://data.getadblock.com/filters/domains.json",
     },
     "annoyances": { // Fanboy's Annoyances
       url: "https://easylist-downloads.adblockplus.org/fanboy-annoyance.txt",
