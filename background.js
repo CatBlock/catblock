@@ -1601,7 +1601,7 @@
       return channels.remove(id);
   }
   
-  var getListing = function(id) {
+  var getListings = function(id) {
       return channels.getListings(id);
   }
   
