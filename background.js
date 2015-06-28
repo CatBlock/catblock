@@ -1089,17 +1089,13 @@
   (function() {
     chrome.extension.onRequest.addListener(
       function(request, sender, sendResponse) {
-        if (request.command != "call")
-            return; // not for us
-        var target = window;
-        var parts = request.fn.split('.');
-        for (var i=0; i < parts.length-1; i++) {
-            target = target[parts[i]];
-        }
-        var fnName = parts[parts.length-1];
-        var fn = target[fnName];
+        if (request.command !== "call")
+          return; // not for us
+        if ((sender.tab === undefined) || (sender.tab === null))
+          return;
+        var fn = window[request.fn];
         request.args.push(sender);
-        var result = fn.apply(target, request.args);
+        var result = fn.apply(window, request.args);
         sendResponse(result);
       }
     );
@@ -1594,6 +1590,31 @@
       }
   );
 
+  // CatBlock specific code
   channels = new Channels();
 
+  var addChannel = function(args) {
+      return channels.add(args);
+  }
+  
+  var removeChannel = function(id) {
+      return channels.remove(id);
+  }
+  
+  var getListing = function(id) {
+      return channels.getListings(id);
+  }
+  
+  var getGuide = function() {
+      return channels.getGuide();
+  }
+  
+  var randomListing = function(args) {
+      return channels.randomListing(args);
+  }
+
+  var setEnabled = function(id, enabled) {
+      return channels.setEnabled(id, enabled);
+  }
+  
   log("\n===FINISHED LOADING===\n\n");

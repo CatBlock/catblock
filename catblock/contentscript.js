@@ -156,7 +156,7 @@ _getPlacementFor: function(el, callback) {
   var that = this;
   var t = this._targetSize(el);
 
-  BGcall("channels.randomListing", {width:t.x, height:t.y}, function(pic) {
+  BGcall("randomListing", {width:t.x, height:t.y}, function(pic) {
 
     if (!pic) {
       callback();

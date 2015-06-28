@@ -26,7 +26,7 @@
         var cb = $("<input>", {
           type: "checkbox",
           click: function() {
-            BGcall("channels.setEnabled", id, this.checked);
+            BGcall("setEnabled", id, this.checked);
           },
           checked: data.enabled
         });
@@ -34,7 +34,7 @@
           html: "<sup>x</sup>",
           href: "#",
           click: function() {
-            BGcall("channels.remove", id);
+            BGcall("removeChannel", id);
             theUI.remove();
             return false;
           },
@@ -67,7 +67,7 @@
 
       function fillChannelUIWithPhotos(id) {
         $("#fill-photos-btn-" + id).hide();
-        BGcall("channels.getListings", id, function(listings) {
+        BGcall("getListings", id, function(listings) {
           var holder = $("#chan-" + id + "-photos");
           holder.html("");
           holder.show();
@@ -93,7 +93,7 @@
           param: param,
           enabled: true
         };
-        BGcall("channels.add", data, function(id) {
+        BGcall("addChannel", data, function(id) {
           if (id) {
             addEmptyChannelUI(id, data);
             $("#flickr-param").val("");
@@ -101,7 +101,7 @@
         });
       }
 
-      BGcall("channels.getGuide", function(guide) {
+      BGcall("getGuide", function(guide) {
         for (var id in guide) {
           addEmptyChannelUI(id, guide[id]);
           // TODO: Enable after styling fixes
@@ -144,7 +144,7 @@
       });
 
       function setMascot(id) {
-        BGcall("channels.randomListing", {channelId: id}, function(listing) {
+        BGcall("randomListing", {channelId: id}, function(listing) {
           var folder = "img/";
           $("body").css({
             "background": "url(" + listing.url + ") 95% 5% no-repeat",
