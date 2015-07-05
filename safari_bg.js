@@ -68,7 +68,6 @@ frameData = (function() {
 
 // True blocking support.
 safari.application.addEventListener("message", function(messageEvent) {
-
   if (messageEvent.name === "request" &&
       messageEvent.message.data.args.length >= 2 &&
       messageEvent.message.data.args[0] &&
@@ -110,6 +109,13 @@ safari.application.addEventListener("message", function(messageEvent) {
         log("SAFARI TRUE BLOCK " + url + ": " + isMatched);
     messageEvent.message = !isMatched;
 }, false);
+
+// Should CatBlock replace ads or just block them?
+if (get_settings().catblock) {
+    safari.extension.addContentScriptFromURL(safari.extension.baseURI + "catblock/contentscript.js", [], [], false);
+} else {
+    safari.extension.removeContentScript(safari.extension.baseURI + "catblock/contentscript.js");
+}
 
 // Code for creating popover, not available on Safari 5.0
 if (!LEGACY_SAFARI) {
@@ -225,6 +231,15 @@ safari.application.addEventListener("beforeNavigate", function(event) {
     } else {
         safari.extension.removeContentScript(safari.extension.baseURI + "ytchannel.js");
     }
+}, true);
+
+// Enable/disable CatBlock's content script, when setting has been changed
+safari.extension.settings.addEventListener("change", function() {
+  if (get_settings().catblock) {
+      safari.extension.addContentScriptFromURL(safari.extension.baseURI + "catblock/contentscript.js", [], [], false);
+  } else {
+      safari.extension.removeContentScript(safari.extension.baseURI + "catblock/contentscript.js");
+  }
 }, true);
 
 // Set commands for whitelist, blacklist and undo my blocks wizards
