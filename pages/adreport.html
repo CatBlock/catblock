@@ -23,6 +23,9 @@
         margin: 0px -8px 0px -8px;
         display: none;
       }
+      .odd {
+        background-color: #f8f8f8;
+      }
       .white {
         background-color: white;
       }
@@ -132,12 +135,7 @@
   <body>
     <header id="header">
       <div class="wrap">
-        <nav id="main_nav" class="right">
-          <li class="social"><a class="twitter" href="http://twitter.com/getadblock" target="_blank"></a></li>
-          <li class="social"><a class="gplus" href="http://plus.google.com/100807459477993641578" target="_blank" ></a></li>
-          <li class="social"><a class="facebook" href="http://facebook.com/heres.adblock" target="_blank" ></a></li>
-        </nav>
-        <a href="https://www.getadblock.com" class="left adblock-logo"><img src="../img/logo.png" width="240" height="64"></a>
+        <a class="left adblock-logo"><img src="../img/logo.png"></a>
       </div>
     </header>
 
@@ -148,7 +146,7 @@
     </div>
 
     <!--STEP 1: malware check-->
-    <div class="step" style="background-color: #f8f8f8;">
+    <div class="step odd">
       <div id="step_malware_checking_DIV" class="chrome_only">
         <h2 i18n="malwarecheck" style="display: inline-block;"></h2>
         <img class="loader" src=../img/loader.gif />
@@ -158,7 +156,7 @@
     </div>
 
     <!--STEP 2: update filters-->
-    <div class="step" >
+    <div class="step even" >
       <div class="section" id="step_update_filters_DIV">
         <h2 i18n="updateyourlists"></h2>
         <ol>
