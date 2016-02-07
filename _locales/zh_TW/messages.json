@@ -1,4 +1,12 @@
 {
+  "description2":{
+    "message":"最受歡迎的 Chrome 擴充，有超過四千萬名的用戶正在用 AdBlock 阻擋網頁上的廣告",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
+  "adblock_click_for_details":{
+    "message":"AdBlock-點擊查看詳情",
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
+  },
   "buttoncancel":{
     "message":"取消",
     "description":"Cancel button"
@@ -6,6 +14,10 @@
   "buttonok":{
     "message":"確定",
     "description":"OK button"
+  },
+  "reportpubliclyavailable":{
+    "message":"注意： 您的報告可能會被公開。加入任何私人資料前小心留意。",
+    "description":"Ad report page string, when you're about to submit a report"
   },
   "buttonblockit":{
     "message":"阻擋",
@@ -19,13 +31,25 @@
     "message":"AdBlock 選項",
     "description":"Title for the options page"
   },
+  "chromebutton_how_to_hide2":{
+    "message":"如要隱藏按鈕，請按滑鼠右鍵並選擇隱藏按鈕。在 chrome:\/\/chrome\/extensions 下，你可以再次顯示它。",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
+  },
+  "operabutton_how_to_hide2":{
+    "message":"如需隱藏按鈕，請到  opera:\/\/extensions 並且點選 『從工具列上隱藏』選項。 你可以取消該選項以顯示該按鈕",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
+  },
+  "safaributton_how_to_hide2":{
+    "message":"如需隱藏此按鈕，請到  opera:\/\/extensions 並且點選 『從工具列上隱藏』選項。 你可以取消該選項以再次顯示此按鈕",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
+  },
+  "ff_button_how_to_hide":{
+    "message":"若要隱藏按鈕，請在上面按右鍵，從工具列中選擇刪除。 你可以在 Firefox功能表-> 自訂 中將它再次顯示。",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
+  },
   "sliderexplanation":{
     "message":"滑動控制器直到頁面上的廣告已被正確地阻擋。",
     "description":"Blacklister slider page message"
-  },
-  "block_by_url_instead":{
-    "message":"高級: 使用網址阻擋",
-    "description":"Link on blacklister slider page"
   },
   "slidertitle":{
     "message":"第一步:找出要阻擋的目標",
@@ -151,6 +175,24 @@
     "message":"排除",
     "description":"Button for excluding a domain in the whitelister dialog"
   },
+  "reloadpageafterwhitelist":{
+    "message":"重新載入該頁面",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "wizardcantrunonframesets":{
+    "message":"這個網站用了過時的技術，因此AdBlock 的功能無法在這個網站上運作。 你可以在選項頁中的『自訂』分頁中，手動把它們加入黑名單或者是白名單",
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
+  },
+  "subscribeconfirm":{
+    "message":"您確定要訂閱 $title$ 過濾清單嗎",
+    "description":"Prompt question before subscribing to the filter list",
+    "placeholders":{
+      "title":{
+        "content":"$1",
+        "example":"Prebake"
+      }
+    }
+  },
   "subscribingtitle":{
     "message":"正在訂閱過濾清單...",
     "description":"abp: link subscriber title"
@@ -192,6 +234,14 @@
   "betalabel":{
     "message":"Beta",
     "description":"Label for beta features in AdBlock Options"
+  },
+  "showcontextmenus2":{
+    "message":"在右鍵清單中顯示",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableyoutubestreamingads":{
+    "message":"啟用 ClickToFlash 相容性模式",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
   "debuginlogoption":{
     "message":"在 Console Log 中顯示除錯資訊（將會降低 AdBlock 效能）",
@@ -285,6 +335,10 @@
     "message":"請不要訂閱過多清單，每新增一個清單都會讓瀏覽器的速度降低！更多詳細資訊和過濾清單可在<a>這裡<\/a>找到。",
     "description":"Explanation of the filter lists"
   },
+  "updatenowmessage2":{
+    "message":"AdBlock會自動取得更新。 您也可以<a>現在馬上更新<\/a>",
+    "description":"Update filters text + button"
+  },
   "orenteraurl":{
     "message":"或輸入過濾清單網址：",
     "description":"Link for custom subscription"
@@ -292,6 +346,10 @@
   "subscribebutton":{
     "message":"訂閱",
     "description":"Subscribe to a list button"
+  },
+  "filterantisocial":{
+    "message":"反社群網站過濾器  （社群網站的按鈕會被自動過濾掉）",
+    "description":"A filter list"
   },
   "filteradblock_custom":{
     "message":"AdBlock 自訂過濾清單 （推薦）",
@@ -301,8 +359,36 @@
     "message":"EasyList （推薦）",
     "description":"A filter list"
   },
+  "filterrussian":{
+    "message":"俄羅斯和烏克蘭",
+    "description":"Language names for a filter list"
+  },
+  "filterczech":{
+    "message":"捷克和斯洛伐克",
+    "description":"Language names for a filter list"
+  },
   "filtereasyprivacy":{
     "message":"EasyPrivacy (隱私保護)",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_indonesian":{
+    "message":"印尼文",
+    "description":"A filter list"
+  },
+  "filtermalware":{
+    "message":"惡意軟體防護",
+    "description":"A filter list"
+  },
+  "filterlatvian":{
+    "message":"拉脫維亞文",
+    "description":"A filter list"
+  },
+  "filterswedish":{
+    "message":"瑞典文",
+    "description":"A filter list"
+  },
+  "filterturkish":{
+    "message":"土耳其文",
     "description":"A filter list"
   },
   "blacklistclickmessage":{
@@ -357,6 +443,10 @@
     "message":"手動編輯您的過濾規則：",
     "description":"Subtitle on the 'Customize' tab"
   },
+  "manualexcludefilteredit":{
+    "message":"編輯被停用的清單：",
+    "description":"Subtitle on the 'Customize' tab"
+  },
   "filtersavewarning":{
     "message":"小心: 如果在這裡的設定出錯，包含官方的過濾清單，可能會失效！<br\/>參閱<a>過濾規則語法教學<\/a>來正確地添加進階黑名單、白名單規則。",
     "description":"Warning when blacklisting manually"
@@ -373,13 +463,21 @@
     "message":"AdBlock - 廣告回報",
     "description":"Title of the ad report page"
   },
-  "adreport2":{
-    "message":"你發現頁面上的廣告? 好, 我會幫你找到正確的地方來回報!<br\/> 記得: 回報廣告是自願的。 如果你不想這麼做，關閉這個視窗。並且自行在選項中『自訂』分頁加入過濾規則!",
-    "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  "malwarenotificationcheckboxmessage":{
+    "message":"在 AdBlock 檢測到惡意軟體時發出通知",
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
   },
-  "updateyourlists":{
-    "message":"確認您的過濾清單都已在最新狀態",
-    "description":"Section header on the ad report page"
+  "malwarenotificationlearnmore":{
+    "message":"瞭解更多惡意軟體的相關資訊",
+    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
+  },
+  "malwarenotificationdisablethesemessages":{
+    "message":"停用這些通知",
+    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
+  },
+  "malwarenotfound":{
+    "message":"沒有偵測到已知的惡意軟體",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
   "clickupdatefilters":{
     "message":"點選: <a>更新過濾清單！<\/a>",
@@ -401,13 +499,25 @@
     "message":"否",
     "description":"A negative response to a question"
   },
-  "adalreadyblocked":{
-    "message":"您不用做任何事，因為廣告已被阻擋",
-    "description":"On the ad report page, telling a user there is nothing to do"
+  "clickdisableotherextensions":{
+    "message":"<b> 或者 <\/b>, 按下此按鈕以便完成上述所有操作: <a> 停用所有擴充 <\/a>",
+    "description":"On the ad report page, an alternative way to disable other extensions"
   },
-  "correctfilters":{
-    "message":"正確的過濾清單",
-    "description":"On the ad report page, label describing having the right set of filters"
+  "enableotherextensionscomplete":{
+    "message":"所有先前停用的擴充已重新啟用",
+    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled"
+  },
+  "manuallyenableotherextensions":{
+    "message":"請至擴充頁面來啟用您以前曾經停用的擴充",
+    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
+  },
+  "disableforchromeandsafaristeptwo":{
+    "message":"除了<b> AdBlock 維持勾選<\/b>以外，<b>取消所有其他擴充<\/b>的『啟用』核取方塊",
+    "description":"Step 2 for disabling Chrome and Safari extensions"
+  },
+  "disableforsafaristepone":{
+    "message":"選擇 Safari 選單 &rarr; 設定 &rarr; 擴充",
+    "description":"Step 1 for disabling Safari extensions"
   },
   "pagelanguagecheck":{
     "message":"此頁面使用什麼語言？",
@@ -457,6 +567,10 @@
     "message":"匈牙利文",
     "description":"language"
   },
+  "filterisraeli":{
+    "message":"希伯來文",
+    "description":"language"
+  },
   "filteritalian":{
     "message":"義大利文",
     "description":"language"
@@ -481,6 +595,10 @@
     "message":"俄文",
     "description":"language"
   },
+  "lang_slovak":{
+    "message":"斯洛伐克文",
+    "description":"language"
+  },
   "filtereasylist_plus_spanish":{
     "message":"西班牙文",
     "description":"language"
@@ -492,6 +610,14 @@
   "other":{
     "message":"其他",
     "description":"Multiple choice option"
+  },
+  "orchrome":{
+    "message":"或是 Chrome",
+    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
+  },
+  "oradblockforchrome":{
+    "message":"或是 Chrome 版 AdBlock",
+    "description":"Used for placeholder in checkinfirefox_2 string"
   },
   "nodefaultfilter1":{
     "message":"我們沒有這個語言的預設過濾清單。<br\/>請嘗試尋找一個適合的清單來支援這個語言 $link$ 或者 自行在選項中『自訂』分頁加入過濾規則。",
@@ -513,9 +639,37 @@
       }
     }
   },
-  "checkinfirefox_3":{
-    "message":"In that browser, subscribe to the same filter lists as you have here (except for the AdBlock Custom filters in FireFox).",
-    "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  "checkinfirefoxtitle":{
+    "message":"在 Firefox中檢查 $chrome$",
+    "description":"Tell a user to see if a reported ad also appears in Firefox\/Chrome",
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='chrome1'><\/span>",
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    }
+  },
+  "checkinfirefox_1":{
+    "message":"如果您尚未安裝的話，請先安裝 Firefox $chrome$",
+    "description":"instruction for how to check Firefox\/Chrome for a reported ad",
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='chrome2'><\/span>",
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    }
+  },
+  "ff_checkinchrometitle":{
+    "message":"在 Chrome 中檢查",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"如果您沒有Chrome，請安裝Chrome",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"如果您沒有安裝 Chrome版的 AdBlock，請安裝它",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"我不想檢查這個",
@@ -579,6 +733,14 @@
     "message":"xmlhttprequest",
     "description":"A resource type"
   },
+  "typeother":{
+    "message":"其他",
+    "description":"A resource type"
+  },
+  "typepopup":{
+    "message":"彈出視窗",
+    "description":"A resource type"
+  },
   "typemedia":{
     "message":"audio\/video",
     "description":"A resource type"
@@ -591,127 +753,13 @@
     "message":"unknown",
     "description":"A resource type"
   },
-  "blockeverycontaining":{
-    "message":"阻擋資源包含:",
-    "description":"resourceblocking page string"
-  },
-  "whitelisteverycontaining":{
-    "message":"略過物件包含:",
-    "description":"resourceblocking page string"
-  },
-  "wildcardhint":{
-    "message":"注意: 你可以使用 * 作為通配符",
-    "description":"resourceblocking page string"
-  },
-  "novalidurlpattern":{
-    "message":"請輸入有效的網址!",
-    "description":"resourceblocking page string"
-  },
-  "thirdpartycheckbox":{
-    "message":"任何網站 『除了』 此網域 $domain$",
-    "description":"resourceblocking page string",
-    "placeholders":{
-      "domain":{
-        "content":"$1",
-        "example":"example.com"
-      }
-    }
-  },
-  "filterhasbeenadded":{
-    "message":"過濾規則已加入!\n請重新載入頁面!",
-    "description":"resourceblocking page string"
-  },
-  "adblock_is_paused":{
-    "message":"AdBlock 暫停。 這個頁面不可用。 啟用 AdBlock 並再試一次。",
-    "description":"resourceblocking page string"
-  },
-  "excludefilterremoved":{
-    "message":"過濾規則已移除。請重新載入獲得新的過濾資源頁面。",
-    "description":"Warning when a page exclusion rule was removed in resourceblock.html"
-  },
-  "resourceiswhitelisted":{
-    "message":"這個資源已被加入白名單。所以你不能阻擋它。",
-    "description":"resourceblocking page string"
-  },
-  "selectresources":{
-    "message":"選擇你要阻擋或是取消阻擋的資源",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocktitle":{
-    "message":"阻擋一個資源",
-    "description":"resourceblocking page string"
-  },
-  "headerresource":{
-    "message":"資源",
-    "description":"resourceblocking page string"
-  },
-  "headertype":{
-    "message":"類型",
-    "description":"resourceblocking page string"
-  },
-  "headerfilter":{
-    "message":"符合的過濾規則",
-    "description":"resourceblocking page string"
-  },
   "close":{
     "message":"關閉",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend1":{
-    "message":"欄位:",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend2":{
-    "message":"已阻擋的資源",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend3":{
-    "message":"已加入白名單的資源",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend4":{
-    "message":"可阻擋的資源",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend5":{
-    "message":"隱藏規則已套用",
-    "description":"resourceblocking page string"
+    "description":"Generic message for buttons that close a view or window"
   },
   "loading":{
     "message":"載入中...",
-    "description":"resourceblocking page string"
-  },
-  "nextstep":{
-    "message":"下一步",
-    "description":"resourceblocking page string"
-  },
-  "appliedwhenbrowsing":{
-    "message":"當你瀏覽時，這個過濾規則將被套用:",
-    "description":"resourceblocking page string"
-  },
-  "anysite":{
-    "message":"任何網站",
-    "description":"resourceblocking page string"
-  },
-  "onlyondomains":{
-    "message":"『只有』這些網域的頁面: ",
-    "description":"resourceblocking page string"
-  },
-  "multipledomainshint":{
-    "message":"使用空白或是逗號分開多個網域",
-    "description":"resourceblocking page string"
-  },
-  "casesensitive":{
-    "message":"這個規則分大小寫:",
-    "description":"resourceblocking page string"
-  },
-  "onlyresourcetypes":{
-    "message":"這個規則套用在這些類型的資源:",
-    "description":"resourceblocking page string"
-  },
-  "addthisfilter":{
-    "message":"加入這個規則",
-    "description":"resourceblocking page string"
+    "description":"Generic message displayed during processes that take some time"
   },
   "flashads":{
     "message":"影片和 Flash",
@@ -724,6 +772,10 @@
   "cantblockflash":{
     "message":"目前還無法阻擋在 Flash 或其他外掛程式中的廣告。此功能尚在等待瀏覽器與 WebKit 支援。",
     "description":"Result of the final ad report question"
+  },
+  "cleanuplist2":{
+    "message":"清空此清單",
+    "description":"Option at the bottom of the 'Customize' options tab"
   },
   "disabled_by_filter_lists":{
     "message":"抱歉, 因為你的一個過濾清單，AdBlock 在這個頁面被關閉",
@@ -741,13 +793,25 @@
     "message":"AdBlock 在這個頁面關閉。",
     "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
+  "enable_adblock":{
+    "message":"在此頁面上啟用AdBlock",
+    "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
   "status_paused":{
     "message":"AdBlock 已暫停",
     "description":"Message shown in toolbar button when AdBlock is paused"
   },
+  "unpause_adblock":{
+    "message":"繼續AdBlock的運作",
+    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
+  },
   "pause_adblock":{
     "message":"暫停 AdBlock",
     "description":"Menu entry to pause AdBlock"
+  },
+  "undo_last_block":{
+    "message":"取消我在此網域上建立的阻擋規則",
+    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
   },
   "dont_run_on_this_page":{
     "message":"不要在這個頁面使用",
@@ -761,25 +825,33 @@
     "message":"隱藏這個按鈕",
     "description":"Toolbar button menu entry to hide the AdBlock button"
   },
-  "removelabel":{
-    "message":"移除",
-    "description":"Link to remove a filter on the resourceblock page"
+  "spread_the_word":{
+    "message":"將AdBlock推薦給更多人使用！",
+    "description":"Text of a share link"
   },
-  "changelabel":{
-    "message":"改變",
-    "description":"Link to change resources on the resourceblock page"
+  "pwyw":{
+    "message":"想付多少，就付多少！",
+    "description":"Text of a payment request link"
   },
   "translator_credit":{
     "message":"翻譯貢獻:",
     "description":"Will be followed by a list of translator names (separate string)"
   },
+  "tabsupport":{
+    "message":"支援與協助",
+    "description":"A tab on the options page"
+  },
   "report_ad_on_page":{
     "message":"回報這個頁面的廣告",
     "description":"Entry in the AdBlock button menu"
   },
-  "show_resourcelist":{
-    "message":"顯示資源清單",
-    "description":"Entry in the AdBlock button menu"
+  "advanced_options2":{
+    "message":"我是進階玩家，請顯示進階選項",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "work_around_hulu_problems":{
+    "message":"套用變通方法以避開Hulu.com 無法正常播放的問題 （需要重新啟動瀏覽器）",
+    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
   },
   "modifydomain":{
     "message":"網站:",
@@ -808,5 +880,165 @@
   "storage_quota_exceeded":{
     "message":"你超出了 AdBlock 能使用的儲存空間。 請取消訂閱一些清單!",
     "description":"Message shown when the user uses more storage than allowed by the browser"
+  },
+  "safari50_updatenotice":{
+    "message":"你正在使用舊版的 Safari，請 <a>升級您的瀏覽器 <\/a> 以便使用在工具列按鈕中暫停 AdBlock，白名單，回報廣告等等最新的功能。",
+    "description":"A message shown to Safari 5.0 users urging them to upgrade"
+  },
+  "blocked_ads":{
+    "message":"被阻擋的廣告：",
+    "description":"Title for popup menu section showing number of ads blocked"
+  },
+  "blocked_n_on_this_page":{
+    "message":"$count$ 此頁面上",
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999.",
+    "placeholders":{
+      "count":{
+        "content":"<a>123<\/a>",
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
+      }
+    }
+  },
+  "blocked_n_in_total":{
+    "message":"$count$ 總阻擋數",
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999.",
+    "placeholders":{
+      "count":{
+        "content":"<a>123,456<\/a>",
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
+      }
+    }
+  },
+  "show_on_adblock_menu":{
+    "message":"在選單中顯示 AdBlock 阻擋了多少廣告",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+  },
+  "adblockinglist":{
+    "message":"廣告過濾清單",
+    "description":"List for subscribed ad blocking fiters"
+  },
+  "otherfilters":{
+    "message":"其他的過濾清單",
+    "description":"List for other filters the user subscribed to"
+  },
+  "customfilters":{
+    "message":"自訂過濾清單",
+    "description":"List for custom filters the user subscribed to"
+  },
+  "customfilterserrormessage":{
+    "message":"以下過濾器 <br\/> $filter$ <br\/> 有錯誤訊息：<br\/> $message$",
+    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page",
+    "placeholders":{
+      "filter":{
+        "content":"$1",
+        "example":"@@.ad"
+      },
+      "message":{
+        "content":"$2",
+        "example":"invalid filter"
+      }
+    }
+  },
+  "dropboxerrorforfilters":{
+    "message":"你已經到達了 Dropbox 空間限制。 請在您的過濾清單中移除一些項目並再試一次",
+    "description":"Message to Dropbox sync users on the Customize tab, custom filters \/ disabled."
+  },
+  "languagedropdowndescription":{
+    "message":"替其他語言新增過濾清單 ",
+    "description":"Dropdown list for language-specific filters"
+  },
+  "whats_this":{
+    "message":"這是？",
+    "description":"Text of a link pointing to the explanation of a new feature"
+  },
+  "selectlanguage":{
+    "message":" --選擇語言-- ",
+    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
+  },
+  "latest_version":{
+    "message":"AdBlock 是最新的！",
+    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
+  },
+  "here":{
+    "message":"這裡 ",
+    "description":"This message is injected in other strings as a link\/button"
+  },
+  "update_available":{
+    "message":"AdBlock 有更新摟！ 請至 $here$ 更新. <br> 注意： 如果你想要自動取得這些更新，您只需要點選 Safari > 設定 >  擴充 > 更新 <br> 然後選擇 『自動安裝更新』",
+    "description":"On the Options > Support page, shows when there are updates available for AdBlock",
+    "placeholders":{
+      "here":{
+        "content":"<a id='here'><\/a>",
+        "example":"<a>here<\/a>"
+      }
+    }
+  },
+  "adblocksupport":{
+    "message":"AdBlock 支援與協助",
+    "description":"Title of the support tab"
+  },
+  "somethingwentwrong":{
+    "message":"在檢查更新的時候出了點錯誤",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
+  },
+  "checkinternetconnection":{
+    "message":"你必須連上網路才能回報廣告",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
+  },
+  "whatsnew":{
+    "message":"在新版中有哪些新功能？ 請參考 <a style='cursor:pointer;'>更新日誌<\/a>！",
+    "description":"Link to display the changelog on the Support tab of the options"
+  },
+  "englishonly":{
+    "message":"僅限英文",
+    "description":"Lets the user know that a link\/page is available in English only"
+  },
+  "foundbug":{
+    "message":"發現了bug？",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "adblockupdates":{
+    "message":"AdBlock 更新狀態",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "whatmakesadblocktick":{
+    "message":"想看看 AdBlock 是如何精益求精的嗎？",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "questionoridea":{
+    "message":"有任何問題或者是新的點子？",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "sourcecode":{
+    "message":"原始碼是<a> 開源的 <\/a>！",
+    "description":"Link to the source code of AdBlock on the Support tab of the options"
+  },
+  "contributors":{
+    "message":"也請參考我們的<a>網頁<\/a>來看看有哪些人對AdBlock做出了貢獻",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "debuginfo":{
+    "message":"我們的研發團隊有像您索取除錯資訊(debug info) ?  <a href='#' id='debug'>點我<\/a>取得這些資訊 ！",
+    "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "supportsite":{
+    "message":"請來我們的<a>技術與支援網站<\/a>讓我們聆聽您的意見！",
+    "description":"Link to the support site on the Support tab of the options"
+  },
+  "ad_report_please":{
+    "message":"如果你看到了廣告，請<a>回報廣告<\/a>而不是回報bug",
+    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
+  },
+  "headertype":{
+    "message":"類型",
+    "description":"Resource list page: title of a column"
+  },
+  "typesub_frame":{
+    "message":"frame",
+    "description":"A resource type"
+  },
+  "typemain_frame":{
+    "message":"page",
+    "description":"A resource type"
   }
 }

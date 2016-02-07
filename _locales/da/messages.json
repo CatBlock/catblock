@@ -1,4 +1,8 @@
 {
+  "description2":{
+    "message":"Den mest populære udvidelse til Chrome, med over 40 millioner brugere! Blokerer reklamer overalt på internettet.",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
   "adblock_click_for_details":{
     "message":"AdBlock - klik for at se mere",
     "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
@@ -27,10 +31,6 @@
     "message":"AdBlock-indstillinger",
     "description":"Title for the options page"
   },
-  "thirdparty":{
-    "message":"Tredjepart",
-    "description":"Resource list column title telling if the resource originates from a different domain"
-  },
   "chromebutton_how_to_hide2":{
     "message":"For at skjule knappen skal du højreklikke på den og vælge 'Skjul knap'. Du kan få den frem igen ved at gå til chrome:\/\/chrome\/extensions.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
@@ -46,10 +46,6 @@
   "sliderexplanation":{
     "message":"Skyd glideren indtil reklamen er skjult korrekt på siden, og det blokerede element ser brugbart ud.",
     "description":"Blacklister slider page message"
-  },
-  "block_by_url_instead":{
-    "message":"Avanceret: blokér ud fra URL istedet",
-    "description":"Link on blacklister slider page"
   },
   "slidertitle":{
     "message":"Trin 1: Find ud af hvad der skal blokeres",
@@ -225,10 +221,6 @@
     "message":"Beta",
     "description":"Label for beta features in AdBlock Options"
   },
-  "googletextads2":{
-    "message":"Jeg kan godt lide tekstreklamerne på Google; bare vis mig dem",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
   "showcontextmenus2":{
     "message":"Tilføj muligheder til højrekliksmenuen",
     "description":"Checkbox on the 'General' tab of the Options page"
@@ -343,15 +335,11 @@
   },
   "filterantisocial":{
     "message":"Antisocial-filterliste (fjerner sociale medierknapper)",
-    "description":"Name of the filter list"
+    "description":"A filter list"
   },
   "filterannoyances":{
     "message":"Fanboy's Annoyances (fjerner irritationer på nettet)",
-    "description":"Name of the filter list"
-  },
-  "filterwarning_removal":{
-    "message":"AdBlock-deaktiveringsadvarselsliste (fjerner meddelelser om at bruge AdBlock)",
-    "description":"Name of the filter list"
+    "description":"A filter list"
   },
   "filteradblock_custom":{
     "message":"AdBlock-brugerdefinerede filtre (anbefalet)",
@@ -383,10 +371,6 @@
   },
   "filterlatvian":{
     "message":"Lettisk",
-    "description":"A filter list"
-  },
-  "filternorwegian":{
-    "message":"Norsk",
     "description":"A filter list"
   },
   "filterswedish":{
@@ -469,14 +453,6 @@
     "message":"AdBlock - Raportér en reklame",
     "description":"Title of the ad report page"
   },
-  "adreport2":{
-    "message":"Okay, så du har fundet en reklame på en hjemmeside? Nå, men jeg vil hjælpe med og finde det rette sted og raportere den!<br\/> Husk: rapportering af reklamer er frivilligt. Hvis du ikke ønsker at gøre det, kan du blot lukke dette vindue og nøjes med at blokere den for kun dig, ved at tilføje den under 'Tilpas' tabben under Indstillinger!",
-    "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
-  },
-  "malwarecheck":{
-    "message":"Malwaretjek",
-    "description":"Section header on the ad report page"
-  },
   "malwarewarning":{
     "message":"Din computer kan være inficeret med malware.  Klik <a>her<\/a> for mere information.",
     "description":"On the ad report page, the ads the user is seeing might be caused by malware\/adware"
@@ -484,10 +460,6 @@
   "malwarenotfound":{
     "message":"Ingen kendt malware fundet.",
     "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
-  },
-  "updateyourlists":{
-    "message":"Sikre at dine filtre er opdateret",
-    "description":"Section header on the ad report page"
   },
   "clickupdatefilters":{
     "message":"Klik på denne: <a>Opdatér mine filtre!<\/a>",
@@ -509,18 +481,6 @@
     "message":"Nej",
     "description":"A negative response to a question"
   },
-  "adalreadyblocked":{
-    "message":"Du behøver ikke gøre noget, da reklamen allerede er blokeret",
-    "description":"On the ad report page, telling a user there is nothing to do"
-  },
-  "disableallextensions":{
-    "message":"Slå alle udvidelser fra, udover AdBlock.",
-    "description":"Instruction on ad report page"
-  },
-  "disableforchromestepone":{
-    "message":"Åben siden for <a href='#'>udvidelser<\/a>",
-    "description":"Step 1 for disabling Chrome extensions"
-  },
   "disableforchromeandsafaristeptwo":{
     "message":"Fjern krydset i 'Aktivér'-feltet ud for alle udvidelser <b>bortset fra<\/b> AdBlock. <b>Lad AdBlock forblive aktiveret<\/b>.",
     "description":"Step 2 for disabling Chrome and Safari extensions"
@@ -528,14 +488,6 @@
   "disableforsafaristepone":{
     "message":"Klik på Safari-menuen &rarr; Indstillinger &rarr; Udvidelser.",
     "description":"Step 1 for disabling Safari extensions"
-  },
-  "reenableadsonebyone":{
-    "message":"Nu hvor reklamerne er væk, skal du finde ud af hvilken udvidelse der er årsagen. Gå igennem dem alle, og aktiver dem en efter en. Den udvidelse der får reklamerne til at komme frem igen, er den du skal have fjernet for at slippe for reklamer.",
-    "description":"Tells the user to reenable the extensions one by one"
-  },
-  "correctfilters":{
-    "message":"Ret filtre",
-    "description":"On the ad report page, label describing having the right set of filters"
   },
   "pagelanguagecheck":{
     "message":"Hvilket sprog er siden i?",
@@ -677,20 +629,6 @@
       }
     }
   },
-  "checkinfirefox_2":{
-    "message":"Installér Adblock Plus til Firefox $chrome$ hvis du ikke har det.",
-    "description":"Instruction for how to check Firefox\/Chrome for a reported ad.",
-    "placeholders":{
-      "chrome":{
-        "content":"<span id='adblockforchrome'><\/span>",
-        "example":"'or AdBlock for Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
-      }
-    }
-  },
-  "checkinfirefox_3":{
-    "message":"I den browser, skal du abonner på de samme filtre som du har her (bortset fra de manuelle AdBlock filtre i Firefox).",
-    "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
-  },
   "checkinfirefox_4":{
     "message":"I den browser skal du indlæse siden med reklamen.",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
@@ -698,6 +636,30 @@
   "checkinfirefox_5":{
     "message":"Vises reklamen også i den browser?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
+  },
+  "ff_checkinchrometitle":{
+    "message":"Tjek i Chrome",
+    "description":"Tell a user to see if a reported ad also appears in Chrome"
+  },
+  "ff_checkinchrome_1":{
+    "message":"Installér Chrome, hvis du ikke har det.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_2":{
+    "message":"Installér AdBlock til Chrome, hvis du ikke har det.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_3":{
+    "message":"I Chrome, abonnér på de samme filterlister som du har her.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_4":{
+    "message":"I Chrome, indlæs siden med annoncen.",
+    "description":"Instruction for how to check Chrome for a reported ad"
+  },
+  "ff_checkinchrome_5":{
+    "message":"Er reklamen også vist i Chrome?",
+    "description":"Instruction for how to check Chrome for a reported ad"
   },
   "refusetocheck":{
     "message":"Jeg ønsker ikke at undersøge dette",
@@ -785,161 +747,13 @@
     "message":"ukendt",
     "description":"A resource type"
   },
-  "blockeverycontaining":{
-    "message":"Blokér enhver ressource indeholdende:",
-    "description":"resourceblocking page string"
-  },
-  "whitelisteverycontaining":{
-    "message":"Godkend enhver ressource indeholdende:",
-    "description":"resourceblocking page string"
-  },
-  "wildcardhint":{
-    "message":"Note: du kan bruge * som wildcard her",
-    "description":"resourceblocking page string"
-  },
-  "novalidurlpattern":{
-    "message":"Indtast venligst et gyldigt URL-mønster, der skal findes!",
-    "description":"resourceblocking page string"
-  },
-  "doesntmatchoriginal":{
-    "message":"Mønsteret passer ikke med det element du prøver at skjule! Skal vi fortsætte alligevel?",
-    "description":"resourceblocking page string"
-  },
-  "thirdpartycheckbox":{
-    "message":"Enhver hjemmeside UNDTAGET hjemmesider på domænet $domain$",
-    "description":"resourceblocking page string",
-    "placeholders":{
-      "domain":{
-        "content":"$1",
-        "example":"example.com"
-      }
-    }
-  },
-  "filterhasbeenadded":{
-    "message":"Filtret blev tilføjet!\nGenindlæs siden for at se resultatet!",
-    "description":"resourceblocking page string"
-  },
-  "adblock_is_paused":{
-    "message":"AdBlock er midlertidigt afbrudt. Der bliver derfor ikke blokeret noget, så denne side kan ikke bruges. Genaktiver AdBlock og prøv igen.",
-    "description":"resourceblocking page string"
-  },
-  "excludefilterremoved":{
-    "message":"Filteret blev fjernet. Venligst genindlæs siden for at generer listen over elementer.",
-    "description":"Warning when a page exclusion rule was removed in resourceblock.html"
-  },
-  "noresourcessend2":{
-    "message":"Et eller andet gik helt galt. Der er ikke kommet nogen elementer frem. Siden vil nu lukke, men du skulle prøve at genindlæse siden.",
-    "description":"resourceblocking page string"
-  },
-  "resourcedomain":{
-    "message":"Indlæst på sider under domæne:\n$domain$",
-    "description":"Text shown when hovering over an item in the third-party column",
-    "placeholders":{
-      "domain":{
-        "content":"$1",
-        "example":"example.com"
-      }
-    }
-  },
-  "resourceiswhitelisted":{
-    "message":"Det valgte element er blevet godkendt, og kan derfor ikke blokeres.",
-    "description":"resourceblocking page string"
-  },
-  "selectresources":{
-    "message":"Vælg elementet du ønsker at blokere eller fjerne blokering fra",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocktitle":{
-    "message":"Blokér et element",
-    "description":"resourceblocking page string"
-  },
-  "headerresource":{
-    "message":"Element",
-    "description":"resourceblocking page string"
-  },
-  "headertype":{
-    "message":"Type",
-    "description":"resourceblocking page string"
-  },
-  "headerfilter":{
-    "message":"Matchende filtre",
-    "description":"resourceblocking page string"
-  },
   "close":{
     "message":"Luk",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend1":{
-    "message":"Forklaring:",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend2":{
-    "message":"blokerede elementer",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend3":{
-    "message":"godkendte elementer",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend4":{
-    "message":"elementer, der kan blokeres",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend5":{
-    "message":"skjul-regler aktiveret",
-    "description":"resourceblocking page string"
+    "description":"Generic message for buttons that close a view or window"
   },
   "loading":{
     "message":"INDLÆSER...",
-    "description":"resourceblocking page string"
-  },
-  "nextstep":{
-    "message":"Næste trin",
-    "description":"resourceblocking page string"
-  },
-  "appliedwhenbrowsing":{
-    "message":"Dette filter vil blive benyttet når du browser:",
-    "description":"resourceblocking page string"
-  },
-  "anysite":{
-    "message":"Enhver hjemmeside",
-    "description":"resourceblocking page string"
-  },
-  "onlyondomains":{
-    "message":"KUN sider på disse domæner:",
-    "description":"resourceblocking page string"
-  },
-  "multipledomainshint":{
-    "message":"Adskil flere domæner med komma eller mellemrum",
-    "description":"resourceblocking page string"
-  },
-  "casesensitive":{
-    "message":"Dette filter skelner mellem store og små bogstaver:",
-    "description":"resourceblocking page string"
-  },
-  "onlyresourcetypes":{
-    "message":"Dette filter gælder for følgende elementtyper:",
-    "description":"resourceblocking page string"
-  },
-  "addthisfilter":{
-    "message":"Tilføj dette filter",
-    "description":"resourceblocking page string"
-  },
-  "ordisablefilter":{
-    "message":"... eller deaktivér filter:",
-    "description":"On the resourceblocking page, choice to disable a filter instead of allowing or blocking a specific resource"
-  },
-  "thisfilterwillbedisabled":{
-    "message":"Dette filter vil blive deaktiveret:",
-    "description":"On the resourceblocking page, followed by the filter the user chose to disable"
-  },
-  "disabledwhenbrowsing":{
-    "message":"Dette filter vil blive deaktiveret, når du browser:",
-    "description":"On the resourceblocking page, choose on which sites the filter should be disabled"
-  },
-  "onlypagesonthisdomain":{
-    "message":"KUN sider på dette domæne:",
-    "description":"On the resourceblocking page, option to disable a filter only on a specific domain"
+    "description":"Generic message displayed during processes that take some time"
   },
   "flashads":{
     "message":"Videoer og Flash",
@@ -1013,14 +827,6 @@
     "message":"Betal det du vil!",
     "description":"Text of a payment request link"
   },
-  "removelabel":{
-    "message":"Fjern",
-    "description":"Link to remove a filter on the resourceblock page"
-  },
-  "changelabel":{
-    "message":"skift",
-    "description":"Link to change resources on the resourceblock page"
-  },
   "translator_credit":{
     "message":"Tak for oversættelsen til:",
     "description":"Will be followed by a list of translator names (separate string)"
@@ -1031,10 +837,6 @@
   },
   "report_ad_on_page":{
     "message":"Raportér en reklame på denne side",
-    "description":"Entry in the AdBlock button menu"
-  },
-  "show_resourcelist":{
-    "message":"Vis elementlisten",
     "description":"Entry in the AdBlock button menu"
   },
   "advanced_options2":{
@@ -1077,32 +879,6 @@
     "message":"Du benytter en gammel version af Safari. Hent den seneste version for og benytte AdBlock-værktøjslinjen, for at afbryde AdBlock midlertidigt, godkende hjemmesider, og rapportere reklamer. <a>Opdatér nu<\/a>.",
     "description":"A message shown to Safari 5.0 users urging them to upgrade"
   },
-  "searchexplanation":{
-    "message":"Brug * til at matche nul eller flere bogstaver. For eksempel, 'banner*.gif image' matcher billederne 'banner.gif', 'banner123.gif', og 'bannerxyz.gif'.",
-    "description":"Text in resourceblock when you hover your mouse over the search textbox"
-  },
-  "searchplaceholder":{
-    "message":"Søgeelementer...",
-    "description":"Text in resourceblock shown in the search textbox before you type something"
-  },
-  "nosearchresults":{
-    "message":"Ingen elementer blev fundet",
-    "description":"Text in resourceblock shown if no results are found after searching"
-  },
-  "custompattern":{
-    "message":"Brugerdefineret:",
-    "description":"Label in front of the 'custom block pattern' textbox in resourceblock, after clicking a resource"
-  },
-  "filterorigin":{
-    "message":"Oprindelig filter:\n$list$",
-    "description":"Tooltip of matching filter in resources list, telling which filter list contains the filter",
-    "placeholders":{
-      "list":{
-        "content":"$1",
-        "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'"
-      }
-    }
-  },
   "firefox_explanation":{
     "message":"Formålet med dette spørgsmål er for at fastslå, hvem der bør modtage din rapportering. Hvis du besvarer spørgsmålet forkert vil rapporten blive sendt til de forkerte folk, og måske blive ignoreret.",
     "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
@@ -1132,8 +908,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Vis på AdBlock-knappen",
+    "message":"Vis antal reklamer blokeret i AdBlock-knappen",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Vis antal reklamer blokeret i AdBlock-knappen",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Liste over reklamefiltre",
@@ -1164,8 +944,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Whitelist denne YouTube-kanal",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Whitelist kanalen $name$",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Er du sikker på du vil fjerne $count$ blokeringer, som du har oprettet på $host$?",
@@ -1251,10 +1037,6 @@
     "message":"Har vores hold spurgt efter debug-info? Klik <a href='#' id='debug'>her<\/a> for at få det!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
   },
-  "bugreport":{
-    "message":"Hvorfor ikke sende os en <a href='#' id='report'>fejlrapport<\/a>?",
-    "description":"Link to send a bug report on the Support tab of the options"
-  },
   "supportsite":{
     "message":"Lad os få det at vide på vores <a>supportside<\/a>!",
     "description":"Link to the support site on the Support tab of the options"
@@ -1262,5 +1044,17 @@
   "ad_report_please":{
     "message":"Hvis du ser en reklame, skal du ikke lave en fejlrapport, men en <a>annoncerapport<\/a> istedet!",
     "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
+  },
+  "headertype":{
+    "message":"Type",
+    "description":"Resource list page: title of a column"
+  },
+  "typesub_frame":{
+    "message":"frame",
+    "description":"A resource type"
+  },
+  "typemain_frame":{
+    "message":"side",
+    "description":"A resource type"
   }
 }

@@ -15,6 +15,7 @@
   "minimum_chrome_version": "41",
   "background": {
     "scripts": [
+      "punycode.min.js",
       "jquery/jquery.min.js",
       "port.js",
       "functions.js",
@@ -94,6 +95,7 @@
   "permissions": [
     "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"
   ],
+  "optional_permissions": [ "management" ],
   "web_accessible_resources": [
     "img/icon24.png",
     "jquery/css/images/ui-bg_inset-hard_100_fcfdfd_1x100.png",

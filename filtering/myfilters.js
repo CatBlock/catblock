@@ -62,6 +62,9 @@ MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
       sub.initialUrl = official.url;
       sub.url = official.url;
     }
+    if (official.safariJSON_URL) {
+      sub.safariJSON_URL = official.safariJSON_URL;
+    }
 
     var isMissingRequiredList = (sub.requiresList !== official.requiresList);
     if (official.requiresList && isMissingRequiredList && sub.subscribed) {
@@ -93,11 +96,6 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
     // Convert subscribed ex-official lists into user-submitted lists.
     // Convert subscribed ex-user-submitted lists into official lists.
     else {
-      // TODO: Remove this logic after a few releases
-      if (id === "easylist_plus_spanish" || id === "norwegian") {
-          delete this._subscriptions[id];
-          continue;
-      }
       // Cache subscription that needs to be checked.
       var sub_to_check = this._subscriptions[id];
       var is_user_submitted = true;
@@ -154,16 +152,7 @@ MyFilters.prototype._onSubscriptionChange = function(rebuild) {
 
 // get filters that are defined in the extension
 MyFilters.prototype.getExtensionFilters = function(settings) {
-  //Exclude google search results ads if the user has checked that option
   var texts = [];
-  if (settings.show_google_search_text_ads) {
-    // Standard search
-    texts.push("@@||google.*/search?$elemhide");
-    // Google Instant: go to google.com, type 'hotel' and don't press Enter
-    texts.push("@@||www.google.*/|$elemhide");
-    // Google Instant: open a Chrome tab, type 'hotel' and don't press Enter
-    texts.push("@@||google.*/webhp?*sourceid=*instant&$elemhide");
-  }
   if (settings.whitelist_hulu_ads) {
     // Issue 7178: FilterNormalizer removes EasyList's too-broad Hulu whitelist
     // entries.  If the user enables whitelist_hulu_ads, just add them back.
@@ -173,9 +162,6 @@ MyFilters.prototype.getExtensionFilters = function(settings) {
     texts.push("@@||ll.a.hulu.com/published/*.flv");
     texts.push("@@||ll.a.hulu.com/published/*.mp4");
   }
-  // Exclude private search results ads
-  if (localStorage.search_secure_enable === "true")
-    texts.push("@@||search.disconnect.me/$document");
 
   return texts;
 };
@@ -183,60 +169,119 @@ MyFilters.prototype.getExtensionFilters = function(settings) {
 // Rebuild filters based on the current settings and subscriptions.
 MyFilters.prototype.rebuild = function() {
   var texts = [];
-  for (var id in this._subscriptions)
-    if (this._subscriptions[id].subscribed)
-      texts.push(this._subscriptions[id].text);
+  if (!get_settings().safari_content_blocking) {
+    // Only add subscriptions in Chrome, Opera, and older version of Safari...
+    for (var id in this._subscriptions) {
+      if (this._subscriptions[id].subscribed) {
+        texts.push(this._subscriptions[id].text);
+      }
+    }
+    // Include custom filters.
+    var customfilters = get_custom_filters_text(); // from background
+    if (customfilters) {
+      texts.push(FilterNormalizer.normalizeList(customfilters));
+    }
 
-  // Include custom filters.
-  var customfilters = get_custom_filters_text(); // from background
-  if (customfilters)
-    texts.push(FilterNormalizer.normalizeList(customfilters));
+    texts = texts.concat(this.getExtensionFilters(get_settings()));
+    texts = texts.join('\n').split('\n');
+    var filters = this._splitByType(texts);
 
-  texts = texts.concat(this.getExtensionFilters(get_settings()));
+    this.hiding = FilterSet.fromFilters(filters.hiding);
 
-  texts = texts.join('\n').split('\n');
+    this.blocking = new BlockingFilterSet(
+      FilterSet.fromFilters(filters.pattern),
+      FilterSet.fromFilters(filters.whitelist)
+    );
 
-  // Remove duplicates and empties.
-  var unique = {};
-  for (var i = 0; i < texts.length; i++)
-    unique[texts[i]] = 1;
-  delete unique[''];
+    handlerBehaviorChanged(); // defined in background
+    //if the user is subscribed to malware, then get it
+    if (this._subscriptions &&
+        this._subscriptions.malware &&
+        this._subscriptions.malware.subscribed &&
+        !this.getMalwareDomains()) {
+      this._initializeMalwareDomains();
+    }
+  } else {
+    // If Safari 9 content blocking
+    var filterListRules = [];
+    for (var id in this._subscriptions) {
+      if (this._subscriptions[id].subscribed) {
+        for (var item in this._subscriptions[id].rules)  {
+          filterListRules.push(this._subscriptions[id].rules[item]);
+        }
+      }
+    }
 
-  var filters = { hidingUnmerged: [], hiding: {}, exclude: {},
-                  pattern: {}, whitelist: {} };
-  for (var text in unique) {
-    var filter = Filter.fromText(text);
-    if (Filter.isSelectorExcludeFilter(text))
-      setDefault(filters.exclude, filter.selector, []).push(filter);
-    else if (Filter.isSelectorFilter(text))
-      filters.hidingUnmerged.push(filter);
-    else if (Filter.isWhitelistFilter(text))
-      filters.whitelist[filter.id] = filter;
-    else
-      filters.pattern[filter.id] = filter;
-  }
-  for (var i = 0; i < filters.hidingUnmerged.length; i++) {
-    filter = filters.hidingUnmerged[i];
-    var hider = SelectorFilter.merge(filter, filters.exclude[filter.selector]);
-    filters.hiding[hider.id] = hider;
-  }
+    if (this._subscriptions &&
+        this._subscriptions.malware &&
+        this._subscriptions.malware.subscribed &&
+        this.getMalwareDomains()) {
+        var malwareDomains = this._subscriptions.malware.text.adware;
+        var malwareRules = DeclarativeWebRequest.convertMalware(malwareDomains);
+      //add the custom rules, with the filter list rules
+      for (var i = 0; i < malwareRules.length; i++) {
+        filterListRules.push(malwareRules[i]);
+      }
+    }
 
-  this.hiding = FilterSet.fromFilters(filters.hiding);
-
-  this.blocking = new BlockingFilterSet(
-    FilterSet.fromFilters(filters.pattern),
-    FilterSet.fromFilters(filters.whitelist)
-  );
-
-  handlerBehaviorChanged(); // defined in background
-
-  //if the user is subscribed to malware, then get it
-
-  if (this._subscriptions &&
-      this._subscriptions.malware &&
-      this._subscriptions.malware.subscribed &&
-      !this.getMalwareDomains()) {
-    this._initializeMalwareDomains();
+    // Include custom filters.
+    var customfilters = get_custom_filters_text(); // from background
+    if (customfilters) {
+      texts.push(FilterNormalizer.normalizeList(customfilters));
+      texts = texts.join('\n').split('\n');
+      var filters = this._splitByType(texts);
+      var patternFilters = [];
+      for (var id in filters.pattern) {
+        patternFilters.push(filters.pattern[id]);
+      }
+      var whitelistFilters = [];
+      for (var id in filters.whitelist) {
+        whitelistFilters.push(filters.whitelist[id]);
+      }
+      //SelectorFilters where full() == True are selectors that apply to all domains, no exceptions
+      // these filters can be collapsed into a few large JSON rules
+      //SelectorFilters where full() == False are selectors that either:
+      //    - apply to specific domain(s)
+      //    - or have exceptions domains, where the selectors are not applied
+      var selectorsFull = {};
+      var selectorsNotFull = {};
+      for (var id in filters.hiding) {
+        var selectorFilter = filters.hiding[id];
+        if (selectorFilter._domains.full() === true) {
+          selectorsFull[id] = selectorFilter;
+        } else {
+          selectorsNotFull[id] = selectorFilter;
+        }
+      }
+      var selectorFilters = [];
+      for (var id in selectorsNotFull) {
+        selectorFilters.push(selectorsNotFull[id]);
+      }
+      selectorFiltersAll = [];
+      for (var id in selectorsFull) {
+        selectorFiltersAll.push(selectorsFull[id]);
+      }
+      var customRules = DeclarativeWebRequest.convertFilterLists(patternFilters, whitelistFilters, selectorFilters, selectorFiltersAll);
+      log("customRules: " , customRules);
+      //add the custom rules, with the filter list rules
+      filterListRules.push.apply(filterListRules, customRules);
+    }
+    if (!filterListRules ||
+         filterListRules.length === 0) {
+       log("no rules to submit to safari");
+       return;
+    }
+    if (filterListRules.length > 50000) {
+      createRuleLimitExceededSafariNotification();
+      log("exceed number of rules: " + filterListRules.length);
+      filterListRules = filterListRules.slice(0, 49999);
+    } else {
+      //size is less then the limit, remove any previous error messages.
+      sessionstorage_set('contentblockingerror');
+      chrome.extension.sendRequest({command: "contentblockingmessageupdated"});
+    }
+    log("submitting rules to safari: # of rules: ",filterListRules.length);
+    safari.extension.setContentBlocker(filterListRules);
   }
 
   // After 90 seconds, delete the cache. That way the cache is available when
@@ -247,11 +292,43 @@ MyFilters.prototype.rebuild = function() {
   }, 90000);
 }
 
+
+MyFilters.prototype._splitByType = function(texts) {
+    // Remove duplicates and empties.
+    var unique = {};
+    for (var i = 0; i < texts.length; i++) {
+      unique[texts[i]] = 1;
+    }
+    delete unique[''];
+
+    var filters = { hidingUnmerged: [], hiding: {}, exclude: {},
+                    pattern: {}, whitelist: {} };
+    for (var text in unique) {
+      var filter = Filter.fromText(text);
+      if (Filter.isSelectorExcludeFilter(text)) {
+        setDefault(filters.exclude, filter.selector, []).push(filter);
+      } else if (Filter.isSelectorFilter(text)) {
+        filters.hidingUnmerged.push(filter);
+      } else if (Filter.isWhitelistFilter(text)) {
+        filters.whitelist[filter.id] = filter;
+      } else {
+        filters.pattern[filter.id] = filter;
+      }
+    }
+    for (var i = 0; i < filters.hidingUnmerged.length; i++) {
+      filter = filters.hidingUnmerged[i];
+      var hider = SelectorFilter.merge(filter, filters.exclude[filter.selector]);
+      filters.hiding[hider.id] = hider;
+    }
+    return filters;
+}
+
 // Change a property of a subscription or check if it has to be updated
 // Inputs: id: the id of the subscription to change
 //         subData: object containing all data that should be changed
 //         forceFetch: if the subscriptions have to be fetched again forced
 MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
+
   var subscribeRequiredListToo = false;
   var listDidntExistBefore = false;
 
@@ -287,9 +364,12 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
         //load the malware domains
         this._loadMalwareDomains();
     } else {
-        this.blocking.setMalwareDomains(null);
+        if (this.blocking) {
+          this.blocking.setMalwareDomains(null);
+        }
         // If unsubscribed, remove properties
         delete this._subscriptions[id].text;
+        delete this._subscriptions[id].rules;
         delete this._subscriptions[id].last_update;
         delete this._subscriptions[id].expiresAfterHours;
         delete this._subscriptions[id].last_update_failed_at;
@@ -332,13 +412,15 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
     delete this._subscriptions[id].last_modified;
 
   if (this._subscriptions[id].subscribed) {
-
-    if (!this._subscriptions[id].text || out_of_date(this._subscriptions[id]))
+    if ((!get_settings().safari_content_blocking && !this._subscriptions[id].text) ||
+        (get_settings().safari_content_blocking && !this._subscriptions[id].rules) ||
+         out_of_date(this._subscriptions[id])) {
       this.fetch_and_update(id, listDidntExistBefore);
-
+    }
   } else {
     // If unsubscribed, remove some properties
     delete this._subscriptions[id].text;
+    delete this._subscriptions[id].rules;
     delete this._subscriptions[id].last_update;
     delete this._subscriptions[id].expiresAfterHours;
     delete this._subscriptions[id].last_update_failed_at;
@@ -362,6 +444,17 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
 //            otherwise it'll be deleted.
 MyFilters.prototype.fetch_and_update = function(id, isNewList) {
   var url = this._subscriptions[id].url;
+  if (get_settings().safari_content_blocking) {
+    if (!this._subscriptions[id].safariJSON_URL){
+      // Since the certain filter lists (AdBlock Custom) are embedded with the other filter lists
+      // (when content blocking enabled)
+      // we don't need to process it, just update the last_update timestamp.
+      this._subscriptions[id].last_update = Date.now();
+      chrome.extension.sendRequest({command: "filters_updated"});
+      return;
+    }
+    url = this._subscriptions[id].safariJSON_URL;
+  }
   var that = this;
   function onError() {
     that._subscriptions[id].last_update_failed_at = Date.now();
@@ -376,12 +469,12 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
       }, 500);
     }
   }
-  $.ajax({
+  var ajaxRequest = {
     url: url,
     cache: false,
     headers: {
       "Accept": "text/plain",
-      "X-Client-ID": "CatBlock/" + chrome.runtime.getManifest().version,
+      "X-Client-ID": "AdBlock/" + STATS.version,
       "If-Modified-Since": this._subscriptions[id].last_modified || undefined
     },
     success: function(text, status, xhr) {
@@ -389,14 +482,16 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
       if (!that._subscriptions[id] ||
           !that._subscriptions[id].subscribed)
         return;
-
       // Sometimes text is "". Happens sometimes.  Weird, I know.
       // Every legit list starts with a comment.
       if (status == "notmodified") {
         log("List not modified " + url);
         that._updateSubscriptionText(id, that._subscriptions[id].text);
         that._onSubscriptionChange(true);
-      } else if (text && text.length != 0 && Filter.isComment(text.trim())) {
+      } else if (text &&
+                 (((typeof text === "string") &&
+                   text.length != 0 && Filter.isComment(text.trim())) ||
+                  (typeof text === "object"))) {
         log("Fetched " + url);
         that._updateSubscriptionText(id, text, xhr);
         that._onSubscriptionChange(true);
@@ -405,12 +500,15 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
         onError();
       }
     },
-    error: function() {
+    error: function(xhr, textStatus, errorThrown) {
       if (that._subscriptions[id])
         onError();
       log("Error fetching " + url);
+      log("textStatus " + textStatus);
+      log("errorThrown " + errorThrown);
     }
-  });
+  };
+  $.ajax(ajaxRequest);
 }
 
 // Record that subscription_id is subscribed, was updated now, and has
@@ -419,6 +517,19 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
 MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
   this._subscriptions[id].last_update = Date.now();
   delete this._subscriptions[id].last_update_failed_at;
+  //Safari 9 Content Blocking...
+  if (get_settings().safari_content_blocking) {
+    //if the |text| is JSON rules, save them, and return
+    if (text && (typeof text === "object")) {
+      // Record how many hours until we need to update the subscription text. Defaults to 120.
+      this._subscriptions[id].expiresAfterHours = 120;
+      this._subscriptions[id].expiresAfterHoursHard = this._subscriptions[id].expiresAfterHours * 2;
+      var smear = Math.random() * 0.4 + 0.8;
+      this._subscriptions[id].expiresAfterHours *= smear;
+      this._subscriptions[id].rules = text;
+      return;
+    }
+  }
 
   // In case the resource wasn't modified, there is no need to reparse this.
   // xhr isn't send in this case. Do reparse .text, in case we had some update
@@ -522,8 +633,7 @@ MyFilters.prototype._loadMalwareDomains = function() {
     if (!this._subscriptions.malware.text ||
         !this.getMalwareDomains() ||
         out_of_date(this._subscriptions.malware)) {
-        //the timestamp is add to the URL to prevent caching by the browser
-        var url = this._subscriptions.malware.url + "?timestamp=" + new Date().getTime();
+        var url = this._subscriptions.malware.url + "?_=" + new Date().getTime();
         // Fetch file with malware-known domains
         var xhr = new XMLHttpRequest();
         var that = this;
@@ -532,7 +642,10 @@ MyFilters.prototype._loadMalwareDomains = function() {
             that._subscriptions.malware.last_update_failed_at = Date.now();
         }
         xhr.onload = function(e) {
-           that.blocking.setMalwareDomains(JSON.parse(xhr.responseText));
+           //make sure the blocking filter set exists (it may not in Safari 9)
+           if (that.blocking) {
+              that.blocking.setMalwareDomains(JSON.parse(xhr.responseText));
+           }
            //set the response text on the 'text' property so it's persisted to storage
            that._subscriptions.malware.text = JSON.parse(xhr.responseText);
            that._subscriptions.malware.last_update = Date.now();
@@ -563,7 +676,12 @@ MyFilters.prototype._initializeMalwareDomains = function() {
 //Get the current list of malware domains
 //will return undefined, if the user is not subscribed to the Malware 'filter list'.
 MyFilters.prototype.getMalwareDomains = function() {
-    return this.blocking.getMalwareDomains();
+    //make sure the blocking filter set exists (it may not in Safari 9)
+    if (this.blocking) {
+        return this.blocking.getMalwareDomains();
+    } else {
+        return this._subscriptions.malware.text;
+    }
 }
 
 // If the user wasn't subscribed to any lists, subscribe to
@@ -576,20 +694,24 @@ MyFilters.prototype._load_default_subscriptions = function() {
   function listIdForThisLocale() {
     var language = determineUserLanguage();
     switch(language) {
+      case 'ar': return 'easylist_plus_arabic';
       case 'bg': return 'easylist_plus_bulgarian';
       case 'cs': return 'czech';
       case 'cu': return 'easylist_plus_bulgarian';
       case 'da': return 'danish';
       case 'de': return 'easylist_plus_german';
       case 'el': return 'easylist_plus_greek';
+      case 'et': return 'easylist_plus_estonian';
       case 'fi': return 'easylist_plus_finnish';
       case 'fr': return 'easylist_plus_french';
       case 'he': return 'israeli';
       case 'hu': return 'hungarian';
+      case 'is': return 'icelandic';
       case 'it': return 'italian';
       case 'id': return 'easylist_plus_indonesian';
       case 'ja': return 'japanese';
       case 'ko': return 'easylist_plun_korean';
+      case 'lt': return 'easylist_plus_lithuania';
       case 'lv': return 'latvian';
       case 'nl': return 'dutch';
       case 'pl': return 'easylist_plus_polish';
@@ -606,6 +728,7 @@ MyFilters.prototype._load_default_subscriptions = function() {
   //Update will be done immediately after this function returns
   result["adblock_custom"] = { subscribed: true };
   result["easylist"] = { subscribed: true };
+  result["malware"] = { subscribed: true };
   var list_for_lang = listIdForThisLocale();
   if (list_for_lang)
     result[list_for_lang] = { subscribed: true };
@@ -619,100 +742,147 @@ MyFilters.prototype._make_subscription_options = function() {
   // When modifying a list, IDs mustn't change!
   return {
     "adblock_custom": { // AdBlock custom filters
-      url: "https://data.getadblock.com/filters/adblock_custom.txt",
+      url: "https://cdn.adblockcdn.com/filters/adblock_custom.txt",
     },
     "easylist": { // EasyList
-      url: "https://easylist-downloads.adblockplus.org/easylist.txt"
+      url: "https://easylist-downloads.adblockplus.org/easylist.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist.json",
+      safariJSON_URL_AA: "https://cdn.adblockcdn.com/filters/easylist_aa.json",
     },
     "easylist_plus_bulgarian": { // Additional Bulgarian filters
       url: "http://stanev.org/abp/adblock_bg.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_bulgarian.json",
     },
     "dutch": { // Additional Dutch filters
       url: "https://easylist-downloads.adblockplus.org/easylistdutch.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/dutch.json",
     },
     "easylist_plus_finnish": { // Additional Finnish filters
-      url: "https://raw.githubusercontent.com/wiltteri/wiltteri.txt/master/wiltteri.txt",
+      url: "http://adb.juvander.net/Finland_adb.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_finnish.json",
     },
     "easylist_plus_french": { // Additional French filters
       url: "https://easylist-downloads.adblockplus.org/liste_fr.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_french.json",
     },
     "easylist_plus_german": { // Additional German filters
       url: "https://easylist-downloads.adblockplus.org/easylistgermany.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_german.json",
     },
     "easylist_plus_greek": { // Additional Greek filters
       url: "https://www.void.gr/kargig/void-gr-filters.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_greek.json",
     },
     "easylist_plus_indonesian": { // Additional Indonesian filters
       url: "https://indonesianadblockrules.googlecode.com/hg/subscriptions/abpindo.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_indonesian.json",
     },
     "easylist_plus_polish": { // Additional Polish filters
-      url: "https://raw.githubusercontent.com/adblockpolska/Adblock_PL_List/master/adblock_polska.txt",
+      url: "https://www.certyficate.it/adblock/adblock.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_polish.json",
       requiresList: "easylist",
     },
     "easylist_plus_romanian": { // Additional Romanian filters
       url: "http://www.zoso.ro/pages/rolist.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_romanian.json",
     },
     "russian": { // Additional Russian filters
       url: "https://easylist-downloads.adblockplus.org/advblock.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/russian.json",
     },
     "chinese": { // Additional Chinese filters
       url: "https://easylist-downloads.adblockplus.org/easylistchina.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/chinese.json",
     },
     "czech": { // Additional Czech and Slovak filters
       url: "https://raw.github.com/tomasko126/easylistczechandslovak/master/filters.txt",
       requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/czech.json",
     },
     "danish": { // Danish filters
       url: "http://adblock.schack.dk/block.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/danish.json",
     },
     "hungarian": { // Hungarian filters
       url: "http://pete.teamlupus.hu/hufilter.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/hungarian.json",
     },
     "israeli": { // Israeli filters
       url: "https://easylist-downloads.adblockplus.org/israellist+easylist.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/israeli.json",
     },
     "italian": { // Italian filters
-      url: "http://mozilla.gfsolone.com/filtri.txt",
+      url: "https://easylist-downloads.adblockplus.org/easylistitaly.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/italian.json",
+      requiresList: "easylist",
     },
     "japanese": { // Japanese filters
       url: "https://raw.githubusercontent.com/k2jp/abp-japanese-filters/master/abpjf.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/japanese.json",
     },
     "easylist_plun_korean": {  // Korean filters
       url: "https://secure.fanboy.co.nz/fanboy-korean.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plun_korean.json",
     },
     "latvian": {  // Latvian filters
       url: "https://gitorious.org/adblock-latvian/adblock-latvian/blobs/raw/master/lists/latvian-list.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/latvian.json",
     },
     "swedish": {  // Swedish filters
       url: "http://fanboy.co.nz/fanboy-swedish.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/swedish.json",
     },
     "turkish": {  // Turkish filters
       url: "http://fanboy.co.nz/fanboy-turkish.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/turkish.json",
     },
     "easyprivacy": { // EasyPrivacy
       url: "https://easylist-downloads.adblockplus.org/easyprivacy.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easyprivacy.json",
     },
     "antisocial": { // Antisocial
       url: "https://easylist-downloads.adblockplus.org/fanboy-social.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/antisocial.json",
     },
     "malware": { // Malware protection
-      url: "https://data.getadblock.com/filters/domains.json",
+      url: "https://cdn.adblockcdn.com/filters/domains.json",
     },
     "annoyances": { // Fanboy's Annoyances
       url: "https://easylist-downloads.adblockplus.org/fanboy-annoyance.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/annoyances.json",
     },
     "warning_removal": { // AdBlock warning removal
       url: "https://easylist-downloads.adblockplus.org/antiadblockfilters.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/warning_removal.json",
+    },
+    "easylist_plus_estonian": { // Estonian filters
+      url: "http://gurud.ee/ab.txt",
+      requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_estonian.json",
+    },
+    "easylist_plus_lithuania": { // Lithuania filters
+      url: "http://margevicius.lt/easylistlithuania.txt",
+      requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_lithuania.json",
+    },
+    "easylist_plus_arabic": { // Arabic filters
+      url: "https://easylist-downloads.adblockplus.org/Liste_AR.txt",
+      requiresList: "easylist",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plus_arabic.json",
+    },
+    "icelandic": { // Icelandic filters
+      url: "http://adblock.gardar.net/is.abp.txt",
+      safariJSON_URL: "https://cdn.adblockcdn.com/filters/icelandic.json",
     }
   };
 }

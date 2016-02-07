@@ -31,10 +31,6 @@
     "message":"Opções do AdBlock",
     "description":"Title for the options page"
   },
-  "thirdparty":{
-    "message":"Terceiros",
-    "description":"Resource list column title telling if the resource originates from a different domain"
-  },
   "chromebutton_how_to_hide2":{
     "message":"Para esconder o botão, clique com o botão direito e escolha Esconder Botão. Você pode mostrá-lo novamente em chrome:\/\/chrome\/extensions.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
@@ -47,13 +43,13 @@
     "message":"Para ocultar o botão, clique com o botão direito na barra de ferramentas do Safari e escolha Personalizar Barra de Ferramentas e, em seguida, arraste o botão do AdBlock para fora da Barra de Ferramentas. Você pode mostrar o botão novamente, arrastando-o para a barra de ferramentas.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
+  "ff_button_how_to_hide":{
+    "message":"Para ocultar o botão, clique com o botão direito e escolha \"Remover da barra de ferramentas\". Você pode voltar a ver o botão se clicar em \"Personalizar\" no menu do Firefox.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
+  },
   "sliderexplanation":{
     "message":"Deslize o cursor até que a propaganda esteja bloqueada corretamente na página, e o elemento bloqueado pareça útil.",
     "description":"Blacklister slider page message"
-  },
-  "block_by_url_instead":{
-    "message":"Avançado: bloqueie uma URL em vez disso",
-    "description":"Link on blacklister slider page"
   },
   "slidertitle":{
     "message":"Passo 1: Descubra o que bloquear",
@@ -187,6 +183,16 @@
     "message":"Esse recurso do AdBlock não funciona neste site poque ele usa tecnologia desatualizada. Você pode colocar na lista negra ou na lista branca os recursos manualmente pela guia 'Personalizar' da página de opções.",
     "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website"
   },
+  "subscribeconfirm":{
+    "message":"Você tem certeza que deseja assinar a lista de filtro $title$?",
+    "description":"Prompt question before subscribing to the filter list",
+    "placeholders":{
+      "title":{
+        "content":"$1",
+        "example":"Prebake"
+      }
+    }
+  },
   "subscribingtitle":{
     "message":"Subscrevendo-se a lista de filtros...",
     "description":"abp: link subscriber title"
@@ -229,16 +235,20 @@
     "message":"Beta",
     "description":"Label for beta features in AdBlock Options"
   },
-  "googletextads2":{
-    "message":"Eu gosto das propagandas de texto nos resultados de busca do Google; mostre-me elas",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
   "showcontextmenus2":{
     "message":"Adicionar itens ao menu de contexto",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
+  "disableyoutubestreamingads":{
+    "message":"Ativar o modo de compatibilidade ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
+  },
   "debuginlogoption":{
     "message":"Mostrar declarações de depuração no Log do Console (que deixa o AdBlock mais devagar)",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "datacollectionoption":{
+    "message":"Permitir que o AdBlock colete o uso e dados da lista de filtro anônima",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "updatedrightnow":{
@@ -347,15 +357,15 @@
   },
   "filterantisocial":{
     "message":"Lista de filtro anti-social (remove os botões de mídia social)",
-    "description":"Name of the filter list"
+    "description":"A filter list"
   },
   "filterannoyances":{
     "message":"Fanboy's Annoyances (remove irritações na Web)",
-    "description":"Name of the filter list"
+    "description":"A filter list"
   },
-  "filterwarning_removal":{
-    "message":"Lista de Remoção de Avisos do AdBlock (remove mensagens sobre o uso do AdBlock)",
-    "description":"Name of the filter list"
+  "filteracceptable_ads":{
+    "message":"Anúncios Aceitáveis (recomentado)",
+    "description":"A filter list"
   },
   "filteradblock_custom":{
     "message":"Filtros personalizados do AdBlock (recomendado)",
@@ -387,10 +397,6 @@
   },
   "filterlatvian":{
     "message":"Letão",
-    "description":"A filter list"
-  },
-  "filternorwegian":{
-    "message":"Norueguês",
     "description":"A filter list"
   },
   "filterswedish":{
@@ -473,12 +479,32 @@
     "message":"AdBlock - Reportando uma propaganda",
     "description":"Title of the ad report page"
   },
-  "adreport2":{
-    "message":"Então você encontrou uma propaganda em uma página da web? Bem, eu irei ajudá-lo a encontrar o lugar certo para reportá-lo!<br\/> Lembre-se: reportar propagandas é voluntário. Se você não deseja fazer isso você pode simplesmente fechar esta janela e bloqueá-la somente pra você adicionando um filtro na aba 'Personalizar' na página de opções!",
-    "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
+  "adreportintro":{
+    "message":"Encontrou um anúncio em uma página da web? Nós ajudaremos você a encontrar o lugar certo para relatar isso!",
+    "description":"Introduction of the ad reporting page"
+  },
+  "adreportvoluntary":{
+    "message":"Relatar anúncios é algo voluntário. Isto ajuda outras pessoas, permitindo que os mantenedores da lista de filtros possam bloquear o anúncio para todo mundo. Se você não está se sentido altruísta agora, sem problemas. Feche esta página e <a>bloqueie o anúncio<\/a> apenas para si mesmo.",
+    "description":"Introduction of the ad reporting page"
+  },
+  "malwarenotificationcheckboxmessage":{
+    "message":"O AdBlock deve notificá-lo quando detectar malware?",
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
+  },
+  "malwarenotificationmessage":{
+    "message":"O AdBlock bloqueou um download de um site conhecido por conter malware.",
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
+  },
+  "malwarenotificationlearnmore":{
+    "message":"Saber mais sobre malware",
+    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
+  },
+  "malwarenotificationdisablethesemessages":{
+    "message":"Desativar estas notificações",
+    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
   },
   "malwarecheck":{
-    "message":"Verificação de malware",
+    "message":"Verificação de malware que poderia estar injetando anúncios:",
     "description":"Section header on the ad report page"
   },
   "malwarewarning":{
@@ -489,8 +515,24 @@
     "message":"Nenhum malware conhecido foi encontrado.",
     "description":"On the ad report page, the ads the user is seeing are probably not caused by malware\/adware"
   },
+  "disableaa":{
+    "message":"Verificação dos filtros de Anúncios Aceitáveis:",
+    "description":"Section header on the ad report page"
+  },
+  "clickdisableaa":{
+    "message":"Clique aqui: <a>Desativar Anúncios Aceitáveis<\/a>",
+    "description":"Instruction on ad report page"
+  },
+  "aamessageadreport":{
+    "message":"Se você prefere não ver anúncios como este, você pode querer deixar a lista de filtros de Anúncios Aceitáveis desligada.",
+    "description":"Acceptable Ads message on ad report page"
+  },
+  "aalinkadreport":{
+    "message":"Saiba mais sobre o programa de Anúncios Aceitáveis.",
+    "description":"Acceptable Ads link message on ad report page"
+  },
   "updateyourlists":{
-    "message":"Tenha certeza de que suas listas de filtros estão atualizadas",
+    "message":"Certifique-se que suas listas de filtros estão atualizadas:",
     "description":"Section header on the ad report page"
   },
   "clickupdatefilters":{
@@ -514,16 +556,32 @@
     "description":"A negative response to a question"
   },
   "adalreadyblocked":{
-    "message":"Você não precisa fazer nada já que a propaganda já está bloqueada",
+    "message":"Ótimo! Está tudo pronto.",
     "description":"On the ad report page, telling a user there is nothing to do"
   },
   "disableallextensions":{
-    "message":"Desative todas as extensões, exceto AdBlock.",
+    "message":"Desative todas as extensões, exceto o AdBlock:",
     "description":"Instruction on ad report page"
   },
-  "disableforchromestepone":{
-    "message":"Abra <a href='#'>a página de extensões<\/a>",
-    "description":"Step 1 for disabling Chrome extensions"
+  "clickdisableotherextensions":{
+    "message":"<b>OU<\/b>, simplesmente clique neste botão para que façamos tudo que está acima: <a> Desabilitar todas as outras extensões <\/a>",
+    "description":"On the ad report page, an alternative way to disable other extensions"
+  },
+  "disableotherextensionscomplete":{
+    "message":"Desativamos todas as outras extensões. Agora iremos recarregar a página com o anúncio. Um segundo, por favor.",
+    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
+  },
+  "enableotherextensionscomplete":{
+    "message":"As extensões que foram desabilitadas anteriormente foram reabilitadas.",
+    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled"
+  },
+  "manuallyenableotherextensions":{
+    "message":"Abra a página de extensões para habilitar as extensões que foram desabilitadas anteriormente.",
+    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
+  },
+  "tabreloadcomplete":{
+    "message":"Pronto! Nós recarregamos a página com o anúncio. Por favor, verifique a página para ver se o anúncio desapareceu. Em seguida, volte a esta página e responda à pergunta abaixo.",
+    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
   },
   "disableforchromeandsafaristeptwo":{
     "message":"Desmarque a opção 'ativar' próxima a todas as extensões <b>exceto<\/b> AdBlock.  <b>Deixe AdBlock ativado<\/b>.",
@@ -534,11 +592,11 @@
     "description":"Step 1 for disabling Safari extensions"
   },
   "reenableadsonebyone":{
-    "message":"Agora que as propagandas se foram, você deve descobrir qual extensão é a causa. Ative cada extensão uma de cada vez. A extensão que traz de volta a(s) propaganda(s) é a que você deve deletar para se livrar das propagandas.",
+    "message":"Ótimo. Agora vamos descobrir qual extensão é a causa. Vá ativando cada extensão uma por vez. A extensão que trazer de volta o(s) anúncio(s) é aquela que você precisa desinstalar para livrar-se dos anúncios.",
     "description":"Tells the user to reenable the extensions one by one"
   },
   "correctfilters":{
-    "message":"Filtros corretos",
+    "message":"Certifique-se que está usando o(s) filtro(s) de idioma correto(s):",
     "description":"On the ad report page, label describing having the right set of filters"
   },
   "pagelanguagecheck":{
@@ -629,6 +687,22 @@
     "message":"Ucraniano",
     "description":"language"
   },
+  "filtereasylist_plus_arabic":{
+    "message":"Árabe",
+    "description":"language"
+  },
+  "filtereasylist_plus_estonian":{
+    "message":"Estoniano",
+    "description":"language"
+  },
+  "filtericelandic":{
+    "message":"Islandês",
+    "description":"language"
+  },
+  "filtereasylist_plus_lithuania":{
+    "message":"Lituano",
+    "description":"language"
+  },
   "other":{
     "message":"Outro",
     "description":"Multiple choice option"
@@ -682,8 +756,8 @@
     }
   },
   "checkinfirefox_2":{
-    "message":"Instale o AdBlock Plus para o Firefox $chrome$ se você não o tem.",
-    "description":"Instruction for how to check Firefox\/Chrome for a reported ad.",
+    "message":"Instale o AdBlock Plus para Firefox $chrome$ se você não instalou.",
+    "description":"Instruction for how to check Firefox\/Chrome for a reported ad. Don't translate the name 'Adblock Plus'.",
     "placeholders":{
       "chrome":{
         "content":"<span id='adblockforchrome'><\/span>",
@@ -692,7 +766,7 @@
     }
   },
   "checkinfirefox_3":{
-    "message":"Nesse navegador, subscreva-se para as mesmas listas de filtros que você subscreveu aqui (exceto para os filtros personalizados do AdBlock no Firefox).",
+    "message":"Naquele navegador, aplique a mesma lista de filtros que aplicou aqui.",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
   "checkinfirefox_4":{
@@ -813,161 +887,13 @@
     "message":"desconhecido",
     "description":"A resource type"
   },
-  "blockeverycontaining":{
-    "message":"Bloqueie todo recurso contendo:",
-    "description":"resourceblocking page string"
-  },
-  "whitelisteverycontaining":{
-    "message":"Colocar na lista branca todo recurso contendo:",
-    "description":"resourceblocking page string"
-  },
-  "wildcardhint":{
-    "message":"Nota: você poder usar * como caractere curinga aqui",
-    "description":"resourceblocking page string"
-  },
-  "novalidurlpattern":{
-    "message":"Por favor insira um padrão de URL válido para corresponder!",
-    "description":"resourceblocking page string"
-  },
-  "doesntmatchoriginal":{
-    "message":"O padrão que você introduziu não corresponde ao recurso que você tentou bloquear! Continuar mesmo assim?",
-    "description":"resourceblocking page string"
-  },
-  "thirdpartycheckbox":{
-    "message":"Qualquer site da web EXCETO sites no domínio $domain$",
-    "description":"resourceblocking page string",
-    "placeholders":{
-      "domain":{
-        "content":"$1",
-        "example":"example.com"
-      }
-    }
-  },
-  "filterhasbeenadded":{
-    "message":"O filtro foi adicionado com sucesso!\nRecarregue a página para ver o resultado!",
-    "description":"resourceblocking page string"
-  },
-  "adblock_is_paused":{
-    "message":"AdBlock está pausado. Portanto nenhum recurso é capturado, logo esta página não pode ser usada. Despause o AdBlock primeiro e tente novamente.",
-    "description":"resourceblocking page string"
-  },
-  "excludefilterremoved":{
-    "message":"O filtro foi removido. Por favor recarregue a página original para gerar uma lista com recursos.",
-    "description":"Warning when a page exclusion rule was removed in resourceblock.html"
-  },
-  "noresourcessend2":{
-    "message":"Algo deu errado. Nenhum recurso foi enviado. Esta página irá fechar. Tente recarregar o site da web.",
-    "description":"resourceblocking page string"
-  },
-  "resourcedomain":{
-    "message":"Carregado na página com domínio:\n$domain$",
-    "description":"Text shown when hovering over an item in the third-party column",
-    "placeholders":{
-      "domain":{
-        "content":"$1",
-        "example":"example.com"
-      }
-    }
-  },
-  "resourceiswhitelisted":{
-    "message":"O recurso selecionado foi adicionado à lista branca. Logo, você não pode bloqueá-lo.",
-    "description":"resourceblocking page string"
-  },
-  "selectresources":{
-    "message":"Selecione o recurso que você gostaria de bloquear ou desbloquear",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocktitle":{
-    "message":"Bloqueie um recurso",
-    "description":"resourceblocking page string"
-  },
-  "headerresource":{
-    "message":"Recurso",
-    "description":"resourceblocking page string"
-  },
-  "headertype":{
-    "message":"Tipo",
-    "description":"resourceblocking page string"
-  },
-  "headerfilter":{
-    "message":"Filtro correspondente",
-    "description":"resourceblocking page string"
-  },
   "close":{
     "message":"Fechar",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend1":{
-    "message":"Legenda:",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend2":{
-    "message":"recursos bloqueados",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend3":{
-    "message":"recursos na lista branca",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend4":{
-    "message":"recursos bloqueáveis",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend5":{
-    "message":"regras de ocultamento aplicadas",
-    "description":"resourceblocking page string"
+    "description":"Generic message for buttons that close a view or window"
   },
   "loading":{
     "message":"CARREGANDO...",
-    "description":"resourceblocking page string"
-  },
-  "nextstep":{
-    "message":"Próximo passo",
-    "description":"resourceblocking page string"
-  },
-  "appliedwhenbrowsing":{
-    "message":"Este filtro será aplicado quando você estiver navegando:",
-    "description":"resourceblocking page string"
-  },
-  "anysite":{
-    "message":"Qualquer site da web",
-    "description":"resourceblocking page string"
-  },
-  "onlyondomains":{
-    "message":"SOMENTE páginas nesses domínios:",
-    "description":"resourceblocking page string"
-  },
-  "multipledomainshint":{
-    "message":"Separe múltiplos domínios com vírgulas ou espaços",
-    "description":"resourceblocking page string"
-  },
-  "casesensitive":{
-    "message":"Este filtro diferencia maiúsculas de minúsculas:",
-    "description":"resourceblocking page string"
-  },
-  "onlyresourcetypes":{
-    "message":"Este filtro aplica-se a recursos desses tipos:",
-    "description":"resourceblocking page string"
-  },
-  "addthisfilter":{
-    "message":"Adicionar este filtro",
-    "description":"resourceblocking page string"
-  },
-  "ordisablefilter":{
-    "message":"... ou desabilite o filtro:",
-    "description":"On the resourceblocking page, choice to disable a filter instead of allowing or blocking a specific resource"
-  },
-  "thisfilterwillbedisabled":{
-    "message":"Este filtro será desativado:",
-    "description":"On the resourceblocking page, followed by the filter the user chose to disable"
-  },
-  "disabledwhenbrowsing":{
-    "message":"Este filtro será desativado enquanto você estiver navegando:",
-    "description":"On the resourceblocking page, choose on which sites the filter should be disabled"
-  },
-  "onlypagesonthisdomain":{
-    "message":"SOMENTE páginas deste domínio:",
-    "description":"On the resourceblocking page, option to disable a filter only on a specific domain"
+    "description":"Generic message displayed during processes that take some time"
   },
   "flashads":{
     "message":"Vídeos e Flash",
@@ -1041,14 +967,6 @@
     "message":"Pague o que quiser!",
     "description":"Text of a payment request link"
   },
-  "removelabel":{
-    "message":"Remover",
-    "description":"Link to remove a filter on the resourceblock page"
-  },
-  "changelabel":{
-    "message":"modificar",
-    "description":"Link to change resources on the resourceblock page"
-  },
   "translator_credit":{
     "message":"Créditos da tradução a:",
     "description":"Will be followed by a list of translator names (separate string)"
@@ -1061,9 +979,9 @@
     "message":"Reportar uma propaganda nesta página",
     "description":"Entry in the AdBlock button menu"
   },
-  "show_resourcelist":{
-    "message":"Mostrar a lista de recursos",
-    "description":"Entry in the AdBlock button menu"
+  "acceptableadsoption":{
+    "message":"Permitir algumas propagandas não invasivas",
+    "description":"option on the 'General' tab"
   },
   "advanced_options2":{
     "message":"Sou um usuário avançado, mostre-me opções avançadas",
@@ -1105,32 +1023,6 @@
     "message":"Você está usando uma versão antiga do Safari. Pegue a versão mais recente para usar o botão do AdBlock na barra de ferramenta para pausar o AdBlock, adicionar sites da web a lista branca, e reportar propagandas. <a>Atualize agora<\/a>.",
     "description":"A message shown to Safari 5.0 users urging them to upgrade"
   },
-  "searchexplanation":{
-    "message":"Use * para corresponder a zero ou mais letras. Por exemple, 'banner*.gif image' corresponde as imagens 'banner.gif', 'banner123.gif', e 'bannerxyz.gif'.",
-    "description":"Text in resourceblock when you hover your mouse over the search textbox"
-  },
-  "searchplaceholder":{
-    "message":"Procurar recursos...",
-    "description":"Text in resourceblock shown in the search textbox before you type something"
-  },
-  "nosearchresults":{
-    "message":"Nenhum recurso encontrado",
-    "description":"Text in resourceblock shown if no results are found after searching"
-  },
-  "custompattern":{
-    "message":"Personalizado:",
-    "description":"Label in front of the 'custom block pattern' textbox in resourceblock, after clicking a resource"
-  },
-  "filterorigin":{
-    "message":"Origem do filtro:\n$list$",
-    "description":"Tooltip of matching filter in resources list, telling which filter list contains the filter",
-    "placeholders":{
-      "list":{
-        "content":"$1",
-        "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'"
-      }
-    }
-  },
   "firefox_explanation":{
     "message":"O propósito desta pergunta é determinar quem deve receber seu relatório. Se você responder esta pergunta incorretamente, o relatório sera enviado para as pessoas erradas, logo poderá ser ignorado.",
     "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
@@ -1160,8 +1052,12 @@
     }
   },
   "show_on_adblock_button":{
-    "message":"Exibir no botão do AdBlock",
+    "message":"Mostrar o número de anúncios bloqueados no botão AdBlock",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Mostrar o número de anúncios bloqueador no menu AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
   },
   "adblockinglist":{
     "message":"Listas de Filtro de Bloqueio de Propaganda",
@@ -1174,6 +1070,24 @@
   "customfilters":{
     "message":"Listas de Filtro Personalizadas",
     "description":"List for custom filters the user subscribed to"
+  },
+  "customfilterserrormessage":{
+    "message":"O seguinte filtro: <br\/> $filter$ <br\/> possui um erro: <br\/> $message$",
+    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page",
+    "placeholders":{
+      "filter":{
+        "content":"$1",
+        "example":"@@.ad"
+      },
+      "message":{
+        "content":"$2",
+        "example":"invalid filter"
+      }
+    }
+  },
+  "dropboxerrorforfilters":{
+    "message":"Você excedeu o limite de tamanho do Dropbox. Por favor, remova alguns dos seus filtros personalizados ou desabilitados, e tente novamente.",
+    "description":"Message to Dropbox sync users on the Customize tab, custom filters \/ disabled."
   },
   "languagedropdowndescription":{
     "message":"Adicionar filtros para outro idioma: ",
@@ -1192,8 +1106,14 @@
     "description":"Checkbox on the 'General' tab of the Options page"
   },
   "whitelist_youtube_channel":{
-    "message":"Colocar este canal do YouTube na lista branca",
-    "description":"Text which is displayed on YouTube in popup menu"
+    "message":"Canal de lista branca $name$",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    }
   },
   "confirm_undo_custom_filters":{
     "message":"Tem certeza que deseja remover os $count$ bloqueios que criou em $host$?",
@@ -1226,6 +1146,10 @@
         "example":"<a>here<\/a>"
       }
     }
+  },
+  "ff_adblock_outdated":{
+    "message":"Você está utilizando uma versão antiga do AdBlock. Por favor clique no botão de menu do Firefox e escolha os complementos. Então na página de complementos, clique no ícone de engrenagem (ferramentas para todos os complementos), e escolha \"Verificar atualizações\".",
+    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"Suporte AdBlock",
@@ -1279,10 +1203,6 @@
     "message":"A nossa equipa solicitou algumas informações de depuração? Clique <a href='#' id='debug'>aqui<\/a> para isso!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
   },
-  "bugreport":{
-    "message":"Porque você não nos envia um <a href='#' id='report'>relatório de erro<\/a>?",
-    "description":"Link to send a bug report on the Support tab of the options"
-  },
   "supportsite":{
     "message":"Conte-nos no nosso <a>site de suporte<\/a>!",
     "description":"Link to the support site on the Support tab of the options"
@@ -1290,5 +1210,105 @@
   "ad_report_please":{
     "message":"Se você está vendo um anúncio, não faça um relatório de erro, faça um <a>relatório de anúncio<\/a>!",
     "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
+  },
+  "resourceblocktitle":{
+    "message":"Todos os recursos",
+    "description":"Resource list page name"
+  },
+  "headerresource":{
+    "message":"Recursos",
+    "description":"Resource list page: title of a column"
+  },
+  "headertype":{
+    "message":"Tipo",
+    "description":"Resource list page: title of a column"
+  },
+  "headerfilter":{
+    "message":"Filtro correspondente",
+    "description":"Resource list page: title of a column"
+  },
+  "show_resourcelist":{
+    "message":"Mostrar todas as solicitações",
+    "description":"Menu entry to open the resource list page"
+  },
+  "noresourcessend2":{
+    "message":"Algo deu errado. Nenhum recurso foi enviado. Esta página irá fechar. Tente recarregar a página.",
+    "description":"Resource list page: error message"
+  },
+  "resourcedomain":{
+    "message":"Carregado na página com domínio: $domain$",
+    "description":"Resource list page: text shown when hovering over an item in the third-party column",
+    "placeholders":{
+      "domain":{
+        "content":"$1",
+        "example":"example.com"
+      }
+    }
+  },
+  "filterorigin":{
+    "message":"Origem do Filtro: $list$",
+    "description":"Resource list page: tooltip of matching filter, telling which filter list contains the filter",
+    "placeholders":{
+      "list":{
+        "content":"$1",
+        "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'"
+      }
+    }
+  },
+  "typeselector":{
+    "message":"seletor",
+    "description":"A resource type"
+  },
+  "typesub_frame":{
+    "message":"moldura",
+    "description":"A resource type"
+  },
+  "typemain_frame":{
+    "message":"página",
+    "description":"A resource type"
+  },
+  "topframe":{
+    "message":"Moldura superior",
+    "description":"Resource list page: frame type"
+  },
+  "subframe":{
+    "message":"Submoldura",
+    "description":"Resource list page: frame type"
+  },
+  "frametype":{
+    "message":"Tipo de moldura: ",
+    "description":"Resource list page: followed by frame type (e.g. top frame, subframe)"
+  },
+  "framedomain":{
+    "message":"Domínio da moldura: ",
+    "description":"Resource list page: domain name of the frame"
+  },
+  "frameurl":{
+    "message":"URL da moldura: ",
+    "description":"Resource list page: full URL of the frame"
+  },
+  "legend":{
+    "message":"Legenda: ",
+    "description":"Resource list page: followed by color codes for various resource statuses (e.g. blocked, whitelisted, hidden)"
+  },
+  "blockedresource":{
+    "message":"Recurso bloqueado",
+    "description":"Resource list page: resource status"
+  },
+  "whitelistedresource":{
+    "message":"Recurso na lista branca",
+    "description":"Resource list page: resource status"
+  },
+  "hiddenelement":{
+    "message":"Elemento oculto",
+    "description":"Resource list page: resource status"
+  },
+  "thirdparty":{
+    "message":"Terceiros",
+    "description":"Resource list page: column title telling if the resource originates from a different domain"
+  },
+  "buttonsubmit":{
+    "message":"Enviar",
+    "description":"Button to send a form."
   }
 }

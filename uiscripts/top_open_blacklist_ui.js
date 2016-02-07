@@ -19,7 +19,7 @@ function top_open_blacklist_ui(options) {
     // If they right clicked in a frame in Chrome, use the frame instead
     if (options.info && options.info.frameUrl) {
       var frame = $("iframe").filter(function(i, el) {
-        return el.src == options.info.frameUrl;
+        return el.src == getUnicodeDomain(options.info.frameUrl);
       });
       if (frame.length == 1)
         rightclicked_item = frame[0];

@@ -22,7 +22,7 @@ var ElementTypes = {
 ElementTypes.DEFAULTTYPES = 1023;
 // Add here any types that Safari does not support.
 ElementTypes.CHROMEONLY = (ElementTypes.object_subrequest | ElementTypes.other 
-                           | ElementTypes.xmlhttprequest | ElementTypes.popup);
+                           | ElementTypes.xmlhttprequest);
 
 // Convert a webRequest.onBeforeRequest type to an ElementType.
 ElementTypes.fromOnBeforeRequestType = function(type) {

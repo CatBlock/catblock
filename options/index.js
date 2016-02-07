@@ -3,14 +3,14 @@ function load_options() {
     BGcall("get_settings", function(settings) {
         optionalSettings = settings;
         var activeTab  = $.cookie('activetab');
-        if (window.location && 
+        if (window.location &&
             window.location.search) {
             var searchQuery = parseUri.parseSearch(window.location.search);
             if (searchQuery &&
                 searchQuery.tab) {
                 activeTab = searchQuery.tab;
             }
-        }        
+        }
         $("#tabpages").
         tabs({
             // Go to the last opened tab

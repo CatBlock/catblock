@@ -12,6 +12,24 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
   // a call to sendResponse is not needed because of the call in filters.js
 });
 
+if (!SAFARI &&
+   chrome &&
+   chrome.runtime &&
+   chrome.runtime.onMessage) {
+    chrome.runtime.onMessage.addListener(
+        function(request, sender, sendResponse) {
+          if (request.message === "dropboxerror" && request.messagecode) {
+            $("#dbmessagecustom").text(translate(request.messagecode));
+            sendResponse({});
+          }
+          if (request.message === "cleardropboxerror") {
+            $("#dbmessagecustom").text("");
+            sendResponse({});
+          }
+        }
+    );
+}
+
 $(function() {
     //try to get filter syntax page with users language
     //if it fails, default to english (en).
@@ -130,12 +148,17 @@ $(function() {
 
     if (blacklist)
       blacklist = "@@*$document,domain=" + blacklist;
-
+    var filterErrorMessage = "";
+    $("#messageBlacklist").html(filterErrorMessage);
+    $("#messageBlacklist").hide();
     try {
       FilterNormalizer.normalizeLine(blacklist);
       $("#btnAddBlacklist").prop("disabled", false);
     } catch(ex) {
       $("#btnAddBlacklist").prop("disabled", true);
+      filterErrorMessage = translate("customfilterserrormessage", [$("#txtBlacklist").val(), ex.message]);
+      $("#messageBlacklist").html(filterErrorMessage);
+      $("#messageBlacklist").show();
     }
   });
 
@@ -223,7 +246,7 @@ $(function() {
     var new_count = {};
     var temp_filter_tracker = [];
     for(var i = 0; i < custom_filters_array.length; i++) {
-      var filter = custom_filters_array[i]
+      var filter = custom_filters_array[i];
       //Check if filter is a duplicate and that it is a hiding filter.
       if(temp_filter_tracker.indexOf(filter) < 0 && filter.indexOf("##") > -1) {
         temp_filter_tracker.push(filter);
@@ -236,15 +259,30 @@ $(function() {
 
   function saveFilters() {
     var custom_filters_text = $("#txtFiltersAdvanced").val();
-    BGcall("set_custom_filters_text", custom_filters_text);
-
-    updateCustomFiltersCount(custom_filters_text);
-
-    $("#divAddNewFilter").slideDown();
-    $("#txtFiltersAdvanced").prop("disabled", true);
-    $("#spanSaveButton").hide();
-    $("#btnEditAdvancedFilters").show();
-    $("#btnCleanUp").show();
+    var custom_filters_array = custom_filters_text.split("\n");
+    var filterErrorMessage = "";
+    $("#messagecustom").html(filterErrorMessage);
+    $("#messagecustom").hide();
+    for(var i = 0; (!filterErrorMessage && i < custom_filters_array.length); i++) {
+      var filter = custom_filters_array[i];
+      try {
+        FilterNormalizer.normalizeLine(filter);
+      } catch(ex) {
+        filterErrorMessage = translate("customfilterserrormessage", [filter, ex.message]);
+      }
+    }
+    if (!filterErrorMessage) {
+      BGcall("set_custom_filters_text", custom_filters_text);
+      updateCustomFiltersCount(custom_filters_text);
+      $("#divAddNewFilter").slideDown();
+      $("#txtFiltersAdvanced").prop("disabled", true);
+      $("#spanSaveButton").hide();
+      $("#btnEditAdvancedFilters").show();
+      $("#btnCleanUp").show();
+    } else {
+      $("#messagecustom").html(filterErrorMessage);
+      $("#messagecustom").show();
+    }
   }
 
   $("#btnSaveAdvancedFilters").click(saveFilters);
@@ -271,8 +309,13 @@ $(function() {
   });
 
   BGcall("get_settings", function(settings) {
-    if (settings.show_advanced_options)
+    if (settings.show_advanced_options &&
+        !settings.safari_content_blocking) {
         $("#divExcludeFilters").show();
+    }
+    if (settings.safari_content_blocking) {
+        $("#safariwarning").text(translate("contentblockingwarning")).show();
+    }
   });
 
   BGcall("get_exclude_filters_text", function(text) {
@@ -288,5 +331,10 @@ $(function() {
     var newFilters = FilterNormalizer.normalizeList($("#txtFiltersAdvanced").val(), true);
     newFilters = newFilters.replace(/(\n)+$/,'\n'); // Del trailing \n's
     $("#txtFiltersAdvanced").val(newFilters);
+  });
+
+  BGcall("sessionstorage_get", "dropboxerror", function(text) {
+    if (text)
+      $("#dbmessagecustom").text(text);
   });
 });

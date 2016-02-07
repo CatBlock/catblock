@@ -27,10 +27,6 @@
     "message":"אפשריות AdBlock",
     "description":"Title for the options page"
   },
-  "thirdparty":{
-    "message":"צד שלישי",
-    "description":"Resource list column title telling if the resource originates from a different domain"
-  },
   "chromebutton_how_to_hide2":{
     "message":"בשביל להסתייר את הכפתור לחץ על הכפתור עם קליק ימני ובחר הסתר את הכפתור.\nאפשר להסתיר כם על ידי כניסה להגדרות ההרחבה תחת chrome:\/\/chrome\/extensions",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
@@ -38,10 +34,6 @@
   "sliderexplanation":{
     "message":"הזז עד שהפרסומת נחסמה והאתר נראה בסדר\nעדיף לדווח לנו על הפרסומת ואנו נדאג לחסום אותה אם אתה לא יודע מה אתה עושה ואתה עושה טעות זה יכול להרוס את הרשימה",
     "description":"Blacklister slider page message"
-  },
-  "block_by_url_instead":{
-    "message":"מתקדם: חסום על ידי קישור\nעדיף לדווח לנו על הפרסומת ואנו נדאג לחסום אותה אם אתה לא יודע מה אתה עושה ואתה עושה טעות זה יכול להרוס את הרשימה",
-    "description":"Link on blacklister slider page"
   },
   "slidertitle":{
     "message":"צעד 1: להבין מה לחסום",
@@ -297,11 +289,11 @@
   },
   "filterantisocial":{
     "message":"אנטי חברתי (מחיקת כפתורי רשתות חברתיות)",
-    "description":"Name of the filter list"
+    "description":"A filter list"
   },
   "filterannoyances":{
     "message":"Fanboy's Annoyances (חוסם מטרדים ברחבי האינטרנט)",
-    "description":"Name of the filter list"
+    "description":"A filter list"
   },
   "filteradblock_custom":{
     "message":"AdBlock רשימות מותאמות אישית (מומלץ)",
@@ -333,10 +325,6 @@
   },
   "filterlatvian":{
     "message":"לטביה",
-    "description":"A filter list"
-  },
-  "filternorwegian":{
-    "message":"נורבגיה",
     "description":"A filter list"
   },
   "filterswedish":{
@@ -415,14 +403,6 @@
     "message":"AdBlock - דווח על פרסומת",
     "description":"Title of the ad report page"
   },
-  "adreport2":{
-    "message":"אז מצאת פרסומת ?\nאתה יכול לדווח לנו ואנו נדאג לחסום אותה \nזכור הדיווח הוא בהתנדבות \nאתה יכול גם לחסום אותה בעצמך בהגדרות בקטגוריה התאמה אישית\nעדיף לדווח לנו על הפרסומת ואנו נדאג לחסום אותה אם אתה לא יודע מה אתה עושה ואתה עושה טעות זה יכול להרוס את הרשימה",
-    "description":"Instructions on ad reporting page. 'Customize' should be the same text as the name of the 'Customize' tab."
-  },
-  "updateyourlists":{
-    "message":"בדוק שהרשימות שלך מעודכנות",
-    "description":"Section header on the ad report page"
-  },
   "clickupdatefilters":{
     "message":"לחץ על <a>update my filters!<\/a>",
     "description":"Instruction on ad report page"
@@ -443,14 +423,6 @@
     "message":"לא",
     "description":"A negative response to a question"
   },
-  "adalreadyblocked":{
-    "message":"אתה לא צריך לעשות כלום כי הפרסומת כבר חסומה :)",
-    "description":"On the ad report page, telling a user there is nothing to do"
-  },
-  "disableallextensions":{
-    "message":"השבת את כל ההרחבות חוץ מ AdBlock",
-    "description":"Instruction on ad report page"
-  },
   "disableforchromestepone":{
     "message":"פתח את <a href='#'>the extensions page<\/a>",
     "description":"Step 1 for disabling Chrome extensions"
@@ -462,14 +434,6 @@
   "disableforsafaristepone":{
     "message":"לחץ על תפריט הדפדפן &rarr; Preferences &rarr; הרחבות.",
     "description":"Step 1 for disabling Safari extensions"
-  },
-  "reenableadsonebyone":{
-    "message":"עכשיו שהפרסומות נעלמו, צריך לבדוק איזה הרחבה גורמת לבעיה.\nלך לעמוד ההרחבות והשבת את כל ההרחבות ובדוק מי ההרחבה הבעייתית ומחק אותה.\n",
-    "description":"Tells the user to reenable the extensions one by one"
-  },
-  "correctfilters":{
-    "message":"לתקן רשימות",
-    "description":"On the ad report page, label describing having the right set of filters"
   },
   "pagelanguagecheck":{
     "message":"באיזה שפה העמוד הזה כתוב ?",
@@ -593,20 +557,6 @@
       }
     }
   },
-  "checkinfirefox_2":{
-    "message":"התקן Adblock Plus ל Firefox $chrome$, אם אין לך.",
-    "description":"Instruction for how to check Firefox\/Chrome for a reported ad.",
-    "placeholders":{
-      "chrome":{
-        "content":"<span id='adblockforchrome'><\/span>",
-        "example":"'or AdBlock for Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
-      }
-    }
-  },
-  "checkinfirefox_3":{
-    "message":"הדפדפן רשום לאותה רשימה שיש לך כאן חוץ מרשימות בהתאמה אישית ב FireFox",
-    "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
-  },
   "checkinfirefox_4":{
     "message":"טען את העמוד עם הפרסומת",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
@@ -693,145 +643,13 @@
     "message":"לא ידוע",
     "description":"A resource type"
   },
-  "blockeverycontaining":{
-    "message":"חסום כל אלמנט שמכיל:\nעדיף לדווח לנו על הפרסומת ואנו נדאג לחסום אותה אם אתה לא יודע מה אתה עושה ואתה עושה טעות זה יכול להרוס את הרשימה",
-    "description":"resourceblocking page string"
-  },
-  "whitelisteverycontaining":{
-    "message":"רשימה לבנה",
-    "description":"resourceblocking page string"
-  },
-  "wildcardhint":{
-    "message":"ניתן להשתמש בתווים כללים פה",
-    "description":"resourceblocking page string"
-  },
-  "novalidurlpattern":{
-    "message":"בבקשה הכנס קישור תקין",
-    "description":"resourceblocking page string"
-  },
-  "doesntmatchoriginal":{
-    "message":"מה שעשית אולי לא טוב ויכול להיות מסוכן! להמשיך בכל זאת ? \nעדיף לדווח לנו על הפרסומת ואנו נדאג לחסום אותה אם אתה לא יודע מה אתה עושה ואתה עושה טעות זה יכול להרוס את הרשימה",
-    "description":"resourceblocking page string"
-  },
-  "thirdpartycheckbox":{
-    "message":"כל אתר חוץ מ $domain$",
-    "description":"resourceblocking page string",
-    "placeholders":{
-      "domain":{
-        "content":"$1",
-        "example":"example.com"
-      }
-    }
-  },
-  "filterhasbeenadded":{
-    "message":"הרשימה נוספה בהצלחה\nטען את העמוד מחדש וראה את התוצאות",
-    "description":"resourceblocking page string"
-  },
-  "adblock_is_paused":{
-    "message":"AdBlock מושבת :(\nבטל את ההשבתה",
-    "description":"resourceblocking page string"
-  },
-  "excludefilterremoved":{
-    "message":"הרשימה נמחקה בבקשה טען את העמוד מחדש",
-    "description":"Warning when a page exclusion rule was removed in resourceblock.html"
-  },
-  "noresourcessend2":{
-    "message":"משהו לא בסדר נסה לטעון מחדש",
-    "description":"resourceblocking page string"
-  },
-  "resourcedomain":{
-    "message":"טעון עמוד עם קישור\n$domain$",
-    "description":"Text shown when hovering over an item in the third-party column",
-    "placeholders":{
-      "domain":{
-        "content":"$1",
-        "example":"example.com"
-      }
-    }
-  },
-  "resourceiswhitelisted":{
-    "message":"האלמנט נבחר כ\"מותר\" ולכן אתה לא יכול לחסום אותו.",
-    "description":"resourceblocking page string"
-  },
-  "selectresources":{
-    "message":"בחר את המשאב שברצונך לחסום או לבטל את החסימה",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocktitle":{
-    "message":"חסום אלמנט",
-    "description":"resourceblocking page string"
-  },
-  "headerresource":{
-    "message":"אלמנט",
-    "description":"resourceblocking page string"
-  },
-  "headertype":{
-    "message":"כתוב",
-    "description":"resourceblocking page string"
-  },
-  "headerfilter":{
-    "message":"מוסיף רשימה",
-    "description":"resourceblocking page string"
-  },
   "close":{
     "message":"סגור",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend1":{
-    "message":"כתובת",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend2":{
-    "message":"חסום אלמנטים",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend3":{
-    "message":"הרשה אלמנטים",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend4":{
-    "message":"חסום אלמנטים",
-    "description":"resourceblocking page string"
-  },
-  "resourceblocklegend5":{
-    "message":"הסתר חוקים מיושמים",
-    "description":"resourceblocking page string"
+    "description":"Generic message for buttons that close a view or window"
   },
   "loading":{
     "message":"טוען... אנא המתן...",
-    "description":"resourceblocking page string"
-  },
-  "nextstep":{
-    "message":"צעד הבא",
-    "description":"resourceblocking page string"
-  },
-  "appliedwhenbrowsing":{
-    "message":"הוספת רשימה זאת בהצלחה ! :)\nזכור ! אל תוסיף יותר רשימות ממה שאתה צריך כמה שפחות יותר טוב כל רשימה מאיטה קצת את הדפדפן ולכן תירשם רק למה שאתה צריך",
-    "description":"resourceblocking page string"
-  },
-  "anysite":{
-    "message":"בכל אתר",
-    "description":"resourceblocking page string"
-  },
-  "onlyondomains":{
-    "message":"רק עמודים באתר זה:",
-    "description":"resourceblocking page string"
-  },
-  "multipledomainshint":{
-    "message":"הפרידו שמות מתחם מרובים בעזרת פסיקים\/רווח",
-    "description":"resourceblocking page string"
-  },
-  "casesensitive":{
-    "message":"חוק זה רגיש:",
-    "description":"resourceblocking page string"
-  },
-  "onlyresourcetypes":{
-    "message":"מסנן זה חל על משאבים מסוגים אלה:",
-    "description":"resourceblocking page string"
-  },
-  "addthisfilter":{
-    "message":"הוסף רשימה זאת",
-    "description":"resourceblocking page string"
+    "description":"Generic message displayed during processes that take some time"
   },
   "flashads":{
     "message":"ווידאו ופלאש",
@@ -889,24 +707,12 @@
     "message":"עזור להפיץ את השמועה!",
     "description":"Text of a share link"
   },
-  "removelabel":{
-    "message":"מחק",
-    "description":"Link to remove a filter on the resourceblock page"
-  },
-  "changelabel":{
-    "message":"שנה",
-    "description":"Link to change resources on the resourceblock page"
-  },
   "translator_credit":{
     "message":"קרדיט לתרגום:",
     "description":"Will be followed by a list of translator names (separate string)"
   },
   "report_ad_on_page":{
     "message":"דווח על פרסומת בעמוד זה",
-    "description":"Entry in the AdBlock button menu"
-  },
-  "show_resourcelist":{
-    "message":"הראה את מקורות הרשימה",
     "description":"Entry in the AdBlock button menu"
   },
   "work_around_hulu_problems":{
@@ -945,22 +751,6 @@
     "message":"אתה משתמש בגרסה ישנה של Safari. הורד את הגרסה החדשה בכדי להשתמש ב AdBlock.  <a>Upgrade now<\/a>.",
     "description":"A message shown to Safari 5.0 users urging them to upgrade"
   },
-  "searchexplanation":{
-    "message":"השתמש ב * כדי להתאים אפס או יותר אותיות.  לדוגמה, '' banner*.gif תואם את התמונות'banner.gif' 'banner123.gif', 'bannerxyz.gif'.",
-    "description":"Text in resourceblock when you hover your mouse over the search textbox"
-  },
-  "searchplaceholder":{
-    "message":"מחפש אלמנט...",
-    "description":"Text in resourceblock shown in the search textbox before you type something"
-  },
-  "nosearchresults":{
-    "message":"לא נמצאו אלמנטים",
-    "description":"Text in resourceblock shown if no results are found after searching"
-  },
-  "custompattern":{
-    "message":"מותאם אישית:",
-    "description":"Label in front of the 'custom block pattern' textbox in resourceblock, after clicking a resource"
-  },
   "firefox_explanation":{
     "message":"מטרה של השאלה הזאת היא לקבוע מי אמור לקבל את הדוח אם תענה על שאלה זאת לא נכונה האיש הלא נכון יקבל את הדוח",
     "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
@@ -988,10 +778,6 @@
         "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
       }
     }
-  },
-  "show_on_adblock_button":{
-    "message":"הראה את כפתור AdBlock",
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
   },
   "adblockinglist":{
     "message":"רשימות חסימה של AdBlock",
@@ -1030,5 +816,17 @@
         "example":"code.google.ph, ph.msn.com, stackoverflow.com"
       }
     }
+  },
+  "headertype":{
+    "message":"כתוב",
+    "description":"Resource list page: title of a column"
+  },
+  "typesub_frame":{
+    "message":"מסגרת",
+    "description":"A resource type"
+  },
+  "typemain_frame":{
+    "message":"עמוד",
+    "description":"A resource type"
   }
 }
