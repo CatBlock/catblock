@@ -28,6 +28,12 @@ $(document).ready(function() {
         debug_info = content.join("\n");
     });
 
+    // Make a bug-report
+    var report = null;
+    BGcall("makeReport", function(info) {
+        report = info;
+    });
+
     // Check for updates
     $("#checkupdate").html(translate("checkforupdates"));
     checkupdates("help");
@@ -38,43 +44,15 @@ $(document).ready(function() {
 
     // Show debug info
     $("#debug").click(function(){
-        var showDebugInfo = function() {
-            $("#debugInfo").html(debug_info);
-            $("#debugInfo").css({ width: "450px", height: "100px"});
-            $("#debugInfo").fadeIn();
-        }
-        if (SAFARI) {
-            showDebugInfo();
-        } else {
-            chrome.permissions.request({
-                permissions: ['management']
-            }, function(granted) {
-                // The callback argument will be true if the user granted the permissions.
-                if (granted) {
-                    chrome.management.getAll(function(result) {
-                        var extInfo = [];
-                        extInfo.push("==== Extension and App Information ====");
-                        for (var i = 0; i < result.length; i++) {
-                            extInfo.push("Number " + (i + 1));
-                            extInfo.push("  name: " + result[i].name);
-                            extInfo.push("  id: " + result[i].id);
-                            extInfo.push("  version: " + result[i].version);
-                            extInfo.push("  enabled: " + result[i].enabled)
-                            extInfo.push("  type: " + result[i].type);
-                            extInfo.push("");
-                        }
-                        debug_info = debug_info + '  \n  \n' + extInfo.join('  \n');
-                        showDebugInfo();
-                        chrome.permissions.remove({
-                            permissions: ['management']
-                        }, function(removed) {});
-                    });
-                } else {
-                    debug_info = debug_info + "\n\n==== User Denied Extension and App Permissions ====";
-                    showDebugInfo();
-                }
-            });
-        }
+        $("#debugInfo").html(debug_info);
+        $("#debugInfo").css({ width: "450px", height: "100px"});
+        $("#debugInfo").fadeIn();
+    });
+
+    // Report us the bug
+    $("#report a").click(function(){
+        var result = "https://github.com/kpeckett/catblock/issues/new?body=" + report;
+        document.location.href = result;
     });
 
     // Show the changelog

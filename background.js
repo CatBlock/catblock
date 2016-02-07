@@ -1402,13 +1402,13 @@
                          chrome.runtime.id === "aobdicepooefnbaeokijohmhjlleamfj") {
                   return "Stable";
               } else {
-                  return "Unofficial";
+                  return "Developer";
               }
           } else {
               if (safari.extension.baseURI.indexOf("com.betafish.adblockforsafari-UAMUU4S2D9") > -1) {
                   return "Stable";
               } else {
-                  return "Unofficial";
+                  return "Developer";
               }
           }
       }
@@ -1427,6 +1427,43 @@
       the_debug_info.other_info = the_debug_info.other_info.join("\n");
       return the_debug_info;
   }
+
+  // Code for making a bug report
+  makeReport = function() {
+      var body = [];
+      var debugInfo = getDebugInfo();
+      body.push(chrome.i18n.getMessage("englishonly") + "!");
+      body.push("");
+      body.push("Please answer the following questions so that we can process your bug report, otherwise, we may have to ignore it.");
+      body.push("");
+      body.push("**Can you provide detailed steps on how to reproduce the problem?**");
+      body.push("");
+      body.push("1. ");
+      body.push("2. ");
+      body.push("3. ");
+      body.push("");
+      body.push("**What should happen when you do the above steps**");
+      body.push("");
+      body.push("");
+      body.push("**What actually happened?**");
+      body.push("");
+      body.push("");
+      body.push("**Do you have any other comments? If you can, can you please attach a screenshot of the bug?**");
+      body.push("");
+      body.push("");
+      body.push("--- The questions below are optional but VERY helpful. ---");
+      body.push("");
+      body.push("If unchecking all filter lists fixes the problem, which one filter" +
+                "list must you check to cause the problem again after another restart?");
+      body.push("");
+      body.push("Technical Chrome users: Go to chrome://extensions ->" +
+                "Developer Mode -> Inspect views: background page -> Console. " +
+                "Paste the contents here:");
+      body.push("");
+      var out = encodeURIComponent(body.join('  \n'));
+
+      return out;
+  };
 
   // SYNCHRONIZATION
 
@@ -1683,5 +1720,20 @@
   var setEnabled = function(id, enabled) {
       return channels.setEnabled(id, enabled);
   }
+
+  // Listens for message from CatBlock content script asking to load jQuery.
+  chrome.extension.onRequest.addListener(
+      function(request, sender, sendResponse) {
+          if (request.command === "inject_jquery") {
+              if (!SAFARI) {
+                  chrome.tabs.executeScript(undefined, { allFrames: request.allFrames, file: "../jquery/jquery.min.js" },
+                                            function() { sendResponse({});
+                  });
+              } else {
+                  safari.extension.addContentScriptFromURL(safari.extension.baseURI + "jquery/jquery.min.js", [], [], false);
+              }
+          }
+      }
+  );
 
   log("\n===FINISHED LOADING===\n\n");
