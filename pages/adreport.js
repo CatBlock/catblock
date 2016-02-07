@@ -188,8 +188,7 @@ function sendReport() {
             formdata.append('screencapturefile', $('#screen_capture_file')[0].files[0]);
         }
 
-        $("#debug-info")
-            .val(createReadableReport(report_data));
+        $("#debug-info").val(createReadableReport(report_data));
         $.ajax({
             url: "https://getadblock.com/freshdesk/adReport.php",
             data: formdata,
@@ -241,7 +240,7 @@ function sendReport() {
         try {
             tabIdInt = parseInt(tabId);
         } catch (e) {
-            report_data.language = "unknown"
+            report_data.language = "unknown";
             askUserToGatherExtensionInfo();
             return;
         }
@@ -252,7 +251,7 @@ function sendReport() {
             askUserToGatherExtensionInfo();
         }); //end of detectLanguage
     } else {
-        report_data.language = "unknown"
+        report_data.language = "unknown";
         askUserToGatherExtensionInfo();
     }
 
@@ -354,8 +353,7 @@ var prepareManualReport = function(data, status, HTTPerror, respObj) {
     if (respObj) {
         body.push("Server error information: " + JSON.stringify(respObj));
     }
-    $("#manual_submission")
-        .val(body.join("\n"));
+    $("#manual_submission").val(body.join("\n"));
 }
 
 // Check every domain of downloaded resource against malware-known domains
@@ -426,32 +424,24 @@ var checkmalware = function() {
                 var infected = true;
             }
         }
-        $('.loader')
-            .hide();
+        $('.loader').hide();
         if (infected) {
-            $('#step_update_filters_DIV')
-                .hide();
-            $("#malwarewarning")
-                .html(translate("malwarewarning"));
+            $('#step_update_filters_DIV').hide();
+            $("#malwarewarning").html(translate("malwarewarning"));
             $("a", "#malwarewarning")
                 .attr("href", "http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-");
         } else {
-            $('#step_update_filters_DIV')
-                .show();
-            $("#malwarewarning")
-                .html(translate("malwarenotfound"));
+            $('#step_update_filters_DIV').show();
+            $("#malwarewarning").html(translate("malwarenotfound"));
         }
-        $('#malwarewarning')
-            .show();
+        $('#malwarewarning').show();
     });
 }
 
 // Auto-scroll to bottom of the page
-$("input, select")
-    .change(function(event) {
+$("input, select").change(function(event) {
     event.preventDefault();
-    $("html, body")
-        .animate({
+    $("html, body").animate({
         scrollTop: 15000
     }, 50);
 });
@@ -514,6 +504,7 @@ var fetchMalware = function() {
     };
     xhr.send();
 }
+
 //Attempt to get the malwareDomains from the background page first
 //if the returned domains is null, then fetch them directly from the host.
 BGcall('getMalwareDomains', function(domains) {
@@ -530,28 +521,23 @@ var tabId = options.tabId.replace(/[^0-9]/g, '');
 
 // STEP 2: update filters
 
-//Updating the users filters
-$("#UpdateFilters")
-    .click(function() {
-    $(this)
-        .prop("disabled", true);
+// Updating the users filters
+$("#UpdateFilters").click(function() {
+    $(this).prop("disabled", true);
     BGcall("update_subscriptions_now", function() {
-        $(".afterFilterUpdate input")
-            .prop('disabled', false);
-        $(".afterFilterUpdate")
-            .removeClass('afterFilterUpdate');
+        $(".afterFilterUpdate input").prop('disabled', false);
+        $(".afterFilterUpdate").removeClass('afterFilterUpdate');
     });
 });
-//if the user clicks a radio button
-$("#step_update_filters_no")
-    .click(function() {
+
+// If the user clicks a radio button
+$("#step_update_filters_no").click(function() {
     $("#step_update_filters")
         .html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
     $("#checkupdate")
         .text(translate("adalreadyblocked"));
 });
-$("#step_update_filters_yes")
-    .click(function() {
+$("#step_update_filters_yes").click(function() {
     $("#step_update_filters")
         .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
     $("#step_disable_extensions_DIV")
@@ -560,20 +546,18 @@ $("#step_update_filters_yes")
 });
 
 
-// STEP 4: disable all extensions
+// STEP 3: disable all extensions
 
 //Code for displaying the div is in the $function() that contains localizePage()
 //after user disables all extensions except for AdBlock
 //if the user clicks a radio button
-$("#step_disable_extensions_no")
-    .click(function() {
+$("#step_disable_extensions_no").click(function() {
     $("#step_disable_extensions")
         .html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
     $("#checkupdate")
         .text(translate("reenableadsonebyone"));
 });
-$("#step_disable_extensions_yes")
-    .click(function() {
+$("#step_disable_extensions_yes").click(function() {
     $("#step_disable_extensions")
         .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
     $("#step_language_DIV")
@@ -595,9 +579,9 @@ $("#step_disable_extensions_yes")
         });
     }
 });
+
 //Automatically disable / enable other extensions
-$("#OtherExtensions")
-    .click(function() {
+$("#OtherExtensions").click(function() {
     $("#OtherExtensions")
         .prop("disabled", true);
     if (!SAFARI) {
@@ -615,7 +599,7 @@ $("#OtherExtensions")
                         if (result[i].enabled &&
                             result[i].mayDisable &&
                             result[i].id !== "mdcgnhlfpnbeieiiccmebgkfdebafodo" &&
-                            result[i].id !== "aobdicepooefnbaeokijohmhjlleamfj") {
+                            result[i].id !== "aobdicepooefnbaeokijohmhjlleamfj") { // TODO: add opera id
                             //if the extension is a developer version, continue, don't disable.
                             if (result[i].installType === "development" &&
                                 result[i].type === "extension" &&
@@ -647,14 +631,13 @@ $("#OtherExtensions")
                     BGcall("reloadTab", parseInt(tabId));
                 }); // end of chrome.management.getAll()
             } else {
-                $("#OtherExtensions")
-                    .prop("disabled", false);
+                $("#OtherExtensions").prop("disabled", false);
             }
         }); // end of chrome.permissions.request()
     }
 });
 
-// STEP 5: language
+// STEP 4: language
 
 //if the user clicks an item
 var contact = "";
@@ -702,7 +685,7 @@ $("#step_language_lang")
     }
 });
 
-// STEP 6: also in Firefox
+// STEP 5: also in Firefox
 
 //If the user clicks a radio button
 $("#step_firefox_yes")
@@ -754,7 +737,7 @@ $("#step_firefox_wontcheck")
         .html("<span class='answer' chosen='wont_check'>" + translate("refusetocheck") + "</span>");
 });
 
-// STEP 7: video/flash ad (Safari-only)
+// STEP 6: video/flash ad (Safari-only)
 
 //If the user clicks a radio button
 $("#step_flash_yes")

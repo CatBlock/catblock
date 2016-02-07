@@ -74,10 +74,6 @@
         color: #CCC;
         cursor: auto;
       }
-      .afterDisableAA, .afterDisableAA * {
-        color: #CCC;
-        cursor: auto;
-      }
       a {
         color: #4D7BD6;
         text-decoration: none;
@@ -101,7 +97,7 @@
         max-width: 1000px;
         padding: 20px 20px 20px 0px;
       }
-      #step_report_DIV, #step_update_aa_DIV, #step_language_DIV, #step_update_filters_DIV, #step_firefox_DIV, #step_flash_DIV, #step_malware_DIV, #step_everywhere_DIV, #step_malware_checking_DIV, #step_response_success, #step_response_error  {
+      #step_report_DIV, #step_language_DIV, #step_update_filters_DIV, #step_firefox_DIV, #step_flash_DIV, #step_malware_DIV, #step_everywhere_DIV, #step_malware_checking_DIV, #step_response_success, #step_response_error  {
         position: relative;
         margin: 0px auto;
         max-width: 1000px;
@@ -120,7 +116,7 @@
         .social {
           display: none;
         }
-        #step_report_DIV, #step_update_aa_DIV, #step_update_filters_DIV, #step_disable_extensions_DIV, #step_language_DIV, #step_firefox_DIV, #step_flash_DIV, #step_malware_DIV, #step_everywhere_div, #step_malware_checking_DIV, #step_response_success, #step_response_error  {
+        #step_report_DIV, #step_update_filters_DIV, #step_disable_extensions_DIV, #step_language_DIV, #step_firefox_DIV, #step_flash_DIV, #step_malware_DIV, #step_everywhere_div, #step_malware_checking_DIV, #step_response_success, #step_response_error  {
           padding: 20px 20px 20px 0px;
         }
         #info {
@@ -174,27 +170,8 @@
       </div>
     </div>
 
-    <!--STEP 3: acceptable ads check-->
-    <div class="step odd">
-      <div class="section" id="step_update_aa_DIV">
-        <h2 i18n="disableaa"></h2>
-        <ol>
-          <li i18n="clickdisableaa" i18n_replacement_el="DisableAA"></li>
-          <li i18n="reloadadpage" class="afterDisableAA"></li>
-        </ol>
-        <input type="button" value="Unsubscribe to Acceptable Ads" id="DisableAA" />
-        <span i18n="adstillappear" class="afterDisableAA" style="margin-left: 19px;"></span><br/>
-        <div id="step_update_aa" class="form afterDisableAA">
-          <input type="radio" id="step_update_aa_yes" name="step_update_aa" disabled="disabled" />
-          <label for="step_update_aa_yes" i18n="yes"></label>
-          <input type="radio" id="step_update_aa_no" name="step_update_aa" disabled="disabled" />
-          <label for="step_update_aa_no" i18n="no"></label>
-        </div>
-      </div>
-    </div>
-
-  <!--STEP 4: disable all extension except AdBlock-->
-    <div class="step even" >
+  <!--STEP 3: disable all extension except AdBlock-->
+    <div class="step odd" >
       <div class="section" id="step_disable_extensions_DIV">
         <h2 i18n="disableallextensions"></h2>
         <div class="chrome_only">
@@ -226,8 +203,8 @@
       </div>
     </div>
 
-    <!--STEP 5: language-->
-    <div class="step odd" >
+    <!--STEP 4: language-->
+    <div class="step even" >
       <div class="section" id="step_language_DIV">
         <h2 i18n="correctfilters" style="margin-bottom: 15px;"></h2>
         <span i18n="pagelanguagecheck" style="margin-left: 20px;"></span>
@@ -268,8 +245,8 @@
       </div>
     </div>
 
-    <!--STEP 6: also in Firefox-->
-    <div class="step even" >
+    <!--STEP 5: also in Firefox-->
+    <div class="step odd" >
       <div class="section" id="step_firefox_DIV">
         <h2 id="checkinfirefox"></h2>
         <abbr id="whyFireFox" i18n_title="firefox_explanation">?</abbr>
@@ -291,8 +268,8 @@
       </div>
       </div>
 
-      <!--STEP 7: video/flash ads-->
-      <div class="step odd" >
+      <!--STEP 6: video/flash ads-->
+      <div class="step even" >
       <div class="section" id="step_flash_DIV">
         <h2 i18n="flashads"></h2>
         <span i18n="cantblockflashwarning" style="margin-left: 19px;"></span>
@@ -306,7 +283,7 @@
     </div>
 
 
-    <div class="step even" >
+    <div class="step odd" >
       <div id="step_report_DIV" class="section">
         <h2 i18n="adreport_laststep"></h2>
         <span class="redText" style="margin-left: 15px;">* Required information</span>
