@@ -5,7 +5,7 @@ AdBlock with CatBlock
 
 Continued maintenance of the discontinued "CatBlock" project by Michael Gundlach.
 
-If you want to keep an eye on (or even contribute to) the behind-the-scenes stuff, check out our [Trello Board](https://trello.com/b/dNbH3iW8/catblock).
+If you want to keep an eye on (or even contribute to) the behind-the-scenes stuff, check out our [Trello Board](https://trello.com/catblock).
 
 ## Live chat:
 We have two live chat systems. We use Slack a lot - make an account at <http://catblock-slackin.herokuapp.com> and log in at <https://catblock.slack.com>. We are less active on, but still around on, IRC. Join us using #catblock on Freenode.net. You can ask questions there (the main contributors are all in Europe, so anyone in Australia should expect a bit of a wait).
