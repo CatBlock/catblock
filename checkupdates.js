@@ -6,7 +6,7 @@ function checkupdates(page) {
     dataType: "json",
     success: function(json) {
       AdBlockVersion = json.version;
-      var checkURL = "https://github.com/kpeckett/catblock/releases";
+      var checkURL = "https://github.com/CatBlock/catblock/releases";
 
       //fetch the version check file
       $.ajax({

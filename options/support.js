@@ -51,7 +51,7 @@ $(document).ready(function() {
 
     // Report us the bug
     $("#report a").click(function(){
-        var result = "https://github.com/kpeckett/catblock/issues/new?body=" + report;
+        var result = "https://github.com/CatBlock/catblock/issues/new?body=" + report;
         document.location.href = result;
     });
 

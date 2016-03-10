@@ -124,7 +124,7 @@ $(function() {
 
     // Click handlers
     $("#titletext").click(function() {
-        var url = "https://github.com/kpeckett/catblock";
+        var url = "https://github.com/CatBlock/catblock";
         BG.openTab(chrome_url);
         closeAndReloadPopup();
     });
