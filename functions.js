@@ -133,8 +133,33 @@ parseUri.parseSearch = function(search) {
 //         keepDot: true if trailing dots should be preserved in the domain
 // Returns: the parsed domain
 parseUri.secondLevelDomainOnly = function(domain, keepDot) {
-  var match = domain.match(/([^\.]+\.(?:co\.)?[^\.]+)\.?$/) || [domain, domain];
-  return match[keepDot ? 0 : 1].toLowerCase();
+  if (domain) {
+    var match = domain.match(/([^\.]+\.(?:co\.)?[^\.]+)\.?$/) || [domain, domain];
+    return match[keepDot ? 0 : 1].toLowerCase();
+  } else {
+    return domain;
+  }
+};
+
+// Return |domain| encoded in Unicode
+getUnicodeDomain = function(domain) {
+    if (domain) {
+        return punycode.toUnicode(domain);
+    } else {
+        return domain;
+    }
+}
+
+// Return |url| encoded in Unicode
+getUnicodeUrl = function(url) {
+    // URLs encoded in Punycode contain xn-- prefix
+    if (url && url.indexOf("xn--") > 0) {
+        var parsed = parseUri(url);
+        // IDN domains have just hostnames encoded in punycode
+        parsed.href = parsed.href.replace(parsed.hostname, punycode.toUnicode(parsed.hostname));
+      return parsed.href;
+    }
+    return url;
 };
 
 // TODO: move back into background.js since Safari can't use this
@@ -144,6 +169,9 @@ parseUri.secondLevelDomainOnly = function(domain, keepDot) {
 // Returns value if key exists, else undefined.
 storage_get = function(key) {
   var store = (window.SAFARI ? safari.extension.settings : localStorage);
+  if (store === undefined) {
+      return undefined;
+  }
   var json = store.getItem(key);
   if (json == null)
     return undefined;
@@ -181,4 +209,48 @@ setDefault = function(obj, value, defaultValue) {
   if (obj[value] === undefined)
     obj[value] = defaultValue;
   return obj[value];
+};
+
+// Inputs: key:string.
+// Returns value if key exists, else undefined.
+sessionstorage_get = function(key) {
+  var json = sessionStorage.getItem(key);
+  if (json == null)
+    return undefined;
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    log("Couldn't parse json for " + key);
+    return undefined;
+  }
+};
+
+// Inputs: key:string.
+// Returns value if key exists, else undefined.
+sessionstorage_set = function(key, value) {
+  if (value === undefined) {
+    sessionStorage.removeItem(key);
+    return;
+  }
+  try {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  } catch (ex) {
+    if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
+      alert(translate("storage_quota_exceeded"));
+      openTab("options/index.html#ui-tabs-2");
+    }
+  }
+};
+
+// Create a user notification on Safari
+//
+var createRuleLimitExceededSafariNotification = function() {
+  if (SAFARI && ("Notification" in window)) {
+    sessionstorage_set("contentblockingerror", translate("safaricontentblockinglimitexceeded"));
+    chrome.extension.sendRequest({command: "contentblockingmessageupdated"});
+    var note = new Notification(translate("safarinotificationtitle") , { 'body' : translate("safarinotificationbody"), 'tag' : 1 });
+    note.onclick = function() {
+      openTab("options/index.html?tab=0");
+    };
+  }
 };

@@ -48,14 +48,29 @@ test("parseSecondLevelDomain", 5, function() {
   deepEqual(secondLevelDomainOnly("http://support.godaddy.com"), "godaddy.com");
 });
 
+module("Parsing URLs: ");
+test("IDN conversions", 11, function() {
+  equal(getUnicodeDomain('google.com'), 'google.com');
+  equal(getUnicodeDomain('xn--maana-pta.com'), 'mañana.com');
+  equal(getUnicodeDomain('xn--bcher-kva.com'), "bücher.com");
+  equal(getUnicodeDomain('xn--bcher-kva.com'), 'b\xFCcher.com');
+  equal(getUnicodeDomain('xn----dqo34k.com'), "☃-⌘.com");
+  equal(getUnicodeDomain('xn--ls8h.la'), "💩.la");
+  equal(getUnicodeDomain('\u0434\u0436\u0443\u043C\u043B\u0430@xn--p-8sbkgc5ag7bhce.xn--ba-lmcq'), '\u0434\u0436\u0443\u043C\u043B\u0430@\u0434\u0436p\u0443\u043C\u043B\u0430\u0442\u0435\u0441\u0442.b\u0440\u0444a');
+  equal(getUnicodeUrl('http://www.xn--maana-pta.com'), "http://www.mañana.com");
+  equal(getUnicodeUrl('http://www.xn----dqo34k.com'), "http://www.☃-⌘.com");
+  equal(getUnicodeUrl('http://www.xn----dqo34k.com/foo/blah?t=is#here'), "http://www.☃-⌘.com/foo/blah?t=is#here");
+  equal(getUnicodeUrl('http://www.google.com/foo/blah?t=is#here'), 'http://www.google.com/foo/blah?t=is#here');
+});
+
 module("Global Functions");
 test("storage get and storage set", function() {
   var testObj = {
     foo: "bar",
     bar: "foo",
   };
-   // the following will allow the the storage functions.js to execute correctly 
-   // tests failling because the Safari extension API safari.extension.settings is only 
+   // the following will allow the the storage functions.js to execute correctly
+   // tests failling because the Safari extension API safari.extension.settings is only
    // available to the 'global' page.  We'll set it correctly here.
   if (/Safari/.test(navigator.userAgent) &&
      !/Chrome/.test(navigator.userAgent)) {
@@ -66,21 +81,21 @@ test("storage get and storage set", function() {
   deepEqual(testObj.foo, testResultObj.foo);
   deepEqual(testObj.bar, testResultObj.bar);
   deepEqual(testObj, testResultObj);
-  
+
   notEqual(testObj, testResultObj);
-  
+
   storage_set("foo", testObj.foo);
   var foo = storage_get("foo");
   deepEqual(testObj.foo, foo);
   strictEqual(testObj.foo, foo);
   equal(testObj.foo, foo);
-  
+
   storage_set("foo", "not foo");
   foo = storage_get("foo");
   notDeepEqual(testObj.foo, foo);
   notStrictEqual(testObj.foo, foo);
   notEqual(testObj.foo, foo);
-  
+
   testObj.foo = "not foo";
   testObj.bar = "not bar";
   testResultObj = storage_get("testObj");
@@ -94,29 +109,29 @@ test("setDefault", function() {
     foo: "bar",
     bar: "foo",
   };
-  
+
   var testMap = {
     first: "one",
     second: "two",
     third: "three",
   };
-  
+
   var first = setDefault(testMap, "first", "noOne");
-  
+
   strictEqual(testMap.first, first);
   notStrictEqual(testMap.first, "noOne");
-  
+
   first = setDefault(testMap, "notHere", testObj);
-  
+
   deepEqual(testMap.notHere, testObj);
   deepEqual(first, testObj);
   deepEqual(first, testMap.notHere);
   ok(testMap.notHere == testObj && testMap.notHere== first, "should be the same object");
-  
+
   testObj = {
     bar: "foo",
   }
-  
+
   first = setDefault(testMap, "notHere", testObj);
   notDeepEqual(testMap.notHere, testObj);
   notDeepEqual(first, testObj);
@@ -149,7 +164,7 @@ test("comment", function() {
   ok(isComment("! foo comment"), "comment that starts with '!'");
   ok(isComment("[adblock foo comment"), "comment that starts with '[adblock'");
   ok(isComment("(adblock foo comment"), "comment that starts with '(adblock'");
-  
+
   ok(!isComment(" ! foo comment"), "comment that does not start with '!'");
   ok(!isComment(" [ adblock foo comment"), "comment that does not start with '[adblock'");
   ok(!isComment(" ( adblock foo comment"), "comment that does not start with '(adblock'");
@@ -160,19 +175,19 @@ test("create selector filter from text", function() {
   ok(fromText("www.foo.com##IMG[src='http://randomimg.com']") instanceof SelectorFilter, "is a SelectorFilter object");
   ok(fromText("www.foo.com#@#IMG[src='http://randomimg.com']") instanceof SelectorFilter, "is a SelectorFilter object");
   ok(!(fromText("www.foo.com#@IMG[src='http://randomimg.com']") instanceof SelectorFilter), "is not a SelectorFilter object");
-  
+
   // Test selector filters
   var selectorFilter = fromText("www.foo.com##IMG[src='http://randomimg.com']");
   deepEqual(selectorFilter, fromText("www.foo.com##IMG[src='http://randomimg.com']"));
   strictEqual(selectorFilter, Filter._cache["www.foo.com##IMG[src='http://randomimg.com']"], "should have a cached copy");
   ok(selectorFilter._domains.has['www.foo.com'], "should have the domain");
   strictEqual(selectorFilter.selector, "IMG[src='http://randomimg.com']", "selector should be equal");
-  
+
 });
 
 module("DomainSet");
 test("caching and immutable Filters", function() {
-  var text = "safariadblock.com##div" 
+  var text = "safariadblock.com##div"
   var f = Filter.fromText(text);
   strictEqual(f, Filter.fromText(text), "Caching works");
   var fCopy = JSON.parse(JSON.stringify(f));
@@ -286,7 +301,7 @@ module("SelectorFilter");
 test("merge", function() {
   var _testEmpty = function(a, b) {
     var first = SelectorFilter.merge(
-      Filter.fromText(a), 
+      Filter.fromText(a),
       b.map(function(text) { return Filter.fromText(text); })
     );
     var result = new DomainSet({"": false});
@@ -294,7 +309,7 @@ test("merge", function() {
   }
   var _test = function(a, b, c) {
     var first = SelectorFilter.merge(
-      Filter.fromText(a), 
+      Filter.fromText(a),
       b.map(function(text) { return Filter.fromText(text); })
     );
     var second = Filter.fromText(c);
@@ -327,15 +342,15 @@ module("MyFilters");
 
 test("Should have default filters subscribed on installation", 4, function() {
   var _myfilters = new MyFilters();
-  
+
   // Reset _subscriptions to mock newly installed adblock
   _myfilters._subscriptions = undefined;
   _myfilters._updateDefaultSubscriptions();
-  
+
   var subscriptions = _myfilters._subscriptions;
   ok(subscriptions["adblock_custom"].subscribed, "Adblock Custom filter should be subscribed");
   ok(subscriptions["easylist"].subscribed, "Easylist Filters should be subscribed");
-  
+
   _myfilters._updateFieldsFromOriginalOptions();
   ok(subscriptions["adblock_custom"].subscribed, "Adblock Custom filter should still be subscribed");
   ok(subscriptions["easylist"].subscribed, "Easylist Filters should still be subscribed");
@@ -383,12 +398,12 @@ test("Should delete ex-official lists from subscriptions", 6, function() {
 
   _myfilters._official_options = {
     bar: { url: "http://bar.com/bar.txt" },
-    minions: { url: "https://banana.com/banana.txt" },  
+    minions: { url: "https://banana.com/banana.txt" },
     cheeseburgers: { url: "https://canihas.com/canihas.txt" }
   }
-  
+
   _myfilters._updateDefaultSubscriptions();
-  
+
   var subscriptions = _myfilters._subscriptions;
   ok(!subscriptions.foo, "Subscription foo should be deleted"); // Not in official list, not user submitted, not subscribed
   ok(subscriptions.bar, "Subscription bar should still exist"); // In official list, user submitted, subscribed
@@ -398,7 +413,7 @@ test("Should delete ex-official lists from subscriptions", 6, function() {
   ok(subscriptions["url:http://ramdomsub.com/randomsub.txt"], "Subscription with url as id should still exist"); // Not in official list, user submitted (subscribed is irrelevant)
 });
 
-test("Should change the id of a new official subscriptions", function() { 
+test("Should change the id of a new official subscriptions", function() {
   var _myfilters = new MyFilters();
   _myfilters._subscriptions = {
     "url:http://foo.com/foo.txt": {
@@ -436,33 +451,33 @@ test("Should change the id of a new official subscriptions", function() {
     },
   }
 
-  _myfilters._official_options = { 
+  _myfilters._official_options = {
     foo: { url: "http://foo.com/foo.txt" },
     grue: { url: "http://randomness.com/superrandom.txt" },
-    bar: { url: "http://bar.com/bar.txt" }, 
+    bar: { url: "http://bar.com/bar.txt" },
     minions: { url: "https://grue.com/banana.txt" }
   }
-  
+
   _myfilters._updateDefaultSubscriptions();
-  
+
   var subscriptions = _myfilters._subscriptions;
-  
+
   ok(subscriptions.foo, "Entry should change id to foo"); // No id, url matches entry in official list
   ok(!subscriptions.foo.user_submitted, "Foo should not be user submitted");
   ok(!subscriptions["url:htp://foo.com/foo.txt"], "Entry should be deleted since it is now and official list");
-  
+
   ok(subscriptions.grue, "Entry should change id to grue"); // No id, initialUrl matches entry in official list
   ok(!subscriptions.grue.user_submitted, "Grue should not be user submitted");
-  
+
   ok(subscriptions.minions, "Entry should change id to minions"); // No id, url matches entry in official list
   ok(!subscriptions.minions.user_submitted, "Minions should not be user submitted");
-  
+
   ok(subscriptions["url:https://banana.com/banana.txt"], "Entry will not be changed"); // No id, url and initialUrl has no match in official list
   ok(subscriptions["url:https://banana.com/banana.txt"].user_submitted, "'Url' should be user submitted");
-  
+
   ok(subscriptions.bar, "Entry will not be changed"); //With Id, url matches entry in official list
   ok(!subscriptions.bar.user_submitted, "Bar should not be user submitted");
-  
+
   ok(subscriptions["url:http://notmatch.com/notmatch.txt"], "Entry should change id to url:url"); // With Id, subscribed, url and initial url does not match
   ok(subscriptions["url:http://notmatch.com/notmatch.txt"].user_submitted, "'Url' should be user submitted");
   ok(!subscriptions.notmatch, "Entry should be deleted since it is no longer part of the official list");
@@ -475,9 +490,9 @@ test("Should add official subscription in _subscriptions object if missing", fun
   MyFilters.prototype.changeSubscription = function(arg1, arg2) {
     this._subscriptions[arg1].subscribed = true;
   };
-  
+
   var _myfilters = new MyFilters();
-  
+
   _myfilters._subscriptions = {
     foo: {
       url: "http://foo.com/foo.txt",
@@ -487,15 +502,15 @@ test("Should add official subscription in _subscriptions object if missing", fun
     }
   }
 
-  _myfilters._official_options = { 
+  _myfilters._official_options = {
     foo: { url: "http://foo.com/foo.txt" },
     bar: { url: "http://bar.com/bar.txt" }
   }
-  
+
   _myfilters._updateFieldsFromOriginalOptions();
-  
+
   var subscriptions = _myfilters._subscriptions;
-  
+
   ok(subscriptions.bar, "Bar should be added in subscriptions");
   ok(subscriptions.foo, "Foo should be retained in subscriptions");
 });
@@ -505,9 +520,9 @@ test("Should update requires list", function() {
   MyFilters.prototype.changeSubscription = function(arg1, arg2) {
     this._subscriptions[arg1].subscribed = true;
   };
-  
+
   var _myfilters = new MyFilters();
-  
+
   _myfilters._subscriptions = {
     foo: {
       url: "http://foo.com/foo.txt",
@@ -515,14 +530,14 @@ test("Should update requires list", function() {
       user_submitted: false,
       subscribed: false
     },
-    
+
     bar: {
       url: "http://bar.com/bar.txt",
       initialUrl: "http://bar.com/bar.txt",
       user_submitted: true,
       subscribed: true
     },
-    
+
     randomEntry: {
       url: "http://randomEntry.com/randomEntry.txt",
       initialUrl: "http://randomEntry.com/randomEntry.txt",
@@ -530,34 +545,34 @@ test("Should update requires list", function() {
       subscribed: false,
       requiresList: "anaconda"
     },
-    
+
     minions: {
       url: "http://minions.com/minions.txt",
       subscribed: false
     },
-    
+
     eddard: {
       url: "http://starks.com/winteriscoming.txt",
       subscribed: false
     },
-    
+
     anaconda: {
       url: "http://anaconda.com/bigbigsnakes.txt",
       subscribed: true
     }
   }
-  
-  _myfilters._official_options = { 
+
+  _myfilters._official_options = {
     minions: { url: "http://minions.com/minions.txt" },
     eddard: { url: "http://starks.com/winteriscoming.txt" },
     foo: { url: "http://foo.com/foo.txt", requiresList: "minions" },
     bar: { url: "http://bar.com/bar.txt", requiresList: "eddard" }
   }
-  
+
   _myfilters._updateFieldsFromOriginalOptions();
-  
+
   var subscriptions = _myfilters._subscriptions;
-  
+
   equal(subscriptions.foo.requiresList, "minions", "RequiresList should be minions");
   equal(subscriptions.bar.requiresList, "eddard", "RequiresList should be eddard");
   ok(!subscriptions.minions.subscribed, "Should retain subscribed status if dependent sub is not subscribed");
@@ -570,9 +585,9 @@ test("Should update url and initial url if initial url does not match official u
   MyFilters.prototype.changeSubscription = function(arg1, arg2) {
     this._subscriptions[arg1].subscribed = true;
   };
-  
+
   var _myfilters = new MyFilters();
-  
+
   _myfilters._subscriptions = {
     foo: {
       url: "http://ramsey.com/ramsey.txt",
@@ -580,47 +595,47 @@ test("Should update url and initial url if initial url does not match official u
       user_submitted: false,
       subscribed: false
     },
-    
+
     bar: {
       url: "http://bar.com/bar.txt",
       initialUrl: "http://notme.com/notme.txt",
       user_submitted: true,
       subscribed: true
     },
-    
+
     grue: {
       url: "http://randomthings.com/randomthings.txt",
       initialUrl: "http://randomthings.com/randomgthings.txt"
     }
   }
 
-  _myfilters._official_options = { 
+  _myfilters._official_options = {
     foo: { url: "http://foo.com/foo.txt", requiresList: "minions" },
     bar: { url: "http://bar.com/bar.txt", requiresList: "eddard" },
     grue: { url: "http://despicable.com/despicable.txt" },
     minions: { url: "http://minions.com/minons.txt" }
   }
-  
+
   _myfilters._updateFieldsFromOriginalOptions();
-  
+
   var subscriptions = _myfilters._subscriptions;
   var officialSubs = _myfilters._official_options;
-  
+
   equal(subscriptions.foo.initialUrl, officialSubs.foo.url, "Url should be equal");
-  
+
   equal(subscriptions.bar.url, officialSubs.bar.url, "Url should be equal");
   equal(subscriptions.bar.initialUrl, officialSubs.bar.url, "Url should be equal");
-  
+
   equal(subscriptions.grue.url, officialSubs.grue.url, "Url should be equal");
   equal(subscriptions.grue.initialUrl, officialSubs.grue.url, "Url should be equal");
-  
+
   equal(subscriptions.minions.url, officialSubs.minions.url, "Missing subs should be added");
   equal(subscriptions.minions.initialUrl, officialSubs.minions.url, "Missing subs should be added");
 });
 
 if (/Chrome/.test(navigator.userAgent)) {
   // CHROME ONLY
-  
+
   test("Should instantiate a MyFilters object correctly", 3, function() {
       //Tests if instance of MyFilters was instantiated successfully
       //Since get / set storage on Safari is mocked up, this shouldn't run on Safari, only Chrome
@@ -629,15 +644,15 @@ if (/Chrome/.test(navigator.userAgent)) {
       ok(_myfilters._subscriptions, "_subscriptions is not null");
       ok(_myfilters._official_options, "_official_options is not null");
     });
-  
+
   (function() {
     module("Purging the remainders of ads using CSS selectors");
-    
+
     function runme(page, url) {
       elementPurger._page_location = parseUri(page);
       return elementPurger._srcsFor(url);
     }
-    
+
     test("Fragments behind URLs", 4, function() {
       deepEqual(runme("http://a.com/b/c/d.html#e", "http://a.com/b/c/d.html#f"), [
                 {"op": "$=", "text": "//a.com/b/c/d.html#f"},
@@ -660,7 +675,7 @@ if (/Chrome/.test(navigator.userAgent)) {
                 {"op": "=", "text": "d/#"},
                 {"op": "=", "text": "./d/#"}]);
     });
-    
+
     test("Ignore queryparameters in page but not in url", 2, function() {
       deepEqual(runme("http://a.com/b/c/d.html?e/f/g/h#i/j", "http://a.com/b/c/k.html?l/m#n#o"), [
                 {"op": "$=", "text": "//a.com/b/c/k.html?l/m#n#o"},
@@ -673,14 +688,14 @@ if (/Chrome/.test(navigator.userAgent)) {
                 {"op": "=", "text": "k.html?/l/m#n#o"},
                 {"op": "=", "text": "./k.html?/l/m#n#o"}]);
     });
-    
+
     test("Different domains", 2, function() {
       deepEqual(runme("http://a.com/b/c/d.html", "http://e.com/f.html"), [
                 {"op": "$=", "text": "//e.com/f.html"}]);
       deepEqual(runme("http://a.com/b/c/d.html", "http://e.com/f.html#http://g.com/h/i/#j#k#l"), [
                 {"op": "$=", "text": "//e.com/f.html#http://g.com/h/i/#j#k#l"}]);
     });
-    
+
     test("Same directory", 2, function() {
       deepEqual(runme("http://a.com/b/c/d.html", "http://a.com/b/c/d.html"), [
                 {"op": "$=", "text": "//a.com/b/c/d.html"},
@@ -693,7 +708,7 @@ if (/Chrome/.test(navigator.userAgent)) {
                 {"op": "=", "text": "e.html"},
                 {"op": "=", "text": "./e.html"}]);
     });
-    
+
     test("Different documents in parent directories", 3, function() {
       deepEqual(runme("http://a.com/b/c/d.html", "http://a.com/b/e.html"), [
                 {"op": "$=", "text": "//a.com/b/e.html"},
@@ -708,7 +723,7 @@ if (/Chrome/.test(navigator.userAgent)) {
                 {"op": "=", "text": "/"},
                 {"op": "$=", "text": "../../"}]);
     });
-    
+
     test("Different doc in subdirs of same or parent dir", 2, function() {
       deepEqual(runme("http://a.com/b/c/d.html", "http://a.com/b/c/e/f/g.html"), [
                 {"op": "$=", "text": "//a.com/b/c/e/f/g.html"},
@@ -720,7 +735,7 @@ if (/Chrome/.test(navigator.userAgent)) {
                 {"op": "=", "text": "/b/e/f/g.html"},
                 {"op": "$=", "text": "../e/f/g.html"}]);
     });
-    
+
     test("Empty page dir", 3, function() {
       deepEqual(runme("http://a.com/b/c/", "http://a.com/b/c/d/e.html"), [
                 {"op": "$=", "text": "//a.com/b/c/d/e.html"},
@@ -737,7 +752,7 @@ if (/Chrome/.test(navigator.userAgent)) {
                 {"op": "=", "text": "/b/"},
                 {"op": "$=", "text": "../"}]);
     });
-    
+
     test("Lack of trailing url slash", 2, function() {
       deepEqual(runme("http://a.com/b/c/", "http://a.com/b"), [
                 {"op": "$=", "text": "//a.com/b"},
@@ -749,10 +764,10 @@ if (/Chrome/.test(navigator.userAgent)) {
                 {"op": "$=", "text": "../c"}]);
     });
   })();
-  
+
   // END CHROME ONLY
 } else {
   // SAFARI ONLY
-  
+
   // END SAFARI ONLY
 }

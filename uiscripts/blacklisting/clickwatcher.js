@@ -9,7 +9,7 @@ function Highlighter() {
   var then = Date.now();
   var box = $("<div class='adblock-highlight-node'></div>");
   box.appendTo("body");
-  
+
   function handler(e) {
     var offset, el = e.target;
     var now = Date.now();
@@ -26,7 +26,7 @@ function Highlighter() {
       return;
     }
     if (el === document.body || el.className === "adblock-killme-overlay") {
-      box.hide(); 
+      box.hide();
       return;
     }
     el = $(el);
@@ -35,12 +35,12 @@ function Highlighter() {
     box.css({
       height: el.outerHeight(),
       width: el.outerWidth(),
-      left: offset.left, 
-      top: offset.top 
+      left: offset.left,
+      top: offset.top
     });
-    box.show(); 
+    box.show();
   }
-  
+
   this.getCurrentNode = function(el) {
     return el === box[0] ? target : el;
   };
@@ -126,7 +126,7 @@ ClickWatcher.prototype._onClose = function() {
   }
   this._highlighter.destroy();
 }
-ClickWatcher.prototype._build_ui = function() { 
+ClickWatcher.prototype._build_ui = function() {
   var that = this;
 
   function click_catch_this() {
@@ -147,7 +147,7 @@ ClickWatcher.prototype._build_ui = function() {
 
   // Since iframes that will get clicked will almost always be an entire
   // ad, and I *really* don't want to figure out inter-frame communication
-  // so that the blacklist UI's slider works between multiple layers of 
+  // so that the blacklist UI's slider works between multiple layers of
   // iframes... just overlay iframes and treat them as a giant object.
   $("object,embed,iframe,[onclick]:empty").
       each(function(i, dom_element) {
@@ -159,7 +159,7 @@ ClickWatcher.prototype._build_ui = function() {
   });
 
   var btn = {};
-  btn[translate("buttoncancel")] = function() { 
+  btn[translate("buttoncancel")] = function() {
     $(".adblock-ui-stylesheet").remove();
     page.dialog('close');
   }
@@ -175,7 +175,7 @@ ClickWatcher.prototype._build_ui = function() {
       autoOpen: false,
       title: translate("blockanadtitle"),
       buttons: btn,
-      close: function() {   
+      close: function() {
         $("body").off("click",
           ".adblock-killme-overlay, .adblock-highlight-node", click_catch_this);
         Overlay.removeAll();

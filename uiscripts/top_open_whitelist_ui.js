@@ -8,7 +8,7 @@ function top_open_whitelist_ui() {
 
   may_open_dialog_ui = false;
 
-  var domain = document.location.host;
+  var domain = getUnicodeDomain(document.location.host);
 
   // Safari's document.location breaks in the feed reader if the feed is fetched via https. Normal
   // feeds have URLs with scheme replaced with "feed", but HTTPS feeds have the scheme replaced with
@@ -81,7 +81,7 @@ function top_open_whitelist_ui() {
     changeTextDirection($("body .adblock-whitelist-dialog"));
 
     $(".adblock-whitelist-dialog").parent().css({position: 'relative'});
-    $(".adblock-whitelist-dialog").css({top: 200, left: 200, position:'absolute'});
+    $(".adblock-whitelist-dialog").css({top: 200, left: 200, position: 'fixed'});
 
     var fixedDomainPart = parseUri.secondLevelDomainOnly(domain, true);
     var domainparts = domain.substr(0, domain.lastIndexOf(fixedDomainPart)).split('.');

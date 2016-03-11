@@ -67,7 +67,7 @@
               <tr>
                 <td class="guide">@@</td>
                 <td><input id="txtUnblock" type="text" style="width:400px;"
-                         placeholder="http://stackoverflow.com" /></td>
+                         placeholder="http://example.com" /></td>
                 <td class="guide">$document</td>
                 <td><input id="btnAddExcludeFilter" type="button" i18n_value="buttonok" disabled="disabled"/></td>
               </tr>
@@ -87,6 +87,10 @@
                 <td class="guide">@@*$document,domain=</td>
                 <td><input id="txtBlacklist" type="text" style="width:400px;" /></td>
                 <td><input id="btnAddBlacklist" type="button" i18n_value="buttonok" disabled="disabled"/></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td colspan="3"><div id="messageBlacklist" class="dbmessage"></div></td>
               </tr>
               <tr>
                 <td></td>
@@ -115,8 +119,10 @@
       <div>
         <div i18n="filtersavewarning" class="footnote" i18n_replacement_el="tutorlink" style="margin:5px 0px 5px 3px;"></div>
         <a id="tutorlink" target="_blank"></a>
+        <div id="safariwarning" class="footnote" style="margin:5px 0px 5px 3px; display: none;"></div>
       </div>
-
+      <div id="dbmessagecustom" class="dbmessage"></div>
+      <div id="messagecustom" class="dbmessage"></div>
       <div>
         <textarea id="txtFiltersAdvanced" cols="112" rows="15" disabled></textarea>
         <br/>

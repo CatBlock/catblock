@@ -112,7 +112,7 @@ function block_list_via_css(selectors) {
     var GROUPSIZE = 1000; // Hide in smallish groups to isolate bad selectors
     for (var i = 0; i < selectors.length; i += GROUPSIZE) {
       var line = selectors.slice(i, i + GROUPSIZE);
-      var rule = line.join(",") + " { display:none !important; visibility: none !important; orphans: 4321 !important; }";
+      var rule = line.join(",") + " { display:none !important; visibility: hidden !important; orphans: 4321 !important; }";
       css_chunk.sheet.insertRule(rule, 0);
     }
   }
@@ -129,7 +129,7 @@ function debug_print_selector_matches(selectors) {
         var el = elems[i];
         matches += "        " + el.nodeName + "#" + el.id + "." + el.className + "\n";
       }
-      BGcall("debug_report_elemhide", selector, matches);
+      BGcall("debug_report_elemhide", "##" + selector, matches);
     });
 }
 
@@ -154,14 +154,14 @@ function handleABPLinkClicks() {
             // to open a new window from our global HTML file
             window.open(chrome.extension.getURL('pages/subscribe.html?' + loc),
                         "_blank",
-                        'scrollbars=0,location=0,resizable=0,width=450,height=150');
+                        'scrollbars=0,location=0,resizable=0,width=460,height=150');
           } else {
             BGcall("launch_subscribe_popup", loc);
           }
         }
       });
     }
-  };
+  }
   for (var i=0; i<elems.length; i++) {
     elems[i].addEventListener("click", abplinkhandler, false);
   }
@@ -182,7 +182,6 @@ function adblock_begin(inputs) {
   if (document.location.href === 'favorites://') // Safari does this
     return;
 
-
   if (!(document.documentElement instanceof HTMLElement))
     return; // Only run on HTML pages
 
@@ -193,8 +192,8 @@ function adblock_begin(inputs) {
   inputs.startPurger();
 
   var opts = { domain: document.location.hostname };
-
   BGcall('get_content_script_data', opts, function(data) {
+
     if (data && data.settings && data.settings.debug_logging)
       logging(true);
 
@@ -206,10 +205,9 @@ function adblock_begin(inputs) {
     }
 
     onReady(function() {
-      // TODO: ResourceList could pull html.innerText from page instead: we
-      // could axe this (and Safari's .selectors calculation in debug mode)
-      if (data && data.settings && data.settings.debug_logging)
+      if (data && data.settings && data.settings.debug_logging) {
         debug_print_selector_matches(data.selectors || []);
+      }
       // Chrome doesn't load bandaids.js unless the site needs a bandaid.
       if (typeof run_bandaids === "function") {
         run_bandaids("new");
@@ -217,7 +215,6 @@ function adblock_begin(inputs) {
 
       handleABPLinkClicks();
     });
-
     if (inputs.success) inputs.success();
   });
 }

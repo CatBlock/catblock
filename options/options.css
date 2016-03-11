@@ -150,6 +150,7 @@
         margin: 0px 50%;
         min-width: 475px;
         position: absolute;
+        color: #4D7BD6;
         text-decoration: none;
         text-align: right;
       }
@@ -223,6 +224,11 @@
       #dbauthinfo:hover {
         background-position: -15px -142px;
         background-image: url(../jquery/css/images/ui-icons_056b93_256x240.png);
+      }
+      .dbmessage {
+        color: red;
+        font-weight: bold;
+        margin: 5px 0px 5px 3px;
       }
 
       /* Filters tab */
@@ -338,14 +344,14 @@
         display: none;
         color: #606060;
       }
+      /* Fixes position of buttons on CatBlock Options page */
+      sup {
+          position: absolute;
+      }
 
       /* Misc */
       label {
         cursor: pointer;
-      }
-      /* Fixes position of buttons on CatBlock Options page */
-      sup {
-          position: absolute;
       }
       [i18n="betalabel"] {
         font-style: italic;
@@ -504,7 +510,7 @@
         cursor: default;
         -webkit-user-select: none;
       }
-      input[type=text], textarea {
+      input[type=text], input[type=email], textarea {
         transition: all 0.30s ease-in-out;
         -webkit-transition: all 0.30s ease-in-out;
         border: #fff 1px solid;
@@ -513,7 +519,7 @@
         margin: 5px 1px 3px 0px;
         border: 1px solid #DDDDDD;
       }
-      input[type=text]:focus, textarea:focus {
+      input[type=email]:focus, input[type=text]:focus, textarea:focus {
         box-shadow: 0px 0px 5px #dfdfdf;
         -webkit-box-shadow: 0 0 5px #dfdfdf;
         padding: 3px 0px 3px 3px;

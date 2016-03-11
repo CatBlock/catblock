@@ -1,0 +1,68 @@
+body {
+    background-color: white;
+    font-size: 12px;
+}
+table {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .15);
+    background: #F1F1F1;
+    border-collapse: collapse;
+    cursor: default;
+    display: none;
+}
+th {
+    font-weight: 500;
+}
+#legend {
+    min-width: 1195px;
+    margin: 118px auto 20px auto;
+    text-align: center;
+    display: none;
+}
+#main_nav li {
+    padding: 11px 24px;
+}
+.resourceslist {
+    position: relative;
+    margin: 0px auto 20px auto;
+    min-width: 1195px;
+}
+.loader {
+    display: block;
+    margin: 120px auto auto;
+    height: 25px;
+}
+.framedomain, .frameurl, .frametype {
+    text-align: left;
+    font-size: small;
+    padding-left: 25px;
+}
+.frametype {
+    padding-top: 20px;
+}
+th[data-column="url"] {
+    cursor: pointer;
+}
+[data-column="url"] {
+    padding-left: 25px;
+}
+th[data-column="type"] {
+    width: 100px;
+    cursor: pointer;
+}
+th[data-column="filter"] {
+    width: 290px;
+    cursor: pointer;
+}
+th[data-column="thirdparty"] {
+    width: 100px;
+    cursor: pointer;
+}
+.blocked {
+    color: red;
+}
+.whitelisted {
+    color: green;
+}
+.hiding {
+    color: blue;
+}
