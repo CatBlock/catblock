@@ -59,6 +59,7 @@ FilterSet.prototype = {
   // domain, and return it with the given map function applied. This function
   // is for hiding rules only
   filtersFor: function(domain) {
+    domain = getUnicodeDomain(domain);
     var limited = this._viewFor(domain);
     var data = {};
     // data = set(limited.items)
@@ -136,13 +137,18 @@ BlockingFilterSet.prototype = {
   //                             resource
   //   frameDomain:string - domain of the frame on which the element resides
   //   returnFilter?:bool - see Returns
+  //   returnTuple?:bool - see Returns
   // Returns:
   //   if returnFilter is true:
   //       text of matching pattern/whitelist filter, null if no match
   //   if returnFilter is false:
   //       true if the resource should be blocked, false otherwise
-  matches: function(url, elementType, frameDomain, returnFilter) {
-    var urlDomain = parseUri(url).hostname;
+  //   if returnTuple is true and returnFilter is true:
+  //       returns an object containing two properties:
+  //          'blocked' - true or false
+  //          'text' - text of matching pattern/whitelist filter, null if no match
+  matches: function(url, elementType, frameDomain, returnFilter, returnTuple) {
+    var urlDomain = getUnicodeDomain(parseUri(url).hostname);
     var isThirdParty = BlockingFilterSet.checkThirdParty(urlDomain, frameDomain);
 
     // matchCache approach taken from ABP
@@ -153,28 +159,54 @@ BlockingFilterSet.prototype = {
     var match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty);
     if (match) {
       log(frameDomain, ": whitelist rule", match._rule, "exempts url", url);
-      this._matchCache[key] = (returnFilter ? match._text : false);
+      if (returnTuple && returnFilter) {
+        this._matchCache[key] = { blocked: false, text: match._text};
+      } else {
+        this._matchCache[key] = (returnFilter ? match._text : false);
+      }
       return this._matchCache[key];
     }
     match = this.pattern.matches(url, elementType, frameDomain, isThirdParty);
     if (match) {
       log(frameDomain, ": matched", match._rule, "to url", url);
-      this._matchCache[key] = (returnFilter ? match._text: true);
+      if (returnTuple && returnFilter) {
+        this._matchCache[key] = { blocked: true, text: match._text};
+      } else {
+        this._matchCache[key] = (returnFilter ? match._text : true);
+      }
       return this._matchCache[key];
     }
     if (this.malwareDomains &&
-        this.malwareDomains.adware &&
-        this.malwareDomains.adware.indexOf(urlDomain) > -1) {
+        urlDomain &&
+        this.malwareDomains[urlDomain.charAt(0)] &&
+        this.malwareDomains[urlDomain.charAt(0)].indexOf(urlDomain) > -1) {
       log("matched malware domain", urlDomain);
       this._matchCache[key] = (returnFilter ? urlDomain: true);
-      createMalwareNotification();
+      // createMalwareNotification is not defined outside of BG page
+      if (typeof createMalwareNotification === "function") {
+          createMalwareNotification(frameDomain);
+      }
       return this._matchCache[key];
     }
     this._matchCache[key] = false;
     return this._matchCache[key];
   },
   setMalwareDomains: function(malwareDoms) {
-    this.malwareDomains = malwareDoms;
+    if (malwareDoms === null) {
+        this.malwareDomains = null;
+        return;
+    }
+    var domains = malwareDoms.adware;
+    var result = {};
+    for (var i=0; i < domains.length; i++) {
+        var domain = domains[i];
+        var char = domain.charAt(0);
+        if (!result[char]) {
+            result[char] = [];
+        }
+        result[char].push(domain);
+    }
+    this.malwareDomains = result;
   },
   getMalwareDomains: function() {
     return this.malwareDomains;

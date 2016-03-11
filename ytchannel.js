@@ -7,13 +7,13 @@ if (!/ab_channel/.test(url)) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET",
                  "https://www.googleapis.com/youtube/v3/channels?part=snippet&id=" + getChannelId(url) +
-                 "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), true);
+                 "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), false);
         xhr.onload = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.response);
                 // Got name of the channel
                 if (json.items[0]) {
-                    updateURL(json.items[0].snippet.title, true);
+                    updateURL(json.items[0].snippet.title, false);
                 }
             }
         }
@@ -22,7 +22,7 @@ if (!/ab_channel/.test(url)) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET",
                  "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + getVideoId(url) +
-                 "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), true);
+                 "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), false);
         xhr.onload = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.response);
@@ -61,17 +61,25 @@ if (!/ab_channel/.test(url)) {
         return parseUri.parseSearch(url).v;
     }
 
-    // Function which: - adds name of the channel on the end of the URL, e.g. &channel=nameofthechannel
+    // Function which: - adds name of the channel on the end of the URL, e.g. &ab_channel=nameofthechannel
     //                 - reload the page, so AdBlock can properly whitelist the page (just if channel is whitelisted by user)
-    function updateURL(channelName, isChannel) {
-        if (isChannel) {
+    function updateURL(channelName, shouldReload) {
+        if (parseUri(url).search.indexOf("?") === -1) {
             var updatedUrl = url+"?&ab_channel="+channelName.replace(/\s/g,"");
         } else {
             var updatedUrl = url+"&ab_channel="+channelName.replace(/\s/g,"");
         }
         // Add the name of the channel to the end of URL
         window.history.replaceState(null, null, updatedUrl);
-        // Reload page from cache
-        document.location.reload(false);
+        // |shouldReload| is true only if we are not able to get
+        // name of the channel by using YouTube Data v3 API
+        if (shouldReload) {
+          // Reload page from cache, if it should be whitelisted
+          BGcall("page_is_whitelisted", updatedUrl, function(whitelisted) {
+              if (whitelisted) {
+                document.location.reload(false);
+              }
+          });
+        }
     }
 }

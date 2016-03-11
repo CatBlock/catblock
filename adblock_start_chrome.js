@@ -11,7 +11,7 @@ var elementPurger = {
   // |request.url|.  Will try again if none are found unless |lastTry|.
   _purgeElements: function(request, lastTry) {
     var elType = request.elType;
-    var url = request.url;
+    var url = getUnicodeUrl(request.url);
 
     log("[DEBUG]", "Purging:", lastTry, elType, url);
 

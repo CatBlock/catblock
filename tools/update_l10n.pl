@@ -25,13 +25,15 @@ use File::Path;
 use File::Copy::Recursive qw(dirmove);
 use JSON qw(decode_json);
 use List::MoreUtils qw(uniq any);
-use LWP::Simple qw(getstore is_success);
+use LWP::Simple qw(get getstore is_success);
 use Archive::Extract qw(new extract error);
 use Term::ANSIColor;
 
 # stuff that we'll need later on
 my $root = "$FindBin::Bin/../"; # AdBlock root path
 my $includefile = "$root/tools/I18N_include_exclude.txt"; # include/exclude file
+my $api_key_file = $ENV{"HOME"}."/.ab_crowdin_key"; # where the Crowdin API key is stored
+my $api_export_url = "https://api.crowdin.com/api/project/adblock/export?json&key="; # build crowdin export
 my $crowdin_url = "https://crowdin.net/download/project/adblock.zip"; # Crowdin export
 my $tmp_dir = "$FindBin::Bin/l10n_tmp/"; # where to unzip locales temporarily
 my $src_file = "/en/messages.json"; # source language json
@@ -43,6 +45,42 @@ my %locale_dirs = ( "adblock", "$root/_locales/",
                     "getadblock_com", "$root/i18n/_locales/",
                     "installed", "$root/installed/i18n/_locales/"
                   );
+
+
+sub export_locales {
+    if (-e $api_key_file){
+        # read API key from file
+        open my $file, "<", $api_key_file;
+        my $key = <$file>;
+        close $file;
+        
+        # call API
+        my $status = get($api_export_url.$key);
+        
+        # try to figure out what happened
+        if (!defined $status){
+            # could be internet issue, server issue, or wrong API key.
+            # Crowdin throws error message jsons as 404s, and the get()
+            # above only returns undef in that case, so we can't figure
+            # out what exactly went wrong here
+            print "build failed, something went wrong.\n";
+            # not a reason to fail for now, though, as the user may
+            # have built the project manually on crowdin.com
+            return 1;
+        } else {
+            my $json = decode_json($status);
+            if ($json->{"success"}{"status"} eq "built"){
+                print "built successfully.\n";
+            } elsif ($json->{"success"}{"status"} eq "skipped"){
+                print "build skipped, previous is up to date or less than 30 minutes old.\n";
+            } else {
+                print "unable to determine if build succeeded.\n"
+            }
+        }
+    } else {
+        print "build skipped, no API key found.\n";
+    }
+}
 
 sub get_locales {
     # make sure we don't already have other temporary files
@@ -369,6 +407,9 @@ sub main {
     
     # correctly display UTF-8 characters
     binmode(STDOUT, ":utf8");
+    
+    print "> Building Crowdin archive... ";
+    export_locales();
     
     print "> Downloading and extracting locales... ";
     get_locales();

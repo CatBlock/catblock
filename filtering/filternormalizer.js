@@ -211,6 +211,8 @@ var FilterNormalizer = {
     for (var domain in domainSet.has) {
       if (domain === DomainSet.ALL)
         continue;
+      // Convert punycode domains to Unicode
+      domain = getUnicodeDomain(domain);
       if (/^([a-z0-9\-_\u00DF-\u00F6\u00F8-\uFFFFFF]+\.)*[a-z0-9\u00DF-\u00F6\u00F8-\uFFFFFF]+\.?$/i.test(domain) == false)
         throw new Error("Invalid domain: " + domain);
       // Ensure domain doesn't break AdBlock

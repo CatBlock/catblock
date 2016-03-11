@@ -39,7 +39,22 @@ function CheckboxForFilterList(filter_list, filter_list_type, index, container) 
       css("display", $("#btnShowLinks").prop("disabled") ? "inline" : "none").
       attr("target", "_blank").
       attr("class", "linkToList").
-      attr("href", this._filter_list.url);
+      attr("data-URL", this._filter_list.url).
+      attr("data-safariJSON_URL", this._filter_list.safariJSON_URL).
+      click(function(e) {
+        var id = $(this).parent().attr("name");
+        var safariJSON_URL = $(this).attr("data-safariJSON_URL");
+        var url = $(this).attr("data-URL");
+
+        // If the user has Safari content blocking enabled, change the URL to the content blocking rule URL
+        if (optionalSettings &&
+            optionalSettings.safari_content_blocking &&
+            safariJSON_URL) {
+              $(this).attr("href", safariJSON_URL);
+              return;
+        }
+        $(this).attr("href", url);
+      });
 
   this._infospan = $("<span></span>").
       addClass("subscription_info").
@@ -222,7 +237,8 @@ FilterListUtil.sortFilterListArrays = function() {
 //    subs:object - Map for subscription lists taken from the background.
 FilterListUtil.getFilterListType = function(filter_list) {
   var filter_list_type;
-  if (filter_list.id === "adblock_custom" || filter_list.id === "easylist") {
+  if (filter_list.id === "adblock_custom" ||
+      filter_list.id === "easylist") {
     filter_list_type = "adblock_filter_list";
   } else if (filter_list.id === "easyprivacy" || filter_list.id === "antisocial"
              || filter_list.id === "malware" || filter_list.id === "annoyances"
@@ -606,8 +622,6 @@ $(function() {
     $(".linkToList").fadeIn("slow");
     $("#btnShowLinks").remove();
   });
-
-
 
   chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     if (request.command !== "filters_updated")

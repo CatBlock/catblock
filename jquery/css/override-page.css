@@ -2,11 +2,18 @@
 
 /* The dialog itself, and common elements on every dialog page (like the title bar) */
 .adblock-whitelist-dialog {
-  z-index: 10000;
+  z-index: 99999;
   padding: 0px;
 }
 .ui-button-text {
   display: block !important;
+}
+.ui-dialog {
+  opacity: 1 !important;
+  transform: initial !important;
+  -webkit-transform: initial !important;
+  transition: initial !important;
+  -webkit-transition: initial !important;
 }
 .ui-dialog a[href] {
   text-decoration: underline !important;
@@ -20,6 +27,7 @@
 .ui-dialog span.ui-dialog-title {
   color: black !important;
   display: block !important;
+  padding: initial !important;
 }
 .ui-dialog .ui-dialog-titlebar {
   display: block !important;
@@ -164,7 +172,11 @@
   z-index: 1000000;
   display: block;
 }
+
 /* Checkboxes */
+input {
+  line-height: initial !important;
+}
 input[type="checkbox"] {
   height: 1.2em;
   width: 1.2em;

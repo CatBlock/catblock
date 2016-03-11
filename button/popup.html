@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="popup.css"/>
+    <script src="../punycode.min.js"></script>
     <script src="../port.js"></script>
     <script src="../jquery/jquery.min.js"></script>
     <script src="../functions.js"></script>
@@ -11,9 +12,10 @@
       <div id="menu-items">
         <div id="titletext">
           <img src="../img/logo.png" class="logo" />
-        </div>
+          </div>
 
         <!-- ************ Status messages *********** -->
+
         <div id="block_counts" class="box" >
             <a id="block_counts_help" style="float:right;" i18n="whats_this"
               href="https://getadblock.com/gplus/v2.6-released/"></a>
@@ -86,6 +88,7 @@
 
       </div> <!-- menu-items-->
     </div> <!-- wrapper -->
+
     <script src="popup.js"></script>
   </body>
 </html>
