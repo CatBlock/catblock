@@ -1315,12 +1315,6 @@
               chrome.tabs.executeScript(tabId, {file: "ytchannel.js", runAt: "document_start"});
           }
       }
-      
-      var runCatBlock = function(tabId) {
-          if (get_settings().catblock) {
-             chrome.tabs.executeScript(tabId, {allFrames: true, file: "catblock/contentscript.js", runAt: "document_start"});
-         }
-      }
 
       chrome.tabs.onCreated.addListener(function(tab) {
           chrome.tabs.get(tab.id, function(tabs) {
@@ -1335,7 +1329,6 @@
             chrome.tabs.get(tabId, function(tabs) {
               if (tabs && tabs.url && tabs.id) {
                   runChannelWhitelist(tabs.url, tabs.id);
-                  runCatBlock(tabs.id);
               }
             });
           }
