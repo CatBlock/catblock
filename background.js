@@ -70,6 +70,7 @@
 
   function Settings() {
     var defaults = {
+      catblock: true,
       debug_logging: false,
       youtube_channel_whitelist: false,
       whitelist_hulu_ads: false, // Issue 7178
@@ -78,8 +79,7 @@
       display_stats: true,
       display_menu_stats: true,
       show_block_counts_help_link: true,
-      dropbox_sync: false,
-      show_survey: true,
+      dropbox_sync: false
     };
     var settings = storage_get('settings') || {};
     this._data = $.extend(defaults, settings);
@@ -1325,13 +1325,13 @@
       });
 
       chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-        if (changeInfo.status === "loading") {
-          chrome.tabs.get(tabId, function(tabs) {
-            if (tabs && tabs.url && tabs.id) {
-              runChannelWhitelist(tabs.url, tabs.id);
-            }
-          });
-        }
+          if (changeInfo.status === "loading") {
+            chrome.tabs.get(tabId, function(tabs) {
+              if (tabs && tabs.url && tabs.id) {
+                  runChannelWhitelist(tabs.url, tabs.id);
+              }
+            });
+          }
       });
   }
 
