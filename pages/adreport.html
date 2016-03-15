@@ -1,7 +1,7 @@
 <!--
-   URL:
-   chrome-extension://gighmmpiobklfepjocnamgkkbiglidom/pages/adreport.html
-   ?url={domain_href}
+URL:
+chrome-extension://gighmmpiobklfepjocnamgkkbiglidom/pages/adreport.html
+?url={domain_href}
 -->
 <!doctype html>
 <html>
@@ -104,11 +104,11 @@
         padding: 20px 20px 20px 0px;
       }
       .loader {
-          width: 20px;
-          height: 20px;
-          padding-top: 4px;
-          position: absolute;
-        }
+        width: 20px;
+        height: 20px;
+        padding-top: 4px;
+        position: absolute;
+      }
       .redText{
         color: #f00
       }
@@ -122,7 +122,7 @@
         #info {
           margin: 110px auto 30px 15px;
         }
-       .result {
+        .result {
           padding: 20px;
         }
       }
@@ -170,27 +170,27 @@
       </div>
     </div>
 
-  <!--STEP 3: disable all extension except AdBlock-->
+    <!--STEP 3: disable all extension except AdBlock-->
     <div class="step odd" >
       <div class="section" id="step_disable_extensions_DIV">
         <h2 i18n="disableallextensions"></h2>
         <div class="chrome_only">
-        <ol>
-          <li i18n="disableforchromestepone"></li>
-          <li i18n="disableforchromeandsafaristeptwo"></li>
-          <li i18n="reloadadpage"></li>
-        </ol>
-        <div style="margin: 15px 0px 15px 19px;">
-          <div i18n="clickdisableotherextensions" i18n_replacement_el="OtherExtensions"></div>
-          <input type="button" value="Disable other extensions!" id="OtherExtensions" />
-        </div>
+          <ol>
+            <li i18n="disableforchromestepone"></li>
+            <li i18n="disableforchromeandsafaristeptwo"></li>
+            <li i18n="reloadadpage"></li>
+          </ol>
+          <div style="margin: 15px 0px 15px 19px;">
+            <div i18n="clickdisableotherextensions" i18n_replacement_el="OtherExtensions"></div>
+            <input type="button" value="Disable other extensions!" id="OtherExtensions" />
+          </div>
         </div>
         <div class="safari_only">
-        <ol>
-          <li i18n="disableforsafaristepone"></li>
-          <li i18n="disableforchromeandsafaristeptwo"></li>
-          <li i18n="reloadadpage"></li>
-        </ol>
+          <ol>
+            <li i18n="disableforsafaristepone"></li>
+            <li i18n="disableforchromeandsafaristeptwo"></li>
+            <li i18n="reloadadpage"></li>
+          </ol>
         </div>
 
         <span i18n="adstillappear" class="afterDisableExtensions" style="margin-left: 19px;"></span><br/>
@@ -266,10 +266,10 @@
           <label for="step_firefox_wontcheck" i18n="refusetocheck"></label>
         </div>
       </div>
-      </div>
+    </div>
 
-      <!--STEP 6: video/flash ads-->
-      <div class="step even" >
+    <!--STEP 6: video/flash ads-->
+    <div class="step even" >
       <div class="section" id="step_flash_DIV">
         <h2 i18n="flashads"></h2>
         <span i18n="cantblockflashwarning" style="margin-left: 19px;"></span>
@@ -297,7 +297,7 @@
           <textarea id="step_report_location" cols="80" rows="8"></textarea><br/>
           <label for="screen_capture_file" ><span i18n="adreport_screen_cap_upload" id="screen_capture_file_label"></span><span class="redText">&nbsp;*</span></label>
           <sup>
-              [<a id="data_collection_help" i18n="how" href="http://help.getadblock.com/solution/articles/6000107188" target="_blank"></a>]
+            [<a id="data_collection_help" i18n="how" href="http://help.getadblock.com/solution/articles/6000107188" target="_blank"></a>]
           </sup><br/>
           <input type="file" id="screen_capture_file" />
           <span class="missingInfoMessage" i18n="adreport_missing_screenshot" id="adreport_missing_screenshot"></span>
