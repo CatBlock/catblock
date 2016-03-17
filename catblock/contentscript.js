@@ -575,7 +575,7 @@ var picinjection = {
 // Augmentation code, which replaces blocked and hidden ads
 // with cats or anything else
 if (!SAFARI) {
-    // Augment blocked ads on Blink => images/subdocuments/objects
+    // Augment blocked ads on Blink-based browsers => images/subdocuments/objects
     chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
         if (request.command !== "purge-elements" ||
             request.frameUrl !== document.location.href)
@@ -590,10 +590,12 @@ if (!SAFARI) {
         sendResponse(true);
     });
 
-    // Augment hidden ads on Blink
-    function augmentHiddenElements(elems) {
-        for (var i = 0; i < elems.length; i++) {
-            picinjection._augmentHiddenSectionContaining(elems[i]);
+    // Augment hidden ads on Blink-based browsers
+    function augmentHiddenElements(selector) {
+        var ads = document.querySelectorAll(selector);
+
+        for (var i = 0; i < ads.length; i++) {
+            picinjection._augmentHiddenSectionContaining(ads[i]);
         }
     }
 } else {

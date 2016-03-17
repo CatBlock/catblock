@@ -119,18 +119,23 @@ function block_list_via_css(selectors) {
   fill_in_css_chunk();
 }
 
-function debug_print_selector_matches(selectors) {
+function debug_print_selector_matches(data) {
+  var selectors = data.selectors;
   selectors.
     filter(function(selector) { return document.querySelector(selector); }).
     forEach(function(selector) {
-      var matches = "";
-      var elems = document.querySelectorAll(selector);
-      for (var i=0; i<elems.length; i++) {
-        var el = elems[i];
-        matches += "        " + el.nodeName + "#" + el.id + "." + el.className + "\n";
+      if (!SAFARI) {
+          augmentHiddenElements(selector);
       }
-      augmentHiddenElements(elems);
-      BGcall("debug_report_elemhide", "##" + selector, matches);
+      if (data.settings && data.settings.debug_logging) {
+        var matches = "";
+        var elems = document.querySelectorAll(selector);
+        for (var i=0; i<elems.length; i++) {
+            var el = elems[i];
+            matches += "        " + el.nodeName + "#" + el.id + "." + el.className + "\n";
+        }
+        BGcall("debug_report_elemhide", "##" + selector, matches);
+      }
     });
 }
 
@@ -206,14 +211,11 @@ function adblock_begin(inputs) {
     }
 
     onReady(function() {
-      if (data && data.settings && data.settings.debug_logging) {
-        debug_print_selector_matches(data.selectors || []);
-      }
       // Chrome doesn't load bandaids.js unless the site needs a bandaid.
       if (typeof run_bandaids === "function") {
         run_bandaids("new");
       }
-
+      debug_print_selector_matches(data || []);
       handleABPLinkClicks();
     });
     if (inputs.success) inputs.success();
