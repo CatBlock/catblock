@@ -573,30 +573,36 @@ var picinjection = {
 
 }; // end picinjection
 
-
+// In Chrome/Opera, we replaces just blocked images/subdocuments/objects
+// In Safari, we also replaces containers, which were hidden by Safari,
+// thus leading to see more cats on Safari than on other browsers
 if (!SAFARI) {
-
+    // Augment blocked ads => images/subdocuments/objects
     chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-        if (request.command !== "purge-elements"
-            || request.frameUrl !== document.location.href)
+        if (request.command !== "purge-elements" ||
+            request.frameUrl !== document.location.href)
             return;
 
         var ads = document.querySelectorAll(request.selector);
 
-        for (var i = 0; i < ads.length; i++)
+        for (var i = 0; i < ads.length; i++) {
             picinjection.augmentBlockedElIfRightType(ads[i]);
-
+        }
 
         sendResponse(true);
     });
-}
 
-document.addEventListener("beforeload", function(event) {
-
-    if (picinjection._inHiddenSection(event.target)) {
-
-        picinjection._augmentHiddenSectionContaining(event.target);
+    // Augment hidden ads
+    function augmentHiddenElements(elems) {
+        console.log("Elements: ", elems);
+        for (var i = 0; i < elems.length; i++) {
+            picinjection._augmentHiddenSectionContaining(elems[i]);
+        }
     }
-}, true);
-
-
+} else {
+    document.addEventListener("beforeload", function(event) {
+        if (picinjection._inHiddenSection(event.target)) {
+            picinjection._augmentHiddenSectionContaining(event.target);
+        }
+    }, true);
+}
