@@ -26,6 +26,8 @@ var elementPurger = {
         var src = srcdata[i];
         var attr = (tag === "OBJECT" ? "data" : "src");
         var selector = "";
+        // A selector containing an object is not a valid selector (reddit.com),
+        // therefore we need to slice a processed selector
         if (src.text.indexOf("{") > -1) {
           selector = tag + '[' + attr + "*=" + '"' + src.text.slice(0, src.text.indexOf("{")) + '"]';
         } else {
