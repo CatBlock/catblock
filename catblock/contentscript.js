@@ -566,18 +566,16 @@ var picinjection = {
 
     enabled: function(callback) {
         BGcall("get_settings", function(settings) {
-            console.log(settings);
             callback(settings.catblock);
         });
     }
 
 }; // end picinjection
 
-// In Chrome/Opera, we replaces just blocked images/subdocuments/objects
-// In Safari, we also replaces containers, which were hidden by Safari,
-// thus leading to see more cats on Safari than on other browsers
+// Augmentation code, which replaces blocked and hidden ads
+// with cats or anything else
 if (!SAFARI) {
-    // Augment blocked ads => images/subdocuments/objects
+    // Augment blocked ads on Blink => images/subdocuments/objects
     chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
         if (request.command !== "purge-elements" ||
             request.frameUrl !== document.location.href)
@@ -592,14 +590,14 @@ if (!SAFARI) {
         sendResponse(true);
     });
 
-    // Augment hidden ads
+    // Augment hidden ads on Blink
     function augmentHiddenElements(elems) {
-        console.log("Elements: ", elems);
         for (var i = 0; i < elems.length; i++) {
             picinjection._augmentHiddenSectionContaining(elems[i]);
         }
     }
 } else {
+    // Augment blocked and hidden ads on Safari
     document.addEventListener("beforeload", function(event) {
         if (picinjection._inHiddenSection(event.target)) {
             picinjection._augmentHiddenSectionContaining(event.target);

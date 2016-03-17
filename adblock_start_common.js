@@ -130,7 +130,6 @@ function debug_print_selector_matches(selectors) {
         matches += "        " + el.nodeName + "#" + el.id + "." + el.className + "\n";
       }
       augmentHiddenElements(elems);
-      console.log(selector);
       BGcall("debug_report_elemhide", "##" + selector, matches);
     });
 }
