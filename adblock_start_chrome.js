@@ -25,7 +25,14 @@ var elementPurger = {
       for (var tag in tags[elType]) {
         var src = srcdata[i];
         var attr = (tag === "OBJECT" ? "data" : "src");
-        var selector = tag + '[' + attr + src.op + '"' + src.text + '"]';
+        var selector = "";
+        // A selector containing an object is not a valid selector (reddit.com),
+        // therefore we need to slice a processed selector
+        if (src.text.indexOf("{") > -1) {
+          selector = tag + '[' + attr + "*=" + '"' + src.text.slice(0, src.text.indexOf("{")) + '"]';
+        } else {
+          selector = tag + '[' + attr + src.op + '"' + src.text + '"]';
+        }
 
         var results = document.querySelectorAll(selector);
         log("[DEBUG]", "  ", results.length, "results for selector:", selector);

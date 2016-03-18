@@ -72,7 +72,6 @@ frameData = (function() {
 
 // True blocking support.
 safari.application.addEventListener("message", function(messageEvent) {
-
   if (messageEvent.name === "request" &&
       messageEvent.message.data.args.length >= 2 &&
       messageEvent.message.data.args[0] &&
