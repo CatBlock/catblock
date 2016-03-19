@@ -54,7 +54,7 @@ Channels.prototype = {
       // TODO: make sure this works in Safari.  And if you fix a bug, fix it
       // in AdBlock too -- it's keeping filter update events from showing up
       // in the AdBlock Options page I think.
-      chrome.extension.sendRequest({command: "channel-updated", id: id});
+      chrome.runtime.sendMessage({command: "channel-updated", id: id});
       if (that._channelGuide[id].enabled)
         that._channelGuide[id].channel.prefetch();
     });

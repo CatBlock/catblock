@@ -184,7 +184,7 @@
           if (changeInfo.status === "complete" &&
               tab.status === "complete") {
               setTimeout(function() {
-                  chrome.extension.sendRequest({command: "reloadcomplete"});
+                  chrome.runtime.sendMessage({command: "reloadcomplete"});
                   chrome.tabs.onUpdated.removeListener(listener);
               }, 2000);
           }
@@ -357,7 +357,7 @@
         // the frame, ignore the anchor when matching.
         var frameUrl = frameData.get(tabId, requestingFrameId).url.replace(/#.*$/, "");
         var data = { command: "purge-elements", tabId: tabId, frameUrl: frameUrl, url: details.url, elType: elType };
-        chrome.tabs.sendRequest(tabId, data);
+        chrome.tabs.sendMessage(tabId, data);
       }
       if (blocked) {
         blockCounts.recordOneAdBlocked(tabId);
@@ -394,29 +394,33 @@
     };
 
     // If tabId has been replaced by Chrome, delete it's data
-    chrome.webNavigation.onTabReplaced.addListener(function(details) {
-        frameData.removeTabId(details.replacedTabId);
-    });
+    if (chrome.webNavigation.onTabReplaced) {
+        chrome.webNavigation.onTabReplaced.addListener(function(details) {
+            frameData.removeTabId(details.replacedTabId);
+        });
+    }
 
-    chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
-        if (details &&
-            details.hasOwnProperty("frameId") &&
-            details.hasOwnProperty("tabId") &&
-            details.hasOwnProperty("url") &&
-            details.hasOwnProperty("transitionType") &&
-            details.transitionType === "link") {
-            //on some single page sites that update the URL using the History API pushState(),
-            //but they don't actually load a new page, we need to get notified when this happens
-            //and track these updates in the frameData object.
-            var tabData = frameData.get(details.tabId, details.frameId);
-            if (tabData &&
-                tabData.url !== details.url) {
-                details.type = 'main_frame';
-                details.url = getUnicodeUrl(details.url);
-                frameData.track(details);
+    if (chrome.webNavigation.onHistoryStateUpdated) {
+        chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
+            if (details &&
+                details.hasOwnProperty("frameId") &&
+                details.hasOwnProperty("tabId") &&
+                details.hasOwnProperty("url") &&
+                details.hasOwnProperty("transitionType") &&
+                details.transitionType === "link") {
+                //on some single page sites that update the URL using the History API pushState(),
+                //but they don't actually load a new page, we need to get notified when this happens
+                //and track these updates in the frameData object.
+                var tabData = frameData.get(details.tabId, details.frameId);
+                if (tabData &&
+                    tabData.url !== details.url) {
+                    details.type = 'main_frame';
+                    details.url = getUnicodeUrl(details.url);
+                    frameData.track(details);
+                }
             }
-        }
-    });
+        });
+    }
   }
 
   debug_report_elemhide = function(selector, matches, sender) {
@@ -499,7 +503,7 @@
   // Inputs: filters:string the new filters.
   set_custom_filters_text = function(filters) {
     storage_set('custom_filters', filters);
-    chrome.extension.sendRequest({command: "filters_updated"});
+    chrome.runtime.sendMessage({command: "filters_updated"});
     _myfilters.rebuild();
     if (!SAFARI && db_client && db_client.isAuthenticated()) {
       sync_custom_filters(localStorage.custom_filters);
@@ -1163,7 +1167,7 @@
 
   // BGcall DISPATCH
   (function() {
-    chrome.extension.onRequest.addListener(
+    chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
         if (request.command !== "call")
           return; // not for us
@@ -1285,7 +1289,7 @@
     chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
     chrome.tabs.onRemoved.addListener(frameData.removeTabId);
     // Popup blocking
-    if (chrome.webNavigation)
+    if (chrome.webNavigation && chrome.webNavigation.onCreatedNavigationTarget)
       chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
 
     var handleEarlyOpenedTabs = function(tabs) {
@@ -1604,7 +1608,7 @@
                   // Set custom filters
                   var custom = settingstable.get("custom_filters");
                   localStorage.custom_filters = custom;
-                  chrome.extension.sendRequest({command: "filters_updated"});
+                  chrome.runtime.sendMessage({command: "filters_updated"});
 
                   // Set settings
                   var advanced = settingstable.get("show_advanced_options");
@@ -1722,7 +1726,7 @@
   }
 
   // Listens for message from CatBlock content script asking to load jQuery.
-  chrome.extension.onRequest.addListener(
+  chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
           if (request.command === "inject_jquery") {
               if (!SAFARI) {

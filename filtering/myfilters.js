@@ -147,7 +147,7 @@ MyFilters.prototype._onSubscriptionChange = function(rebuild) {
   if (rebuild)
     this.rebuild();
 
-  chrome.extension.sendRequest({command: "filters_updated"});
+  chrome.runtime.sendMessage({command: "filters_updated"});
 }
 
 // get filters that are defined in the extension
@@ -278,7 +278,7 @@ MyFilters.prototype.rebuild = function() {
     } else {
       //size is less then the limit, remove any previous error messages.
       sessionstorage_set('contentblockingerror');
-      chrome.extension.sendRequest({command: "contentblockingmessageupdated"});
+      chrome.runtime.sendMessage({command: "contentblockingmessageupdated"});
     }
     log("submitting rules to safari: # of rules: ",filterListRules.length);
     safari.extension.setContentBlocker(filterListRules);
@@ -450,7 +450,7 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
       // (when content blocking enabled)
       // we don't need to process it, just update the last_update timestamp.
       this._subscriptions[id].last_update = Date.now();
-      chrome.extension.sendRequest({command: "filters_updated"});
+      chrome.runtime.sendMessage({command: "filters_updated"});
       return;
     }
     url = this._subscriptions[id].safariJSON_URL;
@@ -656,7 +656,7 @@ MyFilters.prototype._loadMalwareDomains = function() {
            that._subscriptions.malware.expiresAfterHours = 24;
            var smear = Math.random() * 0.4 + 0.8;
            that._subscriptions.malware.expiresAfterHours *= smear;
-           chrome.extension.sendRequest({command: "filters_updated"});
+           chrome.runtime.sendMessage({command: "filters_updated"});
            log("Fetched " + url);
         }
         xhr.open("GET",  url);

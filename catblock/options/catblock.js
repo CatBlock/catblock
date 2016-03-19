@@ -109,7 +109,7 @@
             //guide[id].enabled)
             //setMascot(id);
         }
-        chrome.extension.onRequest.addListener(
+        chrome.runtime.onMessage.addListener(
           function(request, sender, sendResponse) {
             if (request.command !== 'channel-updated')
               return;

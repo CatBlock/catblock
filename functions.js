@@ -23,7 +23,7 @@ BGcall = function() {
   var fn = args.shift();
   var has_callback = (typeof args[args.length - 1] == "function");
   var callback = (has_callback ? args.pop() : function() {});
-  chrome.extension.sendRequest({command: "call", fn:fn, args:args}, callback);
+  chrome.runtime.sendMessage({command: "call", fn:fn, args:args}, callback);
 };
 
 // Enabled in adblock_start_common.js and background.js if the user wants
@@ -247,7 +247,7 @@ sessionstorage_set = function(key, value) {
 var createRuleLimitExceededSafariNotification = function() {
   if (SAFARI && ("Notification" in window)) {
     sessionstorage_set("contentblockingerror", translate("safaricontentblockinglimitexceeded"));
-    chrome.extension.sendRequest({command: "contentblockingmessageupdated"});
+    chrome.runtime.sendMessage({command: "contentblockingmessageupdated"});
     var note = new Notification(translate("safarinotificationtitle") , { 'body' : translate("safarinotificationbody"), 'tag' : 1 });
     note.onclick = function() {
       openTab("options/index.html?tab=0");

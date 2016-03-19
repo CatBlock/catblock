@@ -356,7 +356,7 @@ var picinjection = {
                 after_jquery_is_available();
             }
             else {
-                chrome.extension.sendRequest(
+                chrome.runtime.sendMessage(
                     { command:"inject_jquery", allFrames: (window !== window.top) },
                     after_jquery_is_available
                 );
@@ -576,7 +576,7 @@ var picinjection = {
 // with cats or anything else
 if (!SAFARI) {
     // Augment blocked ads on Blink-based browsers => images/subdocuments/objects
-    chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         if (request.command !== "purge-elements" ||
             request.frameUrl !== document.location.href)
             return;

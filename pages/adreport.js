@@ -466,7 +466,7 @@ var checkAdvanceOptions = function() {
         } else {
             BGcall("set_setting", "show_advanced_options");
             BGcall("reloadTab", parseInt(tabId));
-            chrome.extension.onRequest.addListener(
+            chrome.runtime.onMessage.addListener(
                 function(message, sender, sendResponse) {
                     if (message.command === "reloadcomplete") {
                         BGcall("disable_setting", "show_advanced_options");
@@ -615,7 +615,7 @@ $("#OtherExtensions").click(function() {
                     }, function(removed) {});
                     var alertDisplayed = false;
                     alert(translate('disableotherextensionscomplete'));
-                    chrome.extension.onRequest.addListener(
+                    chrome.runtime.onMessage.addListener(
                         function(message, sender, sendResponse) {
                             if (!alertDisplayed && message.command === "reloadcomplete") {
                                 alertDisplayed = true;
