@@ -39,6 +39,7 @@ FF = {
 with open(origcwd + "/manifest.json", "rU") as chrome_manifest: # Opens the CatBlock manifest file for read-only
     if not os.path.exists(os.getcwd() + "/catblock_ff"): # If /catblock_ff folder doesn't exist, create it
         os.makedirs(os.getcwd() + "/catblock_ff")
+    copy_tree(origcwd, os.getcwd() + "/catblock_ff") # Copy the content of the original folder into /catblock_ff
     os.chdir(os.getcwd() + "/catblock_ff")
     with open("manifest.json", "w") as ff_manifest:
         keys = json.load(chrome_manifest) # Creates a dict of all messages in the AdBlock file
