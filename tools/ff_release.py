@@ -11,10 +11,9 @@ import json # Provides JSON-related functions
 import os # Provides file-system functions
 import sys
 from distutils.dir_util import copy_tree # Provides function for copying trees
-import platform
 
 # Check, if we have got admin rights on OS X and Linux
-if platform.system() == "Darwin" or platform.system() == "Linux":
+if sys.platform() == "linux2" or sys.platform() == "darwin":
     if os.getuid() != 0:
         print "This script needs to be running with sudo privileges."
         sys.exit(1)
