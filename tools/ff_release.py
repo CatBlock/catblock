@@ -1,6 +1,7 @@
 #!/usr/bin/python
 """
-Prepare a Firefox release version
+Prepare a Firefox release version of CatBlock
+This script is compatible with Python v2.7.x
 
 Author: Tomas Taro
 License: GNU GPLv3
