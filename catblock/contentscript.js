@@ -566,37 +566,43 @@ var picinjection = {
 
     enabled: function(callback) {
         BGcall("get_settings", function(settings) {
-            console.log(settings);
             callback(settings.catblock);
         });
     }
 
 }; // end picinjection
 
-
+// Augmentation code, which replaces blocked and hidden ads
+// with cats or anything else
 if (!SAFARI) {
-
+    // Augment blocked ads on Blink-based browsers => images/subdocuments/objects
     chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
-        if (request.command !== "purge-elements"
-            || request.frameUrl !== document.location.href)
+        if (request.command !== "purge-elements" ||
+            request.frameUrl !== document.location.href)
             return;
 
         var ads = document.querySelectorAll(request.selector);
 
-        for (var i = 0; i < ads.length; i++)
+        for (var i = 0; i < ads.length; i++) {
             picinjection.augmentBlockedElIfRightType(ads[i]);
-
+        }
 
         sendResponse(true);
     });
-}
 
-document.addEventListener("beforeload", function(event) {
+    // Augment hidden ads on Blink-based browsers
+    function augmentHiddenElements(selector) {
+        var ads = document.querySelectorAll(selector);
 
-    if (picinjection._inHiddenSection(event.target)) {
-
-        picinjection._augmentHiddenSectionContaining(event.target);
+        for (var i = 0; i < ads.length; i++) {
+            picinjection._augmentHiddenSectionContaining(ads[i]);
+        }
     }
-}, true);
-
-
+} else {
+    // Augment blocked and hidden ads on Safari
+    document.addEventListener("beforeload", function(event) {
+        if (picinjection._inHiddenSection(event.target)) {
+            picinjection._augmentHiddenSectionContaining(event.target);
+        }
+    }, true);
+}
