@@ -33,7 +33,7 @@ used = ["name", "version", "description", "content_scripts", "permissions", "man
 # Set, which is mandatory in Firefox
 FF = {
     "gecko": {
-        "id": "catblock@mozilla.org",
+        "id": "adblockwithcatblock@catblock.org",
         "strict_min_version": "46"
     }
 }
