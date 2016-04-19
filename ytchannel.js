@@ -74,12 +74,12 @@ if (!/ab_channel/.test(url)) {
         // |shouldReload| is true only if we are not able to get
         // name of the channel by using YouTube Data v3 API
         if (shouldReload) {
-          // Reload page from cache, if it should be whitelisted
-          BGcall("page_is_whitelisted", updatedUrl, function(whitelisted) {
-              if (whitelisted) {
-                document.location.reload(false);
-              }
-          });
+            // Reload page from cache, if it should be whitelisted
+            BGcall("page_is_whitelisted", updatedUrl, function(whitelisted) {
+                if (whitelisted) {
+                    document.location.reload(false);
+                }
+            });
         }
     }
 }

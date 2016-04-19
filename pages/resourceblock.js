@@ -283,30 +283,30 @@ function createTable(domain, url, frameId) {
     // Insert table to page
     $(elem).after(
         '<table data-href=' + domain + ' data-frameid=' + frameId + ' class="resourceslist">' +
-            '<thead>' +
-                '<tr>' +
-                    '<th class="frametype">' + translate("frametype") + frameType + '<\/th>' +
-                '<\/tr>' +
-                '<tr>' +
-                    '<th class="framedomain">' + translate("framedomain") + domain + '<\/th>' +
-                '<\/tr>' +
-                '<tr>' +
-                    '<th class="frameurl" title="' + decodeURIComponent(url) + '">' +
-                        translate("frameurl") + truncateURI(url) +
-                    '<\/th>' +
-                '<\/tr>' +
-                '<tr>' +
-                    '<th style="height: 10px;"></th>' +
-                '<\/tr>' +
-                '<tr>' +
-                    '<th i18n="headerresource" data-column="url"><\/th>' +
-                    '<th i18n="headertype" data-column="type"><\/th>' +
-                    '<th i18n="headerfilter" data-column="filter" style="text-align: center;"><\/th>' +
-                    '<th i18n="thirdparty" data-column="thirdparty" style="text-align: center;"><\/th>' +
-                '<\/tr>' +
-            '<\/thead>' +
-            '<tbody>' +
-            '<\/tbody>' +
+        '<thead>' +
+        '<tr>' +
+        '<th class="frametype">' + translate("frametype") + frameType + '<\/th>' +
+        '<\/tr>' +
+        '<tr>' +
+        '<th class="framedomain">' + translate("framedomain") + domain + '<\/th>' +
+        '<\/tr>' +
+        '<tr>' +
+        '<th class="frameurl" title="' + decodeURIComponent(url) + '">' +
+        translate("frameurl") + truncateURI(url) +
+        '<\/th>' +
+        '<\/tr>' +
+        '<tr>' +
+        '<th style="height: 10px;"></th>' +
+        '<\/tr>' +
+        '<tr>' +
+        '<th i18n="headerresource" data-column="url"><\/th>' +
+        '<th i18n="headertype" data-column="type"><\/th>' +
+        '<th i18n="headerfilter" data-column="filter" style="text-align: center;"><\/th>' +
+        '<th i18n="thirdparty" data-column="thirdparty" style="text-align: center;"><\/th>' +
+        '<\/tr>' +
+        '<\/thead>' +
+        '<tbody>' +
+        '<\/tbody>' +
         '<\/table>'
     );
 }

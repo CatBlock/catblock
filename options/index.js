@@ -60,63 +60,63 @@ function load_options() {
 
 var language = navigator.language.match(/^[a-z]+/i)[0];
 function rightToLeft() {
-  if (language === "ar" || language === "he" ) {
-    $(window).resize(function() {
-      if ($(".social").is(":hidden")) {
-        $("#translation_credits").css({margin: "0px 50%", width: "350px"});
-        $("#paymentlink").css({margin: "0px 50%", width: "350px"});
-        $("#version_number").css({margin: "20px 50%", width: "350px"});
-      } else {
-        $("#translation_credits").css("right", "0px");
-        $("#paymentlink").css("right", "0px");
-        $("#version_number").css({right: "0px", padding: "0px"});
-      }
-    });
-    $("li").css("float","right");
-    $("#small_nav").css({right: "initial", left: "45px"});
-    $(".ui-tabs .ui-tabs-nav li").css("float", "right");
-  } else {
-    $(".ui-tabs .ui-tabs-nav li").css("float", "left");
-  }
+    if (language === "ar" || language === "he" ) {
+        $(window).resize(function() {
+            if ($(".social").is(":hidden")) {
+                $("#translation_credits").css({margin: "0px 50%", width: "350px"});
+                $("#paymentlink").css({margin: "0px 50%", width: "350px"});
+                $("#version_number").css({margin: "20px 50%", width: "350px"});
+            } else {
+                $("#translation_credits").css("right", "0px");
+                $("#paymentlink").css("right", "0px");
+                $("#version_number").css({right: "0px", padding: "0px"});
+            }
+        });
+        $("li").css("float","right");
+        $("#small_nav").css({right: "initial", left: "45px"});
+        $(".ui-tabs .ui-tabs-nav li").css("float", "right");
+    } else {
+        $(".ui-tabs .ui-tabs-nav li").css("float", "left");
+    }
 }
 
 function showMiniMenu() {
-  $("#small_nav").click(function() {
-    if ($(".ui-tabs-nav").is(":hidden")) {
-      $(".ui-tabs .ui-tabs-nav li").css("float", "none");
-      $(".ui-tabs-nav").fadeIn("fast");
-      if (language === "ar" || language === "he" ) {
-        $(".ui-tabs-nav").css({right:"auto", left:"40px"});
-      }
-    } else
-      $(".ui-tabs-nav").fadeOut("fast");
-  });
-  $(window).resize(function() {
-    if ($(".ui-tabs-nav").is(":hidden") && $("#small_nav").is(":hidden")) {
-      if (language === "ar" || language === "he" ) {
-        $(".ui-tabs .ui-tabs-nav li").css("float", "right");
-        $(".ui-tabs-nav").css({right:"auto", left:"auto"});
-      } else {
-        $(".ui-tabs .ui-tabs-nav li").css("float", "left");
-      }
-      $(".ui-tabs-nav").show();
-    } else if ($("#small_nav").is(":visible"))
-      $(".ui-tabs-nav").hide();
-  });
+    $("#small_nav").click(function() {
+        if ($(".ui-tabs-nav").is(":hidden")) {
+            $(".ui-tabs .ui-tabs-nav li").css("float", "none");
+            $(".ui-tabs-nav").fadeIn("fast");
+            if (language === "ar" || language === "he" ) {
+                $(".ui-tabs-nav").css({right:"auto", left:"40px"});
+            }
+        } else
+            $(".ui-tabs-nav").fadeOut("fast");
+    });
+    $(window).resize(function() {
+        if ($(".ui-tabs-nav").is(":hidden") && $("#small_nav").is(":hidden")) {
+            if (language === "ar" || language === "he" ) {
+                $(".ui-tabs .ui-tabs-nav li").css("float", "right");
+                $(".ui-tabs-nav").css({right:"auto", left:"auto"});
+            } else {
+                $(".ui-tabs .ui-tabs-nav li").css("float", "left");
+            }
+            $(".ui-tabs-nav").show();
+        } else if ($("#small_nav").is(":visible"))
+            $(".ui-tabs-nav").hide();
+    });
 }
 
 function displayVersionNumber() {
-  try {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", chrome.extension.getURL('manifest.json'), true);
-    xhr.onreadystatechange = function() {
-      if(this.readyState == 4) {
-        var theManifest = JSON.parse(this.responseText);
-        $("#version_number").text(translate("optionsversion", [theManifest.version]));
-      }
-    };
-    xhr.send();
-  } catch (ex) {} // silently fail
+    try {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", chrome.extension.getURL('manifest.json'), true);
+        xhr.onreadystatechange = function() {
+            if(this.readyState == 4) {
+                var theManifest = JSON.parse(this.responseText);
+                $("#version_number").text(translate("optionsversion", [theManifest.version]));
+            }
+        };
+        xhr.send();
+    } catch (ex) {} // silently fail
 }
 
 function displayTranslationCredit() {
@@ -135,13 +135,13 @@ function displayTranslationCredit() {
                             translators.push(" " + name);
                         }
                     } else {
-                       for (var translator in text[id].translators) {
-                          var lang = lang.toLowerCase();
-                          if (id === lang) {
-                              var name = text[lang].translators[translator].credit;
-                              translators.push(" " + name);
-                          }
-                       }
+                        for (var translator in text[id].translators) {
+                            var lang = lang.toLowerCase();
+                            if (id === lang) {
+                                var name = text[lang].translators[translator].credit;
+                                translators.push(" " + name);
+                            }
+                        }
                     }
                 } else {
                     if (lang.substring(0, 2) === id) {
@@ -150,11 +150,11 @@ function displayTranslationCredit() {
                             translators.push(" " + name);
                         }
                     } else {
-                      for (var translator in text[id].translators) {
-                          if (id === lang) {
-                            var name = text[lang].translators[translator].credit;
-                            translators.push(" " + name);
-                          }
+                        for (var translator in text[id].translators) {
+                            if (id === lang) {
+                                var name = text[lang].translators[translator].credit;
+                                translators.push(" " + name);
+                            }
                         }
                     }
                 }
@@ -167,19 +167,19 @@ function displayTranslationCredit() {
 }
 
 if (SAFARI && LEGACY_SAFARI) {
-  if (navigator.appVersion.indexOf("Mac OS X 10_5_") !== -1) {
-    // Safari 5.1 isn't available on Leopard (OS X 10.5). Don't urge the users to upgrade in this case.
-  } else {
-    $("#safari50_updatenotice").show();
-  }
+    if (navigator.appVersion.indexOf("Mac OS X 10_5_") !== -1) {
+        // Safari 5.1 isn't available on Leopard (OS X 10.5). Don't urge the users to upgrade in this case.
+    } else {
+        $("#safari50_updatenotice").show();
+    }
 }
 
 var optionalSettings = {};
 $(document).ready(function(){
-  load_options();
-  rightToLeft();
-  showMiniMenu();
-  displayVersionNumber();
-  displayTranslationCredit();
-  localizePage();
+    load_options();
+    rightToLeft();
+    showMiniMenu();
+    displayVersionNumber();
+    displayTranslationCredit();
+    localizePage();
 })
