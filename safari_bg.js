@@ -72,12 +72,12 @@ frameData = (function() {
 
 // True blocking support.
 safari.application.addEventListener("message", function(messageEvent) {
-  if (messageEvent.name === "request" &&
-      messageEvent.message.data.args.length >= 2 &&
-      messageEvent.message.data.args[0] &&
-      messageEvent.message.data.args[1] &&
-      messageEvent.message.data.args[1].tab &&
-      messageEvent.message.data.args[1].tab.url) {
+    if (messageEvent.name === "request" &&
+        messageEvent.message.data.args.length >= 2 &&
+        messageEvent.message.data.args[0] &&
+        messageEvent.message.data.args[1] &&
+        messageEvent.message.data.args[1].tab &&
+        messageEvent.message.data.args[1].tab.url) {
         var args = messageEvent.message.data.args;
         if (!messageEvent.target.url ||
             messageEvent.target.url === args[1].tab.url) {
@@ -119,11 +119,11 @@ safari.application.addEventListener("message", function(messageEvent) {
     } else {
         // Popup blocking support
         if (messageEvent.message.referrer) {
-          var isMatched = _myfilters.blocking.matches(sendingTab.url, ElementTypes.popup,
-                                                      parseUri(getUnicodeUrl(messageEvent.message.referrer)).hostname);
-          if (isMatched) {
-              tab.close();
-          }
+            var isMatched = _myfilters.blocking.matches(sendingTab.url, ElementTypes.popup,
+                                                        parseUri(getUnicodeUrl(messageEvent.message.referrer)).hostname);
+            if (isMatched) {
+                tab.close();
+            }
         }
     }
 
@@ -168,30 +168,30 @@ if (!LEGACY_SAFARI) {
     safari.application.addEventListener("validate", function(event) {
         if (event.target instanceof SafariExtensionToolbarItem) {
             var item = event.target;
-                if (item.browserWindow && !item.popover) {
-                    // Check if only this item lacks a popover (which means user just opened a new window) or there are multiple items
-                    // lacking a popover (which only happens on browser startup or when the user removes AdBlock toolbar item and later
-                    // drags it back).
-                    var uninitializedItems = 0;
-                    for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
-                        var item = safari.extension.toolbarItems[i];
-                        if (!item.popover) {
-                            uninitializedItems++;
-                        }
-                    }
-                    if (uninitializedItems > 1) {
-                        // Browser startup or toolbar item added back to the toolbar. To prevent memory leaks in the second case,
-                        // we need to remove all previously created popovers.
-                        for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
-                            removePopover(ABPopover);
-                        }
-                        // And now recreate the popover for toolbar items in all windows.
-                        setPopover(ABPopover);
-                    } else {
-                        // New window has been opened, create popover for it
-                        setPopover(ABPopover);
+            if (item.browserWindow && !item.popover) {
+                // Check if only this item lacks a popover (which means user just opened a new window) or there are multiple items
+                // lacking a popover (which only happens on browser startup or when the user removes AdBlock toolbar item and later
+                // drags it back).
+                var uninitializedItems = 0;
+                for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
+                    var item = safari.extension.toolbarItems[i];
+                    if (!item.popover) {
+                        uninitializedItems++;
                     }
                 }
+                if (uninitializedItems > 1) {
+                    // Browser startup or toolbar item added back to the toolbar. To prevent memory leaks in the second case,
+                    // we need to remove all previously created popovers.
+                    for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
+                        removePopover(ABPopover);
+                    }
+                    // And now recreate the popover for toolbar items in all windows.
+                    setPopover(ABPopover);
+                } else {
+                    // New window has been opened, create popover for it
+                    setPopover(ABPopover);
+                }
+            }
         }
     }, true);
 
@@ -223,13 +223,13 @@ if (!LEGACY_SAFARI) {
 
 // Add and remove the specific content script based on the safari_content_blocking setting
 function set_content_scripts() {
-  if (get_settings().safari_content_blocking) {
-     safari.extension.addContentScriptFromURL(safari.extension.baseURI + "adblock_safari_contentblocking.js", [], [], false);
-     safari.extension.removeContentScript(safari.extension.baseURI + "adblock_safari_beforeload.js");
-  } else {
-     safari.extension.addContentScriptFromURL(safari.extension.baseURI + "adblock_safari_beforeload.js", [], [], false);
-     safari.extension.removeContentScript(safari.extension.baseURI + "adblock_safari_contentblocking.js");
-  }
+    if (get_settings().safari_content_blocking) {
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "adblock_safari_contentblocking.js", [], [], false);
+        safari.extension.removeContentScript(safari.extension.baseURI + "adblock_safari_beforeload.js");
+    } else {
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "adblock_safari_beforeload.js", [], [], false);
+        safari.extension.removeContentScript(safari.extension.baseURI + "adblock_safari_contentblocking.js");
+    }
 }
 set_content_scripts();
 
@@ -237,7 +237,7 @@ safari.application.addEventListener("beforeNavigate", function(event) {
 
     //remove bandaids.js from YouTube.com when a user pauses AdBlock or if the enabled click to flash compatibility mode
     if (/youtube.com/.test(event.url) && (is_adblock_paused() || (get_settings().clicktoflash_compatibility_mode === true))) {
-      safari.extension.removeContentScript(safari.extension.baseURI + "bandaids.js");
+        safari.extension.removeContentScript(safari.extension.baseURI + "bandaids.js");
     }
     // YouTube Channel Whitelist
     if (/youtube.com/.test(event.url) && get_settings().youtube_channel_whitelist && !parseUri.parseSearch(event.url).ab_channel) {
