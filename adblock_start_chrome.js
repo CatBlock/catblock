@@ -34,16 +34,6 @@ var elementPurger = {
                     selector = tag + '[' + attr + src.op + '"' + src.text + '"]';
                 }
 
-<<<<<<< HEAD
-        var results = document.querySelectorAll(selector);
-        log("[DEBUG]", "  ", results.length, "results for selector:", selector);
-        if (results.length) {
-          for (var j=0; j < results.length; j++) {
-            destroyElement(results[j], elType);
-          }
-          request.selector = selector;
-          chrome.runtime.sendMessage(request);
-=======
                 var results = document.querySelectorAll(selector);
                 log("[DEBUG]", "  ", results.length, "results for selector:", selector);
                 if (results.length) {
@@ -51,8 +41,7 @@ var elementPurger = {
                         destroyElement(results[j], elType);
                     }
                     request.selector = selector;
-                    chrome.extension.sendRequest(request);
->>>>>>> master
+                    chrome.runtime.sendMessage(request);
 
                     return; // I doubt the same URL was loaded via 2 different src attrs.
                 }
@@ -112,10 +101,10 @@ var elementPurger = {
 
 adblock_begin({
     startPurger: function() {
-        chrome.extension.onRequest.addListener(elementPurger.onPurgeRequest);
+        chrome.runtime.onMessage.addListener(elementPurger.onPurgeRequest);
     },
     stopPurger: function() {
-        chrome.extension.onRequest.removeListener(elementPurger.onPurgeRequest);
+        chrome.runtime.onMessage.removeListener(elementPurger.onPurgeRequest);
     },
     handleHiding: function(data) {
         if (data.hiding)

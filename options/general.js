@@ -57,7 +57,7 @@ $(function() {
             $("#safari_content_blocking").show();
             getSafariContentBlockingMessage();
             //once the filters have been updated see if there's an update to the message.
-            chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+            chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 if (request.command !== "contentblockingmessageupdated")
                     return;
                 getSafariContentBlockingMessage();
