@@ -15,12 +15,12 @@
 // unchanged in Chrome.
 
 if (typeof SAFARI == "undefined") {
-    if (navigator.userAgent.indexOf("Edge") > -1) {
-        return false;
-    }
     (function() {
         // True in Safari, false in Chrome.
         SAFARI = (function() {
+            if (navigator.userAgent.indexOf("Edge") > -1) {
+                return false;
+            }
             if (typeof safari === "undefined" && typeof chrome === "undefined") {
                 // Safari bug: window.safari undefined in iframes with JS src in them.
                 // Must get it from an ancestor.
