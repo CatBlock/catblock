@@ -1,13 +1,6 @@
 // Set to true to get noisier console.log statements
 VERBOSE_DEBUG = false;
 
-// Issue 6614: Don't run in a frame, to avoid manipulation by websites.
-if (window.location.origin + "/" === chrome.extension.getURL("")) {
-    // above line avoids content scripts making their host page break frames
-    if (window.top !== window)
-        window.location.replace("about:blank");
-}
-
 // Global variable for Opera and Edge,
 // so we can make specific things for Opera
 OPERA = navigator.userAgent.indexOf("OPR") > -1;
