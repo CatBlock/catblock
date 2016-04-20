@@ -1,49 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title i18n="optionstitle"></title>
-    <link rel="stylesheet" href="../jquery/css/jquery-ui.custom.css" />
-    <link rel="stylesheet" href="options.css" />
-    <link rel="stylesheet" href="../catblock/options/catblock.css" />
-    <script src="../punycode.min.js"></script>
-    <script src="../jquery/jquery.min.js"></script>
-    <script src="../port.js"></script>
-    <script src="../jquery/jquery.cookie.js"></script>
-    <script src="../jquery/jquery-ui.custom.min.js"></script>
-    <script src="../functions.js"></script>
-    <script src="../checkupdates.js"></script>
-    <script src="../dropbox-datastores.js"></script>
-    <script src="index.js"></script>
-  </head>
-  <body>
+    <head>
+        <title i18n="optionstitle"></title>
+        <link rel="stylesheet" href="options.css" />
+        <link rel="stylesheet" href="../catblock/options/catblock.css" />
+        <script src="../punycode.min.js"></script>
+        <script src="../jquery/jquery.min.js"></script>
+        <script src="../port.js"></script>
+        <script src="../functions.js"></script>
+        <script src="../checkupdates.js"></script>
+        <script src="../dropbox-datastores.js"></script>
+        <script src="index.js"></script>
+    </head>
+    <body>
 
-    <header id="header">
-      <div class="wrap">
-        <a class="left adblock-logo"><img src="../img/logo.png"></a>
-      </div>
-      <div id="small_nav"></div>
-    </header>
+        <header id="header">
+            <div class="wrap">
+                <a class="left adblock-logo"><img src="../img/logo.png"></a>
+            </div>
+            <div id="small_nav"></div>
+        </header>
 
-    <div id="translation_credits"><span id="translator_credit"></span> <span id="translator_names"></span></div>
+        <nav>
+            <a data-scripts="general.js" data-page="general.html">General</a>
+            <a data-scripts="filters.js" data-page="filters.html">Filter lists</a>
+            <a data-scripts="../catblock/options/catblock.js" data-page="../catblock/options/catblock.html">CatBlock</a>
+            <a data-scripts="../filtering/domainset.js ../filtering/filternormalizer.js ../filtering/filtertypes.js ../filtering/filteroptions.js customize.js" data-page="customize.html">Customize</a>
+            <a data-scripts="support.js" data-page="support.html">Support</a>
+        </nav>
 
-    <div id="tabpages">
-      <ul>
-        <li data-scripts="general.js"><a href="general.html"><span i18n="tabgeneral"></span></a></li>
-        <li data-scripts="filters.js"><a href="filters.html"><span i18n="tabfilterlists"></span></a></li>
-        <li data-scripts="../catblock/options/catblock.js"><a href="../catblock/options/catblock.html"><span>CatBlock</span></a></li>
-        <!-- Safari requires ../filtering instead of /filtering because safari.extension.baseURI ends with /a/path/ -->
-        <li data-scripts="../filtering/domainset.js ../filtering/filternormalizer.js ../filtering/filtertypes.js ../filtering/filteroptions.js customize.js"><a href="customize.html"><span i18n="tabcustomize" class="menubuttons"></span></a></li>
-        <li data-scripts="support.js"><a href="support.html"><span i18n="tabsupport"></span></a></li>
-      </ul>
-    </div>
+        <div id="translation_credits"><span id="translator_credit"></span> <span id="translator_names"></span></div>
 
-    <div class="noticecontainer">
-      <div class="notice" id="safari50_updatenotice" i18n="safari50_updatenotice" i18n_replacement_el="safari50_update_link"></div>
-      <a id="safari50_update_link" href="https://www.apple.com/safari/" target="_blank"></a>
-    </div>
+        <div id="content"></div>
 
-    <footer>
-      <span id="version_number"></span>
-    </footer>
-  </body>
+        <div class="noticecontainer">
+            <div class="notice" id="safari50_updatenotice" i18n="safari50_updatenotice" i18n_replacement_el="safari50_update_link"></div>
+            <a id="safari50_update_link" href="https://www.apple.com/safari/" target="_blank"></a>
+        </div>
+
+        <footer>
+            <span id="version_number"></span>
+        </footer>
+    </body>
 </html>

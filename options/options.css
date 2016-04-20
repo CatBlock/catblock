@@ -1,3 +1,24 @@
+nav {
+    z-index: 5;
+    position: relative;
+    /* margin: 0 auto; */
+    /* max-width: 446px; */
+    margin-top: 35px;
+    padding: 0;
+    text-align: center;
+}
+
+#content {
+    max-width: 985px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 50px;
+}
+
+nav > a {
+    margin: 10px;
+}
+
 /* General styles */
 body {
   overflow-y: scroll;
@@ -114,14 +135,7 @@ ul {
 }
 
 /* Tabpages */
-#tabpages {
-  position: relative;
-  display: none;
-  margin: 0px auto;
-  max-width: 1020px;
-  padding-top: 55px;
-}
-#ui-tabs-1 div > p > input {
+#content div > p > input {
   margin-left: 5px;
 }
 .notice {
@@ -134,9 +148,6 @@ ul {
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .15);
   box-shadow: 0px 0px 8px rgba(0, 0, 0, .15);
   display: none;
-}
-.ui-tabs-panel {
-  margin: 10px;
 }
 
 /* Index tab */
@@ -161,7 +172,7 @@ a:hover {
   left: 125px;
   position: absolute;
   text-align: right;
-  padding-top: 135px;
+  margin-top: 60px;
 }
 #version_number {
   margin: 20px 50%;
@@ -173,17 +184,6 @@ a:hover {
 .footnote {
   font-size: small;
   font-style: italic;
-}
-.ui-tabs-nav {
-  position: fixed;
-  margin: -45px auto;
-  max-width: 1140px;
-  padding-top: 10px;
-  -webkit-margin-start: 275px;
-  z-index: 2;
-}
-.ui-tabs .ui-tabs-nav li {
-  float: left;
 }
 
 /* General tab */
@@ -410,7 +410,7 @@ label {
   }
 }
 
-/* Custom inputs */
+/*Â Custom inputs */
 input[type="button"], select {
   -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
   box-shadow: inset 0px 1px 0px 0px #ffffff;
