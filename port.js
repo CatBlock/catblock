@@ -15,6 +15,9 @@
 // unchanged in Chrome.
 
 if (typeof SAFARI == "undefined") {
+    if (navigator.userAgent.indexOf("Edge") > -1) {
+        return false;
+    }
     (function() {
         // True in Safari, false in Chrome.
         SAFARI = (function() {

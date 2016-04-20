@@ -8,8 +8,15 @@ if (window.location.origin + "/" === chrome.extension.getURL("")) {
         window.location.replace("about:blank");
 }
 
-// Global variable for Opera, so we can make specific things for Opera
+// Global variable for Opera and Edge,
+// so we can make specific things for Opera
 OPERA = navigator.userAgent.indexOf("OPR") > -1;
+EDGE = navigator.userAgent.indexOf("Edge") > -1;
+
+// Edge uses "browser" namespace for its API
+if (EDGE) {
+    chrome = browser;
+}
 
 // Run a function on the background page.
 // Inputs (positional):
