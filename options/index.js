@@ -28,7 +28,7 @@ function load_options() {
         var target = event.target;
         var scripts = target.dataset.scripts;
         var page = target.dataset.page;
-        console.log(scripts);
+        // Load requested tab and localize it
         $("#content").load(page, localizePage);
         scripts.split(" ").forEach(function(scriptToLoad) {
             // CSP blocks eval, which $().append(scriptTag) uses

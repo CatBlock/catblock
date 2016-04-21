@@ -43,10 +43,6 @@
     "message":"За да го скриете, щракнете с десен бутон по лентата на Safari, изберете „Нагласи лентата“ и го изхвърлете с влачене от нея. Можете да го покажете повторно с влачене към лентата.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
-  "ff_button_how_to_hide":{
-    "message":"За да го скриете, щракнете с десен бутон по лентата и изберете „Премахни от лентата“. Можете да го покажете повторно в меню на Firefox -> Нагласи.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
-  },
   "sliderexplanation":{
     "message":"Движете плъзгача до пълно блокиране на рекламата в страницата и добра ползваемост на блокирания елемент.",
     "description":"Blacklister slider page message"
@@ -360,7 +356,7 @@
     "description":"Option on the 'Filter lists' tab of the Options page"
   },
   "filterantisocial":{
-    "message":"Разреши противосоциалния пакет (чисти бутоните на социални мрежи)",
+    "message":"Разреши противосоциалния филтър (чисти бутоните на социални мрежи)",
     "description":"A filter list"
   },
   "filterannoyances":{
@@ -368,7 +364,7 @@
     "description":"A filter list"
   },
   "filterwarning_removal":{
-    "message":"Разреши противоадблоковия пакет (чисти предупрежденията за рекламни блокери)",
+    "message":"Разреши противоадблоковия филтър (чисти предупрежденията за блокери на реклами)",
     "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
   },
   "filteracceptable_ads":{
@@ -376,7 +372,7 @@
     "description":"A filter list"
   },
   "filteradblock_custom":{
-    "message":"Разреши фабричния пакет на AdBlock (препоръчително)",
+    "message":"Разреши фабричния филтър на AdBlock (препоръчително)",
     "description":"A filter list"
   },
   "filtereasylist":{
@@ -575,6 +571,10 @@
     "message":"Забранете другите разширения без AdBlock:",
     "description":"Instruction on ad report page"
   },
+  "disableforchromestepone":{
+    "message":"Отворете <a href='#'>страницата за разширения<\/a>.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
   "clickdisableotherextensions":{
     "message":"<b>ИЛИ<\/b> щракнете по: <a>Забрани другите разширения<\/a>",
     "description":"On the ad report page, an alternative way to disable other extensions"
@@ -720,7 +720,7 @@
     "description":"Multiple choice option"
   },
   "orchrome":{
-    "message":"или Chrome",
+    "message":" или Chrome",
     "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
   },
   "oradblockforchrome":{
@@ -748,7 +748,7 @@
     }
   },
   "checkinfirefoxtitle":{
-    "message":"Проверете с Firefox $chrome$",
+    "message":"Проверете с Firefox$chrome$",
     "description":"Tell a user to see if a reported ad also appears in Firefox\/Chrome",
     "placeholders":{
       "chrome":{
@@ -758,7 +758,7 @@
     }
   },
   "checkinfirefox_1":{
-    "message":"Инсталирайте Firefox $chrome$, ако го нямате.",
+    "message":"Инсталирайте Firefox$chrome$, ако го нямате.",
     "description":"instruction for how to check Firefox\/Chrome for a reported ad",
     "placeholders":{
       "chrome":{
@@ -768,7 +768,7 @@
     }
   },
   "checkinfirefox_2":{
-    "message":"Инсталирайте Adblock Plus за Firefox $chrome$, ако го нямате.",
+    "message":"Инсталирайте Adblock Plus за Firefox$chrome$, ако го нямате.",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad. Don't translate the name 'Adblock Plus'.",
     "placeholders":{
       "chrome":{
@@ -789,36 +789,12 @@
     "message":"Продължавате ли да я виждате в браузъра?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
-  "ff_checkinchrometitle":{
-    "message":"Проверете с Chrome",
-    "description":"Tell a user to see if a reported ad also appears in Chrome"
-  },
-  "ff_checkinchrome_1":{
-    "message":"Инсталирайте Chrome, ако го нямате.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_2":{
-    "message":"Инсталирайте AdBlock за Chrome, ако го нямате.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_3":{
-    "message":"Абонирайте се за същите филтри в Chrome.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_4":{
-    "message":"Заредете страницата с рекламата в Chrome.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_5":{
-    "message":"Продължавате ли да я виждате в Chrome?",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
   "refusetocheck":{
     "message":"Не желая такава проверка",
     "description":"User is telling us they don't wish to investigate something for us"
   },
   "reportfilterlistproblem":{
-    "message":"Това е неизправност на филтрите. Докладвайте я на: $link$",
+    "message":"Това е неизправност на филтъра. Докладвайте я на: $link$",
     "description":"Telling the user to report an ad to a filter list maintainer",
     "placeholders":{
       "link":{
@@ -826,10 +802,6 @@
         "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe<\/a>  EXAMPLE 2: <a href='http:\/\/easylist.org'>EasyList forums<\/a>"
       }
     }
-  },
-  "reporttous2":{
-    "message":"Можете да ни докладвате (на английски) за реклама <a>в тракера за неизправности<\/a>.",
-    "description":"NOTE: non-English translations should replace the first sentence and instead say 'If you can speak English, you can report the ad to us <a>in the issue tracker<\/a>.'"
   },
   "fixityourself":{
     "message":"ДОБРЕ, можете да я блокирате самостоятелно в страницата с настройки. Благодарим!",
@@ -927,10 +899,6 @@
     "message":"За съжаление, AdBlock е забранен за страницата в някой от вашите филтри.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
-  "status_disabled":{
-    "message":"Невъзможно изпълнение на AdBlock за домейна.",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
-  },
   "dont_run_on_pages_on_domain":{
     "message":"Не изпълнявай за домейна",
     "description":"Menu entry to open the whitelist wizard"
@@ -964,7 +932,7 @@
     "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
   },
   "browserestartrequired":{
-    "message":"Забраняването му изисква повторен пуск на браузъра.",
+    "message":"Моля, пуснете повторно Safari, за да завърши изключването на блокирането на съдържание.",
     "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
   },
   "safarinotificationtitle":{
@@ -996,7 +964,7 @@
     "description":"Text of a share link"
   },
   "pwyw":{
-    "message":"Кой колкото даде",
+    "message":"Кой колкото даде!",
     "description":"Text of a payment request link"
   },
   "translator_credit":{
@@ -1129,6 +1097,10 @@
     "message":"Какво е това?",
     "description":"Text of a link pointing to the explanation of a new feature"
   },
+  "how":{
+    "message":"Как става?",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
   "selectlanguage":{
     "message":"— избор на език —",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
@@ -1178,10 +1150,6 @@
         "example":"<a>here<\/a>"
       }
     }
-  },
-  "ff_adblock_outdated":{
-    "message":"Ползвате стара версия на AdBlock. Моля, изберете Добавки в менюто на Firefox и вече там щракнете по иконата със зъбно колело (т.е. по Инструменти) и посочете „Проверка за актуализации“.",
-    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"Поддръжка",
@@ -1234,6 +1202,10 @@
   "debuginfo":{
     "message":"Изискват се предпроверочни данни? Щракнете <a href='#' id='debug'>тук<\/a>, за да ги предадете!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "bugreport":{
+    "message":"Бихте ли ни изпратили <a>доклад за грешка<\/a>?",
+    "description":"Link to send a bug report on the Support tab of the options"
   },
   "supportsite":{
     "message":"Споделете ги в нашия <a>сайт за поддръжка<\/a>!",
@@ -1347,8 +1319,88 @@
     "message":"Можете да го включите в подкрепа на любимите си сайтовете пак, като по-долу изберете „Позволи определени ненатрапчиви реклами“.",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Абонаментът за Приемливи реклами е прекратен, защото включихте блокиране на съдържание в Safari. По едно и също време можете да разрешите или едното, или другото. (<a>Защо?<\/a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Блокирането на съдържание в Safari изключи, защото избрахте ненатрапчиви реклами. По едно и също време можете да разрешите или едното, или другото. (<a>Защо?<\/a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "adreport_laststep":{
+    "message":"Последна стъпка: докладвайте я на нас.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"Вашето име?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"Вашата е-поща?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"Ще я използваме, само ако трябва да се свържем с вас за повече информация.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"Къде точно е рекламата в страницата? И как изглежда?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Прикачи снимка на екрана:",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"В случай на създаден от вас филтър чрез съветника за блокиране на реклама, моля, поставете го в полето по-долу:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
   "buttonsubmit":{
     "message":"Предай",
     "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"Важни сведения липсват или са непълни. Моля, отговорете на въпросите, оградени в червено.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"Забравихте да прикачите снимка на екрана! Няма да сме в състояние да ви помогнем, без да видим докладваната реклама.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"Готово! Ще се свържем с вас скоро, най-вероятно до ден или два, ако следват почивни. Проверете междувременно за писмо от AdBlock с препратка към вашия билет в помощния сайт, за да следите случая през е-поща, ако така предпочитате!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"Файлът не е изображение. Моля, качете .png, .gif или .jpg.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"Твърде голям файл. Моля, уверете се, че вашият файл е под 10 МБ.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"Грешка при записване на качения файл.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"Твърде дълго име на файл. Моля, дайте по-късо име на вашия файл.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"Следните сведения ще бъдат включени към доклада за реклама.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"Възникна грешка при обработване на вашата заявка.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Моля, преминете в <a>нашия сайт за поддръжка<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"И там наръка създайте билет, като копирате сведенията и ги поставите в полето под „Fill in any details you think will help us understand your issue“.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }

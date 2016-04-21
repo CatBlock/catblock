@@ -43,10 +43,6 @@
     "message":"Piilottaaksesi painikkeen, klikkaa hiiren oikealla Safarin työkaluriviä ja valitse Mukauta työkaluriviä, sitten vedä AdBlock-painike pois työkaluriviltä. Voit näyttää sen uudelleen vetämällä sen takaisin työkaluriviin.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
-  "ff_button_how_to_hide":{
-    "message":"Voit piilottaa painikkeen napsauttamalla sitä hiiren oikeanpuoleisella painikkeella ja valitsemalla \"Poista työkaluriviltä\". Voit näyttää sen uudelleen Firefox-valikosta -> Muokkaa.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
-  },
   "sliderexplanation":{
     "message":"Raahaa säädintä oikealle niin kauan, että mainos häviää näkyvistä ja sivu näyttää hyvältä.",
     "description":"Blacklister slider page message"
@@ -575,6 +571,10 @@
     "message":"Poista kaikki laajennukset käytöstä, paitsi AdBlock:",
     "description":"Instruction on ad report page"
   },
+  "disableforchromestepone":{
+    "message":"Avaa <a href='#'>laajennukset-sivu<\/a>.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
   "clickdisableotherextensions":{
     "message":"<b>TAI<\/b>, klikkaa tätä painiketta, niin teemme kaiken puolestasi: <a>Poista kaikki muut laajennukset käytöstä<\/a>",
     "description":"On the ad report page, an alternative way to disable other extensions"
@@ -789,30 +789,6 @@
     "message":"Näkyykö mainos myös siinä selaimessa?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
-  "ff_checkinchrometitle":{
-    "message":"Tarkista Chromessa",
-    "description":"Tell a user to see if a reported ad also appears in Chrome"
-  },
-  "ff_checkinchrome_1":{
-    "message":"Asenna Chrome, jos sinulla ei ole vielä sitä.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_2":{
-    "message":"Asenna AdBlock Chromelle, jos sinulla ei ole vielä sitä.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_3":{
-    "message":"Tilaa Chromessa samat suodattimet, jotka sinulla on tässä selaimessa.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_4":{
-    "message":"Lataa Chromessa sivu, jossa on mainos.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_5":{
-    "message":"Näkyykö mainos myös Chromessa?",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
   "refusetocheck":{
     "message":"En halua tarkistaa tätä",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -826,10 +802,6 @@
         "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe<\/a>  EXAMPLE 2: <a href='http:\/\/easylist.org'>EasyList forums<\/a>"
       }
     }
-  },
-  "reporttous2":{
-    "message":"Voit ilmoittaa mainoksen meille <a>ongelmien tarkkailussa<\/a> (vain englanniksi).",
-    "description":"NOTE: non-English translations should replace the first sentence and instead say 'If you can speak English, you can report the ad to us <a>in the issue tracker<\/a>.'"
   },
   "fixityourself":{
     "message":"OK, voit edelleen estää mainoksen vain itsellesi Asetukset-sivulla. Kiitos!",
@@ -927,10 +899,6 @@
     "message":"AdBlock on poistettu käytöstä tällä sivulla (suodatinlistojen perusteella).",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
-  "status_disabled":{
-    "message":"AdBlock ei voi toimia tässä verkkotunnuksessa.",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
-  },
   "dont_run_on_pages_on_domain":{
     "message":"Älä käytä tämän verkkotunnuksen sivuilla",
     "description":"Menu entry to open the whitelist wizard"
@@ -962,10 +930,6 @@
   "safaricontentblockinglimitexceeded":{
     "message":"Suodatinlistojen kohteiden määrä ylittää rajan 50 000, ja kohteita on poistettu automaattisesti. Poista joidenkin suodatinlistojen tilaus tai poista Safarin sisällönesto käytöstä!",
     "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
-  },
-  "browserestartrequired":{
-    "message":"Jos poistat tämän toiminnon käytöstä, selain täytyy käynnistää uudelleen.",
-    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
   },
   "safarinotificationtitle":{
     "message":"Sisällöneston sääntöjen raja ylitetty",
@@ -1129,6 +1093,10 @@
     "message":"Mikä tämä on?",
     "description":"Text of a link pointing to the explanation of a new feature"
   },
+  "how":{
+    "message":"Kuinka?",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
   "selectlanguage":{
     "message":" -- Valitse kieli -- ",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
@@ -1178,10 +1146,6 @@
         "example":"<a>here<\/a>"
       }
     }
-  },
-  "ff_adblock_outdated":{
-    "message":"Käytät AdBlockin vanhaa versiota. Klikkaa Firefoxin valikkopainiketta ja valitse Lisäosat. Lisäosat-sivulta napsauta rataskuvaketta (Työkalut kaikille lisäosille), ja valitse 'Tarkista päivitykset'.",
-    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"AdBlock-tuki",
@@ -1234,6 +1198,10 @@
   "debuginfo":{
     "message":"Onko tiimi pyytänyt vianratkaisutietoja? Napsauta <a href='#' id='debug'>tästä<\/a> saadaksesi ne!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "bugreport":{
+    "message":"Mikset lähettäisi meille <a>virheilmoitusta<\/a>?",
+    "description":"Link to send a bug report on the Support tab of the options"
   },
   "supportsite":{
     "message":"Kerro meille <a>tukisivustolla<\/a>!",
@@ -1347,8 +1315,80 @@
     "message":"Voit kytkeä tämän takaisin päälle ja tukea sivustoja, joista pidät, valitsemalla \"Salli osa ei-häiritsevästä mainonnasta\" alla.",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
+  "adreport_laststep":{
+    "message":"Viimeinen vaihe: kerro meille ongelmasta.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"Mikä on nimesi?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"Mikä on sähköpostiosoitteesi?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"Käytämme sähköpostiosoitettasi vain silloin, jos tarvitsemme lisätietoja sinulta.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"Missä kohtaa sivua mainos tarkalleen ottaen on? Miltä mainos näyttää?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Liitä ruutukaappaus:",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"Jos olet luonut toimivan suodattimen \"estä mainos\" -toiminnon avulla, liitä se alla olevaan ruutuun:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
   "buttonsubmit":{
     "message":"Lähetä",
     "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"Vaadittuja tietoja puuttuu tai ne ovat virheellisiä. Tarkista kysymykset, jotka on reunustettu punaisella.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"Unohdit liittää kuvakaappauksen! Emme voi auttaa sinua, jos emme näe mainosta tai mainoksia, jota\/joita olet ilmoittamassa.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"Valmista! Olemme yhteydessä pian, todennäköisesti päivän tai loma-aikoina parin päivän kuluessa. Odotellessa voit lukea AdBlockilta saamasi sähköpostin. Löydät linkin lähettämääsi pyyntöön ohjesivustollemme. Jos haluat seurata edistymistä sähköpostistasi, se hoituu myös siellä!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"Et ladannut kuvatiedostoa. Lataa .png-, .gif- tai .jpg-tiedosto.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"Tiedosto on liian iso. Varmista, että tiedosto on alle 10 Mt.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"Virhe tallennettaessa ladattua tiedostoa.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"Tiedoston nimi on liian pitkä. Anna tiedostolle lyhyempi nimi.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"Myös seuraavat tiedot sisältyvät virheilmoitukseen.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"Virhe käsiteltäessä pyyntöä.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Siirry <a>tukisivustollemme<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"Ja luo pyyntö manuaalisesti. Kopioi ja liitä alla olevat tiedot \"Fill in any details you think will help us understand your issue\" -kohtaan.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }

@@ -43,10 +43,6 @@
     "message":"Щоб приховати кнопку, клацніть правою кнопкою мишки по панелі інструментів Safari і виберіть Кастомізувати Тулбар, а потім перетягніть кнопку AdBlock з панелі інструментів. Ви можете відобразити її знову, перетягнувши назад на панель інструментів.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
-  "ff_button_how_to_hide":{
-    "message":"Щоб приховати кнопку, натисніть правою кнопкою мишки і виберіть Видалити з Тулбару. Ви можете знову відобразити її, для цього потрібно зайти в меню Firefox ->Кастомізувати.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
-  },
   "sliderexplanation":{
     "message":"Перетягуйте повзунок доти, доки реклама не зникне, проте не переборщіть.",
     "description":"Blacklister slider page message"
@@ -367,6 +363,10 @@
     "message":"Fanboy's Annoyances (видаляє дратуючий вміст)",
     "description":"A filter list"
   },
+  "filterwarning_removal":{
+    "message":"Список Попереджень про видалення AdBlock (видаляє попередження про використання блокувальника реклами)",
+    "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
+  },
   "filteracceptable_ads":{
     "message":"Прийнятні рекламні оголошення (рекомендуємо)",
     "description":"A filter list"
@@ -471,6 +471,10 @@
     "message":"Будьте обережні: якщо тут припуститися помилки, багато інших фільтрів, включаючи офіційні, можуть працювати некоректно!<br\/>Читайте <a>порадник із синтаксису фільтрів (англ.)<\/a>, аби навчитися керувати чорними та білими списками фільтрів.",
     "description":"Warning when blacklisting manually"
   },
+  "contentblockingwarning":{
+    "message":"Примітка: Білий список (дозволяє рекламу) на сторінці чи сайті не підтримується, коли блокування вмісту Safari увімкнено.",
+    "description":"Notice shown on the 'Customize' tab of the options page when Safari Content Blocking is enabled"
+  },
   "savebutton":{
     "message":"Зберегти",
     "description":"Save button"
@@ -566,6 +570,10 @@
   "disableallextensions":{
     "message":"Вимкніть усі розширення, окрім AdBlock:",
     "description":"Instruction on ad report page"
+  },
+  "disableforchromestepone":{
+    "message":"Відкрити <a href='#'>сторінку розширень<\/a>.",
+    "description":"Step 1 for disabling Chrome extensions"
   },
   "clickdisableotherextensions":{
     "message":"<b>ЧИ<\/b>, просто натисніть цю кнопку щоб ми зробили все що вище: <a>Вимкнути всі інші розширення<\/a>",
@@ -781,30 +789,6 @@
     "message":"Чи з’являється реклама на нововідкритій сторінці?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
-  "ff_checkinchrometitle":{
-    "message":"Перевірте в Chrome",
-    "description":"Tell a user to see if a reported ad also appears in Chrome"
-  },
-  "ff_checkinchrome_1":{
-    "message":"Встановіть Chrome, якщо його у вас нема.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_2":{
-    "message":"Встановіть AdBlock для Chrome, якщо у вас його нема.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_3":{
-    "message":"У Chrome підпишіться на ті ж списки фільтрів, як і тут.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_4":{
-    "message":"В Chrome, завантажте сторінку з рекламою.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_5":{
-    "message":"Реклама з'являється в Chrome теж?",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
   "refusetocheck":{
     "message":"Мені ліньки перевіряти",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -818,10 +802,6 @@
         "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe<\/a>  EXAMPLE 2: <a href='http:\/\/easylist.org'>EasyList forums<\/a>"
       }
     }
-  },
-  "reporttous2":{
-    "message":"Якщо ви говорите англійською, ви можете повідомити про рекламу особисто нас <a>на трекері помилок<\/a>.",
-    "description":"NOTE: non-English translations should replace the first sentence and instead say 'If you can speak English, you can report the ad to us <a>in the issue tracker<\/a>.'"
   },
   "fixityourself":{
     "message":"Гаразд, ви все ще можете заблокувати цю рекламу лише для себе на сторінці настройок. Дякуємо!",
@@ -919,10 +899,6 @@
     "message":"Перепрошуємо, AdBlock вимкнено на цій сторінці одним зі списків фільтрів.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
-  "status_disabled":{
-    "message":"AdBlock не може бути застосовано на цьому домені.",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
-  },
   "dont_run_on_pages_on_domain":{
     "message":"Не виконувати на сторінках цього домена",
     "description":"Menu entry to open the whitelist wizard"
@@ -947,9 +923,21 @@
     "message":"Призупинити AdBlock",
     "description":"Menu entry to pause AdBlock"
   },
+  "safaricontentblockingpausemessage":{
+    "message":"Щоб призупинити AdBlock з увімкненим Блокуванням Вмісту, будь ласка, оберіть Safari (в меню) > Вподобання > Розширення > AdBlock та зніміть прапорець 'Увімкнути AdBlock'.",
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
+  },
+  "safaricontentblockinglimitexceeded":{
+    "message":"Кількість правил списку фільтрів перевищує обмеження в 50 000 і автоматично зменшена. Будь ласка, відпишіться від деяких списків фільтрів або вимкніть блокування вмісту Safari!",
+    "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
+  },
   "browserestartrequired":{
-    "message":"Відключення цієї функції вимагає перезавантаження браузера.",
+    "message":"Будь ласка, перезавантажте Safari, щоб закінчити вимкнення блокування вмісту.",
     "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
+  },
+  "safarinotificationtitle":{
+    "message":"Перевищено обмеження правил Блокування Вмісту",
+    "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
   },
   "safarinotificationbody":{
     "message":"Будь ласка, вимкніть деякі списки фільтрів. Більше інформації дивіться в Параметрах AdBlock.",
@@ -1109,6 +1097,10 @@
     "message":"Що це таке?",
     "description":"Text of a link pointing to the explanation of a new feature"
   },
+  "how":{
+    "message":"Як?",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
   "selectlanguage":{
     "message":" -- Оберіть якою -- ",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
@@ -1158,10 +1150,6 @@
         "example":"<a>here<\/a>"
       }
     }
-  },
-  "ff_adblock_outdated":{
-    "message":"Ви використовуєте застарілу версію AdBlock. Будь ласка відкрийте меню й оберіть Доповнення. Потім на сторінці доповнень натисніть іконку з шестернею (Інструменти для всіх доповнень), та виберіть 'Перевірити наявність оновлень'.",
-    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"Підтримка користувачів AdBlock",
@@ -1215,6 +1203,10 @@
     "message":"Наша команда запросила деяку налагоджувальну інформацію? Натисніть <a href='#' id='debug'>тут<\/a>!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
   },
+  "bugreport":{
+    "message":"Чому б Вам не відправити нам <a>повідомлення про помилку<\/a>?",
+    "description":"Link to send a bug report on the Support tab of the options"
+  },
   "supportsite":{
     "message":"Дайте нам знати на нашому <a>сайті підтримки<\/a>!",
     "description":"Link to the support site on the Support tab of the options"
@@ -1246,6 +1238,16 @@
   "noresourcessend2":{
     "message":"Щось пішло не так. Не було відпревлено жодних ресурсів. Цю сторінку буде закрито. Спробуйте перезавантажити сайт.",
     "description":"Resource list page: error message"
+  },
+  "resourcedomain":{
+    "message":"Завантажено на сторінці із доменом:\n$domain$",
+    "description":"Resource list page: text shown when hovering over an item in the third-party column",
+    "placeholders":{
+      "domain":{
+        "content":"$1",
+        "example":"example.com"
+      }
+    }
   },
   "filterorigin":{
     "message":"Походження фільтру: $list$",
@@ -1317,8 +1319,88 @@
     "message":"Ви можете знову увімкнути це і підтримати улюблені веб-сайти, просто оберіть \"Дозволити деяку ненав’язливу рекламу\" нижче.",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Ми відписали Вас від Прийнятної Реклами, тому що Ви вимкнули блокування вмісту в Safari. Ви можете одночасно обрати лише одне. (<a>Чому?<\/a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Ми вимкнули блокування вмісту Safari, тому що Ви дозволити показ ненав'язливої реклами. Ви можете обрати одночасно лише одне. (<a>Чому?<\/a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "adreport_laststep":{
+    "message":"Останній крок: повідомте нам про проблему.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"Як Вас звуть?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"Адреса Вашої електронної пошти?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"Ми будемо використовувати його тільки для зв'язку з Вами, якщо нам потрібно буде більше інформації.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"Де саме на цій сторінці з'являється реклама? Як це виглядає?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Прикріпити знімок:",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"Якщо ви створили робочий фільтр за допомогою майстра \"блокування реклами\", вставте його в поле нижче:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
   "buttonsubmit":{
     "message":"Надіслати",
     "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"Обов'язкова інформація відсутня або неприпустима.  Будь ласка, дайте відповідь на запитання в червоних рамках.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"Ви забули прикріпити знімок екрану! Ми не зможемо допомогти Вам не побачивши рекламу, про яку ви повідомляєте.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"Все готово! Ми скоро зв'яжемося з Вами, найімовірніше протягом одного-двох днів, якщо це не свята. Також, знайдіть в електронній пошті лист від AdBlock. Ви знайдете там посилання на Ваш запит на нашому сайті допомоги. Якщо Ви віддаєте перевагу стежити за результатами по електронній пошті, Ви можете робити це також!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"Цей файл не є зображенням. Будь ласка, завантажте файл .png, .gif, або .jpg.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"Цей файл завеликий. Переконайтесь, що ваш файл менш ніж 10 МБ.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"Помилка під час збереження завантаженого файлу.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"Це ім'я файлу занадто довге. Будь ласка, дайте Вашому файлу більш коротке ім'я.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"Наступні відомості будуть також включені у звіт про рекламу.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"При обробці Вашого запиту сталася помилка.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Будь ласка, перейдіть на <a>наш сайт підтримки<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"І вручну створити картку, а також копіювати та вставити інформацію нижче в розділ «Fill in any details you think will help us understand your issue».",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }

@@ -43,10 +43,6 @@
     "message":"Για να κρύψετε το κουμπί, κάντε δεξί κλικ στη γραμμή εργαλείων του Safari και επιλέξτε Προσαρμογή γραμμής εργαλείων, στη συνέχεια σύρετε το κουμπί AdBlock έξω από τη γραμμή εργαλείων. Μπορείτε να το εμφανίσετε ξανά σύροντάς το πίσω στην γραμμή εργαλείων.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
-  "ff_button_how_to_hide":{
-    "message":"Για να κρύψετε το κουμπί, κάντε δεξί κλικ στο κουμπί και επιλογή Αφαίρεση από τη γραμμή εργαλείων. Μπορείτε να το επανεμφανίσετε από Firefox Μενού -> Προσαρμογή.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
-  },
   "sliderexplanation":{
     "message":"Σύρετε τον δείκτη ώσπου η διαφήμιση να μπλοκαριστεί σωστά στην σελίδα, και το μπλοκαρισμένο στοιχείο να φαίνεται εντάξει.",
     "description":"Blacklister slider page message"
@@ -575,6 +571,10 @@
     "message":"Απενεργοποίηση όλων των επεκτάσεων εκτός από το AdBlock:",
     "description":"Instruction on ad report page"
   },
+  "disableforchromestepone":{
+    "message":"Ανοίξτε τη <a href='#'>σελίδα επεκτάσεων<\/a>.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
   "clickdisableotherextensions":{
     "message":"<b>Ή<\/b>, απλά κάντε κλικ σε αυτό το κουμπί για να κάνουμε όλα τα παραπάνω: <a>Απενεργοποίηση όλων των άλλων επεκτάσεων<\/a>",
     "description":"On the ad report page, an alternative way to disable other extensions"
@@ -789,30 +789,6 @@
     "message":"Εμφανίζεται η διαφήμιση και σε άλλον περιηγητή;",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
-  "ff_checkinchrometitle":{
-    "message":"Ελέγξτε στο Chrome",
-    "description":"Tell a user to see if a reported ad also appears in Chrome"
-  },
-  "ff_checkinchrome_1":{
-    "message":"Εγκαταστήσετε το Chrome, αν δεν το έχετε.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_2":{
-    "message":"Εγκαταστήσετε το AdBlock για Chrome, αν δεν το έχετε.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_3":{
-    "message":"Στο Chrome, εγγραφείτε στις ίδιες λίστες φίλτρων όπως έχετε εδώ.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_4":{
-    "message":"Στο Chrome, φόρτωση της σελίδας με τη διαφήμιση.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_5":{
-    "message":"Η διαφήμιση εμφανίζεται και στο Chrome;",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
   "refusetocheck":{
     "message":"Δεν θέλω να το ελέγξω αυτό",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -826,10 +802,6 @@
         "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe<\/a>  EXAMPLE 2: <a href='http:\/\/easylist.org'>EasyList forums<\/a>"
       }
     }
-  },
-  "reporttous2":{
-    "message":"Αν μιλάτε Αγγλικά, μπορείτε να αναφέρετε την διαφήμιση σε εμας <a>στην παρακολούθηση συμβάντων<\/a>.",
-    "description":"NOTE: non-English translations should replace the first sentence and instead say 'If you can speak English, you can report the ad to us <a>in the issue tracker<\/a>.'"
   },
   "fixityourself":{
     "message":"Εντάξει, μπορείτε ακόμα να μπλοκάρετε αυτή τη διαφήμιση μόνο για εσάς στην σελίδα επιλογών. Ευχαριστούμε!",
@@ -927,10 +899,6 @@
     "message":"Συγνώμη, το AdBlock απενεργοποιήθηκε σε αυτήν την σελίδα λόγω μιας από τις λίστες φίλτρων σας.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
-  "status_disabled":{
-    "message":"Το AdBlock δεν μπορεί να λειτουργήσει σε αυτόν τον τομέα.",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
-  },
   "dont_run_on_pages_on_domain":{
     "message":"Εκτός λειτουργίας σε σελίδες αυτού του τομέα",
     "description":"Menu entry to open the whitelist wizard"
@@ -960,11 +928,11 @@
     "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
   },
   "safaricontentblockinglimitexceeded":{
-    "message":"Ο αριθμός των κανόνων στη λίστα φίλτρου υπερβαίνει το όριο των 50.000, και έχει μειωθεί αυτόματα. Παρακαλώ διαγραφτείτε από μερικές λίστες φίλτρων ή απενεργοποιήστε τον αποκλεισμό περιεχομένου Safari!",
+    "message":"Ο αριθμός των κανόνων στη λίστα φίλτρου υπερβαίνει το όριο των 50.000, και έχει μειωθεί αυτόματα. Παρακαλώ αναιρέστε την εγγραφή σας από μερικές λίστες φίλτρων ή απενεργοποιήστε τον Αποκλεισμό Περιεχομένου Safari!",
     "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
   },
   "browserestartrequired":{
-    "message":"Η απενεργοποίηση αυτής της λειτουργίας απαιτεί επανεκκίνηση του περιηγητή σας.",
+    "message":"Παρακαλούμε κάντε επανεκκίνηση το Safari για να ολοκληρώσετε την απενεργοποίηση φραγής περιεχομένου.",
     "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
   },
   "safarinotificationtitle":{
@@ -996,7 +964,7 @@
     "description":"Text of a share link"
   },
   "pwyw":{
-    "message":"Πληρώστε ότι θέλετε!",
+    "message":"Πληρώστε ό,τι θέλετε!",
     "description":"Text of a payment request link"
   },
   "translator_credit":{
@@ -1048,7 +1016,7 @@
     "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
   },
   "storage_quota_exceeded":{
-    "message":"Ξεπεράσατε το όριο αποθήκευσης που το AdBlock μπορεί να κάνει χρήση. Παρακαλώ αναιρέστε την εγγραφή σας από μερικές λίστες φίλτρων.",
+    "message":"Ξεπεράσατε το όριο αποθήκευσης που το AdBlock μπορεί να κάνει χρήση. Παρακαλούμε αναιρέστε την εγγραφή σας από μερικές λίστες φίλτρων.",
     "description":"Message shown when the user uses more storage than allowed by the browser"
   },
   "safari50_updatenotice":{
@@ -1129,6 +1097,10 @@
     "message":"Τι είναι αυτό;",
     "description":"Text of a link pointing to the explanation of a new feature"
   },
+  "how":{
+    "message":"Πώς;",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
   "selectlanguage":{
     "message":" -- Επιλέξτε γλώσσα -- ",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
@@ -1178,10 +1150,6 @@
         "example":"<a>here<\/a>"
       }
     }
-  },
-  "ff_adblock_outdated":{
-    "message":"Χρησιμοποιείτε μια παλιά έκδοση του AdBlock. Παρακαλώ κάντε κλικ στο κουμπί μενού του Firefox και επιλέξτε Add-ons. Στη συνέχεια στη σελίδα Add-ons, κάντε κλικ στο εικονίδιο με το γρανάζι (Εργαλεία για όλα τα πρόσθετα) και επιλέξτε 'Έλεγχος για ενημερώσεις'.",
-    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"Υποστήριξη AdBlock",
@@ -1234,6 +1202,10 @@
   "debuginfo":{
     "message":"Έχει ζητήσει η ομάδα μας κάποιες πληροφορίες εντοπισμού σφαλμάτων; Κάντε κλικ <a href='#' id='debug'>εδώ<\/a> για αυτό!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "bugreport":{
+    "message":"Γιατί δεν μας στέλνετε μια <a>αναφορά σφάλματος<\/a>;",
+    "description":"Link to send a bug report on the Support tab of the options"
   },
   "supportsite":{
     "message":"Ενημερώστε μας στην <a>ιστοσελίδα υποστήριξης<\/a>!",
@@ -1347,8 +1319,88 @@
     "message":"Μπορείτε να το ενεργοποιήσετε ξανά παρακάτω και να υποστηρίζετε τις ιστοσελίδες που αγαπάτε επιλέγοντας \"Να επιτρέπονται ορισμένες μη-παρεμβατικές διαφημίσεις\".",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Αναιρέσαμε την εγγραφή σας από τις αποδεκτές διαφημίσεις, διότι έχετε ενεργοποιήσει την Φραγή Περιεχομένου Safari. Μπορείτε να επιλέξετε μόνο ένα κάθε φορά. (<a>Γιατί;<\/a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Απενεργοποιήσαμε την Φραγή Περιεχομένου Safari επειδή έχετε επιλέξει να επιτρέπονται μη παρεμβατικές διαφημίσεις. Μπορείτε να επιλέξετε μόνο ένα κάθε φορά. (<a>Γιατί;<\/a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "adreport_laststep":{
+    "message":"Τελευταίο βήμα: αναφέρετε το πρόβλημα σε εμάς.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"Ποιό είναι το όνομά σας;",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"Ποιά είναι η διεύθυνση του ηλεκτρονικού ταχυδρομείου σας;",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"Θα το χρησιμοποιήσουμε μόνο για να επικοινωνήσουμε μαζί σας εάν χρειαστούμε περισσότερες πληροφορίες.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"Ακριβώς που στη συγκεκριμένη σελίδα είναι η διαφήμιση; Πως μοιάζει;",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Επισυνάψτε στιγμιότυπο οθόνης:",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"Εάν έχετε δημιουργήσει ένα φίλτρο εργασίας, χρησιμοποιώντας τον οδηγό \"μπλοκάρισμα μίας διαφήμισης\", επικολλήστε το στο παρακάτω πλαίσιο:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
   "buttonsubmit":{
     "message":"Αποστολή",
     "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"Λείπουν οι απαιτούμενες πληροφορίες ή είναι άκυρες.  Παρακαλούμε συμπληρώστε τις ερωτήσεις που έχουν κόκκινο περίγραμμα.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"Ξεχάσατε να επισυνάψετε ένα στιγμιότυπο οθόνης! Δεν μπορούμε να σας βοηθήσουμε χωρίς να δούμε την διαφήμιση που θέλετε να αναφέρετε.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"Όλα έτοιμα!  Θα έρθουμε σε επαφή σύντομα, πιθανότατα μέσα σε μια μέρα, δύο αν είναι διακοπές. Εν τω μεταξύ, αναζητήστε ένα μήνυμα ηλεκτρονικού ταχυδρομείου από το AdBlock. Εκεί θα βρείτε έναν σύνδεσμο για το εισιτήριο σας στην ιστοσελίδα βοήθειας. Εάν προτιμάτε να ακολουθήσετε με ηλεκτρονικό ταχυδρομείο, μπορείτε να το κάνετε και αυτό!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"Αυτό δεν είναι αρχείο εικόνας. Παρακαλούμε αποστείλτε ένα αρχείο .png, .gif ή .jpg.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"Αυτό το αρχείο είναι πολύ μεγάλο. Παρακαλούμε βεβαιωθείτε ότι το αρχείο είναι μικρότερο από 10 MB.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"Σφάλμα αποθήκευσης του μεταφορτωμένου αρχείου.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"Αυτό το όνομα αρχείου είναι πολύ μεγάλο. Παρακαλούμε δώστε στο αρχείο σας ένα μικρότερο όνομα.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"Οι ακόλουθες πληροφορίες θα συμπεριληφθούν επίσης στην αναφορά διαφήμισης.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"Παρουσιάστηκε ένα σφάλμα κατά την επεξεργασία του αιτήματός σας.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Παρακαλούμε μεταβείτε στην <a>ιστοσελίδα υποστήριξης<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"Και δημιουργήστε ένα εισιτήριο χειροκίνητα, και αντιγράψτε και επικολλήστε τις παρακάτω πληροφορίες στην ενότητα \"Σημπληρώστε τυχόν λεπτομέρειες που νομίζετε ότι θα μας βοηθήσουν να κατανοήσουμε το πρόβλημά σας\".",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }
