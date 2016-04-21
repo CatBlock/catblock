@@ -1,7 +1,7 @@
-function loadTab() {
+function tabLoad() {
     // Load different tabs
-    $("nav > a").click(function(event) {
-        $("nav > a").removeClass(); // remove "active" class
+    $("nav > a, nav > div > a").click(function(event) {
+        $("nav > a, nav > div > a").removeClass(); // remove "active" class
         $(this).addClass("active");
         var target = event.target;
         var scripts = target.dataset.scripts;
@@ -11,7 +11,7 @@ function loadTab() {
         $("#content").removeClass();
         $("#content").addClass(pageName);
         // Load requested tab and localize it
-        $("#content").load(page, afterLoad);
+        $("#content").load(page, afterTabLoad);
         scripts.split(" ").forEach(function(scriptToLoad) {
             // CSP blocks eval, which $().append(scriptTag) uses
             var s = document.createElement("script");
@@ -20,10 +20,20 @@ function loadTab() {
         });
     });
 
-    $("nav > a:first-child").click(); // Show General tab
+    // Show general tab
+    if ($("#toggletabs").is(":visible")) {
+        $("nav > div > a:first-child").click();
+    } else {
+        $("nav > a:first-child").click();
+    }
+
+    // Display responsive tab options
+    $("#toggletabs").click(function() {
+        $(this).toggleClass('expanded').siblings('div').slideToggle();
+    });
 }
 
-function afterLoad() {
+function afterTabLoad() {
     // Hide advanced settings
     if (!optionalSettings.show_advanced_options) {
         $(".advanced").hide();
@@ -34,53 +44,6 @@ function afterLoad() {
         $(".safari-only").hide();
     }
     localizePage();
-}
-
-var language = navigator.language.match(/^[a-z]+/i)[0];
-function rightToLeft() {
-    if (language === "ar" || language === "he" ) {
-        $(window).resize(function() {
-            if ($(".social").is(":hidden")) {
-                $("#translation_credits").css({margin: "0px 50%", width: "350px"});
-                $("#paymentlink").css({margin: "0px 50%", width: "350px"});
-                $("#version_number").css({margin: "20px 50%", width: "350px"});
-            } else {
-                $("#translation_credits").css("right", "0px");
-                $("#paymentlink").css("right", "0px");
-                $("#version_number").css({right: "0px", padding: "0px"});
-            }
-        });
-        $("li").css("float","right");
-        $("#small_nav").css({right: "initial", left: "45px"});
-        $(".ui-tabs .ui-tabs-nav li").css("float", "right");
-    } else {
-        $(".ui-tabs .ui-tabs-nav li").css("float", "left");
-    }
-}
-
-function showMiniMenu() {
-    $("#small_nav").click(function() {
-        if ($(".ui-tabs-nav").is(":hidden")) {
-            $(".ui-tabs .ui-tabs-nav li").css("float", "none");
-            $(".ui-tabs-nav").fadeIn("fast");
-            if (language === "ar" || language === "he" ) {
-                $(".ui-tabs-nav").css({right:"auto", left:"40px"});
-            }
-        } else
-            $(".ui-tabs-nav").fadeOut("fast");
-    });
-    $(window).resize(function() {
-        if ($(".ui-tabs-nav").is(":hidden") && $("#small_nav").is(":hidden")) {
-            if (language === "ar" || language === "he" ) {
-                $(".ui-tabs .ui-tabs-nav li").css("float", "right");
-                $(".ui-tabs-nav").css({right:"auto", left:"auto"});
-            } else {
-                $(".ui-tabs .ui-tabs-nav li").css("float", "left");
-            }
-            $(".ui-tabs-nav").show();
-        } else if ($("#small_nav").is(":visible"))
-            $(".ui-tabs-nav").hide();
-    });
 }
 
 function displayVersionNumber() {
@@ -145,13 +108,12 @@ function displayTranslationCredit() {
 }
 
 var optionalSettings = {};
+
 $(document).ready(function(){
     BGcall("get_settings", function(settings) {
         optionalSettings = settings;
-        afterLoad();
-        loadTab();
-        rightToLeft();
-        showMiniMenu();
+        tabLoad();
+        afterTabLoad();
         displayVersionNumber();
         displayTranslationCredit();
     });
