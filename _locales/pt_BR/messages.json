@@ -1,6 +1,6 @@
 {
   "description2":{
-    "message":"A extensão mais popular do Chrome, com mais de 40 milhões de usuários. Bloqueie anúncios em toda a web.",
+    "message":"A extensão mais popular do Chrome, com mais de 40 milhões de usuários! Bloqueia anúncios em toda a web.",
     "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "adblock_click_for_details":{
@@ -42,10 +42,6 @@
   "safaributton_how_to_hide2":{
     "message":"Para ocultar o botão, clique com o botão direito na barra de ferramentas do Safari e escolha Personalizar Barra de Ferramentas e, em seguida, arraste o botão do AdBlock para fora da Barra de Ferramentas. Você pode mostrar o botão novamente, arrastando-o para a barra de ferramentas.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
-  },
-  "ff_button_how_to_hide":{
-    "message":"Para ocultar o botão, clique com o botão direito e escolha \"Remover da barra de ferramentas\". Você pode voltar a ver o botão se clicar em \"Personalizar\" no menu do Firefox.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
   },
   "sliderexplanation":{
     "message":"Deslize o cursor até que a propaganda esteja bloqueada corretamente na página, e o elemento bloqueado pareça útil.",
@@ -242,6 +238,10 @@
   "disableyoutubestreamingads":{
     "message":"Ativar o modo de compatibilidade ClickToFlash",
     "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
+  },
+  "safaricontentblocking":{
+    "message":"Ativar o bloqueio de conteúdo do Safari",
+    "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
   "debuginlogoption":{
     "message":"Mostrar declarações de depuração no Log do Console (que deixa o AdBlock mais devagar)",
@@ -777,30 +777,6 @@
     "message":"A propaganda também aparece naquele navegador?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
-  "ff_checkinchrometitle":{
-    "message":"Verificar no Chrome",
-    "description":"Tell a user to see if a reported ad also appears in Chrome"
-  },
-  "ff_checkinchrome_1":{
-    "message":"Instale o Chrome se você ainda não o tem.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_2":{
-    "message":"Instale o AdBlock para o Chrome se você ainda não o tem.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_3":{
-    "message":"No Chrome, inscreva-se à mesma lista de filtros que você tem aqui.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_4":{
-    "message":"No Chrome, carregue a página com o anúncio.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_5":{
-    "message":"O anúncio aparece no Chrome também?",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
   "refusetocheck":{
     "message":"Eu não quero ver isso",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -814,10 +790,6 @@
         "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe<\/a>  EXAMPLE 2: <a href='http:\/\/easylist.org'>EasyList forums<\/a>"
       }
     }
-  },
-  "reporttous2":{
-    "message":"Se você fala inglês, pode nos reportar a propaganda <a>no issue tracker<\/a>.",
-    "description":"NOTE: non-English translations should replace the first sentence and instead say 'If you can speak English, you can report the ad to us <a>in the issue tracker<\/a>.'"
   },
   "fixityourself":{
     "message":"OK, você ainda pode bloquear esta propaganda você mesmo na página Opções. Obrigado!",
@@ -914,10 +886,6 @@
   "disabled_by_filter_lists":{
     "message":"Desculpe, o AdBlock está desativado nesta página por uma das suas listas de filtros.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
-  },
-  "status_disabled":{
-    "message":"AdBlock não pode funcionar neste domínio.",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
   },
   "dont_run_on_pages_on_domain":{
     "message":"Não usar em páginas neste domínio",
@@ -1097,6 +1065,10 @@
     "message":"O que é isto?",
     "description":"Text of a link pointing to the explanation of a new feature"
   },
+  "how":{
+    "message":"Como?",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
   "selectlanguage":{
     "message":" -- Selecione o idioma -- ",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
@@ -1146,10 +1118,6 @@
         "example":"<a>here<\/a>"
       }
     }
-  },
-  "ff_adblock_outdated":{
-    "message":"Você está utilizando uma versão antiga do AdBlock. Por favor clique no botão de menu do Firefox e escolha os complementos. Então na página de complementos, clique no ícone de engrenagem (ferramentas para todos os complementos), e escolha \"Verificar atualizações\".",
-    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"Suporte AdBlock",
@@ -1310,5 +1278,9 @@
   "buttonsubmit":{
     "message":"Enviar",
     "description":"Button to send a form."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Acesso <a>nosso site de suporte<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }
