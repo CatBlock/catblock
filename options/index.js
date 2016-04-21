@@ -13,14 +13,6 @@ function load_options() {
             $(".safari-only").hide();
         }
 
-        if (window.location &&
-            window.location.search) {
-            var searchQuery = parseUri.parseSearch(window.location.search);
-            if (searchQuery &&
-                searchQuery.tab) {
-                activeTab = searchQuery.tab;
-            }
-        }
     });
 
     // Load different tabs
@@ -28,6 +20,10 @@ function load_options() {
         var target = event.target;
         var scripts = target.dataset.scripts;
         var page = target.dataset.page;
+        var pageName = page.split(".")[0] === "" ? "catblock" : page.split(".")[0];
+        // Add a class which is different to the content of the tab
+        $("#content").removeClass();
+        $("#content").addClass(pageName);
         // Load requested tab and localize it
         $("#content").load(page, localizePage);
         scripts.split(" ").forEach(function(scriptToLoad) {

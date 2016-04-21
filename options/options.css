@@ -1,3 +1,7 @@
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
 nav {
     z-index: 5;
     position: fixed;
@@ -17,10 +21,27 @@ nav {
 
 nav > a {
     margin: 10px;
+    color: #666;
 }
 
 nav > a:hover {
     cursor: pointer;
+    color: #000;
+    text-decoration: none;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
+
+.support  p {
+    margin: 5px;
 }
 
 /* General styles */
@@ -99,32 +120,6 @@ ul {
 .adblock-logo {
   margin: 10px 0px 0px 10px;
 }
-.social .facebook {
-  background: transparent url(../img/facebook-sprite.png) no-repeat left top;
-  height: 23px;
-  width: 11px;
-  display: -webkit-box;
-}
-.social .gplus {
-  background: transparent url(../img/gplus-sprite.png) no-repeat left top;
-  height: 22px;
-  width: 26px;
-  display: -webkit-box;
-}
-.social .twitter {
-  background: transparent url(../img/twitter-sprite.png) no-repeat left top;
-  height: 22px;
-  width: 26px;
-  display: -webkit-box;
-}
-.social .facebook:hover, .social .twitter:hover {
-  background-position: left bottom;
-  transition: none;
-}
-.social .gplus:hover {
-  background-position: left -26px;
-  transition: none;
-}
 .left {
   float: left;
 }
@@ -155,20 +150,6 @@ ul {
 }
 
 /* Index tab */
-a:hover {
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-  color: red;
-}
-#paymentlink {
-  font-size: 16;
-  margin: 0px 50%;
-  min-width: 475px;
-  position: absolute;
-  color: #4D7BD6;
-  text-decoration: none;
-  text-align: right;
-}
 #translation_credits {
   font-size: 13px;
   margin: 0px 50%;
@@ -300,11 +281,8 @@ a:hover {
 }
 
 /* Support tab */
-#ui-tabs-5 h3, #ui-tabs-5 p, #checkupdate {
+#checkupdate {
   margin-bottom: 5px;
-}
-#ui-tabs-5 p {
-  margin-top: 0;
 }
 .english-only {
   display: none;
