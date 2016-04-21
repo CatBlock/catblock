@@ -701,6 +701,7 @@ MyFilters.prototype._load_default_subscriptions = function() {
             case 'da': return 'danish';
             case 'de': return 'easylist_plus_german';
             case 'el': return 'easylist_plus_greek';
+            case 'es': return 'easylist_plus_spanish';
             case 'et': return 'easylist_plus_estonian';
             case 'fi': return 'easylist_plus_finnish';
             case 'fr': return 'easylist_plus_french';
@@ -835,8 +836,9 @@ MyFilters.prototype._make_subscription_options = function() {
             safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist_plun_korean.json",
         },
         "latvian": {  // Latvian filters
-            url: "https://gitorious.org/adblock-latvian/adblock-latvian/blobs/raw/master/lists/latvian-list.txt",
+            url: "https://notabug.org/latvian-list/adblock-latvian/raw/master/lists/latvian-list.txt",
             safariJSON_URL: "https://cdn.adblockcdn.com/filters/latvian.json",
+            requiresList: "easylist"
         },
         "swedish": {  // Swedish filters
             url: "http://fanboy.co.nz/fanboy-swedish.txt",
@@ -883,7 +885,12 @@ MyFilters.prototype._make_subscription_options = function() {
         "icelandic": { // Icelandic filters
             url: "http://adblock.gardar.net/is.abp.txt",
             safariJSON_URL: "https://cdn.adblockcdn.com/filters/icelandic.json",
-        }
+        },
+        "easylist_plus_spanish": { // Spanish filters
+            url: "https://easylist-downloads.adblockplus.org/easylistspanish.txt",
+            requiresList: "easylist",
+            safariJSON_URL: "https://cdn.adblockcdn.com/filters/spanish.json",
+    }
     };
 }
 

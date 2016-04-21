@@ -65,21 +65,6 @@ $(function() {
             });
         }
     });
-
-    BGcall("get_settings", function(settings) {
-        if (settings.show_advanced_options &&
-            !SAFARI &&
-            chrome &&
-            chrome.runtime &&
-            chrome.runtime.onMessage) {
-            $("#dropbox").show();
-        } else {
-            $("#dropbox").hide();
-        }
-    });
-
-    update_db_icon();
-    getDropboxMessage();
 });
 
 $("#enable_show_advanced_options").change(function() {
@@ -106,83 +91,4 @@ function getSafariContentBlockingMessage() {
             $("#safari_content_blocking_bmessage").text("").hide();
         }
     });
-}
-
-// Authenticate button for login/logoff with Dropbox
-$("#dbauth").click(function() {
-    BGcall("dropboxauth", function(status) {
-        if (status === true) {
-            BGcall("dropboxlogout");
-        } else {
-            BGcall("dropboxlogin");
-        }
-    });
-});
-
-$("#dbauthinfo").click(function() {
-    BGcall("openTab",
-           "http://help.getadblock.com/support/solutions/articles/6000087888-how-do-i-use-dropbox-synchronization-");
-});
-
-// Change Dropbox button, when user has been logged in/out
-function update_db_icon() {
-    if (!SAFARI &&
-        chrome &&
-        chrome.runtime &&
-        chrome.runtime.onMessage) {
-        BGcall("dropboxauth", function(status) {
-            if (status === true) {
-                $("#dbauth").addClass("authenticated");
-                $("#dbauth").removeClass("not-authenticated");
-            } else {
-                $("#dbauth").addClass("not-authenticated");
-                $("#dbauth").removeClass("authenticated");
-            }
-        });
-    }
-}
-
-function getDropboxMessage() {
-    BGcall('sessionstorage_get', 'dropboxerror', function(messagecode) {
-        //if the message exists, it should already be translated.
-        if (messagecode) {
-            $("#dbmessage").text(messagecode);
-        }
-    });
-}
-// Listen for Dropbox sync changes
-if (!SAFARI &&
-    chrome &&
-    chrome.runtime &&
-    chrome.runtime.onMessage) {
-    chrome.runtime.onMessage.addListener(
-        function(request, sender, sendResponse) {
-            if (request.message === "update_checkbox") {
-                BGcall("get_settings", function(settings) {
-                    $("input[id='enable_youtube_channel_whitelist']").prop("checked", settings.youtube_channel_whitelist);
-                    $("input[id='enable_show_context_menu_items']").prop("checked", settings.show_context_menu_items);
-                    $("input[id='enable_show_advanced_options']").prop("checked", settings.show_advanced_options);
-                    $("input[id='enable_whitelist_hulu_ads']").prop("checked", settings.whitelist_hulu_ads);
-                    $("input[id='enable_debug_logging']").prop("checked", settings.debug_logging);
-                });
-                sendResponse({});
-            }
-            if (request.message === "update_icon") {
-                update_db_icon();
-                sendResponse({});
-            }
-            if (request.message === "update_page") {
-                document.location.reload();
-                sendResponse({});
-            }
-            if (request.message === "dropboxerror" && request.messagecode) {
-                $("#dbmessage").text(request.messagecode);
-                sendResponse({});
-            }
-            if (request.message === "cleardropboxerror") {
-                $("#dbmessage").text("");
-                sendResponse({});
-            }
-        }
-    );
 }
