@@ -2,6 +2,10 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.active {
+    color: #000;
+}
+
 nav {
     z-index: 5;
     position: fixed;
@@ -65,7 +69,7 @@ option {
 
 /* Menu */
 img {
-  height: auto;
+  height: 55px;
 }
 ul {
   display: block;
@@ -118,7 +122,18 @@ ul {
   box-shadow: 0 10px 0 #6B6969, 0 20px 0 #6B6969;
 }
 .adblock-logo {
-  margin: 10px 0px 0px 10px;
+  margin: 18px 0px 0px 15px;
+}
+.adblock-logo:hover {
+    text-decoration: none;
+}
+.adblock-logo img, .adblock-logo span {
+   display: inline-block;
+   vertical-align: middle;
+}
+.adblock-logo span {
+    font-size: larger;
+    margin-left: 10px;
 }
 .left {
   float: left;
@@ -339,22 +354,12 @@ label {
   #small_nav {
     display: block;
   }
-  .ui-tabs-nav {
-    display: none;
-    opacity: 0.85;
-    margin-top: 23px;
-    right: 40px;
-    -webkit-padding-start: 0px;
-    z-index: 2;
-    background: #F1F1F1;
-    border-bottom: 1px solid #E9E9E9;
-    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .15);
-    box-shadow: 0px 0px 4px rgba(10, 0, 0, .15);
-    border-radius: 5px;
-  }
+    nav {
+        display: none;
+    }
 }
 
-/*ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Custom inputs */
+/*ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Custom inputs */
 input[type="button"], select {
   -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
   box-shadow: inset 0px 1px 0px 0px #ffffff;

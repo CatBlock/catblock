@@ -1,22 +1,8 @@
-function load_options() {
-    // Check or uncheck each option.
-    BGcall("get_settings", function(settings) {
-        optionalSettings = settings;
-
-        // Hide settings
-        if (!optionalSettings.show_advanced_options) {
-            $(".advanced").hide();
-        }
-        if (SAFARI) {
-            $(".chrome-only").hide();
-        } else {
-            $(".safari-only").hide();
-        }
-
-    });
-
+function loadTab() {
     // Load different tabs
     $("nav > a").click(function(event) {
+        $("nav > a").removeClass(); // remove "active" class
+        $(this).addClass("active");
         var target = event.target;
         var scripts = target.dataset.scripts;
         var page = target.dataset.page;
@@ -25,16 +11,29 @@ function load_options() {
         $("#content").removeClass();
         $("#content").addClass(pageName);
         // Load requested tab and localize it
-        $("#content").load(page, localizePage);
+        $("#content").load(page, afterLoad);
         scripts.split(" ").forEach(function(scriptToLoad) {
             // CSP blocks eval, which $().append(scriptTag) uses
             var s = document.createElement("script");
             s.src = scriptToLoad;
-            document.body.appendChild(s);
+            document.getElementById("content").appendChild(s);
         });
     });
 
     $("nav > a:first-child").click(); // Show General tab
+}
+
+function afterLoad() {
+    // Hide advanced settings
+    if (!optionalSettings.show_advanced_options) {
+        $(".advanced").hide();
+    }
+    if (SAFARI) {
+        $(".chrome-only").hide();
+    } else {
+        $(".safari-only").hide();
+    }
+    localizePage();
 }
 
 var language = navigator.language.match(/^[a-z]+/i)[0];
@@ -145,20 +144,15 @@ function displayTranslationCredit() {
     }
 }
 
-if (SAFARI && LEGACY_SAFARI) {
-    if (navigator.appVersion.indexOf("Mac OS X 10_5_") !== -1) {
-        // Safari 5.1 isn't available on Leopard (OS X 10.5). Don't urge the users to upgrade in this case.
-    } else {
-        $("#safari50_updatenotice").show();
-    }
-}
-
 var optionalSettings = {};
 $(document).ready(function(){
-    load_options();
-    rightToLeft();
-    showMiniMenu();
-    displayVersionNumber();
-    displayTranslationCredit();
-    //localizePage();
-})
+    BGcall("get_settings", function(settings) {
+        optionalSettings = settings;
+        afterLoad();
+        loadTab();
+        rightToLeft();
+        showMiniMenu();
+        displayVersionNumber();
+        displayTranslationCredit();
+    });
+});
