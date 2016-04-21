@@ -17,7 +17,7 @@ body {
 .logo {
   cursor: pointer;
   height: auto;
-  width: 45%;
+  width: 40px;
 }
 .menu-entry {
   padding: 3px 4px 3px 8px;
@@ -99,4 +99,22 @@ input[type="checkbox"]:checked:before {
   color: rgba(0, 0, 0, 0.7);
   content: '\2713';
   margin-left: 20%;
+}
+
+.adblock-logo {
+  margin: 18px 0px 0px 15px;
+}
+.adblock-logo:hover {
+    text-decoration: none;
+}
+.adblock-logo img, .adblock-logo span {
+   display: inline-block;
+   vertical-align: middle;
+}
+.adblock-logo img {
+   width: 30px;
+}
+.adblock-logo span {
+    font-size: larger;
+    margin-left: 5px;
 }
