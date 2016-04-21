@@ -43,10 +43,6 @@
     "message":"Per nascondere il pulsante, fare clic destro sulla barra degli strumenti di Safari e scegliere Personalizza Barra degli Strumenti, quindi trascinare il pulsante AdBlock fuori dalla barra. È possibile visualizzarlo nuovamente trascinandolo nella barra degli strumenti.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
-  "ff_button_how_to_hide":{
-    "message":"Per nascondere il pulsante, clic destro e scegli Rimuovi dalla Barra degli Strumenti.  È possibile visualizzarlo nuovamente andando in Menu Firefox-> Personalizza.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
-  },
   "sliderexplanation":{
     "message":"Spostare il cursore fino a bloccare correttamente l'elemento selezionato e a dare alla pagina l'aspetto desiderato.",
     "description":"Blacklister slider page message"
@@ -575,6 +571,10 @@
     "message":"Disabilita tutte le estensioni tranne AdBlock:",
     "description":"Instruction on ad report page"
   },
+  "disableforchromestepone":{
+    "message":"Apri la <a href='#'> pagina delle estensioni<\/a>.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
   "clickdisableotherextensions":{
     "message":"<b>O<\/b>, clicca su questo pulsante per fare tutto quanto indicato sopra: <a>disattiva tutte le altre estensioni<\/a>",
     "description":"On the ad report page, an alternative way to disable other extensions"
@@ -789,30 +789,6 @@
     "message":"La pubblicità continua ad apparire in questo browser?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
-  "ff_checkinchrometitle":{
-    "message":"Verifica in Chrome",
-    "description":"Tell a user to see if a reported ad also appears in Chrome"
-  },
-  "ff_checkinchrome_1":{
-    "message":"Installa Chrome, se non ce l'hai.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_2":{
-    "message":"Installa AdBlock per Chrome, se non ce l'hai.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_3":{
-    "message":"In Chrome, sottoscrivi gli stessi elenchi filtro come hai qui.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_4":{
-    "message":"In Chrome, carica la pagina con la pubblicità.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_5":{
-    "message":"La pubblicità appare ancora in Chrome?",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
   "refusetocheck":{
     "message":"Non mi va di controllare",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -826,10 +802,6 @@
         "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe<\/a>  EXAMPLE 2: <a href='http:\/\/easylist.org'>EasyList forums<\/a>"
       }
     }
-  },
-  "reporttous2":{
-    "message":"Puoi sengalarci la pubblicità sul nostro <a>sito<\/a> (in Inglese).",
-    "description":"NOTE: non-English translations should replace the first sentence and instead say 'If you can speak English, you can report the ad to us <a>in the issue tracker<\/a>.'"
   },
   "fixityourself":{
     "message":"OK, puoi ancora bloccare questa pubblicità da solo sulla pagina Opzioni. Grazie!",
@@ -927,10 +899,6 @@
     "message":"Spiacenti, AdBlock è disabilitato su questa pagina da qualcuna delle tue liste filtri.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
-  "status_disabled":{
-    "message":"AdBlock non può funzionare su questo dominio.",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
-  },
   "dont_run_on_pages_on_domain":{
     "message":"Non attivare sulle pagine di questo dominio",
     "description":"Menu entry to open the whitelist wizard"
@@ -962,10 +930,6 @@
   "safaricontentblockinglimitexceeded":{
     "message":"Il numero di regole filtro supera il limite di 50.000 ed è stato ridotto automaticamente. Si prega di eliminare alcuni elenchi di filtri o disattivare il blocco dei contenuti Safari!",
     "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
-  },
-  "browserestartrequired":{
-    "message":"La disattivazione di questa funzionalità, richiede il riavvio del browser.",
-    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
   },
   "safarinotificationtitle":{
     "message":"Superato il limite di regole blocco contenuto",
@@ -1129,6 +1093,10 @@
     "message":"Cos'è?",
     "description":"Text of a link pointing to the explanation of a new feature"
   },
+  "how":{
+    "message":"Come?",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
   "selectlanguage":{
     "message":"-- Scegli una lingua --",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
@@ -1178,10 +1146,6 @@
         "example":"<a>here<\/a>"
       }
     }
-  },
-  "ff_adblock_outdated":{
-    "message":"Stai usando una versione datata di AdBlock. Clicca sul bottone menu di Firefox e scegli Componenti aggiuntivi. Successivamente sulla pagina dei Componenti aggiuntivi, clicca l'icona a forma di ruota (Strumento per tutti i componenti aggiuntivi), e scegli 'Controlla aggiornamenti'.",
-    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"Supporto AdBlock",
@@ -1234,6 +1198,10 @@
   "debuginfo":{
     "message":"Il nostro team richiede alcune informazioni di debug? Clicca <a href='#' id='debug'> qui<\/a>!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "bugreport":{
+    "message":"Perché non ci invii una <a>segnalazione di bug<\/a>?",
+    "description":"Link to send a bug report on the Support tab of the options"
   },
   "supportsite":{
     "message":"Fatecele sapere sul nostro <a>sito di supporto tecnico<\/a>!",
@@ -1347,8 +1315,80 @@
     "message":"Puoi tornare indietro e supportare i siti Web che ami selezionando l'opzione \"Consenti alcune pubblicità non intrusive\" sotto.",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
+  "adreport_laststep":{
+    "message":"Ultimo passo: segnalaci il problema.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"Come ti chiami?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"Qual è il tuo indirizzo email?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"Lo useremo per contattarti solo se avremo bisogno di ulteriori informazioni.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"Esattamente dov'é in quella pagina è l'annuncio? Che cosa ti sembra?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Allega uno screenshot:",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"Se hai creato un filtro funzionante utilizzando la procedura guidata \"blocca un annuncio\", incollalo nel box sottostante:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
   "buttonsubmit":{
     "message":"Invia",
     "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"Le informazioni richieste sono incomplete o non valide.  Compila le domande che hanno un bordo rosso.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"Hai dimenticato di allegare uno screenshot! Non possiamo aiutarti senza vedere l'annuncio(i) che stai segnalando.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"Tutti a posto!  Ti contatteremo presto, probabilmente entro un giorno, due se si tratta di un giorno festivo. Nel frattempo, controlla se è arrivata un'email da AdBlock. Ci troverai un link per un posto sul nostro sito di assistenza. Se preferisci seguirci via email, puoi ancora farlo!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"Non è un file immagine. Carica un file .png, .gif o .jpg.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"Questo file è troppo grande. Assicurarti che il file sia più piccolo di 10 MB.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"Errore di salvataggio del file caricato.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"Il nome del file è troppo lungo. Assegna al file un nome più breve.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"Le seguenti informazioni appariranno anche nella segnalazione dell'annuncio.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"C'è stato un errore di elaborazione della tua richiesta.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Vai sul <a>nostro sito di supporto<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"E manualmente crea un biglietto, copiando e incollando le informazioni qui di seguito nella sezione \"Aggiungi qualunque dettaglio che pensi ci aiuterà a capire il tuo problema\".",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }

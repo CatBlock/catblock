@@ -43,10 +43,6 @@
     "message":"若要隐藏按钮，请右键单击Safari的工具栏并选择“自定义工具栏“，然后将AdBlock按钮拖出工具栏。若要再次显示按钮，您可以将它拖放回工具栏。",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
-  "ff_button_how_to_hide":{
-    "message":"要隐藏按钮，请右键单击它并选择“从工具栏移除”。您可以在Firefox菜单->定制中选择重新显示按钮。",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
-  },
   "sliderexplanation":{
     "message":"移动滑块直到页面上的广告被正确地屏蔽。",
     "description":"Blacklister slider page message"
@@ -575,6 +571,10 @@
     "message":"禁用除AdBlock之外的所有扩展:",
     "description":"Instruction on ad report page"
   },
+  "disableforchromestepone":{
+    "message":"打开<a href='#'>扩展程序<\/a>页面。",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
   "clickdisableotherextensions":{
     "message":"<b>或者<\/b>，单击此按钮来完成以上所有步骤： <a>禁用其他所有扩展<\/a>",
     "description":"On the ad report page, an alternative way to disable other extensions"
@@ -789,30 +789,6 @@
     "message":"广告是否仍在浏览器中显示？",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
-  "ff_checkinchrometitle":{
-    "message":"使用Chrome查看",
-    "description":"Tell a user to see if a reported ad also appears in Chrome"
-  },
-  "ff_checkinchrome_1":{
-    "message":"如果您还没有Chrome，请先安装Chrome。",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_2":{
-    "message":"如果您的Chrome没有AdBlock，请为Chrome安装AdBlock扩展。",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_3":{
-    "message":"在Chrome中，订阅与您现在正使用的相同的过滤列表。",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_4":{
-    "message":"在Chrome中打开含有广告的页面。",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_5":{
-    "message":"该广告是否也在Chrome中出现？",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
   "refusetocheck":{
     "message":"我不想检查这个",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -826,10 +802,6 @@
         "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe<\/a>  EXAMPLE 2: <a href='http:\/\/easylist.org'>EasyList forums<\/a>"
       }
     }
-  },
-  "reporttous2":{
-    "message":"您可以到<a>问题追踪页面（仅英文）<\/a>向我们报告广告。",
-    "description":"NOTE: non-English translations should replace the first sentence and instead say 'If you can speak English, you can report the ad to us <a>in the issue tracker<\/a>.'"
   },
   "fixityourself":{
     "message":"好了。您仍然可以在选项中手动屏蔽此广告。 谢谢！",
@@ -927,10 +899,6 @@
     "message":"抱歉, 因为您的一个过滤列表，AdBlock在这个页面被禁用了",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
-  "status_disabled":{
-    "message":"AdBlock无法在这个网域上运行。",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
-  },
   "dont_run_on_pages_on_domain":{
     "message":"不要在这个网域的页面上运行",
     "description":"Menu entry to open the whitelist wizard"
@@ -964,7 +932,7 @@
     "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
   },
   "browserestartrequired":{
-    "message":"禁用此功能需要重新启动您的浏览器。",
+    "message":"请重启Safari以关闭内容屏蔽。",
     "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
   },
   "safarinotificationtitle":{
@@ -1129,6 +1097,10 @@
     "message":"这是什么？",
     "description":"Text of a link pointing to the explanation of a new feature"
   },
+  "how":{
+    "message":"如何操作？",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
   "selectlanguage":{
     "message":"——选择语言——",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
@@ -1178,10 +1150,6 @@
         "example":"<a>here<\/a>"
       }
     }
-  },
-  "ff_adblock_outdated":{
-    "message":"您正在使用旧版本的AdBlock 。请单击Firefox菜单按钮，并选择\"附加组件\"。在附加组件管理器页面，单击右上角的均衡器图标 (用于所有附加组件的工具)，然后选择\"检查更新\"。",
-    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"AdBlock技术支持",
@@ -1234,6 +1202,10 @@
   "debuginfo":{
     "message":"我们的团队向您请求调试信息？点击<a href='#' id='debug'>这里<\/a>获取它们！",
     "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "bugreport":{
+    "message":"为什么不向我们发送一份<a>bug 报告<\/a>呢?",
+    "description":"Link to send a bug report on the Support tab of the options"
   },
   "supportsite":{
     "message":"到我们的<a>技术支持网站<\/a>上告诉我们！",
@@ -1347,8 +1319,88 @@
     "message":"您可以通过勾选下面的“允许一些非侵入式广告”来重新启用它并支持一些您喜爱的网站。",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"因为您开启了Safari内容屏蔽，我们为您取消订阅了可接受广告列表。这两者您只能选择其一。(<a>为什么?<\/a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"因为您选择允许非侵入式的广告，我们为您关闭了Safari内容屏蔽。这两者您只能选择其一。(<a>为什么?<\/a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "adreport_laststep":{
+    "message":"最后一步: 向我们报告问题",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"尊姓大名？",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"您的电子邮件地址?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"我们只会在需要更多的信息时使用此地址与您联系。",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"广告具体在页面的何处? 它看起来什么样?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"上传截图：",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"如果您使用“屏蔽广告”向导创建了一条能屏蔽此广告的过滤规则，请将其粘贴在下面的框中:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
   "buttonsubmit":{
     "message":"提交",
     "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"所需的信息未填写或无效。 请填写有红色边框的问题。",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"您未粘贴截图! 看不到您所报告的广告，我们无法帮助您。",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"完成了! 我们很快就会联系您；一般会在一天内，假期期间则为两天。同时，请注意接收从AdBlock发送的电子邮件。您会找到我们的帮助站点的链接。您也可以通过电子邮件跟进问题的解决进度！",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"这不是一个图像文件。请上传.png、.gif 或.jpg 文件。",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"文件过大。请确保您的文件小于10MB。",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"保存上传的文件时出错。",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"文件名过长。请给您的文件命名一个更短的名称。",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"以下信息也将列入广告报告。",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"处理您的请求时出错。",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"请移步<a>我们的技术支持站点<\/a>。",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"手动创建一个话题，复制并粘贴下面的信息到 \"Fill in any details you think will help us understand your issue\" 部分。",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }

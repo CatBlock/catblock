@@ -43,10 +43,6 @@
     "message":"Để ẩn nút này, nhấp chuột phải vào thanh công cụ và chọn Customize Toolbar, sau đó kéo nút AdBlock ra khỏi thanh công cụ. Bạn có thể hiển thị nó trở lại bằng cách kéo trở lại thanh công cụ.",
     "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
-  "ff_button_how_to_hide":{
-    "message":"Để ẩn nút AdBlock, kích chuột phải và chọn Remove from Toolbar. Bạn có thể hiển thị nó trở lại bằng cách vào Firefox menu -> Tùy biến.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Remove from Toolbar' should match the text that Firefox displays when you right click a toolbar button, and 'Customize' should match the text that shows when you click the button on the Firefox toolbar with three lines."
-  },
   "sliderexplanation":{
     "message":"Trượt thanh trượt cho đến khi chọn đúng quảng cáo cần chặn, và các phần tử bị chặn sẽ trở nên hữu ích.",
     "description":"Blacklister slider page message"
@@ -575,6 +571,10 @@
     "message":"Vô hiệu hóa tất cả các tiện ích khác ngoại trừ AdBlock:",
     "description":"Instruction on ad report page"
   },
+  "disableforchromestepone":{
+    "message":"Mở <a href='#'>trang tiện ích<\/a>.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
   "clickdisableotherextensions":{
     "message":"<b>HOẶC<\/b>, chỉ cần kích vào nút này để chúng tôi làm tất cả những việc trên:<a>Vô hiệu hóa tất cả các tiện ích mở rộng<\/a>",
     "description":"On the ad report page, an alternative way to disable other extensions"
@@ -789,30 +789,6 @@
     "message":"Quảng cáo có xuất hiện ở trình duyệt đó không?",
     "description":"Instruction for how to check Firefox\/Chrome for a reported ad"
   },
-  "ff_checkinchrometitle":{
-    "message":"Kiểm tra trên Chrome",
-    "description":"Tell a user to see if a reported ad also appears in Chrome"
-  },
-  "ff_checkinchrome_1":{
-    "message":"Cài đặt Chrome, nếu bạn chưa có nó.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_2":{
-    "message":"Cài đặt AdBlock cho Chrome, nếu bạn chưa có nó.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_3":{
-    "message":"Trên Chrome, đăng ký danh sách bộ lọc tương tự như ở đây.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_4":{
-    "message":"Trên Chrome, tải trang cùng với quảng cáo.",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
-  "ff_checkinchrome_5":{
-    "message":"Quảng cáo có xuất hiện trên Chrome không?",
-    "description":"Instruction for how to check Chrome for a reported ad"
-  },
   "refusetocheck":{
     "message":"Tôi không muốn kiểm tra cái này",
     "description":"User is telling us they don't wish to investigate something for us"
@@ -826,10 +802,6 @@
         "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe<\/a>  EXAMPLE 2: <a href='http:\/\/easylist.org'>EasyList forums<\/a>"
       }
     }
-  },
-  "reporttous2":{
-    "message":"Bạn có thể báo cáo quảng cáo này tới chúng tôi <a>ở trang báo lỗi<\/a>.",
-    "description":"NOTE: non-English translations should replace the first sentence and instead say 'If you can speak English, you can report the ad to us <a>in the issue tracker<\/a>.'"
   },
   "fixityourself":{
     "message":"Được rồi, bạn vẫn có thể chặn quảng cáo này bằng tay ở trang 'Tùy chọn'. Cảm ơn bạn!",
@@ -927,10 +899,6 @@
     "message":"Xin lỗi, AdBlock đã bị tắt trên trang này bởi một trong số các bộ lọc của bạn.",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
-  "status_disabled":{
-    "message":"AdBlock không thể chạy trên tên miền này.",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
-  },
   "dont_run_on_pages_on_domain":{
     "message":"Không chạy trên trang của những tên miền này",
     "description":"Menu entry to open the whitelist wizard"
@@ -964,7 +932,7 @@
     "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
   },
   "browserestartrequired":{
-    "message":"Vô hiệu hóa tính năng này yêu cầu phải khởi động lại trình duyệt của bạn.",
+    "message":"Vui lòng khởi động lại Safari để hoàn tất việc tắt Chặn Nội Dung.",
     "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
   },
   "safarinotificationtitle":{
@@ -1129,6 +1097,10 @@
     "message":"Đây là gì?",
     "description":"Text of a link pointing to the explanation of a new feature"
   },
+  "how":{
+    "message":"Cách dùng?",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
   "selectlanguage":{
     "message":" -- Chọn ngôn ngữ -- ",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
@@ -1178,10 +1150,6 @@
         "example":"<a>here<\/a>"
       }
     }
-  },
-  "ff_adblock_outdated":{
-    "message":"Bạn đang sử dụng phiên bản cũ của AdBlock. Hãy bấm vào menu và chọn Tiện ích. Trên trang Tiện ích, bấm biểu tượng bánh răng (Công cụ cho tất cả các tiện ích) và chọn 'Kiểm tra Cập nhật'.",
-    "description":"On the Options > Support page, shows when there is an update available for AdBlock. 'Add-ons', 'Tools for all add-ons' and 'Check for Updates' should match the strings displayed by Firefox."
   },
   "adblocksupport":{
     "message":"Trung tâm hỗ trợ",
@@ -1234,6 +1202,10 @@
   "debuginfo":{
     "message":"Nhóm của chúng tôi đã yêu cầu một số thông tin để gỡ lỗi chưa? Bấm <a href='#' id='debug'>vào đây<\/a> để làm điều đó!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "bugreport":{
+    "message":"Sao bạn không gửi một <a>báo cáo lỗi<\/a> cho chúng tôi?",
+    "description":"Link to send a bug report on the Support tab of the options"
   },
   "supportsite":{
     "message":"Hãy cho chúng tôi biết trên <a>trang hỗ trợ<\/a> của chúng tôi!",
@@ -1300,23 +1272,23 @@
     "description":"A resource type"
   },
   "topframe":{
-    "message":"Cấu trúc hàng đầu",
+    "message":"Frame trên cùng",
     "description":"Resource list page: frame type"
   },
   "subframe":{
-    "message":"Cấu trúc phụ",
+    "message":"Frame phụ",
     "description":"Resource list page: frame type"
   },
   "frametype":{
-    "message":"Kiểu cấu trúc: ",
+    "message":"Kiểu frame: ",
     "description":"Resource list page: followed by frame type (e.g. top frame, subframe)"
   },
   "framedomain":{
-    "message":"Tên miền cấu trúc: ",
+    "message":"Tên miền frame: ",
     "description":"Resource list page: domain name of the frame"
   },
   "frameurl":{
-    "message":"URL cấu trúc: ",
+    "message":"URL frame: ",
     "description":"Resource list page: full URL of the frame"
   },
   "legend":{
@@ -1347,8 +1319,88 @@
     "message":"Bạn có thể bật lại và hỗ trợ trang web bạn yêu thích bằng cách chọn \"Cho phép những quảng cáo không gây khó chịu\" dưới đây.",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Chúng tôi đã bỏ đăng ký bạn khỏi Quảng Cáo Chấp Nhận Được bởi vì bạn đã bật Chặn Nội Dung Safari. Bạn chỉ có thể chọn một trong hai cùng một lúc. (<a>Tại sao?<\/a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Chúng tôi đã tắt Chặn Nội Dung Safari bởi vì bạn đã chọn cho phép những quảng cáo không gây khó chịu. Bạn chỉ có thể chọn một trong hai cùng một lúc. (<a>Tại sao?<\/a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "adreport_laststep":{
+    "message":"Bước cuối cùng: báo cáo vấn đề cho chúng tôi.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"Bạn tên gì?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"Địa chỉ email của bạn là gì?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"Chúng tôi sẽ chỉ sử dụng địa chỉ này để liên hệ với bạn nếu cần thêm thông tin.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"Chính xác thì quảng cáo ở đâu trên trang? Nó trông như thế nào?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Đính kèm một ảnh chụp màn hình:",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"Nếu bạn đã tạo một bộ lọc sử dụng thuật sĩ \"chặn một quảng cáo\", dán nó vào hộp dưới đây:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
   "buttonsubmit":{
     "message":"Gửi",
     "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"Thông tin được yêu cầu còn thiếu hoặc không hợp lệ. Hãy điền vào những câu hỏi có khung màu đỏ.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"Bạn quên đính kèm ảnh chụp màn hình rồi! Chúng tôi không thể giúp bạn nếu không thấy (những) quảng cáo mà bạn đang báo cáo.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"Đã xong! Chúng tôi sẽ sớm liên hệ với bạn, rất có thể là ngay trong ngày, hoặc hai ngày nếu là ngày lễ. Trong khi chờ đợi, bạn hãy tìm một email từ AdBlock. Bạn sẽ thấy một liên kết đến thẻ của bạn trên trang giúp đỡ của chúng tôi tại đó. Bạn cũng có thể theo dõi qua email nếu muốn!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"Đó không phải tập tin ảnh. Hãy tải lên tập tin .png, .gif, hoặc .jpg.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"Tập tin quá lớn. Hãy đảm bảo rằng tập tin của bạn nhỏ hơn 10 MB.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"Lỗi lưu tập tin đã tải lên.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"Tên tập tin quá dài. Hãy đặt tên tập tin ngắn hơn.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"Thông tin sau sẽ được kèm theo trong báo cáo quảng cáo.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"Đã có lỗi khi xử lý yêu cầu của bạn.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Hãy vào <a>trang web hỗ trợ của chúng tôi<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"Và tự tạo một thẻ, sau đó chép và dán thông tin dưới đây vào phần \"Điền mọi thông tin chi tiết bạn nghĩ sẽ giúp chúng tôi hiểu được vấn đề của bạn\".",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }
