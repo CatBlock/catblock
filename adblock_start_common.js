@@ -143,6 +143,9 @@ function handleABPLinkClicks() {
     // Subscribe to the list when you click an abp: link
     var elems = document.querySelectorAll('[href^="abp:"], [href^="ABP:"]');
     var abplinkhandler = function(event) {
+        if (event.isTrusted === false) {
+            return;
+        }
         event.preventDefault();
         var searchquery = this.href.replace(/^.+?\?/, '?');
         if (searchquery) {
