@@ -56,8 +56,6 @@ STATS = (function() {
             delay_hours = 1;
         else if (total_pings < 9)  // Then every day for a week
             delay_hours = 24;
-        else                       // Then weekly forever
-            delay_hours = 24 * 7;
 
         var millis = 1000 * 60 * 60 * delay_hours;
         storage_set("next_ping_time", Date.now() + millis);
