@@ -1015,7 +1015,8 @@ get_content_script_data = function(options, sender) {
     var hiding = running && !page_is_whitelisted(sender.url, ElementTypes.elemhide);
 
     // Don't run in frame, when top frame is whitelisted
-    if (!running_top && running) {
+    // TODO: Edge doesn't contain sender.tab.url property
+    if (!running_top && running && !EDGE) {
         running = false;
         hiding = false;
     }
