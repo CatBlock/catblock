@@ -57,7 +57,12 @@ translate = function(messageID, args) {
 localizePage = function() {
     //translate a page into the users language
     $("[i18n]:not(.i18n-replaced)").each(function() {
-        $(this).html(translate($(this).attr("i18n")));
+        try {
+            $(this).html(translate($(this).attr("i18n")));
+        } catch(e) {
+            console.log(e);
+        }
+        
     });
     $("[i18n_value]:not(.i18n-replaced)").each(function() {
         $(this).val(translate($(this).attr("i18n_value")));
