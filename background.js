@@ -1234,8 +1234,10 @@ if (get_settings().debug_logging)
 _myfilters = new MyFilters();
 _myfilters.init();
 
-// Check for a newer update
-STATS.checkLatestVersion();
+// Check for a newer update on Edge
+if (EDGE) {
+    STATUS.checkLatestVersion();
+}
 
 createMalwareNotification = function() {
     if (!SAFARI &&

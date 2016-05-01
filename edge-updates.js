@@ -1,5 +1,5 @@
 // Check, whether an update is available or not
-STATS = (function() {
+STATUS = (function() {
     var url = "http://catblock.tk/edge.json";
 
     var handleResponse = function(responseData) {
