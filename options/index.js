@@ -3,6 +3,7 @@ function tabLoad() {
     $("nav > a, nav > div > a").click(function(event) {
         $("nav > a, nav > div > a").removeClass(); // remove "active" class
         $(this).addClass("active");
+        $('.options').hide();
         var target = event.target;
         var scripts = target.dataset.scripts;
         var page = target.dataset.page;
@@ -10,8 +11,9 @@ function tabLoad() {
         // Add a class which is different to the content of the tab
         $("#content").removeClass();
         $("#content").addClass(pageName);
+        $("#" + pageName).show();
         // Load requested tab and localize it
-        $("#content").load(page, afterTabLoad);
+        //$("#content").load(page, afterTabLoad);
         scripts.split(" ").forEach(function(scriptToLoad) {
             // CSP blocks eval, which $().append(scriptTag) uses
             var s = document.createElement("script");
@@ -23,8 +25,12 @@ function tabLoad() {
     // Show general tab
     if ($("#toggletabs").is(":visible")) {
         $("nav > div > a:first-child").click();
+        $('.options').hide();
+        $('#general').show();
     } else {
         $("nav > a:first-child").click();
+        $('.options').hide();
+        $('#general').show();
     }
 
     // Display responsive tab options
