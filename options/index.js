@@ -3,7 +3,12 @@ function tabLoad() {
     $("nav > a, nav > div > a").click(function(event) {
         $("nav > a, nav > div > a").removeClass(); // remove "active" class
         $(this).addClass("active");
+        // Hide current tab
         $('.options').hide();
+        // Remove dynamically created filter lists entries
+        $('#ad_blocking_list').children().remove();
+        $('#other_filter_lists').children().remove();
+        $('#language_list').children().remove();
         var target = event.target;
         var scripts = target.dataset.scripts;
         var page = target.dataset.page;
@@ -11,9 +16,9 @@ function tabLoad() {
         // Add a class which is different to the content of the tab
         $("#content").removeClass();
         $("#content").addClass(pageName);
+        // Show a tab we want to display
         $("#" + pageName).show();
-        // Load requested tab and localize it
-        //$("#content").load(page, afterTabLoad);
+        // Load requested tab's scripts and localize tab
         scripts.split(" ").forEach(function(scriptToLoad) {
             // CSP blocks eval, which $().append(scriptTag) uses
             var s = document.createElement("script");
