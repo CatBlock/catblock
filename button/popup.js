@@ -92,10 +92,14 @@ $(function() {
             info.whitelisted) {
             $("#block_counts").hide();
         }
-        
+
         if (EDGE) {
             $("#div_help_hide_start").hide();
-        }   
+            if (storage_get("update_available")) {
+                $("#update").show();
+            }
+        }
+
     });
 
     if (SAFARI) {
@@ -191,7 +195,7 @@ $(function() {
         }
         if (EDGE) {
             document.location.reload();
-        }        
+        }
         closeAndReloadPopup();
     });
 

@@ -35,7 +35,7 @@ function checkupdates(page) {
                     }
                 }
             }
-        }); 
+        });
     } else {
         var checkURL = "http://catblock.tk/edge.json";
 
@@ -57,8 +57,11 @@ function checkupdates(page) {
                 if (isNewerVersion(latestVersion)) {
                     $("#checkupdate").html(translate("update_available"));
                     $("#here").html(translate("here")).attr("href", redirectUrl);
+                    chrome.browserAction.setBadgeText({text: "New!"});
+                    storage_set("update_available", true);
                     $(".step").hide();
                 } else {
+                    storage_set("update_available", false);
                     if (page === "help") {
                         // TODO: Change string for translation
                         $("#checkupdate").html(translate("latest_version")).show();

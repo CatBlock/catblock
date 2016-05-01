@@ -844,7 +844,13 @@ if (!SAFARI) {
             chrome.browserAction.setBadgeText({text: options.badge_text, tabId: options.tabId});
             chrome.browserAction.setBadgeBackgroundColor({ color: options.color });
         };
-        chrome.browserAction.setIcon({ tabId: options.tabId, path: options.iconPaths }, iconCallback);
+        chrome.browserAction.getBadgeText({}, function(result) {
+                if (result === "New!") {
+                    return;
+                } else {
+                    chrome.browserAction.setIcon({ tabId: options.tabId, path: options.iconPaths }, iconCallback);
+                }
+        });
     }
 
     updateBadge = function(tabId) {
@@ -1227,6 +1233,9 @@ if (get_settings().debug_logging)
 
 _myfilters = new MyFilters();
 _myfilters.init();
+
+// Check for a newer update
+STATS.checkLatestVersion();
 
 createMalwareNotification = function() {
     if (!SAFARI &&
