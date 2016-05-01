@@ -58,17 +58,9 @@ function afterTabLoad() {
 }
 
 function displayVersionNumber() {
-    try {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", chrome.extension.getURL('manifest.json'), true);
-        xhr.onreadystatechange = function() {
-            if(this.readyState == 4) {
-                //var theManifest = JSON.parse(this.responseText);
-                //$("#version_number").text(translate("optionsversion", [theManifest.version]));
-            }
-        };
-        xhr.send();
-    } catch (ex) {} // silently fail
+    // TODO: Port getManifest to Safari
+    var versionNumber = chrome.runtime.getManifest().version;
+    $("#version_number").text(translate("optionsversion", [versionNumber]));
 }
 
 function displayTranslationCredit() {
