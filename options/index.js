@@ -52,8 +52,8 @@ function displayVersionNumber() {
         xhr.open("GET", chrome.extension.getURL('manifest.json'), true);
         xhr.onreadystatechange = function() {
             if(this.readyState == 4) {
-                var theManifest = JSON.parse(this.responseText);
-                $("#version_number").text(translate("optionsversion", [theManifest.version]));
+                //var theManifest = JSON.parse(this.responseText);
+                //$("#version_number").text(translate("optionsversion", [theManifest.version]));
             }
         };
         xhr.send();
