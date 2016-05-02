@@ -1,4 +1,4 @@
-SET SourcePath="%CD%\CatBlock"
+SET SourcePath="%CD%\catblock"
 
 ECHO Attempting to set access permissions on directory . . .
 ECHO.
