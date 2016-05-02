@@ -61,6 +61,7 @@ function checkupdates(page) {
                     storage_set("update_available", true);
                     $(".step").hide();
                 } else {
+                    chrome.browserAction.setBadgeText({text: ""});
                     storage_set("update_available", false);
                     if (page === "help") {
                         // TODO: Change string for translation
