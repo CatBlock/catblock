@@ -1,23 +1,32 @@
 function tabLoad() {
     // Load different tabs
     $("nav > a, nav > div > a").click(function(event) {
-        $("nav > a, nav > div > a").removeClass(); // remove "active" class
+
+        // Highlight the tab, which is about to pop up
+        $("nav > a, nav > div > a").removeClass();
         $(this).addClass("active");
-        // Hide current tab
-        $('.options').hide();
+
+        // Hide the current tab
+        $(".options").hide();
+
         // Remove dynamically created filter lists entries
-        $('#ad_blocking_list').children().remove();
-        $('#other_filter_lists').children().remove();
-        $('#language_list').children().remove();
+        $("#ad_blocking_list").children().remove();
+        $("#other_filter_lists").children().remove();
+        $("#language_list").children().remove();
+
+        // Get data, what tab and scripts should we load
         var target = event.target;
         var scripts = target.dataset.scripts;
         var page = target.dataset.page;
         var pageName = page.split(".")[0] === "" ? "catblock" : page.split(".")[0];
+
         // Add a class which is different to the content of the tab
         $("#content").removeClass();
         $("#content").addClass(pageName);
-        // Show a tab we want to display
+
+        // Finally, show the chosen tab
         $("#" + pageName).show();
+
         // Load requested tab's scripts and localize tab
         scripts.split(" ").forEach(function(scriptToLoad) {
             // CSP blocks eval, which $().append(scriptTag) uses
@@ -27,15 +36,15 @@ function tabLoad() {
         });
     });
 
-    // Show general tab
+    // Show general tab by default
     if ($("#toggletabs").is(":visible")) {
         $("nav > div > a:first-child").click();
-        $('.options').hide();
-        $('#general').show();
+        $(".options").hide();
+        $("#general").show();
     } else {
         $("nav > a:first-child").click();
-        $('.options').hide();
-        $('#general').show();
+        $(".options").hide();
+        $("#general").show();
     }
 
     // Display responsive tab options

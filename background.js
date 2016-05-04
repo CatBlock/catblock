@@ -844,6 +844,10 @@ if (!SAFARI) {
             chrome.browserAction.setBadgeText({text: options.badge_text, tabId: options.tabId});
             chrome.browserAction.setBadgeBackgroundColor({ color: options.color });
         };
+        // First, we need to get a badge text to check,
+        // whether a new update has been found for Edge
+        // If an udpate has been found, we display a "New!" badge text
+        // on the popup menu and don't show the number of blocked ads
         chrome.browserAction.getBadgeText({}, function(result) {
                 if (result === "New!") {
                     return;

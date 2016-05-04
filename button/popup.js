@@ -93,6 +93,8 @@ $(function() {
             $("#block_counts").hide();
         }
 
+        // If there's an update on Edge,
+        // show a notification about the udpate
         if (EDGE) {
             $("#div_help_hide_start").hide();
             if (storage_get("update_available")) {

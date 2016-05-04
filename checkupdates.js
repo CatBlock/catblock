@@ -1,12 +1,11 @@
 // Check for updates
 function checkupdates(page) {
-    // TODO: Add Safari adapter
     var AdBlockVersion = chrome.runtime.getManifest().version;
 
     if (!EDGE) {
         var checkURL = "https://github.com/CatBlock/catblock/releases";
 
-        //fetch the version check file
+        // Fetch the version check file
         $.ajax({
             cache: false,
             dataType: "html",
@@ -39,7 +38,7 @@ function checkupdates(page) {
     } else {
         var checkURL = "http://catblock.tk/edge.json";
 
-        //fetch the version check file
+        // Fetch the version check file
         $.ajax({
             cache: false,
             dataType: "json",
