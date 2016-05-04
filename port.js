@@ -103,30 +103,39 @@ if (typeof SAFARI == "undefined") {
 
                     getURL: function(path) {
                         return safari.extension.baseURI + path;
+                    }
+                },
+
+                runtime: {
+                    getManifest: function() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", chrome.extension.getURL("manifest.json"), false);
+                        xhr.send();
+                        var object = JSON.parse(xhr.responseText);
+                        return object;
                     },
 
-                    sendRequest: (function() {
-                        // Where to call .dispatchMessage() when sendRequest is called.
+                    sendMessage: (function() {
+                        // Where to call .dispatchMessage() when sendMessage is called.
                         var dispatchTargets = [];
                         if (!isOnGlobalPage) {
                             // In a non-global context, the dispatch target is just the local
                             // object that lets you call .dispatchMessage().
                             dispatchTargets.push(dispatchContext());
-                        }
-                        else {
+                        } else {
                             // In the global context, we must call .dispatchMessage() wherever
-                            // someone has called .onRequest().  There's no good way to get at
-                            // them directly, though, so .onRequest calls *us*, so we get access
+                            // someone has called .onMessage().  There's no good way to get at
+                            // them directly, though, so .onMessage calls *us*, so we get access
                             // to a messageEvent object that points to their page that we can
                             // call .dispatchMessage() upon.
-                            listenFor("onRequest registration", function(messageEvent) {
+                            listenFor("onMessage registration", function(messageEvent) {
                                 var context = dispatchContext(messageEvent);
                                 if (dispatchTargets.indexOf(context) == -1)
                                     dispatchTargets.push(context);
                             });
                         }
 
-                        // Dispatches a request to a list of recipients.  Calls the callback
+                        // Dispatches a message to a list of recipients.  Calls the callback
                         // only once, using the first response received from any recipient.
                         function theFunction(data, callback) {
                             var callbackToken = "callback" + Math.random();
@@ -138,7 +147,7 @@ if (typeof SAFARI == "undefined") {
                                     frameInfo: chrome._tabInfo.gatherFrameInfo(),
                                     callbackToken: callbackToken
                                 };
-                                target.dispatchMessage("request", message);
+                                target.dispatchMessage("message", message);
                             });
 
                             // Listen for a response.  When we get it, call the callback and stop
@@ -157,18 +166,18 @@ if (typeof SAFARI == "undefined") {
                         return theFunction;
                     })(),
 
-                    onRequest: {
+                    onMessage: {
                         addListener: function(handler) {
-                            // If listening for requests from the global page, we must call the
+                            // If listening for messages from the global page, we must call the
                             // global page so it can get a messageEvent through which to send
-                            // requests to us.
+                            // messages to us.
                             if (!isOnGlobalPage)
-                                dispatchContext().dispatchMessage("onRequest registration", {});
+                                dispatchContext().dispatchMessage("onMessage registration", {});
 
-                            listenFor("request", function(messageEvent) {
-                                var request = messageEvent.message.data;
+                            listenFor("message", function(messageEvent) {
+                                var message = messageEvent.message.data;
 
-                                var sender = {}; // Empty in onRequest in non-global contexts.
+                                var sender = {}; // Empty in onMessage in non-global contexts.
                                 if (isOnGlobalPage) { // But filled with sender data otherwise.
                                     var tab = messageEvent.target;
                                     var frameInfo = messageEvent.message.frameInfo;
@@ -182,29 +191,13 @@ if (typeof SAFARI == "undefined") {
                                     var responseMessage = { callbackToken: messageEvent.message.callbackToken, data: dataToSend };
                                     dispatchContext(messageEvent).dispatchMessage("response", responseMessage);
                                 };
-                                handler(request, sender, sendResponse);
+                                handler(message, sender, sendResponse);
                             });
                         }
-                    },
-
-                    onRequestExternal: {
-                        addListener: function() {
-                            // CHROME PORT LIBRARY: onRequestExternal not supported.
-                        }
                     }
                 },
 
-                runtime: {
-                    getManifest: function() {
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("GET", chrome.extension.getURL("manifest.json"), false);
-                        xhr.send();
-                        var object = JSON.parse(xhr.responseText);
-                        return object;
-                    }
-                },
-
-                // Helper object to ensure that tabs sending requests to the global page
+                // Helper object to ensure that tabs sending messages to the global page
                 // get some extra attributes for the global page to use:
                 //   id: an ID assigned by us so we can refer to the tab by ID elsewhere.
                 //   visible_url: the URL of the top-level frame in the tab, if any.
@@ -217,7 +210,7 @@ if (typeof SAFARI == "undefined") {
                 _tabInfo: {
                     // Returns an object that can be passed to chrome._tabInfo.notice().
                     //
-                    // Called by a frame sending a request to the global page.
+                    // Called by a frame sending a message to the global page.
                     gatherFrameInfo: function() {
                         return {
                             visible: !document.hidden,
@@ -259,7 +252,7 @@ if (typeof SAFARI == "undefined") {
                     // Return an {id, url} object for the given tab's top level frame if
                     // visible is true, or the given tab's preloaded page's top level frame,
                     // if visible is false.  Assumes this.notice() has been called for every
-                    // request from a frame to the global page.
+                    // message from a frame to the global page.
                     //
                     // Called by the global page.
                     info: function(tab, visible) {
