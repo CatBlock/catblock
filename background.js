@@ -888,7 +888,7 @@ if (!SAFARI) {
             if (!get_settings().show_context_menu_items)
                 return;
 
-            if (adblock_is_paused() || info.whitelisted || info.disabled_site)
+            if (info.whitelisted || info.disabled_site)
                 return;
 
             function addMenu(title, callback) {
@@ -896,6 +896,19 @@ if (!SAFARI) {
                     title: title,
                     contexts: ["all"],
                     onclick: function(clickdata, tab) { callback(tab, clickdata); }
+                });
+            }
+
+            if (adblock_is_paused()) {
+                addMenu(translate("unpause_adblock"), function() {
+                    adblock_is_paused(false);
+                    handlerBehaviorChanged();
+                    updateButtonUIAndContextMenus();
+                });
+            } else {
+                addMenu(translate("pause_adblock"), function() {
+                    adblock_is_paused(true);
+                    updateButtonUIAndContextMenus();
                 });
             }
 
@@ -911,6 +924,10 @@ if (!SAFARI) {
                     {fn:'top_open_blacklist_ui', options:{nothing_clicked: true}},
                     {tab: tab}
                 );
+            });
+
+            addMenu(translate("options"), function() {
+                openTab("options/index.html");
             });
 
             var host                = getUnicodeDomain(parseUri(info.tab.unicodeUrl).host);
