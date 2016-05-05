@@ -356,7 +356,7 @@ if (!SAFARI) {
             // the frame, ignore the anchor when matching.
             var frameUrl = frameData.get(tabId, requestingFrameId).url.replace(/#.*$/, "");
             var data = { command: "purge-elements", tabId: tabId, frameUrl: frameUrl, url: details.url, elType: elType };
-            chrome.tabs.sendRequest(tabId, data);
+            chrome.tabs.sendMessage(tabId, data);
         }
         if (blocked) {
             blockCounts.recordOneAdBlocked(tabId);

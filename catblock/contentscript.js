@@ -254,7 +254,7 @@ var picinjection = {
 
         if (newPic.infoCard)
             return;
-        // We use a direct sendRequest onmouseenter to avoid modifying
+        // We use a direct sendMessage onmouseenter to avoid modifying
         // emit_page_broadcast.  Create card the first time we mouseover.
         // Then we can use jQuery's mouseenter and mouseleave to control when the
         // card comes and goes.
