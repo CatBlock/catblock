@@ -99,20 +99,20 @@ if (typeof SAFARI == "undefined") {
                 extension: {
                     getBackgroundPage: function() {
                         return safari.extension.globalPage.contentWindow;
-                    },
-
-                    getURL: function(path) {
-                        return safari.extension.baseURI + path;
                     }
                 },
 
                 runtime: {
                     getManifest: function() {
                         var xhr = new XMLHttpRequest();
-                        xhr.open("GET", chrome.extension.getURL("manifest.json"), false);
+                        xhr.open("GET", chrome.runtime.getURL("manifest.json"), false);
                         xhr.send();
                         var object = JSON.parse(xhr.responseText);
                         return object;
+                    },
+
+                    getURL: function(path) {
+                        return safari.extension.baseURI + path;
                     },
 
                     sendMessage: (function() {
@@ -267,7 +267,7 @@ if (typeof SAFARI == "undefined") {
 
                     function syncFetch(file, fn) {
                         var xhr = new XMLHttpRequest();
-                        xhr.open("GET", chrome.extension.getURL(file), false);
+                        xhr.open("GET", chrome.runtime.getURL(file), false);
                         xhr.onreadystatechange = function() {
                             if(this.readyState == 4 && this.responseText != "") {
                                 fn(this.responseText);

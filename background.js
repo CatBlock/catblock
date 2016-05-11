@@ -2,7 +2,7 @@
 // to trace down any frequent errors we can't confirm ourselves.
 window.addEventListener("error", function(e) {
     var str = "Error: " +
-        (e.filename||"anywhere").replace(chrome.extension.getURL(""), "") +
+        (e.filename||"anywhere").replace(chrome.runtime.getURL(""), "") +
         ":" + (e.lineno||"anywhere") +
         ":" + (e.colno||"anycol");
     if (e.error) {
@@ -171,7 +171,7 @@ function openTab(url, nearActive, safariWindow) {
             tab = safari.application.openBrowserWindow().tabs[0];
         }
         var relative = (!/:\/\//.test(url)); // fix relative URLs
-        tab.url = (relative ? chrome.extension.getURL(url) : url);
+        tab.url = (relative ? chrome.runtime.getURL(url) : url);
     }
 };
 
@@ -1001,7 +1001,7 @@ add_custom_filter = function(filter) {
 readfile = function(file) {
     // A bug in jquery prevents local files from being read, so use XHR.
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", chrome.extension.getURL(file), false);
+    xhr.open("GET", chrome.runtime.getURL(file), false);
     xhr.send();
     return xhr.responseText;
 };
@@ -1135,7 +1135,7 @@ if (!SAFARI) {
 
 // Open subscribe popup when new filter list was subscribed from site
 launch_subscribe_popup = function(loc) {
-    window.open(chrome.extension.getURL('pages/subscribe.html?' + loc),
+    window.open(chrome.runtime.getURL('pages/subscribe.html?' + loc),
                 "_blank",
                 'scrollbars=0,location=0,resizable=0,width=460,height=150');
 }
@@ -1281,14 +1281,14 @@ createMalwareNotification = function() {
             }
             var notificationOptions = {
                 title: "AdBlock",
-                iconUrl: chrome.extension.getURL('img/icon48.png'),
+                iconUrl: chrome.runtime.getURL('img/icon48.png'),
                 type: 'basic',
                 priority: 2,
                 message: translate('malwarenotificationmessage'),
                 buttons: [{title:translate('malwarenotificationlearnmore'),
-                           iconUrl:chrome.extension.getURL('img/icon24.png')},
+                           iconUrl:chrome.runtime.getURL('img/icon24.png')},
                           {title:translate('malwarenotificationdisablethesemessages'),
-                           iconUrl:chrome.extension.getURL('img/icon24.png')}]
+                           iconUrl:chrome.runtime.getURL('img/icon24.png')}]
             }
             //OPERA currently doesn't support buttons on notifications, so remove them from the options.
             if (OPERA) {

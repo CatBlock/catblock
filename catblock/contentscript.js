@@ -313,7 +313,7 @@ var picinjection = {
                         // independent.co.uk borders all imgs
                         border: "none",
                     },
-                    src: chrome.extension.getURL(folder + "icon19.png")
+                    src: chrome.runtime.getURL(folder + "icon19.png")
                 })).
                 append("<br>");
 
