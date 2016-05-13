@@ -4,8 +4,6 @@
 Prepare a Firefox and Edge release versions of CatBlock
 This script is compatible with Python v2.7.x
 
-Usage: ./ff_release.py -b edge or ./ff_release.py -b firefox
-
 Author: Tomas Taro
 License: GNU GPLv3
 """
@@ -16,7 +14,7 @@ import shutil # Provides folders functions
 import argparse # Provides functions for parsing arguments
 
 # Parse passed arguments
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="This script generates Firefox and Edge versions of CatBlock")
 parser.add_argument("-b", "--browser", help="Browser name", required=True)
 args = parser.parse_args()
 
@@ -76,3 +74,6 @@ elif args.browser == "edge":
     shutil.move(os.getcwd() + "/catblock_edge/catblock/tools/Setup.cmd", os.getcwd() + "/catblock_edge/")
 
     print "CatBlock for Edge has been built!"
+
+else:
+    print "Only Edge and Firefox browsers are supported (-b edge OR -b firefox)"
