@@ -571,6 +571,10 @@
     "message":"Desactiveu totes les extensions excepte l'AdBlock:",
     "description":"Instruction on ad report page"
   },
+  "disableforchromestepone":{
+    "message":"Obriu la <a href='#'>pàgina de les extensions<\/a>.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
   "clickdisableotherextensions":{
     "message":"<b>O BÉ<\/b>, només cliqueu aquest botó per fer tot el que figura anteriorment: <a>Desactivar totes les altres extensions<\/a>",
     "description":"On the ad report page, an alternative way to disable other extensions"
@@ -927,6 +931,10 @@
     "message":"El nombre de normes de filtres de llista sobrepassa el límit de 50.000, i ha estat reduïda automàticament. Deixeu algunes subscripcions a llistes de filtres o desactiveu el bloqueig de continguts de Safari!",
     "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
   },
+  "browserestartrequired":{
+    "message":"Reinicieu Safari per acabar de desactivar el bloqueig de contingut.",
+    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
+  },
   "safarinotificationtitle":{
     "message":"Límit de normes de bloqueig sobrepassat",
     "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
@@ -1089,6 +1097,10 @@
     "message":"Què és això?",
     "description":"Text of a link pointing to the explanation of a new feature"
   },
+  "how":{
+    "message":"Com?",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
   "selectlanguage":{
     "message":" - Seleccionar idioma - ",
     "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
@@ -1190,6 +1202,10 @@
   "debuginfo":{
     "message":"El nostre equip ha solicitat informació de depuració? Cliqueu <a href='#' id='debug'>aquí<\/a> per satisfer la sol·licitud!",
     "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "bugreport":{
+    "message":"Per què no ens envieu un <a>informe d'error<\/a>?",
+    "description":"Link to send a bug report on the Support tab of the options"
   },
   "supportsite":{
     "message":"Feu-nos-ho saber en el nostre <a>lloc web de suport<\/a>!",
@@ -1303,8 +1319,88 @@
     "message":"Podeu reactivar-ho i donar suport a les vostres pàgines web preferides seleccionant \"Permetre publicitat no intrusiva\".",
     "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Hem cancel·lat la seva subscripció dels anuncis acceptables, ja que heu activat el bloqueig de contingut de Safari. Només en podeu seleccionar un a la vegada. (<a> Per què? <\/a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Hem desactivat el bloqueig de contingut al Safari, perquè heu optat per permetre els anuncis no intrusius. Només en podeu seleccionar un a la vegada. (<a>Per què?<\/a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "adreport_laststep":{
+    "message":"Darrer pas: informeu-nos del problema.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "adreport_name":{
+    "message":"Com et dius?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "adreport_email":{
+    "message":"Quina és la teva adreça de correu?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "adreport_email_privacy":{
+    "message":"Només la farem servir per contactar-te si necessitem més informació.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "adreport_location":{
+    "message":"Exactament, on es troba l'anunci? Quin aspecte té?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Adjunta una captura de pantalla:",
+    "description":"Label next to a file upload button."
+  },
+  "adreport_filter":{
+    "message":"Si has creat un filtre de treball mitjançant l'assistent \"bloqueja un anunci\", enganxeu-lo al següent quadre:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
   "buttonsubmit":{
     "message":"Enviar",
     "description":"Button to send a form."
+  },
+  "adreport_missing_info":{
+    "message":"Falta informació requerida o aquesta no es vàlida. Si us plau, respongui  les preguntes que tenen la vora vermella.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "adreport_missing_screenshot":{
+    "message":"Heu oblidat d'adjuntar una captura de pantalla! Nosaltres no us podrem ajudar sense veure l'anunci què informeu.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adreport_response_success":{
+    "message":"Tot a punt! Estarem en contacte aviat, molt probablement en un dia, dos si és festa. Mentrestant, cerqueu un correu electrònic de l'AdBlock. Trobareu un enllaç al vostre tiquet a la nostra pàgina de suport. Si preferiu seguir el correu electrònic, també ho podeu fer!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "adreport_response_invalid_file":{
+    "message":"Això no és un arxiu d'imatge. Si us plau carregueu un arxiu .png, .gif, o .jpg.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "adreport_response_large_file":{
+    "message":"Aquest fitxer és massa gran. Assegureu-vos que el fitxer és de menys de 10 MB.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "adreport_response_save_error":{
+    "message":"Error en desar l'arxiu carregat.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adreport_response_file_name":{
+    "message":"Aquest nom de fitxer és massa llarg. Si us plau, canvieu-lo a un de més curt.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "adreport_all_debug_info":{
+    "message":"També s'inclourà la següent informació a l'informe.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"S'ha produït un error en processar la vostra sol·licitud.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Si us plau dirigiu-vos a <a>la nostra web de suport<\/a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"I creeu un tiquet de forma manual. Copieu i enganxeu la següent informació a la secció \"Completeu qualsevol detall que penseu que ens ajudarà a comprendre el seu problema\".",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
   }
 }
