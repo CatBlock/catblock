@@ -62,7 +62,7 @@ localizePage = function() {
         } catch(e) {
             console.log(e);
         }
-        
+
     });
     $("[i18n_value]:not(.i18n-replaced)").each(function() {
         $(this).val(translate($(this).attr("i18n_value")));
@@ -203,7 +203,7 @@ storage_set = function(key, value) {
         // Safari throws this error for all writes in Private Browsing mode.
         // TODO: deal with the Safari case more gracefully.
         if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
-            alert(translate("storage_quota_exceeded"));
+            alert(translate("catblock_storage_quota_exceeded"));
             openTab("options/index.html#ui-tabs-2");
         }
     }
@@ -241,7 +241,7 @@ sessionstorage_set = function(key, value) {
         sessionStorage.setItem(key, JSON.stringify(value));
     } catch (ex) {
         if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
-            alert(translate("storage_quota_exceeded"));
+            alert(translate("catblock_storage_quota_exceeded"));
             openTab("options/index.html#ui-tabs-2");
         }
     }

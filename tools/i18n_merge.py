@@ -51,9 +51,9 @@ zip.extractall(os.getcwd() + "/catblock/_locales")
 print(" - Removing .zip file")
 os.remove(os.getcwd() + "/translations.zip")
 
-
 # Merging languages
 print("Merging language messages:")
+
 ab_locales = os.listdir(r"_locales") # Load a list of all locales in the AdBlock locales folder
 
 for locale in ab_locales: # "locale" below is the locale selected for this loop

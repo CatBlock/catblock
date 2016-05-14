@@ -23,14 +23,14 @@ function checkupdates(page) {
                 var version = document.querySelector(".release-timeline > .label-latest > " +
                                                      ".release-meta > .tag-references >li > .css-truncate > .css-truncate-target").textContent;
                 if (isNewerVersion(version)) {
-                    $("#checkupdate").html(translate("update_available"));
+                    $("#checkupdate").html(translate("catblock_update_available"));
                     var updateURL = $("key:contains(URL) + string", response).text();
                     $("#here").html(translate("here")).attr("href", updateURL);
                     $(".step").hide();
                 } else {
                     if (page === "help") {
                         // TODO: Change string for translation
-                        $("#checkupdate").html(translate("latest_version")).show();
+                        $("#checkupdate").html(translate("catblock_latest_version")).show();
                     }
                 }
             }
@@ -54,7 +54,7 @@ function checkupdates(page) {
                 var latestVersion = response.version;
                 var redirectUrl = response.redirect_url;
                 if (isNewerVersion(latestVersion)) {
-                    $("#checkupdate").html(translate("update_available"));
+                    $("#checkupdate").html(translate("catblock_update_available"));
                     $("#here").html(translate("here")).attr("href", redirectUrl);
                     chrome.browserAction.setBadgeText({text: "New!"});
                     storage_set("update_available", true);
@@ -64,7 +64,7 @@ function checkupdates(page) {
                     storage_set("update_available", false);
                     if (page === "help") {
                         // TODO: Change string for translation
-                        $("#checkupdate").html(translate("latest_version")).show();
+                        $("#checkupdate").html(translate("catblock_latest_version")).show();
                     }
                 }
             }

@@ -147,7 +147,7 @@ $(function() {
             }
         } else {
             $("#div_status_whitelisted").
-            replaceWith(translate("disabled_by_filter_lists"));
+            replaceWith(translate("catblock_disabled_by_filter_lists"));
         }
         if (EDGE) {
             document.location.reload();

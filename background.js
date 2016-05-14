@@ -900,13 +900,13 @@ if (!SAFARI) {
             }
 
             if (adblock_is_paused()) {
-                addMenu(translate("unpause_adblock"), function() {
+                addMenu(translate("catblock_unpause_adblock"), function() {
                     adblock_is_paused(false);
                     handlerBehaviorChanged();
                     updateButtonUIAndContextMenus();
                 });
             } else {
-                addMenu(translate("pause_adblock"), function() {
+                addMenu(translate("catblock_pause_adblock"), function() {
                     adblock_is_paused(true);
                     updateButtonUIAndContextMenus();
                 });

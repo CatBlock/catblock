@@ -425,7 +425,7 @@ SubscriptionUtil.validateOverSubscription = function() {
         else
             $.cookie('noOversubscriptionWarning', 'true', {expires: (1/48)});
     }
-    return confirm(translate("you_know_thats_a_bad_idea_right"));
+    return confirm(translate("catblock_you_know_thats_a_bad_idea_right"));
 };
 // Subscribe to the filter list with the given |id|.
 // Input:
