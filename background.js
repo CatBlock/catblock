@@ -1280,7 +1280,7 @@ createMalwareNotification = function() {
                 sessionStorage.setItem("malwareNotification" + tab.id, true);
             }
             var notificationOptions = {
-                title: "AdBlock",
+                title: "CatBlock",
                 iconUrl: chrome.runtime.getURL('img/icon48.png'),
                 type: 'basic',
                 priority: 2,
@@ -1447,7 +1447,7 @@ getDebugInfo = function() {
     }
 
     // Push AdBlock version and build to |the_debug_info| object
-    the_debug_info.other_info.push("AdBlock version number: " + AdBlockVersion + " " + AdBlockBuild());
+    the_debug_info.other_info.push("CatBlock version number: " + AdBlockVersion + " " + AdBlockBuild());
 
     // Get & process last known error
     var adblock_error = storage_get("error");
