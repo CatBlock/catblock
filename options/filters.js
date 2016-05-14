@@ -561,11 +561,11 @@ function addMalwareNotificationDiv() {
             attr("id", "malware-notification-message-div");
             var newInput = $('<input />').
             attr("type", "checkbox").
-            attr("id", "catblock_malware-notification-message").
+            attr("id", "malware-notification-message").
             css("margin-left", "25px").
             prop("checked", notify ? true : null);
             var newLabel = $("<label>").
-            text(translate("malwarenotificationcheckboxmessage")).
+            text(translate("catblock_malwarenotificationcheckboxmessage")).
             attr("for", "malware-notification-message");
             var betaLabel = $("<label>").
             text(translate("betalabel")).
