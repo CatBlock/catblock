@@ -18,7 +18,7 @@ import zipfile # Provides functions related to zip files
 
 os.chdir("..") # Move CWD to root of repo
 
-API_KEY = open(os.getcwd() + "/.crowdin_key").read() # Read the API key from file
+API_KEY = open(os.getenv("HOME") + "/.crowdin_key").read() # Read the API key from file
 
 if (API_KEY == ""):
     print("A Crowdin API key hasn't been found, exiting script")
