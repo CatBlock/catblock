@@ -3,19 +3,23 @@
     "message":"Možnosti CatBlocku",
     "description":"Title of the CatBlock options page tab"
   },
-  "check_checkbox":{
+  "catblock_replaceadswithcats":{
+    "message":"Nahradiť reklamy obrázkami mačiek",
+    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
+  },
+  "catblock_check_checkbox":{
     "message":"Zaškrtnite políčko pri súboroch obrázkov, ktoré chcete použiť.",
     "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock."
   },
-  "add_more_photos":{
+  "catblock_add_more_photos":{
     "message":"<b>Pridať nejaké fotky<\/b> z Flickr!  Môžete:",
     "description":"Introduction to the examples of custom image lists. Leave the <b> and <\/b> as they are."
   },
-  "example_flickr_search":{
+  "catblock_example_flickr_search":{
     "message":"vyhľadať fotky (napríklad <i>závod plachetníc<\/i>)",
     "description":"First example of a custom image list that a user can add. Leave the <i> and <\/i> as they are. e.g. is shorthand for \"for example\"."
   },
-  "example_flickr_id":{
+  "catblock_example_flickr_id":{
     "message":"zadať ID Flickr galérie (napr. $example$)",
     "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\".",
     "placeholders":{
@@ -24,7 +28,7 @@
       }
     }
   },
-  "example_flickr_url":{
+  "catblock_example_flickr_url":{
     "message":"zadať adresu FIickr galérie (napr. $example$)",
     "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\".",
     "placeholders":{
@@ -33,8 +37,118 @@
       }
     }
   },
-  "add_photos":{
+  "catblock_add_photos":{
     "message":"Pridať fotografie",
     "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
+  },
+  "catblock_contributors":{
+    "message":"Máme pre vás <a>stránku<\/a>, ktorá vám pomôže nájsť ľudí, ktorí pracujú na CatBlocku!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "catblock_debuginlogoption":{
+    "description":"Checkbox on the 'General' tab of the Options page",
+    "message":"Zobrazovať chybové hlásenia v konzole (spomaluje CatBlock)"
+  },
+  "catblock_disableallextensions":{
+    "description":"Instruction on ad report page",
+    "message":"Vypnite všetky rozšírenia okrem CatBlocku."
+  },
+  "catblock_disabled_by_filter_lists":{
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list",
+    "message":"Prepáčte, ale CatBlock je na tejto stránke zakázaný jedným z vašich filtrov."
+  },
+  "catblock_disabled_on_this_page":{
+    "description":"Message shown in toolbar button on web pages that have been whitelisted",
+    "message":"CatBlock je na tejto stránke zakázaný."
+  },
+  "catblock_disableforchromeandsafaristeptwo":{
+    "description":"Step 2 for disabling Chrome and Safari extensions",
+    "message":"Odčiarknite všetky 'Povolené' políčka <b>okrem<\/b> CatBlocku.  <b>Nechajte CatBlock zapnutý<\/b>."
+  },
+  "catblock_enable_adblock":{
+    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'",
+    "message":"Zapnúť CatBlock na tejto stránke"
+  },
+  "catblock_excludedomainorurl":{
+    "description":"Message of the exclude area",
+    "message":"Doména alebo Url, na ktorej CatBlock nesmie nič blokovať"
+  },
+  "catblock_latest_version":{
+    "description":"On the Options > Support page, shows when there are no updates available for CatBlock",
+    "message":"CatBlock je aktuálny!"
+  },
+  "catblock_malwarenotificationcheckboxmessage":{
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page",
+    "message":"Má Vás CatBlock upozorniť, keď zistí malware?"
+  },
+  "catblock_pause_adblock":{
+    "description":"Menu entry to pause CatBlock",
+    "message":"Pozastaviť CatBlock"
+  },
+  "catblock_safari50_updatenotice":{
+    "description":"A message shown to Safari 5.0 users urging them to upgrade",
+    "message":"Používate starú verziu prehiadača Safari. Získajte najnovšiu verziu prehliadača Safari, ktorá umožňuje pozastaviť CatBlock stlačením tlačidla na paneli nástrojov, nahlásiť reklamy a poskytuje ďalšie nové funkcie. <a>Aktualizovať prehliadač<\/a>."
+  },
+  "catblock_show_on_adblock_button":{
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked",
+    "message":"Zobraz na CatBlock tlačidle"
+  },
+  "catblock_show_on_adblock_menu":{
+    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked",
+    "message":"Zobraziť počet zablokovaných reklám v CatBlock menu"
+  },
+  "catblock_status_disabled":{
+    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank",
+    "message":"CatBlock sa nedá spustiť na tejto doméne."
+  },
+  "catblock_status_paused":{
+    "description":"Message shown in toolbar button when CatBlock is paused",
+    "message":"CatBlock je pozastavený."
+  },
+  "catblock_storage_quota_exceeded":{
+    "description":"Message shown when the user uses more storage than allowed by the browser",
+    "message":"CatBlock používa príliš veľa pamäte. Prosím, odznačte niekoľko filtrov zo zoznamu!"
+  },
+  "catblock_tabcustomizetitle":{
+    "description":"Title of the customize tab",
+    "message":"Prispôsobenie CatBlocku"
+  },
+  "catblock_unpause_adblock":{
+    "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'",
+    "message":"Spustiť CatBlock"
+  },
+  "catblock_adblockupdates":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"Aktualizácie CatBlocku"
+  },
+  "catblock_update_available":{
+    "description":"On the Options > Support page, shows when there are updates available for CatBl",
+    "message":"K dispozícii je aktualizácia pre CatBlock! Choďte $here$ pre aktualizáciu CatBlocku. <br>Poznámka: Ak chcete dostávať aktualizácie automaticky, stačí ísť do Safari > Nastavenia... > Rozšírenia > Aktualizácie <br>a začiarknite možnosť \"Automaticky inštalovať aktualizácie\".",
+    "placeholders":{
+      "here":{
+        "content":"<a id='here'><\/a>",
+        "example":"<a>here<\/a>"
+      }
+    }
+  },
+  "catblock_whatmakesadblocktick":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"Chcete vidieť, kto a čo stojí za CatBlockom?"
+  },
+  "catblock_whitelistertitle2":{
+    "description":"The title of the whitelister dialog",
+    "message":"Nespúšťať CatBlock na..."
+  },
+  "catblock_wizardcantrunonframesets":{
+    "description":"Message (alert) shown when the user tries to use a blacklist\/whitelist wizard on an old website",
+    "message":"Táto funkcia CatBlocku nefunguje na tejto stránke, pretože využíva zastarané technológie. Avšak stále môžete zablokovať alebo odblokovať zdroje manuálne v tabe 'Prispôsobenie' na stránke s nastaveniami."
+  },
+  "catblock_you_can_slide_to_change":{
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases.",
+    "message":"Nastavením posuvníku nižšie vyberte tie stránky, pri ktorých sa CatBlock nebude spúšťať."
+  },
+  "catblock_you_know_thats_a_bad_idea_right":{
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel.",
+    "message":"Čím viac filtrov prihlásite, tým bude CatBlock pomalší. Použitie príliš veľa filtrov môže dokonca spôsobiť pád prehliadača na niektorých stránkach. Pre potvrdenie prihlásenia stlačte tlačidlo OK."
   }
 }

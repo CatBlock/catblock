@@ -8,7 +8,7 @@ var idleHandler = {
         // In  Safari, execute the function with only the minimum idle delay.
         // It doesn't support idle, but at least we make sure that functions
         // don't execute when we're too busy to handle them.
-        if (SAFARI) {
+        if (SAFARI || EDGE) {
             window.setTimeout(callback, 15000);
             return;
         }
@@ -29,6 +29,7 @@ var idleHandler = {
         // Checks if the browser is idle. If so, it executes all waiting functions
         // Otherwise, it checks if an item has waited longer than allowed, and
         // executes the ones who should be executed
+        if (!chrome.idle || !chrome.idle.queryState) return;
         chrome.idle.queryState(15, function(state) {
             if (state == "idle") {
                 while (idleHandler._scheduledItems.length)

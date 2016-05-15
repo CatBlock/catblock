@@ -254,7 +254,7 @@ var picinjection = {
 
         if (newPic.infoCard)
             return;
-        // We use a direct sendRequest onmouseenter to avoid modifying
+        // We use a direct sendMessage onmouseenter to avoid modifying
         // emit_page_broadcast.  Create card the first time we mouseover.
         // Then we can use jQuery's mouseenter and mouseleave to control when the
         // card comes and goes.
@@ -313,7 +313,7 @@ var picinjection = {
                         // independent.co.uk borders all imgs
                         border: "none",
                     },
-                    src: chrome.extension.getURL(folder + "icon19.png")
+                    src: chrome.runtime.getURL(folder + "icon19.png")
                 })).
                 append("<br>");
 
@@ -356,7 +356,7 @@ var picinjection = {
                 after_jquery_is_available();
             }
             else {
-                chrome.extension.sendRequest(
+                chrome.runtime.sendMessage(
                     { command:"inject_jquery", allFrames: (window !== window.top) },
                     after_jquery_is_available
                 );
@@ -576,7 +576,7 @@ var picinjection = {
 // with cats or anything else
 if (!SAFARI) {
     // Augment blocked ads on Blink-based browsers => images/subdocuments/objects
-    chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         if (request.command !== "purge-elements" ||
             request.frameUrl !== document.location.href)
             return;

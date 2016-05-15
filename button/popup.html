@@ -11,10 +11,17 @@
     <div id="wrapper">
       <div id="menu-items">
         <div id="titletext">
-          <img src="../img/logo.png" class="logo" />
+          <a class="left adblock-logo">
+            <img src="../Icon.png">
+            <span>CatBlock</span>
+          </a>
         </div>
 
         <!-- ************ Status messages *********** -->
+        <div id="update" class="box" style="display:none;"> <!-- Edge only -->
+            A new update has been found!<br>
+            Go to Options => Support in order to get an update!
+        </div>
 
         <div id="block_counts" class="box" >
           <a id="block_counts_help" style="float:right;" i18n="whats_this"
@@ -29,11 +36,11 @@
         </div>
 
         <div id="div_status_whitelisted" class="menu-status-italic">
-          <span i18n="disabled_on_this_page"></span>
+          <span i18n="catblock_disabled_on_this_page"></span>
         </div>
 
         <div id="div_status_paused" class="menu-status-italic">
-          <span i18n="status_paused"></span>
+          <span i18n="catblock_status_paused"></span>
         </div>
 
         <!-- ************ Standard menu entries *********** -->
@@ -46,13 +53,13 @@
 
         <div id="separator0" class="separator"></div>
 
-        <div i18n="enable_adblock" id="div_enable_adblock_on_this_page" class="menu-entry">
+        <div i18n="catblock_enable_adblock" id="div_enable_adblock_on_this_page" class="menu-entry">
         </div>
 
-        <div i18n="pause_adblock" id="div_pause_adblock" class="menu-entry">
+        <div i18n="catblock_pause_adblock" id="div_pause_adblock" class="menu-entry">
         </div>
 
-        <div i18n="unpause_adblock" id="div_paused_adblock" class="menu-entry">
+        <div i18n="catblock_unpause_adblock" id="div_paused_adblock" class="menu-entry">
         </div>
 
 

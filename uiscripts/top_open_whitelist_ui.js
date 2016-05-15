@@ -27,7 +27,7 @@ function top_open_whitelist_ui() {
         //check if we're running on website with a frameset, if so, tell
         //the user we can't run on it.
         if ($("frameset").length >= 1) {
-            alert(translate('wizardcantrunonframesets'));
+            alert(translate("catblock_wizardcantrunonframesets"));
             may_open_dialog_ui = true;
             $(".adblock-ui-stylesheet").remove();
             return;
@@ -58,7 +58,7 @@ function top_open_whitelist_ui() {
                '</span>').
         append('<br/><br/><i id="domainpart"></i><i id="pathpart"></i>').
         append('<br/><br/><br/><span id="whitelister_dirs">' +
-               translate('you_can_slide_to_change') + '</span>').
+               translate('catblock_you_can_slide_to_change') + '</span>').
         append('<br/><span id="modifydomain">' + translate('modifydomain') +
                '<input id="domainslider" type="range" min="0" value="0"/></span>').
         append('<span id="modifypath">' + translate('modifypath') +
@@ -66,7 +66,7 @@ function top_open_whitelist_ui() {
         append('<br/><input type="checkbox" id="reload_page" checked/>'+
                '<label style="display: inline;" for="reload_page">' + translate('reloadpageafterwhitelist') + '</label>').
         dialog({
-            title: translate("whitelistertitle2"),
+            title: translate("catblock_whitelistertitle2"),
             dialogClass: "adblock-whitelist-dialog",
             width: 600,
             minHeight: 130,

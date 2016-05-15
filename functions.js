@@ -1,15 +1,15 @@
 // Set to true to get noisier console.log statements
 VERBOSE_DEBUG = false;
 
-// Issue 6614: Don't run in a frame, to avoid manipulation by websites.
-if (window.location.origin + "/" === chrome.extension.getURL("")) {
-    // above line avoids content scripts making their host page break frames
-    if (window.top !== window)
-        window.location.replace("about:blank");
-}
-
-// Global variable for Opera, so we can make specific things for Opera
+// Global variable for Opera and Edge,
+// so we can make specific things for Opera
 OPERA = navigator.userAgent.indexOf("OPR") > -1;
+EDGE = navigator.userAgent.indexOf("Edge") > -1;
+
+// Edge uses "browser" namespace for its API
+if (EDGE) {
+    chrome = browser;
+}
 
 // Run a function on the background page.
 // Inputs (positional):
@@ -23,7 +23,7 @@ BGcall = function() {
     var fn = args.shift();
     var has_callback = (typeof args[args.length - 1] == "function");
     var callback = (has_callback ? args.pop() : function() {});
-    chrome.extension.sendRequest({command: "call", fn:fn, args:args}, callback);
+    chrome.runtime.sendMessage({command: "call", fn:fn, args:args}, callback);
 };
 
 // Enabled in adblock_start_common.js and background.js if the user wants
@@ -57,7 +57,12 @@ translate = function(messageID, args) {
 localizePage = function() {
     //translate a page into the users language
     $("[i18n]:not(.i18n-replaced)").each(function() {
-        $(this).html(translate($(this).attr("i18n")));
+        try {
+            $(this).html(translate($(this).attr("i18n")));
+        } catch(e) {
+            console.log(e);
+        }
+
     });
     $("[i18n_value]:not(.i18n-replaced)").each(function() {
         $(this).val(translate($(this).attr("i18n_value")));
@@ -198,7 +203,7 @@ storage_set = function(key, value) {
         // Safari throws this error for all writes in Private Browsing mode.
         // TODO: deal with the Safari case more gracefully.
         if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
-            alert(translate("storage_quota_exceeded"));
+            alert(translate("catblock_storage_quota_exceeded"));
             openTab("options/index.html#ui-tabs-2");
         }
     }
@@ -236,7 +241,7 @@ sessionstorage_set = function(key, value) {
         sessionStorage.setItem(key, JSON.stringify(value));
     } catch (ex) {
         if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
-            alert(translate("storage_quota_exceeded"));
+            alert(translate("catblock_storage_quota_exceeded"));
             openTab("options/index.html#ui-tabs-2");
         }
     }
@@ -247,7 +252,7 @@ sessionstorage_set = function(key, value) {
 var createRuleLimitExceededSafariNotification = function() {
     if (SAFARI && ("Notification" in window)) {
         sessionstorage_set("contentblockingerror", translate("safaricontentblockinglimitexceeded"));
-        chrome.extension.sendRequest({command: "contentblockingmessageupdated"});
+        chrome.runtime.sendMessage({command: "contentblockingmessageupdated"});
         var note = new Notification(translate("safarinotificationtitle") , { 'body' : translate("safarinotificationbody"), 'tag' : 1 });
         note.onclick = function() {
             openTab("options/index.html?tab=0");

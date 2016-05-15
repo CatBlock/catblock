@@ -54,7 +54,7 @@ Channels.prototype = {
             // TODO: make sure this works in Safari.  And if you fix a bug, fix it
             // in AdBlock too -- it's keeping filter update events from showing up
             // in the AdBlock Options page I think.
-            chrome.extension.sendRequest({command: "channel-updated", id: id});
+            chrome.runtime.sendMessage({command: "channel-updated", id: id});
             if (that._channelGuide[id].enabled)
                 that._channelGuide[id].channel.prefetch();
         });
@@ -188,7 +188,7 @@ AprilFoolsCatsChannel.prototype = {
 
     _getLatestListings: function(callback) {
         function L(w, h, f) {
-            var folder = chrome.extension.getURL("catblock/pix/");
+            var folder = chrome.runtime.getURL("catblock/pix/");
             return new Listing({
                 width: w, height: h, url: folder + f,
                 attribution_url: "http://chromeadblock.com/catblock/credits.html",
@@ -300,11 +300,9 @@ FlickrSearchChannel.prototype = {
 
     _getLatestListings: function(callback) {
         var that = this;
-        this._api("flickr.photos.search", { text: this._query },
-                  function(resp) {
+        this._api("flickr.photos.search", { text: this._query }, function(resp) {
             callback(that._toListings(resp.photos));
-        }
-                 );
+        });
     }
 };
 
@@ -320,17 +318,16 @@ FlickrPhotosetChannel.prototype = {
     // pulls a Flickr Set via API, gets a list of optimum-size photo data
     _getLatestListings: function(callback) {
         var that = this;
-        this._api("flickr.photosets.getPhotos", { photoset_id: this._id },
-                  function(resp) {
+        this._api("flickr.photosets.getPhotos", { photoset_id: this._id }, function(resp) {
             callback(that._toListings(resp.photoset));
-        }
-                 );
+        });
     }
 };
 
 function TheCatsOfCatBlockUsersChannel() {
     FlickrPhotosetChannel.call(this, "72157629665759768");
 };
+
 TheCatsOfCatBlockUsersChannel.prototype = {
     __proto__: FlickrPhotosetChannel.prototype
 };

@@ -15,7 +15,7 @@ function bind_enter_click_to_default(){
 
 function load_jquery_ui(callback) {
     function load_css(src) {
-        var url = chrome.extension.getURL(src);
+        var url = chrome.runtime.getURL(src);
         var link = $('<link rel="stylesheet" type="text/css" />').
         attr('href', url).
         addClass("adblock-ui-stylesheet");

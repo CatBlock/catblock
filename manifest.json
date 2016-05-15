@@ -1,34 +1,18 @@
 {
   "name": "AdBlock with CatBlock",
   "short_name": "CatBlock",
-  "version": "1.3",
-  "manifest_version": 2,
+  "version": "1.4",
   "description": "CatBlock, it's AdBlock but with cats...",
+  "author": "CatBlock Team",
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
-  "permissions": [
-    "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"
-  ],
   "minimum_chrome_version": "41",
   "background": {
-    "scripts": [
-      "punycode.min.js",
-      "jquery/jquery.min.js",
-      "port.js",
-      "functions.js",
-      "filtering/domainset.js",
-      "filtering/filteroptions.js",
-      "filtering/filtertypes.js",
-      "filtering/filterset.js",
-      "filtering/myfilters.js",
-      "filtering/filternormalizer.js",
-      "idlehandler.js",
-      "catblock/channels.js",
-      "background.js"
-    ]
+    "page": "background.html",
+    "persistent": true
   },
   "browser_action": {
     "default_icon": {
@@ -81,14 +65,9 @@
       "all_frames": false
     }
   ],
+  "incognito": "spanning",
   "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; frame-src 'self' https://chromeadblock.com https://getadblock.com; img-src *;",
   "default_locale": "en",
-  "icons": {
-    "16": "img/icon16.png",
-    "48": "img/icon48.png",
-    "128": "img/icon128.png"
-  },
-  "incognito": "spanning",
   "manifest_version": 2,
   "options_page": "options/index.html",
   "permissions": [
@@ -129,7 +108,6 @@
     "catblock/pix/wide3.jpg",
     "catblock/pix/wide4.jpg",
     "img/icon19.png",
-    "img/icon24.png",
-    "jquery/css/override-page.css"
+    "img/icon24.png"
   ]
 }

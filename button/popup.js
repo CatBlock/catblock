@@ -12,7 +12,6 @@ $(function() {
     BG.getCurrentTabInfo(function(info) {
         // Cache tab object for later use
         tab = info.tab;
-
         var shown = {};
         function show(L) { L.forEach(function(x) { shown[x] = true;  }); }
         function hide(L) { L.forEach(function(x) { shown[x] = false; }); }
@@ -93,6 +92,16 @@ $(function() {
             info.whitelisted) {
             $("#block_counts").hide();
         }
+
+        // If there's an update on Edge,
+        // show a notification about the udpate
+        if (EDGE) {
+            $("#div_help_hide_start").hide();
+            if (storage_get("update_available")) {
+                $("#update").show();
+            }
+        }
+
     });
 
     if (SAFARI) {
@@ -131,19 +140,30 @@ $(function() {
 
     $("#div_enable_adblock_on_this_page").click(function() {
         if (BG.try_to_unwhitelist(tab.unicodeUrl)) {
-            !SAFARI ? chrome.tabs.reload() : activeTab.url = activeTab.url;
-            closeAndReloadPopup();
+            if (!SAFARI) {
+                chrome.tabs.update(tab.id, {url: tab.url});
+            } else {
+                activeTab.url = activeTab.url
+            }
         } else {
             $("#div_status_whitelisted").
-            replaceWith(translate("disabled_by_filter_lists"));
+            replaceWith(translate("catblock_disabled_by_filter_lists"));
         }
+        if (EDGE) {
+            document.location.reload();
+        }
+        closeAndReloadPopup();
     });
 
     $("#div_paused_adblock").click(function() {
         BG.adblock_is_paused(false);
         BG.handlerBehaviorChanged();
-        if (!SAFARI)
+        if (!SAFARI) {
             BG.updateButtonUIAndContextMenus();
+        }
+        if (EDGE) {
+            document.location.reload();
+        }
         closeAndReloadPopup();
     });
 
@@ -155,8 +175,15 @@ $(function() {
 
     $("#div_whitelist_channel").click(function() {
         BG.create_whitelist_filter_for_youtube_channel(tab.unicodeUrl);
+        if (!SAFARI) {
+            chrome.tabs.update(tab.id, {url: tab.url});
+        } else {
+            activeTab.url = activeTab.url
+        }
+        if (EDGE) {
+            document.location.reload();
+        }
         closeAndReloadPopup();
-        !SAFARI ? chrome.tabs.reload() : activeTab.url = activeTab.url;
     });
 
     $("#div_pause_adblock").click(function() {
@@ -167,6 +194,9 @@ $(function() {
             if (!SAFARI) {
                 BG.updateButtonUIAndContextMenus();
             }
+        }
+        if (EDGE) {
+            document.location.reload();
         }
         closeAndReloadPopup();
     });
@@ -198,7 +228,14 @@ $(function() {
     $("#div_whitelist_page").click(function() {
         BG.create_page_whitelist_filter(tab.unicodeUrl);
         closeAndReloadPopup();
-        !SAFARI ? chrome.tabs.reload() : activeTab.url = activeTab.url;
+        if (!SAFARI) {
+            chrome.tabs.update(tab.id, {url: tab.url});
+        } else {
+            activeTab.url = activeTab.url
+        }
+        if (EDGE) {
+            document.location.reload();
+        }
     });
 
     $("#div_show_resourcelist").click(function() {

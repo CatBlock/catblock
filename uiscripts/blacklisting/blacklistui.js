@@ -406,7 +406,7 @@ BlacklistUi.prototype._preview = function(selector) {
     }
 
     // Finally, raise the UI above *all* website UI, using max 32-bit signed int.
-    css_preview.innerText += " " + d + " {z-index:2147483647!important;}";
+    css_preview.innerText += " " + d + " {z-index:2147483647!important; top:40px}";
 
     document.documentElement.appendChild(css_preview);
 }

@@ -425,7 +425,7 @@ SubscriptionUtil.validateOverSubscription = function() {
         else
             $.cookie('noOversubscriptionWarning', 'true', {expires: (1/48)});
     }
-    return confirm(translate("you_know_thats_a_bad_idea_right"));
+    return confirm(translate("catblock_you_know_thats_a_bad_idea_right"));
 };
 // Subscribe to the filter list with the given |id|.
 // Input:
@@ -565,7 +565,7 @@ function addMalwareNotificationDiv() {
             css("margin-left", "25px").
             prop("checked", notify ? true : null);
             var newLabel = $("<label>").
-            text(translate("malwarenotificationcheckboxmessage")).
+            text(translate("catblock_malwarenotificationcheckboxmessage")).
             attr("for", "malware-notification-message");
             var betaLabel = $("<label>").
             text(translate("betalabel")).
@@ -623,7 +623,7 @@ $(function() {
         $("#btnShowLinks").remove();
     });
 
-    chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         if (request.command !== "filters_updated")
             return;
         BGcall("get_subscriptions_minus_text", function(subs) {
