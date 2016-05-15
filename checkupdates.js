@@ -1,7 +1,5 @@
 // Check for updates
 function checkupdates(page) {
-    var AdBlockVersion = chrome.runtime.getManifest().version;
-
     if (!EDGE) {
         var checkURL = "https://github.com/CatBlock/catblock/releases";
 
@@ -79,6 +77,7 @@ function checkupdates(page) {
     // Check if newVersion is newer than AdBlockVersion
     function isNewerVersion(newVersion) {
         var versionRegex = /^(\*|\d+(\.\d+){0,2}(\.\*)?)$/;
+        var AdBlockVersion = chrome.runtime.getManifest().version;
         var current = AdBlockVersion.match(versionRegex);
         var notCurrent = newVersion.match(versionRegex);
         if (!current || !notCurrent)
