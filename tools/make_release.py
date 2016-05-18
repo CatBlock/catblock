@@ -36,8 +36,8 @@ if args.browser == "firefox":
     # Set, which is mandatory in Firefox
     FF = {
         "gecko": {
-            "id": "adblockwithcatblock@catblock.tk",
-            "strict_min_version": "48"
+            "id": "catblock@catblock.tk",
+            "strict_min_version": "48.*"
         }
     }
 
@@ -49,6 +49,7 @@ if args.browser == "firefox":
         # Copy the content of the original folder into /catblock_ff
         shutil.copytree(origcwd, os.getcwd() + "/catblock_ff", ignore=shutil.ignore_patterns(".git*"))
         os.chdir(os.getcwd() + "/catblock_ff")
+        shutil.rmtree(os.getcwd() + "/tools") # Remove tools folder
         with open("manifest.json", "w") as ff_manifest:
             keys = json.load(chrome_manifest) # Creates a dict of all messages in the AdBlock file
             for key, value in keys.items():
