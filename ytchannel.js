@@ -7,7 +7,7 @@ if (!/ab_channel/.test(url)) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET",
                  "https://www.googleapis.com/youtube/v3/channels?part=snippet&id=" + getChannelId(url) +
-                 "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), false);
+                 "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), true);
         xhr.onload = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.response);
@@ -22,7 +22,7 @@ if (!/ab_channel/.test(url)) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET",
                  "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + getVideoId(url) +
-                 "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), false);
+                 "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), true);
         xhr.onload = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.response);

@@ -998,12 +998,16 @@ add_custom_filter = function(filter) {
 // Return the contents of a local file.
 // Inputs: file:string - the file relative address, eg "js/foo.js".
 // Returns: the content of the file.
-readfile = function(file) {
+readfile = function(file, callback) {
     // A bug in jquery prevents local files from being read, so use XHR.
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", chrome.runtime.getURL(file), false);
+    xhr.open("GET", chrome.runtime.getURL(file), true);
+    xhr.onreadystatechange = function() {
+        if (this.readyState === 4 && this.responseText !== "") {
+            callback(this.responseText);
+        }
+    };
     xhr.send();
-    return xhr.responseText;
 };
 
 // Creates a custom filter entry that whitelists a given page
