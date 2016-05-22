@@ -1,7 +1,7 @@
-<img src="http://catblock-slackin.herokuapp.com/badge.svg">
-
-AdBlock with CatBlock
+AdBlock with CatBlock 
 ========
+<img src="https://img.shields.io/badge/License-GPLv3-blue.svg">
+<img src="http://catblock-slackin.herokuapp.com/badge.svg">
 
 Continued maintenance of the discontinued "CatBlock" project by Michael Gundlach.
 
