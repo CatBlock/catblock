@@ -727,9 +727,9 @@ adblock_is_paused = function(newValue) {
     // add it back when AdBlock is un-paused
     if (SAFARI && !get_settings().safari_content_blocking) {
         if (newValue) {
-            safari.extension.removeContentScript(safari.extension.baseURI + "adblock_safari_beforeload.js");
+            safari.extension.removeContentScript(safari.extension.baseURI + "js/adblock_safari_beforeload.js");
         } else {
-            safari.extension.addContentScriptFromURL(safari.extension.baseURI + "adblock_safari_beforeload.js", [], [], false);
+            safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_beforeload.js", [], [], false);
         }
     }
 }
@@ -1000,7 +1000,7 @@ add_custom_filter = function(filter) {
 // Injects jQuery UI
 injectjQueryUI = function() {
     if (SAFARI) {
-        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "jquery/jquery-ui.custom.min.js", [], [], false);
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "lib/jquery-ui.custom.min.js", [], [], false);
         return true;
     }
 };
@@ -1071,9 +1071,9 @@ if (!SAFARI) {
             'top_open_whitelist_ui': {
                 allFrames: false,
                 include: [
-                    "punycode.min.js",
-                    "jquery/jquery.min.js",
-                    "jquery/jquery-ui.custom.min.js",
+                    "lib/punycode.min.js",
+                    "lib/jquery.min.js",
+                    "lib/jquery-ui.custom.min.js",
                     "uiscripts/load_jquery_ui.js",
                     "uiscripts/top_open_whitelist_ui.js"
                 ]
@@ -1081,9 +1081,9 @@ if (!SAFARI) {
             'top_open_blacklist_ui': {
                 allFrames: false,
                 include: [
-                    "punycode.min.js",
-                    "jquery/jquery.min.js",
-                    "jquery/jquery-ui.custom.min.js",
+                    "lib/punycode.min.js",
+                    "lib/jquery.min.js",
+                    "lib/jquery-ui.custom.min.js",
                     "uiscripts/load_jquery_ui.js",
                     "uiscripts/blacklisting/overlay.js",
                     "uiscripts/blacklisting/clickwatcher.js",
@@ -1529,11 +1529,11 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.command === "inject_jquery") {
             if (!SAFARI) {
-                chrome.tabs.executeScript(undefined, { allFrames: request.allFrames, file: "../jquery/jquery.min.js" },
+                chrome.tabs.executeScript(undefined, { allFrames: request.allFrames, file: "../lib/jquery.min.js" },
                                           function() { sendResponse({});
                                                      });
             } else {
-                safari.extension.addContentScriptFromURL(safari.extension.baseURI + "jquery/jquery.min.js", [], [], false);
+                safari.extension.addContentScriptFromURL(safari.extension.baseURI + "lib/jquery.min.js", [], [], false);
             }
         }
     }

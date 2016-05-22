@@ -45,12 +45,12 @@
     {
       "matches": ["http://*/*", "https://*/*"],
       "js": [
-        "port.js",
-        "functions.js",
-        "jquery/jquery.min.js",
+        "lib/jquery.min.js",
+        "js/port.js",
+        "js/functions.js",
         "filtering/filteroptions.js",
-        "adblock_start_common.js",
-        "adblock_start_chrome.js",
+        "js/adblock_start_common.js",
+        "js/adblock_start_chrome.js",
         "catblock/contentscript.js"
       ],
       "run_at": "document_start",

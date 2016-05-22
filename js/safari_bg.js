@@ -224,11 +224,11 @@ if (!LEGACY_SAFARI) {
 // Add and remove the specific content script based on the safari_content_blocking setting
 function set_content_scripts() {
     if (get_settings().safari_content_blocking) {
-        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "adblock_safari_contentblocking.js", [], [], false);
-        safari.extension.removeContentScript(safari.extension.baseURI + "adblock_safari_beforeload.js");
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_contentblocking.js", [], [], false);
+        safari.extension.removeContentScript(safari.extension.baseURI + "js/adblock_safari_beforeload.js");
     } else {
-        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "adblock_safari_beforeload.js", [], [], false);
-        safari.extension.removeContentScript(safari.extension.baseURI + "adblock_safari_contentblocking.js");
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_beforeload.js", [], [], false);
+        safari.extension.removeContentScript(safari.extension.baseURI + "js/adblock_safari_contentblocking.js");
     }
 }
 set_content_scripts();
@@ -237,13 +237,13 @@ safari.application.addEventListener("beforeNavigate", function(event) {
 
     //remove bandaids.js from YouTube.com when a user pauses AdBlock or if the enabled click to flash compatibility mode
     if (/youtube.com/.test(event.url) && (is_adblock_paused() || (get_settings().clicktoflash_compatibility_mode === true))) {
-        safari.extension.removeContentScript(safari.extension.baseURI + "bandaids.js");
+        safari.extension.removeContentScript(safari.extension.baseURI + "js/bandaids.js");
     }
     // YouTube Channel Whitelist
     if (/youtube.com/.test(event.url) && get_settings().youtube_channel_whitelist && !parseUri.parseSearch(event.url).ab_channel) {
-        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "ytchannel.js", [], [], false);
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/ytchannel.js", [], [], false);
     } else {
-        safari.extension.removeContentScript(safari.extension.baseURI + "ytchannel.js");
+        safari.extension.removeContentScript(safari.extension.baseURI + "js/ytchannel.js");
     }
 }, true);
 
