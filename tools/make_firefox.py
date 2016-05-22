@@ -11,11 +11,7 @@ import json # Provides JSON-related functions
 import os # Provides file-system functions
 import shutil # Provides folders functions
 
-os.chdir("..") # Move CWD to the root of repo
-
 origcwd = os.getcwd() # Save CWD for later use
-
-os.chdir("..") # Move CWD to the top of repo
 
 print "Preparing CatBlock for Firefox release..."
 
