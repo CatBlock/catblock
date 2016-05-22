@@ -1,14 +1,16 @@
 AdBlock with CatBlock 
 ========
 [![Build Status](https://travis-ci.org/CatBlock/catblock.svg?branch=master)](https://travis-ci.org/CatBlock/catblock)
-[![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cc8d000f77bb427caa8b0293d9b5d225)](https://www.codacy.com/app/tomastaro/catblock?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CatBlock/catblock&amp;utm_campaign=Badge_Grade)
 [![GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/CatBlock/catblock/blob/master/LICENSE.txt)
+
 
 Continued maintenance of the discontinued "CatBlock" project by Michael Gundlach.
 
 If you want to keep an eye on (or even contribute to) the behind-the-scenes stuff, check out our [Trello Board](https://trello.com/catblock).
 
 ## Live chat:
+[![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
 
 We have two live chat systems. We use Slack a lot - make an account at <http://catblock-slackin.herokuapp.com> and log in at <https://catblock.slack.com>. We are less active on, but still around on, IRC. Join us using #catblock on Freenode.net. You can ask questions there (the main contributors are all in Europe, so anyone in Australia should expect a bit of a wait).
 
