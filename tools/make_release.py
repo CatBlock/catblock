@@ -56,6 +56,9 @@ if args.browser == "firefox":
         # Remove tools folder from /catblock_ff folder
         shutil.rmtree(os.getcwd() + "/tools")
 
+        # Remove DS_Store files
+        os.system("find . -name '*.DS_Store' -type f -delete")
+
         # Remove keys from manifest, which are not supported yet
         with open("manifest.json", "w") as ff_manifest:
             keys = json.load(chrome_manifest) # Creates a dict of all messages in the AdBlock file
