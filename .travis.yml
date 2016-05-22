@@ -1,5 +1,11 @@
 language: python
 python:
     - "2.7"
+env:
+  matrix:
+  - BROWSER=firefox
+  - BROWSER=edge
 install: true
-script: python tools/make_edge.py
+script:
+    - cd tools/
+    - ./make_release.py -b ${BROWSER}
