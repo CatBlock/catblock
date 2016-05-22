@@ -1,5 +1,6 @@
 AdBlock with CatBlock 
 ========
+[![Build Status](https://travis-ci.org/CatBlock/catblock.svg?branch=master)](https://travis-ci.org/CatBlock/catblock)
 <img src="https://img.shields.io/badge/License-GPLv3-blue.svg">
 <img src="http://catblock-slackin.herokuapp.com/badge.svg">
 
@@ -8,6 +9,7 @@ Continued maintenance of the discontinued "CatBlock" project by Michael Gundlach
 If you want to keep an eye on (or even contribute to) the behind-the-scenes stuff, check out our [Trello Board](https://trello.com/catblock).
 
 ## Live chat:
+
 We have two live chat systems. We use Slack a lot - make an account at <http://catblock-slackin.herokuapp.com> and log in at <https://catblock.slack.com>. We are less active on, but still around on, IRC. Join us using #catblock on Freenode.net. You can ask questions there (the main contributors are all in Europe, so anyone in Australia should expect a bit of a wait).
 
 If you want to contribute any improvements, please go ahead and send us a pull request from a fork of this repo!
