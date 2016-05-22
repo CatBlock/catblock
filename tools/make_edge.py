@@ -28,6 +28,6 @@ shutil.move(os.getcwd() + "/catblock_edge/catblock/tools/Setup.cmd", os.getcwd()
 os.chdir("..")
 
 # Make a .zip file
-shutil.make_archive("catblock-edge", "zip", os.getcwd() + "/catblock.safariextension")
+shutil.make_archive("catblock-edge", "zip", os.getcwd() + "/catblock")
 
 print "CatBlock for Edge has been built!"
