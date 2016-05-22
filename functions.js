@@ -1,10 +1,10 @@
 // Set to true to get noisier console.log statements
 VERBOSE_DEBUG = false;
 
-// Global variable for Opera and Edge,
-// so we can make specific things for Opera
+// Global variable for detection of Opera, Edge and Safari
 OPERA = navigator.userAgent.indexOf("OPR") > -1;
 EDGE = navigator.userAgent.indexOf("Edge") > -1;
+FIREFOX = navigator.userAgent.indexOf("Firefox") > -1;
 
 // Edge uses "browser" namespace for its API
 if (EDGE) {

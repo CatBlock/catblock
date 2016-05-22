@@ -73,6 +73,9 @@ if args.browser == "firefox":
         # Create a .zip file
         shutil.make_archive("catblock", "zip", os.getcwd())
 
+        # Rename to the Firefox compatible .xpi file
+        os.rename("catblock.zip", "catblock.xpi")
+
         print "CatBlock for Firefox has been built!"
 
 elif args.browser == "edge":
