@@ -4,9 +4,6 @@ AdBlock with CatBlock
 [![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
 [![GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/CatBlock/catblock/blob/master/LICENSE.txt)
 
-<img src="">
-<img src="">
-
 Continued maintenance of the discontinued "CatBlock" project by Michael Gundlach.
 
 If you want to keep an eye on (or even contribute to) the behind-the-scenes stuff, check out our [Trello Board](https://trello.com/catblock).
