@@ -1,8 +1,11 @@
 AdBlock with CatBlock 
 ========
 [![Build Status](https://travis-ci.org/CatBlock/catblock.svg?branch=master)](https://travis-ci.org/CatBlock/catblock)
-<img src="https://img.shields.io/badge/License-GPLv3-blue.svg">
-<img src="http://catblock-slackin.herokuapp.com/badge.svg">
+[![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
+[![GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/CatBlock/catblock/blob/master/LICENSE.txt)
+
+<img src="">
+<img src="">
 
 Continued maintenance of the discontinued "CatBlock" project by Michael Gundlach.
 
