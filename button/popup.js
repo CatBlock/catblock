@@ -169,6 +169,11 @@ $(function() {
 
     $("#div_undo").click(function() {
         var host = parseUri(tab.unicodeUrl).host;
+        if (!SAFARI) {
+            activeTab = {};
+            activeTab.id = tab.id;
+            activeTab.url = tab.url;
+        }
         BG.confirm_removal_of_custom_filters_on_host(host, activeTab);
         closeAndReloadPopup();
     });

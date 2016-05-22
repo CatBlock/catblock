@@ -607,12 +607,14 @@ remove_custom_filter_for_host = function(host) {
 confirm_removal_of_custom_filters_on_host = function(host, activeTab) {
     var custom_filter_count = count_cache.getCustomFilterCount(host);
     var confirmation_text   = translate("confirm_undo_custom_filters", [custom_filter_count, host]);
-    if (!confirm(confirmation_text)) { return; }
+    if (!FIREFOX) { // Firefox doesn't support confirm() in BG page yet
+        if (!window.confirm(confirmation_text)) { return; }
+    }
     remove_custom_filter_for_host(host);
     if (!SAFARI) {
-        chrome.tabs.reload();
+        chrome.tabs.update(activeTab.id, {url: activeTab.url});
     } else {
-        activeTab.url = activeTab.url;
+        activeTab.url = activeTab.url
     }
 };
 
@@ -995,15 +997,12 @@ add_custom_filter = function(filter) {
     }
 };
 
-// Return the contents of a local file.
-// Inputs: file:string - the file relative address, eg "js/foo.js".
-// Returns: the content of the file.
-readfile = function(file) {
-    // A bug in jquery prevents local files from being read, so use XHR.
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", chrome.runtime.getURL(file), false);
-    xhr.send();
-    return xhr.responseText;
+// Injects jQuery UI
+injectjQueryUI = function() {
+    if (SAFARI) {
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "jquery/jquery-ui.custom.min.js", [], [], false);
+        return true;
+    }
 };
 
 // Creates a custom filter entry that whitelists a given page
