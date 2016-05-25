@@ -5,8 +5,6 @@ env:
     - BROWSER=edge
     - BROWSER=chrome
     - BROWSER=opera
-  global:
-    secure: WhcEbwXwnN+EKdU99vgByHKZ2PZenTTXaUQJ9qxZxwjAqTkuLQARcLNJ+it89OLxaalVSFNtkUqk2sPOkAIUZpVJQUkF6ysCG87m+F8EKo/ejt9+d+NMIGeGTci4xlqt8ug6lL01PPdRbBDEiNRH7jnXfC+g8RsVR951GftphlBlTFpJdNh+XViPpL696Y6Wq6onJZ36554jAuO7KxedfnmB1MUQ2X+w0ArNSfAmyIoAUc6Tjqo6k8mb1641IjOiS9qz22OSU8zgACaw/rIyZlyRkiDeNwn+sX7MSwIomNTPrUlJ2t+rA04DzoNt6kxnsNCTZiXeEDijI90/acK5ZQBpmR5mik2cz7JatIao9In9huHdOp/VO4YJswDoa1EB1PY86geeoaMfrcGg9hxXLX9jskwHdlx6iXwddy1r5kvQ3M76wg6kNrR/Ph6pHRUMhDIdiW72w7mCvnqKGo/vUo0t0pxTMGWgwDmg0QqKxCjJYfsFP48HnSIdFFCl+Gzd1rmWjx7l1Fw0+BbgjBNpvG56BLIptUBUumbY1XTsSiJT6Sszb41stcnuZNr0TWXg8C+G8jP0Ox5c9iL+OUWchpLotVSs2RIuXJ1InhGu2tQm11csjaau55CuQbWAQd5qAcCqGQmIDLEDtlFPIF4oUzgK8mSaiEthuyA9GXyrmBw=
 install: true
 script:
     - python tools/make_release.py -b ${BROWSER}
