@@ -1,5 +1,7 @@
 language: python
 install: true
+os:
+    - osx
 script:
     - python tools/make_release.py -b firefox
     - python tools/make_release.py -b edge
