@@ -1,22 +1,18 @@
-echo -e "Starting to update builds on GitHub"
+echo -e "Starting to update packages on GitHub"
 
 # Go to the root of the repo
 cd ..
 
-git config --global user.email "tomas@getadblock.com"
-git config --global user.name "Tomáš Taro"
+git clone https://github.com/CatBlock/catblock-nightlies.git
 
-git stash save -u
-git checkout -b packages
+cp -a /catblock/builds/. /catblock-nightlies/
 
-rm -rf builds/
-mkdir builds
+cd catblock-nightlies/
 
-git stash pop
+git add -f .
 
-git add builds/
+git commit -am "Updated packages by Travis $TRAVIS_BUILD_NUMBER"
 
-git commit -am "Travis build $TRAVIS_BUILD_NUMBER pushed to the 'packages' branch"
 git push
 
-echo -e "Done updating builds on GitHub."
+echo -e "Done updating packages on GitHub"
