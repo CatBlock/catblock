@@ -1,10 +1,4 @@
 language: python
-env:
-  matrix:
-    - BROWSER=firefox
-    - BROWSER=edge
-    - BROWSER=chrome
-    - BROWSER=opera
 install: true
 script:
     - python tools/make_release.py -b firefox
