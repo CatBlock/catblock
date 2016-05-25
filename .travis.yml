@@ -8,6 +8,10 @@ env:
 install: true
 script:
   - python tools/make_release.py -b ${BROWSER}
+after_success:
+  - cd tools/
+  - chmod +x ./publish_release.sh
+  - ./publish_release.sh
 deploy:
   provider: releases
   api_key:
