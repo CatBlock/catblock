@@ -7,7 +7,7 @@ cd ..
 
 git clone https://${GH_TOKEN}@github.com/CatBlock/catblock-nightlies.git
 
-cp -a /catblock/builds/. /catblock-nightlies/
+rsync -r catblock/builds/* catblock-nightlies
 
 cd catblock-nightlies/
 
