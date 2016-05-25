@@ -7,6 +7,12 @@ cd ..
 
 git clone https://${GH_TOKEN}@github.com/CatBlock/catblock-nightlies.git
 
+rm -rf /builds
+rm catblock-edge.zip
+rm catblock-firefox.zip
+rm catblock-chrome.zip
+rm catblock-opera.zip
+
 rsync -r catblock/builds/* catblock-nightlies
 
 cd catblock-nightlies/
