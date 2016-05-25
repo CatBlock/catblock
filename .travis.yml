@@ -10,7 +10,7 @@ before_script:
 - git config --global user.email "tomas@getadblock.com"
 - git config --global user.name "Tomáš Taro"
 - git remote rm origin
-- git remote add origin https://user:${GH_TOKEN}@github.com/CatBlock/catblock.git
+- git remote add origin https://${GH_TOKEN}@github.com/CatBlock/catblock.git
 script:
 - python tools/make_release.py -b firefox
 - python tools/make_release.py -b edge
