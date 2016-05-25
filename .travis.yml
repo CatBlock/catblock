@@ -12,7 +12,7 @@ before_script:
     - git remote rm origin
     - git remote add origin https://${GH_TOKEN}@github.com/CatBlock/catblock.git
 script:
-    - python tools/make_release.py -b firefox
+    - python tools/make_release.py -b firefox -ext y
     - python tools/make_release.py -b edge
     - python tools/make_release.py -b chrome
     - python tools/make_release.py -b opera

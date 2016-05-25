@@ -9,7 +9,7 @@ git clone https://${GH_TOKEN}@github.com/CatBlock/catblock-nightlies.git
 
 rm -rf /builds
 rm catblock-edge.zip
-rm catblock-firefox.zip
+rm catblock-firefox.xpi
 rm catblock-chrome.zip
 rm catblock-opera.zip
 
