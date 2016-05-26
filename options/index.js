@@ -67,7 +67,6 @@ function afterTabLoad() {
 }
 
 function displayVersionNumber() {
-    // TODO: Port getManifest to Safari
     var versionNumber = chrome.runtime.getManifest().version;
     $("#version_number").text(translate("optionsversion", [versionNumber]));
 }

@@ -17,14 +17,14 @@ import argparse # Provides functions for parsing arguments
 parser = argparse.ArgumentParser(description="This script generates Firefox and Edge versions of CatBlock")
 parser.add_argument("-b", "--browser", help="Name of the browser, which should we generate an extension for", required=True)
 parser.add_argument("-ext", "--extension", help="Generate an extension package for a particular browser?", required=False)
-parser.add_argument("-dev", "--development", help="Keep generated folder for development purposes?", required=False)
 args = parser.parse_args()
 
-os.chdir("..") # Move CWD to the root of repo
+# Remove .DS_Store files
+os.system("find . -name '*.DS_Store' -type f -delete")
 
-origcwd = os.getcwd() # Save CWD for later use
-
-os.chdir("..") # Move CWD to the top of repo
+# If /builds doesn't exist, create it
+if not os.path.exists("builds"):
+    os.makedirs("builds")
 
 # Prepare a Firefox release
 if args.browser == "firefox":
@@ -44,22 +44,19 @@ if args.browser == "firefox":
     }
 
     # Opens the CatBlock manifest file for read-only
-    with open(origcwd + "/manifest.json", "rU") as chrome_manifest:
-        # If /catblock_ff folder exists, delete it
-        if os.path.exists(os.getcwd() + "/catblock_ff"):
-            shutil.rmtree(os.getcwd() + "/catblock_ff")
+    with open("manifest.json", "rU") as chrome_manifest:
+        # If /catblock_firefox folder exists, delete it
+        if os.path.exists("catblock_firefox"):
+            shutil.rmtree("catblock_firefox")
 
-        # Copy the content of the original folder into /catblock_ff and ignore GitHub's hidden files
-        shutil.copytree(origcwd, os.getcwd() + "/catblock_ff", ignore=shutil.ignore_patterns(".git*"))
+        # Copy the content of the original folder into /catblock_firefox and ignore hidden files
+        shutil.copytree(os.getcwd(), "catblock_firefox", ignore=shutil.ignore_patterns(".*"))
 
-        # Move to the /catblock_ff directory
-        os.chdir(os.getcwd() + "/catblock_ff")
+        # Move to the /catblock_firefox directory
+        os.chdir("catblock_firefox")
 
-        # Remove tools folder from /catblock_ff folder
-        shutil.rmtree(os.getcwd() + "/tools")
-
-        # Remove .DS_Store files
-        os.system("find . -name '*.DS_Store' -type f -delete")
+        # Remove tools folder from /catblock_firefox folder
+        shutil.rmtree("tools")
 
         # Remove keys from manifest, which are not supported yet
         with open("manifest.json", "w") as ff_manifest:
@@ -78,14 +75,18 @@ if args.browser == "firefox":
         os.chdir("..")
 
         # Create a .zip file
-        shutil.make_archive("catblock-firefox", "zip", os.getcwd() + "/catblock_ff")
+        shutil.make_archive("catblock-firefox", "zip", "catblock_firefox")
 
         # Rename to the Firefox compatible .xpi file
         if args.extension == "y":
             os.rename("catblock-firefox.zip", "catblock-firefox.xpi")
 
-        if args.development != "y":
-            shutil.rmtree(os.getcwd() + "/catblock_ff")
+        if os.path.isfile("catblock-firefox.zip"):
+            shutil.move("catblock-firefox.zip", "builds/catblock-firefox.zip")
+        else:
+            shutil.move("catblock-firefox.xpi", "builds/catblock-firefox.xpi")
+
+        shutil.rmtree("catblock_firefox")
 
         print "CatBlock for Firefox has been built!"
 
@@ -93,24 +94,22 @@ elif args.browser == "edge":
 
     print "Preparing CatBlock for Edge release..."
 
-    # Remove .DS_Store files
-    os.system("find . -name '*.DS_Store' -type f -delete")
-
     # If /catblock_edge folder does exist, remove it
-    if os.path.exists(os.getcwd() + "/catblock_edge"):
-        shutil.rmtree(os.getcwd() + "/catblock_edge")
+    if os.path.exists("catblock_edge"):
+        shutil.rmtree("catblock_edge")
 
     # Copy the content of the original folder into "/catblock_edge/catblock"
-    shutil.copytree(origcwd, os.getcwd() + "/catblock_edge/catblock", ignore=shutil.ignore_patterns(".git*"))
+    shutil.copytree(os.getcwd(), "catblock_edge/catblock", ignore=shutil.ignore_patterns(".*"))
 
     # Copy instructions file and setup file into "/catblock_edge" folder
-    shutil.move(os.getcwd() + "/catblock_edge/catblock/tools/instructions.txt", os.getcwd() + "/catblock_edge/")
-    shutil.move(os.getcwd() + "/catblock_edge/catblock/tools/Setup.cmd", os.getcwd() + "/catblock_edge/")
+    shutil.move("catblock_edge/catblock/tools/instructions.txt", "catblock_edge")
+    shutil.move("catblock_edge/catblock/tools/Setup.cmd", "catblock_edge")
 
-    shutil.make_archive("catblock-edge", "zip", os.getcwd() + "/catblock_edge")
+    shutil.make_archive("catblock-edge", "zip", "catblock_edge")
 
-    if args.development != "y":
-        shutil.rmtree(os.getcwd() + "/catblock_edge")
+    shutil.move("catblock-edge.zip", "builds/catblock-edge.zip")
+
+    shutil.rmtree("catblock_edge")
 
     print "CatBlock for Edge has been built!"
 
@@ -118,24 +117,25 @@ elif args.browser == "chrome":
 
     print "Preparing CatBlock for Chrome release..."
 
-    # Remove .DS_Store files
-    os.system("find . -name '*.DS_Store' -type f -delete")
-
     # If /catblock_chrome folder does exist, remove it
-    if os.path.exists(os.getcwd() + "/catblock_chrome"):
-        shutil.rmtree(os.getcwd() + "/catblock_chrome")
+    if os.path.exists("catblock_chrome"):
+        shutil.rmtree("catblock_chrome")
 
     # Copy the content of the original folder into "/catblock_chrome"
-    shutil.copytree(origcwd, os.getcwd() + "/catblock_chrome", ignore=shutil.ignore_patterns(".git*"))
+    shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*"))
 
-    shutil.make_archive("catblock-chrome", "zip", os.getcwd() + "/catblock_chrome")
+    shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
     # Rename to the Chrome compatible .crx file
     if args.extension == "y":
         os.rename("catblock-chrome.zip", "catblock-chrome.crx")
 
-    if args.development != "y":
-        shutil.rmtree(os.getcwd() + "/catblock_chrome")
+    if os.path.isfile("catblock-chrome.zip"):
+        shutil.move("catblock-chrome.zip", "builds/catblock-chrome.zip")
+    else:
+        shutil.move("catblock-chrome.crx", "builds/catblock-chrome.crx")
+
+    shutil.rmtree("catblock_chrome")
 
     print "CatBlock for Chrome has been built!"
 
@@ -145,25 +145,26 @@ elif args.browser == "opera":
 
     print "Preparing CatBlock for Opera release..."
 
-    # Remove .DS_Store files
-    os.system("find . -name '*.DS_Store' -type f -delete")
-
     # If /catblock_chrome folder does exist, remove it
-    if os.path.exists(os.getcwd() + "/catblock_opera"):
-        shutil.rmtree(os.getcwd() + "/catblock_opera")
+    if os.path.exists("catblock_opera"):
+        shutil.rmtree("catblock_opera")
 
-    # Copy the content of the original folder into "/catblock_chrome"
-    shutil.copytree(origcwd, os.getcwd() + "/catblock_opera", ignore=shutil.ignore_patterns(".git*"))
+    # Copy the content of the original folder into "/catblock_opera"
+    shutil.copytree(os.getcwd(), "catblock_opera", ignore=shutil.ignore_patterns(".*"))
 
-    shutil.make_archive("catblock-opera", "zip", os.getcwd() + "/catblock_opera")
+    shutil.make_archive("catblock-opera", "zip", "catblock_opera")
 
-    # Rename to the Chrome compatible .crx file
+    # Rename to the Opera compatible .nex file
     if args.extension == "y":
         os.rename("catblock-opera.zip", "catblock-opera.nex")
 
-    if args.development != "y":
-        shutil.rmtree(os.getcwd() + "/catblock_opera")
+    if os.path.isfile("catblock-opera.zip"):
+        shutil.move("catblock-opera.zip", "builds/catblock-opera.zip")
+    else:
+        shutil.move("catblock-opera.nex", "builds/catblock-opera.nex")
+
+    shutil.rmtree("catblock_opera")
 
     print "CatBlock for Opera has been built!"
 else:
-    print "You have selected an unsupported browser. Take a look "
+    print "You have selected an unsupported browser. Please, try again."
