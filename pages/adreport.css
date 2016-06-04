@@ -4,7 +4,7 @@ body {
 .section {
     padding: 10px;
     padding-left: 162px;
-    margin: 0px -8px 0px -8px;
+    margin: 0 -8px 0 -8px;
     display: none;
 }
 .odd {
@@ -20,7 +20,7 @@ h2 {
 label {
     margin-right: 5px;
 }
-div.form {
+.form {
     margin-left: 15px;
 }
 #info {
@@ -40,7 +40,7 @@ div.form {
 }
 .result {
     position: relative;
-    margin: 0px auto;
+    margin: 0 auto;
     max-width: 1000px;
     padding: 20px 20px 20px 30px;
     background-color: white;
@@ -54,7 +54,7 @@ div.form {
     font-weight: bold;
     margin-left: 5px;
 }
-.afterFilterUpdate, .afterFilterUpdate * {
+.afterFilterUpdate, .afterFilterUpdate > input, .afterFilterUpdate > label {
     color: #CCC;
     cursor: auto;
 }
@@ -77,15 +77,15 @@ a {
 }
 #step_disable_extensions_DIV {
     position: relative;
-    margin: 0px auto;
+    margin: 0 auto;
     max-width: 1000px;
-    padding: 20px 20px 20px 0px;
+    padding: 20px 20px 20px 0;
 }
 #step_report_DIV, #step_language_DIV, #step_update_filters_DIV, #step_firefox_DIV, #step_flash_DIV, #step_malware_DIV, #step_everywhere_DIV, #step_malware_checking_DIV, #step_response_success, #step_response_error  {
     position: relative;
-    margin: 0px auto;
+    margin: 0 auto;
     max-width: 1000px;
-    padding: 20px 20px 20px 0px;
+    padding: 20px 20px 20px 0;
 }
 .loader {
     width: 20px;
@@ -101,7 +101,7 @@ a {
         display: none;
     }
     #step_report_DIV, #step_update_filters_DIV, #step_disable_extensions_DIV, #step_language_DIV, #step_firefox_DIV, #step_flash_DIV, #step_malware_DIV, #step_everywhere_div, #step_malware_checking_DIV, #step_response_success, #step_response_error  {
-        padding: 20px 20px 20px 0px;
+        padding: 20px 20px 20px 0;
     }
     #info {
         margin: 110px auto 30px 15px;
