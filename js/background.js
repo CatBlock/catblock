@@ -1344,7 +1344,7 @@ if (!SAFARI) {
         if (parseUri(tabUrl).hostname === "www.youtube.com" &&
             get_settings().youtube_channel_whitelist &&
             !parseUri.parseSearch(tabUrl).ab_channel) {
-            chrome.tabs.executeScript(tabId, {file: "ytchannel.js", runAt: "document_start"});
+            chrome.tabs.executeScript(tabId, {file: "js/ytchannel.js", runAt: "document_start"});
         }
     }
 
