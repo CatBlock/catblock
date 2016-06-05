@@ -50,7 +50,7 @@ if args.browser == "firefox":
             shutil.rmtree("catblock_firefox")
 
         # Copy the content of the original folder into /catblock_firefox and ignore hidden files
-        shutil.copytree(os.getcwd(), "catblock_firefox", ignore=shutil.ignore_patterns(".*"))
+        shutil.copytree(os.getcwd(), "catblock_firefox", ignore=shutil.ignore_patterns(".*", "builds"))
 
         # Move to the /catblock_firefox directory
         os.chdir("catblock_firefox")
@@ -99,7 +99,7 @@ elif args.browser == "edge":
         shutil.rmtree("catblock_edge")
 
     # Copy the content of the original folder into "/catblock_edge/catblock"
-    shutil.copytree(os.getcwd(), "catblock_edge/catblock", ignore=shutil.ignore_patterns(".*"))
+    shutil.copytree(os.getcwd(), "catblock_edge/catblock", ignore=shutil.ignore_patterns(".*", "builds"))
 
     # Copy instructions file and setup file into "/catblock_edge" folder
     shutil.move("catblock_edge/catblock/tools/instructions.txt", "catblock_edge")
@@ -122,7 +122,7 @@ elif args.browser == "chrome":
         shutil.rmtree("catblock_chrome")
 
     # Copy the content of the original folder into "/catblock_chrome"
-    shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*"))
+    shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*", "builds"))
 
     shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
@@ -150,7 +150,7 @@ elif args.browser == "opera":
         shutil.rmtree("catblock_opera")
 
     # Copy the content of the original folder into "/catblock_opera"
-    shutil.copytree(os.getcwd(), "catblock_opera", ignore=shutil.ignore_patterns(".*"))
+    shutil.copytree(os.getcwd(), "catblock_opera", ignore=shutil.ignore_patterns(".*", "builds"))
 
     shutil.make_archive("catblock-opera", "zip", "catblock_opera")
 
