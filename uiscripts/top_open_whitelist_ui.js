@@ -54,7 +54,7 @@ function top_open_whitelist_ui() {
         btns[translate("buttoncancel")] = function() { page.dialog('close');}
 
         var page = $("<div>").
-        append('<span>' + translate('adblock_wont_run_on_pages_matching') +
+        append('<span>' + translate('catblock_adblock_wont_run_on_pages_matching') +
                '</span>').
         append('<br/><br/><i id="domainpart"></i><i id="pathpart"></i>').
         append('<br/><br/><br/><span id="whitelister_dirs">' +

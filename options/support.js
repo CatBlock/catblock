@@ -59,6 +59,7 @@ $(document).ready(function() {
     $("#whatsnew a").click(function() {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", chrome.runtime.getURL("CHANGELOG.txt"), true);
+        xhr.overrideMimeType("text/plain");
         xhr.onreadystatechange = function() {
             if (this.readyState === 4 && this.responseText !== "") {
                 $("#changes").text(xhr.responseText).css({width: "670px", height: "200px"}).fadeIn();

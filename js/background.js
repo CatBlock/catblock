@@ -1283,7 +1283,7 @@ createMalwareNotification = function() {
                 iconUrl: chrome.runtime.getURL('img/icon48.png'),
                 type: 'basic',
                 priority: 2,
-                message: translate('malwarenotificationmessage'),
+                message: translate('catblock_malwarenotificationmessage'),
                 buttons: [{title:translate('malwarenotificationlearnmore'),
                            iconUrl:chrome.runtime.getURL('img/icon24.png')},
                           {title:translate('malwarenotificationdisablethesemessages'),
@@ -1349,6 +1349,9 @@ if (!SAFARI) {
     }
 
     chrome.tabs.onCreated.addListener(function(tab) {
+        if (chrome.runtime.lastError || !tab || !tab.id) {
+            return;
+        }
         chrome.tabs.get(tab.id, function(tabs) {
             if (tabs && tabs.url && tabs.id) {
                 runChannelWhitelist(tabs.url, tabs.id);

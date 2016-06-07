@@ -253,7 +253,7 @@ var createRuleLimitExceededSafariNotification = function() {
     if (SAFARI && ("Notification" in window)) {
         sessionstorage_set("contentblockingerror", translate("safaricontentblockinglimitexceeded"));
         chrome.runtime.sendMessage({command: "contentblockingmessageupdated"});
-        var note = new Notification(translate("safarinotificationtitle") , { 'body' : translate("safarinotificationbody"), 'tag' : 1 });
+        var note = new Notification(translate("safarinotificationtitle") , { 'body' : translate("catblock_safarinotificationbody"), 'tag' : 1 });
         note.onclick = function() {
             openTab("options/index.html?tab=0");
         };
