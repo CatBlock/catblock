@@ -102,6 +102,12 @@ $(function() {
             }
         }
 
+        // Currently there's no way,
+        // how to hide the extension button
+        if (FIREFOX) {
+            $("#div_help_hide_start").hide();
+        }
+
     });
 
     if (SAFARI) {
