@@ -14,6 +14,10 @@ $(function() {
                 chrome.tabs.create({
                     url: 'opera://extensions/'
                 });
+            } else if (FIREFOX) {
+                chrome.tabs.create({
+                    url: 'about:addons'
+                });
             } else {
                 chrome.tabs.create({
                     url: 'chrome://extensions/'
@@ -541,9 +545,17 @@ $("#step_update_filters_no").click(function() {
 $("#step_update_filters_yes").click(function() {
     $("#step_update_filters")
         .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
-    $("#step_disable_extensions_DIV")
+    // TODO: Add support for Edge once it will have
+    // a page with installed extensions
+    if (!FIREFOX && !EDGE) {
+        $("#step_disable_extensions_DIV")
         .fadeIn()
         .css("display", "block");
+    } else {
+        $("#step_language_DIV")
+        .fadeIn()
+        .css("display", "block");
+    }
 });
 
 
@@ -583,9 +595,8 @@ $("#step_disable_extensions_yes").click(function() {
 
 //Automatically disable / enable other extensions
 $("#OtherExtensions").click(function() {
-    $("#OtherExtensions")
-        .prop("disabled", true);
-    if (!SAFARI) {
+    $("#OtherExtensions").prop("disabled", true);
+    if (chrome.permissions && chrome.permissions.request) {
         chrome.permissions.request({
             permissions: ['management']
         }, function(granted) {
@@ -600,11 +611,12 @@ $("#OtherExtensions").click(function() {
                         if (result[i].enabled &&
                             result[i].mayDisable &&
                             result[i].id !== "mdcgnhlfpnbeieiiccmebgkfdebafodo" &&
-                            result[i].id !== "aobdicepooefnbaeokijohmhjlleamfj") { // TODO: add opera id
+                            result[i].id !== "pejeadkbfbppoaoinpmkeonebmngpnkk") {
                             //if the extension is a developer version, continue, don't disable.
                             if (result[i].installType === "development" &&
                                 result[i].type === "extension" &&
-                                result[i].name === "AdBlock with CatBlock") {
+                                (result[i].name === "AdBlock with CatBlock" ||
+                                 result[i].name === "CatBlock")) {
                                 continue;
                             }
                             chrome.management.setEnabled(result[i].id, false);
@@ -669,21 +681,18 @@ $("#step_language_lang")
     }
     contact = required_lists[required_lists.length - 1];
 
+    $("#checkinfirefox1").html(translate("checkinfirefox_1"));
+    $("#checkinfirefox2").html(translate("checkinfirefox_2"));
+    $("#checkinfirefox").html(translate("checkinfirefoxtitle"));
+
+    if (SAFARI || FIREFOX || EDGE) {
+        $("#chrome1, #chrome2").html(translate("orchrome"));
+        $("#adblockforchrome").html(translate("oradblockforchrome"));
+    }
+
     $("#step_firefox_DIV")
         .fadeIn()
         .css("display", "block");
-    $("#checkinfirefox1")
-        .html(translate("checkinfirefox_1"));
-    $("#checkinfirefox2")
-        .html(translate("checkinfirefox_2"));
-    $("#checkinfirefox")
-        .html(translate("checkinfirefoxtitle"));
-    if (SAFARI) {
-        $("#chrome1, #chrome2")
-            .html(translate("orchrome"));
-        $("#adblockforchrome")
-            .html(translate("oradblockforchrome"));
-    }
 });
 
 // STEP 5: also in Firefox
