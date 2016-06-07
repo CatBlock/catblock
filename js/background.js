@@ -1283,7 +1283,7 @@ createMalwareNotification = function() {
                 iconUrl: chrome.runtime.getURL('img/icon48.png'),
                 type: 'basic',
                 priority: 2,
-                message: translate('malwarenotificationmessage'),
+                message: translate('catblock_malwarenotificationmessage'),
                 buttons: [{title:translate('malwarenotificationlearnmore'),
                            iconUrl:chrome.runtime.getURL('img/icon24.png')},
                           {title:translate('malwarenotificationdisablethesemessages'),

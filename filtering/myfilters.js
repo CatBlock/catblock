@@ -743,12 +743,11 @@ MyFilters.prototype._make_subscription_options = function() {
     // When modifying a list, IDs mustn't change!
     return {
         "adblock_custom": { // AdBlock custom filters
-            url: "https://cdn.adblockcdn.com/filters/adblock_custom.txt",
+            url: "https://cdn.adblockcdn.com/filters/adblock_custom.txt"
         },
         "easylist": { // EasyList
             url: "https://easylist-downloads.adblockplus.org/easylist.txt",
-            safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist.json",
-            safariJSON_URL_AA: "https://cdn.adblockcdn.com/filters/easylist_aa.json",
+            safariJSON_URL: "https://cdn.adblockcdn.com/filters/easylist.json"
         },
         "easylist_plus_bulgarian": { // Additional Bulgarian filters
             url: "http://stanev.org/abp/adblock_bg.txt",

@@ -199,7 +199,7 @@ $(function() {
 
     $("#div_pause_adblock").click(function() {
         if (BG.get_settings().safari_content_blocking) {
-            alert(translate('safaricontentblockingpausemessage'));
+            alert(translate('catblock_safaricontentblockingpausemessage'));
         } else {
             BG.adblock_is_paused(true);
             if (!SAFARI) {
@@ -270,7 +270,7 @@ $(function() {
         if (OPERA) {
             $("#help_hide_explanation").text(translate("operabutton_how_to_hide2")).slideToggle();
         } else if (SAFARI) {
-            $("#help_hide_explanation").text(translate("safaributton_how_to_hide2")).
+            $("#help_hide_explanation").text(translate("catblock_safaributton_how_to_hide2")).
             slideToggle(function() {
                 var popupheight = $("body").outerHeight();
                 safari.extension.popovers[0].height = popupheight;
