@@ -107,7 +107,7 @@ adblock_begin({
         chrome.runtime.onMessage.removeListener(elementPurger.onPurgeRequest);
     },
     handleHiding: function(data) {
-        if (data.hiding)
+        if (data && data.hiding)
             block_list_via_css(data.selectors);
     }
 });

@@ -485,6 +485,7 @@ var fetchMalware = function() {
     // The timestamp is add to the URL to prevent caching by the browser
     xhr.open("GET", "https://data.getadblock.com/filters/domains.json?timestamp=" + new Date()
              .getTime(), true);
+    xhr.overrideMimeType("application/json");
     xhr.onload = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var parsedText = JSON.parse(xhr.responseText);

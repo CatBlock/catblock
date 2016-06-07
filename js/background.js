@@ -1349,6 +1349,9 @@ if (!SAFARI) {
     }
 
     chrome.tabs.onCreated.addListener(function(tab) {
+        if (chrome.runtime.lastError || !tab || !tab.id) {
+            return;
+        }
         chrome.tabs.get(tab.id, function(tabs) {
             if (tabs && tabs.url && tabs.id) {
                 runChannelWhitelist(tabs.url, tabs.id);
