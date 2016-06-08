@@ -1,18 +1,21 @@
-AdBlock with CatBlock 
+CatBlock 
 ========
 [![Build Status](https://travis-ci.org/CatBlock/catblock.svg?branch=master)](https://travis-ci.org/CatBlock/catblock)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cc8d000f77bb427caa8b0293d9b5d225)](https://www.codacy.com/app/tomastaro/catblock?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CatBlock/catblock&amp;utm_campaign=Badge_Grade)
 [![GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/CatBlock/catblock/blob/master/LICENSE.txt)
 
+CatBlock (previously known as "AdBlock with CatBlock") is like an ad blocking extension, but instead of blocking ads it shows you pictures of cats by default (configurable).
 
-Continued maintenance of the discontinued "CatBlock" project by Michael Gundlach.
+You can also disable replacing ads by cats, so CatBlock can work as an ordinary ad blocking extension.
+
+This project aims at maintaining and improving the original ["CatBlock"](http://blog.getadblock.com/2012/04/catblock-lives-on.html) project by Michael Gundlach, the creator of [AdBlock](https://getadblock.com) and CatBlock.
 
 If you want to keep an eye on (or even contribute to) the behind-the-scenes stuff, check out our [Trello Board](https://trello.com/catblock).
 
 ## Live chat:
 [![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
 
-We have two live chat systems. We use Slack a lot - make an account at <http://catblock-slackin.herokuapp.com> and log in at <https://catblock.slack.com>. We are less active on, but still around on, IRC. Join us using #catblock on Freenode.net. You can ask questions there (the main contributors are all in Europe, so anyone in Australia should expect a bit of a wait).
+We use Slack a lot - make an account at <http://catblock-slackin.herokuapp.com> and log in at <https://catblock.slack.com>. You can ask questions there (the main contributors are all in Europe, so anyone in Australia should expect a bit of a wait).
 
 If you want to contribute any improvements, please go ahead and send us a pull request from a fork of this repo!
 
