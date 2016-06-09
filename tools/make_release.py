@@ -2,7 +2,7 @@
 
 """
 Prepare a release versions of CatBlock for Chrome, Opera, Firefox and Edge
-This script is compatible with Python v2.7.x
+This script is compatible with Python v3.x
 
 Author: Tomas Taro
 License: GNU GPLv3
