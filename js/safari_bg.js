@@ -141,7 +141,7 @@ if (!LEGACY_SAFARI) {
             safari.extension.toolbarItems[i].popover = popover;
             var toolbarItem = safari.extension.toolbarItems[i];
             toolbarItem.popover = popover;
-            toolbarItem.toolTip = "AdBlock"; // change the tooltip on Safari 5.1+
+            toolbarItem.toolTip = "CatBlock"; // change the tooltip on Safari 5.1+
             toolbarItem.command = null;
         }
     }
