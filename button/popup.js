@@ -11,7 +11,11 @@ $(function() {
 
     BG.getCurrentTabInfo(function(info) {
         // Cache tab object for later use
-        tab = info.tab;
+        if (!SAFARI) {
+            tab = info.tab;
+        } else {
+            tab = safari.application.activeBrowserWindow.activeTab;
+        }
         var shown = {};
         function show(L) { L.forEach(function(x) { shown[x] = true;  }); }
         function hide(L) { L.forEach(function(x) { shown[x] = false; }); }
@@ -117,9 +121,6 @@ $(function() {
             safari.extension.popovers[0].height = popupheight + 5;
             safari.extension.popovers[0].width = 270;
         });
-
-        // Store info about active tab
-        var activeTab = safari.application.activeBrowserWindow.activeTab;
     }
 
     // We need to reload popover in Safari, so that we could
@@ -149,7 +150,7 @@ $(function() {
             if (!SAFARI) {
                 chrome.tabs.update(tab.id, {url: tab.url});
             } else {
-                activeTab.url = activeTab.url
+                tab.url = tab.url
             }
         } else {
             $("#div_status_whitelisted").
@@ -175,12 +176,7 @@ $(function() {
 
     $("#div_undo").click(function() {
         var host = parseUri(tab.unicodeUrl).host;
-        if (!SAFARI) {
-            activeTab = {};
-            activeTab.id = tab.id;
-            activeTab.url = tab.url;
-        }
-        BG.confirm_removal_of_custom_filters_on_host(host, activeTab);
+        BG.confirm_removal_of_custom_filters_on_host(host, tab);
         closeAndReloadPopup();
     });
 
@@ -189,7 +185,7 @@ $(function() {
         if (!SAFARI) {
             chrome.tabs.update(tab.id, {url: tab.url});
         } else {
-            activeTab.url = activeTab.url
+            tab.url = tab.url;
         }
         if (EDGE) {
             document.location.reload();
@@ -242,7 +238,7 @@ $(function() {
         if (!SAFARI) {
             chrome.tabs.update(tab.id, {url: tab.url});
         } else {
-            activeTab.url = activeTab.url
+            tab.url = tab.url
         }
         if (EDGE) {
             document.location.reload();

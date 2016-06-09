@@ -279,28 +279,6 @@ if (!SAFARI) {
         }
     };
 
-    var normalizeRequestType = function(details) {
-        // normalize type, because of issue with Chrome 38+
-        var type = details.type;
-        if (type !== 'other') {
-            return type;
-        }
-        var url = parseUri(details.url);
-        if (url && url.pathname) {
-            var pos = url.pathname.lastIndexOf('.');
-            if (pos > -1) {
-                var ext = url.pathname.slice(pos) + '.';
-                // Still need this because often behind-the-scene requests are wrongly
-                // categorized as 'other'
-                if ('.ico.png.gif.jpg.jpeg.webp.'.indexOf(ext) !== -1) {
-                    return 'image';
-                }
-            }
-        }
-        // see crbug.com/410382
-        return 'object';
-    };
-
     // When a request starts, perhaps block it.
     function onBeforeRequestHandler(details) {
         if (adblock_is_paused())
@@ -313,7 +291,7 @@ if (!SAFARI) {
             return { cancel: false };
 
         var tabId = details.tabId;
-        var reqType = normalizeRequestType({url: details.url, type: details.type});
+        var reqType = details.type;
 
         var top_frame = frameData.get(tabId, 0);
         var sub_frame = (details.frameId !== 0 ? frameData.get(tabId, details.frameId) : null);
@@ -1360,6 +1338,9 @@ if (!SAFARI) {
     });
 
     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+        if (chrome.runtime.lastError || !tab || !tab.id) {
+            return;
+        }
         if (changeInfo.status === "loading") {
             chrome.tabs.get(tabId, function(tabs) {
                 if (tabs && tabs.url && tabs.id) {

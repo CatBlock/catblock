@@ -12,15 +12,21 @@ $(function() {
         messageElement.find("a").click(function() {
             if (OPERA) {
                 chrome.tabs.create({
-                    url: 'opera://extensions/'
+                    url: "opera://extensions/"
                 });
             } else if (FIREFOX) {
+                $("#disableotherextensions").hide(); // Hide an option for auto-disabling extensions
                 chrome.tabs.create({
-                    url: 'about:addons'
+                    url: "about:addons"
+                });
+            } else if (EDGE) {
+                $("#disableotherextensions").hide(); // Hide an option for auto-disabling extensions
+                chrome.tabs.create({
+                    url: "https://developer.microsoft.com/en-us/microsoft-edge/platform/documentation/extensions/adding-and-removing-extensions/"
                 });
             } else {
                 chrome.tabs.create({
-                    url: 'chrome://extensions/'
+                    url: "chrome://extensions/"
                 });
             }
         });
@@ -545,17 +551,10 @@ $("#step_update_filters_no").click(function() {
 $("#step_update_filters_yes").click(function() {
     $("#step_update_filters")
         .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
-    // TODO: Add support for Edge once it will have
-    // a page with installed extensions
-    if (!FIREFOX && !EDGE) {
-        $("#step_disable_extensions_DIV")
+
+    $("#step_disable_extensions_DIV")
         .fadeIn()
         .css("display", "block");
-    } else {
-        $("#step_language_DIV")
-        .fadeIn()
-        .css("display", "block");
-    }
 });
 
 
@@ -576,7 +575,7 @@ $("#step_disable_extensions_yes").click(function() {
     $("#step_language_DIV")
         .fadeIn()
         .css("display", "block");
-    if (extensionsDisabled.length > 0) {
+    if (chrome.permissions && chrome.permissions.request && extensionsDisabled.length > 0) {
         chrome.permissions.request({
             permissions: ['management']
         }, function(granted) {
@@ -612,7 +611,7 @@ $("#OtherExtensions").click(function() {
                             result[i].mayDisable &&
                             result[i].id !== "mdcgnhlfpnbeieiiccmebgkfdebafodo" &&
                             result[i].id !== "pejeadkbfbppoaoinpmkeonebmngpnkk") {
-                            //if the extension is a developer version, continue, don't disable.
+                            // If the extension is a developer version, continue, don't disable.
                             if (result[i].installType === "development" &&
                                 result[i].type === "extension" &&
                                 (result[i].name === "AdBlock with CatBlock" ||
