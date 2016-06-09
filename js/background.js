@@ -6,8 +6,8 @@ window.addEventListener("error", function(e) {
         ":" + (e.lineno||"anywhere") +
         ":" + (e.colno||"anycol");
     if (e.error) {
-        var stack = "-" + (e.error.message ||"") +
-            "-" + (e.error.stack ||"");
+        var stack = "-" + ((e.error && e.error.message) || "") +
+            "-" + ((e.error && e.error.stack) || "");
         stack = stack.replace(/:/gi, ";").replace(/\n/gi, "");
         //only append the stack info if there isn't any URL info in the stack trace
         if (stack.indexOf("http") === -1) {
