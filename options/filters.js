@@ -253,9 +253,16 @@ FilterListUtil.getFilterListType = function(filter_list) {
 };
 FilterListUtil.prepareSubscriptions = function(subs) {
     FilterListUtil.cached_subscriptions = subs;
-    for(var id in subs) {
+    for (var id in subs) {
         var entry = subs[id];
-        entry.label = translate("filter" + id);
+        // TODO: Edge throws an exception if the translate msg isn't found.
+        // Since, the user can enter custom filter URLs, translate will fail to find it.
+        try {
+            entry.label = translate("filter" + id);
+        } catch(ex) {
+            // Ignore error
+            entry.label = "";
+        }
         entry.id = id;
         var filter_list_type = FilterListUtil.getFilterListType(entry);
         filterListSections[filter_list_type].array.push(entry);
@@ -306,19 +313,19 @@ FilterListUtil.updateSubscriptionInfoAll = function() {
             if (seconds < 10)
                 text += translate("updatedrightnow");
             else if (seconds < 60)
-                text += translate("updatedsecondsago", [seconds]);
+                text += translate("updatedsecondsago", [seconds.toString()]);
             else if (minutes === 1)
                 text += translate("updatedminuteago");
             else if (minutes < 60)
-                text += translate("updatedminutesago", [minutes]);
+                text += translate("updatedminutesago", [minutes.toString()]);
             else if (hours === 1)
                 text += translate("updatedhourago");
             else if (hours < 24)
-                text += translate("updatedhoursago", [hours]);
+                text += translate("updatedhoursago", [hours.toString()]);
             else if (days === 1)
                 text += translate("updateddayago");
             else
-                text += translate("updateddaysago", [days]);
+                text += translate("updateddaysago", [days.toString()]);
         }
         infoLabel.text(text);
     }
@@ -417,7 +424,7 @@ function SubscriptionUtil() {};
 SubscriptionUtil.validateOverSubscription = function() {
     if ($(":checked", "#filter_list_subscriptions").length <= 6)
         return true;
-    if (optionalSettings.show_advanced_options) {
+    if (optionalSettings && optionalSettings.show_advanced_options) {
         // In case of an advanced user, only warn once every 30 minutes, even
         // if the options page wasn't open all the time. 30 minutes = 1/48 day
         if ($.cookie('noOversubscriptionWarning'))
