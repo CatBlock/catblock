@@ -12,6 +12,10 @@ This project aims at maintaining and improving the original ["CatBlock"](http://
 
 If you want to keep an eye on (or even contribute to) the behind-the-scenes stuff, check out our [Trello Board](https://trello.com/catblock).
 
+## Installation:
+Available in [Chrome Web Store](https://chrome.google.com/webstore/detail/catblock/mdcgnhlfpnbeieiiccmebgkfdebafodo),
+[Opera Extensions Store](https://addons.opera.com/sk/extensions/details/adblock-with-catblock/?display=en) and Firefox [Addons Store](https://addons.mozilla.org/en/firefox/addon/adblock-with-catblock/).
+
 ## Live chat:
 [![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
 
