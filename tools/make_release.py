@@ -49,14 +49,11 @@ if args.browser == "firefox":
         if os.path.exists("catblock_firefox"):
             shutil.rmtree("catblock_firefox")
 
-        # Copy the content of the original folder into /catblock_firefox and ignore hidden files
-        shutil.copytree(os.getcwd(), "catblock_firefox", ignore=shutil.ignore_patterns(".*", "builds"))
+        # Copy the content of the original folder into /catblock_firefox and ignore hidden files, builds and tools folders
+        shutil.copytree(os.getcwd(), "catblock_firefox", ignore=shutil.ignore_patterns(".*", "builds". "tools"))
 
         # Move to the /catblock_firefox directory
         os.chdir("catblock_firefox")
-
-        # Remove tools folder from /catblock_firefox folder
-        shutil.rmtree("tools")
 
         # Remove keys from manifest, which are not supported yet
         with open("manifest.json", "w") as ff_manifest:
@@ -122,7 +119,7 @@ elif args.browser == "chrome":
         shutil.rmtree("catblock_chrome")
 
     # Copy the content of the original folder into "/catblock_chrome"
-    shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*", "builds"))
+    shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
 
     shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
@@ -150,7 +147,7 @@ elif args.browser == "opera":
         shutil.rmtree("catblock_opera")
 
     # Copy the content of the original folder into "/catblock_opera"
-    shutil.copytree(os.getcwd(), "catblock_opera", ignore=shutil.ignore_patterns(".*", "builds"))
+    shutil.copytree(os.getcwd(), "catblock_opera", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
 
     shutil.make_archive("catblock-opera", "zip", "catblock_opera")
 
