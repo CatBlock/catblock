@@ -29,11 +29,11 @@ if not os.path.exists("builds"):
 # Prepare a Firefox release
 if args.browser == "firefox":
 
-    print "Preparing CatBlock for Firefox release..."
+    print("Preparing CatBlock for Firefox release...")
 
     # Keys in manifest.json file, which should NOT be deleted
     used = ["name", "version", "description", "content_scripts", "permissions", "manifest_version",
-        "web_accessible_resources", "background", "browser_action", "default_locale", "icons"]
+        "web_accessible_resources", "background", "browser_action", "default_locale", "icons", "web_accessible_resources"]
 
     # Set, which is mandatory in Firefox
     FF = {
@@ -58,16 +58,17 @@ if args.browser == "firefox":
         # Remove keys from manifest, which are not supported yet
         with open("manifest.json", "w") as ff_manifest:
             keys = json.load(chrome_manifest) # Creates a dict of all messages in the AdBlock file
-            for key, value in keys.items():
+            ff_keys = keys.copy()
+            for key in keys:
                 if key not in used:
-                    print "Deleting key: %s" % key
-                    del keys[key] # Delete keys, which shouldn't be included in FF manifest file
+                    print("Deleting key: %s" % key)
+                    del ff_keys[key] # Delete keys, which shouldn't be included in FF manifest file
 
             # Update FF manifest file with FF specific key
-            keys.update({ "applications": FF })
+            ff_keys.update({ "applications": FF })
 
             # Create FF manifest in JSON format
-            ff_manifest.write(json.dumps(keys, sort_keys=True, indent=2, separators=(',', ':')))
+            ff_manifest.write(json.dumps(ff_keys, sort_keys=True, indent=2, separators=(',', ':')))
 
         os.chdir("..")
 
@@ -85,11 +86,11 @@ if args.browser == "firefox":
 
         shutil.rmtree("catblock_firefox")
 
-        print "CatBlock for Firefox has been built!"
+        print("CatBlock for Firefox has been built!")
 
 elif args.browser == "edge":
 
-    print "Preparing CatBlock for Edge release..."
+    print("Preparing CatBlock for Edge release...")
 
     # If /catblock_edge folder does exist, remove it
     if os.path.exists("catblock_edge"):
@@ -108,11 +109,11 @@ elif args.browser == "edge":
 
     shutil.rmtree("catblock_edge")
 
-    print "CatBlock for Edge has been built!"
+    print("CatBlock for Edge has been built!")
 
 elif args.browser == "chrome":
 
-    print "Preparing CatBlock for Chrome release..."
+    print("Preparing CatBlock for Chrome release...")
 
     # If /catblock_chrome folder does exist, remove it
     if os.path.exists("catblock_chrome"):
@@ -134,13 +135,13 @@ elif args.browser == "chrome":
 
     shutil.rmtree("catblock_chrome")
 
-    print "CatBlock for Chrome has been built!"
+    print("CatBlock for Chrome has been built!")
 
 elif args.browser == "opera":
     # TODO: Add support for removing "minimum_chrome_version" key from manifest.json
     # and add support for defining "minimum_opera_version" key in manifest.json
 
-    print "Preparing CatBlock for Opera release..."
+    print("Preparing CatBlock for Opera release...")
 
     # If /catblock_chrome folder does exist, remove it
     if os.path.exists("catblock_opera"):
@@ -162,6 +163,6 @@ elif args.browser == "opera":
 
     shutil.rmtree("catblock_opera")
 
-    print "CatBlock for Opera has been built!"
+    print("CatBlock for Opera has been built!")
 else:
-    print "You have selected an unsupported browser. Please, try again."
+    print("You have selected an unsupported browser. Please, try again.")

@@ -1,11 +1,10 @@
 language: python
+python:
+    - "3.5"
 install: true
 branches:
   only:
     - master
-env:
-  global:
-    secure: i1zHQXfrYYBAUP26ODxVRewsAh9o6SovCMLau94g9KCJ36KzYQx2Dy1NEfvmA14V4NqnlnUpFpHelKoyS+sccaOD+F0doKQ+veSVASaOUfSadyC+XsPPmSzGGuClnJndrQI0vr82aqI5yrllzA2vAQtL2ajWkAqRjZM6ZqUIQWEmJQnGJ4sfJWzVTpKFOVhzjwzJXZOhSgexjxsCsnKv9vFMUp8In6s3PPpDlIiUTQ8nKzRdBoplLq1Ewqd249TDelD/HkORJ0K0wQKnufc1UWrtWOWre5YV9u2ryABEw+tNsuHwxYdZoPRji634m6f1qHjtAmUgMoH8FA50l5zu7EHcH10NL1XkdzB4wN88imA/WBdSK75ygXYlKUaGG3iFCotIXy/i3vE+isUy0BkyVhLLVSrJMU8ddDZZ667BA9rhE5ydB+fhdPe7sQf6sh3XHYl0hA3nYr6eeRVyi0cNxSigLhIuwbZg2KtGFVRNATvxfbdl0GSHcakBdOoMDnyJrLkixIG54tU61fCTsL62rrM6+buVs6GwkXKcNe5LRnsTuxfdlFRxGTwlRC7SNgdVqU/ZNfPD0S8a2AW6f74VTh66/rzDielHydbBN6SagTyzXi6vZUN+PufAgqFrV3KnipXVnJQjBeYsbVcsAyE+8AKZ27SDP8J/aTVXR+FjuZ8=
 before_script:
     - git config --global user.email "tomas@getadblock.com"
     - git config --global user.name "Tomáš Taro"
@@ -32,7 +31,6 @@ deploy:
   skip_cleanup: true
   on:
     repo: CatBlock/catblock
-    branch: master
     tags: true
 notifications:
   slack: catblock:FcjzLmw4Kr0pU0vwE97pT52m
