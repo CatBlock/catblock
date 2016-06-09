@@ -15,6 +15,7 @@ $(function() {
             tab = info.tab;
         } else {
             tab = safari.application.activeBrowserWindow.activeTab;
+            tab.unicodeUrl = getUnicodeUrl(tab.url);
         }
         var shown = {};
         function show(L) { L.forEach(function(x) { shown[x] = true;  }); }
