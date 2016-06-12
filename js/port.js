@@ -33,11 +33,6 @@ if (typeof SAFARI == "undefined") {
             return (typeof safari !== "undefined");
         })();
 
-        // Safari 5.0 (533.x.x) with no menu support
-        LEGACY_SAFARI = SAFARI && (navigator.appVersion.match(/\sSafari\/(\d+)\./) || [null,0])[1] < 534;
-        // Safari 5.1 (534.x.x) with no undo support
-        LEGACY_SAFARI_51 = SAFARI && (navigator.appVersion.match(/\sSafari\/(\d+)\./) || [null,0])[1] <= 534;
-
         if (SAFARI) {
 
             var isOnGlobalPage = !!safari.extension.bars;
