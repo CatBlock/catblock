@@ -1,4 +1,4 @@
-CatBlock 
+CatBlock
 ========
 [![Build Status](https://travis-ci.org/CatBlock/catblock.svg?branch=master)](https://travis-ci.org/CatBlock/catblock)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cc8d000f77bb427caa8b0293d9b5d225)](https://www.codacy.com/app/tomastaro/catblock?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CatBlock/catblock&amp;utm_campaign=Badge_Grade)
@@ -14,7 +14,15 @@ If you want to keep an eye on (or even contribute to) the behind-the-scenes stuf
 
 ## Installation:
 Available in [Chrome Web Store](https://chrome.google.com/webstore/detail/catblock/mdcgnhlfpnbeieiiccmebgkfdebafodo),
-[Opera Extensions Store](https://addons.opera.com/sk/extensions/details/adblock-with-catblock/?display=en) and Firefox [Addons Store](https://addons.mozilla.org/en/firefox/addon/adblock-with-catblock/).
+[Opera Extensions Store](https://addons.opera.com/sk/extensions/details/adblock-with-catblock/?display=en) and [Firefox Addons Store](https://addons.mozilla.org/en/firefox/addon/adblock-with-catblock/).
+At this time, CatBlock is neither available in [Safari Extensions Store](https://safari-extensions.apple.com), nor in Microsoft Store.
+
+## Compatibility:
+Chrome: 49+
+Opera: 35+
+Safari: 6+
+Firefox: 48+
+Edge: 38.14342+
 
 ## Live chat:
 [![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
