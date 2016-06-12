@@ -48,8 +48,7 @@ $(function() {
         var eligible_for_undo = !paused && (info.disabled_site || !info.whitelisted);
         var url_to_check_for_undo = info.disabled_site ? undefined : host;
         if (eligible_for_undo &&
-            BG.count_cache.getCustomFilterCount(url_to_check_for_undo) &&
-            !LEGACY_SAFARI_51)
+            BG.count_cache.getCustomFilterCount(url_to_check_for_undo))
             show(["div_undo", "separator0"]);
 
         if (SAFARI || !advanced_option || !tab.id)
