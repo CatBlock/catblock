@@ -77,8 +77,7 @@ function Settings() {
         show_context_menu_items: true,
         show_advanced_options: false,
         display_stats: true,
-        display_menu_stats: true,
-        show_block_counts_help_link: true
+        display_menu_stats: true
     };
     var settings = storage_get('settings') || {};
     this._data = $.extend(defaults, settings);

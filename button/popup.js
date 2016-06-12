@@ -41,16 +41,6 @@ $(function() {
             var page_count = info.tab_blocked || "0";
             $("#page_blocked_count").text(page_count);
             $("#total_blocked_count").text(info.total_blocked);
-
-            // Show help link until it is clicked.
-            $("#block_counts_help").
-            toggle(BG.get_settings().show_block_counts_help_link).
-            click(function() {
-                BG.set_setting("show_block_counts_help_link", false);
-                BG.openTab($(this).attr("href"));
-                $(this).hide();
-                closeAndReloadPopup();
-            });
         }
 
         var host = parseUri(tab.unicodeUrl).host;
