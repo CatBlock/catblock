@@ -69,8 +69,8 @@ $(function() {
 
         // In Safari with content blocking enabled,
         // whitelisting of domains is not currently supported.
-        if (SAFARI &&
-            BG.get_settings().safari_content_blocking) {
+        // TODO
+        if (SAFARI) {
             hide(["div_paused_adblock", "div_whitelist_page", "div_whitelist"]);
         }
 
@@ -184,7 +184,8 @@ $(function() {
     });
 
     $("#div_pause_adblock").click(function() {
-        if (BG.get_settings().safari_content_blocking) {
+        //TODO
+        if (SAFARI) {
             alert(translate('catblock_safaricontentblockingpausemessage'));
         } else {
             BG.adblock_is_paused(true);

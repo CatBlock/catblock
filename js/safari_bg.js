@@ -1,173 +1,43 @@
-emit_page_broadcast = function(request) {
-    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('page-broadcast', request);
+var emit_page_broadcast = function(request) {
+    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("page-broadcast", request);
 };
 
-//frameData object for Safari
-frameData = (function() {
-    return {
-        // Get frameData for the tab.
-        // Input:
-        //   tabId: Integer - id of the tab you want to get
-        get: function(tabId) {
-            return frameData[tabId] || {};
-        },
-
-        // Create a new frameData
-        // Input:
-        //   tabId: Integerc - id of the tab you want to add in the frameData
-        create: function(tabId, url, domain) {
-            return frameData._initializeMap(tabId, url, domain);
-        },
-        // Reset a frameData
-        // Inputs:
-        //   tabId: Integer - id of the tab you want to add in the frameData
-        //   url: new URL for the tab
-        reset: function(tabId, url) {
-            var domain = parseUri(url).hostname;
-            return frameData._initializeMap(tabId, url, domain);
-        },
-        // Initialize map
-        // Inputs:
-        //   tabId: Integer - id of the tab you want to add in the frameData
-        //   url: new URL for the tab
-        //   domain: domain of the request
-        _initializeMap: function(tabId, url, domain) {
-            var tracker = frameData[tabId];
-
-            // We need to handle IDN URLs properly
-            url = getUnicodeUrl(url);
-            domain = getUnicodeDomain(domain);
-
-            var shouldTrack = !tracker || tracker.url !== url;
-            if (shouldTrack) {
-                frameData[tabId] = {
-                    resources: {},
-                    domain: domain,
-                    url: url,
-                };
-            }
-            return tracker;
-        },
-        // Store resource
-        // Inputs:
-        //   tabId: Numeric - id of the tab you want to delete in the frameData
-        //   url: url of the resource
-        storeResource: function(tabId, url, elType) {
-            if (!get_settings().show_advanced_options)
-                return;
-            var data = this.get(tabId);
-            if (data !== undefined &&
-                data.resources !== undefined) {
-                data.resources[elType + ':|:' + url] = null;
-            }
-        },
-        // Delete tabId from frameData
-        // Input:
-        //   tabId: Numeric - id of the tab you want to delete in the frameData
-        close: function(tabId) {
-            delete frameData[tabId];
-        }
-    }
-})();
-
-// True blocking support.
-safari.application.addEventListener("message", function(messageEvent) {
-    if (messageEvent.name === "request" &&
-        messageEvent.message.data.args.length >= 2 &&
-        messageEvent.message.data.args[0] &&
-        messageEvent.message.data.args[1] &&
-        messageEvent.message.data.args[1].tab &&
-        messageEvent.message.data.args[1].tab.url) {
-        var args = messageEvent.message.data.args;
-        if (!messageEvent.target.url ||
-            messageEvent.target.url === args[1].tab.url) {
-            frameData.create(messageEvent.target.id, args[1].tab.url, args[0].domain);
-        } else if (messageEvent.target.url === frameData.get(messageEvent.target.id).url) {
-            frameData.reset(messageEvent.target.id, args[1].tab.url);
-        }
-        return;
-    }
-
-    if (messageEvent.name != "canLoad")
-        return;
-
-    // In theory, this code shouldn't be needed...
-    if (get_settings().safari_content_blocking) {
-        return;
-    }
-
-    var tab = messageEvent.target;
-    var isPopup = messageEvent.message.isPopup;
-    var frameInfo = messageEvent.message.frameInfo;
-    chrome._tabInfo.notice(tab, frameInfo);
-    var sendingTab = chrome._tabInfo.info(tab, frameInfo.visible);
-
-    if (adblock_is_paused() || page_is_unblockable(sendingTab.url) ||
-        page_is_whitelisted(sendingTab.url)) {
-        messageEvent.message = true;
-        return;
-    }
-
-    if (!isPopup) {
-        var url = getUnicodeUrl(messageEvent.message.url);
-        var elType = messageEvent.message.elType;
-        var frameDomain = getUnicodeDomain(messageEvent.message.frameDomain);
-        var isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain));
-        if (isMatched) {
-            log("SAFARI TRUE BLOCK " + url + ": " + isMatched);
-        }
-    } else {
-        // Popup blocking support
-        if (messageEvent.message.referrer) {
-            var isMatched = _myfilters.blocking.matches(sendingTab.url, ElementTypes.popup,
-                                                        parseUri(getUnicodeUrl(messageEvent.message.referrer)).hostname);
-            if (isMatched) {
-                tab.close();
-            }
-        }
-    }
-
-    frameData.storeResource(tab.id, url, elType);
-
-    messageEvent.message = !isMatched;
-}, false);
-
 // Code for creating popover
-var ABPopover = safari.extension.createPopover("AdBlock", safari.extension.baseURI + "button/popup.html");
+var ABPopover = safari.extension.createPopover("CatBlock", safari.extension.baseURI + "button/popup.html");
 
-function setPopover(popover) {
-    for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
-        safari.extension.toolbarItems[i].popover = popover;
-        var toolbarItem = safari.extension.toolbarItems[i];
-        toolbarItem.popover = popover;
-        toolbarItem.toolTip = "CatBlock"; // change the tooltip on Safari 5.1+
-        toolbarItem.command = null;
-    }
-}
-
-// Code for removing popover
-function removePopover(popover) {
-    safari.extension.removePopover(popover);
-}
-
-// Reload popover when opening/activating tab, or URL was changed
+// Reload popover when opening/activating tab, or URL has been changed
 safari.application.addEventListener("activate", function(event) {
     if (event.target instanceof SafariBrowserTab) {
         safari.extension.popovers[0].contentWindow.location.reload();
         // Hide popover, when new tab has been opened
-        if (ABPopover.visible)
+        if (ABPopover.visible) {
             ABPopover.hide();
+        }
     }
 }, true);
 
+// Reload popover when it's about to display
 safari.application.addEventListener("popover", function(event) {
     safari.extension.popovers[0].contentWindow.location.reload();
 }, true);
 
+// Logic for adding and removing CatBlock's popover
 safari.application.addEventListener("validate", function(event) {
     if (event.target instanceof SafariExtensionToolbarItem) {
         var item = event.target;
         if (item.browserWindow && !item.popover) {
+
+            // Function for setting CatBlock's popover
+            function setPopover(popover) {
+                for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
+                    safari.extension.toolbarItems[i].popover = popover;
+                    var toolbarItem = safari.extension.toolbarItems[i];
+                    toolbarItem.popover = popover;
+                    toolbarItem.toolTip = "CatBlock"; // change the tooltip on Safari 5.1+
+                    toolbarItem.command = null;
+                }
+            }
+
             // Check if only this item lacks a popover (which means user just opened a new window) or there are multiple items
             // lacking a popover (which only happens on browser startup or when the user removes AdBlock toolbar item and later
             // drags it back).
@@ -182,7 +52,7 @@ safari.application.addEventListener("validate", function(event) {
                 // Browser startup or toolbar item added back to the toolbar. To prevent memory leaks in the second case,
                 // we need to remove all previously created popovers.
                 for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
-                    removePopover(ABPopover);
+                    safari.extension.removePopover(ABPopover);
                 }
                 // And now recreate the popover for toolbar items in all windows.
                 setPopover(ABPopover);
@@ -195,13 +65,8 @@ safari.application.addEventListener("validate", function(event) {
 }, true);
 
 
-// Remove the popover when the window closes and
-// cached data stored in frameData
+// Remove the popover when the window closes so we don't leak memory.
 safari.application.addEventListener("close", function(event) {
-    // Remove cached data for tab
-    frameData.close(event.target.id);
-
-    // Remove the popover when the window closes so we don't leak memory.
     if (event.target instanceof SafariBrowserWindow) { // don't handle tabs
         for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
             var item = safari.extension.toolbarItems[i];
@@ -212,24 +77,15 @@ safari.application.addEventListener("close", function(event) {
                 item.popover = null;
 
                 // Remove the popover.
-                removePopover(ABPopover);
+                safari.extension.removePopover(ABPopover);
                 break;
             }
         }
     }
 }, true);
 
-// Add and remove the specific content script based on the safari_content_blocking setting
-function set_content_scripts() {
-    if (get_settings().safari_content_blocking) {
-        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_contentblocking.js", [], [], false);
-        safari.extension.removeContentScript(safari.extension.baseURI + "js/adblock_safari_beforeload.js");
-    } else {
-        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_beforeload.js", [], [], false);
-        safari.extension.removeContentScript(safari.extension.baseURI + "js/adblock_safari_contentblocking.js");
-    }
-}
-set_content_scripts();
+// TODO: Info.plist
+safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_contentblocking.js", [], [], false);
 
 safari.application.addEventListener("beforeNavigate", function(event) {
 
@@ -259,7 +115,7 @@ safari.application.addEventListener("command", function(event) {
 
     var command = event.command;
 
-    if (command === "AdBlockOptions") {
+    if (command === "CatBlockOptions") {
         openTab("options/index.html", false, browserWindow);
     } else if (command === "undo-last-block") {
         var tab = browserWindow.activeTab;
@@ -277,7 +133,7 @@ var dispatchMessage = function(command) {
 // Open Options page upon settings checkbox click.
 safari.extension.settings.openAdBlockOptions = false;
 safari.extension.settings.addEventListener("change", function(e) {
-    if (e.key == 'openAdBlockOptions') {
+    if (e.key === "openCatBlockOptions") {
         openTab("options/index.html");
     }
 }, false);

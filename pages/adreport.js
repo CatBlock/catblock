@@ -463,12 +463,9 @@ var checkAdvanceOptions = function() {
     BGcall("get_settings", function(settings) {
 
         // We can't do a malware check when content blocking is enabled, so skip it.
-        if (settings.safari_content_blocking) {
+       if (SAFARI) {
             $("#step_malware_checking_DIV").hide();
-            $('#step_update_filters_DIV').show();
-            return;
-        } else if (SAFARI) {
-            $("#step_malware_checking_DIV").show();
+            $("#step_update_filters_DIV").show();
         }
 
         if (settings.show_advanced_options) {

@@ -169,8 +169,8 @@ MyFilters.prototype.getExtensionFilters = function(settings) {
 // Rebuild filters based on the current settings and subscriptions.
 MyFilters.prototype.rebuild = function() {
     var texts = [];
-    if (!get_settings().safari_content_blocking) {
-        // Only add subscriptions in Chrome, Opera, and older version of Safari...
+    if (!SAFARI) {
+        // Only add subscriptions in Chrome, Opera, Firefox and Edge
         for (var id in this._subscriptions) {
             if (this._subscriptions[id].subscribed) {
                 texts.push(this._subscriptions[id].text);
@@ -412,8 +412,8 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
         delete this._subscriptions[id].last_modified;
 
     if (this._subscriptions[id].subscribed) {
-        if ((!get_settings().safari_content_blocking && !this._subscriptions[id].text) ||
-            (get_settings().safari_content_blocking && !this._subscriptions[id].rules) ||
+        if ((!SAFARI && !this._subscriptions[id].text) ||
+            (SAFARI && !this._subscriptions[id].rules) ||
             out_of_date(this._subscriptions[id])) {
             this.fetch_and_update(id, listDidntExistBefore);
         }
@@ -444,7 +444,7 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
 //            otherwise it'll be deleted.
 MyFilters.prototype.fetch_and_update = function(id, isNewList) {
     var url = this._subscriptions[id].url;
-    if (get_settings().safari_content_blocking) {
+    if (SAFARI) {
         if (!this._subscriptions[id].safariJSON_URL){
             // Since the certain filter lists (AdBlock Custom) are embedded with the other filter lists
             // (when content blocking enabled)
@@ -517,8 +517,8 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
 MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
     this._subscriptions[id].last_update = Date.now();
     delete this._subscriptions[id].last_update_failed_at;
-    //Safari 9 Content Blocking...
-    if (get_settings().safari_content_blocking) {
+    // Safari 9 Content Blocking...
+    if (SAFARI) {
         //if the |text| is JSON rules, save them, and return
         if (text && (typeof text === "object")) {
             // Record how many hours until we need to update the subscription text. Defaults to 120.

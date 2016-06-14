@@ -6,8 +6,8 @@ $(function() {
         $("#enable_" + name).
         prop("checked", optionalSettings[name]);
     }
-    //uncheck any incompatible options with the new safari content blocking, and then hide them
-    if (optionalSettings["safari_content_blocking"]) {
+    // Uncheck any incompatible options with the new safari content blocking, and then hide them
+    if (SAFARI) {
         $(".exclude_safari_content_blocking > input").each(function(index) {
             $(this).prop("checked", false);
         });
@@ -26,26 +26,6 @@ $(function() {
         BGcall("get_settings", function(settings) {
             optionalSettings = settings;
         });
-
-        if (name === "safari_content_blocking") {
-            if (is_enabled) {
-                $(".exclude_safari_content_blocking").hide();
-                $("#safari_content_blocking_bmessage").text("");
-                // message to users on the Custom tab
-                $("#safariwarning").text(translate("contentblockingwarning")).show();
-                // uncheck any incompatable options, and then hide them
-                $(".exclude_safari_content_blocking > input").each(function(index) {
-                    $(this).prop("checked", false);
-                });
-            } else {
-                $(".exclude_safari_content_blocking").show();
-                $("#safari_content_blocking_bmessage").text(translate("browserestartrequired")).show();
-                // message to users on the Custom tab
-                $("#safariwarning").text("").hide();
-            }
-            BGcall("set_content_scripts");
-            BGcall("update_subscriptions_now");
-        }
     }); // end of change handler
 
     //if safari content blocking is available...

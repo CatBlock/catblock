@@ -290,12 +290,13 @@ $(function() {
         $("#txtFiltersAdvanced").val(text);
     });
 
+    // TODO
     BGcall("get_settings", function(settings) {
         if (settings.show_advanced_options &&
-            !settings.safari_content_blocking) {
+            !SAFARI) {
             $("#divExcludeFilters").show();
         }
-        if (settings.safari_content_blocking) {
+        if (SAFARI) {
             $("#safariwarning").text(translate("contentblockingwarning")).show();
         }
     });

@@ -599,7 +599,7 @@ if (!SAFARI) {
         }
     }
 } else {
-    // Augment blocked and hidden ads on Safari
+    // TODO: Augment blocked and hidden ads on Safari
     document.addEventListener("beforeload", function(event) {
         if (picinjection._inHiddenSection(event.target)) {
             picinjection._augmentHiddenSectionContaining(event.target);

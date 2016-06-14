@@ -124,6 +124,7 @@ function debug_print_selector_matches(data) {
     selectors.
     filter(function(selector) { return document.querySelector(selector); }).
     forEach(function(selector) {
+        // TODO: Content Blocking API
         if (!SAFARI) {
             augmentHiddenElements(selector);
         }

@@ -699,16 +699,6 @@ adblock_is_paused = function(newValue) {
         return sessionStorage.getItem('adblock_is_paused') === "true";
     }
     sessionStorage.setItem('adblock_is_paused', newValue);
-    // To prevent certain web site issues that occur with the "beforeload" event listener
-    // remove the Safari specific "beforeload" script when AdBlock is paused, and
-    // add it back when AdBlock is un-paused
-    if (SAFARI && !get_settings().safari_content_blocking) {
-        if (newValue) {
-            safari.extension.removeContentScript(safari.extension.baseURI + "js/adblock_safari_beforeload.js");
-        } else {
-            safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_beforeload.js", [], [], false);
-        }
-    }
 }
 
 // Get if AdBlock is paused
@@ -803,7 +793,8 @@ page_is_whitelisted = function(url, type) {
     }
     // In Safari with content blocking enabled,
     // whitelisting of domains is not currently supported.
-    if (get_settings().safari_content_blocking) {
+    // TODO
+    if (SAFARI) {
         return false;
     }
     url = getUnicodeUrl(url);
@@ -1035,7 +1026,7 @@ get_content_script_data = function(options, sender) {
         _myfilters &&
         _myfilters.hiding &&
         settings &&
-        !settings.safari_content_blocking) {
+        !SAFARI) { //TODO
         result.selectors = _myfilters.hiding.filtersFor(options.domain);
     }
     return result;

@@ -47,9 +47,7 @@ function CheckboxForFilterList(filter_list, filter_list_type, index, container) 
         var url = $(this).attr("data-URL");
 
         // If the user has Safari content blocking enabled, change the URL to the content blocking rule URL
-        if (optionalSettings &&
-            optionalSettings.safari_content_blocking &&
-            safariJSON_URL) {
+        if (SAFARI && safariJSON_URL) {
             $(this).attr("href", safariJSON_URL);
             return;
         }
