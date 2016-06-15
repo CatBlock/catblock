@@ -71,13 +71,15 @@ $(function() {
         // whitelisting of domains is not currently supported.
         // TODO
         if (SAFARI) {
-            hide(["div_paused_adblock", "div_whitelist_page", "div_whitelist"]);
+            hide(["div_whitelist_page", "div_whitelist"]);
         }
 
 
-        for (var div in shown)
-            if (shown[div])
+        for (var div in shown) {
+            if (shown[div]) {
                 $('#' + div).show();
+            }
+        }
 
         if (SAFARI ||
             !info.display_menu_stats ||
@@ -184,14 +186,9 @@ $(function() {
     });
 
     $("#div_pause_adblock").click(function() {
-        //TODO
-        if (SAFARI) {
-            alert(translate('catblock_safaricontentblockingpausemessage'));
-        } else {
-            BG.adblock_is_paused(true);
-            if (!SAFARI) {
-                BG.updateButtonUIAndContextMenus();
-            }
+        BG.adblock_is_paused(true);
+        if (!SAFARI) {
+            BG.updateButtonUIAndContextMenus();
         }
         if (EDGE) {
             document.location.reload();

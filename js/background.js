@@ -685,7 +685,7 @@ page_is_unblockable = function(url) {
         return true;
     } else {
         var scheme = parseUri(url).protocol;
-        return (scheme !== 'http:' && scheme !== 'https:' && scheme !== 'feed:');
+        return (scheme !== "http:" && scheme !== "https:" && scheme !== "feed:");
     }
 }
 
@@ -696,9 +696,16 @@ page_is_unblockable = function(url) {
 //          if paused, false otherwise.
 adblock_is_paused = function(newValue) {
     if (newValue === undefined) {
-        return sessionStorage.getItem('adblock_is_paused') === "true";
+        return sessionStorage.getItem("adblock_is_paused") === "true";
     }
-    sessionStorage.setItem('adblock_is_paused', newValue);
+    sessionStorage.setItem("adblock_is_paused", newValue);
+    if (SAFARI) {
+        if (newValue) {
+            safari.extension.setContentBlocker(null);
+        } else {
+            _myfilters.rebuild();
+        }
+    }
 }
 
 // Get if AdBlock is paused
@@ -1216,9 +1223,11 @@ get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
     }
 })();
 
-if (get_settings().debug_logging)
+if (get_settings().debug_logging) {
     logging(true);
+}
 
+// Initialize filters
 _myfilters = new MyFilters();
 _myfilters.init();
 
