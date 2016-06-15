@@ -88,11 +88,6 @@ safari.application.addEventListener("close", function(event) {
 safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_contentblocking.js", [], [], false);
 
 safari.application.addEventListener("beforeNavigate", function(event) {
-
-    // Remove bandaids.js from YouTube.com when a user pauses AdBlock or if the enabled click to flash compatibility mode
-    if (/youtube.com/.test(event.url) && (is_adblock_paused() || (get_settings().clicktoflash_compatibility_mode === true))) {
-        safari.extension.removeContentScript(safari.extension.baseURI + "js/bandaids.js");
-    }
     // YouTube Channel Whitelist
     if (/youtube.com/.test(event.url) && get_settings().youtube_channel_whitelist && !parseUri.parseSearch(event.url).ab_channel) {
         safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/ytchannel.js", [], [], false);

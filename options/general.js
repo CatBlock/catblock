@@ -28,7 +28,7 @@ $(function() {
         });
     }); // end of change handler
 
-    //if safari content blocking is available...
+    // If safari content blocking is available...
     //  - display option to user
     //  - check if any messages need to be displayed
     //  - add a listener to process any messages
@@ -36,7 +36,7 @@ $(function() {
         if (response) {
             $("#safari_content_blocking").show();
             getSafariContentBlockingMessage();
-            //once the filters have been updated see if there's an update to the message.
+            // Once the filters have been updated see if there's an update to the message.
             chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 if (request.command !== "contentblockingmessageupdated")
                     return;
@@ -64,7 +64,7 @@ $("#enable_show_advanced_options").change(function() {
 
 function getSafariContentBlockingMessage() {
     BGcall('sessionstorage_get', 'contentblockingerror', function(messagecode) {
-        //if the message exists, it should already be translated.
+        // If the message exists, it should already be translated.
         if (messagecode) {
             $("#safari_content_blocking_bmessage").text(messagecode).show();
         } else {
