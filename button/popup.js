@@ -163,7 +163,16 @@ $(function() {
         if (EDGE) {
             document.location.reload();
         }
-        closeAndReloadPopup();
+        if (!SAFARI) {
+            closeAndReloadPopup();
+        } else {
+            // It takes a while in order to process
+            // all filters into bytecode on Safari
+            window.setTimeout(function() {
+                closeAndReloadPopup();
+            }, 2500);
+        }
+
     });
 
     $("#div_undo").click(function() {
