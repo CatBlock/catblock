@@ -235,7 +235,7 @@ $(function() {
         if (!SAFARI) {
             chrome.tabs.update(tab.id, {url: tab.url});
         } else {
-            tab.url = tab.url
+            tab.url = tab.url;
         }
         if (EDGE) {
             document.location.reload();

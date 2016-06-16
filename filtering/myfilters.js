@@ -202,8 +202,10 @@ MyFilters.prototype.rebuild = function() {
             this._initializeMalwareDomains();
         }
     } else {
-        // If Safari 9 content blocking
+        // Safari 9+ content blocking
         var filterListRules = [];
+        var hiding = [];
+
         for (var id in this._subscriptions) {
             if (this._subscriptions[id].subscribed) {
                 for (var item in this._subscriptions[id].rules)  {
@@ -218,11 +220,58 @@ MyFilters.prototype.rebuild = function() {
             this.getMalwareDomains()) {
             var malwareDomains = this._subscriptions.malware.text.adware;
             var malwareRules = DeclarativeWebRequest.convertMalware(malwareDomains);
-            //add the custom rules, with the filter list rules
+            // Add the custom rules, with the filter list rules
             for (var i = 0; i < malwareRules.length; i++) {
                 filterListRules.push(malwareRules[i]);
             }
         }
+
+        for (var rule in filterListRules) {
+            if (filterListRules[rule].action.selector) {
+                hiding.push(filterListRules[rule]);
+            }
+        }
+
+        var cb = [];
+        for (var filter in hiding) {
+            var rule = hiding[filter];
+
+            if (typeof rule === "object") {
+                var selectors = rule.action.selector; // selector in string
+                var domains = null;
+                var prefix = "";
+
+                if (rule.trigger["if-domain"]) {
+                    domains = rule.trigger["if-domain"];
+                    prefix = "##";
+                } else {
+                    domains = rule.trigger["unless-domain"];
+                    prefix = "#@#";
+                }
+
+                if (typeof domains !== "object") {
+                    continue;
+                }
+
+                selectors = selectors.split(/, (\.|#|\[|\w)/);
+
+                for (var i=0; i<selectors.length; i++) {
+                    var selector = selectors[i];
+                    if (selector.length === 1) { // That's "."/"#"/"["
+                        continue;
+                    }
+                    if (i !== 0) {
+                        selector = selectors[i-1] + selector;
+                    }
+                    rule = domains.join(",").replace(/\*/g, "") + prefix + selector;
+                    cb.push(rule);
+                }
+            }
+        }
+        //console.log(cb);
+        var filters = this._splitByType(cb);
+
+        this.hiding = FilterSet.fromFilters(filters.hiding); // TODO: not really working, why?
 
         // Include custom filters.
         var customfilters = get_custom_filters_text(); // from background
@@ -230,6 +279,7 @@ MyFilters.prototype.rebuild = function() {
             texts.push(FilterNormalizer.normalizeList(customfilters));
             texts = texts.join('\n').split('\n');
             var filters = this._splitByType(texts);
+
             var patternFilters = [];
             for (var id in filters.pattern) {
                 patternFilters.push(filters.pattern[id]);

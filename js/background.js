@@ -1032,8 +1032,7 @@ get_content_script_data = function(options, sender) {
     if (hiding &&
         _myfilters &&
         _myfilters.hiding &&
-        settings &&
-        !SAFARI) { //TODO
+        settings) {
         result.selectors = _myfilters.hiding.filtersFor(options.domain);
     }
     return result;

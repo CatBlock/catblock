@@ -124,10 +124,9 @@ function debug_print_selector_matches(data) {
     selectors.
     filter(function(selector) { return document.querySelector(selector); }).
     forEach(function(selector) {
-        // TODO: Content Blocking API
-        if (!SAFARI) {
-            augmentHiddenElements(selector);
-        }
+        // Show pictures of cats instead of ads
+        console.log("selector: ", selector);
+        augmentHiddenElements(selector);
         if (data.settings && data.settings.debug_logging) {
             var matches = "";
             var elems = document.querySelectorAll(selector);
@@ -202,8 +201,9 @@ function adblock_begin(inputs) {
     inputs.startPurger();
 
     var opts = { domain: document.location.hostname };
-    BGcall('get_content_script_data', opts, function(data) {
+    BGcall("get_content_script_data", opts, function(data) {
 
+        console.log("data: ", data);
         if (data && data.settings && data.settings.debug_logging)
             logging(true);
 

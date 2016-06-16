@@ -366,7 +366,7 @@ var picinjection = {
 
     // Returns true if |el| or an ancestor was hidden by an AdBlock hiding rule.
     _inHiddenSection: function(el) {
-        return window.getComputedStyle(el).orphans === "4321";
+        return window.getComputedStyle(el).display === "none";
     },
 
     // Find the ancestor of el that was hidden by AdBlock, and augment it
@@ -589,20 +589,13 @@ if (!SAFARI) {
 
         sendResponse(true);
     });
+}
 
-    // Augment hidden ads on Blink-based browsers
-    function augmentHiddenElements(selector) {
-        var ads = document.querySelectorAll(selector);
+// Augment hidden ads
+function augmentHiddenElements(selector) {
+    var ads = document.querySelectorAll(selector);
 
-        for (var i = 0; i < ads.length; i++) {
-            picinjection._augmentHiddenSectionContaining(ads[i]);
-        }
+    for (var i = 0; i < ads.length; i++) {
+        picinjection._augmentHiddenSectionContaining(ads[i]);
     }
-} else {
-    // TODO: Augment blocked and hidden ads on Safari
-    document.addEventListener("beforeload", function(event) {
-        if (picinjection._inHiddenSection(event.target)) {
-            picinjection._augmentHiddenSectionContaining(event.target);
-        }
-    }, true);
 }
