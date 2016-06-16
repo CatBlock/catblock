@@ -133,7 +133,7 @@ safari.application.addEventListener("message", function(messageEvent) {
 }, false);
 
 // Code for creating popover
-var ABPopover = safari.extension.createPopover("AdBlock", safari.extension.baseURI + "button/popup.html");
+var ABPopover = safari.extension.createPopover("CatBlock", safari.extension.baseURI + "button/popup.html");
 
 function setPopover(popover) {
     for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
@@ -169,7 +169,7 @@ safari.application.addEventListener("validate", function(event) {
         var item = event.target;
         if (item.browserWindow && !item.popover) {
             // Check if only this item lacks a popover (which means user just opened a new window) or there are multiple items
-            // lacking a popover (which only happens on browser startup or when the user removes AdBlock toolbar item and later
+            // lacking a popover (which only happens on browser startup or when the user removes CatBlock toolbar item and later
             // drags it back).
             var uninitializedItems = 0;
             for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
@@ -233,7 +233,7 @@ set_content_scripts();
 
 safari.application.addEventListener("beforeNavigate", function(event) {
 
-    // Remove bandaids.js from YouTube.com when a user pauses AdBlock or if the enabled click to flash compatibility mode
+    // Remove bandaids.js from YouTube.com when a user pauses CatBlock or if the enabled click to flash compatibility mode
     if (/youtube.com/.test(event.url) && (is_adblock_paused() || (get_settings().clicktoflash_compatibility_mode === true))) {
         safari.extension.removeContentScript(safari.extension.baseURI + "js/bandaids.js");
     }
@@ -259,7 +259,7 @@ safari.application.addEventListener("command", function(event) {
 
     var command = event.command;
 
-    if (command === "AdBlockOptions") {
+    if (command === "CatBlockOptions") {
         openTab("options/index.html", false, browserWindow);
     } else if (command === "undo-last-block") {
         var tab = browserWindow.activeTab;
@@ -275,9 +275,9 @@ var dispatchMessage = function(command) {
 };
 
 // Open Options page upon settings checkbox click.
-safari.extension.settings.openAdBlockOptions = false;
+safari.extension.settings.openCatBlockOptions = false;
 safari.extension.settings.addEventListener("change", function(e) {
-    if (e.key == 'openAdBlockOptions') {
+    if (e.key == 'openCatBlockOptions') {
         openTab("options/index.html");
     }
 }, false);
