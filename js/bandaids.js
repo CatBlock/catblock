@@ -30,7 +30,7 @@ var run_bandaids = function() {
             var css_chunk = document.createElement("style");
             css_chunk.type = "text/css";
             (document.head || document.documentElement).insertBefore(css_chunk, null);
-            css_chunk.sheet.insertRule(".WithRightRail { right:0 !important; }", 0);
+            css_chunk.sheet.insertRule(".WithRightRail { right: 0px !important; }", 0);
             css_chunk.sheet.insertRule("#RightRailContainer  { display:none !important; visibility: none !important; orphans: 4321 !important; }" , 0);
         },
         czech_sites: function() {

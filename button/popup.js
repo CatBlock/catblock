@@ -92,7 +92,7 @@ $(function() {
         // If there's an update on Edge,
         // show a notification about the udpate
         if (EDGE) {
-            hide(["div_help_hide_start"])
+            hide(["div_help_hide_start"]);
             if (storage_get("update_available")) {
                 show(["update"]);
             }
