@@ -3,15 +3,16 @@
 var run_bandaids = function() {
     // Tests to determine whether a particular bandaid should be applied
     var apply_bandaid_for = "";
-    if (/mail\.live\.com/.test(document.location.hostname))
+    if (/mail\.live\.com/.test(document.location.hostname)) {
         apply_bandaid_for = "hotmail";
-    else if (/mobilmania\.cz|zive\.cz|doupe\.cz|e15\.cz|sportrevue\.cz|autorevue\.cz/.test(document.location.hostname))
+    } else if (/mobilmania\.cz|zive\.cz|doupe\.cz|e15\.cz|sportrevue\.cz|autorevue\.cz/.test(document.location.hostname)) {
         apply_bandaid_for = "czech_sites";
-    else {
+    } else {
         var hosts = [ /mastertoons\.com$/ ];
         hosts = hosts.filter(function(host) { return host.test(document.location.hostname); });
-        if (hosts.length > 0)
+        if (hosts.length > 0) {
             apply_bandaid_for = "noblock";
+        }
     }
     var bandaids = {
         noblock: function() {
@@ -19,8 +20,8 @@ var run_bandaids = function() {
             var re = /#(\w+)\s*~\s*\*\s*{[^}]*display\s*:\s*none/;
             for (var i = 0; i < styles.length; i++) {
                 var id = styles[i].innerText.match(re);
-                if(id) {
-                    styles[i].innerText = '#' + id[1] + ' { display: none }';
+                if (id) {
+                    styles[i].innerText = "#" + id[1] + " { display: none }";
                 }
             }
         },
@@ -29,15 +30,16 @@ var run_bandaids = function() {
             var css_chunk = document.createElement("style");
             css_chunk.type = "text/css";
             (document.head || document.documentElement).insertBefore(css_chunk, null);
-            css_chunk.sheet.insertRule(".WithRightRail { right:0px !important; }", 0);
+            css_chunk.sheet.insertRule(".WithRightRail { right: 0px !important; }", 0);
             css_chunk.sheet.insertRule("#RightRailContainer  { display:none !important; visibility: none !important; orphans: 4321 !important; }" , 0);
         },
         czech_sites: function() {
             var player = document.getElementsByClassName("flowplayer");
             // Remove data-ad attribute from videoplayer
             if (player) {
-                for (var i=0; i<player.length; i++)
+                for (var i=0; i<player.length; i++) {
                     player[i].removeAttribute("data-ad");
+                }
             }
         }
     }; // end bandaids
@@ -54,11 +56,11 @@ var before_ready_bandaids = function() {
 
 };
 
-//Safari & YouTube only
-//This function is outside the normal 'bandaids' processing
-//so that it works correctly
+// Safari & YouTube only
+// This function is outside the normal 'bandaids' processing
+// so that it works correctly
 (function() {
-    if ((typeof SAFARI) !== 'undefined' &&
+    if ((typeof SAFARI) !==  'undefined' &&
         SAFARI &&
         document.domain === "www.youtube.com") {
         //continue
@@ -66,14 +68,16 @@ var before_ready_bandaids = function() {
         return;
     }
 
-    //a regex used to test the ytplayer config / flashvars for youtube ads, references to ads, etc.
+    // a regex used to test the ytplayer config / flashvars for youtube ads, references to ads, etc.
     var badArgumentsRegex = /^((.*_)?(ad|ads|afv|adsense)(_.*)?|(ad3|st)_module|prerolls|interstitial|infringe|iv_cta_url)$/;
 
     function rewriteFlashvars(flashvars) {
         var pairs = flashvars.split("&");
-        for (var i = 0; i < pairs.length; i++)
-            if (badArgumentsRegex.test(pairs[i].split("=")[0]))
+        for (var i = 0; i < pairs.length; i++) {
+            if (badArgumentsRegex.test(pairs[i].split("=")[0])) {
                 pairs.splice(i--, 1);
+            }
+        }
         return pairs.join("&");
     }
 
@@ -84,7 +88,7 @@ var before_ready_bandaids = function() {
         var flashvars = newPlayer.getAttribute("flashvars");
         if (flashvars) {
             var newFlashvars = rewriteFlashvars(flashvars);
-            if (flashvars != newFlashvars) {
+            if (flashvars !==  newFlashvars) {
                 newPlayer.setAttribute("flashvars", newFlashvars);
                 flashvarsChanged = true;
             }
@@ -95,15 +99,16 @@ var before_ready_bandaids = function() {
             var value = param.getAttribute("value");
             if (value) {
                 var newValue = rewriteFlashvars(value);
-                if (value != newValue) {
+                if (value !==  newValue) {
                     param.setAttribute("value", newValue);
                     flashvarsChanged = true;
                 }
             }
         }
 
-        if (flashvarsChanged)
+        if (flashvarsChanged) {
             player.parentNode.replaceChild(newPlayer, player);
+        }
     }
 
     function runInPage(fn, arg) {
@@ -116,8 +121,9 @@ var before_ready_bandaids = function() {
     }
 
     document.addEventListener("beforeload", function(event) {
-        if ((event.target.localName == "object" || event.target.localName == "embed") && /:\/\/[^\/]*\.ytimg\.com\//.test(event.url))
+        if ((event.target.localName === "object" || event.target.localName === "embed") && /:\/\/[^\/]*\.ytimg\.com\//.test(event.url)) {
             patchPlayer(event.target);
+        }
     }, true);
 
     runInPage(function(badArgumentsRegex) {
@@ -137,7 +143,7 @@ var before_ready_bandaids = function() {
                 return ytplayer;
             },
             set: function(rawYtplayer) {
-                if (!rawYtplayer || typeof rawYtplayer != "object") {
+                if (!rawYtplayer || typeof rawYtplayer !==  "object") {
                     ytplayer = rawYtplayer;
                     return;
                 }
@@ -150,7 +156,7 @@ var before_ready_bandaids = function() {
                             return config;
                         },
                         set: function(rawConfig) {
-                            if (!rawConfig || typeof rawConfig != "object") {
+                            if (!rawConfig || typeof rawConfig !==  "object") {
                                 config = rawConfig;
                                 return;
                             }
@@ -163,15 +169,16 @@ var before_ready_bandaids = function() {
                                         return args;
                                     },
                                     set: function(rawArgs) {
-                                        if (!rawArgs || typeof rawArgs != "object") {
+                                        if (!rawArgs || typeof rawArgs !==  "object") {
                                             args = rawArgs;
                                             return;
                                         }
 
                                         args = {};
                                         for (var arg in rawArgs) {
-                                            if (!badArgumentsRegex.test(arg))
+                                            if (!badArgumentsRegex.test(arg)) {
                                                 args[arg] = rawArgs[arg];
+                                            }
                                         }
                                     }
                                 }

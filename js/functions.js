@@ -1,10 +1,10 @@
 // Set to true to get noisier console.log statements
-VERBOSE_DEBUG = false;
+var VERBOSE_DEBUG = false;
 
 // Global variable for detection of Opera, Edge and Firefox
-OPERA = navigator.userAgent.indexOf("OPR") > -1;
-EDGE = navigator.userAgent.indexOf("Edge") > -1;
-FIREFOX = navigator.userAgent.indexOf("Firefox") > -1;
+var OPERA = navigator.userAgent.indexOf("OPR") > -1;
+var EDGE = navigator.userAgent.indexOf("Edge") > -1;
+var FIREFOX = navigator.userAgent.indexOf("Firefox") > -1;
 
 // Edge uses "browser" namespace for its API
 if (EDGE) {
@@ -16,53 +16,54 @@ if (EDGE) {
 //   first, a string - the name of the function to call
 //   then, any arguments to pass to the function (optional)
 //   then, a callback:function(return_value:any) (optional)
-BGcall = function() {
+var BGcall = function() {
     var args = [];
-    for (var i=0; i < arguments.length; i++)
+    for (var i=0; i < arguments.length; i++) {
         args.push(arguments[i]);
+    }
     var fn = args.shift();
-    var has_callback = (typeof args[args.length - 1] == "function");
+    var has_callback = (typeof args[args.length - 1] === "function");
     var callback = (has_callback ? args.pop() : function() {});
-    chrome.runtime.sendMessage({command: "call", fn:fn, args:args}, callback);
+    chrome.runtime.sendMessage({ command: "call", fn:fn, args:args }, callback);
 };
 
 // Enabled in adblock_start_common.js and background.js if the user wants
-logging = function(enabled) {
+var logging = function(enabled) {
     if (enabled) {
-        log = function() {
-            if (VERBOSE_DEBUG || arguments[0] != '[DEBUG]') // comment out for verbosity
+        var log = function() {
+            if (VERBOSE_DEBUG || arguments[0] !==  "[DEBUG]") { // comment out for verbosity
                 console.log.apply(console, arguments);
+            }
         };
-        logGroup = function() { console.group.apply(console, arguments); };
-        logGroupEnd = function() { console.groupEnd(); };
-    }
-    else {
-        log = logGroup = logGroupEnd = function() {};
+        var logGroup = function() { console.group.apply(console, arguments); };
+        var logGroupEnd = function() { console.groupEnd(); };
+    } else {
+        var log = logGroup = logGroupEnd = function() {};
     }
 };
 logging(false); // disabled by default
 
 // Behaves very similarly to $.ready() but does not require jQuery.
-onReady = function(callback) {
-    if (document.readyState === "complete")
+var onReady = function(callback) {
+    if (document.readyState === "complete") {
         window.setTimeout(callback, 0);
-    else
+    } else {
         window.addEventListener("load", callback, false);
+    }
 };
 
-translate = function(messageID, args) {
+var translate = function(messageID, args) {
     return chrome.i18n.getMessage(messageID, args);
 };
 
-localizePage = function() {
-    //translate a page into the users language
+var localizePage = function() {
+    // Translate a page into the users language
     $("[i18n]:not(.i18n-replaced)").each(function() {
         try {
             $(this).html(translate($(this).attr("i18n")));
         } catch(e) {
             console.log(e);
         }
-
     });
     $("[i18n_value]:not(.i18n-replaced)").each(function() {
         $(this).val(translate($(this).attr("i18n_value")));
@@ -96,7 +97,7 @@ localizePage = function() {
 };
 
 // Determine what language the user's browser is set to use
-determineUserLanguage = function() {
+var determineUserLanguage = function() {
     return navigator.language.match(/^[a-z]+/i)[0];
 };
 
@@ -104,14 +105,15 @@ determineUserLanguage = function() {
 // parseUri 1.2.2, (c) Steven Levithan <stevenlevithan.com>, MIT License
 // Inputs: url: the URL you want to parse
 // Outputs: object containing all parts of |url| as attributes
-parseUri = function(url) {
+var parseUri = function(url) {
     var matches = /^(([^:]+(?::|$))(?:(?:\w+:)?\/\/)?(?:[^:@\/]*(?::[^:@\/]*)?@)?(([^:\/?#]*)(?::(\d*))?))((?:[^?#\/]*\/)*[^?#]*)(\?[^#]*)?(\#.*)?/.exec(url);
     // The key values are identical to the JS location object values for that key
     var keys = ["href", "origin", "protocol", "host", "hostname", "port",
                 "pathname", "search", "hash"];
     var uri = {};
-    for (var i=0; (matches && i<keys.length); i++)
+    for (var i=0; (matches && i<keys.length); i++) {
         uri[keys[i]] = matches[i] || "";
+    }
     return uri;
 };
 // Parses the search part of a URL into an key: value object.
@@ -123,8 +125,9 @@ parseUri.parseSearch = function(search) {
     var params = {}, pair;
     for (var i = 0; i < search.length; i++) {
         pair = search[i].split("=");
-        if (pair[0] && !pair[1])
+        if (pair[0] && !pair[1]) {
             pair[1] = "";
+        }
         if (!params[decodeURIComponent(pair[0])] && decodeURIComponent(pair[1]) === "undefined") {
             continue;
         } else {
@@ -147,7 +150,7 @@ parseUri.secondLevelDomainOnly = function(domain, keepDot) {
 };
 
 // Return |domain| encoded in Unicode
-getUnicodeDomain = function(domain) {
+var getUnicodeDomain = function(domain) {
     if (domain) {
         return punycode.toUnicode(domain);
     } else {
@@ -156,7 +159,7 @@ getUnicodeDomain = function(domain) {
 }
 
 // Return |url| encoded in Unicode
-getUnicodeUrl = function(url) {
+var getUnicodeUrl = function(url) {
     // URLs encoded in Punycode contain xn-- prefix
     if (url && url.indexOf("xn--") > 0) {
         var parsed = parseUri(url);
@@ -172,13 +175,13 @@ getUnicodeUrl = function(url) {
 // and 5912 to avoid merge conflicts.
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
-storage_get = function(key) {
+var storage_get = function(key) {
     var store = (window.SAFARI ? safari.extension.settings : localStorage);
     if (store === undefined) {
         return undefined;
     }
     var json = store.getItem(key);
-    if (json == null)
+    if (json === null)
         return undefined;
     try {
         return JSON.parse(json);
@@ -191,7 +194,7 @@ storage_get = function(key) {
 // Inputs: key:string, value:object.
 // If value === undefined, removes key from storage.
 // Returns undefined.
-storage_set = function(key, value) {
+var storage_set = function(key, value) {
     var store = (window.SAFARI ? safari.extension.settings : localStorage);
     if (value === undefined) {
         store.removeItem(key);
@@ -202,7 +205,7 @@ storage_set = function(key, value) {
     } catch (ex) {
         // Safari throws this error for all writes in Private Browsing mode.
         // TODO: deal with the Safari case more gracefully.
-        if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
+        if (ex.name === "QUOTA_EXCEEDED_ERR" && !SAFARI) {
             alert(translate("catblock_storage_quota_exceeded"));
             openTab("options/index.html#ui-tabs-2");
         }
@@ -210,17 +213,18 @@ storage_set = function(key, value) {
 };
 
 // Return obj[value], first setting it to |defaultValue| if it is undefined.
-setDefault = function(obj, value, defaultValue) {
-    if (obj[value] === undefined)
+var setDefault = function(obj, value, defaultValue) {
+    if (obj[value] === undefined) {
         obj[value] = defaultValue;
+    }
     return obj[value];
 };
 
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
-sessionstorage_get = function(key) {
+var sessionstorage_get = function(key) {
     var json = sessionStorage.getItem(key);
-    if (json == null)
+    if (json === null)
         return undefined;
     try {
         return JSON.parse(json);
@@ -232,7 +236,7 @@ sessionstorage_get = function(key) {
 
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
-sessionstorage_set = function(key, value) {
+var sessionstorage_set = function(key, value) {
     if (value === undefined) {
         sessionStorage.removeItem(key);
         return;
@@ -240,7 +244,7 @@ sessionstorage_set = function(key, value) {
     try {
         sessionStorage.setItem(key, JSON.stringify(value));
     } catch (ex) {
-        if (ex.name == "QUOTA_EXCEEDED_ERR" && !SAFARI) {
+        if (ex.name === "QUOTA_EXCEEDED_ERR" && !SAFARI) {
             alert(translate("catblock_storage_quota_exceeded"));
             openTab("options/index.html#ui-tabs-2");
         }
@@ -253,7 +257,8 @@ var createRuleLimitExceededSafariNotification = function() {
     if (SAFARI && ("Notification" in window)) {
         sessionstorage_set("contentblockingerror", translate("safaricontentblockinglimitexceeded"));
         chrome.runtime.sendMessage({command: "contentblockingmessageupdated"});
-        var note = new Notification(translate("safarinotificationtitle") , { 'body' : translate("catblock_safarinotificationbody"), 'tag' : 1 });
+        var note = new Notification(translate("safarinotificationtitle"),
+                                    { "body" : translate("catblock_safarinotificationbody"), "tag" : 1 });
         note.onclick = function() {
             openTab("options/index.html?tab=0");
         };

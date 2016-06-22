@@ -45,7 +45,7 @@ BlacklistUi.prototype._fire = function(eventName, arg) {
         callbacks[i](arg);
 }
 BlacklistUi.prototype._onClose = function() {
-    if (this._cancelled == true) {
+    if (this._cancelled === true) {
         this._ui_page1.empty().remove();
         this._ui_page2.empty().remove();
         $(".adblock-ui-stylesheet").remove();
@@ -65,7 +65,7 @@ BlacklistUi.prototype.handle_change = function() {
 
 BlacklistUi.prototype.show = function() {
     // If we don't know the clicked element, we must find it first.
-    if (this._clicked_item == null) {
+    if (this._clicked_item === null) {
         var clickWatcher = new ClickWatcher();
         var that = this;
         clickWatcher.cancel(function() {
@@ -145,7 +145,7 @@ BlacklistUi.prototype._build_page1 = function() {
 
     var depth = 0;
     var guy = this._chain.current();
-    while (guy.length > 0 && guy[0].nodeName != "BODY") {
+    while (guy.length > 0 && guy[0].nodeName !== "BODY") {
         guy = guy.parent();
         depth++;
     }
@@ -282,9 +282,9 @@ BlacklistUi.prototype._makeFilter = function() {
         // Some iframed ads are in a bland iframe.  If so, at least try to
         // be more specific by walking the chain from the body to the iframe
         // in the CSS selector.
-        if (el.prop('nodeName') == 'IFRAME' && el.attr('id') == '') {
+        if (el.prop('nodeName') === 'IFRAME' && el.attr('id') === '') {
             var cur = el.parent();
-            while (cur.prop('nodeName') != 'BODY') {
+            while (cur.prop('nodeName') !== 'BODY') {
                 result.unshift(cur.prop('nodeName') + " ");
                 cur = cur.parent();
             }
@@ -297,9 +297,9 @@ BlacklistUi.prototype._makeFilter = function() {
     }
 
     var warningMessage;
-    if (result.length == 0)
+    if (result.length === 0)
         warningMessage = translate("blacklisterwarningnofilter");
-    else if (result.length == 1 && $("input[type='checkbox']#cknodeName", detailsDiv).is(':checked'))
+    else if (result.length === 1 && $("input[type='checkbox']#cknodeName", detailsDiv).is(':checked'))
         warningMessage = translate("blacklisterblocksalloftype", [result[0]]);
     $("#filter_warning", this._ui_page2).
     css("display", (warningMessage ? "block" : "none")).
@@ -324,7 +324,7 @@ BlacklistUi.prototype._redrawPage2 = function() {
         var matchCount = $(theFilter).not(".ui-dialog").not(".ui-dialog *").length;
 
         $("#count", that._ui_page2).
-        html("<center>" + ((matchCount == 1) ?
+        html("<center>" + ((matchCount === 1) ?
                            translate("blacklistersinglematch") :
                            translate("blacklistermatches", ["<b>" + matchCount + "</b>"]))
              + "</center>");
@@ -334,7 +334,7 @@ BlacklistUi.prototype._redrawPage2 = function() {
     var attrs = ['nodeName', 'id', 'class', 'name', 'src', 'href', 'data'];
     for (var i = 0; i < attrs.length; i++) {
         var attr = attrs[i];
-        var longVal = (attr == "nodeName" ? el.prop("nodeName") : el.attr(attr));
+        var longVal = (attr === "nodeName" ? el.prop("nodeName") : el.attr(attr));
         var val = BlacklistUi._ellipsis(longVal);
 
         if (!val)
@@ -343,13 +343,13 @@ BlacklistUi.prototype._redrawPage2 = function() {
         // Check src, data and href only by default if no other identifiers are
         // present except for the nodeName selector.
         var checked = true;
-        if (attr == 'src' || attr == 'href' || attr == 'data')
-            checked = $("input", detailsDiv).length == 1;
+        if (attr === 'src' || attr === 'href' || attr === 'data')
+            checked = $("input", detailsDiv).length === 1;
 
         var italic = $("<i></i>").text(val);
         var checkboxlabel = $("<label></label>").
         html(translate("blacklisterattrwillbe",
-                       ["<b>" + (attr == 'nodeName' ? translate("blacklistertype") : attr) +
+                       ["<b>" + (attr === 'nodeName' ? translate("blacklistertype") : attr) +
                         "</b>", "<i></i>"])).
         attr("for", "ck" + attr);
         $('i', checkboxlabel).replaceWith(italic);
@@ -416,10 +416,10 @@ BlacklistUi.prototype._preview = function(selector) {
 // Inputs: value:string - value to truncate
 //         size?:int - max size above which to truncate, defaults to 50
 BlacklistUi._ellipsis = function(value, size) {
-    if (value == null)
+    if (value === null)
         return value;
 
-    if (size == undefined)
+    if (size === undefined)
         size = 50;
 
     value = getUnicodeUrl(value);

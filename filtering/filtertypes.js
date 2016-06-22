@@ -54,12 +54,12 @@ Filter._toDomainSet = function(domainText, divider) {
     var data = {};
     data[DomainSet.ALL] = true;
 
-    if (domains == '')
+    if (domains === '')
         return new DomainSet(data);
 
     for (var i = 0; i < domains.length; i++) {
         var domain = domains[i];
-        if (domain[0] == '~') {
+        if (domain[0] === '~') {
             data[domain.substring(1)] = false;
         } else {
             data[domain] = true;
@@ -173,7 +173,7 @@ PatternFilter._parseRule = function(text) {
             continue;
         }
 
-        var inverted = (option[0] == '~');
+        var inverted = (option[0] === '~');
         if (inverted)
             option = option.substring(1);
 
@@ -182,11 +182,11 @@ PatternFilter._parseRule = function(text) {
         // See crbug.com/93542 -- object-subrequest is reported as 'object',
         // so we treat them as synonyms.  TODO issue 5935: we must address
         // false positives/negatives due to this.
-        if (option == 'object_subrequest')
+        if (option === 'object_subrequest')
             option = 'object';
 
         // 'background' is a synonym for 'image'.
-        if (option == 'background')
+        if (option === 'background')
             option = 'image';
 
         if (option in ElementTypes) { // this option is a known element type

@@ -121,7 +121,7 @@ function top_open_whitelist_ui() {
             var pathsliderValue = $("#pathslider", page)[0].valueAsNumber;
 
             // Make clear that it includes subdomains
-            if (forDisplay && domainsliderValue != 0)
+            if (forDisplay && domainsliderValue !== 0)
                 result = "*.";
 
             // Append the chosen parts of a domain
@@ -132,7 +132,7 @@ function top_open_whitelist_ui() {
                 result += '/' + pathparts[i];
 
             // Append a final slash for for example filehippo.com/download_dropbox/
-            if (pathparts.length != pathsliderValue + 1 || !location[1]) {
+            if (pathparts.length !== pathsliderValue + 1 || !location[1]) {
                 result += "/";
                 if (forDisplay)
                     result += "*";

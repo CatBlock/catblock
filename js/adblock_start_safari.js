@@ -2,8 +2,9 @@
 function blockBackgroundImageAd() {
     var bgImage = getComputedStyle(document.body)["background-image"] || "";
     var match = bgImage.match(/^url\((.+)\)$/);
-    if (!match)
+    if (!match) {
         return;
+    }
     var hiddenImage = document.createElement("img");
     hiddenImage.src = match[1];
     hiddenImage.setAttribute("width", "0");
@@ -26,7 +27,7 @@ function weakDestroyElement(el, elType) {
         el.style.setProperty("background-image", "none", "important");
         return true;
     }
-    else if (elType == ElementTypes.script) {
+    else if (elType === ElementTypes.script) {
         return true; // nothing to do
     }
     else {
@@ -34,20 +35,23 @@ function weakDestroyElement(el, elType) {
     }
 };
 
-beforeLoadHandler = function(event) {
+var beforeLoadHandler = function(event) {
     // Since we don't block non-HTTP requests, return
     // without asking the background page.
-    if (/^(?!https?:)[\w-]+:/.test(event.url))
+    if (/^(?!https?:)[\w-]+:/.test(event.url)) {
         return;
+    }
     var el = event.target;
-    if (!el.nodeName) return; // issue 6256
+    if (!el.nodeName) {
+        return; // issue 6256
+    }
     // Cancel the load if canLoad is false.
     var elType = typeForElement(el);
     var data = {
         url: relativeToAbsoluteUrl(event.url),
         elType: elType,
         referrer: document.referrer,
-        isPopup: window.opener !== null,
+        isPopup: window.opener !==  null,
         frameDomain: document.location.hostname,
         frameInfo: chrome._tabInfo.gatherFrameInfo()
     };
@@ -78,8 +82,9 @@ beforeLoadHandler = function(event) {
                 event.target.dispatchEvent(evt);
             }, 0);
         }
-        if (!weakDestroyElement(el, elType))
+        if (!weakDestroyElement(el, elType)) {
             destroyElement(el, elType);
+        }
     }
 }
 beforeLoadHandler.blockCount = 0;

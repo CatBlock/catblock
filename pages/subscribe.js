@@ -21,7 +21,7 @@ $(function() {
     $('#listUrl').text(listUrl.replace(/(.{48,64}\W)/g, '$1 '));
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.command != "filters_updated")
+        if (request.command !== "filters_updated")
             return;
         if ($('#result').text())
             return;

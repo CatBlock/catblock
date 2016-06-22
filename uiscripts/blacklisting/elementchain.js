@@ -11,7 +11,7 @@ ElementChain.prototype.current = function() {
 }
 ElementChain.prototype.moveUp = function() {
     if (this.current().parent().length > 0 &&
-        this.current().parent()[0].nodeName != "BODY") {
+        this.current().parent()[0].nodeName !== "BODY") {
         this._stack.push(this.current().parent());
         this.change();
         return true;

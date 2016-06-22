@@ -56,7 +56,7 @@ MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
 
         sub.initialUrl = sub.initialUrl || official.url;
         sub.url = sub.url || official.url;
-        if (sub.initialUrl !== official.url) {
+        if (sub.initialUrl !==  official.url) {
             // The official URL was changed. Use it. In case of a redirect, this
             // doesn't happen as only sub.url is changed, not sub.initialUrl.
             sub.initialUrl = official.url;
@@ -66,7 +66,7 @@ MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
             sub.safariJSON_URL = official.safariJSON_URL;
         }
 
-        var isMissingRequiredList = (sub.requiresList !== official.requiresList);
+        var isMissingRequiredList = (sub.requiresList !==  official.requiresList);
         if (official.requiresList && isMissingRequiredList && sub.subscribed) {
             // A required list was added.  Make sure main list subscribers get it.
             if (this._subscriptions[official.requiresList])
@@ -130,7 +130,7 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
             // If not, update entry in subscriptions.
             var new_id = is_user_submitted ? ("url:" + sub_to_check.url) : update_id;
 
-            if(new_id !== id) {
+            if(new_id !==  id) {
                 renameSubscription(id, new_id);
             }
         }
@@ -238,9 +238,9 @@ MyFilters.prototype.rebuild = function() {
             for (var id in filters.whitelist) {
                 whitelistFilters.push(filters.whitelist[id]);
             }
-            //SelectorFilters where full() == True are selectors that apply to all domains, no exceptions
+            //SelectorFilters where full() === True are selectors that apply to all domains, no exceptions
             // these filters can be collapsed into a few large JSON rules
-            //SelectorFilters where full() == False are selectors that either:
+            //SelectorFilters where full() === False are selectors that either:
             //    - apply to specific domain(s)
             //    - or have exceptions domains, where the selectors are not applied
             var selectorsFull = {};
@@ -351,7 +351,7 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
     if (id === "malware") {
         // Apply all changes from subData
         for (var property in subData) {
-            if (subData[property] !== undefined) {
+            if (subData[property] !==  undefined) {
                 this._subscriptions[id][property] = subData[property];
             }
         }
@@ -375,7 +375,7 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
             delete this._subscriptions[id].last_update_failed_at;
             delete this._subscriptions[id].last_modified;
         }
-        this._onSubscriptionChange(subData.subscribed == false);
+        this._onSubscriptionChange(subData.subscribed === false);
         return;
     }
 
@@ -400,7 +400,7 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
 
     // Apply all changes from subData
     for (var property in subData)
-        if (subData[property] !== undefined)
+        if (subData[property] !==  undefined)
             this._subscriptions[id][property] = subData[property];
 
     // Check if the required list is a well known list, but only if it is changed
@@ -431,7 +431,7 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
 
     // Notify of change.  If we subscribed, we rebuilt above; so we
     // only force a rebuild if we unsubscribed.
-    this._onSubscriptionChange(subData.subscribed == false);
+    this._onSubscriptionChange(subData.subscribed === false);
 
     // Subscribe to a required list if nessecary
     if (subscribeRequiredListToo && this._subscriptions[id] && this._subscriptions[id].requiresList)
@@ -484,13 +484,13 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
                 return;
             // Sometimes text is "". Happens sometimes.  Weird, I know.
             // Every legit list starts with a comment.
-            if (status == "notmodified") {
+            if (status === "notmodified") {
                 log("List not modified " + url);
                 that._updateSubscriptionText(id, that._subscriptions[id].text);
                 that._onSubscriptionChange(true);
             } else if (text &&
                        (((typeof text === "string") &&
-                         text.length != 0 && Filter.isComment(text.trim())) ||
+                         text.length !== 0 && Filter.isComment(text.trim())) ||
                         (typeof text === "object"))) {
                 log("Fetched " + url);
                 that._updateSubscriptionText(id, text, xhr);
@@ -548,7 +548,7 @@ MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
             if (!Filter.isComment(checkLines[i]))
                 continue;
             var match = checkLines[i].match(redirectRegex);
-            if (match && match[1] !== this._subscriptions[id].url) {
+            if (match && match[1] !==  this._subscriptions[id].url) {
                 this._subscriptions[id].url = match[1]; //assuming the URL is always correct
                 // Force an update.  Even if our refetch below fails we'll have to
                 // fetch the new URL in the future until it succeeds.
@@ -556,7 +556,7 @@ MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
             }
             match = checkLines[i].match(expiresRegex);
             if (match && parseInt(match[1], 10)) {
-                var hours = parseInt(match[1], 10) * (match[2] == "h" ? 1 : 24);
+                var hours = parseInt(match[1], 10) * (match[2] === "h" ? 1 : 24);
                 this._subscriptions[id].expiresAfterHours = Math.min(hours, 21*24); // 3 week maximum
             }
         }
@@ -605,7 +605,7 @@ MyFilters.prototype.checkFilterUpdates = function(force) {
 MyFilters.prototype.customToDefaultId = function(id) {
     var urlOfCustomList = id.substr(4);
     for (var defaultList in this._official_options)
-        if (this._official_options[defaultList].url == urlOfCustomList)
+        if (this._official_options[defaultList].url === urlOfCustomList)
             return defaultList;
     return id;
 }

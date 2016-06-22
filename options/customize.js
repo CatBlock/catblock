@@ -1,5 +1,5 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.command != "filters_updated")
+    if (request.command !==  "filters_updated")
         return;
     if ($("#txtFiltersAdvanced").prop("disabled") === false)
         return;
@@ -49,7 +49,7 @@ $(function() {
     // Convert a messy list of domains to ~domain1.com|~domain2.com format
     function toTildePipeFormat(domainList) {
         domainList = domainList.trim().replace(/[\ \,\;\|]+\~?/g, "|~");
-        if (domainList && domainList[0] != "~")
+        if (domainList && domainList[0] !== "~")
             domainList = "~" + domainList;
         return domainList;
     }
@@ -59,7 +59,7 @@ $(function() {
         // into the blacklist input.
         var customFilterText = $("#txtFiltersAdvanced").val();
         var match = customFilterText.match(/^\@\@\*\$document\,domain\=(\~.*)$/m);
-        if (match && $(this).val() == "")
+        if (match && $(this).val() === "")
             $(this).val(match[1]);
     });
 
@@ -68,7 +68,7 @@ $(function() {
         var blockCss = $("#txtUserFilterCss").val().trim();
         var blockDomain = $("#txtUserFilterDomain").val().trim();
 
-        if (blockDomain == '.*' || blockDomain == "*" || blockDomain == '')
+        if (blockDomain === '.*' || blockDomain === "*" || blockDomain === '')
             appendCustomFilter("##" + blockCss);
         else
             appendCustomFilter(blockDomain + "##" + blockCss);
@@ -108,14 +108,14 @@ $(function() {
     $("#btnAddUrlBlock").click(function() {
         var blockUrl = $("#txtBlockUrl").val().trim();
         var blockDomain = $("#txtBlockUrlDomain").val().trim();
-        if (blockDomain == '*')
+        if (blockDomain === '*')
             blockDomain = '';
 
         //prevent regexes
         if (/^\/.*\/$/.test(blockUrl))
             blockUrl = blockUrl + "*";
 
-        if (blockDomain == '')
+        if (blockDomain === '')
             appendCustomFilter(blockUrl);
         else
             appendCustomFilter(blockUrl + "$domain=" + blockDomain);
@@ -147,7 +147,7 @@ $(function() {
     $("#divUrlBlock input[type='text']").bind("input", function() {
         var blockUrl = $("#txtBlockUrl").val().trim();
         var blockDomain = $("#txtBlockUrlDomain").val().trim();
-        if (blockDomain == '*')
+        if (blockDomain === '*')
             blockDomain = '';
         if (blockDomain)
             blockDomain = '$domain=' + blockDomain;
@@ -164,7 +164,7 @@ $(function() {
     $("#divCssBlock input[type='text']").bind("input", function() {
         var blockCss = $("#txtUserFilterCss").val().trim();
         var blockDomain = $("#txtUserFilterDomain").val().trim();
-        if (blockDomain == '*')
+        if (blockDomain === '*')
             blockDomain = '';
         var ok = false;
         try {

@@ -1,4 +1,4 @@
-if (typeof(send_content_to_back) == "undefined") {
+if (typeof(send_content_to_back) === "undefined") {
 
     send_content_to_back = function() {
         // Objects and embeds can catch our clicks unless we lay a div over

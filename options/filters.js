@@ -339,12 +339,12 @@ FilterListUtil.updateCheckbox = function(filter_list, id) {
     var containing_div = $("div[name='" + id + "']");
     var checkbox = $(containing_div).find("input");
     // Check if subscribed and checkbox staus is equal, if not, update checkbox status according to subscribed status.
-    if(checkbox.is(":checked") !== filter_list.subscribed) {
+    if(checkbox.is(":checked") !==  filter_list.subscribed) {
         checkbox.prop("checked", filter_list.subscribed ? true : null);
         // Force update current info label since status is already updated in the background.
         $(".subscription_info", containing_div).text(filter_list.subscribed ? translate("fetchinglabel") : translate("unsubscribedlabel"));
         // If the filter is of language list type, check if subscribed and checkbox visibility matches, if not, update visibility.
-        if(containing_div.parent().attr("id") === "language_list" && filter_list.subscribed !== containing_div.is(":visible")) {
+        if(containing_div.parent().attr("id") === "language_list" && filter_list.subscribed !==  containing_div.is(":visible")) {
             containing_div.toggle(500);
             var index = checkbox.attr("id").split("_")[3];
             // After updating visibility, update Language Selectbox too.
@@ -631,7 +631,7 @@ $(function() {
     });
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.command !== "filters_updated")
+        if (request.command !==  "filters_updated")
             return;
         BGcall("get_subscriptions_minus_text", function(subs) {
             var cached_subscriptions = FilterListUtil.cached_subscriptions;

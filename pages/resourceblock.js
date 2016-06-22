@@ -42,7 +42,7 @@ BGcall("reset_matchCache", function(matchCache) {
                         continue;
                     }
                     // Process malware filter list separately
-                    if (id !== "malware") {
+                    if (id !==  "malware") {
                         filterLists[id].text = filterLists[id].text.split("\n");
                     }
                 }
@@ -74,7 +74,7 @@ BGcall("reset_matchCache", function(matchCache) {
                                 res.url = resource.split(":|:")[1];
                                 res.frameDomain = resource.split(":|:")[2].replace("www.", "");
 
-                                if (res.elType !== "selector") {
+                                if (res.elType !==  "selector") {
                                     res.thirdParty = BlockingFilterSet.checkThirdParty(parseUri(res.url).hostname, res.frameDomain);
                                 }
                             }
@@ -90,8 +90,8 @@ BGcall("reset_matchCache", function(matchCache) {
 
                                 for (var resource in frameResources) {
                                     var res = frameResources[resource];
-                                    if (res.elType !== "selector") {
-                                        if (res.blockedData && res.blockedData !== false && res.blockedData.text) {
+                                    if (res.elType !==  "selector") {
+                                        if (res.blockedData && res.blockedData !==  false && res.blockedData.text) {
                                             var filter = res.blockedData.text;
                                             for (var filterList in filterLists) {
                                                 if (filterList === "malware") {
@@ -129,7 +129,7 @@ BGcall("reset_matchCache", function(matchCache) {
                                                     if ((filter.split("##")[0] === "" && filter === res.url) ||
                                                         filter.split("##")[0].indexOf(res.frameDomain) > -1) {
                                                         // Shorten lengthy selector filters
-                                                        if (filter.split("##")[0] !== "") {
+                                                        if (filter.split("##")[0] !==  "") {
                                                             filter = res.frameDomain + res.url;
                                                         }
                                                         res.blockedData = {};

@@ -72,7 +72,7 @@ function displayVersionNumber() {
 }
 
 function displayTranslationCredit() {
-    if (navigator.language.substring(0, 2) != "en") {
+    if (navigator.language.substring(0, 2) !== "en") {
         var translators = [];
         var xhr = new XMLHttpRequest();
         xhr.open("GET", chrome.runtime.getURL("translators.json"), true);

@@ -84,7 +84,7 @@ DomainSet.prototype = {
         var newHas = {};
         newHas[DomainSet.ALL] = this.has[DomainSet.ALL];
         for (d in this.has)
-            if (this.has[d] !== this._computedHas(DomainSet._parentDomainOf(d)))
+            if (this.has[d] !==  this._computedHas(DomainSet._parentDomainOf(d)))
                 newHas[d] = this.has[d];
         this.has = newHas;
     },
@@ -94,7 +94,7 @@ DomainSet.prototype = {
     // E.g. if |this| DomainSet is the set of all domains other than a, then 'b'
     // will yield true, and both 'a' and 'sub.a' will yield false.
     _computedHas: function(domain) {
-        if (this.has[domain] !== undefined)
+        if (this.has[domain] !==  undefined)
             return this.has[domain];
         else
             return this._computedHas(DomainSet._parentDomainOf(domain));

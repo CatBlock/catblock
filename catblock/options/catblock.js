@@ -111,7 +111,7 @@ BGcall("getGuide", function(guide) {
     }
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
-            if (request.command !== 'channel-updated')
+            if (request.command !==  'channel-updated')
                 return;
             var channelUI = $("#chan-" + request.id);
             if ($('#fill-photos-btn-' + request.id).is(":visible"))

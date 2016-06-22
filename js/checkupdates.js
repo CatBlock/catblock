@@ -54,7 +54,7 @@ function checkupdates(page) {
                 if (isNewerVersion(latestVersion)) {
                     $("#checkupdate").html(translate("catblock_update_available"));
                     $("#here").html(translate("here")).attr("href", redirectUrl);
-                    chrome.browserAction.setBadgeText({text: "New!"});
+                    chrome.browserAction.setBadgeText({ text: "New!" });
                     storage_set("update_available", true);
                     $(".step").hide();
                 } else {
@@ -70,8 +70,8 @@ function checkupdates(page) {
     }
 
     // Hide ad-reporting wizard, when user is offline
-    if (page === "adreport" && $('#checkupdate').is(':visible')) {
-        $('.section').hide();
+    if (page === "adreport" && $("#checkupdate").is(":visible")) {
+        $(".section").hide();
     }
 
     // Check if newVersion is newer than AdBlockVersion
@@ -80,13 +80,16 @@ function checkupdates(page) {
         var AdBlockVersion = chrome.runtime.getManifest().version;
         var current = AdBlockVersion.match(versionRegex);
         var notCurrent = newVersion.match(versionRegex);
-        if (!current || !notCurrent)
+        if (!current || !notCurrent) {
             return false;
+        }
         for (var i=1; i<4; i++) {
-            if (current[i] < notCurrent[i])
+            if (current[i] < notCurrent[i]) {
                 return true;
-            if (current[i] > notCurrent[i])
+            }
+            if (current[i] > notCurrent[i]) {
                 return false;
+            }
         }
         return false;
     }

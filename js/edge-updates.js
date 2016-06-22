@@ -1,12 +1,12 @@
 // Check, whether an update is available or not
-STATUS = (function() {
+var STATUS = (function() {
     var url = "http://catblock.tk/edge.json";
 
     var handleResponse = function(responseData) {
         var isNewerVersionAvailable = isNewerVersion(responseData.version);
         if (isNewerVersionAvailable) {
             console.log("newer version available");
-            chrome.browserAction.setBadgeText({text: "New!"});
+            chrome.browserAction.setBadgeText({ text: "New!" });
             storage_set("update_available", true);
         } else {
             storage_set("update_available", false);
@@ -17,7 +17,7 @@ STATUS = (function() {
     // Check for an updated version of CatBlock for Edge
     var checkNow = function() {
         var ajaxOptions = {
-            type: 'GET',
+            type: "GET",
             url: url,
             success: handleResponse,
             error: function(e) {
@@ -34,13 +34,16 @@ STATUS = (function() {
         var versionRegex = /^(\*|\d+(\.\d+){0,2}(\.\*)?)$/;
         var current = AdBlockVersion.match(versionRegex);
         var notCurrent = newVersion.match(versionRegex);
-        if (!current || !notCurrent)
+        if (!current || !notCurrent) {
             return false;
+        }
         for (var i=1; i<4; i++) {
-            if (current[i] < notCurrent[i])
+            if (current[i] < notCurrent[i]) {
                 return true;
-            if (current[i] > notCurrent[i])
+            }
+            if (current[i] > notCurrent[i]) {
                 return false;
+            }
         }
         return false;
     }
@@ -52,10 +55,12 @@ STATUS = (function() {
         storage_set("total_pings", total_pings);
 
         var delay_hours;
-        if (total_pings == 1)      // Ping one hour after install
+        if (total_pings === 1) {      // Ping one hour after install
             delay_hours = 1;
-        else if (total_pings < 9)  // Then every day for a week
+        }
+        else if (total_pings < 9) {  // Then every day for a week
             delay_hours = 24;
+        }
 
         var millis = 1000 * 60 * 60 * delay_hours;
         storage_set("next_ping_time", Date.now() + millis);
@@ -64,10 +69,11 @@ STATUS = (function() {
     // Return the number of milliseconds until the next scheduled ping.
     var millisTillNextPing = function() {
         var next_ping_time = storage_get("next_ping_time");
-        if (!next_ping_time)
+        if (!next_ping_time) {
             return 0;
-        else
+        } else {
             return Math.max(0, next_ping_time - Date.now());
+        }
     };
 
     return {
@@ -84,8 +90,9 @@ STATUS = (function() {
             // Try to detect corrupt storage and thus avoid ping floods.
             if (!(millisTillNextPing() > 0) ) {
                 storage_set("next_ping_time", 1);
-                if (storage_get("next_ping_time") != 1)
+                if (storage_get("next_ping_time") !== 1) {
                     return;
+                }
             }
             // This will sleep, then ping, then schedule a new ping, then
             // call itself to start the process over again.

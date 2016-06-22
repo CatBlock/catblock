@@ -117,7 +117,7 @@ ClickWatcher.prototype.close = function() {
 // The dialog is closing, either because the user clicked cancel, or the
 // close button, or because they clicked an item.
 ClickWatcher.prototype._onClose = function() {
-    if (this._clicked_element == null) {
+    if (this._clicked_element === null) {
         // User clicked Cancel button or X
         this._fire('cancel');
     } else {

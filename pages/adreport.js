@@ -39,8 +39,8 @@ $(function() {
         if (!b.text) return 1; // First one is empty
         if (!a.value) return 1;
         if (!b.value) return -1; // 'Other' at the end
-        if (a.getAttribute("i18n") == "lang_english") return -1; // English second
-        if (b.getAttribute("i18n") == "lang_english") return 1;
+        if (a.getAttribute("i18n") === "lang_english") return -1; // English second
+        if (b.getAttribute("i18n") === "lang_english") return 1;
         return (a.text > b.text) ? 1 : -1;
     });
     $("#step_language_lang").empty().append(languageOptions);
@@ -388,14 +388,14 @@ var checkmalware = function() {
             // Push loaded resources from each frame into an array
             for (var i = 0; i < frames.length; i++) {
                 if (Object.keys(frameData[frames[i]].resources)
-                    .length !== 0) {
+                    .length !==  0) {
                     loaded_resources.push(frameData[frames[i]].resources);
                 }
             }
         } else {
             // Push loaded resources into an array
             if (Object.keys(frameData.resources)
-                .length !== 0) {
+                .length !==  0) {
                 loaded_resources.push(frameData.resources);
             }
         }
@@ -609,8 +609,8 @@ $("#OtherExtensions").click(function() {
                     for (var i = 0; i < result.length; i++) {
                         if (result[i].enabled &&
                             result[i].mayDisable &&
-                            result[i].id !== "mdcgnhlfpnbeieiiccmebgkfdebafodo" &&
-                            result[i].id !== "pejeadkbfbppoaoinpmkeonebmngpnkk") {
+                            result[i].id !==  "mdcgnhlfpnbeieiiccmebgkfdebafodo" &&
+                            result[i].id !==  "pejeadkbfbppoaoinpmkeonebmngpnkk") {
                             // If the extension is a developer version, continue, don't disable.
                             if (result[i].installType === "development" &&
                                 result[i].type === "extension" &&
@@ -660,7 +660,7 @@ $("#step_language_lang")
         .html("<span class='answer'>" + selected.text() + "</span>");
     $("#step_language span")
         .attr("chosen", selected.attr("i18n"));
-    if (selected.text() == translate("other")) {
+    if (selected.text() === translate("other")) {
         $("#checkupdate")
             .html(translate("nodefaultfilter1"));
         $("#link")

@@ -1,9 +1,9 @@
-emit_page_broadcast = function(request) {
-    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('page-broadcast', request);
+var emit_page_broadcast = function(request) {
+    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("page-broadcast", request);
 };
 
-//frameData object for Safari
-frameData = (function() {
+// frameData object for Safari
+var frameData = (function() {
     return {
         // Get frameData for the tab.
         // Input:
@@ -38,7 +38,7 @@ frameData = (function() {
             url = getUnicodeUrl(url);
             domain = getUnicodeDomain(domain);
 
-            var shouldTrack = !tracker || tracker.url !== url;
+            var shouldTrack = !tracker || tracker.url !==  url;
             if (shouldTrack) {
                 frameData[tabId] = {
                     resources: {},
@@ -53,12 +53,13 @@ frameData = (function() {
         //   tabId: Numeric - id of the tab you want to delete in the frameData
         //   url: url of the resource
         storeResource: function(tabId, url, elType) {
-            if (!get_settings().show_advanced_options)
+            if (!get_settings().show_advanced_options) {
                 return;
+            }
             var data = this.get(tabId);
-            if (data !== undefined &&
-                data.resources !== undefined) {
-                data.resources[elType + ':|:' + url] = null;
+            if (data !==  undefined &&
+                data.resources !==  undefined) {
+                data.resources[elType + ":|:" + url] = null;
             }
         },
         // Delete tabId from frameData
@@ -88,8 +89,9 @@ safari.application.addEventListener("message", function(messageEvent) {
         return;
     }
 
-    if (messageEvent.name != "canLoad")
+    if (messageEvent.name !==  "canLoad") {
         return;
+    }
 
     // In theory, this code shouldn't be needed...
     if (get_settings().safari_content_blocking) {
@@ -155,8 +157,9 @@ safari.application.addEventListener("activate", function(event) {
     if (event.target instanceof SafariBrowserTab) {
         safari.extension.popovers[0].contentWindow.location.reload();
         // Hide popover, when new tab has been opened
-        if (ABPopover.visible)
+        if (ABPopover.visible) {
             ABPopover.hide();
+        }
     }
 }, true);
 
@@ -277,7 +280,7 @@ var dispatchMessage = function(command) {
 // Open Options page upon settings checkbox click.
 safari.extension.settings.openCatBlockOptions = false;
 safari.extension.settings.addEventListener("change", function(e) {
-    if (e.key == 'openCatBlockOptions') {
+    if (e.key === "openCatBlockOptions") {
         openTab("options/index.html");
     }
 }, false);

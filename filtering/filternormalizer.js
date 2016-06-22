@@ -28,7 +28,7 @@ var FilterNormalizer = {
                 var newfilter = FilterNormalizer.normalizeLine(lines[i]);
                 if (newfilter)
                     result.push(newfilter);
-                else if (newfilter !== false)
+                else if (newfilter !==  false)
                     ignoredFilterCount++;
                 else if (keepComments)
                     result.push(lines[i]);
@@ -66,7 +66,7 @@ var FilterNormalizer = {
             filter = FilterNormalizer._old_style_hiding_to_new(filter);
             log('Converted ' + oldFilter + ' to ' + filter);
         }
-        if (typeof userExcludedFilterArray !== 'undefined' &&
+        if (typeof userExcludedFilterArray !==  'undefined' &&
             userExcludedFilterArray &&
             userExcludedFilterArray.length > 0 &&
             userExcludedFilterArray.indexOf(filter) >= 0) {
@@ -145,7 +145,7 @@ var FilterNormalizer = {
         });
         if (mustExclude.length > 0) {
             var toPrepend = "~" + mustExclude.join(",~");
-            if (text[0] != "#") toPrepend += ",";
+            if (text[0] !== "#") toPrepend += ",";
             text = toPrepend + text;
         }
         return text;
@@ -167,13 +167,13 @@ var FilterNormalizer = {
         // 1. a node -- this is optional and must be '*' or alphanumeric
         // 2. a series of ()-delimited arbitrary strings -- also optional
         //    the ()s can't be empty, and can't start with '='
-        if (rule.length == 0 ||
+        if (rule.length === 0 ||
             !/^(?:\*|[a-z0-9\-_]*)(?:\([^=][^\)]*?\))*$/i.test(rule))
             throw new Error("bad selector filter");
 
         var first_segment = rule.indexOf('(');
 
-        if (first_segment == -1)
+        if (first_segment === -1)
             return domain + '##' + rule;
 
         var node = rule.substring(0, first_segment);
@@ -213,7 +213,7 @@ var FilterNormalizer = {
                 continue;
             // Convert punycode domains to Unicode
             domain = getUnicodeDomain(domain);
-            if (/^([a-z0-9\-_\u00DF-\u00F6\u00F8-\uFFFFFF]+\.)*[a-z0-9\u00DF-\u00F6\u00F8-\uFFFFFF]+\.?$/i.test(domain) == false)
+            if (/^([a-z0-9\-_\u00DF-\u00F6\u00F8-\uFFFFFF]+\.)*[a-z0-9\u00DF-\u00F6\u00F8-\uFFFFFF]+\.?$/i.test(domain) === false)
                 throw new Error("Invalid domain: " + domain);
             // Ensure domain doesn't break AdBlock
             FilterNormalizer._checkForObjectProperty(domain);
