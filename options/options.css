@@ -67,7 +67,7 @@ a:hover {
     top: 65px;
     text-align: right;
     background: #F1F1F1;
-    padding: 0px 10px 5px 10px;
+    padding: 0 10px 5px 10px;
     border-radius: 2px;
 }
 .mobile button {
@@ -107,8 +107,8 @@ body {
     font: 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h2 {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     font-weight: 200;
     font-size: 35px;
 }
@@ -131,14 +131,14 @@ ul {
 #header {
     background: #F1F1F1;
     position: fixed;
-    left: 0px;
-    top: 0px;
-    right: 0px;
+    left: 0;
+    top: 0;
+    right: 0;
     height: 84px;
     z-index: 1;
     border-bottom: 1px solid #E9E9E9;
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .15);
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, .15);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .15);
 }
 #main_nav li {
     float: left;
@@ -149,7 +149,7 @@ ul {
     text-indent: -9999px;
 }
 .adblock-logo {
-    margin: 18px 0px 0px 15px;
+    margin: 18px 0 0 15px;
 }
 .adblock-logo:hover {
     text-decoration: none;
@@ -170,9 +170,9 @@ ul {
 }
 .wrap {
     position: relative;
-    margin: 0px auto;
+    margin: 0 auto;
     max-width: 1025px;
-    padding: 0px 10px;
+    padding: 0 10px;
 }
 
 /* Tabpages */
@@ -184,17 +184,17 @@ ul {
     width: 50em;
     max-width: 50%;
     border-radius: 5px;
-    margin: 0px 25%;
+    margin: 0 25%;
     border: 1px solid #E9E9E9;
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .15);
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, .15);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .15);
     display: none;
 }
 
 /* Index tab */
 #translation_credits {
     font-size: 13px;
-    margin: 0px 50%;
+    margin: 0 50%;
     min-width: 350px;
     left: 125px;
     position: absolute;
@@ -217,7 +217,7 @@ ul {
 .usermessage {
     color: red;
     font-weight: bold;
-    margin: 5px 0px 5px 3px;
+    margin: 5px 0 5px 3px;
 }
 
 /* Filters tab */
@@ -240,7 +240,7 @@ ul {
 .failed_fetch {
     display: none;
     border: 1px solid;
-    margin: 10px 0px;
+    margin: 10px 0;
     background-repeat: no-repeat;
     background-position: 10px center;
     color: #D8000C;
@@ -250,7 +250,7 @@ ul {
     width: 100%;
 }
 .info {
-    margin: 0px 40px 15px 15px;
+    margin: 0 40px 15px 15px;
     width: 460px;
     background: #f7f6f2;
     padding: 10px;
@@ -276,7 +276,7 @@ ul {
     cursor: pointer;
 }
 #editFilters {
-    margin: 15px 0px 8px 0px;
+    margin: 15px 0 8px 0;
 }
 #txtFiltersAdvanced {
     font-size: 12px;
@@ -307,7 +307,7 @@ ul {
     margin-bottom: 10px;
 }
 .marginh3 {
-    margin: 10px 0px;
+    margin: 10px 0;
 }
 .overrules-filters {
     font-weight: bold;
@@ -357,12 +357,12 @@ label {
 @media screen and (max-width: 1060px) {
     #translation_credits {
         right: 45px;
-        margin: 0px;
-        min-width: 0px;
+        margin: 0;
+        min-width: 0;
     }
     #version_number {
         margin-top: 20px;
-        margin-right: 0px;
+        margin-right: 0;
         right: 40px;
     }
 }
@@ -377,8 +377,8 @@ label {
 
 /*Ã‚Â Custom inputs */
 input[type="button"], select {
-    -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
-    box-shadow: inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow: inset 0 1px 0 0 #ffffff;
+    box-shadow: inset 0 1px 0 0 #ffffff;
     background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #c7c7c7) );
     background-color: #ededed;
     text-indent: -1px;
@@ -389,7 +389,7 @@ input[type="button"], select {
     font-style: normal;
     text-decoration: none;
     text-align: center;
-    text-shadow: 1px 1px 0px #ffffff;
+    text-shadow: 1px 1px 0 #ffffff;
     border-radius: 2px;
 }
 input[type="button"]:hover, select:hover {
@@ -410,12 +410,12 @@ input[type="radio"], input[type="checkbox"] {
     height: 1.3em;
     width: 1.3em;
     vertical-align: middle;
-    margin: 0px 0.4em 0.3em 0px;
+    margin: 0 0.4em 0.3em 0;
     border: 1px solid rgba(0, 0, 0, 0.3);
     background: -webkit-linear-gradient(#FCFCFC, #DADADA);
     -webkit-appearance: none;
     -webkit-transition: box-shadow 200ms;
-    box-shadow: inset 1px 1px 0px #fff, 0 1px 1px rgba(0,0,0,0.1);
+    box-shadow: inset 1px 1px 0 #fff, 0 1px 1px rgba(0,0,0,0.1);
 }
 input[type="radio"] {
     -webkit-border-radius:100%;
@@ -429,12 +429,12 @@ input[type="checkbox"] {
 input[type="radio"]:not(:disabled):hover,
 input[type="checkbox"]:not(:disabled):hover {
     border-color: rgba(0,0,0,0.5);
-    box-shadow: inset 1px 1px 0px #fff, 0px 0px 4px rgba(0,0,0,0.3);
+    box-shadow: inset 1px 1px 0 #fff, 0 0 4px rgba(0,0,0,0.3);
 }
 input[type="radio"]:active:not(:disabled),
 input[type="checkbox"]:active:not(:disabled) {
     background-image: -webkit-linear-gradient(#C2C2C2, #EFEFEF);
-    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2), inset -1px -1px 0px rgba(255,255,255,0.6);
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2), inset -1px -1px 0 rgba(255,255,255,0.6);
     border-color: rgba(0,0,0,0.5);
 }
 input[type="radio"]:focus,
@@ -445,7 +445,7 @@ input[type="checkbox"]:focus {
 input[type="radio"]:checked,
 input[type="checkbox"]:checked {
     border-color: rgba(0,0,0,0.5);
-    box-shadow: inset 1px 1px 0px #fff, 0px 0px 4px rgba(0,0,0,0.3);
+    box-shadow: inset 1px 1px 0 #fff, 0 0 4px rgba(0,0,0,0.3);
     direction: ltr;
 }
 input[type="radio"]:checked:before {
@@ -480,14 +480,14 @@ input[type=text], input[type=email], textarea {
     -webkit-transition: all 0.30s ease-in-out;
     border: #fff 1px solid;
     outline: none;
-    padding: 3px 0px 3px 3px;
-    margin: 5px 1px 3px 0px;
+    padding: 3px 0 3px 3px;
+    margin: 5px 1px 3px 0;
     border: 1px solid #DDDDDD;
 }
 input[type=email]:focus, input[type=text]:focus, textarea:focus {
-    box-shadow: 0px 0px 5px #dfdfdf;
+    box-shadow: 0 0 5px #dfdfdf;
     -webkit-box-shadow: 0 0 5px #dfdfdf;
-    padding: 3px 0px 3px 3px;
-    margin: 5px 1px 3px 0px;
+    padding: 3px 0 3px 3px;
+    margin: 5px 1px 3px 0;
     border: 1px solid #dfdfdf;
 }
