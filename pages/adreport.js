@@ -388,14 +388,14 @@ var checkmalware = function() {
             // Push loaded resources from each frame into an array
             for (var i = 0; i < frames.length; i++) {
                 if (Object.keys(frameData[frames[i]].resources)
-                    .length !==  0) {
+                    .length !== 0) {
                     loaded_resources.push(frameData[frames[i]].resources);
                 }
             }
         } else {
             // Push loaded resources into an array
             if (Object.keys(frameData.resources)
-                .length !==  0) {
+                .length !== 0) {
                 loaded_resources.push(frameData.resources);
             }
         }
@@ -609,8 +609,8 @@ $("#OtherExtensions").click(function() {
                     for (var i = 0; i < result.length; i++) {
                         if (result[i].enabled &&
                             result[i].mayDisable &&
-                            result[i].id !==  "mdcgnhlfpnbeieiiccmebgkfdebafodo" &&
-                            result[i].id !==  "pejeadkbfbppoaoinpmkeonebmngpnkk") {
+                            result[i].id !== "mdcgnhlfpnbeieiiccmebgkfdebafodo" &&
+                            result[i].id !== "pejeadkbfbppoaoinpmkeonebmngpnkk") {
                             // If the extension is a developer version, continue, don't disable.
                             if (result[i].installType === "development" &&
                                 result[i].type === "extension" &&

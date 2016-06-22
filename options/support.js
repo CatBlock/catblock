@@ -61,7 +61,7 @@ $(document).ready(function() {
         xhr.open("GET", chrome.runtime.getURL("CHANGELOG.txt"), true);
         xhr.overrideMimeType("text/plain");
         xhr.onreadystatechange = function() {
-            if (this.readyState === 4 && this.responseText !==  "") {
+            if (this.readyState === 4 && this.responseText !== "") {
                 $("#changes").text(xhr.responseText).css({width: "670px", height: "200px"}).fadeIn();
             }
         };

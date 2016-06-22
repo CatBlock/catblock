@@ -25,12 +25,12 @@ if (typeof SAFARI === "undefined") {
                 // Safari bug: window.safari undefined in iframes with JS src in them.
                 // Must get it from an ancestor.
                 var w = window;
-                while (w.safari === undefined && w !==  window.top) {
+                while (w.safari === undefined && w !== window.top) {
                     w = w.parent;
                 }
                 window.safari = w.safari;
             }
-            return (typeof safari !==  "undefined");
+            return (typeof safari !== "undefined");
         })();
 
         if (SAFARI) {
@@ -155,7 +155,7 @@ if (typeof SAFARI === "undefined") {
                             // Listen for a response.  When we get it, call the callback and stop
                             // listening.
                             var listener = listenFor("response", function(messageEvent) {
-                                if (messageEvent.message.callbackToken !==  callbackToken) {
+                                if (messageEvent.message.callbackToken !== callbackToken) {
                                     return;
                                 }
                                 // Must wrap this call in a timeout to avoid crash, per Safari team
@@ -240,7 +240,7 @@ if (typeof SAFARI === "undefined") {
                     // Called by the global page.
                     notice: function(tab, info) {
                         // Clean up closed tabs, to avoid memory bloat.
-                        this._tabs = this._tabs.filter(function(t) { return t.browserWindow !==  null; });
+                        this._tabs = this._tabs.filter(function(t) { return t.browserWindow !== null; });
 
                         if (tab.id === undefined) {
                             // New tab
@@ -274,7 +274,7 @@ if (typeof SAFARI === "undefined") {
                         var xhr = new XMLHttpRequest();
                         xhr.open("GET", chrome.runtime.getURL(file), false);
                         xhr.onreadystatechange = function() {
-                            if (this.readyState === 4 && this.responseText !==  "") {
+                            if (this.readyState === 4 && this.responseText !== "") {
                                 fn(this.responseText);
                             }
                         };

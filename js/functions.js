@@ -31,7 +31,7 @@ var BGcall = function() {
 var logging = function(enabled) {
     if (enabled) {
         var log = function() {
-            if (VERBOSE_DEBUG || arguments[0] !==  "[DEBUG]") { // comment out for verbosity
+            if (VERBOSE_DEBUG || arguments[0] !== "[DEBUG]") { // comment out for verbosity
                 console.log.apply(console, arguments);
             }
         };

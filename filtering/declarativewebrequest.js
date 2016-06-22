@@ -1,7 +1,7 @@
 DeclarativeWebRequest = (function() {
     if (!safari ||
         !safari.extension ||
-        (typeof safari.extension.setContentBlocker !==  'function')) {
+        (typeof safari.extension.setContentBlocker !== 'function')) {
         return;
     }
     const HTML_PREFIX = "^https?://.*";
@@ -18,7 +18,7 @@ DeclarativeWebRequest = (function() {
     var addDomainsToRule = function(filter, rule) {
         var domains = getDomains(filter);
         //since the global / ALL domain is included in the 'included' array, check for something other than undefined in the zero element
-        if (domains.included.length > 0 && domains.included[0] !==  undefined) {
+        if (domains.included.length > 0 && domains.included[0] !== undefined) {
             rule.trigger["if-domain"] = domains.included;
         } else if (domains.excluded.length > 0) {
             rule.trigger["unless-domain"] = domains.excluded;

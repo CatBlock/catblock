@@ -209,7 +209,7 @@ if (!SAFARI) {
         // frames on the tab with ID tabId. Returns undefined if tabId and frameId
         // are not being tracked.
         get: function(tabId, frameId) {
-            if (frameId !==  undefined) {
+            if (frameId !== undefined) {
                 return (frameData[tabId] || {})[frameId];
             }
             return frameData[tabId];
@@ -279,7 +279,7 @@ if (!SAFARI) {
                 return;
             }
             var data = frameData.get(tabId, frameId);
-            if (data !==  undefined) {
+            if (data !== undefined) {
                 data.resources[elType + ":|:" + url + ":|:" + frameDomain] = null;
             }
         },
@@ -306,7 +306,7 @@ if (!SAFARI) {
         var reqType = details.type;
 
         var top_frame = frameData.get(tabId, 0);
-        var sub_frame = (details.frameId !==  0 ? frameData.get(tabId, details.frameId) : null);
+        var sub_frame = (details.frameId !== 0 ? frameData.get(tabId, details.frameId) : null);
 
         // If top frame is whitelisted, don't process anything
         if (top_frame.whitelisted) {
@@ -334,7 +334,7 @@ if (!SAFARI) {
 
         // Issue 7178
         if (blocked && frameDomain === "www.hulu.com") {
-            if (frameData.get(tabId, 0).domain !==  "www.hulu.com"
+            if (frameData.get(tabId, 0).domain !== "www.hulu.com"
                 && /ads\.hulu\.com/.test(details.url)) { // good enough
                 blocked = false;
             }
@@ -407,7 +407,7 @@ if (!SAFARI) {
                 // and track these updates in the frameData object.
                 var tabData = frameData.get(details.tabId, details.frameId);
                 if (tabData &&
-                    tabData.url !==  details.url) {
+                    tabData.url !== details.url) {
                     details.type = "main_frame";
                     details.url = getUnicodeUrl(details.url);
                     frameData.track(details);
@@ -713,7 +713,7 @@ var page_is_unblockable = function(url) {
         return true;
     } else {
         var scheme = parseUri(url).protocol;
-        return (scheme !==  "http:" && scheme !==  "https:" && scheme !==  "feed:");
+        return (scheme !== "http:" && scheme !== "https:" && scheme !== "feed:");
     }
 }
 
@@ -1207,7 +1207,7 @@ var get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
 (function() {
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
-            if (request.command !==  "call") {
+            if (request.command !== "call") {
                 return; // not for us
             }
             if ((sender.tab === undefined) || (sender.tab === null)) {

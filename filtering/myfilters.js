@@ -56,7 +56,7 @@ MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
 
         sub.initialUrl = sub.initialUrl || official.url;
         sub.url = sub.url || official.url;
-        if (sub.initialUrl !==  official.url) {
+        if (sub.initialUrl !== official.url) {
             // The official URL was changed. Use it. In case of a redirect, this
             // doesn't happen as only sub.url is changed, not sub.initialUrl.
             sub.initialUrl = official.url;
@@ -66,7 +66,7 @@ MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
             sub.safariJSON_URL = official.safariJSON_URL;
         }
 
-        var isMissingRequiredList = (sub.requiresList !==  official.requiresList);
+        var isMissingRequiredList = (sub.requiresList !== official.requiresList);
         if (official.requiresList && isMissingRequiredList && sub.subscribed) {
             // A required list was added.  Make sure main list subscribers get it.
             if (this._subscriptions[official.requiresList])
@@ -130,7 +130,7 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
             // If not, update entry in subscriptions.
             var new_id = is_user_submitted ? ("url:" + sub_to_check.url) : update_id;
 
-            if(new_id !==  id) {
+            if(new_id !== id) {
                 renameSubscription(id, new_id);
             }
         }
@@ -351,7 +351,7 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
     if (id === "malware") {
         // Apply all changes from subData
         for (var property in subData) {
-            if (subData[property] !==  undefined) {
+            if (subData[property] !== undefined) {
                 this._subscriptions[id][property] = subData[property];
             }
         }
@@ -400,7 +400,7 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
 
     // Apply all changes from subData
     for (var property in subData)
-        if (subData[property] !==  undefined)
+        if (subData[property] !== undefined)
             this._subscriptions[id][property] = subData[property];
 
     // Check if the required list is a well known list, but only if it is changed
@@ -548,7 +548,7 @@ MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
             if (!Filter.isComment(checkLines[i]))
                 continue;
             var match = checkLines[i].match(redirectRegex);
-            if (match && match[1] !==  this._subscriptions[id].url) {
+            if (match && match[1] !== this._subscriptions[id].url) {
                 this._subscriptions[id].url = match[1]; //assuming the URL is always correct
                 // Force an update.  Even if our refetch below fails we'll have to
                 // fetch the new URL in the future until it succeeds.

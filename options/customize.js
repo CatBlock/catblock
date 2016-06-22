@@ -1,5 +1,5 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.command !==  "filters_updated")
+    if (request.command !== "filters_updated")
         return;
     if ($("#txtFiltersAdvanced").prop("disabled") === false)
         return;

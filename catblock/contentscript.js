@@ -352,12 +352,12 @@ var picinjection = {
                     $(".picinjection-infocard:visible").hide();
                 });
             }
-            if (typeof jQuery !==  "undefined") {
+            if (typeof jQuery !== "undefined") {
                 after_jquery_is_available();
             }
             else {
                 chrome.runtime.sendMessage(
-                    { command:"inject_jquery", allFrames: (window !==  window.top) },
+                    { command:"inject_jquery", allFrames: (window !== window.top) },
                     after_jquery_is_available
                 );
             }
@@ -577,8 +577,8 @@ var picinjection = {
 if (!SAFARI) {
     // Augment blocked ads on Blink-based browsers => images/subdocuments/objects
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.command !==  "purge-elements" ||
-            request.frameUrl !==  document.location.href)
+        if (request.command !== "purge-elements" ||
+            request.frameUrl !== document.location.href)
             return;
 
         var ads = document.querySelectorAll(request.selector);

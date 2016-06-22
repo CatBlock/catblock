@@ -30,7 +30,7 @@ FilterSet.fromFilters = function(data) {
                 var key = (d === DomainSet.ALL ? 'global' : d);
                 setDefault(result.items, key, []).push(filter);
             }
-            else if (d !==  DomainSet.ALL)
+            else if (d !== DomainSet.ALL)
                 setDefault(result.exclude, d, {})[filter.id] = true;
         }
     }
@@ -126,7 +126,7 @@ BlockingFilterSet = function(patternFilterSet, whitelistFilterSet) {
 BlockingFilterSet.checkThirdParty = function(domain1, domain2) {
     var match1 = parseUri.secondLevelDomainOnly(domain1, false);
     var match2 = parseUri.secondLevelDomainOnly(domain2, false);
-    return (match1 !==  match2);
+    return (match1 !== match2);
 }
 
 BlockingFilterSet.prototype = {

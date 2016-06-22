@@ -60,7 +60,7 @@ var before_ready_bandaids = function() {
 // This function is outside the normal 'bandaids' processing
 // so that it works correctly
 (function() {
-    if ((typeof SAFARI) !==  'undefined' &&
+    if ((typeof SAFARI) !== 'undefined' &&
         SAFARI &&
         document.domain === "www.youtube.com") {
         //continue
@@ -88,7 +88,7 @@ var before_ready_bandaids = function() {
         var flashvars = newPlayer.getAttribute("flashvars");
         if (flashvars) {
             var newFlashvars = rewriteFlashvars(flashvars);
-            if (flashvars !==  newFlashvars) {
+            if (flashvars !== newFlashvars) {
                 newPlayer.setAttribute("flashvars", newFlashvars);
                 flashvarsChanged = true;
             }
@@ -99,7 +99,7 @@ var before_ready_bandaids = function() {
             var value = param.getAttribute("value");
             if (value) {
                 var newValue = rewriteFlashvars(value);
-                if (value !==  newValue) {
+                if (value !== newValue) {
                     param.setAttribute("value", newValue);
                     flashvarsChanged = true;
                 }
@@ -143,7 +143,7 @@ var before_ready_bandaids = function() {
                 return ytplayer;
             },
             set: function(rawYtplayer) {
-                if (!rawYtplayer || typeof rawYtplayer !==  "object") {
+                if (!rawYtplayer || typeof rawYtplayer !== "object") {
                     ytplayer = rawYtplayer;
                     return;
                 }
@@ -156,7 +156,7 @@ var before_ready_bandaids = function() {
                             return config;
                         },
                         set: function(rawConfig) {
-                            if (!rawConfig || typeof rawConfig !==  "object") {
+                            if (!rawConfig || typeof rawConfig !== "object") {
                                 config = rawConfig;
                                 return;
                             }
@@ -169,7 +169,7 @@ var before_ready_bandaids = function() {
                                         return args;
                                     },
                                     set: function(rawArgs) {
-                                        if (!rawArgs || typeof rawArgs !==  "object") {
+                                        if (!rawArgs || typeof rawArgs !== "object") {
                                             args = rawArgs;
                                             return;
                                         }

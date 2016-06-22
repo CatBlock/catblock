@@ -38,7 +38,7 @@ var frameData = (function() {
             url = getUnicodeUrl(url);
             domain = getUnicodeDomain(domain);
 
-            var shouldTrack = !tracker || tracker.url !==  url;
+            var shouldTrack = !tracker || tracker.url !== url;
             if (shouldTrack) {
                 frameData[tabId] = {
                     resources: {},
@@ -57,8 +57,8 @@ var frameData = (function() {
                 return;
             }
             var data = this.get(tabId);
-            if (data !==  undefined &&
-                data.resources !==  undefined) {
+            if (data !== undefined &&
+                data.resources !== undefined) {
                 data.resources[elType + ":|:" + url] = null;
             }
         },
@@ -89,7 +89,7 @@ safari.application.addEventListener("message", function(messageEvent) {
         return;
     }
 
-    if (messageEvent.name !==  "canLoad") {
+    if (messageEvent.name !== "canLoad") {
         return;
     }
 

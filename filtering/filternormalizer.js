@@ -28,7 +28,7 @@ var FilterNormalizer = {
                 var newfilter = FilterNormalizer.normalizeLine(lines[i]);
                 if (newfilter)
                     result.push(newfilter);
-                else if (newfilter !==  false)
+                else if (newfilter !== false)
                     ignoredFilterCount++;
                 else if (keepComments)
                     result.push(lines[i]);
@@ -66,7 +66,7 @@ var FilterNormalizer = {
             filter = FilterNormalizer._old_style_hiding_to_new(filter);
             log('Converted ' + oldFilter + ' to ' + filter);
         }
-        if (typeof userExcludedFilterArray !==  'undefined' &&
+        if (typeof userExcludedFilterArray !== 'undefined' &&
             userExcludedFilterArray &&
             userExcludedFilterArray.length > 0 &&
             userExcludedFilterArray.indexOf(filter) >= 0) {

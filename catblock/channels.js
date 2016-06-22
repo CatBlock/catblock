@@ -281,7 +281,7 @@ FlickrChannel.prototype = {
                 attribution_url: 'http://www.flickr.com/photos/' +
                 (photo.owner || photos.owner) + '/' + photo.id
             });
-            if (typeof listing.url !==  "undefined") {
+            if (typeof listing.url !== "undefined") {
                 result.push(listing);
             }
         }
