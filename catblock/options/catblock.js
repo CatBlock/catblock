@@ -111,11 +111,12 @@ BGcall("getGuide", function(guide) {
     }
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
-            if (request.command !== 'channel-updated')
+            if (request.command !== "channel-updated") {
                 return;
-            var channelUI = $("#chan-" + request.id);
-            if ($('#fill-photos-btn-' + request.id).is(":visible"))
+            }
+            if ($("#fill-photos-btn-" + request.id).is(":visible")) {
                 return; // They haven't asked for it yet
+            }
             fillChannelUIWithPhotos(request.id);
         }
     );
@@ -137,15 +138,15 @@ BGcall("getGuide", function(guide) {
 
 });
 
-$('#channel-options input:text').keyup(function(event) {
-    if (event.keyCode === 13)
+$("#channel-options input:text").keyup(function(event) {
+    if (event.keyCode === 13) {
         $(this).next().click();
+    }
     // todo handle enter
 });
 
 function setMascot(id) {
     BGcall("randomListing", {channelId: id}, function(listing) {
-        var folder = "img/";
         $("body").css({
             "background": "url(" + listing.url + ") 95% 5% no-repeat",
             "background-size": "200px",

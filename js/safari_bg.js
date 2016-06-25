@@ -209,7 +209,6 @@ safari.application.addEventListener("close", function(event) {
         for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
             var item = safari.extension.toolbarItems[i];
             if (item.browserWindow === event.target) {
-                var popover = item.popover;
 
                 // Safari docs say that we must detach popover from toolbar items before removing.
                 item.popover = null;

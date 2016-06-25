@@ -9,7 +9,7 @@ function Listing(data) {
     this.url = data.url;
     this.title = data.title;
     this.attribution_url = data.attribution_url;
-};
+}
 
 
 // Contains and provides access to all the photo channels.
@@ -50,7 +50,7 @@ Channels.prototype = {
         };
         this._saveToStorage();
         var that = this;
-        $(channel).bind("updated", function(event) {
+        $(channel).bind("updated", function() {
             // TODO: make sure this works in Safari.  And if you fix a bug, fix it
             // in AdBlock too -- it's keeping filter update events from showing up
             // in the AdBlock Options page I think.
@@ -172,8 +172,8 @@ Channel.prototype = {
         });
     },
 
-    _getLatestListings: function(callback) {
-        throw "Implemented by subclass. Call callback with up-to-date listings.";
+    _getLatestListings: function() {
+        throw new Error("Implemented by subclass. Call callback with up-to-date listings.");
     }
 };
 

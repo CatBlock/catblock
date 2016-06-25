@@ -125,8 +125,8 @@ img {
 }
 ul {
     display: block;
-    -webkit-margin-after: 0em;
-    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0;
+    -webkit-margin-before: 0;
 }
 #header {
     background: #F1F1F1;
@@ -468,7 +468,6 @@ input:disabled {
     opacity: .6;
     box-shadow: none;
     background: rgba(0, 0, 0, 0.1);
-    box-shadow: none;
 }
 input:disabled + label {
     opacity: .6;
@@ -478,7 +477,6 @@ input:disabled + label {
 input[type=text], input[type=email], textarea {
     transition: all 0.30s ease-in-out;
     -webkit-transition: all 0.30s ease-in-out;
-    border: #fff 1px solid;
     outline: none;
     padding: 3px 0 3px 3px;
     margin: 5px 1px 3px 0;

@@ -258,9 +258,10 @@ var picinjection = {
         // emit_page_broadcast.  Create card the first time we mouseover.
         // Then we can use jQuery's mouseenter and mouseleave to control when the
         // card comes and goes.
-        newPic.addEventListener("mouseover", function(e) {
-            if (newPic.infoCard)
+        newPic.addEventListener("mouseover", function() {
+            if (newPic.infoCard) {
                 return; // already created card
+            }
             function after_jquery_is_available() {
                 var cardsize = {
                     width: Math.max(placement.width, 180),
@@ -324,7 +325,6 @@ var picinjection = {
                         "text-align": "center"
                     }
                 });
-                var translate = picinjection.translate;
                 wrapper.
                 append($("<i>", { text: placement.photo_title })).
                 append("<br/><br/>").

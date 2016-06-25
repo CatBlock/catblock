@@ -2,6 +2,27 @@
 var STATUS = (function() {
     var url = "http://catblock.tk/edge.json";
 
+    // Check if newVersion is newer than AdBlockVersion
+    var isNewerVersion = function(newVersion) {
+        // Get a version number
+        var AdBlockVersion = chrome.runtime.getManifest().version;
+        var versionRegex = /^(\*|\d+(\.\d+){0,2}(\.\*)?)$/;
+        var current = AdBlockVersion.match(versionRegex);
+        var notCurrent = newVersion.match(versionRegex);
+        if (!current || !notCurrent) {
+            return false;
+        }
+        for (var i=1; i<4; i++) {
+            if (current[i] < notCurrent[i]) {
+                return true;
+            }
+            if (current[i] > notCurrent[i]) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     var handleResponse = function(responseData) {
         var isNewerVersionAvailable = isNewerVersion(responseData.version);
         if (isNewerVersionAvailable) {
@@ -27,26 +48,7 @@ var STATUS = (function() {
         $.ajax(ajaxOptions);
     };
 
-    // Check if newVersion is newer than AdBlockVersion
-    var isNewerVersion = function(newVersion) {
-        // Get a version number
-        var AdBlockVersion = chrome.runtime.getManifest().version;
-        var versionRegex = /^(\*|\d+(\.\d+){0,2}(\.\*)?)$/;
-        var current = AdBlockVersion.match(versionRegex);
-        var notCurrent = newVersion.match(versionRegex);
-        if (!current || !notCurrent) {
-            return false;
-        }
-        for (var i=1; i<4; i++) {
-            if (current[i] < notCurrent[i]) {
-                return true;
-            }
-            if (current[i] > notCurrent[i]) {
-                return false;
-            }
-        }
-        return false;
-    }
+
 
     // Called just after we ping the server, to schedule our next ping.
     var scheduleNextPing = function() {

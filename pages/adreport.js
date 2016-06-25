@@ -172,7 +172,7 @@ function sendReport() {
                         report_data.extensions = extInfo.join("\n");
                         chrome.permissions.remove({
                             permissions: ['management']
-                        }, function(removed) {});
+                        }, function() {});
                         sendData();
                         return;
                     });

@@ -33,7 +33,7 @@ function weakDestroyElement(el, elType) {
     else {
         return false; // not handled by this function
     }
-};
+}
 
 var beforeLoadHandler = function(event) {
     // Since we don't block non-HTTP requests, return

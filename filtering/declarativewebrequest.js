@@ -25,6 +25,11 @@ DeclarativeWebRequest = (function() {
         }
     };
 
+    // Returns true if |filter| is of type $document or $elemhide
+    var isPageLevel = function(filter) {
+        return filter._allowedElementTypes & PAGELEVEL_TYPES;
+    };
+
     // Returns an object containing .included and .excluded lists of domains for
     // the given Filter.  If the Filter is of the form $domain=~x[,~x2,...] then
     // add |undefined| to the .included list to represent the implied global
@@ -58,11 +63,6 @@ DeclarativeWebRequest = (function() {
             }
         }
         return result;
-    };
-
-    // Returns true if |filter| is of type $document or $elemhide
-    var isPageLevel = function(filter) {
-        return filter._allowedElementTypes & PAGELEVEL_TYPES;
     };
 
     // Returns an array of resource types that should be checked by rules for

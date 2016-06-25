@@ -56,6 +56,11 @@ var translate = function(messageID, args) {
     return chrome.i18n.getMessage(messageID, args);
 };
 
+// Determine what language the user's browser is set to use
+var determineUserLanguage = function() {
+    return navigator.language.match(/^[a-z]+/i)[0];
+};
+
 var localizePage = function() {
     // Translate a page into the users language
     $("[i18n]:not(.i18n-replaced)").each(function() {
@@ -94,11 +99,6 @@ var localizePage = function() {
         $(".closelegend").css("float","left");
         document.documentElement.dir = "rtl";
     }
-};
-
-// Determine what language the user's browser is set to use
-var determineUserLanguage = function() {
-    return navigator.language.match(/^[a-z]+/i)[0];
 };
 
 // Parse a URL. Based upon http://blog.stevenlevithan.com/archives/parseuri

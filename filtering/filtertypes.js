@@ -182,21 +182,25 @@ PatternFilter._parseRule = function(text) {
         // See crbug.com/93542 -- object-subrequest is reported as 'object',
         // so we treat them as synonyms.  TODO issue 5935: we must address
         // false positives/negatives due to this.
-        if (option === 'object_subrequest')
+        if (option === 'object_subrequest') {
             option = 'object';
+        }
 
         // 'background' is a synonym for 'image'.
-        if (option === 'background')
+        if (option === 'background') {
             option = 'image';
+        }
 
         if (option in ElementTypes) { // this option is a known element type
             if (inverted) {
-                if (allowedElementTypes === undefined)
+                if (allowedElementTypes === undefined) {
                     allowedElementTypes = ElementTypes.DEFAULTTYPES;
+                }
                 allowedElementTypes &= ~ElementTypes[option];
             } else {
-                if (allowedElementTypes === undefined)
+                if (allowedElementTypes === undefined) {
                     allowedElementTypes = ElementTypes.NONE;
+                }
                 allowedElementTypes |= ElementTypes[option];
             }
         }
@@ -219,15 +223,17 @@ PatternFilter._parseRule = function(text) {
     }
     // If no element types are mentioned, the default set is implied.
     // Otherwise, the element types are used, which can be ElementTypes.NONE
-    if (allowedElementTypes === undefined)
+    if (allowedElementTypes === undefined) {
         result.allowedElementTypes = ElementTypes.DEFAULTTYPES;
-    else
+    } else {
         result.allowedElementTypes = allowedElementTypes;
+    }
 
     // We parse whitelist rules too, in which case we already know it's a
     // whitelist rule so can ignore the @@s.
-    if (Filter.isWhitelistFilter(rule))
+    if (Filter.isWhitelistFilter(rule)) {
         rule = rule.substring(2);
+    }
 
     // Convert regexy stuff.
 

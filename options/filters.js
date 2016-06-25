@@ -74,7 +74,7 @@ function CheckboxForFilterList(filter_list, filter_list_type, index, container) 
         SubscriptionUtil.unsubscribe(id, true);
         $parent.remove();
     }) : null;
-};
+}
 
 CheckboxForFilterList.prototype = {
     // Bind checkbox on change event to handle subscribing and unsubscribing to
