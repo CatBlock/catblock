@@ -15,7 +15,7 @@ var ElementTypes = {
     xmlhttprequest: 512,
     'document': 1024,
     elemhide: 2048,
-    popup: 4096,
+    popup: 4096
     // If you add something here, update .DEFAULTTYPES and .CHROMEONLY below.
 };
 // The types that are implied by a filter that doesn't explicitly specify types

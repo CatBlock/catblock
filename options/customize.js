@@ -36,7 +36,7 @@ $(function() {
         },
         error: function(e) {
             $('#tutorlink').attr("href", "https://adblockplus.org/en/filters");
-        },
+        }
     });
 
 

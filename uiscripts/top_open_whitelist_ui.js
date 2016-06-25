@@ -53,7 +53,7 @@ function top_open_whitelist_ui() {
                 });
             }
         }
-        btns[translate("buttoncancel")] = function() { page.dialog("close");}
+        btns[translate("buttoncancel")] = function() { page.dialog("close"); }
 
         var page = $("<div>").
         append('<span>' + translate("catblock_adblock_wont_run_on_pages_matching") +

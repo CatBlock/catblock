@@ -43,7 +43,7 @@ var frameData = (function() {
                 frameData[tabId] = {
                     resources: {},
                     domain: domain,
-                    url: url,
+                    url: url
                 };
             }
             return tracker;

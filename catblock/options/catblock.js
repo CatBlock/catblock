@@ -1,10 +1,12 @@
 // TODO: Star and remove photos in a channel
 
 function mayDelete(channelData) {
-    if (channelData.name === "AprilFoolsCatsChannel")
+    if (channelData.name === "AprilFoolsCatsChannel") {
         return false;
-    if (channelData.name === "TheCatsOfCatBlockUsersChannel")
+    }
+    if (channelData.name === "TheCatsOfCatBlockUsersChannel") {
         return false;
+    }
     return true;
 }
 function displayName(channelData) {
@@ -60,7 +62,7 @@ function addEmptyChannelUI(id, data) {
     append(btn);
     var photos = $("<div>", {
         "class": "channel-photos",
-        id: "chan-" + id + "-photos",
+        id: "chan-" + id + "-photos"
     });
     theUI.html(title).append(photos).appendTo("#channels");
 }
