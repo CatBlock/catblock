@@ -10,9 +10,7 @@
 }
 .ui-dialog {
   opacity: 1 !important;
-  transform: initial !important;
   -webkit-transform: initial !important;
-  transition: initial !important;
   transition: initial !important;
 }
 .ui-dialog a[href] {
@@ -88,7 +86,6 @@
   display: inline !important;
 }
 .ui-dialog input[type="range"] {
-  outline: none;
   margin: 10px;
   vertical-align: middle;
   height: 16px !important;
@@ -148,6 +145,7 @@
 .ui-dialog #slider {
   width: 364px;
   -webkit-appearance: slider-horizontal !important;
+  -moz-appearance: slider-horizontal !important;
 }
 .ui-dialog #filter_warning {
   font-weight: bold;
@@ -185,6 +183,7 @@ input[type="checkbox"] {
   border: 1px solid rgba(0, 0, 0, 0.3);
   background: -webkit-linear-gradient(#FCFCFC, #DADADA);
   -webkit-appearance: none;
+  -moz-appearance: none;
   transition: box-shadow 200ms;
   box-shadow:inset 1px 1px 0 #fff, 0 1px 1px rgba(0,0,0,0.1);
 }
