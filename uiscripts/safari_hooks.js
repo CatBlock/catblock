@@ -4,7 +4,7 @@
 // Handle emit_page_broadcast
 safari.self.addEventListener("message", function(event) {
     if (event.name === "page-broadcast") {
-        if (event.message.fn === 'send_content_to_back') {
+        if (event.message.fn === "send_content_to_back") {
             send_content_to_back();
         }
     }
@@ -19,6 +19,6 @@ if (window === window.top) {
         else if (event.name === "show-blacklist-wizard")
             top_open_blacklist_ui({});
         else if (event.name === "show-clickwatcher-ui")
-            top_open_blacklist_ui({nothing_clicked:true});
+            top_open_blacklist_ui({ nothing_clicked: true });
     }, false);
 }

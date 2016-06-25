@@ -1,8 +1,10 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.command !== "filters_updated")
+    if (request.command !== "filters_updated") {
         return;
-    if ($("#txtFiltersAdvanced").prop("disabled") === false)
+    }
+    if ($("#txtFiltersAdvanced").prop("disabled") === false) {
         return;
+    }
     BGcall("get_custom_filters_text", function(text) {
         $("#txtFiltersAdvanced").val(text);
     });
