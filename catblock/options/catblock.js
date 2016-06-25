@@ -104,10 +104,6 @@ function addChannel(name, param) {
 BGcall("getGuide", function(guide) {
     for (var id in guide) {
         addEmptyChannelUI(id, guide[id]);
-        // TODO: Enable after styling fixes
-        //if (guide[id].name === "TheCatsOfCatBlockUsersChannel" &&
-        //guide[id].enabled)
-        //setMascot(id);
     }
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
@@ -144,13 +140,3 @@ $("#channel-options input:text").keyup(function(event) {
     }
     // todo handle enter
 });
-
-function setMascot(id) {
-    BGcall("randomListing", {channelId: id}, function(listing) {
-        $("body").css({
-            "background": "url(" + listing.url + ") 95% 5% no-repeat",
-            "background-size": "200px",
-            "background-attachment": "fixed"
-        });
-    });
-}

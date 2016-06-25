@@ -1,29 +1,16 @@
 DeclarativeWebRequest = (function() {
     if (!safari ||
         !safari.extension ||
-        (typeof safari.extension.setContentBlocker !== 'function')) {
+        (typeof safari.extension.setContentBlocker !== "function")) {
         return;
     }
     const HTML_PREFIX = "^https?://.*";
-    var PAGELEVEL_TYPES = (ElementTypes.elemhide | ElementTypes.document);
-    var UNSUPPORTED_TYPES = (ElementTypes.subdocument | ElementTypes.object | ElementTypes.object_subrequest);
+    const PAGELEVEL_TYPES = (ElementTypes.elemhide | ElementTypes.document);
+    const UNSUPPORTED_TYPES = (ElementTypes.subdocument | ElementTypes.object | ElementTypes.object_subrequest);
     var whitelistAnyOtherFilters = [];
     var elementWhitelistFilters = [];
     var documentWhitelistFilters = [];
     var elemhideSelectorExceptions = {};
-
-    // Add the include / exclude domains to a rule
-    // Note:  some filters will have both include and exclude domains, which the content blocking API doesn't allow,
-    //        so we only add the exclude domains when there isn't any include domains.
-    var addDomainsToRule = function(filter, rule) {
-        var domains = getDomains(filter);
-        //since the global / ALL domain is included in the 'included' array, check for something other than undefined in the zero element
-        if (domains.included.length > 0 && domains.included[0] !== undefined) {
-            rule.trigger["if-domain"] = domains.included;
-        } else if (domains.excluded.length > 0) {
-            rule.trigger["unless-domain"] = domains.excluded;
-        }
-    };
 
     // Returns true if |filter| is of type $document or $elemhide
     var isPageLevel = function(filter) {
@@ -63,6 +50,19 @@ DeclarativeWebRequest = (function() {
             }
         }
         return result;
+    };
+
+    // Add the include / exclude domains to a rule
+    // Note:  some filters will have both include and exclude domains, which the content blocking API doesn't allow,
+    //        so we only add the exclude domains when there isn't any include domains.
+    var addDomainsToRule = function(filter, rule) {
+        var domains = getDomains(filter);
+        //since the global / ALL domain is included in the 'included' array, check for something other than undefined in the zero element
+        if (domains.included.length > 0 && domains.included[0] !== undefined) {
+            rule.trigger["if-domain"] = domains.included;
+        } else if (domains.excluded.length > 0) {
+            rule.trigger["unless-domain"] = domains.excluded;
+        }
     };
 
     // Returns an array of resource types that should be checked by rules for
