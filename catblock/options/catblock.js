@@ -19,8 +19,9 @@ function displayName(channelData) {
     return name + " <b>" + (param || "") + "</b>";
 }
 function addEmptyChannelUI(id, data) {
-    if (document.getElementById("chan-" + id))
+    if (document.getElementById("chan-" + id)) {
         return;
+    }
     var theUI = $("<div>", {
         "class": "channel-ui",
         id: "chan-" + id
@@ -120,8 +121,9 @@ BGcall("getGuide", function(guide) {
     );
     $("#btnGo").click(function() {
         var input = $("#flickr-param").val();
-        if (/^\W*$/.test(input))
+        if (/^\W*$/.test(input)) {
             return;
+        }
         if (/^\d+$/.test(input)) {
             addChannel("FlickrPhotosetChannel", input);
             return;

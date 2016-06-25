@@ -15,10 +15,11 @@ Filter.fromText = function(text) {
     var cache = Filter._cache;
     if (!(text in cache)) {
 
-        if (Filter.isSelectorFilter(text))
+        if (Filter.isSelectorFilter(text)) {
             cache[text] = new SelectorFilter(text);
-        else
+        } else {
             cache[text] = PatternFilter.fromText(text);
+        }
     }
     return cache[text];
 }
@@ -86,8 +87,9 @@ var SelectorFilter = function(text) {
 // Otherwise, returns a new SelectorFilter that is the combination of
 // |filter| and each selector exclusion filter in the given list.
 SelectorFilter.merge = function(filter, excludeFilters) {
-    if (!excludeFilters)
+    if (!excludeFilters) {
         return filter;
+    }
 
     var domains = filter._domains.clone();
     for (var i = 0; i < excludeFilters.length; i++) {

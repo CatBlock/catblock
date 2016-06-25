@@ -4,19 +4,22 @@
         var fail = false;
         [ [o1, o2], [o2, o1] ].forEach(function(objects) {
             var a = objects[0], b = objects[1];
-            for (property in a)
-                if (a[property] !== b[property])
+            for (property in a) {
+                if (a[property] !== b[property]) {
                     fail = true;
+                }
+            }
         });
         if (fail) {
             var o1_s = JSON.stringify(o1);
             var o2_s = JSON.stringify(o2);
-            if (o1_s !== o2_s)
+            if (o1_s !== o2_s) {
                 console.log(o1_s + " != " + o2_s);
+            }
         }
     }
 
-    test_catblock = function() {
+    var test_catblock = function() {
         var pic1 = { x: 10, y: 6, left: 2, top: 2, right: 5, bot: 1 };
 
         // targets

@@ -32,8 +32,9 @@ Channels.prototype = {
     //   id of newly created channel, or undefined if the channel already existed.
     add: function(data) {
         var klass = window[data.name];
-        if (!klass)
+        if (!klass) {
             return;
+        }
         var dataParam = JSON.stringify(data.param);
         for (var id in this._channelGuide) {
             var c = this._channelGuide[id];
@@ -55,8 +56,9 @@ Channels.prototype = {
             // in AdBlock too -- it's keeping filter update events from showing up
             // in the AdBlock Options page I think.
             chrome.runtime.sendMessage({command: "channel-updated", id: id});
-            if (that._channelGuide[id].enabled)
+            if (that._channelGuide[id].enabled) {
                 that._channelGuide[id].channel.prefetch();
+            }
         });
         channel.refresh();
         return id;
@@ -94,8 +96,9 @@ Channels.prototype = {
     refreshAllEnabled: function() {
         for (var id in this._channelGuide) {
             var data = this._channelGuide[id];
-            if (data.enabled)
+            if (data.enabled) {
                 data.channel.refresh();
+            }
         }
     },
 
@@ -135,8 +138,9 @@ Channels.prototype = {
     _saveToStorage: function() {
         var toStore = [];
         var guide = this.getGuide();
-        for (var id in guide)
+        for (var id in guide) {
             toStore.push(guide[id]);
+        }
         storage_set("channels", toStore);
     },
 

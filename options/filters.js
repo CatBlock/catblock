@@ -310,22 +310,23 @@ FilterListUtil.updateSubscriptionInfoAll = function() {
             var hours = Math.round(minutes / 60);
             var days = Math.round(hours / 24);
             var text = "";
-            if (seconds < 10)
+            if (seconds < 10) {
                 text += translate("updatedrightnow");
-            else if (seconds < 60)
+            } else if (seconds < 60) {
                 text += translate("updatedsecondsago", [seconds.toString()]);
-            else if (minutes === 1)
+            } else if (minutes === 1) {
                 text += translate("updatedminuteago");
-            else if (minutes < 60)
+            } else if (minutes < 60) {
                 text += translate("updatedminutesago", [minutes.toString()]);
-            else if (hours === 1)
+            } else if (hours === 1) {
                 text += translate("updatedhourago");
-            else if (hours < 24)
+            } else if (hours < 24) {
                 text += translate("updatedhoursago", [hours.toString()]);
-            else if (days === 1)
+            } else if (days === 1) {
                 text += translate("updateddayago");
-            else
+            } else {
                 text += translate("updateddaysago", [days.toString()]);
+            }
         }
         infoLabel.text(text);
     }

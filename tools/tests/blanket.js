@@ -231,7 +231,7 @@ parseStatement: true, parseSourceElement: true */
     // 7.3 Line Terminators
 
     function isLineTerminator(ch) {
-        return (ch === '\n' || ch === '\r' || ch === '\u2028' || ch === '\u2029');
+        return (ch === "\n" || ch === '\r' || ch === '\u2028' || ch === '\u2029');
     }
 
     // 7.6 Identifier Names and Identifiers
@@ -359,7 +359,7 @@ parseStatement: true, parseSourceElement: true */
                 ch = source[index++];
                 if (isLineTerminator(ch)) {
                     lineComment = false;
-                    if (ch === '\r' && source[index] === '\n') {
+                    if (ch === '\r' && source[index] === "\n") {
                         ++index;
                     }
                     ++lineNumber;
@@ -367,7 +367,7 @@ parseStatement: true, parseSourceElement: true */
                 }
             } else if (blockComment) {
                 if (isLineTerminator(ch)) {
-                    if (ch === '\r' && source[index + 1] === '\n') {
+                    if (ch === '\r' && source[index + 1] === "\n") {
                         ++index;
                     }
                     ++lineNumber;
@@ -407,7 +407,7 @@ parseStatement: true, parseSourceElement: true */
                 ++index;
             } else if (isLineTerminator(ch)) {
                 ++index;
-                if (ch ===  '\r' && source[index] === '\n') {
+                if (ch ===  '\r' && source[index] === "\n") {
                     ++index;
                 }
                 ++lineNumber;
@@ -875,7 +875,7 @@ parseStatement: true, parseSourceElement: true */
                 if (!isLineTerminator(ch)) {
                     switch (ch) {
                     case 'n':
-                        str += '\n';
+                        str += "\n";
                         break;
                     case 'r':
                         str += '\r';
@@ -933,7 +933,7 @@ parseStatement: true, parseSourceElement: true */
                     }
                 } else {
                     ++lineNumber;
-                    if (ch ===  '\r' && source[index] === '\n') {
+                    if (ch ===  '\r' && source[index] === "\n") {
                         ++index;
                     }
                 }
@@ -3158,7 +3158,7 @@ parseStatement: true, parseSourceElement: true */
                     };
                     lineComment = false;
                     addComment('Line', comment, start, index - 1, loc);
-                    if (ch === '\r' && source[index] === '\n') {
+                    if (ch === '\r' && source[index] === "\n") {
                         ++index;
                     }
                     ++lineNumber;
@@ -3177,7 +3177,7 @@ parseStatement: true, parseSourceElement: true */
                 }
             } else if (blockComment) {
                 if (isLineTerminator(ch)) {
-                    if (ch === '\r' && source[index + 1] === '\n') {
+                    if (ch === '\r' && source[index + 1] === "\n") {
                         ++index;
                         comment += '\r\n';
                     } else {
@@ -3250,7 +3250,7 @@ parseStatement: true, parseSourceElement: true */
                 ++index;
             } else if (isLineTerminator(ch)) {
                 ++index;
-                if (ch ===  '\r' && source[index] === '\n') {
+                if (ch ===  '\r' && source[index] === "\n") {
                     ++index;
                 }
                 ++lineNumber;
@@ -3948,22 +3948,22 @@ module.exports = function (src, opts, fn) {
     src = src === undefined ? opts.source : src;
     opts.range = true;
     if (typeof src !== 'string') src = String(src);
-    
+
     var ast = parse(src, opts);
-    
+
     var result = {
         chunks : src.split(''),
         toString : function () { return result.chunks.join('') },
         inspect : function () { return result.toString() }
     };
     var index = 0;
-    
+
     (function walk (node, parent) {
         insertHelpers(node, parent, result.chunks);
-        
+
         forEach(objectKeys(node), function (key) {
             if (key === 'parent') return;
-            
+
             var child = node[key];
             if (isArray(child)) {
                 forEach(child, function (c) {
@@ -3979,21 +3979,21 @@ module.exports = function (src, opts, fn) {
         });
         fn(node);
     })(ast, undefined);
-    
+
     return result;
 };
- 
+
 function insertHelpers (node, parent, chunks) {
     if (!node.range) return;
-    
+
     node.parent = parent;
-    
+
     node.source = function () {
         return chunks.slice(
             node.range[0], node.range[1]
         ).join('');
     };
-    
+
     if (node.update && typeof node.update === 'object') {
         var prev = node.update;
         forEach(objectKeys(prev), function (key) {
@@ -4004,7 +4004,7 @@ function insertHelpers (node, parent, chunks) {
     else {
         node.update = update;
     }
-    
+
     function update (s) {
         chunks[node.range[0]] = s;
         for (var i = node.range[0] + 1; i < node.range[1]; i++) {
@@ -4065,11 +4065,11 @@ var parseAndModify = (inBrowser ? window.falafel : require("falafel"));
         instrumentCache:false,
         modulePattern: null
     };
-    
+
     if (inBrowser && typeof window.blanket !== 'undefined'){
         __blanket = window.blanket.noConflict();
     }
-    
+
     _blanket = {
         noConflict: function(){
             if (__blanket){
@@ -4144,7 +4144,7 @@ var parseAndModify = (inBrowser ? window.falafel : require("falafel"));
         _trackingArraySetup: [],
         _branchingArraySetup: [],
         _prepareSource: function(source){
-            return source.replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/(\r\n|\n|\r)/gm,"\n").split('\n');
+            return source.replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/(\r\n|\n|\r)/gm,"\n").split("\n");
         },
         _trackingSetup: function(filename,sourceArray){
             var branches = _blanket.options("branchTracking");
@@ -4556,13 +4556,13 @@ _blanket.extend({
             if (sessionStorage["blanketSessionLoader"]){
                 _blanket.blanketSession = JSON.parse(sessionStorage["blanketSessionLoader"]);
             }
-            
+
             scripts.forEach(function(file,indx){
                 _blanket.utils.cache[file]={
                     loaded:false
                 };
             });
-            
+
             var currScript=-1;
             _blanket.utils.loadAll(function(test){
                 if (test){
@@ -4639,7 +4639,7 @@ blanket.defaultReporter = function(coverage){
         }),
         bodyContent = "<div id='blanket-main'><div class='blanket bl-title'><div class='bl-cl bl-file'><a href='http://alex-seville.github.com/blanket/' target='_blank' class='bl-logo'>Blanket.js</a> results</div><div class='bl-cl rs'>Coverage (%)</div><div class='bl-cl rs'>Covered/Total Smts.</div>"+(hasBranchTracking ? "<div class='bl-cl rs'>Covered/Total Branches</div>":"")+"<div style='clear:both;'></div></div>",
         fileTemplate = "<div class='blanket {{statusclass}} clickable'><div class='bl-cl bl-file'><span class='bl-nb'>{{fileNumber}}.</span><label for=\"checkbox-{{fileNumber}}\">View Source </label><input type=\"checkbox\" id=\"checkbox-{{fileNumber}}\" /><div id='file-{{fileNumber}}' class='bl-source appear' >{{source}}</div><span id=\"file-{{fileNumber}}\"'>{{file}}</a></div><div class='bl-cl rs'>{{percentage}} %</div><div class='bl-cl rs'>{{numberCovered}}/{{totalSmts}}</div>"+( hasBranchTracking ? "<div class='bl-cl rs'>{{passedBranches}}/{{totalBranches}}</div>" : "" )+"<div style='clear:both;'></div></div>";
-        grandTotalTemplate = "<div class='blanket grand-total {{statusclass}}'><div class='bl-cl'>{{rowTitle}}</div><div class='bl-cl rs'>{{percentage}} %</div><div class='bl-cl rs'>{{numberCovered}}/{{totalSmts}}</div>"+( hasBranchTracking ? "<div class='bl-cl rs'>{{passedBranches}}/{{totalBranches}}</div>" : "" ) + "<div style='clear:both;'></div></div>";   
+        grandTotalTemplate = "<div class='blanket grand-total {{statusclass}}'><div class='bl-cl'>{{rowTitle}}</div><div class='bl-cl rs'>{{percentage}} %</div><div class='bl-cl rs'>{{numberCovered}}/{{totalSmts}}</div>"+( hasBranchTracking ? "<div class='bl-cl rs'>{{passedBranches}}/{{totalBranches}}</div>" : "" ) + "<div style='clear:both;'></div></div>";
 
     var percentage = function(number, total) {
         return (Math.round(((number/total) * 100)*100)/100);
@@ -4707,7 +4707,7 @@ blanket.defaultReporter = function(coverage){
       }
       var thisline = cols[colsIndex];
       //consequent
-      
+
       var cons = thisline.consequent;
       if (cons.start.line > lineNum){
         branchStack.unshift([thisline.alternate,thisline]);
@@ -4716,7 +4716,7 @@ blanket.defaultReporter = function(coverage){
       }else{
         var style = "<span class='" + (isBranchFollowed(thisline,true) ? 'branchOkay' : 'branchWarning') + "'>";
         newsrc += escapeInvalidXmlChars(src.slice(0,cons.start.column-offset)) + style;
-        
+
         if (cols.length > colsIndex+1 &&
           cols[colsIndex+1].consequent.start.line === lineNum &&
           cols[colsIndex+1].consequent.start.column-offset < cols[colsIndex].consequent.end.column-offset)
@@ -4788,12 +4788,12 @@ blanket.defaultReporter = function(coverage){
             numberOfFilesCovered = 0,
             code = [],
             i;
-        
+
 
         var end = [];
         for(i = 0; i < statsForFile.source.length; i +=1){
             var src = statsForFile.source[i];
-            
+
             if (branchStack.length > 0 ||
                 typeof statsForFile.branchData !== 'undefined')
             {
@@ -4801,10 +4801,10 @@ blanket.defaultReporter = function(coverage){
                 {
                   var cols = statsForFile.branchData[i+1].filter(isUndefined);
                   var colsIndex=0;
-                  
-                    
+
+
                   src = branchReport(colsIndex,src,cols,0,i+1).src;
-                  
+
                 }else if (branchStack.length){
                   src = branchReport(0,src,null,0,i+1).src;
                 }else{
@@ -4850,7 +4850,7 @@ blanket.defaultReporter = function(coverage){
         totals.passedBranches += passedBranches;
         totals.totalBranches += totalBranches;
 
-        // if "data-cover-modulepattern" was provided, 
+        // if "data-cover-modulepattern" was provided,
         // track totals per module name as well as globally
         if (modulePatternRegex) {
             var moduleName = file.match(modulePatternRegex)[1];
@@ -4891,7 +4891,7 @@ blanket.defaultReporter = function(coverage){
         bodyContent += output;
     }
 
-    // create temporary function for use by the global totals reporter, 
+    // create temporary function for use by the global totals reporter,
     // as well as the per-module totals reporter
     var createAggregateTotal = function(numSt, numCov, numBranch, numCovBr, moduleName) {
 
@@ -4909,8 +4909,8 @@ blanket.defaultReporter = function(coverage){
         bodyContent += totalsOutput;
     };
 
-    // if "data-cover-modulepattern" was provided, 
-    // output the per-module totals alongside the global totals    
+    // if "data-cover-modulepattern" was provided,
+    // output the per-module totals alongside the global totals
     if (modulePatternRegex) {
         for (var thisModuleName in totals.moduleTotalStatements) {
             if (totals.moduleTotalStatements.hasOwnProperty(thisModuleName)) {
@@ -5021,7 +5021,7 @@ blanket.defaultReporter = function(coverage){
         blanket.options("existingRequireJS",true);
     }
     /* setup requirejs loader, if needed */
-    
+
     if (blanket.options("commonJS")){
         blanket._commonjs = {};
     }
@@ -5107,7 +5107,7 @@ _blanket.extend({
                                 nextScript,
                                 cb
                             );
-            
+
             if (!(_blanket.utils.cache[currScript] && _blanket.utils.cache[currScript].loaded)){
                 var attach = function(){
                     if (_blanket.options("debug")) {console.log("BLANKET-Mark script:"+currScript+", as loaded and move to next script.");}
@@ -5175,9 +5175,9 @@ _blanket.extend({
            if (_blanket.options("debug")) {console.log("BLANKET-Returning function");}
             return function(){
                 if (_blanket.options("debug")) {console.log("BLANKET-Marking file as loaded: "+url);}
-           
+
                 _blanket.utils.cache[url].loaded=true;
-            
+
                 if (_blanket.utils.allLoaded()){
                     if (_blanket.options("debug")) {console.log("BLANKET-All files loaded");}
                     cb();
@@ -5291,7 +5291,7 @@ _blanket.extend({
 
                 xhr.onreadystatechange = function (evt) {
                     var status, err;
-                    
+
                     //Do not explicitly handle errors, those should be
                     //visible via console output in the browser.
                     if (xhr.readyState === 4) {
@@ -5370,7 +5370,7 @@ if (typeof QUnit !== 'undefined'){
         QUnit.begin=function(){
             blanket.noConflict().setupCoverage();
         };
-        
+
         QUnit.done=function(failures, total) {
             blanket.noConflict().onTestsDone();
         };
@@ -5393,12 +5393,12 @@ if (typeof QUnit !== 'undefined'){
             label: "Enable coverage",
             tooltip: "Enable code coverage."
         });
-    
+
         if ( QUnit.urlParams.coverage || blanket.options("autoStart") ) {
             QUnit.begin(function(){
                 blanket.noConflict().setupCoverage();
             });
-            
+
             QUnit.done(function(failures, total) {
                 blanket.noConflict().onTestsDone();
             });

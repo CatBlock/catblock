@@ -25,15 +25,16 @@ MyFilters.prototype.init = function() {
     // On startup and then every hour, check if a list is out of date and has to
     // be updated
     var that = this;
-    if (newUser)
+    if (newUser) {
         this.checkFilterUpdates();
-    else
+    } else {
         idleHandler.scheduleItemOnce(
             function() {
                 that.checkFilterUpdates();
             },
             60
         );
+    }
 
     window.setInterval(
         function() {
@@ -183,7 +184,7 @@ MyFilters.prototype.rebuild = function() {
         }
 
         texts = texts.concat(this.getExtensionFilters(get_settings()));
-        texts = texts.join('\n').split('\n');
+        texts = texts.join("\n").split("\n");
         var filters = this._splitByType(texts);
 
         this.hiding = FilterSet.fromFilters(filters.hiding);
@@ -228,7 +229,7 @@ MyFilters.prototype.rebuild = function() {
         var customfilters = get_custom_filters_text(); // from background
         if (customfilters) {
             texts.push(FilterNormalizer.normalizeList(customfilters));
-            texts = texts.join('\n').split('\n');
+            texts = texts.join("\n").split("\n");
             var filters = this._splitByType(texts);
             var patternFilters = [];
             for (var id in filters.pattern) {
@@ -334,7 +335,9 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
 
     // Check if the list has to be updated
     function out_of_date(subscription) {
-        if (forceFetch) return true;
+        if (forceFetch) {
+            return true;
+        }
         // After a failure, wait at least a day to refetch (overridden below if
         // it's a new filter list, having no .text)
         var failed_at = subscription.last_update_failed_at || 0;
@@ -425,8 +428,9 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
         delete this._subscriptions[id].expiresAfterHours;
         delete this._subscriptions[id].last_update_failed_at;
         delete this._subscriptions[id].last_modified;
-        if (this._subscriptions[id].deleteMe)
+        if (this._subscriptions[id].deleteMe) {
             delete this._subscriptions[id];
+        }
     }
 
     // Notify of change.  If we subscribed, we rebuilt above; so we
@@ -541,7 +545,7 @@ MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
         // Record how many hours until we need to update the subscription text. This
         // can be specified in the file. Defaults to 120.
         this._subscriptions[id].expiresAfterHours = 120;
-        var checkLines = text.split('\n', 15); //15 lines should be enough
+        var checkLines = text.split("\n", 15); //15 lines should be enough
         var expiresRegex = /(?:expires\:|expires\ after\ )\ *(\d+)\ ?(h?)/i;
         var redirectRegex = /(?:redirect\:|redirects\ to\ )\ *(https?\:\/\/\S+)/i;
         for (var i = 0; i < checkLines.length; i++) {

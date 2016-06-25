@@ -107,8 +107,9 @@ var picinjection = {
             // Match two or more digits; treat < 10 as missing.  This lets us set
             // dims that look good for e.g. 1px tall ad holders (cnn.com footer.)
             var match = (val || "").match(/^([1-9][0-9]+)(px)?$/);
-            if (!match)
+            if (!match) {
                 return undefined;
+            }
 
             return parseInt(match[1]);
         }
@@ -136,15 +137,17 @@ var picinjection = {
 
         // Make it rectangular if ratio is appropriate, or if we only know one dim
         // and it's so big that the 180k pixel max will force the pic to be skinny.
-        if (t.x && !t.y && t.x > 400)
+        if (t.x && !t.y && t.x > 400) {
             t.type = "wide";
-        else if (t.y && !t.x && t.y > 400)
+        } else if (t.y && !t.x && t.y > 400) {
             t.type = "tall";
-        else if (Math.max(t.x,t.y) / Math.min(t.x,t.y) >= 2) // false unless (t.x && t.y)
+        } else if (Math.max(t.x,t.y) / Math.min(t.x,t.y) >= 2) { // false unless (t.x && t.y)
             t.type = (t.x > t.y ? "wide" : "tall");
+        }
 
-        if (!t.type) // we didn't choose wide/tall
+        if (!t.type) { // we didn't choose wide/tall
             t.type = ((t.x || t.y) > 125 ? "big" : "small");
+        }
 
         return t;
     },
@@ -400,10 +403,11 @@ var picinjection = {
             // Restore el.width&el.height to whatever they were before AdBlock.
             var dims = { width: size[1], height: size[2] };
             for (var dim in dims) {
-                if (dims[dim] === "-1px")
+                if (dims[dim] === "-1px") {
                     el.removeAttribute(dim);
-                else
+                } else {
                     el.setAttribute(dim, dims[dim]);
+                }
             }
         }
 

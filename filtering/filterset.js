@@ -29,9 +29,9 @@ FilterSet.fromFilters = function(data) {
             if (filter._domains.has[d]) {
                 var key = (d === DomainSet.ALL ? 'global' : d);
                 setDefault(result.items, key, []).push(filter);
-            }
-            else if (d !== DomainSet.ALL)
+            } else if (d !== DomainSet.ALL) {
                 setDefault(result.exclude, d, {})[filter.id] = true;
+            }
         }
     }
 
@@ -47,10 +47,12 @@ FilterSet.prototype = {
         var result = new FilterSet();
         result.items['global'] = this.items['global'];
         for (var nextDomain in DomainSet.domainAndParents(domain)) {
-            if (this.items[nextDomain])
+            if (this.items[nextDomain]) {
                 result.items[nextDomain] = this.items[nextDomain];
-            if (this.exclude[nextDomain])
+            }
+            if (this.exclude[nextDomain]) {
                 result.exclude[nextDomain] = this.exclude[nextDomain];
+            }
         }
         return result;
     },
@@ -102,8 +104,9 @@ FilterSet.prototype = {
                         break;
                     }
                 }
-                if (!excluded)
+                if (!excluded) {
                     return filter;
+                }
             }
         }
 

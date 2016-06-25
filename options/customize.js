@@ -95,7 +95,7 @@ $(function() {
     $("#btnAddBlacklist").click(function() {
         var blacklist = toTildePipeFormat($("#txtBlacklist").val());
 
-        var filters = $("#txtFiltersAdvanced").val().trim() + '\n';
+        var filters = $("#txtFiltersAdvanced").val().trim() + "\n";
         // Delete the first likely line
         filters = filters.replace(/^\@\@\*\$document,domain\=~.*\n/m, "").trim();
         $("#txtFiltersAdvanced").val(filters);
@@ -170,8 +170,9 @@ $(function() {
             blockDomain = '';
         var ok = false;
         try {
-            if (FilterNormalizer.normalizeLine(blockDomain + "##" + blockCss))
+            if (FilterNormalizer.normalizeLine(blockDomain + "##" + blockCss)) {
                 ok = true;
+            }
         } catch(ex) {}
         $("#btnAddUserFilter").prop("disabled", ok ? null : true);
     });
@@ -313,7 +314,7 @@ $(function() {
         if ($("#btnEditAdvancedFilters").is(":visible"))
             $("#btnEditAdvancedFilters").click();
         var newFilters = FilterNormalizer.normalizeList($("#txtFiltersAdvanced").val(), true);
-        newFilters = newFilters.replace(/(\n)+$/,'\n'); // Del trailing \n's
+        newFilters = newFilters.replace(/(\n)+$/,"\n"); // Del trailing \n's
         $("#txtFiltersAdvanced").val(newFilters);
     });
 });

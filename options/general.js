@@ -72,10 +72,11 @@ $("#enable_show_advanced_options").change(function() {
     // options page -- after a moment so we have time to save the option.
     // Also, disable all advanced options, so that non-advanced users will
     // not end up with debug/beta/test options enabled.
-    if (!this.checked)
+    if (!this.checked) {
         $(".advanced input[type='checkbox']:checked").each(function() {
             BGcall("set_setting", this.id.substr(7), false);
         });
+    }
     window.setTimeout(function() {
         window.location.reload();
     }, 50);

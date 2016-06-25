@@ -6,7 +6,7 @@ var FilterNormalizer = {
 
     setExcludeFilters: function(text) {
         if (text) {
-            userExcludedFilterArray = text.split('\n');
+            userExcludedFilterArray = text.split("\n");
         } else {
             userExcludedFilterArray = null;
         }
@@ -14,24 +14,25 @@ var FilterNormalizer = {
 
     // Normalize a set of filters.
     // Remove broken filters, useless comments and unsupported things.
-    // Input: text:string filter strings separated by '\n'
+    // Input: text:string filter strings separated by "\n"
     //        keepComments:boolean if true, comments will not be removed
-    // Returns: filter strings separated by '\n' with invalid filters
+    // Returns: filter strings separated by "\n" with invalid filters
     //          removed or modified
     normalizeList: function(text, keepComments) {
-        var lines = text.split('\n');
+        var lines = text.split("\n");
         delete text;
         var result = [];
         var ignoredFilterCount = 0;
         for (var i=0; i<lines.length; i++) {
             try {
                 var newfilter = FilterNormalizer.normalizeLine(lines[i]);
-                if (newfilter)
+                if (newfilter) {
                     result.push(newfilter);
-                else if (newfilter !== false)
+                } else if (newfilter !== false) {
                     ignoredFilterCount++;
-                else if (keepComments)
+                } else if (keepComments) {
                     result.push(lines[i]);
+                }
             } catch (ex) {
                 log("Filter '" + lines[i] + "' could not be parsed: " + ex);
                 ignoredFilterCount++;
@@ -39,7 +40,7 @@ var FilterNormalizer = {
         }
         if (ignoredFilterCount)
             log('Ignoring ' + ignoredFilterCount + ' rule(s)');
-        return result.join('\n') + '\n';
+        return result.join("\n") + "\n";
     },
 
     // Normalize a single filter.
@@ -213,8 +214,9 @@ var FilterNormalizer = {
                 continue;
             // Convert punycode domains to Unicode
             domain = getUnicodeDomain(domain);
-            if (/^([a-z0-9\-_\u00DF-\u00F6\u00F8-\uFFFFFF]+\.)*[a-z0-9\u00DF-\u00F6\u00F8-\uFFFFFF]+\.?$/i.test(domain) === false)
+            if (/^([a-z0-9\-_\u00DF-\u00F6\u00F8-\uFFFFFF]+\.)*[a-z0-9\u00DF-\u00F6\u00F8-\uFFFFFF]+\.?$/i.test(domain) === false) {
                 throw new Error("Invalid domain: " + domain);
+            }
             // Ensure domain doesn't break AdBlock
             FilterNormalizer._checkForObjectProperty(domain);
         }

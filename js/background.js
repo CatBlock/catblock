@@ -481,8 +481,9 @@ var try_to_unwhitelist = function(url) {
 // Called when Chrome blocking needs to clear the in-memory cache.
 // No-op for Safari.
 var handlerBehaviorChanged = function() {
-    if (SAFARI)
+    if (SAFARI) {
         return;
+    }
     try {
         chrome.webRequest.handlerBehaviorChanged();
     } catch (ex) {
