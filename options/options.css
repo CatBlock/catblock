@@ -78,13 +78,9 @@ a:hover {
     text-indent: 200%;
     overflow: hidden;
     background: url("../img/menu.png") center no-repeat;
-    /* border: 1px solid #ddd; */
-    /* border-radius: 3px; */
     background-size: 80%;
     width: 30px;
     height: 30px;
-    outline: none;
-    transition: all 400ms ease;
     transition: all 400ms ease;
 }
 .mobile button.expanded {
@@ -147,6 +143,7 @@ ul {
 }
 #main_nav li.social {
     text-indent: -9999px;
+    direction: ltr;
 }
 .adblock-logo {
     margin: 18px 0 0 15px;
@@ -477,7 +474,6 @@ input:disabled + label {
 }
 input[type=text], input[type=email], textarea {
     transition: all 0.30s ease-in-out;
-    outline: none;
     padding: 3px 0 3px 3px;
     margin: 5px 1px 3px 0;
     border: 1px solid #DDDDDD;
@@ -487,4 +483,5 @@ input[type=email]:focus, input[type=text]:focus, textarea:focus {
     padding: 3px 0 3px 3px;
     margin: 5px 1px 3px 0;
     border: 1px solid #dfdfdf;
+    outline: none;
 }
