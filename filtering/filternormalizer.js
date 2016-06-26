@@ -233,7 +233,7 @@ var FilterNormalizer = {
             FilterNormalizer._checkForObjectProperty(domain);
         }
     }
-}
+};
 
 // Initialize the exclude filters at startup
 try {

@@ -378,7 +378,7 @@ var prepareManualReport = function(data, status, HTTPerror, respObj) {
         body.push("Server error information: " + JSON.stringify(respObj));
     }
     $("#manual_submission").val(body.join("\n"));
-}
+};
 
 // Check every domain of downloaded resource against malware-known domains
 var checkmalware = function() {

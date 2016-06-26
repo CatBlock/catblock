@@ -29,22 +29,22 @@ Filter.isSelectorFilter = function(text) {
     // This means that you'll first have to check if something is an excluded rule
     // before checking this, if the difference matters.
     return /\#\@?\#./.test(text);
-}
+};
 
 Filter.isSelectorExcludeFilter = function(text) {
     return /\#\@\#./.test(text);
-}
+};
 
 Filter.isWhitelistFilter = function(text) {
     return /^\@\@/.test(text);
-}
+};
 
 Filter.isComment = function(text) {
     return text.length === 0 ||
         text[0] === '!' ||
         (/^\[adblock/i.test(text)) ||
         (/^\(adblock/i.test(text));
-}
+};
 
 // Convert a comma-separated list of domain includes and excludes into a
 // DomainSet.
@@ -69,7 +69,7 @@ Filter._toDomainSet = function(domainText, divider) {
     }
 
     return new DomainSet(data);
-}
+};
 
 // Filters that block by CSS selector.
 var SelectorFilter = function(text) {
@@ -109,7 +109,7 @@ SelectorFilter.merge = function(filter, excludeFilters) {
 SelectorFilter.prototype = {
     // Inherit from Filter.
     __proto__: Filter.prototype,
-}
+};
 
 // Filters that block by URL regex or substring.
 var PatternFilter = function() {
@@ -125,7 +125,7 @@ PatternFilter.fromData = function(data) {
     data[DomainSet.ALL] = true;
     result._domains = new DomainSet(data);
     return result;
-}
+};
 // Text is the original filter text of a blocking or whitelist filter.
 // Throws an exception if the rule is invalid.
 PatternFilter.fromText = function(text) {
@@ -141,7 +141,7 @@ PatternFilter.fromText = function(text) {
         result._text = text;
     }
     return result;
-}
+};
 
 // Return a { rule, domainText, allowedElementTypes } object
 // for the given filter text.  Throws an exception if the rule is invalid.
@@ -283,7 +283,7 @@ PatternFilter._parseRule = function(text) {
 
     result.rule = new RegExp(rule, matchcase);
     return result;
-}
+};
 
 // Blocking and whitelist rules both become PatternFilters.
 PatternFilter.prototype = {
@@ -318,4 +318,4 @@ PatternFilter.prototype = {
 
         return this._rule.test(url);
     }
-}
+};

@@ -197,7 +197,7 @@ var reloadTab = function(tabId) {
     chrome.tabs.reload(tabId, { bypassCache: true }, function() {
         chrome.tabs.onUpdated.addListener(listener);
     });
-}
+};
 
 // Implement blocking via the Chrome webRequest API.
 // Stores url, whitelisting, and blocking info for a tabid+frameid
@@ -432,7 +432,7 @@ var debug_report_elemhide = function(selector, matches, sender) {
             updateBadge(sender.tab.id);
         }
     }
-}
+};
 
 // UNWHITELISTING
 
@@ -488,14 +488,14 @@ var handlerBehaviorChanged = function() {
         chrome.webRequest.handlerBehaviorChanged();
     } catch (ex) {
     }
-}
+};
 
 // CUSTOM FILTERS
 
 // Get the custom filters text as a \n-separated text string.
 var get_custom_filters_text = function() {
     return storage_get("custom_filters") || "";
-}
+};
 
 // Set the custom filters to the given \n-separated text string, and
 // rebuild the filterset.
@@ -504,12 +504,12 @@ var set_custom_filters_text = function(filters) {
     storage_set("custom_filters", filters);
     chrome.runtime.sendMessage({ command: "filters_updated" });
     _myfilters.rebuild();
-}
+};
 
 // Get the user enterred exclude filters text as a \n-separated text string.
 var get_exclude_filters_text = function() {
     return storage_get("exclude_filters") || "";
-}
+};
 
 // Set the exclude filters to the given \n-separated text string, and
 // rebuild the filterset.

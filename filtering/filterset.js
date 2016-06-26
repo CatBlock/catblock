@@ -36,7 +36,7 @@ FilterSet.fromFilters = function(data) {
     }
 
     return result;
-}
+};
 
 FilterSet.prototype = {
     // Return a new FilterSet containing the subset of this FilterSet's entries

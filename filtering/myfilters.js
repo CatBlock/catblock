@@ -45,6 +45,7 @@ MyFilters.prototype.init = function() {
         60 * 60 * 1000
     );
 };
+
 // Update the url and requiresList for entries in _subscriptions using values from _official_options.
 MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
     // Use the stored properties, and only add any new properties and/or lists
@@ -78,7 +79,8 @@ MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
         sub.requiresList = official.requiresList;
         sub.subscribed = sub.subscribed || false;
     }
-}
+};
+
 // Update default subscriptions in the browser storage.
 // Removes subscriptions that are no longer in the official list, not user submitted and no longer subscribed.
 // Also, converts user submitted subscriptions to recognized one if it is already added to the official list
@@ -139,6 +141,7 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
         }
     }
 };
+
 // When a subscription property changes, this function stores it
 // Inputs: rebuild? boolean, true if the filterset should be rebuilt
 MyFilters.prototype._onSubscriptionChange = function(rebuild) {
@@ -152,7 +155,7 @@ MyFilters.prototype._onSubscriptionChange = function(rebuild) {
     }
 
     chrome.runtime.sendMessage({ command: "filters_updated" });
-}
+};
 
 // get filters that are defined in the extension
 MyFilters.prototype.getExtensionFilters = function(settings) {
@@ -295,7 +298,7 @@ MyFilters.prototype.rebuild = function() {
     window.setTimeout(function() {
         Filter._cache = {};
     }, 90000);
-}
+};
 
 
 MyFilters.prototype._splitByType = function(texts) {
@@ -326,7 +329,7 @@ MyFilters.prototype._splitByType = function(texts) {
         filters.hiding[hider.id] = hider;
     }
     return filters;
-}
+};
 
 // Change a property of a subscription or check if it has to be updated
 // Inputs: id: the id of the subscription to change
@@ -451,7 +454,7 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
     if (subscribeRequiredListToo && this._subscriptions[id] && this._subscriptions[id].requiresList) {
         this.changeSubscription(this._subscriptions[id].requiresList, { subscribed: true });
     }
-}
+};
 
 // Fetch a filter list and parse it
 // id:        the id of the list
@@ -526,7 +529,7 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
         }
     };
     $.ajax(ajaxRequest);
-}
+};
 
 // Record that subscription_id is subscribed, was updated now, and has
 // the given text.  Requires that this._subscriptions[subscription_id] exists.
@@ -590,7 +593,7 @@ MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
     if (this._subscriptions[id].last_update === 0) {
         this.changeSubscription(id, {}, true);
     }
-}
+};
 
 // Checks if subscriptions have to be updated
 // Inputs: force? (boolean), true if every filter has to be updated
@@ -616,7 +619,7 @@ MyFilters.prototype.checkFilterUpdates = function(force) {
             this.changeSubscription(id, {}, force);
         }
     }
-}
+};
 
 // Checks if a custom id is of a known list
 // Inputs: id: the list id to compare
@@ -629,7 +632,7 @@ MyFilters.prototype.customToDefaultId = function(id) {
         }
     }
     return id;
-}
+};
 
 //Retreive the list of malware domains from our site.
 //and set the response (list of domains) on the blocking
@@ -684,7 +687,8 @@ MyFilters.prototype._loadMalwareDomains = function() {
         xhr.open("GET",  url);
         xhr.send();
     }
-}
+};
+
 //Retreive the list of malware domains from our site.
 //and set the response (list of domains) on the blocking
 //filter set for processing.
@@ -694,7 +698,8 @@ MyFilters.prototype._initializeMalwareDomains = function() {
     } else {
         this._loadMalwareDomains();
     }
-}
+};
+
 //Get the current list of malware domains
 //will return undefined, if the user is not subscribed to the Malware 'filter list'.
 MyFilters.prototype.getMalwareDomains = function() {
@@ -704,7 +709,7 @@ MyFilters.prototype.getMalwareDomains = function() {
     } else {
         return this._subscriptions.malware.text;
     }
-}
+};
 
 // If the user wasn't subscribed to any lists, subscribe to
 // EasyList, AdBlock custom and (if any) a localized subscription
@@ -757,7 +762,7 @@ MyFilters.prototype._load_default_subscriptions = function() {
         result[list_for_lang] = { subscribed: true };
     }
     return result;
-}
+};
 
 // Used to create the list of default subscriptions
 // Called when MyFilters is created.
@@ -914,7 +919,7 @@ MyFilters.prototype._make_subscription_options = function() {
             safariJSON_URL: "https://cdn.adblockcdn.com/filters/spanish.json",
     }
     };
-}
+};
 
 /* subscription properties:
 url (string): url of subscription
