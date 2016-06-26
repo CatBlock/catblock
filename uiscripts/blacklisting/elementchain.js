@@ -29,12 +29,16 @@ ElementChain.prototype.moveDown = function() {
 // Moves to the appropriate parent depth.  0 is the original element,
 // 1 is its parent, etc.
 ElementChain.prototype.moveTo = function(depth) {
-    while (this._stack.length > depth + 1)
-        if (!this.moveDown())
+    while (this._stack.length > depth + 1) {
+        if (!this.moveDown()) {
             break;
-    while (this._stack.length < depth + 1)
-        if (!this.moveUp())
+        }
+    }
+    while (this._stack.length < depth + 1) {
+        if (!this.moveUp()) {
             break;
+        }
+    }
 }
 ElementChain.prototype.change = function(listener, callback) {
     if (callback) {

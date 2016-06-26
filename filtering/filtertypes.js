@@ -14,7 +14,6 @@ Filter._cache = {};
 Filter.fromText = function(text) {
     var cache = Filter._cache;
     if (!(text in cache)) {
-
         if (Filter.isSelectorFilter(text)) {
             cache[text] = new SelectorFilter(text);
         } else {
@@ -55,8 +54,9 @@ Filter._toDomainSet = function(domainText, divider) {
     var data = {};
     data[DomainSet.ALL] = true;
 
-    if (domains === "")
+    if (domains === "") {
         return new DomainSet(data);
+    }
 
     for (var i = 0; i < domains.length; i++) {
         var domain = domains[i];
@@ -98,8 +98,9 @@ SelectorFilter.merge = function(filter, excludeFilters) {
 
     var result = new SelectorFilter("_##_");
     result.selector = filter.selector;
-    if (filter._text)
+    if (filter._text) {
         result._text = filter._text;
+    }
     result._domains = domains;
 
     return result;
@@ -176,8 +177,9 @@ PatternFilter._parseRule = function(text) {
         }
 
         var inverted = (option[0] === '~');
-        if (inverted)
+        if (inverted) {
             option = option.substring(1);
+        }
 
         option = option.replace(/\-/, '_');
 
@@ -295,20 +297,24 @@ PatternFilter.prototype = {
     //   isThirdParty: true if the request for url was from a page of a
     //       different origin
     matches: function(url, elementType, isThirdParty) {
-        if (!(elementType & this._allowedElementTypes))
+        if (!(elementType & this._allowedElementTypes)) {
             return false;
+        }
 
         // If the resource is being loaded from the same origin as the document,
         // and your rule applies to third-party loads only, we don't care what
         // regex your rule contains, even if it's for someotherserver.com.
-        if ((this._options & FilterOptions.THIRDPARTY) && !isThirdParty)
+        if ((this._options & FilterOptions.THIRDPARTY) && !isThirdParty) {
             return false;
+        }
 
-        if ((this._options & FilterOptions.FIRSTPARTY) && isThirdParty)
+        if ((this._options & FilterOptions.FIRSTPARTY) && isThirdParty) {
             return false;
+        }
 
-        if (this._key && !this._key.test(url))
+        if (this._key && !this._key.test(url)) {
             return false;
+        }
 
         return this._rule.test(url);
     }

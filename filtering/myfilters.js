@@ -50,8 +50,9 @@ MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
     // Use the stored properties, and only add any new properties and/or lists
     // if they didn't exist in this._subscriptions
     for (var id in this._official_options) {
-        if (!this._subscriptions[id])
+        if (!this._subscriptions[id]) {
             this._subscriptions[id] = {};
+        }
         var sub = this._subscriptions[id];
         var official = this._official_options[id];
 
@@ -70,8 +71,9 @@ MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
         var isMissingRequiredList = (sub.requiresList !== official.requiresList);
         if (official.requiresList && isMissingRequiredList && sub.subscribed) {
             // A required list was added.  Make sure main list subscribers get it.
-            if (this._subscriptions[official.requiresList])
-                this.changeSubscription(official.requiresList, {subscribed: true});
+            if (this._subscriptions[official.requiresList]) {
+                this.changeSubscription(official.requiresList, { subscribed: true });
+            }
         }
         sub.requiresList = official.requiresList;
         sub.subscribed = sub.subscribed || false;
@@ -101,13 +103,13 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
             var sub_to_check = this._subscriptions[id];
             var is_user_submitted = true;
             var update_id = id;
-            if(!this._official_options[id]) {
+            if (!this._official_options[id]) {
                 // If id is not in official options, check if there's a matching url in the
                 // official list. If there is, then the subscription is not user submitted.
-                for(var official_id in this._official_options) {
+                for (var official_id in this._official_options) {
                     var official_url = this._official_options[official_id].url;
-                    if(sub_to_check.initialUrl === official_url
-                       || sub_to_check.url === official_url) {
+                    if (sub_to_check.initialUrl === official_url ||
+                        sub_to_check.url === official_url) {
                         is_user_submitted = false;
                         update_id = official_id;
                         break;
@@ -131,7 +133,7 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
             // If not, update entry in subscriptions.
             var new_id = is_user_submitted ? ("url:" + sub_to_check.url) : update_id;
 
-            if(new_id !== id) {
+            if (new_id !== id) {
                 renameSubscription(id, new_id);
             }
         }
@@ -145,10 +147,11 @@ MyFilters.prototype._onSubscriptionChange = function(rebuild) {
     // The only reasons to (re)build the filter set are
     // - when AdBlock starts
     // - when a filter list text is changed ([un]subscribed or updated a list)
-    if (rebuild)
+    if (rebuild) {
         this.rebuild();
+    }
 
-    chrome.runtime.sendMessage({command: "filters_updated"});
+    chrome.runtime.sendMessage({ command: "filters_updated" });
 }
 
 // get filters that are defined in the extension
@@ -177,6 +180,7 @@ MyFilters.prototype.rebuild = function() {
                 texts.push(this._subscriptions[id].text);
             }
         }
+
         // Include custom filters.
         var customfilters = get_custom_filters_text(); // from background
         if (customfilters) {
@@ -195,7 +199,7 @@ MyFilters.prototype.rebuild = function() {
         );
 
         handlerBehaviorChanged(); // defined in background
-        //if the user is subscribed to malware, then get it
+        // If the user is subscribed to malware, then get it
         if (this._subscriptions &&
             this._subscriptions.malware &&
             this._subscriptions.malware.subscribed &&
@@ -341,8 +345,9 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
         // After a failure, wait at least a day to refetch (overridden below if
         // it's a new filter list, having no .text)
         var failed_at = subscription.last_update_failed_at || 0;
-        if (Date.now() - failed_at < HOUR_IN_MS * 24)
+        if (Date.now() - failed_at < HOUR_IN_MS * 24) {
             return false;
+        }
         // Don't let expiresAfterHours delay indefinitely (Issue 7443)
         var hardStop = subscription.expiresAfterHoursHard || 240;
         var smallerExpiry = Math.min(subscription.expiresAfterHours, hardStop);
@@ -398,21 +403,26 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
     }
 
     // Subscribing to a well known list should also subscribe to a required list
-    if (!this._subscriptions[id].subscribed && subData.subscribed)
+    if (!this._subscriptions[id].subscribed && subData.subscribed) {
         subscribeRequiredListToo = true;
+    }
 
     // Apply all changes from subData
-    for (var property in subData)
-        if (subData[property] !== undefined)
+    for (var property in subData) {
+        if (subData[property] !== undefined) {
             this._subscriptions[id][property] = subData[property];
+        }
+    }
 
     // Check if the required list is a well known list, but only if it is changed
-    if (subData.requiresList)
+    if (subData.requiresList) {
         this._subscriptions[id].requiresList =
             this.customToDefaultId(this._subscriptions[id].requiresList);
+    }
 
-    if (forceFetch)
+    if (forceFetch) {
         delete this._subscriptions[id].last_modified;
+    }
 
     if (this._subscriptions[id].subscribed) {
         if ((!get_settings().safari_content_blocking && !this._subscriptions[id].text) ||
@@ -438,8 +448,9 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
     this._onSubscriptionChange(subData.subscribed === false);
 
     // Subscribe to a required list if nessecary
-    if (subscribeRequiredListToo && this._subscriptions[id] && this._subscriptions[id].requiresList)
-        this.changeSubscription(this._subscriptions[id].requiresList, {subscribed:true});
+    if (subscribeRequiredListToo && this._subscriptions[id] && this._subscriptions[id].requiresList) {
+        this.changeSubscription(this._subscriptions[id].requiresList, { subscribed: true });
+    }
 }
 
 // Fetch a filter list and parse it
@@ -454,7 +465,7 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
             // (when content blocking enabled)
             // we don't need to process it, just update the last_update timestamp.
             this._subscriptions[id].last_update = Date.now();
-            chrome.runtime.sendMessage({command: "filters_updated"});
+            chrome.runtime.sendMessage({ command: "filters_updated" });
             return;
         }
         url = this._subscriptions[id].safariJSON_URL;
@@ -478,14 +489,15 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
         cache: false,
         headers: {
             "Accept": "text/plain",
-            "X-Client-ID": "AdBlock with CatBlock",
+            "X-Client-ID": "CatBlock",
             "If-Modified-Since": this._subscriptions[id].last_modified || undefined
         },
         success: function(text, status, xhr) {
             // In case the subscription disappeared while we were out
             if (!that._subscriptions[id] ||
-                !that._subscriptions[id].subscribed)
+                !that._subscriptions[id].subscribed) {
                 return;
+            }
             // Sometimes text is "". Happens sometimes.  Weird, I know.
             // Every legit list starts with a comment.
             if (status === "notmodified") {
@@ -505,8 +517,9 @@ MyFilters.prototype.fetch_and_update = function(id, isNewList) {
             }
         },
         error: function(xhr, textStatus, errorThrown) {
-            if (that._subscriptions[id])
+            if (that._subscriptions[id]) {
                 onError();
+            }
             log("Error fetching " + url);
             log("textStatus " + textStatus);
             log("errorThrown " + errorThrown);
@@ -549,8 +562,9 @@ MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
         var expiresRegex = /(?:expires\:|expires\ after\ )\ *(\d+)\ ?(h?)/i;
         var redirectRegex = /(?:redirect\:|redirects\ to\ )\ *(https?\:\/\/\S+)/i;
         for (var i = 0; i < checkLines.length; i++) {
-            if (!Filter.isComment(checkLines[i]))
+            if (!Filter.isComment(checkLines[i])) {
                 continue;
+            }
             var match = checkLines[i].match(redirectRegex);
             if (match && match[1] !== this._subscriptions[id].url) {
                 this._subscriptions[id].url = match[1]; //assuming the URL is always correct
@@ -573,15 +587,16 @@ MyFilters.prototype._updateSubscriptionText = function(id, text, xhr) {
     this._subscriptions[id].text = FilterNormalizer.normalizeList(text);
 
     // The url changed. Simply refetch...
-    if (this._subscriptions[id].last_update === 0)
+    if (this._subscriptions[id].last_update === 0) {
         this.changeSubscription(id, {}, true);
+    }
 }
 
 // Checks if subscriptions have to be updated
 // Inputs: force? (boolean), true if every filter has to be updated
 MyFilters.prototype.checkFilterUpdates = function(force) {
 
-    var key = 'last_subscriptions_check';
+    var key = "last_subscriptions_check";
     var now = Date.now();
     var delta = now - (storage_get(key) || now);
     var delta_hours = delta / HOUR_IN_MS;
@@ -608,9 +623,11 @@ MyFilters.prototype.checkFilterUpdates = function(force) {
 // Returns the id that should be used
 MyFilters.prototype.customToDefaultId = function(id) {
     var urlOfCustomList = id.substr(4);
-    for (var defaultList in this._official_options)
-        if (this._official_options[defaultList].url === urlOfCustomList)
+    for (var defaultList in this._official_options) {
+        if (this._official_options[defaultList].url === urlOfCustomList) {
             return defaultList;
+        }
+    }
     return id;
 }
 
@@ -626,8 +643,9 @@ MyFilters.prototype._loadMalwareDomains = function() {
         // After a failure, wait at least a day to refetch (overridden below if
         // it has no .text)
         var failed_at = subscription.last_update_failed_at || 0;
-        if (Date.now() - failed_at < HOUR_IN_MS * 24)
+        if (Date.now() - failed_at < HOUR_IN_MS * 24) {
             return false;
+        }
         var hardStop = subscription.expiresAfterHoursHard || 240;
         var smallerExpiry = Math.min((subscription.expiresAfterHours || 24), hardStop);
         var millis = Date.now() - (subscription.last_update || 0);
@@ -660,7 +678,7 @@ MyFilters.prototype._loadMalwareDomains = function() {
             that._subscriptions.malware.expiresAfterHours = 24;
             var smear = Math.random() * 0.4 + 0.8;
             that._subscriptions.malware.expiresAfterHours *= smear;
-            chrome.runtime.sendMessage({command: "filters_updated"});
+            chrome.runtime.sendMessage({ command: "filters_updated" });
             log("Fetched " + url);
         }
         xhr.open("GET",  url);
@@ -697,7 +715,7 @@ MyFilters.prototype._load_default_subscriptions = function() {
     // Returns the ID of the list appropriate for the user's locale, or ""
     function listIdForThisLocale() {
         var language = determineUserLanguage();
-        switch(language) {
+        switch (language) {
             case 'ar': return 'easylist_plus_arabic';
             case 'bg': return 'easylist_plus_bulgarian';
             case 'cs': return 'czech';
@@ -735,8 +753,9 @@ MyFilters.prototype._load_default_subscriptions = function() {
     result["easylist"] = { subscribed: true };
     result["malware"] = { subscribed: true };
     var list_for_lang = listIdForThisLocale();
-    if (list_for_lang)
+    if (list_for_lang) {
         result[list_for_lang] = { subscribed: true };
+    }
     return result;
 }
 

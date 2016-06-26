@@ -38,8 +38,9 @@ Channels.prototype = {
         var dataParam = JSON.stringify(data.param);
         for (var id in this._channelGuide) {
             var c = this._channelGuide[id];
-            if (c.name === data.name && JSON.stringify(c.param) === dataParam)
+            if (c.name === data.name && JSON.stringify(c.param) === dataParam) {
                 return;
+            }
         }
         var id = Math.floor(Math.random() * Date.now());
         var channel = new klass(data.param);
@@ -110,8 +111,9 @@ Channels.prototype = {
 
         for (var id in this._channelGuide) {
             var data = this._channelGuide[id];
-            if (opts.channelId === id || (data.enabled && !opts.channelId))
+            if (opts.channelId === id || (data.enabled && !opts.channelId)) {
                 allListings.push.apply(allListings, data.channel.getListings());
+            }
         }
         // TODO: care about |width| and |height|
         var randomIndex = Math.floor(Math.random() * allListings.length);

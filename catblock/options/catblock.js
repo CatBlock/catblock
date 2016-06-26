@@ -14,8 +14,9 @@ function displayName(channelData) {
     name = name.replace(/Channel$/, "");
     name = name.replace(/([^A-Z])([A-Z])/g, '$1 $2'); // Spaces b/w words
     name = name.replace(/ Block/g, "Block"); // AdBlock, CatBlock...
-    if (name === "Flickr Search")
+    if (name === "Flickr Search") {
         name = "Flickr search for";
+    }
     return name + " <b>" + (param || "") + "</b>";
 }
 function addEmptyChannelUI(id, data) {

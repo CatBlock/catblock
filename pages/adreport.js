@@ -1,5 +1,6 @@
 var malwareDomains = null;
 var extensionsDisabled = [];
+
 $(function() {
     localizePage();
 
@@ -35,12 +36,24 @@ $(function() {
     // Sort the languages list
     var languageOptions = $("#step_language_lang option");
     languageOptions.sort(function(a, b) {
-        if (!a.text) return -1;
-        if (!b.text) return 1; // First one is empty
-        if (!a.value) return 1;
-        if (!b.value) return -1; // 'Other' at the end
-        if (a.getAttribute("i18n") === "lang_english") return -1; // English second
-        if (b.getAttribute("i18n") === "lang_english") return 1;
+        if (!a.text) {
+            return -1;
+        }
+        if (!b.text) {
+            return 1; // First one is empty
+        }
+        if (!a.value) {
+            return 1;
+        }
+        if (!b.value) {
+            return -1; // 'Other' at the end
+        }
+        if (a.getAttribute("i18n") === "lang_english") {
+            return -1; // English second
+        }
+        if (b.getAttribute("i18n") === "lang_english") {
+            return 1;
+        }
         return (a.text > b.text) ? 1 : -1;
     });
     $("#step_language_lang").empty().append(languageOptions);
@@ -369,8 +382,9 @@ var prepareManualReport = function(data, status, HTTPerror, respObj) {
 // Check every domain of downloaded resource against malware-known domains
 var checkmalware = function() {
     BGcall("get_frameData", tabId, function(frameData) {
-        if (!frameData)
+        if (!frameData) {
             return;
+        }
 
         var frames = [];
         var loaded_resources = [];

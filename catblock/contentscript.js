@@ -121,8 +121,9 @@ var picinjection = {
 
         // Special hack for Facebook, so Sponsored links are huge and beautiful
         // pictures instead of tiny or missing.
-        if (/facebook/.test(document.location.href))
+        if (/facebook/.test(document.location.href)) {
             return undefined;
+        }
         var result = undefined;
         while (!result && el.parentNode) {
             result = this._dim(el.parentNode, prop);
@@ -235,8 +236,9 @@ var picinjection = {
 
                 // Prevent clicking through to ad; go to attribution page instead
                 newPic.addEventListener("click", function(e) {
-                    if (placement.attribution_url)
+                    if (placement.attribution_url) {
                         window.open(placement.attribution_url);
+                    }
                     e.preventDefault();
                     e.stopPropagation();
                     return false;
@@ -274,7 +276,12 @@ var picinjection = {
                     var pos = $(newPic).offset();
                     pos.top += (placement.height - cardsize.height) / 2;
                     pos.left += (placement.width - cardsize.width) / 2;
-                    if (pos.top < 0) pos.top = 0; if (pos.left < 0) pos.left = 0;
+                    if (pos.top < 0) {
+                        pos.top = 0;
+                    }
+                    if (pos.left < 0) {
+                        pos.left = 0;
+                    }
                     card.css(pos);
                 };
 

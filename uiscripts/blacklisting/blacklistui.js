@@ -205,14 +205,16 @@ BlacklistUi.prototype._build_page2 = function() {
             that._ui_page2.dialog('close');
             custom_filter = prompt(translate("blacklistereditfilter"), custom_filter);
             if (custom_filter) {//null => user clicked cancel
-                if (!/\#\#/.test(custom_filter))
+                if (!/\#\#/.test(custom_filter)) {
                     custom_filter = "##" + custom_filter;
+                }
                 BGcall('add_custom_filter', custom_filter, function(ex) {
                     if (!ex) {
                         block_list_via_css([custom_filter.substr(custom_filter.indexOf('##') + 2)]);
                         that._fire('block');
-                    } else
+                    } else {
                         alert(translate("blacklistereditinvalid1", ex));
+                    }
                 });
             }
         }
@@ -260,11 +262,12 @@ BlacklistUi.prototype._redrawPage1 = function() {
     var attrs = ["id", "class", "name", "src", "href", "data"];
     for (var i in attrs) {
         var val = BlacklistUi._ellipsis(el.attr(attrs[i]));
-        if (val)
+        if (val) {
             selected_data.append("<br/>").
             append($("<i></i>").
                    text(attrs[i] + '="' + val + '"').
                    css("margin-left", "10px"));
+        }
     }
     selected_data.append("<i>&nbsp;&gt;</i>");
 }
@@ -298,10 +301,11 @@ BlacklistUi.prototype._makeFilter = function() {
     }
 
     var warningMessage;
-    if (result.length === 0)
+    if (result.length === 0) {
         warningMessage = translate("blacklisterwarningnofilter");
-    else if (result.length === 1 && $("input[type='checkbox']#cknodeName", detailsDiv).is(':checked'))
+    } else if (result.length === 1 && $("input[type='checkbox']#cknodeName", detailsDiv).is(':checked')) {
         warningMessage = translate("blacklisterblocksalloftype", [result[0]]);
+    }
     $("#filter_warning", this._ui_page2).
     css("display", (warningMessage ? "block" : "none")).
     text(warningMessage);
@@ -338,8 +342,9 @@ BlacklistUi.prototype._redrawPage2 = function() {
         var longVal = (attr === "nodeName" ? el.prop("nodeName") : el.attr(attr));
         var val = BlacklistUi._ellipsis(longVal);
 
-        if (!val)
+        if (!val) {
             continue;
+        }
 
         // Check src, data and href only by default if no other identifiers are
         // present except for the nodeName selector.
