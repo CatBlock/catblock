@@ -11,7 +11,7 @@ function mayDelete(channelData) {
 }
 function displayName(channelData) {
     var name = channelData.name, param = channelData.param;
-    name = name.replace(/Channel$/, '');
+    name = name.replace(/Channel$/, "");
     name = name.replace(/([^A-Z])([A-Z])/g, '$1 $2'); // Spaces b/w words
     name = name.replace(/ Block/g, "Block"); // AdBlock, CatBlock...
     if (name === "Flickr Search")

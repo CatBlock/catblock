@@ -300,7 +300,7 @@ MyFilters.prototype._splitByType = function(texts) {
     for (var i = 0; i < texts.length; i++) {
         unique[texts[i]] = 1;
     }
-    delete unique[''];
+    delete unique[""];
 
     var filters = { hidingUnmerged: [], hiding: {}, exclude: {},
                    pattern: {}, whitelist: {} };
@@ -694,7 +694,7 @@ MyFilters.prototype.getMalwareDomains = function() {
 // Returns an object containing the subscribed lists
 MyFilters.prototype._load_default_subscriptions = function() {
     var result = {};
-    // Returns the ID of the list appropriate for the user's locale, or ''
+    // Returns the ID of the list appropriate for the user's locale, or ""
     function listIdForThisLocale() {
         var language = determineUserLanguage();
         switch(language) {
@@ -727,7 +727,7 @@ MyFilters.prototype._load_default_subscriptions = function() {
             case 'tr': return 'turkish';
             case 'uk': return 'russian';
             case 'zh': return 'chinese';
-            default: return '';
+            default: return "";
         }
     }
     //Update will be done immediately after this function returns

@@ -8,10 +8,11 @@ function selector_from_elm(el) {
     for (var i = 0; i < attrs.length; i++) {
         var attr = attrs[i];
         var val = el.attr(attr);
-        if (val)
+        if (val) {
             result.push('[' + attr + '=' + JSON.stringify(val) + ']');
+        }
     }
-    return result.join('');
+    return result.join("");
 }
 
 // Wizard that walks the user through selecting an element and choosing
@@ -282,7 +283,7 @@ BlacklistUi.prototype._makeFilter = function() {
         // Some iframed ads are in a bland iframe.  If so, at least try to
         // be more specific by walking the chain from the body to the iframe
         // in the CSS selector.
-        if (el.prop('nodeName') === 'IFRAME' && el.attr('id') === '') {
+        if (el.prop('nodeName') === 'IFRAME' && el.attr('id') === "") {
             var cur = el.parent();
             while (cur.prop('nodeName') !== 'BODY') {
                 result.unshift(cur.prop('nodeName') + " ");
@@ -304,7 +305,7 @@ BlacklistUi.prototype._makeFilter = function() {
     $("#filter_warning", this._ui_page2).
     css("display", (warningMessage ? "block" : "none")).
     text(warningMessage);
-    return result.join('');
+    return result.join("");
 }
 
 BlacklistUi.prototype._redrawPage2 = function() {

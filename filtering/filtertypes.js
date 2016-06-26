@@ -55,7 +55,7 @@ Filter._toDomainSet = function(domainText, divider) {
     var data = {};
     data[DomainSet.ALL] = true;
 
-    if (domains === '')
+    if (domains === "")
         return new DomainSet(data);
 
     for (var i = 0; i < domains.length; i++) {
@@ -147,7 +147,7 @@ PatternFilter.fromText = function(text) {
 PatternFilter._parseRule = function(text) {
 
     var result = {
-        domainText: '',
+        domainText: "",
         // TODO: when working on this code again, consider making options a
         // dictionary with boolean values instead of a bitset. This would
         // - make more sense, because these options are only checked individually
@@ -164,7 +164,7 @@ PatternFilter._parseRule = function(text) {
         var options = [];
     } else {
         var options = optionsText[0].substring(1).toLowerCase().split(',');
-        var rule = text.replace(optionsText[0], '');
+        var rule = text.replace(optionsText[0], "");
     }
 
     for (var i = 0; i < options.length; i++) {
@@ -276,8 +276,8 @@ PatternFilter._parseRule = function(text) {
     // Any other '|' within a string should really be a pipe.
     rule = rule.replace(/\|/g, '\\|');
     // If it starts or ends with *, strip that -- it's a no-op.
-    rule = rule.replace(/^\.\*/, '');
-    rule = rule.replace(/\.\*$/, '');
+    rule = rule.replace(/^\.\*/, "");
+    rule = rule.replace(/\.\*$/, "");
 
     result.rule = new RegExp(rule, matchcase);
     return result;

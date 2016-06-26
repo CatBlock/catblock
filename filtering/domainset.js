@@ -20,7 +20,7 @@ function DomainSet(data) {
 }
 
 // The pseudodomain representing all domains.
-DomainSet.ALL = '';
+DomainSet.ALL = "";
 
 // Return the parent domain of |domain|, or DomainSet.ALL.
 DomainSet._parentDomainOf = function(domain) {

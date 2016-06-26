@@ -202,7 +202,7 @@ parseStatement: true, parseSourceElement: true */
 
     if (typeof 'esprima'[0] === 'undefined') {
         sliceSource = function sliceArraySource(from, to) {
-            return source.slice(from, to).join('');
+            return source.slice(from, to).join("");
         };
     }
 
@@ -427,7 +427,7 @@ parseStatement: true, parseSourceElement: true */
                 ch = source[index++];
                 code = code * 16 + '0123456789abcdef'.indexOf(ch.toLowerCase());
             } else {
-                return '';
+                return "";
             }
         }
         return String.fromCharCode(code);
@@ -721,7 +721,7 @@ parseStatement: true, parseSourceElement: true */
             'Numeric literal must start with a decimal digit or a decimal point');
 
         start = index;
-        number = '';
+        number = "";
         if (ch !== '.') {
             number = source[index++];
             ch = source[index];
@@ -855,7 +855,7 @@ parseStatement: true, parseSourceElement: true */
     // 7.8.4 String Literals
 
     function scanStringLiteral() {
-        var str = '', quote, start, ch, code, unescaped, restore, octal = false;
+        var str = "", quote, start, ch, code, unescaped, restore, octal = false;
 
         quote = source[index];
         assert((quote === '\'' || quote === '"'),
@@ -868,7 +868,7 @@ parseStatement: true, parseSourceElement: true */
             ch = source[index++];
 
             if (ch === quote) {
-                quote = '';
+                quote = "";
                 break;
             } else if (ch === '\\') {
                 ch = source[index++];
@@ -944,7 +944,7 @@ parseStatement: true, parseSourceElement: true */
             }
         }
 
-        if (quote !== '') {
+        if (quote !== "") {
             throwError({}, Messages.UnexpectedToken, 'ILLEGAL');
         }
 
@@ -1002,7 +1002,7 @@ parseStatement: true, parseSourceElement: true */
         // Exclude leading and trailing slash.
         pattern = str.substr(1, str.length - 2);
 
-        flags = '';
+        flags = "";
         while (index < length) {
             ch = source[index];
             if (!isIdentifierPart(ch)) {
@@ -1077,7 +1077,7 @@ parseStatement: true, parseSourceElement: true */
 
         ch = source[index];
 
-        if (ch === '\'' || ch === '"') {
+        if (ch === '\"" || ch === '"') {
             return scanStringLiteral();
         }
 
@@ -1152,7 +1152,7 @@ parseStatement: true, parseSourceElement: true */
             msg = messageFormat.replace(
                 /%(\d)/g,
                 function (whole, index) {
-                    return args[index] || '';
+                    return args[index] || "";
                 }
             );
 
@@ -3142,7 +3142,7 @@ parseStatement: true, parseSourceElement: true */
     function scanComment() {
         var comment, ch, loc, start, blockComment, lineComment;
 
-        comment = '';
+        comment = "";
         blockComment = false;
         lineComment = false;
 
@@ -3163,7 +3163,7 @@ parseStatement: true, parseSourceElement: true */
                     }
                     ++lineNumber;
                     lineStart = index;
-                    comment = '';
+                    comment = "";
                 } else if (index >= length) {
                     lineComment = false;
                     comment += ch;
@@ -3206,7 +3206,7 @@ parseStatement: true, parseSourceElement: true */
                                 column: index - lineStart
                             };
                             addComment('Block', comment, start, index, loc);
-                            comment = '';
+                            comment = "";
                         }
                     }
                 }
@@ -3952,8 +3952,8 @@ module.exports = function (src, opts, fn) {
     var ast = parse(src, opts);
 
     var result = {
-        chunks : src.split(''),
-        toString : function () { return result.chunks.join('') },
+        chunks : src.split(""),
+        toString : function () { return result.chunks.join("") },
         inspect : function () { return result.toString() }
     };
     var index = 0;
@@ -3991,7 +3991,7 @@ function insertHelpers (node, parent, chunks) {
     node.source = function () {
         return chunks.slice(
             node.range[0], node.range[1]
-        ).join('');
+        ).join("");
     };
 
     if (node.update && typeof node.update === 'object') {
@@ -4008,7 +4008,7 @@ function insertHelpers (node, parent, chunks) {
     function update (s) {
         chunks[node.range[0]] = s;
         for (var i = node.range[0] + 1; i < node.range[1]; i++) {
-            chunks[i] = '';
+            chunks[i] = "";
         }
     };
 }
@@ -4458,7 +4458,7 @@ _blanket.extend({
         var fileLoader = function(event){
             var fileContent = event.currentTarget.result;
             var file = files[sessionIndx];
-            var filename = file.webkitRelativePath && file.webkitRelativePath !== '' ? file.webkitRelativePath : file.name;
+            var filename = file.webkitRelativePath && file.webkitRelativePath !== "" ? file.webkitRelativePath : file.name;
             sessionArray[filename] = fileContent;
             sessionIndx++;
             if (sessionIndx === sessionLength){

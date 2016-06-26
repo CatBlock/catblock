@@ -528,7 +528,7 @@ BGcall('getMalwareDomains', function(domains) {
 });
 
 var domain = parseUri(options.url).hostname.replace(/((http|https):\/\/)?(www.)?/g, "");
-var tabId = options.tabId.replace(/[^0-9]/g, '');
+var tabId = options.tabId.replace(/[^0-9]/g, "");
 
 // STEP 2: update filters
 
@@ -703,7 +703,7 @@ $("#step_firefox_yes")
         .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
     if (/^mailto\:/.test(contact))
         contact = contact.replace(" at ", "@");
-    var reportLink = "<a href='" + contact + "'>" + contact.replace(/^mailto\:/, '') + "</a>";
+    var reportLink = "<a href='" + contact + "'>" + contact.replace(/^mailto\:/, "") + "</a>";
     $("#checkupdate")
         .html(translate("reportfilterlistproblem", [reportLink]));
     $("#privacy")
