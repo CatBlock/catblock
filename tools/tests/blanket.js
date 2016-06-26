@@ -1077,7 +1077,7 @@ parseStatement: true, parseSourceElement: true */
 
         ch = source[index];
 
-        if (ch === '\"" || ch === '"') {
+        if (ch === '\'' || ch === '"') {
             return scanStringLiteral();
         }
 
