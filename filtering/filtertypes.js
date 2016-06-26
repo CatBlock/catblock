@@ -54,7 +54,7 @@ Filter._toDomainSet = function(domainText, divider) {
     var data = {};
     data[DomainSet.ALL] = true;
 
-    if (domains === "") {
+    if (domains == "") {
         return new DomainSet(data);
     }
 
