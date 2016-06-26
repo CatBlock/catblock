@@ -46,6 +46,6 @@ var idleHandler = {
             if (!idleHandler._scheduledItems.length) {
                 idleHandler._timer = window.clearInterval(idleHandler._timer);
             }
-        })
+        });
     }
 };

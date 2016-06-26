@@ -35,7 +35,7 @@ ElementTypes.fromOnBeforeRequestType = function(type) {
         case 'other': return ElementTypes.other;
         default: return ElementTypes[type];
     }
-}
+};
 
 var FilterOptions = {
     NONE: 0,

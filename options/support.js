@@ -12,7 +12,7 @@ $(document).ready(function() {
         if (the_debug_info.custom_filters){
             content.push("=== Custom Filters ===");
             content.push(the_debug_info.custom_filters);
-            content.push("")
+            content.push("");
         }
         if (the_debug_info.exclude_filters){
             content.push("=== Exclude Filters ===");

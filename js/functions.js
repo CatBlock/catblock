@@ -156,7 +156,7 @@ var getUnicodeDomain = function(domain) {
     } else {
         return domain;
     }
-}
+};
 
 // Return |url| encoded in Unicode
 var getUnicodeUrl = function(url) {

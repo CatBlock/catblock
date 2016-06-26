@@ -167,7 +167,7 @@ var FilterNormalizer = {
         // Old-style is domain#node(attr=value) or domain#node(attr)
         // domain and node are optional, and there can be many () parts.
         filter = filter.replace("#", "##");
-        var parts = filter.split("##") // -> [domain, rule]
+        var parts = filter.split("##"); // -> [domain, rule]
         var domain = parts[0];
         var rule = parts[1];
 

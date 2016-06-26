@@ -178,7 +178,7 @@ function sendReport() {
                             extInfo.push("  name: " + result[i].name);
                             extInfo.push("  id: " + result[i].id);
                             extInfo.push("  version: " + result[i].version);
-                            extInfo.push("  enabled: " + result[i].enabled)
+                            extInfo.push("  enabled: " + result[i].enabled);
                             extInfo.push("  type: " + result[i].type);
                             extInfo.push("");
                         }
@@ -341,7 +341,7 @@ var createReadableReport = function(data) {
     if (data.custom_filters) {
         content.push("=== Custom Filters ===");
         content.push(data.debug.custom_filters);
-        content.push("")
+        content.push("");
     }
     if (data.exclude_filters) {
         content.push("=== Exclude Filters ===");
@@ -362,7 +362,8 @@ var createReadableReport = function(data) {
     body.push(content.join("\n"));
     body.push("");
     return body.join("\n");
-}
+};
+
 // Pretty Print the data
 var prepareManualReport = function(data, status, HTTPerror, respObj) {
     var body = [];

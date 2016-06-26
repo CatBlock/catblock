@@ -17,7 +17,7 @@ function checkupdates(page) {
             },
             success: function(response) {
                 var parser = new DOMParser();
-                var document = parser.parseFromString(response, "text/html")
+                var document = parser.parseFromString(response, "text/html");
                 var version = document.querySelector(".release-timeline > .label-latest > " +
                                                      ".release-meta > .tag-references >li > .css-truncate > .css-truncate-target").textContent;
                 if (isNewerVersion(version)) {

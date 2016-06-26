@@ -44,7 +44,7 @@ MyFilters.prototype.init = function() {
         },
         60 * 60 * 1000
     );
-}
+};
 // Update the url and requiresList for entries in _subscriptions using values from _official_options.
 MyFilters.prototype._updateFieldsFromOriginalOptions = function() {
     // Use the stored properties, and only add any new properties and/or lists

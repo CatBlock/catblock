@@ -36,7 +36,7 @@ function BlacklistUi(clicked_item, advanced_user) {
 // TODO: same event framework as ClickWatcher
 BlacklistUi.prototype.cancel = function(callback) {
     this._callbacks.cancel.push(callback);
-}
+};
 BlacklistUi.prototype.block = function(callback) {
     this._callbacks.block.push(callback);
 }

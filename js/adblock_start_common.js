@@ -180,7 +180,7 @@ function handleABPLinkClicks() {
                 }
             });
         }
-    }
+    };
     for (var i=0; i<elems.length; i++) {
         elems[i].addEventListener("click", abplinkhandler, false);
     }

@@ -193,7 +193,7 @@ var reloadTab = function(tabId) {
                 chrome.tabs.onUpdated.removeListener(listener);
             }, 2000);
         }
-    }
+    };
     chrome.tabs.reload(tabId, { bypassCache: true }, function() {
         chrome.tabs.onUpdated.addListener(listener);
     });
@@ -616,7 +616,7 @@ var confirm_removal_of_custom_filters_on_host = function(host, activeTab) {
     if (!SAFARI) {
         chrome.tabs.update(activeTab.id, {url: activeTab.url});
     } else {
-        activeTab.url = activeTab.url
+        activeTab.url = activeTab.url;
     }
 };
 

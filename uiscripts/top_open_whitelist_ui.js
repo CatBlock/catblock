@@ -52,8 +52,9 @@ function top_open_whitelist_ui() {
                     }
                 });
             }
-        }
-        btns[translate("buttoncancel")] = function() { page.dialog("close"); }
+        };
+
+        btns[translate("buttoncancel")] = function() { page.dialog("close"); };
 
         var page = $("<div>").
         append('<span>' + translate("catblock_adblock_wont_run_on_pages_matching") +
@@ -151,7 +152,7 @@ function top_open_whitelist_ui() {
             if (forDisplay) {
                 result = result.replace(/(\/[^\/]{6})[^\/]{3,}([^\/]{6})/g, "$1...$2");
                 if (result.indexOf("/") > 30 && result.length >= 60)
-                    result = result.replace(/^([^\/]{20})[^\/]+([^\/]{6}\/)/, "$1...$2")
+                    result = result.replace(/^([^\/]{20})[^\/]+([^\/]{6}\/)/, "$1...$2");
                     while (result.length >= 60) {
                         result = result.replace(/(\/.{4}).*?\/.*?(.{4})(?:\/|$)/, "$1...$2/");
                     }

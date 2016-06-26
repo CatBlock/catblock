@@ -21,7 +21,7 @@ Filter.fromText = function(text) {
         }
     }
     return cache[text];
-}
+};
 
 // Test if pattern#@#pattern or pattern##pattern
 Filter.isSelectorFilter = function(text) {

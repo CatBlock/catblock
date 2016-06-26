@@ -21,7 +21,7 @@ var STATUS = (function() {
             }
         }
         return false;
-    }
+    };
 
     var handleResponse = function(responseData) {
         var isNewerVersionAvailable = isNewerVersion(responseData.version);

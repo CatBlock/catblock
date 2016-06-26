@@ -17,7 +17,7 @@ if (!/ab_channel/.test(url)) {
                     updateURL(json.items[0].snippet.title, false);
                 }
             }
-        }
+        };
         xhr.send(null);
     } else if (/watch/.test(url)) {
         var xhr = new XMLHttpRequest();

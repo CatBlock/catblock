@@ -20,10 +20,10 @@ var Overlay = function(options) {
     bind("mouseleave",function() {
         // crbug.com/110084
         this.style.setProperty("background-color", "transparent", "important");
-    })
+    });
 
     Overlay.instances.push(this);
-}
+};
 Overlay.instances = [];
 Overlay.removeAll = function() {
     $.each(Overlay.instances, function(i,overlay) {

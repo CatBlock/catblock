@@ -68,7 +68,7 @@ var frameData = (function() {
         close: function(tabId) {
             delete frameData[tabId];
         }
-    }
+    };
 })();
 
 // True blocking support.

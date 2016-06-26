@@ -75,7 +75,7 @@ function ClickWatcher() {
 }
 ClickWatcher.prototype.cancel = function(callback) {
     this._callbacks.cancel.push(callback);
-}
+};
 ClickWatcher.prototype.click = function(callback) {
     this._callbacks.click.push(callback);
 }

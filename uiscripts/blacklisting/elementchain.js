@@ -8,7 +8,7 @@ function ElementChain(el) {
 }
 ElementChain.prototype.current = function() {
     return this._stack[this._stack.length - 1];
-}
+};
 ElementChain.prototype.moveUp = function() {
     if (this.current().parent().length > 0 &&
         this.current().parent()[0].nodeName !== "BODY") {
