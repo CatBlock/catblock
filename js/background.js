@@ -290,7 +290,7 @@ if (!SAFARI) {
     };
 
     // When a request starts, perhaps block it.
-    function onBeforeRequestHandler(details) {
+    var onBeforeRequestHandler = function(details) {
         if (adblock_is_paused()) {
             return { cancel: false };
         }
@@ -361,7 +361,7 @@ if (!SAFARI) {
     }
 
     // Popup blocking
-    function onCreatedNavigationTargetHandler(details) {
+    var onCreatedNavigationTargetHandler = function(details) {
         if (adblock_is_paused()) {
             return;
         }

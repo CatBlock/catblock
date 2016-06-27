@@ -28,17 +28,17 @@ var BGcall = function() {
 };
 
 // Enabled in adblock_start_common.js and background.js if the user wants
+var log = function() {};
+
 var logging = function(enabled) {
     if (enabled) {
-        var log = function() {
+        log = function() {
             if (VERBOSE_DEBUG || arguments[0] !== "[DEBUG]") { // comment out for verbosity
                 console.log.apply(console, arguments);
             }
         };
-        var logGroup = function() { console.group.apply(console, arguments); };
-        var logGroupEnd = function() { console.groupEnd(); };
     } else {
-        var log = logGroup = logGroupEnd = function() {};
+        log = function() {};
     }
 };
 logging(false); // disabled by default
