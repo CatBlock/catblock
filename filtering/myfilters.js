@@ -185,7 +185,7 @@ MyFilters.prototype.rebuild = function() {
         }
 
         // Include custom filters.
-        var customfilters = get_custom_filters_text(); // from background
+        var customfilters = storage_get("custom_filters") || ""; // from background
         if (customfilters) {
             texts.push(FilterNormalizer.normalizeList(customfilters));
         }

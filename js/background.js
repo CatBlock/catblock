@@ -1326,7 +1326,7 @@ var createMalwareNotification = function() {
         });//end of chrome.tabs.query
     }//end of if
 }//end of createMalwareNotification function
-console.log(onBeforeRequestHandler);
+
 if (!SAFARI) {
     // Chrome blocking code.  Near the end so synchronous request handler
     // doesn't hang Chrome while AdBlock initializes.
