@@ -201,7 +201,10 @@ MyFilters.prototype.rebuild = function() {
             FilterSet.fromFilters(filters.whitelist)
         );
 
-        handlerBehaviorChanged(); // defined in background
+        if (typeof handlerBehaviorChanged === "function") {
+            handlerBehaviorChanged(); // defined in background
+        }
+
         // If the user is subscribed to malware, then get it
         if (this._subscriptions &&
             this._subscriptions.malware &&
