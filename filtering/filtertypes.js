@@ -78,8 +78,8 @@ var SelectorFilter = function(text) {
     var parts = text.match(/(^.*?)\#\@?\#(.+$)/);
     this._domains = Filter._toDomainSet(parts[1], ',');
     this.selector = parts[2];
-    if (storage_get("settings") && storage_get("settings").show_advanced_options) {
-        this._text = text;
+    if (!QUnit && storage_get("settings") && storage_get("settings").show_advanced_options) {
+        this._text = text; // we are not rewriting text of a selector while testing
     }
 };
 
