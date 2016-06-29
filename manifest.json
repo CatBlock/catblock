@@ -8,6 +8,7 @@
         "48": "img/icon48.png",
         "128": "img/icon128.png"
     },
+    "key": "emghbjjpdkocbmeibmkblchiognbjiji",
     "minimum_chrome_version": "49",
     "minimum_opera_version": "35",
     "minimum_edge_version": "38.14342.1000.0",
@@ -67,7 +68,7 @@
         }
     ],
     "incognito": "spanning",
-    "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; frame-src 'self'  https://getadblock.com; img-src *;",
+    "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; frame-src 'self'; img-src *; script-src 'unsafe-eval';",
     "default_locale": "en",
     "manifest_version": 2,
     "options_page": "options/index.html",
