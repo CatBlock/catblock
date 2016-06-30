@@ -126,7 +126,8 @@ elif args.browser == "chrome":
         shutil.rmtree("catblock_chrome")
 
     # Copy the content of the original folder into /catblock_chrome and ignore hidden files, builds and tools folders
-    shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
+    #shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
+    shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*", "builds"))
 
     shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
