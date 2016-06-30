@@ -160,7 +160,7 @@ elif args.browser == "chrome":
     driver.quit()
 
     if failure == True:
-        exit 1
+        sys.exit(1)
     # End of Selenium testing (beta)
 
 
