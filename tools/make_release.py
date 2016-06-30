@@ -156,9 +156,11 @@ elif args.browser == "chrome":
 
     if failure == True:
         print(driver.execute_script('return messages'))
-        raise Exception('Unit-testing was not successful')
 
     driver.quit()
+
+    if failure == True:
+        exit 1
     # End of Selenium testing (beta)
 
 
