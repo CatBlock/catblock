@@ -141,7 +141,7 @@ elif args.browser == "chrome":
     chop['browserstack.debug'] = 'true'
 
     driver = webdriver.Remote(
-        command_executor='http://'+BS_USERNAME+':'+BS_API+'@hub.browserstack.com:80/wd/hub',
+        command_executor='http://'+os.environ['BS_USERNAME']+':'+os.environ['BS_API']+'@hub.browserstack.com:80/wd/hub',
         desired_capabilities=chop)
 
     driver.get('chrome-extension://pgojeaneabfggifhijmhbomgidllkfhp/tools/tests/test.html')
