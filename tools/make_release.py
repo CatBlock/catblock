@@ -150,10 +150,10 @@ elif args.browser == "chrome":
 
     failure = driver.execute_script('return failure')
 
-    print failure
+    print(failure)
 
     if failure == True:
-        print driver.execute_script('return messages')
+        print(driver.execute_script('return messages'))
         raise Exception('Unit-testing was not successful')
 
     driver.quit()
