@@ -13,6 +13,12 @@ import os # Provides file-system functions
 import shutil # Provides folders functions
 import argparse # Provides functions for parsing arguments
 
+# Selenium testing
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import time
+
 # Parse passed arguments
 parser = argparse.ArgumentParser(description="This script generates Firefox and Edge versions of CatBlock")
 parser.add_argument("-b", "--browser", help="Name of the browser, which should we generate an extension for", required=True)
@@ -123,6 +129,36 @@ elif args.browser == "chrome":
     shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
 
     shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
+
+    # Selenium testing (beta)
+    chop = webdriver.ChromeOptions()
+    chop.add_extension('catblock-chrome.zip')
+    chop = chop.to_capabilities()
+
+    chop['os'] = 'OS X'
+    chop['os_version'] = 'El Capitan'
+    chop['browser'] = 'Chrome'
+    chop['browserstack.debug'] = 'true'
+
+    driver = webdriver.Remote(
+        command_executor='http://'+BS_USERNAME+':'+BS_API+'@hub.browserstack.com:80/wd/hub',
+        desired_capabilities=chop)
+
+    driver.get('chrome-extension://pgojeaneabfggifhijmhbomgidllkfhp/tools/tests/test.html')
+
+    time.sleep(2)
+
+    failure = driver.execute_script('return failure')
+
+    print failure
+
+    if failure == True:
+        print driver.execute_script('return messages')
+        raise Exception('Unit-testing was not successful')
+
+    driver.quit()
+    # End of Selenium testing (beta)
+
 
     # Rename to the Chrome compatible .crx file
     if args.extension == "y":
