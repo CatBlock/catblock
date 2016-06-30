@@ -68,7 +68,6 @@ var settings = null;
 
 BGcall("get_settings", function(data) {
     settings = data;
-    chrome = null;
     QUnit.module("General");
     QUnit.test("Using extension domain", function(assert) {
         assert.expect(1);
