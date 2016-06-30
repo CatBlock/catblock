@@ -10,6 +10,7 @@ License: GNU GPLv3
 
 import json # Provides JSON-related functions
 import os # Provides file-system functions
+import sys
 import shutil # Provides folders functions
 import argparse # Provides functions for parsing arguments
 
