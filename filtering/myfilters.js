@@ -668,7 +668,7 @@ MyFilters.prototype._loadMalwareDomains = function() {
         xhr.onerror = function(e) {
             //if the request fail, retry the next time
             that._subscriptions.malware.last_update_failed_at = Date.now();
-        }
+        };
         xhr.onload = function(e) {
             //make sure the blocking filter set exists (it may not in Safari 9)
             if (that.blocking) {
@@ -686,7 +686,7 @@ MyFilters.prototype._loadMalwareDomains = function() {
             that._subscriptions.malware.expiresAfterHours *= smear;
             chrome.runtime.sendMessage({ command: "filters_updated" });
             log("Fetched " + url);
-        }
+        };
         xhr.open("GET",  url);
         xhr.send();
     }

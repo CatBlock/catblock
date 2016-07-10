@@ -356,7 +356,7 @@ if (!SAFARI) {
             return { redirectUrl: "about:blank" };
         }
         return { cancel: blocked };
-    }
+    };
 
     // Popup blocking
     var onCreatedNavigationTargetHandler = function(details) {
@@ -475,7 +475,7 @@ var try_to_unwhitelist = function(url) {
         }
     }
     return false;
-}
+};
 
 // Called when Chrome blocking needs to clear the in-memory cache.
 // No-op for Safari.
@@ -519,7 +519,8 @@ var set_exclude_filters = function(filters) {
     storage_set("exclude_filters", filters);
     FilterNormalizer.setExcludeFilters(filters);
     update_subscriptions_now();
-}
+};
+
 // Add / concatenate the exclude filter to the existing excluded filters, and
 // rebuild the filterset.
 // Inputs: filter:string the new filter.
@@ -530,7 +531,7 @@ var add_exclude_filter = function(filter) {
     } else {
         set_exclude_filters(filter);
     }
-}
+};
 
 // Removes a custom filter entry.
 // Inputs: host:domain of the custom filters to be reset.
@@ -551,7 +552,7 @@ var remove_custom_filter = function(host) {
 
     text = new_custom_filters_arr.join("\n");
     set_custom_filters_text(text.trim());
-}
+};
 
 // count_cache singleton.
 var count_cache = (function(count_map) {
@@ -594,14 +595,14 @@ var count_cache = (function(count_map) {
 // Entry point for customize.js, used to update custom filter count cache.
 var updateCustomFilterCountMap = function(new_count_map) {
     count_cache.updateCustomFilterCountMap(new_count_map);
-}
+};
 
 var remove_custom_filter_for_host = function(host) {
     if (count_cache.getCustomFilterCount(host)) {
         remove_custom_filter(host);
         count_cache.removeCustomFilterCount(host);
     }
-}
+};
 
 var confirm_removal_of_custom_filters_on_host = function(host, activeTab) {
     var custom_filter_count = count_cache.getCustomFilterCount(host);
@@ -621,7 +622,7 @@ var confirm_removal_of_custom_filters_on_host = function(host, activeTab) {
 
 var get_settings = function() {
     return _settings.get_all();
-}
+};
 
 var set_setting = function(name, is_enabled) {
     _settings.set(name, is_enabled);
@@ -629,23 +630,23 @@ var set_setting = function(name, is_enabled) {
     if (name === "debug_logging") {
         logging(is_enabled);
     }
-}
+};
 
 var disable_setting = function(name) {
     _settings.set(name, false);
-}
+};
 
 // MYFILTERS PASSTHROUGHS
 
 // Rebuild the filterset based on the current settings and subscriptions.
 var update_filters = function() {
     _myfilters.rebuild();
-}
+};
 
 // Fetch the latest version of all subscribed lists now.
 var update_subscriptions_now = function() {
     _myfilters.checkFilterUpdates(true);
-}
+};
 
 // Returns map from id to subscription object.  See filters.js for
 // description of subscription object.
@@ -661,7 +662,7 @@ var get_subscriptions_minus_text = function() {
         }
     }
     return result;
-}
+};
 
 // Get subscribed filter lists
 var get_subscribed_filter_lists = function() {
@@ -673,7 +674,7 @@ var get_subscribed_filter_lists = function() {
         }
     }
     return subscribed_filter_names;
-}
+};
 
 // Subscribes to a filter subscription.
 // Inputs: id: id to which to subscribe.  Either a well-known
@@ -687,7 +688,7 @@ var subscribe = function(options) {
         requiresList: options.requires,
         title: options.title
     });
-}
+};
 
 // Unsubscribes from a filter subscription.
 // Inputs: id: id from which to unsubscribe.
@@ -698,14 +699,14 @@ var unsubscribe = function(options) {
         subscribed: false,
         deleteMe: (options.del ? true : undefined)
     });
-}
+};
 
 // Get the current (loaded) malware domains
 // Returns: an object with all of the malware domains
 // will return undefined, if the user is not subscribed to the Malware "filter list".
 var getMalwareDomains = function() {
     return _myfilters.getMalwareDomains();
-}
+};
 
 // Returns true if the url cannot be blocked
 var page_is_unblockable = function(url) {
@@ -715,7 +716,7 @@ var page_is_unblockable = function(url) {
         var scheme = parseUri(url).protocol;
         return (scheme !== "http:" && scheme !== "https:" && scheme !== "feed:");
     }
-}
+};
 
 // Get or set if AdBlock is paused
 // Inputs: newValue (optional boolean): if true, AdBlock will be paused, if
@@ -737,14 +738,14 @@ var adblock_is_paused = function(newValue) {
             safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_beforeload.js", [], [], false);
         }
     }
-}
+};
 
 // Get if AdBlock is paused
 // called from content scripts
 // Returns: true if paused, false otherwise.
 var is_adblock_paused = function() {
     return adblock_is_paused();
-}
+};
 
 // INFO ABOUT CURRENT PAGE
 
@@ -823,7 +824,7 @@ var getCurrentTabInfo = function(callback, secondTime) {
 
         callback(result);
     }
-}
+};
 
 // Returns true if anything in whitelist matches the_domain.
 //   url: the url of the page
@@ -845,7 +846,7 @@ var page_is_whitelisted = function(url, type) {
     }
     var whitelist = _myfilters.blocking.whitelist;
     return whitelist.matches(url, type, parseUri(url).hostname, false);
-}
+};
 
 if (!SAFARI) {
     var setBrowserActions = function(options) {
@@ -867,7 +868,7 @@ if (!SAFARI) {
                 chrome.browserAction.setIcon({ tabId: options.tabId, path: options.iconPaths }, iconCallback);
             }
         });
-    }
+    };
 
     var updateBadge = function(tabId) {
         var display = get_settings().display_stats;
@@ -983,8 +984,8 @@ if (!SAFARI) {
             setContextMenus(info);
             setBrowserButton(info);
         });
-    }
-    }
+    };
+}
 
 // These functions are usually only called by content scripts.
 
@@ -1030,7 +1031,7 @@ var create_page_whitelist_filter = function(url) {
     var has_querystring = parts[2];
     var filter = "@@|" + parts[1] + (has_querystring ? "?" : "|") + "$document";
     return add_custom_filter(filter);
-}
+};
 
 // Creates a custom filter entry that whitelists a YouTube channel
 // Inputs: url:string url of the page
@@ -1045,7 +1046,7 @@ var create_whitelist_filter_for_youtube_channel = function(url) {
         var filter = "@@|https://www.youtube.com/*" + yt_channel + "|$document";
         return add_custom_filter(filter);
     }
-}
+};
 
 // Inputs: options object containing:
 //           domain:string the domain of the calling frame.
@@ -1146,24 +1147,24 @@ if (!SAFARI) {
         };
         return theFunction;
     })();
-}
+};
 
 // Open subscribe popup when new filter list was subscribed from site
 var launch_subscribe_popup = function(loc) {
     window.open(chrome.runtime.getURL("pages/subscribe.html?" + loc),
                 "_blank",
                 "scrollbars=0, location=0, resizable=0, width=460, height=150");
-}
+};
 
 // Open the resource blocker when requested from popup.
 var launch_resourceblocker = function(query) {
     openTab("pages/resourceblock.html" + query, true);
-}
+};
 
 // Get the frameData for the "Report an Ad" & "Resource" page
 var get_frameData = function(tabId) {
     return frameData.get(tabId);
-}
+};
 
 // Process requests from "Resource" page
 // Determine, whether requests have been whitelisted/blocked
@@ -1181,13 +1182,13 @@ var process_frameData = function(fd) {
         }
     }
     return fd;
-}
+};
 
 // Add previously cached requests to matchCache
 // Used by "Resource" page
 var add_to_matchCache = function(cache) {
     _myfilters.blocking._matchCache = cache;
-}
+};
 
 // Reset matchCache
 // Used by "Resource" page
@@ -1196,7 +1197,7 @@ var reset_matchCache = function() {
     var matchCache = _myfilters.blocking._matchCache;
     _myfilters.blocking._matchCache = {};
     return matchCache;
-}
+};
 
 // Return chrome.i18n._getL10nData() for content scripts who cannot
 // call that function (since it loads extension files from disk.)
@@ -1305,9 +1306,9 @@ var createMalwareNotification = function() {
                 priority: 2,
                 message: translate("catblock_malwarenotificationmessage"),
                 buttons: [{ title:translate("malwarenotificationlearnmore"),
-                            iconUrl:chrome.runtime.getURL("img/icon24.png") },
+                           iconUrl:chrome.runtime.getURL("img/icon24.png") },
                           { title:translate("malwarenotificationdisablethesemessages"),
-                            iconUrl:chrome.runtime.getURL("img/icon24.png") }]
+                           iconUrl:chrome.runtime.getURL("img/icon24.png") }]
             }
 
             // Add button click handlers to process the button click events
@@ -1323,9 +1324,9 @@ var createMalwareNotification = function() {
             chrome.notifications.create((Math.floor(Math.random() * 3000)).toString(), notificationOptions, function(id) {
                 //do nothing in callback
             });
-        });//end of chrome.tabs.query
-    }//end of if
-}//end of createMalwareNotification function
+        }); //end of chrome.tabs.query
+    } //end of if
+}; //end of createMalwareNotification function
 
 if (!SAFARI) {
     // Chrome blocking code.  Near the end so synchronous request handler
@@ -1396,7 +1397,7 @@ function isSafariContentBlockingAvailable() {
             safari &&
             safari.extension &&
             (typeof safari.extension.setContentBlocker === "function"));
-}
+};
 
 
 // DEBUG INFO
@@ -1481,8 +1482,9 @@ var getDebugInfo = function() {
     // Get & process userAgent
     the_debug_info.other_info.push("UserAgent: " + navigator.userAgent.replace(/;/, ""));
     the_debug_info.other_info = the_debug_info.other_info.join("\n");
+
     return the_debug_info;
-}
+};
 
 // Code for making a bug report
 var makeReport = function() {
@@ -1526,27 +1528,27 @@ var channels = new Channels();
 
 var addChannel = function(args) {
     return channels.add(args);
-}
+};
 
 var removeChannel = function(id) {
     return channels.remove(id);
-}
+};
 
 var getListings = function(id) {
     return channels.getListings(id);
-}
+};
 
 var getGuide = function() {
     return channels.getGuide();
-}
+};
 
 var randomListing = function(args) {
     return channels.randomListing(args);
-}
+};
 
 var setEnabled = function(id, enabled) {
     return channels.setEnabled(id, enabled);
-}
+};
 
 // Listens for message from CatBlock content script asking to load jQuery.
 chrome.runtime.onMessage.addListener(

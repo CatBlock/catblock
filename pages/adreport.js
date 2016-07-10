@@ -461,7 +461,7 @@ var checkmalware = function() {
         }
         $('#malwarewarning').show();
     });
-}
+};
 
 // Auto-scroll to bottom of the page
 $("input, select").change(function(event) {

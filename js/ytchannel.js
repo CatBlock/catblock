@@ -33,7 +33,7 @@ if (!/ab_channel/.test(url)) {
                     updateURL(json.items[0].snippet.channelTitle, false);
                 }
             }
-        }
+        };
         xhr.send(null);
     } else {
         if (/user/.test(url)) {

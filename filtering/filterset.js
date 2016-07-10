@@ -123,7 +123,7 @@ BlockingFilterSet = function(patternFilterSet, whitelistFilterSet) {
 
     // Caches results for this.matches()
     this._matchCache = {};
-}
+};
 
 // Checks if the two domains have the same origin
 // Inputs: the two domains
@@ -132,7 +132,7 @@ BlockingFilterSet.checkThirdParty = function(domain1, domain2) {
     var match1 = parseUri.secondLevelDomainOnly(domain1, false);
     var match2 = parseUri.secondLevelDomainOnly(domain2, false);
     return (match1 !== match2);
-}
+};
 
 BlockingFilterSet.prototype = {
     // True if the url is blocked by this filterset.

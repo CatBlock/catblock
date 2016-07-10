@@ -44,12 +44,14 @@ function Highlighter() {
     this.getCurrentNode = function(el) {
         return el === box[0] ? target : el;
     };
+
     this.enable = function() {
         if (box && !enabled) {
             $("body").bind("mousemove", handler);
         }
         enabled = true;
     };
+
     this.disable = function() {
         if (box && enabled) {
             box.hide();
@@ -57,6 +59,7 @@ function Highlighter() {
         }
         enabled = false;
     };
+
     this.destroy = function() {
         this.disable();
         if (box) {
@@ -73,18 +76,22 @@ function ClickWatcher() {
     this._clicked_element = null;
     this._highlighter = new Highlighter();
 }
+
 ClickWatcher.prototype.cancel = function(callback) {
     this._callbacks.cancel.push(callback);
 };
+
 ClickWatcher.prototype.click = function(callback) {
     this._callbacks.click.push(callback);
-}
+};
+
 ClickWatcher.prototype._fire = function(eventName, arg) {
     var callbacks = this._callbacks[eventName];
     for (var i = 0; i < callbacks.length; i++) {
         callbacks[i](arg);
     }
-}
+};
+
 ClickWatcher.prototype.show = function() {
     var that = this;
     var wait = $("<div></div>").
@@ -105,7 +112,8 @@ ClickWatcher.prototype.show = function() {
         that._ui.dialog('open');
         that._highlighter.enable();
     }, 10);
-}
+};
+
 // Called externally to close ClickWatcher.  Doesn't cause any events to
 // fire.
 ClickWatcher.prototype.close = function() {
@@ -114,7 +122,8 @@ ClickWatcher.prototype.close = function() {
     if (this._ui) {
         this._ui.dialog('close');
     }
-}
+};
+
 // The dialog is closing, either because the user clicked cancel, or the
 // close button, or because they clicked an item.
 ClickWatcher.prototype._onClose = function() {
@@ -126,7 +135,8 @@ ClickWatcher.prototype._onClose = function() {
         this._fire('click', this._clicked_element);
     }
     this._highlighter.destroy();
-}
+};
+
 ClickWatcher.prototype._build_ui = function() {
     var that = this;
 
@@ -197,6 +207,6 @@ ClickWatcher.prototype._build_ui = function() {
     });
     changeTextDirection($("body .adblock-blacklist-dialog"));
     return page;
-}
+};
 
 //@ sourceURL=/uiscripts/blacklisting/clickwatcher.js

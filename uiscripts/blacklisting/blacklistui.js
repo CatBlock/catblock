@@ -124,11 +124,12 @@ BlacklistUi.prototype._build_page1 = function() {
             that._redrawPage2();
             that._ui_page2.dialog('open');
         }
-    }
+    };
+
     btns[translate("buttoncancel")] =
         function() {
         that._ui_page1.dialog('close');
-    }
+    };
 
     page.dialog({
         dialogClass: "adblock-blacklist-dialog",
@@ -202,7 +203,8 @@ BlacklistUi.prototype._build_page2 = function() {
                 });
             } else {alert(translate("blacklisternofilter"));}
         }
-    }
+    };
+
     if (that._advanced_user) {
         btns[translate("buttonedit")] =
             function() {
@@ -222,8 +224,9 @@ BlacklistUi.prototype._build_page2 = function() {
                     }
                 });
             }
-        }
+        };
     }
+
     btns[translate("buttonback")] =
         function() {
         that._cancelled = false;
@@ -231,11 +234,12 @@ BlacklistUi.prototype._build_page2 = function() {
         that._cancelled = true;
         that._redrawPage1();
         that._ui_page1.dialog('open');
-    }
+    };
+
     btns[translate("buttoncancel")] =
         function() {
         that._ui_page2.dialog('close');
-    }
+    };
 
     page.dialog({
         dialogClass: "adblock-blacklist-dialog ui-page-2",
