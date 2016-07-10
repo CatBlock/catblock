@@ -181,8 +181,9 @@ var storage_get = function(key) {
         return undefined;
     }
     var json = store.getItem(key);
-    if (json === null)
+    if (json === null) {
         return undefined;
+    }
     try {
         return JSON.parse(json);
     } catch (e) {

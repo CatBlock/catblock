@@ -456,8 +456,9 @@ var try_to_unwhitelist = function(url) {
             set_custom_filters_text(new_text);
             return true;
         } else {
-            if (!Filter.isWhitelistFilter(text))
+            if (!Filter.isWhitelistFilter(text)) {
                 continue;
+            }
             try {
                 var filter = PatternFilter.fromText(text);
             } catch (ex) {
@@ -884,8 +885,9 @@ if (!SAFARI) {
             browsersBadgeOptions.tabId = tabId;
             browsersBadgeOptions.color = "#555";
             var badge_text = blockCounts.getTotalAdsBlocked(tabId).toString();
-            if (badge_text === "0")
+            if (badge_text === "0") {
                 badge_text = ""; // Only show the user when we've done something useful
+            }
             browsersBadgeOptions.badge_text = badge_text;
             browsersBadgeOptions.iconPaths = {"19": "img/icon19.png", "38": "img/icon38.png"};
             // see for more details - https://code.google.com/p/chromium/issues/detail?id=410868#c8

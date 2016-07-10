@@ -44,8 +44,9 @@ BlacklistUi.prototype.block = function(callback) {
 
 BlacklistUi.prototype._fire = function(eventName, arg) {
     var callbacks = this._callbacks[eventName];
-    for (var i = 0; i < callbacks.length; i++)
+    for (var i = 0; i < callbacks.length; i++) {
         callbacks[i](arg);
+    }
 };
 
 BlacklistUi.prototype._onClose = function() {
@@ -202,7 +203,7 @@ BlacklistUi.prototype._build_page2 = function() {
             } else {alert(translate("blacklisternofilter"));}
         }
     }
-    if (that._advanced_user)
+    if (that._advanced_user) {
         btns[translate("buttonedit")] =
             function() {
             var custom_filter = getUnicodeDomain(document.location.hostname) + '##' + $("#summary", that._ui_page2).text();
@@ -222,35 +223,36 @@ BlacklistUi.prototype._build_page2 = function() {
                 });
             }
         }
-        btns[translate("buttonback")] =
-            function() {
-            that._cancelled = false;
-            that._ui_page2.dialog('close');
-            that._cancelled = true;
-            that._redrawPage1();
-            that._ui_page1.dialog('open');
-        }
-        btns[translate("buttoncancel")] =
-            function() {
-            that._ui_page2.dialog('close');
-        }
+    }
+    btns[translate("buttonback")] =
+        function() {
+        that._cancelled = false;
+        that._ui_page2.dialog('close');
+        that._cancelled = true;
+        that._redrawPage1();
+        that._ui_page1.dialog('open');
+    }
+    btns[translate("buttoncancel")] =
+        function() {
+        that._ui_page2.dialog('close');
+    }
 
-        page.dialog({
-            dialogClass: "adblock-blacklist-dialog ui-page-2",
-            position:[50, 50],
-            width: 500,
-            autoOpen: false,
-            title: translate("blacklisteroptionstitle"),
-            buttons: btns,
-            open: function() {
-                that._current_step = 2;
-                that._preview($('#summary', that._ui_page2).text());
-            },
-            close: function() {
-                that._preview(null);
-                that._onClose();
-            }
-        });
+    page.dialog({
+        dialogClass: "adblock-blacklist-dialog ui-page-2",
+        position:[50, 50],
+        width: 500,
+        autoOpen: false,
+        title: translate("blacklisteroptionstitle"),
+        buttons: btns,
+        open: function() {
+            that._current_step = 2;
+            that._preview($('#summary', that._ui_page2).text());
+        },
+        close: function() {
+            that._preview(null);
+            that._onClose();
+        }
+    });
     page.dialog("widget").css("position", "fixed");
     changeTextDirection($("body .adblock-blacklist-dialog"));
 
@@ -301,8 +303,9 @@ BlacklistUi.prototype._makeFilter = function() {
     }
     var attrs = ['id', 'class', 'name', 'src', 'href', 'data'];
     for (var i in attrs) {
-        if ($("input[type='checkbox']#ck" + attrs[i], detailsDiv).is(':checked'))
+        if ($("input[type='checkbox']#ck" + attrs[i], detailsDiv).is(':checked')) {
             result.push('[' + attrs[i] + '=' + getUnicodeUrl(JSON.stringify(el.attr(attrs[i]))) + ']');
+        }
     }
 
     var warningMessage;

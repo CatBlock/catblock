@@ -38,10 +38,11 @@ var idleHandler = {
                 var now = Date.now();
                 // Inversed loop, to prevent splice() making it skip the item after an
                 // executed item.
-                for (var i=idleHandler._scheduledItems.length-1; i>=0; i--)
+                for (var i=idleHandler._scheduledItems.length-1; i>=0; i--) {
                     if (idleHandler._scheduledItems[i].runAt <= now) {
                         idleHandler._scheduledItems.splice(i, 1)[0].callback();
                     }
+                }
             }
             if (!idleHandler._scheduledItems.length) {
                 idleHandler._timer = window.clearInterval(idleHandler._timer);

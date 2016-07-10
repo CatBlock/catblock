@@ -81,8 +81,9 @@ ClickWatcher.prototype.click = function(callback) {
 }
 ClickWatcher.prototype._fire = function(eventName, arg) {
     var callbacks = this._callbacks[eventName];
-    for (var i = 0; i < callbacks.length; i++)
+    for (var i = 0; i < callbacks.length; i++) {
         callbacks[i](arg);
+    }
 }
 ClickWatcher.prototype.show = function() {
     var that = this;

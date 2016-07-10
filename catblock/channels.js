@@ -266,8 +266,9 @@ FlickrChannel.prototype = {
             "https://api.flickr.com/services/rest",
             params,
             function(resp) {
-                if (resp && resp.stat === "ok")
+                if (resp && resp.stat === "ok") {
                     callback(resp);
+                }
             },
             "json"
         );

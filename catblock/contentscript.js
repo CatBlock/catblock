@@ -257,8 +257,9 @@ var picinjection = {
     // Add an info card to |newPic| that appears on hover.
     _addInfoCardTo: function(newPic, placement) {
 
-        if (newPic.infoCard)
+        if (newPic.infoCard) {
             return;
+        }
         // We use a direct sendMessage onmouseenter to avoid modifying
         // emit_page_broadcast.  Create card the first time we mouseover.
         // Then we can use jQuery's mouseenter and mouseleave to control when the
@@ -384,15 +385,17 @@ var picinjection = {
     _augmentHiddenSectionContaining: function(el) {
 
         // Find the top hidden node (the one AdBlock originally hid)
-        while (this._inHiddenSection(el.parentNode))
+        while (this._inHiddenSection(el.parentNode)) {
             el = el.parentNode;
+        }
 
         this._forceToOriginalSizeAndAugment(el, "block");
     },
 
     augmentBlockedElIfRightType: function(el) {
-        if (el.nodeName in { IMG: 1, IFRAME: 1, 'OBJECT': 1, EMBED: 1 })
+        if (el.nodeName in { IMG: 1, IFRAME: 1, 'OBJECT': 1, EMBED: 1 }) {
             picinjection._forceToOriginalSizeAndAugment(el, "");
+        }
     },
 
     _forceToOriginalSizeAndAugment: function(el, displayValue) {
@@ -589,8 +592,9 @@ if (!SAFARI) {
     // Augment blocked ads on Blink-based browsers => images/subdocuments/objects
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         if (request.command !== "purge-elements" ||
-            request.frameUrl !== document.location.href)
+            request.frameUrl !== document.location.href) {
             return;
+        }
 
         var ads = document.querySelectorAll(request.selector);
 

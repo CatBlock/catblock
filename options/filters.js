@@ -340,21 +340,22 @@ FilterListUtil.updateCheckbox = function(filter_list, id) {
     var containing_div = $("div[name='" + id + "']");
     var checkbox = $(containing_div).find("input");
     // Check if subscribed and checkbox staus is equal, if not, update checkbox status according to subscribed status.
-    if(checkbox.is(":checked") !== filter_list.subscribed) {
+    if (checkbox.is(":checked") !== filter_list.subscribed) {
         checkbox.prop("checked", filter_list.subscribed ? true : null);
         // Force update current info label since status is already updated in the background.
         $(".subscription_info", containing_div).text(filter_list.subscribed ? translate("fetchinglabel") : translate("unsubscribedlabel"));
         // If the filter is of language list type, check if subscribed and checkbox visibility matches, if not, update visibility.
-        if(containing_div.parent().attr("id") === "language_list" && filter_list.subscribed !== containing_div.is(":visible")) {
+        if (containing_div.parent().attr("id") === "language_list" && filter_list.subscribed !== containing_div.is(":visible")) {
             containing_div.toggle(500);
             var index = checkbox.attr("id").split("_")[3];
             // After updating visibility, update Language Selectbox too.
-            if(filter_list.subscribed) {
+            if (filter_list.subscribed) {
                 $("#language_select").find("option")[parseInt(index) + 1].remove();
             } else {
                 var newOption = OptionForFilterList(filter_list, index);
-                if (newOption)
+                if (newOption) {
                     LanguageSelectUtil.insertOption(newOption.get(), index);
+                }
             }
         }
     }
@@ -423,15 +424,17 @@ function SubscriptionUtil() {};
 // Returns true if the user knows what they are doing, subscribing to many
 // filter lists.
 SubscriptionUtil.validateOverSubscription = function() {
-    if ($(":checked", "#filter_list_subscriptions").length <= 6)
+    if ($(":checked", "#filter_list_subscriptions").length <= 6) {
         return true;
+    }
     if (optionalSettings && optionalSettings.show_advanced_options) {
         // In case of an advanced user, only warn once every 30 minutes, even
         // if the options page wasn't open all the time. 30 minutes = 1/48 day
-        if ($.cookie('noOversubscriptionWarning'))
+        if ($.cookie('noOversubscriptionWarning')) {
             return true;
-        else
-            $.cookie('noOversubscriptionWarning', 'true', {expires: (1/48)});
+        } else {
+            $.cookie('noOversubscriptionWarning', 'true', { expires: (1/48) });
+        }
     }
     return confirm(translate("catblock_you_know_thats_a_bad_idea_right"));
 };
@@ -559,8 +562,9 @@ CustomFilterListUploadUtil.bindControls = function () {
 //add a checkbox to for the user to indicate if they wish to be notified of blocked malware
 function addMalwareNotificationDiv() {
 
-    if (document.getElementById("malware-notification-message-div"))
-        return;//already exists, don't add it again.
+    if (document.getElementById("malware-notification-message-div")) {
+        return; //already exists, don't add it again.
+    }
     if (!SAFARI &&
         chrome &&
         chrome.notifications) {
@@ -632,8 +636,9 @@ $(function() {
     });
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.command !== "filters_updated")
+        if (request.command !== "filters_updated") {
             return;
+        }
         BGcall("get_subscriptions_minus_text", function(subs) {
             var cached_subscriptions = FilterListUtil.cached_subscriptions;
             for(var id in cached_subscriptions) {

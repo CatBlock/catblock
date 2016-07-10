@@ -250,8 +250,9 @@ PatternFilter._parseRule = function(text) {
     }
 
     var key = rule.match(/[\w&=]{5,}/);
-    if (key)
+    if (key) {
         result.key = new RegExp(key, matchcase);
+    }
 
     // ***** -> *
     //replace, excessive wildcard sequences with a single one

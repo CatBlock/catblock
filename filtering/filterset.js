@@ -79,8 +79,9 @@ FilterSet.prototype = {
             }
         }
         var result = [];
-        for (var k in data)
+        for (var k in data) {
             result.push(data[k].selector);
+        }
         return result;
     },
 
@@ -94,8 +95,9 @@ FilterSet.prototype = {
             var entry = limited.items[k];
             for (var i = 0; i < entry.length; i++) {
                 var filter = entry[i];
-                if (!filter.matches(url, elementType, isThirdParty))
+                if (!filter.matches(url, elementType, isThirdParty)) {
                     continue; // no match
+                }
                 // Maybe filter shouldn't match because it is excluded on our domain?
                 var excluded = false;
                 for (var k2 in limited.exclude) {
@@ -156,8 +158,9 @@ BlockingFilterSet.prototype = {
 
         // matchCache approach taken from ABP
         var key = url + " " + elementType + " " + isThirdParty;
-        if (key in this._matchCache)
+        if (key in this._matchCache) {
             return this._matchCache[key];
+        }
 
         var match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty);
         if (match) {
