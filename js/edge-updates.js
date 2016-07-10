@@ -87,10 +87,10 @@ var STATUS = (function() {
                     checkNow();
                     scheduleNextPing();
                     sleepThenPing();
-                }, delay );
-            };
+                }, delay);
+            }
             // Try to detect corrupt storage and thus avoid ping floods.
-            if (!(millisTillNextPing() > 0) ) {
+            if (!(millisTillNextPing() > 0)) {
                 storage_set("next_ping_time", 1);
                 if (storage_get("next_ping_time") !== 1) {
                     return;

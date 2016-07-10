@@ -79,7 +79,7 @@ Channels.prototype = {
             results[id] = {
                 name: c.name,
                 param: c.param,
-                enabled: c.enabled,
+                enabled: c.enabled
             };
         }
 
@@ -144,8 +144,7 @@ Channels.prototype = {
             toStore.push(guide[id]);
         }
         storage_set("channels", toStore);
-    },
-
+    }
 };
 
 
@@ -154,7 +153,8 @@ Channels.prototype = {
 // relies on that.
 function Channel() {
     this.__listings = [];
-};
+}
+
 Channel.prototype = {
     getListings: function() {
         return this.__listings.slice(0); // shallow copy
@@ -228,7 +228,7 @@ AprilFoolsCatsChannel.prototype = {
             L(103, 272, "tall3.jpg"),
             L(139, 401, "tall4.jpg"),
             L(129, 320, "tall5.jpg"),
-            L(109, 385, "tall6.jpg"),
+            L(109, 385, "tall6.jpg")
         ]);
     }
 };

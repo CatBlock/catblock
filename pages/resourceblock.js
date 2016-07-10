@@ -255,7 +255,7 @@ function addRequestsToTables(frames) {
 
     // Finally, show us the tables!
     $("table").fadeIn();
-};
+}
 
 // Create a new table for frame
 function createTable(domain, url, frameId) {
@@ -315,8 +315,9 @@ function createTable(domain, url, frameId) {
 // It'll sort the table upon the contents of that column
 function sortTable() {
     var table = $(this).closest('table');
-    if (table.find('[colspan]').length)
+    if (table.find('[colspan]').length) {
         return; // can't handle the case where some columns have been merged locally
+    }
     var columnNumber = $(this).prevAll().length + 1;
     if ($(this).attr("data-sortDirection") === "ascending") {
         $(this).attr("data-sortDirection", "descending"); // Z->A
@@ -330,8 +331,9 @@ function sortTable() {
         rowList.push($(element).parent('tr').clone(true));
     });
     cellList.sort();
-    if ($(this).attr("data-sortDirection") === "descending")
+    if ($(this).attr("data-sortDirection") === "descending") {
         cellList.reverse();
+    }
     $("tbody", table).empty();
     cellList.forEach(function(item) {
         var no = Number(item.match(/\d+$/)[0]) - 10000;

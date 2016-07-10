@@ -502,7 +502,7 @@ var checkAdvanceOptions = function() {
             );
         }
     });
-}
+};
 
 // Fetch file with malware-known domains
 var fetchMalware = function() {
@@ -716,8 +716,9 @@ $("#step_firefox_yes")
     .click(function() {
     $("#step_firefox")
         .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
-    if (/^mailto\:/.test(contact))
+    if (/^mailto\:/.test(contact)) {
         contact = contact.replace(" at ", "@");
+    }
     var reportLink = "<a href='" + contact + "'>" + contact.replace(/^mailto\:/, "") + "</a>";
     $("#checkupdate")
         .html(translate("reportfilterlistproblem", [reportLink]));

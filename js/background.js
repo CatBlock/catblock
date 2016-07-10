@@ -85,7 +85,7 @@ function Settings() {
     var settings = storage_get("settings") || {};
     this._data = $.extend(defaults, settings);
 
-};
+}
 
 Settings.prototype = {
     set: function(name, is_enabled) {
@@ -557,6 +557,7 @@ var remove_custom_filter = function(host) {
 // count_cache singleton.
 var count_cache = (function(count_map) {
     var cache = count_map;
+
     // Update custom filter count stored in localStorage
     var _updateCustomFilterCount = function() {
         storage_set("custom_filter_count", cache);

@@ -173,7 +173,7 @@ ClickWatcher.prototype._build_ui = function() {
     btn[translate("buttoncancel")] = function() {
         $(".adblock-ui-stylesheet").remove();
         page.dialog('close');
-    }
+    };
 
     var page = $("<div></div>").
     append(translate("clickthead")).

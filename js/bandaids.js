@@ -8,7 +8,7 @@ var run_bandaids = function() {
     } else if (/mobilmania\.cz|zive\.cz|doupe\.cz|e15\.cz|sportrevue\.cz|autorevue\.cz/.test(document.location.hostname)) {
         apply_bandaid_for = "czech_sites";
     } else {
-        var hosts = [ /mastertoons\.com$/ ];
+        var hosts = [/mastertoons\.com$/];
         hosts = hosts.filter(function(host) { return host.test(document.location.hostname); });
         if (hosts.length > 0) {
             apply_bandaid_for = "noblock";

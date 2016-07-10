@@ -107,7 +107,7 @@ CheckboxForFilterList.prototype = {
             }
         });
 
-        if(this._filter_list_type === "language_filter_list") {
+        if (this._filter_list_type === "language_filter_list") {
             this._check_box.
             change(function() {
                 var $this = $(this);
@@ -119,9 +119,9 @@ CheckboxForFilterList.prototype = {
                     LanguageSelectUtil.insertOption(option.get(), index);
                 }
             });
-        };
+        }
 
-        if(this._filter_list.user_submitted) {
+        if (this._filter_list.user_submitted) {
             this._remove_filter_list_label.
             click(function(event) {
                 event.preventDefault();
@@ -149,7 +149,7 @@ CheckboxForFilterList.prototype = {
 
         this._bindActions();
 
-        if(isChecked) {
+        if (isChecked) {
             this._check_box.prop("checked", true);
             this._check_box.trigger("change");
         }
@@ -226,7 +226,7 @@ SectionHandler.prototype = {
 // Utility class for filter lists.
 function FilterListUtil() {};
 FilterListUtil.sortFilterListArrays = function() {
-    for(var filter_list in filterListSections) {
+    for (var filter_list in filterListSections) {
         filterListSections[filter_list].array.sort(function(a,b) {
             return a.label > b.label ? 1 : (a.label === b.label ? 0 : -1);
         });
@@ -246,7 +246,7 @@ FilterListUtil.getFilterListType = function(filter_list) {
         filter_list_type = "other_filter_list";
     } else if (filter_list.user_submitted) {
         filter_list_type = "custom_filter_list";
-    } else{
+    } else {
         filter_list_type = "language_filter_list";
     }
     return filter_list_type;
@@ -275,8 +275,8 @@ FilterListUtil.prepareSubscriptions = function(subs) {
 //   url:string - Url for uploaded custom filter list.
 FilterListUtil.checkUrlForExistingFilterList = function(url) {
     var cached_subscriptions = FilterListUtil.cached_subscriptions;
-    for(var id in cached_subscriptions) {
-        if(url === cached_subscriptions[id].url) {
+    for (var id in cached_subscriptions) {
+        if (url === cached_subscriptions[id].url) {
             return cached_subscriptions[id];
         }
     }
@@ -285,17 +285,17 @@ FilterListUtil.checkUrlForExistingFilterList = function(url) {
 // Updates info text for each filter list.
 FilterListUtil.updateSubscriptionInfoAll = function() {
     var cached_subscriptions = FilterListUtil.cached_subscriptions;
-    for(var id in cached_subscriptions) {
+    for (var id in cached_subscriptions) {
         var div = $("[name='" + id + "']");
         var subscription = cached_subscriptions[id];
         var infoLabel = $(".subscription_info", div);
         var text = infoLabel.text();
         var last_update = subscription.last_update;
         // If filter list is invalid, skip it.
-        if(infoLabel.text() === translate("invalidListUrl")) {
+        if (infoLabel.text() === translate("invalidListUrl")) {
             continue;
         }
-        if(subscription.last_update_failed_at) {
+        if (subscription.last_update_failed_at) {
             if(subscription.user_submitted &&
                translate("failedtofetchfilter") === infoLabel.text()) {
                 text = translate("invalidListUrl");
@@ -303,7 +303,7 @@ FilterListUtil.updateSubscriptionInfoAll = function() {
             } else {
                 text = translate("failedtofetchfilter");
             }
-        } else if(last_update) {
+        } else if (last_update) {
             var how_long_ago = Date.now() - last_update;
             var seconds = Math.round(how_long_ago / 1000);
             var minutes = Math.round(seconds / 60);
@@ -362,7 +362,7 @@ FilterListUtil.updateCheckbox = function(filter_list, id) {
 };
 
 // Utility class for the language select.
-function LanguageSelectUtil() {};
+function LanguageSelectUtil() {}
 // Insert option at specified index in the language select.
 // Inputs:
 //   option:OptionForFilterList - Option to be inserted.
@@ -371,13 +371,13 @@ LanguageSelectUtil.insertOption = function(option, index) {
     var $language_select = $("#language_select");
     var options = $language_select.find("option");
     var i;
-    for(i = 0; i < options.length; i++) {
+    for (i = 0; i < options.length; i++) {
         var list_option_index = options.eq(i).data("index");
-        if(list_option_index && parseInt(list_option_index) > parseInt(index)) {
+        if (list_option_index && parseInt(list_option_index) > parseInt(index)) {
             break;
         }
     }
-    if(options.eq(i).length > 0) {
+    if (options.eq(i).length > 0) {
         options.eq(i).before(option);
     } else {
         $language_select.append(option);
@@ -388,9 +388,9 @@ LanguageSelectUtil.insertOption = function(option, index) {
 // filter list.
 LanguageSelectUtil.init = function() {
     var language_filter_list_arr = filterListSections.language_filter_list.array;
-    for(var i = 0; i < language_filter_list_arr.length; i++) {
+    for (var i = 0; i < language_filter_list_arr.length; i++) {
         var language_filter_list = language_filter_list_arr[i];
-        if(!language_filter_list.subscribed) {
+        if (!language_filter_list.subscribed) {
             var option = new OptionForFilterList(language_filter_list, i);
             LanguageSelectUtil.insertOption(option.get(), i);
         }
@@ -420,7 +420,7 @@ LanguageSelectUtil.triggerChange = function(filter_list) {
 };
 
 // Utility class for Subscriptions.
-function SubscriptionUtil() {};
+function SubscriptionUtil() {}
 // Returns true if the user knows what they are doing, subscribing to many
 // filter lists.
 SubscriptionUtil.validateOverSubscription = function() {
@@ -442,7 +442,7 @@ SubscriptionUtil.validateOverSubscription = function() {
 // Input:
 //   id:string - Id of the filter list to be subscribed to.
 SubscriptionUtil.subscribe = function(id, title) {
-    if(!SubscriptionUtil.validateOverSubscription()) {
+    if (!SubscriptionUtil.validateOverSubscription()) {
         return;
     }
     var parameters = {id: id, title: title};
@@ -465,7 +465,7 @@ SubscriptionUtil.unsubscribe = function(id, del) {
 //   id:string - Id of the filter list to be updated.
 SubscriptionUtil._updateCacheValue = function(id) {
     var sub = FilterListUtil.cached_subscriptions[id];
-    if(sub) {
+    if (sub) {
         delete sub.last_update_failed_at;
         delete sub.last_update;
     }
@@ -498,7 +498,7 @@ CustomFilterListUploadUtil._performUpload = function(url, subscribe_to) {
 //   existing_filter_list:object - Filter list whose URL was entered by the user.
 CustomFilterListUploadUtil._updateExistingFilterList = function(existing_filter_list) {
     var containing_div = $("div[name='" + existing_filter_list.id + "']");
-    if(containing_div.length < 1) {
+    if (containing_div.length < 1) {
         // If the checkbox does not exist but there is an existing filter list,
         // then recreate the checkbox
         var filter_list_type = FilterListUtil.getFilterListType(existing_filter_list);
@@ -515,8 +515,8 @@ CustomFilterListUploadUtil._updateExistingFilterList = function(existing_filter_
 
     var checkbox = $(containing_div).find("input");
 
-    if(!checkbox.is(":checked")) {
-        if(checkbox.attr("id").indexOf("language_filter_list") > 0) {
+    if (!checkbox.is(":checked")) {
+        if (checkbox.attr("id").indexOf("language_filter_list") > 0) {
             LanguageSelectUtil.triggerChange(existing_filter_list);
         } else {
             checkbox.prop("checked", true);

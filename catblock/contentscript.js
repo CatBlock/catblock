@@ -49,7 +49,7 @@ var picinjection = {
         p.left = 0; p.right = 0; p.top = 0; p.bottom = 0;
 
         // Step 1: Calculate |crop_x|: total horizontal crop needed.
-        var crop_max = Math.max(p.left + p.right, .001);
+        var crop_max = Math.max(p.left + p.right, 0.001);
         // Crop as much as we must, but not past the max allowed crop.
         var crop_x = Math.min(p.width - p.height * t_ratio, crop_max);
 
@@ -91,8 +91,8 @@ var picinjection = {
     // Rotate a picture/target about its NW<->SE axis.
     _rotate: function(o) {
 
-        var pairs = [ ["x", "y"], ["top", "left"], ["bot", "right"],
-                     ["offsettop", "offsetleft"], ["width", "height"] ];
+        var pairs = [["x", "y"], ["top", "left"], ["bot", "right"],
+                     ["offsettop", "offsetleft"], ["width", "height"]];
         pairs.forEach(function(pair) {
             var a = pair[0], b = pair[1], tmp;
             if (o[a] || o[b]) {
@@ -113,8 +113,8 @@ var picinjection = {
 
             return parseInt(match[1]);
         }
-        return ( intFor(el.getAttribute(prop)) ||
-                intFor(window.getComputedStyle(el)[prop]) );
+        return (intFor(el.getAttribute(prop)) ||
+                intFor(window.getComputedStyle(el)[prop]));
     },
 
     _parentDim: function(el, prop) {
@@ -273,6 +273,7 @@ var picinjection = {
                     width: Math.max(placement.width, 180),
                     height: Math.max(placement.height, 100)
                 };
+
                 function position_card(card) {
                     var pos = $(newPic).offset();
                     pos.top += (placement.height - cardsize.height) / 2;
@@ -284,7 +285,7 @@ var picinjection = {
                         pos.left = 0;
                     }
                     card.css(pos);
-                };
+                }
 
                 newPic.infoCard = $("<div>", {
                     "class": "picinjection-infocard",

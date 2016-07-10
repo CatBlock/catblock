@@ -216,5 +216,5 @@ BlockingFilterSet.prototype = {
     },
     getMalwareDomains: function() {
         return this.malwareDomains;
-    },
-}
+    }
+};

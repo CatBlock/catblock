@@ -2,7 +2,7 @@
 
     function assert_eq(o1, o2) {
         var fail = false;
-        [ [o1, o2], [o2, o1] ].forEach(function(objects) {
+        [[o1, o2], [o2, o1]].forEach(function(objects) {
             var a = objects[0], b = objects[1];
             for (property in a) {
                 if (a[property] !== b[property]) {

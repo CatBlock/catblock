@@ -201,7 +201,9 @@ BlacklistUi.prototype._build_page2 = function() {
                     that._ui_page2.dialog('close');
                     that._fire('block');
                 });
-            } else {alert(translate("blacklisternofilter"));}
+            } else {
+                alert(translate("blacklisternofilter"));
+            }
         }
     };
 
@@ -209,9 +211,9 @@ BlacklistUi.prototype._build_page2 = function() {
         btns[translate("buttonedit")] =
             function() {
             var custom_filter = getUnicodeDomain(document.location.hostname) + '##' + $("#summary", that._ui_page2).text();
-            that._ui_page2.dialog('close');
+            that._ui_page2.dialog("close");
             custom_filter = prompt(translate("blacklistereditfilter"), custom_filter);
-            if (custom_filter) {//null => user clicked cancel
+            if (custom_filter) { //null => user clicked cancel
                 if (!/\#\#/.test(custom_filter)) {
                     custom_filter = "##" + custom_filter;
                 }
@@ -361,8 +363,9 @@ BlacklistUi.prototype._redrawPage2 = function() {
         // Check src, data and href only by default if no other identifiers are
         // present except for the nodeName selector.
         var checked = true;
-        if (attr === 'src' || attr === 'href' || attr === 'data')
+        if (attr === "src" || attr === "href" || attr === "data") {
             checked = $("input", detailsDiv).length === 1;
+        }
 
         var italic = $("<i></i>").text(val);
         var checkboxlabel = $("<label></label>").

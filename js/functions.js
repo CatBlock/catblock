@@ -93,7 +93,7 @@ var localizePage = function() {
 
     // Make a right-to-left translation for Arabic and Hebrew languages
     var language = determineUserLanguage();
-    if (language === "ar" || language === "he" ) {
+    if (language === "ar" || language === "he") {
         $("#main_nav").removeClass("right").addClass("left");
         $(".adblock-logo").removeClass("left").addClass("right");
         $(".closelegend").css("float","left");
@@ -225,8 +225,9 @@ var setDefault = function(obj, value, defaultValue) {
 // Returns value if key exists, else undefined.
 var sessionstorage_get = function(key) {
     var json = sessionStorage.getItem(key);
-    if (json === null)
+    if (json === null) {
         return undefined;
+    }
     try {
         return JSON.parse(json);
     } catch (e) {
