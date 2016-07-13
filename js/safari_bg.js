@@ -163,7 +163,7 @@ safari.application.addEventListener("activate", function(event) {
     }
 }, true);
 
-safari.application.addEventListener("popover", function(event) {
+safari.application.addEventListener("popover", function() {
     safari.extension.popovers[0].contentWindow.location.reload();
 }, true);
 

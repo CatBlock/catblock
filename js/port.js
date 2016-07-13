@@ -250,7 +250,7 @@ if (typeof SAFARI === "undefined") {
                         }
 
                         if (info.top_level) {
-                            tab[info.visible ? 'visible_url' : 'invisible_url'] = getUnicodeUrl(info.url);
+                            tab[info.visible ? "visible_url" : "invisible_url"] = getUnicodeUrl(info.url);
                         }
                     },
 
@@ -290,7 +290,7 @@ if (typeof SAFARI === "undefined") {
                     function parseString(msgData, args) {
                         // If no substitution, just turn $$ into $ and short-circuit.
                         if (msgData.placeholders === undefined && args === undefined) {
-                            return msgData.message.replace(/\$\$/g, '$');
+                            return msgData.message.replace(/\$\$/g, "$");
                         }
 
                         // Substitute a regex while understanding that $$ should be untouched
@@ -324,7 +324,7 @@ if (typeof SAFARI === "undefined") {
                             return full; // e.g. '$FoO$' instead of 'foo'
                         });
                         // Replace $$ with $
-                        message = message.replace(/\$\$/g, '$');
+                        message = message.replace(/\$\$/g, "$");
 
                         return message;
                     }
@@ -355,7 +355,7 @@ if (typeof SAFARI === "undefined") {
                             // === Find all locales we might need to pull messages from, in order
                             // 1: The user's current locale, converted to match the format of
                             //    the _locales directories (e.g. "en-US" becomes "en_US"
-                            result.locales.push(navigator.language.replace('-', '_'));
+                            result.locales.push(navigator.language.replace("-", "_"));
                             // 2: Perhaps a region-agnostic version of the current locale
                             if (navigator.language.length > 2) {
                                 result.locales.push(navigator.language.substring(0, 2));

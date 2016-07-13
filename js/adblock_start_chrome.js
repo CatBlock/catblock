@@ -29,9 +29,9 @@ var elementPurger = {
                 // A selector containing an object is not a valid selector (reddit.com),
                 // therefore we need to slice a processed selector
                 if (src.text.indexOf("{") > -1) {
-                    selector = tag + "[" + attr + "*=" + '"' + src.text.slice(0, src.text.indexOf("{")) + '"]';
+                    selector = tag + "[" + attr + "*='" + src.text.slice(0, src.text.indexOf("{")) + "']";
                 } else {
-                    selector = tag + "[" + attr + src.op + '"' + src.text + '"]';
+                    selector = tag + "[" + attr + src.op + "'" + src.text + "']";
                 }
 
                 var results = document.querySelectorAll(selector);
@@ -78,18 +78,18 @@ var elementPurger = {
             var page_dirs = page_parts.pathname.split("/");
             var url_dirs = url_parts.pathname.split("/");
             var i = 0;
-            while (page_dirs[i] === url_dirs[i]
-                   && i < page_dirs.length - 1
-                   && i < url_dirs.length - 1) {
+            while (page_dirs[i] === url_dirs[i] &&
+                   i < page_dirs.length - 1 &&
+                   i < url_dirs.length - 1) {
                 i++; // i is set to first differing position
             }
             var dir = new Array(page_dirs.length - i).join("../");
             var path = url_dirs.slice(i).join("/") + url_search_and_hash;
             if (dir) {
-                results.push({ op:"$=", text: dir + path });
+                results.push({ op: "$=", text: dir + path });
             } else {
-                results.push({ op:"=", text: path });
-                results.push({ op:"=", text: "./" + path });
+                results.push({ op: "=", text: path });
+                results.push({ op: "=", text: "./" + path });
             }
         }
 
