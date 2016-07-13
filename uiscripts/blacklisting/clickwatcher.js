@@ -72,7 +72,7 @@ function Highlighter() {
 // Class that watches the whole page for a click, including iframes and
 // objects.  Shows a modal while doing so.
 function ClickWatcher() {
-    this._callbacks = { 'cancel': [], 'click': [] };
+    this._callbacks = { "cancel": [], "click": [] };
     this._clicked_element = null;
     this._highlighter = new Highlighter();
 }
@@ -107,9 +107,9 @@ ClickWatcher.prototype.show = function() {
     // setTimeout to give 'wait' a chance to display
     window.setTimeout(function() {
         that._ui = that._build_ui();
-        wait.dialog('close');
+        wait.dialog("close");
         wait.remove();
-        that._ui.dialog('open');
+        that._ui.dialog("open");
         that._highlighter.enable();
     }, 10);
 };
@@ -120,7 +120,7 @@ ClickWatcher.prototype.close = function() {
     // Delete our event listeners so we don't fire any cancel events
     this._callbacks.cancel = [];
     if (this._ui) {
-        this._ui.dialog('close');
+        this._ui.dialog("close");
     }
 };
 
@@ -129,10 +129,10 @@ ClickWatcher.prototype.close = function() {
 ClickWatcher.prototype._onClose = function() {
     if (this._clicked_element === null) {
         // User clicked Cancel button or X
-        this._fire('cancel');
+        this._fire("cancel");
     } else {
         // User clicked a page item
-        this._fire('click', this._clicked_element);
+        this._fire("click", this._clicked_element);
     }
     this._highlighter.destroy();
 };
@@ -147,7 +147,7 @@ ClickWatcher.prototype._build_ui = function() {
     function click_catch(element) {
         that._clicked_element = that._highlighter.getCurrentNode(element);
         //that._clicked_element = element;
-        that._ui.dialog('close');
+        that._ui.dialog("close");
         return false;
     }
 
@@ -160,7 +160,7 @@ ClickWatcher.prototype._build_ui = function() {
     // ad, and I *really* don't want to figure out inter-frame communication
     // so that the blacklist UI's slider works between multiple layers of
     // iframes... just overlay iframes and treat them as a giant object.
-    $("object,embed,iframe,[onclick]:empty").
+    $("object, embed, iframe, [onclick]:empty").
     each(function(i, dom_element) {
         var killme_overlay = new Overlay({
             dom_element: dom_element,
@@ -172,7 +172,7 @@ ClickWatcher.prototype._build_ui = function() {
     var btn = {};
     btn[translate("buttoncancel")] = function() {
         $(".adblock-ui-stylesheet").remove();
-        page.dialog('close');
+        page.dialog("close");
     };
 
     var page = $("<div></div>").
@@ -180,9 +180,9 @@ ClickWatcher.prototype._build_ui = function() {
     append("<br/><br/>").
     dialog({
         dialogClass: "adblock-blacklist-dialog",
-        position:[50, 50],
-        width:400,
-        minHeight:125,
+        position: [50, 50],
+        width: 400,
+        minHeight: 125,
         autoOpen: false,
         title: translate("blockanadtitle"),
         buttons: btn,
@@ -197,12 +197,13 @@ ClickWatcher.prototype._build_ui = function() {
             that._highlighter.disable();
         }
     });
+
     page.dialog("widget").
     css("position", "fixed").
-    bind("mouseenter",function() {
+    bind("mouseenter", function() {
         that._highlighter.disable();
     }).
-    bind("mouseleave",function() {
+    bind("mouseleave", function() {
         that._highlighter.enable();
     });
     changeTextDirection($("body .adblock-blacklist-dialog"));
