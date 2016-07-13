@@ -21,7 +21,7 @@ $(function() {
         var paused = BG.adblock_is_paused();
         var shown = {};
 
-        function show(L) { L.forEach(function(x) { shown[x] = true;  }); }
+        function show(L) { L.forEach(function(x) { shown[x] = true; }); }
         function hide(L) { L.forEach(function(x) { shown[x] = false; }); }
 
         show(["div_options", "separator2"]);
@@ -249,8 +249,8 @@ $(function() {
     });
 
     $("#div_report_an_ad").click(function() {
-        var url = "pages/adreport.html?url=" + encodeURIComponent(tab.unicodeUrl)
-        + "&tabId=" + tab.id;
+        var url = "pages/adreport.html?url=" + encodeURIComponent(tab.unicodeUrl) +
+            "&tabId=" + tab.id;
         BG.openTab(url, true);
         closeAndReloadPopup();
     });

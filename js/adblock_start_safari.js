@@ -26,11 +26,9 @@ function weakDestroyElement(el, elType) {
     if (elType & ElementTypes.background) {
         el.style.setProperty("background-image", "none", "important");
         return true;
-    }
-    else if (elType === ElementTypes.script) {
+    } else if (elType === ElementTypes.script) {
         return true; // nothing to do
-    }
-    else {
+    } else {
         return false; // not handled by this function
     }
 }

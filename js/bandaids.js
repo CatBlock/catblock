@@ -60,7 +60,7 @@ var before_ready_bandaids = function() {
 // This function is outside the normal 'bandaids' processing
 // so that it works correctly
 (function() {
-    if ((typeof SAFARI) !== 'undefined' &&
+    if ((typeof SAFARI) !== "undefined" &&
         SAFARI &&
         document.domain === "www.youtube.com") {
         //continue
@@ -176,8 +176,10 @@ var before_ready_bandaids = function() {
 
                                         args = {};
                                         for (var arg in rawArgs) {
-                                            if (!badArgumentsRegex.test(arg)) {
-                                                args[arg] = rawArgs[arg];
+                                            if (rawArgs.hasOwnProperty(arg)) {
+                                                if (!badArgumentsRegex.test(arg)) {
+                                                    args[arg] = rawArgs[arg];
+                                                }
                                             }
                                         }
                                     }

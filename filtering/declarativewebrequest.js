@@ -219,7 +219,7 @@ var DeclarativeWebRequest = (function() {
     var createDocumentIgnoreRule = function(filter) {
         var rule = createDefaultRule();
         rule.action = {"type": "ignore-previous-rules"};
-        rule.trigger["url-filter"]  =  getURLFilterFromFilter(filter);
+        rule.trigger["url-filter"] = getURLFilterFromFilter(filter);
         var resourceArray = getResourceTypesByElementType(filter._allowedElementTypes);
         if (resourceArray && resourceArray.length > 0) {
             rule.trigger["resource-type"] = resourceArray;
