@@ -1,6 +1,38 @@
 // Store actual URL
 var url = document.location.href;
 
+// Get id of the channel
+function getChannelId(url) {
+    return parseUri(url).pathname.split("/")[2];
+}
+
+// Get id of the video
+function getVideoId(url) {
+    return parseUri.parseSearch(url).v;
+}
+
+// Function which: - adds name of the channel on the end of the URL, e.g. &ab_channel=nameofthechannel
+//                 - reload the page, so AdBlock can properly whitelist the page (just if channel is whitelisted by user)
+function updateURL(channelName, shouldReload) {
+    if (parseUri(url).search.indexOf("?") === -1) {
+        var updatedUrl = url + "?&ab_channel=" + channelName.replace(/\s/g, "");
+    } else {
+        var updatedUrl = url + "&ab_channel=" + channelName.replace(/\s/g, "");
+    }
+    // Add the name of the channel to the end of URL
+    window.history.replaceState(null, null, updatedUrl);
+    // |shouldReload| is true only if we are not able to get
+    // name of the channel by using YouTube Data v3 API
+    if (shouldReload) {
+        // Reload page from cache, if it should be whitelisted
+        BGcall("page_is_whitelisted", updatedUrl, function(whitelisted) {
+            if (whitelisted) {
+                document.location.reload(false);
+            }
+        });
+    }
+}
+
 if (!/ab_channel/.test(url)) {
     // Get name of the channel by using YouTube Data v3 API
     if (/channel/.test(url)) {
@@ -50,38 +82,6 @@ if (!/ab_channel/.test(url)) {
                     updateURL(channelName, true);
                 }
             }, true);
-        }
-    }
-
-    // Get id of the channel
-    function getChannelId(url) {
-        return parseUri(url).pathname.split("/")[2];
-    }
-
-    // Get id of the video
-    function getVideoId(url) {
-        return parseUri.parseSearch(url).v;
-    }
-
-    // Function which: - adds name of the channel on the end of the URL, e.g. &ab_channel=nameofthechannel
-    //                 - reload the page, so AdBlock can properly whitelist the page (just if channel is whitelisted by user)
-    function updateURL(channelName, shouldReload) {
-        if (parseUri(url).search.indexOf("?") === -1) {
-            var updatedUrl = url+"?&ab_channel="+channelName.replace(/\s/g,"");
-        } else {
-            var updatedUrl = url+"&ab_channel="+channelName.replace(/\s/g,"");
-        }
-        // Add the name of the channel to the end of URL
-        window.history.replaceState(null, null, updatedUrl);
-        // |shouldReload| is true only if we are not able to get
-        // name of the channel by using YouTube Data v3 API
-        if (shouldReload) {
-            // Reload page from cache, if it should be whitelisted
-            BGcall("page_is_whitelisted", updatedUrl, function(whitelisted) {
-                if (whitelisted) {
-                    document.location.reload(false);
-                }
-            });
         }
     }
 }
