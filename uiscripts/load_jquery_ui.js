@@ -6,8 +6,8 @@ function bind_enter_click_to_default() {
         return;
     }
     GLOBAL_ran_bind_enter_click_to_default = true;
-    $("html").bind("keypress", function(e){
-        if (e.keyCode === 13 && $("button:focus").size() <= 0){
+    $("html").bind("keypress", function(e) {
+        if (e.keyCode === 13 && $("button:focus").size() <= 0) {
             e.preventDefault();
             $(".adblock_default_button").filter(":visible").click();
         }
@@ -17,7 +17,7 @@ function bind_enter_click_to_default() {
 function load_jquery_ui(callback) {
     function load_css(src) {
         var url = chrome.runtime.getURL(src);
-        var link = $('<link rel="stylesheet" type="text/css" />').
+        var link = $("<link rel='stylesheet' type='text/css' />").
         attr("href", url).
         addClass("adblock-ui-stylesheet");
         $(document.head || document.documentElement).append(link);

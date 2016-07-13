@@ -9,16 +9,40 @@ function mayDelete(channelData) {
     }
     return true;
 }
+
 function displayName(channelData) {
     var name = channelData.name, param = channelData.param;
     name = name.replace(/Channel$/, "");
-    name = name.replace(/([^A-Z])([A-Z])/g, '$1 $2'); // Spaces b/w words
+    name = name.replace(/([^A-Z])([A-Z])/g, "$1 $2"); // Spaces b/w words
     name = name.replace(/ Block/g, "Block"); // AdBlock, CatBlock...
     if (name === "Flickr Search") {
         name = "Flickr search for";
     }
     return name + " <b>" + (param || "") + "</b>";
 }
+
+function fillChannelUIWithPhotos(id) {
+    $("#fill-photos-btn-" + id).hide();
+    BGcall("getListings", id, function(listings) {
+        var holder = $("#chan-" + id + "-photos");
+        holder.html("");
+        holder.show();
+        for (var i=0; i < listings.length; i++) {
+            var link = $("<a>", {
+                href: listings[i].attribution_url,
+                target: "_blank"
+            });
+            $("<img>", {
+                src: listings[i].url,
+                height: 100,
+                id: "chan-" + id + "-listing-" + (i+1) + "-render",
+                title: listings[i].title
+            }).appendTo(link);
+            link.appendTo(holder);
+        }
+    });
+}
+
 function addEmptyChannelUI(id, data) {
     if (document.getElementById("chan-" + id)) {
         return;
@@ -57,7 +81,7 @@ function addEmptyChannelUI(id, data) {
     var title = $("<div>", {id: "chan-" + id + "-title"}).
     append(cb).
     append($("<span>", {
-        "class": 'channel-name',
+        "class": "channel-name",
         html: displayName(data)
     })).
     append(deleteMe).
@@ -67,28 +91,6 @@ function addEmptyChannelUI(id, data) {
         id: "chan-" + id + "-photos"
     });
     theUI.html(title).append(photos).appendTo("#channels");
-}
-
-function fillChannelUIWithPhotos(id) {
-    $("#fill-photos-btn-" + id).hide();
-    BGcall("getListings", id, function(listings) {
-        var holder = $("#chan-" + id + "-photos");
-        holder.html("");
-        holder.show();
-        for (var i=0; i < listings.length; i++) {
-            var link = $("<a>", {
-                href: listings[i].attribution_url,
-                target: "_blank"
-            });
-            $("<img>", {
-                src: listings[i].url,
-                height: 100,
-                id: "chan-" + id + "-listing-" + (i+1) + "-render",
-                title: listings[i].title
-            }).appendTo(link);
-            link.appendTo(holder);
-        }
-    });
 }
 
 function addChannel(name, param) {
@@ -107,10 +109,12 @@ function addChannel(name, param) {
 
 BGcall("getGuide", function(guide) {
     for (var id in guide) {
-        addEmptyChannelUI(id, guide[id]);
+        if (guide.hasOwnProperty(id)) {
+            addEmptyChannelUI(id, guide[id]);
+        }
     }
     chrome.runtime.onMessage.addListener(
-        function(request, sender, sendResponse) {
+        function(request, sender) {
             if (request.command !== "channel-updated") {
                 return;
             }

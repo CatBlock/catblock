@@ -184,7 +184,7 @@ var FilterNormalizer = {
         var first_segment = rule.indexOf("(");
 
         if (first_segment === -1) {
-            return domain + '##' + rule;
+            return domain + "##" + rule;
         }
 
         var node = rule.substring(0, first_segment);
@@ -194,7 +194,7 @@ var FilterNormalizer = {
         segments = segments.replace(/\((.*?)\)/g, "[$1]");
         // turn all [foo=bar baz] groups into [foo="bar baz"]
         // Specifically match:    = then not " then anything till ]
-        segments = segments.replace(/\=([^"][^\]]*)/g, '="$1"');
+        segments = segments.replace(/\=([^"][^\]]*)/g, "='$1'");
         // turn all [foo] into .foo, #foo
         // #div(adblock) means all divs with class or id adblock
         // class must be a single class, not multiple (not #*(ad listitem))
@@ -238,7 +238,7 @@ var FilterNormalizer = {
 
 // Initialize the exclude filters at startup
 try {
-    FilterNormalizer.setExcludeFilters(storage_get('exclude_filters'));
+    FilterNormalizer.setExcludeFilters(storage_get("exclude_filters"));
 } catch(e) {
     // ignore exception in Safari on options / resource block pages
 }

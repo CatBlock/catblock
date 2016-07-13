@@ -1,3 +1,5 @@
+var optionalSettings = {};
+
 function tabLoad() {
     // Load different tabs
     $("nav > a, nav > div > a").click(function(event) {
@@ -49,13 +51,13 @@ function tabLoad() {
 
     // Display responsive tab options
     $("#toggletabs").click(function() {
-        $(this).toggleClass('expanded').siblings('div').slideToggle();
+        $(this).toggleClass("expanded").siblings("div").slideToggle();
     });
 }
 
 function afterTabLoad() {
     // Hide advanced settings
-    if (!optionalSettings.show_advanced_options) {
+    if (optionalSettings && !optionalSettings.show_advanced_options) {
         $(".advanced").hide();
     }
     if (SAFARI) {
@@ -119,9 +121,7 @@ function displayTranslationCredit() {
     }
 }
 
-var optionalSettings = {};
-
-$(document).ready(function(){
+$(document).ready(function() {
     BGcall("get_settings", function(settings) {
         optionalSettings = settings;
         tabLoad();
