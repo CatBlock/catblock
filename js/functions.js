@@ -144,9 +144,8 @@ parseUri.secondLevelDomainOnly = function(domain, keepDot) {
     if (domain) {
         var match = domain.match(/([^\.]+\.(?:co\.)?[^\.]+)\.?$/) || [domain, domain];
         return match[keepDot ? 0 : 1].toLowerCase();
-    } else {
-        return domain;
     }
+    return domain;
 };
 
 // Return |domain| encoded in Unicode
