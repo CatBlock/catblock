@@ -19,7 +19,7 @@ var DeclarativeWebRequest = (function() {
 
     // Returns false if the given filter cannot be handled by Safari 9 content blocking.
     var isSupported = function(filter) {
-        if (!filter.hasOwnProperty("_allowedElementTypes"))  {
+        if (!filter.hasOwnProperty("_allowedElementTypes")) {
             return true;
         }
         return !(filter._allowedElementTypes === (filter._allowedElementTypes & UNSUPPORTED_TYPES));
@@ -51,18 +51,20 @@ var DeclarativeWebRequest = (function() {
             result.included.push(undefined);
         }
         for (var d in has) {
-            if (d === DomainSet.ALL) {
-                continue;
-            }
-            var parsedDomain = punycode.toASCII(d).toLowerCase();
-            // Remove the leading 'www'
-            if (parsedDomain.indexOf("www.") === 0) {
-                parsedDomain = parsedDomain.substr(4);
-            }
-            if (has[d]) {
-                result.included.push("*" + parsedDomain);
-            } else {
-                result.excluded.push(parsedDomain);
+            if (has.hasOwnProperty(d)) {
+                if (d === DomainSet.ALL) {
+                    continue;
+                }
+                var parsedDomain = punycode.toASCII(d).toLowerCase();
+                // Remove the leading 'www'
+                if (parsedDomain.indexOf("www.") === 0) {
+                    parsedDomain = parsedDomain.substr(4);
+                }
+                if (has[d]) {
+                    result.included.push("*" + parsedDomain);
+                } else {
+                    result.excluded.push(parsedDomain);
+                }
             }
         }
         return result;
@@ -192,15 +194,15 @@ var DeclarativeWebRequest = (function() {
     var createElemhideIgnoreRule = function(filter) {
         var rule = createDefaultRule();
         rule.action.type = "ignore-previous-rules";
-        rule.trigger["url-filter"]  =  getURLFilterFromFilter(filter);
+        rule.trigger["url-filter"] = getURLFilterFromFilter(filter);
         var resourceArray = getResourceTypesByElementType(filter._allowedElementTypes);
         if (resourceArray && resourceArray.length > 0) {
             rule.trigger["resource-type"] = resourceArray;
         }
-        if (filter._options & FilterOptions["THIRDPARTY"]) {
-            rule["trigger"]["load-type"] = ["third-party"];
+        if (filter._options & FilterOptions.THIRDPARTY) {
+            rule.trigger["load-type"] = ["third-party"];
         } else {
-            rule["trigger"]["load-type"] = ["first-party"];
+            rule.trigger["load-type"] = ["first-party"];
         }
         addDomainsToRule(filter, rule);
         return rule;
@@ -209,7 +211,7 @@ var DeclarativeWebRequest = (function() {
     // Return the rule (JSON) required to represent this Selector Filter in Safari blocking syntax.
     var createEmptySelectorRule = function() {
         var rule = createDefaultRule();
-        rule.action["type"] = "css-display-none";
+        rule.action.type = "css-display-none";
         return rule;
     };
 
@@ -283,7 +285,7 @@ var DeclarativeWebRequest = (function() {
                 }
 
                 var theRule = createEmptySelectorRule();
-                theRule.action["selector"] = selectorText;
+                theRule.action.selector = selectorText;
                 rules.push(theRule);
             }
 
