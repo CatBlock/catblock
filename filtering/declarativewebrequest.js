@@ -1,4 +1,4 @@
-DeclarativeWebRequest = (function() {
+var DeclarativeWebRequest = (function() {
     if (!safari ||
         !safari.extension ||
         (typeof safari.extension.setContentBlocker !== "function")) {
@@ -15,6 +15,22 @@ DeclarativeWebRequest = (function() {
     // Returns true if |filter| is of type $document or $elemhide
     var isPageLevel = function(filter) {
         return filter._allowedElementTypes & PAGELEVEL_TYPES;
+    };
+
+    // Returns false if the given filter cannot be handled by Safari 9 content blocking.
+    var isSupported = function(filter) {
+        if (!filter.hasOwnProperty("_allowedElementTypes"))  {
+            return true;
+        }
+        return !(filter._allowedElementTypes === (filter._allowedElementTypes & UNSUPPORTED_TYPES));
+    };
+
+    // Remove any characters from the filter lists that are not needed, such as |##| and |.|
+    var parseSelector = function(selector) {
+        if (selector.indexOf("##") === 0) {
+            selector = selector.substring(2, selector.length);
+        }
+        return selector;
     };
 
     // Returns an object containing .included and .excluded lists of domains for
@@ -44,9 +60,9 @@ DeclarativeWebRequest = (function() {
                 parsedDomain = parsedDomain.substr(4);
             }
             if (has[d]) {
-                result['included'].push("*" + parsedDomain);
+                result.included.push("*" + parsedDomain);
             } else {
-                result['excluded'].push(parsedDomain);
+                result.excluded.push(parsedDomain);
             }
         }
         return result;
@@ -111,7 +127,7 @@ DeclarativeWebRequest = (function() {
 
     // Separates the different white list filters so they are added
     // to the final rule array in the correct order (for performance reasons)
-    var preProcessWhitelistFilters = function(whitelistFilters){
+    var preProcessWhitelistFilters = function(whitelistFilters) {
         for (var inx = 0; inx < whitelistFilters.length; inx++) {
             var filter = whitelistFilters[inx];
             if (isSupported(filter) &&
@@ -149,16 +165,16 @@ DeclarativeWebRequest = (function() {
     // Return the rule required to represent this PatternFilter in Safari blocking syntax.
     var getRule = function(filter) {
         var rule = createDefaultRule();
-        rule.trigger["url-filter"]  =  getURLFilterFromFilter(filter);
+        rule.trigger["url-filter"] = getURLFilterFromFilter(filter);
         var resourceArray = getResourceTypesByElementType(filter._allowedElementTypes);
         if (resourceArray && resourceArray.length > 0) {
             rule.trigger["resource-type"] = resourceArray;
         }
         addDomainsToRule(filter, rule);
-        if (filter._options & FilterOptions["THIRDPARTY"]) {
-            rule["trigger"]["load-type"] = ["third-party"];
+        if (filter._options & FilterOptions.THIRDPARTY) {
+            rule.trigger["load-type"] = ["third-party"];
         } else {
-            rule["trigger"]["load-type"] = ["first-party"];
+            rule.trigger["load-type"] = ["first-party"];
         }
         return rule;
     };
@@ -193,7 +209,7 @@ DeclarativeWebRequest = (function() {
     // Return the rule (JSON) required to represent this Selector Filter in Safari blocking syntax.
     var createEmptySelectorRule = function() {
         var rule = createDefaultRule();
-        rule["action"]["type"] = "css-display-none";
+        rule.action["type"] = "css-display-none";
         return rule;
     };
 
@@ -221,23 +237,6 @@ DeclarativeWebRequest = (function() {
         }
         addDomainsToRule(filter, rule);
         return rule;
-    };
-
-    // Returns false if the given filter cannot be handled by Safari 9 content blocking.
-    var isSupported = function(filter) {
-        if (!filter.hasOwnProperty('_allowedElementTypes'))  {
-            return true;
-        } else {
-            return !(filter._allowedElementTypes === (filter._allowedElementTypes & UNSUPPORTED_TYPES));
-        }
-    };
-
-    // Remove any characters from the filter lists that are not needed, such as |##| and |.|
-    var parseSelector = function(selector) {
-        if (selector.indexOf('##') === 0) {
-            selector = selector.substring(2, selector.length);
-        }
-        return selector;
     };
 
     var resetInternalArrays = function() {
@@ -271,7 +270,7 @@ DeclarativeWebRequest = (function() {
                         // If the selector is an ID selector and contains an upper case character
                         // also add an all lower case version due to a webkit bug (#23616574)
                         var tempSelector = parseSelector(filter.selector);
-                        if ((tempSelector.charAt(0) === '#') &&
+                        if ((tempSelector.charAt(0) === "#") &&
                             hasUpperCase(tempSelector)) {
                             tempSelector = tempSelector + ", " + tempSelector.toLowerCase();
                         }
@@ -284,7 +283,7 @@ DeclarativeWebRequest = (function() {
                 }
 
                 var theRule = createEmptySelectorRule();
-                theRule["action"]["selector"] = selectorText;
+                theRule.action["selector"] = selectorText;
                 rules.push(theRule);
             }
 
@@ -306,7 +305,7 @@ DeclarativeWebRequest = (function() {
                     var rule = getRule(filter);
                     var is_valid = true;
                     try {
-                        new RegExp(rule["trigger"]["url-filter"]);
+                        new RegExp(rule.trigger["url-filter"]);
                     } catch(ex) {
                         is_valid = false;
                     }
