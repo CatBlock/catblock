@@ -221,7 +221,7 @@ var picinjection = {
                     backgroundSize: placement.x + "px " + placement.y + "px",
                     margin: placement.offsettop + "px " + placement.offsetleft + "px",
                     // nytimes.com float:right ad at top is on the left without this
-                    "float": (window.getComputedStyle(el)["float"] || undefined)
+                    "float": (window.getComputedStyle(el).float || undefined)
                 };
                 for (var k in css) {
                     newPic.style[k] = css[k];
@@ -299,7 +299,7 @@ var picinjection = {
                         "border": "2px solid rgb(128, 128, 128)",
                         "font": "normal small Arial, sans-serif",
                         "color": "black",
-                        "background-color": "rgba(188, 188, 188, 0.7)",
+                        "background-color": "rgba(188, 188, 188, 0.7)"
                     } });
                 newPic.infoCard.appendTo("body");
                 var folder = "img/";
@@ -313,7 +313,7 @@ var picinjection = {
                         "font": "bold 20px sans-serif",
                         "text-decoration": "none",
                         color: "blue",
-                        "margin-left": 10,
+                        "margin-left": 10
                     },
                     click: function() {
                         newPic.infoCard.remove();
@@ -324,7 +324,7 @@ var picinjection = {
                     css: {
                         float: "right",
                         // independent.co.uk borders all imgs
-                        border: "none",
+                        border: "none"
                     },
                     src: chrome.runtime.getURL(folder + "icon19.png")
                 })).
@@ -394,7 +394,7 @@ var picinjection = {
     },
 
     augmentBlockedElIfRightType: function(el) {
-        if (el.nodeName in { IMG: 1, IFRAME: 1, 'OBJECT': 1, EMBED: 1 }) {
+        if (el.nodeName in { IMG: 1, IFRAME: 1, "OBJECT": 1, EMBED: 1 }) {
             picinjection._forceToOriginalSizeAndAugment(el, "");
         }
     },
@@ -426,8 +426,8 @@ var picinjection = {
             el.style.cssText = oldCssText; // Re-hide the section
             var addedImgs = document.getElementsByClassName("picinjection-image");
             for (var i = 0; i < addedImgs.length; i++) {
-                var displayVal = window.getComputedStyle(addedImgs[i])["display"];
-                if (displayVal === 'none') {
+                var displayVal = window.getComputedStyle(addedImgs[i]).display;
+                if (displayVal === "none") {
                     addedImgs[i].style.display = "";
                 }
             }
@@ -446,7 +446,7 @@ var picinjection = {
                 de: "AdBlock ersetzt ab heute Werbung durch Katzen!",
                 ru: "AdBlock теперь отображает котов вместо рекламы!",
                 nl: "AdBlock toont je nu katten in plaats van advertenties!",
-                zh: "现在显示的AdBlock猫，而不是广告！",
+                zh: "现在显示的AdBlock猫，而不是广告！"
             },
             "stop_showing": {
                 en: "Stop showing me cats!",
@@ -455,7 +455,7 @@ var picinjection = {
                 de: "Keine Katzen mehr anzeigen!",
                 ru: "Не показывать кошек!",
                 nl: "Toon geen katten meer!",
-                zh: "不显示猫图片！",
+                zh: "不显示猫图片！"
             },
             "ok_no_more": {
                 en: "OK, AdBlock will not show you any more cats.\n\nHappy April Fools' Day!",
@@ -464,7 +464,7 @@ var picinjection = {
                 de: "AdBlock wird keine Katzen mehr anzeigen.\n\nApril, April!",
                 ru: "Хорошо, AdBlock не будет отображаться кошек.\n\nЕсть счастливый День дурака",
                 nl: "1 April!!\n\nAdBlock zal vanaf nu geen katten meer tonen.",
-                zh: "OK，的AdBlock不会显示猫。\n\n幸福四月愚人节！",
+                zh: "OK，的AdBlock不会显示猫。\n\n幸福四月愚人节！"
             },
             "new": {
                 en: "New!",
@@ -473,7 +473,7 @@ var picinjection = {
                 de: "Neu!",
                 ru: "новое!",
                 nl: "Nieuw!",
-                zh: "新！",
+                zh: "新！"
             },
             "enable_picinjection": {
                 en: "Display a pretty picture in place of ads.",
@@ -482,7 +482,7 @@ var picinjection = {
                 de: "Werbung durch schöne Bilder ersetzen.",
                 ru: "Показать красивую картинку вместо объявления.",
                 nl: "Toon een leuke afbeelding op de plaats waar advertenties stonden.",
-                zh: "显示漂亮的照片，而不是广告。",
+                zh: "显示漂亮的照片，而不是广告。"
             },
             "learn_more": {
                 en: "Learn more",
@@ -491,7 +491,7 @@ var picinjection = {
                 de: "Mehr Informationen",
                 ru: "Подробнее",
                 nl: "Meer informatie",
-                zh: "了解更多信息",
+                zh: "了解更多信息"
             },
             "the_url": {
                 // don't translate into other locales
@@ -500,7 +500,7 @@ var picinjection = {
         };
         var locale = navigator.language.substring(0, 2);
         var msg = text[key] || {};
-        return msg[locale] || msg["en"];
+        return msg[locale] || msg.en;
     },
 
     _picdata: {
@@ -519,7 +519,7 @@ var picinjection = {
             { filename: "big4.jpg",
              x: 170, y: 240, left: 28, right: 87, top: 20, bot: 4 },
             { filename: "1.jpg",
-             x: 384, y: 288, left: 52, right: 121, top: 73, bot: 36 },
+             x: 384, y: 288, left: 52, right: 121, top: 73, bot: 36 }
         ],
         "small": [
             { filename: "7.jpg",
@@ -541,7 +541,7 @@ var picinjection = {
             { filename: "small7.jpg",
              x: 124, y: 96, left: 0, right: 0, top: 0, bot: 0 },
             { filename: "small8.jpg",
-             x: 119, y: 114, left: 0, right: 0, top: 0, bot: 0 },
+             x: 119, y: 114, left: 0, right: 0, top: 0, bot: 0 }
         ],
         "wide": [
             { filename: "wide1.jpg",
@@ -557,7 +557,7 @@ var picinjection = {
             { filename: "1.jpg",  // big
              x: 384, y: 288, left: 0, right: 0, top: 116, bot: 117 },
             { filename: "6.jpg",  // big
-             x: 350, y: 263, left: 0, right: 0, top: 73, bot: 100 },
+             x: 350, y: 263, left: 0, right: 0, top: 73, bot: 100 }
         ],
         "tall": [
             { filename: "8.jpg",
@@ -575,7 +575,7 @@ var picinjection = {
             { filename: "big1.jpg",  // big
              x: 228, y: 249, left: 96, right: 52, top: 0, bot: 0 },
             { filename: "big3.jpg",  // big
-             x: 340, y: 375, left: 159, right: 60, top: 0, bot: 0 },
+             x: 340, y: 375, left: 159, right: 60, top: 0, bot: 0 }
         ],
     },
 
