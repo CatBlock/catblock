@@ -14,10 +14,11 @@ function getVideoId(url) {
 // Function which: - adds name of the channel on the end of the URL, e.g. &ab_channel=nameofthechannel
 //                 - reload the page, so AdBlock can properly whitelist the page (just if channel is whitelisted by user)
 function updateURL(channelName, shouldReload) {
+    var updatedUrl = "";
     if (parseUri(url).search.indexOf("?") === -1) {
-        var updatedUrl = url + "?&ab_channel=" + channelName.replace(/\s/g, "");
+        updatedUrl = url + "?&ab_channel=" + channelName.replace(/\s/g, "");
     } else {
-        var updatedUrl = url + "&ab_channel=" + channelName.replace(/\s/g, "");
+        updatedUrl = url + "&ab_channel=" + channelName.replace(/\s/g, "");
     }
     // Add the name of the channel to the end of URL
     window.history.replaceState(null, null, updatedUrl);
