@@ -106,6 +106,5 @@ DomainSet.prototype = {
         } else {
             return this._computedHas(DomainSet._parentDomainOf(domain));
         }
-    },
-
+    }
 };

@@ -57,7 +57,7 @@ if (!SAFARI) {
             get: function() {
                 return storage_get(key);
             },
-            getTotalAdsBlocked: function(tabId){
+            getTotalAdsBlocked: function(tabId) {
                 if (tabId) {
                     var currentTab = frameData.get(tabId);
                     return currentTab ? currentTab.blockCount : 0;
@@ -177,7 +177,7 @@ function openTab(url, nearActive, safariWindow) {
         var relative = (!/:\/\//.test(url)); // fix relative URLs
         tab.url = (relative ? chrome.runtime.getURL(url) : url);
     }
-};
+}
 
 // Reload already opened tab
 // Input:
@@ -1258,7 +1258,7 @@ var get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
                         sourceTabId: tabDetails.openerTabId,
                         sourceFrameId: 0,
                         tabId: tabDetails.id,
-                        url: tabDetails.url || "about:blank",
+                        url: tabDetails.url || "about:blank"
                     }
 
                     // Call pop up handler.

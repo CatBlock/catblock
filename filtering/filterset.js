@@ -4,7 +4,7 @@ function FilterSet() {
     // 'global') to list of filters that specify inclusion on that domain.
     // E.g. /f/$domain=sub.foo.com,bar.com will appear in items['sub.foo.com']
     // and items['bar.com'].
-    this.items = { 'global': [] };
+    this.items = { "global": [] };
     // Map from domain to set of filter ids that specify exclusion on that domain.
     // Each filter will also appear in this.items at least once.
     // Examples:
@@ -27,7 +27,7 @@ FilterSet.fromFilters = function(data) {
 
         for (var d in filter._domains.has) {
             if (filter._domains.has[d]) {
-                var key = (d === DomainSet.ALL ? 'global' : d);
+                var key = (d === DomainSet.ALL ? "global" : d);
                 setDefault(result.items, key, []).push(filter);
             } else if (d !== DomainSet.ALL) {
                 setDefault(result.exclude, d, {})[filter.id] = true;
@@ -45,7 +45,7 @@ FilterSet.prototype = {
     // exclude['foo.com', 'sub.foo.com'].
     _viewFor: function(domain) {
         var result = new FilterSet();
-        result.items['global'] = this.items['global'];
+        result.items.global = this.items.global;
         for (var nextDomain in DomainSet.domainAndParents(domain)) {
             if (this.items[nextDomain]) {
                 result.items[nextDomain] = this.items[nextDomain];

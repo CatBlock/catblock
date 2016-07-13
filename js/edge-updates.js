@@ -1,5 +1,10 @@
 // Check, whether an update is available or not
 var STATUS = (function() {
+
+    if (!EDGE) {
+        return;
+    }
+
     var url = "http://catblock.tk/edge.json";
 
     // Check if newVersion is newer than AdBlockVersion
@@ -99,7 +104,7 @@ var STATUS = (function() {
             // This will sleep, then ping, then schedule a new ping, then
             // call itself to start the process over again.
             sleepThenPing();
-        },
+        }
     };
 
 })();
