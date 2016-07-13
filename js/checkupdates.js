@@ -1,5 +1,26 @@
 // Check for updates
 function checkupdates(page) {
+
+    // Check if newVersion is newer than AdBlockVersion
+    function isNewerVersion(newVersion) {
+        var versionRegex = /^(\*|\d+(\.\d+){0,2}(\.\*)?)$/;
+        var AdBlockVersion = chrome.runtime.getManifest().version;
+        var current = AdBlockVersion.match(versionRegex);
+        var notCurrent = newVersion.match(versionRegex);
+        if (!current || !notCurrent) {
+            return false;
+        }
+        for (var i=1; i<4; i++) {
+            if (current[i] < notCurrent[i]) {
+                return true;
+            }
+            if (current[i] > notCurrent[i]) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     if (!EDGE) {
         var checkURL = "https://github.com/CatBlock/catblock/releases";
 
@@ -72,25 +93,5 @@ function checkupdates(page) {
     // Hide ad-reporting wizard, when user is offline
     if (page === "adreport" && $("#checkupdate").is(":visible")) {
         $(".section").hide();
-    }
-
-    // Check if newVersion is newer than AdBlockVersion
-    function isNewerVersion(newVersion) {
-        var versionRegex = /^(\*|\d+(\.\d+){0,2}(\.\*)?)$/;
-        var AdBlockVersion = chrome.runtime.getManifest().version;
-        var current = AdBlockVersion.match(versionRegex);
-        var notCurrent = newVersion.match(versionRegex);
-        if (!current || !notCurrent) {
-            return false;
-        }
-        for (var i=1; i<4; i++) {
-            if (current[i] < notCurrent[i]) {
-                return true;
-            }
-            if (current[i] > notCurrent[i]) {
-                return false;
-            }
-        }
-        return false;
     }
 }
