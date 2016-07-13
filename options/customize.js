@@ -1,4 +1,4 @@
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(request, sender) {
     if (request.command !== "filters_updated") {
         return;
     }
@@ -34,11 +34,38 @@ $(function() {
                 $("#tutorlink").attr("href", syntaxURL);
             }
         },
-        error: function(e) {
+        error: function() {
             $("#tutorlink").attr("href", "https://adblockplus.org/en/filters");
         }
     });
 
+    function saveFilters() {
+        var custom_filters_text = $("#txtFiltersAdvanced").val();
+        var custom_filters_array = custom_filters_text.split("\n");
+        var filterErrorMessage = "";
+        $("#messagecustom").html(filterErrorMessage);
+        $("#messagecustom").hide();
+        for (var i = 0; (!filterErrorMessage && i < custom_filters_array.length); i++) {
+            var filter = custom_filters_array[i];
+            try {
+                FilterNormalizer.normalizeLine(filter);
+            } catch(ex) {
+                filterErrorMessage = translate("customfilterserrormessage", [filter, ex.message]);
+            }
+        }
+        if (!filterErrorMessage) {
+            BGcall("set_custom_filters_text", custom_filters_text);
+            updateCustomFiltersCount(custom_filters_text);
+            $("#divAddNewFilter").slideDown();
+            $("#txtFiltersAdvanced").prop("disabled", true);
+            $("#spanSaveButton").hide();
+            $("#btnEditAdvancedFilters").show();
+            $("#btnCleanUp").show();
+        } else {
+            $("#messagecustom").html(filterErrorMessage);
+            $("#messagecustom").show();
+        }
+    }
 
     // Add a custom filter to the list
     function appendCustomFilter(filter) {
@@ -85,7 +112,7 @@ $(function() {
     $("#btnAddExcludeFilter").click(function() {
         var excludeUrl = $("#txtUnblock").val().trim();
 
-        //prevent regexes
+        // Prevent regexes
         if (/^\/.*\/$/.test(excludeUrl)) {
             excludeUrl = excludeUrl + "*";
         }
@@ -116,7 +143,7 @@ $(function() {
     $("#btnAddUrlBlock").click(function() {
         var blockUrl = $("#txtBlockUrl").val().trim();
         var blockDomain = $("#txtBlockUrlDomain").val().trim();
-        if (blockDomain === '*') {
+        if (blockDomain === "*") {
             blockDomain = "";
         }
 
@@ -159,11 +186,11 @@ $(function() {
     $("#divUrlBlock input[type='text']").bind("input", function() {
         var blockUrl = $("#txtBlockUrl").val().trim();
         var blockDomain = $("#txtBlockUrlDomain").val().trim();
-        if (blockDomain === '*') {
+        if (blockDomain === "*") {
             blockDomain = "";
         }
         if (blockDomain) {
-            blockDomain = '$domain=' + blockDomain;
+            blockDomain = "$domain=" + blockDomain;
         }
         var ok = false;
         try {
@@ -196,7 +223,7 @@ $(function() {
         var unblockUrl = $("#txtUnblock").val().trim();
         var ok = false;
         try {
-            if (FilterNormalizer.normalizeLine('@@' + unblockUrl + '$document')) {
+            if (FilterNormalizer.normalizeLine("@@" + unblockUrl + "$document")) {
                 ok = true;
             }
             if (!unblockUrl || Filter.isSelectorFilter(unblockUrl)) {
@@ -259,39 +286,11 @@ $(function() {
         BGcall("updateCustomFilterCountMap", new_count);
     }
 
-    function saveFilters() {
-        var custom_filters_text = $("#txtFiltersAdvanced").val();
-        var custom_filters_array = custom_filters_text.split("\n");
-        var filterErrorMessage = "";
-        $("#messagecustom").html(filterErrorMessage);
-        $("#messagecustom").hide();
-        for (var i = 0; (!filterErrorMessage && i < custom_filters_array.length); i++) {
-            var filter = custom_filters_array[i];
-            try {
-                FilterNormalizer.normalizeLine(filter);
-            } catch(ex) {
-                filterErrorMessage = translate("customfilterserrormessage", [filter, ex.message]);
-            }
-        }
-        if (!filterErrorMessage) {
-            BGcall("set_custom_filters_text", custom_filters_text);
-            updateCustomFiltersCount(custom_filters_text);
-            $("#divAddNewFilter").slideDown();
-            $("#txtFiltersAdvanced").prop("disabled", true);
-            $("#spanSaveButton").hide();
-            $("#btnEditAdvancedFilters").show();
-            $("#btnCleanUp").show();
-        } else {
-            $("#messagecustom").html(filterErrorMessage);
-            $("#messagecustom").show();
-        }
-    }
-
     $("#btnSaveAdvancedFilters").click(saveFilters);
 
     function saveExcludeFilters() {
         var exclude_filters_text = $("#txtExcludeFiltersAdvanced").val();
-        BGcall("set_exclude_filters", exclude_filters_text, function(ex) {
+        BGcall("set_exclude_filters", exclude_filters_text, function() {
             $("#divAddNewFilter").slideDown();
             $("#txtExcludeFiltersAdvanced").attr("disabled", "disabled");
             $("#spanSaveExcludeButton").hide();
