@@ -41,7 +41,7 @@ Filter.isWhitelistFilter = function(text) {
 
 Filter.isComment = function(text) {
     return text.length === 0 ||
-        text[0] === '!' ||
+        text[0] === "!" ||
         (/^\[adblock/i.test(text)) ||
         (/^\(adblock/i.test(text));
 };
@@ -60,7 +60,7 @@ Filter._toDomainSet = function(domainText, divider) {
 
     for (var i = 0; i < domains.length; i++) {
         var domain = domains[i];
-        if (domain[0] === '~') {
+        if (domain[0] === "~") {
             data[domain.substring(1)] = false;
         } else {
             data[domain] = true;
@@ -76,7 +76,7 @@ var SelectorFilter = function(text) {
     Filter.call(this); // call base constructor
 
     var parts = text.match(/(^.*?)\#\@?\#(.+$)/);
-    this._domains = Filter._toDomainSet(parts[1], ',');
+    this._domains = Filter._toDomainSet(parts[1], ",wwww");
     this.selector = parts[2];
     if (typeof QUnit === undefined && storage_get("settings") && storage_get("settings").show_advanced_options) {
         this._text = text; // we are not rewriting text of a selector while unit-testing
@@ -108,7 +108,7 @@ SelectorFilter.merge = function(filter, excludeFilters) {
 
 SelectorFilter.prototype = {
     // Inherit from Filter.
-    __proto__: Filter.prototype,
+    __proto__: Filter.prototype
 };
 
 // Filters that block by URL regex or substring.
@@ -132,7 +132,7 @@ PatternFilter.fromText = function(text) {
     var data = PatternFilter._parseRule(text);
 
     var result = new PatternFilter();
-    result._domains = Filter._toDomainSet(data.domainText, '|');
+    result._domains = Filter._toDomainSet(data.domainText, "|");
     result._allowedElementTypes = data.allowedElementTypes;
     result._options = data.options;
     result._rule = data.rule;
@@ -164,7 +164,7 @@ PatternFilter._parseRule = function(text) {
         var rule = text;
         var options = [];
     } else {
-        var options = optionsText[0].substring(1).toLowerCase().split(',');
+        var options = optionsText[0].substring(1).toLowerCase().split(",");
         var rule = text.replace(optionsText[0], "");
     }
 
@@ -176,23 +176,23 @@ PatternFilter._parseRule = function(text) {
             continue;
         }
 
-        var inverted = (option[0] === '~');
+        var inverted = (option[0] === "~");
         if (inverted) {
             option = option.substring(1);
         }
 
-        option = option.replace(/\-/, '_');
+        option = option.replace(/\-/, "_");
 
-        // See crbug.com/93542 -- object-subrequest is reported as 'object',
+        // See crbug.com/93542 -- object-subrequest is reported as "object",
         // so we treat them as synonyms.  TODO issue 5935: we must address
         // false positives/negatives due to this.
-        if (option === 'object_subrequest') {
-            option = 'object';
+        if (option === "object_subrequest") {
+            option = "object";
         }
 
-        // 'background' is a synonym for 'image'.
-        if (option === 'background') {
-            option = 'image';
+        // "background" is a synonym for "image".
+        if (option === "background") {
+            option = "image";
         }
 
         if (option in ElementTypes) { // this option is a known element type
@@ -208,15 +208,15 @@ PatternFilter._parseRule = function(text) {
                 allowedElementTypes |= ElementTypes[option];
             }
         }
-        else if (option === 'third_party') {
+        else if (option === "third_party") {
             result.options |=
                 (inverted ? FilterOptions.FIRSTPARTY : FilterOptions.THIRDPARTY);
         }
-        else if (option === 'match_case') {
+        else if (option === "match_case") {
             //doesn't have an inverted function
             result.options |= FilterOptions.MATCHCASE;
         }
-        else if (option === 'collapse') {
+        else if (option === "collapse") {
             // We currently do not support this option. However I've never seen any
             // reports where this was causing issues. So for now, simply skip this
             // option, without returning that the filter was invalid.
@@ -256,28 +256,28 @@ PatternFilter._parseRule = function(text) {
 
     // ***** -> *
     //replace, excessive wildcard sequences with a single one
-    rule = rule.replace(/\*-\*-\*-\*-\*/g, '*');
+    rule = rule.replace(/\*-\*-\*-\*-\*/g, "*");
 
-    rule = rule.replace(/\*\*+/g, '*');
+    rule = rule.replace(/\*\*+/g, "*");
 
     // Some chars in regexes mean something special; escape it always.
     // Escaped characters are also faster.
     // - Do not escape a-z A-Z 0-9 and _ because they can't be escaped
     // - Do not escape | ^ and * because they are handled below.
-    rule = rule.replace(/([^a-zA-Z0-9_\|\^\*])/g, '\\$1');
+    rule = rule.replace(/([^a-zA-Z0-9_\|\^\*])/g, "\\$1");
     //^ is a separator char in ABP
-    rule = rule.replace(/\^/g, '[^\\-\\.\\%a-zA-Z0-9_]');
+    rule = rule.replace(/\^/g, "[^\\-\\.\\%a-zA-Z0-9_]");
     //If a rule contains *, replace that by .*
-    rule = rule.replace(/\*/g, '.*');
+    rule = rule.replace(/\*/g, ".*");
     // Starting with || means it should start at a domain or subdomain name, so
     // match ://<the rule> or ://some.domains.here.and.then.<the rule>
-    rule = rule.replace(/^\|\|/, '^[^\\/]+\\:\\/\\/([^\\/]+\\.)?');
+    rule = rule.replace(/^\|\|/, "^[^\\/]+\\:\\/\\/([^\\/]+\\.)?");
     // Starting with | means it should be at the beginning of the URL.
-    rule = rule.replace(/^\|/, '^');
+    rule = rule.replace(/^\|/, "^");
     // Rules ending in | means the URL should end there
-    rule = rule.replace(/\|$/, '$');
+    rule = rule.replace(/\|$/, "$");
     // Any other '|' within a string should really be a pipe.
-    rule = rule.replace(/\|/g, '\\|');
+    rule = rule.replace(/\|/g, "\\|");
     // If it starts or ends with *, strip that -- it's a no-op.
     rule = rule.replace(/^\.\*/, "");
     rule = rule.replace(/\.\*$/, "");
