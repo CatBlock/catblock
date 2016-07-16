@@ -142,7 +142,6 @@ elif args.browser == "chrome":
     chop['browser'] = 'Chrome'
     chop['browserstack.debug'] = 'true'
 
-    print(os.environ['BS_USERNAME'])
     driver = webdriver.Remote(
         command_executor='http://'+os.environ['BS_USERNAME']+':'+os.environ['BS_API']+'@hub.browserstack.com:80/wd/hub',
         desired_capabilities=chop)
@@ -152,8 +151,6 @@ elif args.browser == "chrome":
     time.sleep(2)
 
     failure = driver.execute_script('return failure')
-
-    print(failure)
 
     if failure == True:
         print(driver.execute_script('return messages'))
