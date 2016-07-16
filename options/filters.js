@@ -66,7 +66,7 @@ function CheckboxForFilterList(filter_list, filter_list_type, index, container) 
     attr("href", "#").
     addClass("remove_filter_list").
     text(translate("removefromlist")).
-    click(function(e) {
+    click(function() {
         event.preventDefault();
         var $parent = $(this).parent();
         var id = $parent.attr("name");
@@ -167,7 +167,7 @@ function OptionForFilterList(filter_list, index) {
         value: this._filter_list.id,
         text: this._filter_list.label
     }).data("index", this._index);
-};
+}
 
 OptionForFilterList.prototype = {
     // Returns the _option attribute.
