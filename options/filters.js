@@ -18,9 +18,9 @@ function CheckboxForFilterList(filter_list, filter_list_type, index, container) 
     addClass(this._filter_list_type).
     attr("name", this._filter_list.id).
     css("display", this._filter_list_type === "language_filter_list" ?
-        (this._filter_list.subscribed?"block":"none") : "block");
+        (this._filter_list.subscribed ? "block" : "none") : "block");
 
-    this._check_box = $('<input />').
+    this._check_box = $("<input />").
     attr("type", "checkbox").
     attr("id", this._id).
     css("margin-left", "2px").
@@ -41,8 +41,7 @@ function CheckboxForFilterList(filter_list, filter_list_type, index, container) 
     attr("class", "linkToList").
     attr("data-URL", this._filter_list.url).
     attr("data-safariJSON_URL", this._filter_list.safariJSON_URL).
-    click(function(e) {
-        var id = $(this).parent().attr("name");
+    click(function() {
         var safariJSON_URL = $(this).attr("data-safariJSON_URL");
         var url = $(this).attr("data-URL");
 
@@ -60,7 +59,7 @@ function CheckboxForFilterList(filter_list, filter_list_type, index, container) 
     addClass("subscription_info").
     text(this._filter_list.subscribed && !this._filter_list.last_update ? (translate("fetchinglabel")) : "");
 
-    this._remove_filter_list_label = this._filter_list.user_submitted ?  $("<a>").
+    this._remove_filter_list_label = this._filter_list.user_submitted ? $("<a>").
     css("font-size", "10px").
     css("display", this._filter_list.subscribed ? "none" : "inline").
     css("padding-left", "10px").
@@ -97,13 +96,13 @@ CheckboxForFilterList.prototype = {
                 text(translate("unsubscribedlabel"));
                 delete FilterListUtil.cached_subscriptions[id].subscribed;
             }
-            //if the checkbox that was clicked is the malware checkbox, then
-            //add a checkbox to for the user to indicate if they wish to be notified of blocked malware
+            // If the checkbox that was clicked is the malware checkbox, then
+            // add a checkbox to for the user to indicate if they wish to be notified of blocked malware
             if (id && id === "malware" && checked) {
                 addMalwareNotificationDiv();
             } else if (id && id === "malware" && !checked) {
                 $("#malware-notification-message-div").remove();
-                BGcall('storage_set', 'malware-notification', false);
+                BGcall("storage_set", "malware-notification", false);
             }
         });
 
@@ -112,7 +111,7 @@ CheckboxForFilterList.prototype = {
             change(function() {
                 var $this = $(this);
                 $this.parent().toggle(500);
-                if(!$this.is(":checked")) {
+                if (!$this.is(":checked")) {
                     var index = $this.attr("id").split("_")[3];
                     var entry = filterListSections.language_filter_list.array[index];
                     var option = new OptionForFilterList(entry, index);
@@ -130,7 +129,7 @@ CheckboxForFilterList.prototype = {
                 SubscriptionUtil.unsubscribe(id, true);
                 parent.remove();
             });
-        };
+        }
 
     },
 
@@ -166,7 +165,7 @@ function OptionForFilterList(filter_list, index) {
 
     this._option = $("<option>", {
         value: this._filter_list.id,
-        text: this._filter_list.label,
+        text: this._filter_list.label
     }).data("index", this._index);
 };
 
@@ -211,7 +210,7 @@ function SectionHandler(filter_list_section, filter_list_type) {
 SectionHandler.prototype = {
     // Organize each container for checkboxes.
     _organize: function() {
-        for(var i = 0; i < this._cached_subscriptions.length; i++) {
+        for (var i = 0; i < this._cached_subscriptions.length; i++) {
             var filter_list = this._cached_subscriptions[i];
             var checkbox = new CheckboxForFilterList(filter_list, this._filter_list_type, i, this._$section);
             checkbox.createCheckbox();
@@ -224,7 +223,7 @@ SectionHandler.prototype = {
 };
 
 // Utility class for filter lists.
-function FilterListUtil() {};
+function FilterListUtil() {}
 FilterListUtil.sortFilterListArrays = function() {
     for (var filter_list in filterListSections) {
         filterListSections[filter_list].array.sort(function(a,b) {
@@ -240,9 +239,9 @@ FilterListUtil.getFilterListType = function(filter_list) {
     if (filter_list.id === "adblock_custom" ||
         filter_list.id === "easylist") {
         filter_list_type = "adblock_filter_list";
-    } else if (filter_list.id === "easyprivacy" || filter_list.id === "antisocial"
-               || filter_list.id === "malware" || filter_list.id === "annoyances"
-               || filter_list.id === "warning_removal") {
+    } else if (filter_list.id === "easyprivacy" || filter_list.id === "antisocial" ||
+               filter_list.id === "malware" || filter_list.id === "annoyances" ||
+               filter_list.id === "warning_removal") {
         filter_list_type = "other_filter_list";
     } else if (filter_list.user_submitted) {
         filter_list_type = "custom_filter_list";
@@ -280,7 +279,6 @@ FilterListUtil.checkUrlForExistingFilterList = function(url) {
             return cached_subscriptions[id];
         }
     }
-    return;
 };
 // Updates info text for each filter list.
 FilterListUtil.updateSubscriptionInfoAll = function() {
@@ -296,7 +294,7 @@ FilterListUtil.updateSubscriptionInfoAll = function() {
             continue;
         }
         if (subscription.last_update_failed_at) {
-            if(subscription.user_submitted &&
+            if (subscription.user_submitted &&
                translate("failedtofetchfilter") === infoLabel.text()) {
                 text = translate("invalidListUrl");
                 $("input", div).prop("disabled", true);
@@ -398,11 +396,11 @@ LanguageSelectUtil.init = function() {
 
     $("#language_select").change(function() {
         var $this = $(this);
-        var selected_option = $this.find(':selected');
+        var selected_option = $this.find(":selected");
         var index = $(selected_option).data("index");
         var entry = language_filter_list_arr[index];
         if (entry) {
-            $this.find('option:first').prop('selected', true);
+            $this.find("option:first").prop("selected", true);
             selected_option.remove();
             var $checkbox = $("[name='" + entry.id + "']").find("input");
             $checkbox.prop("checked", true);
@@ -426,15 +424,6 @@ function SubscriptionUtil() {}
 SubscriptionUtil.validateOverSubscription = function() {
     if ($(":checked", "#filter_list_subscriptions").length <= 6) {
         return true;
-    }
-    if (optionalSettings && optionalSettings.show_advanced_options) {
-        // In case of an advanced user, only warn once every 30 minutes, even
-        // if the options page wasn't open all the time. 30 minutes = 1/48 day
-        if ($.cookie('noOversubscriptionWarning')) {
-            return true;
-        } else {
-            $.cookie('noOversubscriptionWarning', 'true', { expires: (1/48) });
-        }
     }
     return confirm(translate("catblock_you_know_thats_a_bad_idea_right"));
 };
@@ -472,7 +461,7 @@ SubscriptionUtil._updateCacheValue = function(id) {
 };
 
 // Utility class for custom filter list upload box.
-function CustomFilterListUploadUtil() {};
+function CustomFilterListUploadUtil() {}
 // Perform the subscribing part and creating checkbox for custom filter lists.
 // Inputs:
 //   url:string - Url for the custom filter list.
@@ -504,7 +493,7 @@ CustomFilterListUploadUtil._updateExistingFilterList = function(existing_filter_
         var filter_list_type = FilterListUtil.getFilterListType(existing_filter_list);
         var filter_list_array = filterListSections[filter_list_type].array;
         var index = filter_list_array.indexOf(existing_filter_list);
-        if(index < 0) {
+        if (index < 0) {
             index = filter_list_array.length;
             filter_list_array.push(existing_filter_list);
         }
@@ -551,7 +540,7 @@ CustomFilterListUploadUtil.bindControls = function () {
     });
 
     // Pressing enter will add the list too.
-    $('#txtNewSubscriptionUrl').keypress(function(event) {
+    $("#txtNewSubscriptionUrl").keypress(function(event) {
         if (event.keyCode === 13) {
             event.preventDefault();
             $("#btnNewSubscriptionUrl").click();
@@ -561,17 +550,16 @@ CustomFilterListUploadUtil.bindControls = function () {
 
 //add a checkbox to for the user to indicate if they wish to be notified of blocked malware
 function addMalwareNotificationDiv() {
-
     if (document.getElementById("malware-notification-message-div")) {
         return; //already exists, don't add it again.
     }
     if (!SAFARI &&
         chrome &&
         chrome.notifications) {
-        BGcall('storage_get', 'malware-notification', function(notify) {
+        BGcall("storage_get", "malware-notification", function(notify) {
             var newDiv = $("<div>").
             attr("id", "malware-notification-message-div");
-            var newInput = $('<input />').
+            var newInput = $("<input />").
             attr("type", "checkbox").
             attr("id", "malware-notification-message").
             css("margin-left", "25px").
@@ -589,7 +577,7 @@ function addMalwareNotificationDiv() {
 
             $("#malware-notification-message").click(function() {
                 var checked = $(this).is(":checked");
-                BGcall('storage_set', 'malware-notification', checked);
+                BGcall("storage_set", "malware-notification", checked);
             });
         });
     }
@@ -598,13 +586,13 @@ function addMalwareNotificationDiv() {
 $(function() {
 
     // Retrieves list of filter lists from the background.
-    BGcall('get_subscriptions_minus_text', function(subs) {
+    BGcall("get_subscriptions_minus_text", function(subs) {
 
         // Initialize page using subscriptions from the background.
         // Copy from update subscription list + setsubscriptionlist
         FilterListUtil.prepareSubscriptions(subs);
 
-        for(var id in filterListSections) {
+        for (var id in filterListSections) {
             var sectionHandler = new SectionHandler(filterListSections[id], id);
             sectionHandler.initSection();
         }
@@ -612,8 +600,8 @@ $(function() {
         LanguageSelectUtil.init();
         CustomFilterListUploadUtil.bindControls();
 
-        //if the user is subscribed to malware, add the checkbox for notifications
-        if (subs && subs["malware"] && subs["malware"].subscribed) {
+        // If the user is subscribed to malware, add the checkbox for notifications
+        if (subs && subs.malware && subs.malware.subscribed) {
             addMalwareNotificationDiv();
         }
     });
@@ -641,18 +629,17 @@ $(function() {
         }
         BGcall("get_subscriptions_minus_text", function(subs) {
             var cached_subscriptions = FilterListUtil.cached_subscriptions;
-            for(var id in cached_subscriptions) {
+            for (var id in cached_subscriptions) {
                 var entry = subs[id];
-                var update_entry = cached_subscriptions[id];
-                if(entry) {
+                if (entry) {
                     // Update checkbox according to the value of the subscribed field
                     FilterListUtil.updateCheckbox(entry, id);
                     // If entry is subscribed, update last_update_failed_at and last_update field
-                    if(entry.subscribed) {
-                        if(entry.last_update && entry.last_update_failed_at) {
+                    if (entry.subscribed) {
+                        if (entry.last_update && entry.last_update_failed_at) {
                             // If update is more recent than failed update, remove last_update_failed_at field,
                             // otherwise, remove last_update field
-                            if(parseInt(entry.last_update) > parseInt(entry.last_update_failed_at)) {
+                            if (parseInt(entry.last_update) > parseInt(entry.last_update_failed_at)) {
                                 delete subs[id].last_update_failed_at;
                             } else {
                                 delete subs[id].last_update;
@@ -660,9 +647,9 @@ $(function() {
                         }
 
                         // Update last_update_failed_at and last_update field for the entry in cached subscriptions
-                        if(entry.last_update_failed_at) {
+                        if (entry.last_update_failed_at) {
                             cached_subscriptions[id].last_update_failed_at = entry.last_update_failed_at;
-                        } else if(entry.last_update) {
+                        } else if (entry.last_update) {
                             cached_subscriptions[id].last_update = entry.last_update;
                         }
                     }
