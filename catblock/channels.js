@@ -188,7 +188,7 @@ Channel.prototype = {
 // Subclass of Channel.
 function AprilFoolsCatsChannel() {
     Channel.call(this);
-};
+}
 AprilFoolsCatsChannel.prototype = {
     __proto__: Channel.prototype,
 
@@ -210,19 +210,19 @@ AprilFoolsCatsChannel.prototype = {
             L(340, 375, "big3.jpg"),
             L(170, 240, "big4.jpg"),
             L(384, 288, "1.jpg"),
-            L(132, 91,  "7.jpg"),
+            L(132, 91, "7.jpg"),
             L(121, 102, "9.jpg"),
             L(115, 125, "small1.jpg"),
             L(126, 131, "small2.jpg"),
-            L(105, 98,  "small3.jpg"),
+            L(105, 98, "small3.jpg"),
             L(135, 126, "small4.jpg"),
             L(133, 108, "small5.jpg"),
-            L(120, 99,  "small6.jpg"),
-            L(124, 96,  "small7.jpg"),
+            L(120, 99, "small6.jpg"),
+            L(124, 96, "small7.jpg"),
             L(119, 114, "small8.jpg"),
             L(382, 137, "wide1.jpg"),
             L(470, 102, "wide2.jpg"),
-            L(251, 90,  "wide3.jpg"),
+            L(251, 90, "wide3.jpg"),
             L(469, 162, "wide4.jpg"),
             L(240, 480, "8.jpg"),
             L(103, 272, "tall3.jpg"),
@@ -285,8 +285,8 @@ FlickrChannel.prototype = {
                 height: photo["height_" + s],
                 url: photo["url_" + s],
                 title: photo.title,
-                attribution_url: 'http://www.flickr.com/photos/' +
-                (photo.owner || photos.owner) + '/' + photo.id
+                attribution_url: "http://www.flickr.com/photos/" +
+                (photo.owner || photos.owner) + "/" + photo.id
             });
             if (typeof listing.url !== "undefined") {
                 result.push(listing);

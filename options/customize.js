@@ -1,4 +1,4 @@
-chrome.runtime.onMessage.addListener(function(request, sender) {
+chrome.runtime.onMessage.addListener(function(request) {
     if (request.command !== "filters_updated") {
         return;
     }
@@ -207,7 +207,7 @@ $(function() {
     $("#divCssBlock input[type='text']").bind("input", function() {
         var blockCss = $("#txtUserFilterCss").val().trim();
         var blockDomain = $("#txtUserFilterDomain").val().trim();
-        if (blockDomain === '*') {
+        if (blockDomain === "*") {
             blockDomain = "";
         }
         var ok = false;

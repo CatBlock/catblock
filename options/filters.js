@@ -205,7 +205,7 @@ function SectionHandler(filter_list_section, filter_list_type) {
     this._cached_subscriptions = filter_list_section.array;
     this._$section = filter_list_section.container;
     this._filter_list_type = filter_list_type;
-};
+}
 
 SectionHandler.prototype = {
     // Organize each container for checkboxes.
