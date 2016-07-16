@@ -57,17 +57,17 @@ function top_open_whitelist_ui() {
         btns[translate("buttoncancel")] = function() { page.dialog("close"); };
 
         var page = $("<div>").
-        append('<span>' + translate("catblock_adblock_wont_run_on_pages_matching") +
-               '</span>').
-        append('<br/><br/><i id="domainpart"></i><i id="pathpart"></i>').
-        append('<br/><br/><br/><span id="whitelister_dirs">' +
-               translate("catblock_you_can_slide_to_change") + '</span>').
-        append('<br/><span id="modifydomain">' + translate("modifydomain") +
-               '<input id="domainslider" type="range" min="0" value="0"/></span>').
-        append('<span id="modifypath">' + translate("modifypath") +
-               '<input id="pathslider" type="range" min="0" value="0"/></span>').
-        append('<br/><input type="checkbox" id="reload_page" checked/>'+
-               '<label style="display: inline;" for="reload_page">' + translate("reloadpageafterwhitelist") + '</label>').
+        append("<span>" + translate("catblock_adblock_wont_run_on_pages_matching") +
+               "</span>").
+        append("<br/><br/><i id='domainpart'></i><i id='pathpart'></i>").
+        append("<br/><br/><br/><span id='whitelister_dirs'>" +
+               translate("catblock_you_can_slide_to_change") + "</span>").
+        append("<br/><span id='modifydomain'>" + translate("modifydomain") +
+               "<input id='domainslider' type='range' min='0' value='0'/></span>").
+        append("<span id='modifypath'>" + translate("modifypath") +
+               "<input id='pathslider' type='range' min='0' value='0'/></span>").
+        append("<br/><input type='checkbox' id='reload_page' checked/>" +
+               "<label style='display: inline;' for='reload_page'>" + translate("reloadpageafterwhitelist") + "</label>").
         dialog({
             title: translate("catblock_whitelistertitle2"),
             dialogClass: "adblock-whitelist-dialog",
