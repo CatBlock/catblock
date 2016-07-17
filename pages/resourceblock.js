@@ -29,7 +29,7 @@ BGcall("reset_matchCache", function(matchCache) {
     // Get frameData object
     BGcall("get_frameData", tabId, function(frameData) {
         if (!frameData || Object.keys(frameData["0"].resources).length === 0) {
-            alert(translate('noresourcessend2'));
+            alert(translate("noresourcessend2"));
             window.close();
             return;
         } else {
@@ -49,14 +49,14 @@ BGcall("reset_matchCache", function(matchCache) {
 
                 BGcall("get_settings", function(settings) {
                     // Process AdBlock's own filters (if any)
-                    filterLists["AdBlock"] = {};
+                    filterLists.AdBlock = {};
                     filterLists.AdBlock.text = MyFilters.prototype.getExtensionFilters(settings);
 
                     BGcall("storage_get", "custom_filters", function(filters) {
                         // Process custom filters (if any)
                         if (filters) {
-                            filterLists["Custom"] = {};
-                            filterLists["Custom"].text = FilterNormalizer.normalizeList(filters).split("\n");
+                            filterLists.Custom = {};
+                            filterLists.Custom.text = FilterNormalizer.normalizeList(filters).split("\n");
                         }
 
                         // Pre-process each resource - extract data from its name
@@ -64,7 +64,6 @@ BGcall("reset_matchCache", function(matchCache) {
                         for (var frameId in frameData) {
                             var frame = frameData[frameId];
                             var frameResources = frame.resources;
-                            var frameDomain = frame.domain;
 
                             // Process each resource
                             for (var resource in frameResources) {
@@ -96,14 +95,14 @@ BGcall("reset_matchCache", function(matchCache) {
                                             for (var filterList in filterLists) {
                                                 if (filterList === "malware") {
                                                     if (filterLists[filterList].text.adware.indexOf(filter) > -1) {
-                                                        res.blockedData["filterList"] = filterList;
+                                                        res.blockedData.filterList = filterList;
                                                     }
                                                 } else {
                                                     var filterListText = filterLists[filterList].text;
                                                     for (var i=0; i<filterListText.length; i++) {
                                                         var filterls = filterListText[i];
                                                         if (filterls === filter) {
-                                                            res.blockedData["filterList"] = filterList;
+                                                            res.blockedData.filterList = filterList;
                                                         }
                                                     }
                                                 }
@@ -133,8 +132,8 @@ BGcall("reset_matchCache", function(matchCache) {
                                                             filter = res.frameDomain + res.url;
                                                         }
                                                         res.blockedData = {};
-                                                        res.blockedData["filterList"] = filterList;
-                                                        res.blockedData["text"] = filter;
+                                                        res.blockedData.filterList = filterList;
+                                                        res.blockedData.text = filter;
                                                         res.frameUrl = frame.url;
                                                         break;
                                                     }
@@ -171,8 +170,8 @@ function addRequestsToTables(frames) {
         createTable(frameObject.domain, frameObject.url, frame);
 
         // Process each request
-        for (var resource in frameObject["resources"]) {
-            var res = frameObject["resources"][resource];
+        for (var resource in frameObject.resources) {
+            var res = frameObject.resources[resource];
 
             // Don't show main_frame resource, unless it's excluded by $document or $elemhide
             if ((reqTypeForElement(res.elType) === "main_frame") && (!res.blockedData || !res.blockedData.blocked)) {
@@ -213,7 +212,7 @@ function addRequestsToTables(frames) {
             if (res.blockedData && res.blockedData.text && res.blockedData.filterList) {
                 $("<span>").
                 text(truncateURI(res.blockedData.text)).
-                attr('title', translate("filterorigin", translate("filter" + res.blockedData.filterList))).
+                attr("title", translate("filterorigin", translate("filter" + res.blockedData.filterList))).
                 appendTo(cell);
             }
             row.append(cell);
@@ -227,7 +226,7 @@ function addRequestsToTables(frames) {
             row.append(cell);
 
             // Finally, append processed resource to the relevant table
-            $('[data-href="' + frameObject.domain + '"] tbody').append(row);
+            $("[data-href='" + frameObject.domain + "'] tbody").append(row);
         }
     }
 
@@ -282,40 +281,40 @@ function createTable(domain, url, frameId) {
 
     // Insert table to page
     $(elem).after(
-        '<table data-href=' + domain + ' data-frameid=' + frameId + ' class="resourceslist">' +
-            '<thead>' +
-                '<tr>' +
-                    '<th class="frametype">' + translate("frametype") + frameType + '<\/th>' +
-                '<\/tr>' +
-                '<tr>' +
-                    '<th class="framedomain">' + translate("framedomain") + domain + '<\/th>' +
-                '<\/tr>' +
-                '<tr>' +
-                    '<th class="frameurl" title="' + decodeURIComponent(url) + '">' +
+        "<table data-href=" + domain + " data-frameid=" + frameId + " class='resourceslist'>" +
+            "<thead>" +
+                "<tr>" +
+                    "<th class='frametype'>" + translate("frametype") + frameType + "<\/th>" +
+                "<\/tr>" +
+                "<tr>" +
+                    "<th class='framedomain'>" + translate("framedomain") + domain + "<\/th>" +
+                "<\/tr>" +
+                "<tr>" +
+                    "<th class='frameurl' title='" + decodeURIComponent(url) + "'>" +
                         translate("frameurl") + truncateURI(url) +
-                    '<\/th>' +
-                '<\/tr>' +
-                '<tr>' +
-                    '<th style="height: 10px;"></th>' +
-                '<\/tr>' +
-                '<tr>' +
-                    '<th data-column="url">' + translate("headerresource") + '<\/th>' +
-                    '<th data-column="type">' + translate("headertype") + '<\/th>' +
-                    '<th data-column="filter" style="text-align: center;">' + translate("headerfilter") + '<\/th>' +
-                    '<th data-column="thirdparty" style="text-align: center;">' + translate("thirdparty") + '<\/th>' +
-                '<\/tr>' +
-            '<\/thead>' +
-            '<tbody>' +
-            '<\/tbody>' +
-        '<\/table>'
+                    "<\/th>" +
+                "<\/tr>" +
+                "<tr>" +
+                    "<th style='height: 10px;'></th>" +
+                "<\/tr>' +
+                "<tr>' +
+                    "<th data-column='url'>" + translate("headerresource") + "<\/th>" +
+                    "<th data-column='type'>" + translate("headertype") + "<\/th>" +
+                    "<th data-column='filter' style='text-align: center;'>" + translate("headerfilter") + "<\/th>" +
+                    "<th data-column='thirdparty' style='text-align: center;'>" + translate("thirdparty") + "<\/th>" +
+                "<\/tr>" +
+            "<\/thead>" +
+            "<tbody>" +
+            "<\/tbody>" +
+        "<\/table>"
     );
 }
 
 // Click event for the column titles (<th>) of a table.
 // It'll sort the table upon the contents of that column
 function sortTable() {
-    var table = $(this).closest('table');
-    if (table.find('[colspan]').length) {
+    var table = $(this).closest("table");
+    if (table.find("[colspan]").length) {
         return; // can't handle the case where some columns have been merged locally
     }
     var columnNumber = $(this).prevAll().length + 1;
@@ -327,8 +326,8 @@ function sortTable() {
     var cellList = [];
     var rowList = [];
     $("td:nth-of-type(" + columnNumber + ")", table).each(function(index, element) {
-        cellList.push(element.innerHTML.toLowerCase() + 'ÿÿÿÿÿ' + (index+10000));
-        rowList.push($(element).parent('tr').clone(true));
+        cellList.push(element.innerHTML.toLowerCase() + "ÿÿÿÿÿ" + (index+10000));
+        rowList.push($(element).parent("tr").clone(true));
     });
     cellList.sort();
     if ($(this).attr("data-sortDirection") === "descending") {
@@ -344,7 +343,7 @@ function sortTable() {
 // Truncate long URIs
 function truncateURI(uri) {
     if (uri.length > 80) {
-        return uri.substring(0, 75) + '[...]';
+        return uri.substring(0, 75) + "[...]";
     }
     return uri;
 };

@@ -89,7 +89,7 @@ function sendReport() {
     var $filter = $("#step_report_filter");
     var problems = 0;
     // Reset any error messages
-    $('#screen_capture_file_label')
+    $("#screen_capture_file_label")
         .css("color", "black");
     $email.removeClass("inputError");
     $name.removeClass("inputError");
@@ -118,19 +118,17 @@ function sendReport() {
         $("#adreport_missing_info")
             .show();
     }
-    if ($('#screen_capture_file')[0].files.length === 0) {
+    if ($("#screen_capture_file")[0].files.length === 0) {
         $("#adreport_missing_screenshot")
             .show();
         problems++;
-        $('#screen_capture_file_label')
+        $("#screen_capture_file_label")
             .css("color", "#f00");
     }
     if (problems) {
-        $('html, body')
+        $("html, body")
             .animate({
-            scrollTop: $("#adreport_missing_info")
-            .offset()
-            .top
+                scrollTop: $("#adreport_missing_info").offset().top
         }, 2000);
         return;
     }
@@ -153,8 +151,8 @@ function sendReport() {
         report_data.url = options.url;
     }
     var the_answers = [];
-    var answers = $('span[class="answer"]');
-    var text = $('div[class="section"]:visible');
+    var answers = $("span[class='answer']");
+    var text = $("div[class='section']:visible");
     var minArrayLength = Math.min(answers.length, text.length);
     for (var i = 0; i < minArrayLength; i++) {
         the_answers.push((i + 1) + "." + text[i].id + ": " + answers[i].getAttribute("chosen"));
@@ -167,7 +165,7 @@ function sendReport() {
             chrome.permissions &&
             chrome.permissions.request) {
             chrome.permissions.request({
-                permissions: ['management']
+                permissions: ["management"]
             }, function(granted) {
                 // The callback argument will be true if the user granted the permissions.
                 if (granted) {
@@ -184,7 +182,7 @@ function sendReport() {
                         }
                         report_data.extensions = extInfo.join("\n");
                         chrome.permissions.remove({
-                            permissions: ['management']
+                            permissions: ["management"]
                         }, function() {});
                         sendData();
                         return;
@@ -205,10 +203,10 @@ function sendReport() {
 
     var sendData = function() {
         var formdata = new FormData();
-        formdata.append('ad_report', JSON.stringify(report_data));
+        formdata.append("ad_report", JSON.stringify(report_data));
 
-        if ($('#screen_capture_file')[0].files.length > 0) {
-            formdata.append('screencapturefile', $('#screen_capture_file')[0].files[0]);
+        if ($("#screen_capture_file")[0].files.length > 0) {
+            formdata.append("screencapturefile", $("#screen_capture_file")[0].files[0]);
         }
 
         $("#debug-info").val(createReadableReport(report_data));
@@ -218,8 +216,7 @@ function sendReport() {
             contentType: false,
             processData: false,
             success: function(text) {
-                $("#step_report_submit")
-                    .prop("disabled", true);
+                $("#step_report_submit").prop("disabled", true);
                 // if a ticket was created, the response should contain a ticket id #
                 if (text) {
                     try {
