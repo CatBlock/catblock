@@ -8,7 +8,7 @@
 var HOUR_IN_MS = 1000 * 60 * 60;
 
 function MyFilters() {
-    this._subscriptions = storage_get('filter_lists');
+    this._subscriptions = storage_get("filter_lists");
     this._official_options = this._make_subscription_options();
 }
 
@@ -94,8 +94,8 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
 
     for (var id in this._subscriptions) {
         // Delete unsubscribed ex-official lists.
-        if (!this._official_options[id] && !this._subscriptions[id].user_submitted
-            && !this._subscriptions[id].subscribed) {
+        if (!this._official_options[id] && !this._subscriptions[id].user_submitted &&
+            !this._subscriptions[id].subscribed) {
             delete this._subscriptions[id];
         }
         // Convert subscribed ex-official lists into user-submitted lists.
@@ -145,7 +145,7 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
 // When a subscription property changes, this function stores it
 // Inputs: rebuild? boolean, true if the filterset should be rebuilt
 MyFilters.prototype._onSubscriptionChange = function(rebuild) {
-    storage_set('filter_lists', this._subscriptions);
+    storage_set("filter_lists", this._subscriptions);
 
     // The only reasons to (re)build the filter set are
     // - when AdBlock starts
@@ -217,7 +217,7 @@ MyFilters.prototype.rebuild = function() {
         var filterListRules = [];
         for (var id in this._subscriptions) {
             if (this._subscriptions[id].subscribed) {
-                for (var item in this._subscriptions[id].rules)  {
+                for (var item in this._subscriptions[id].rules) {
                     filterListRules.push(this._subscriptions[id].rules[item]);
                 }
             }
@@ -273,7 +273,7 @@ MyFilters.prototype.rebuild = function() {
                 selectorFiltersAll.push(selectorsFull[id]);
             }
             var customRules = DeclarativeWebRequest.convertFilterLists(patternFilters, whitelistFilters, selectorFilters, selectorFiltersAll);
-            log("customRules: " , customRules);
+            log("customRules: ", customRules);
             //add the custom rules, with the filter list rules
             filterListRules.push.apply(filterListRules, customRules);
         }
@@ -288,10 +288,10 @@ MyFilters.prototype.rebuild = function() {
             filterListRules = filterListRules.slice(0, 49999);
         } else {
             //size is less then the limit, remove any previous error messages.
-            sessionstorage_set('contentblockingerror');
-            chrome.runtime.sendMessage({command: "contentblockingmessageupdated"});
+            sessionstorage_set("contentblockingerror");
+            chrome.runtime.sendMessage({ command: "contentblockingmessageupdated" });
         }
-        log("submitting rules to safari: # of rules: ",filterListRules.length);
+        log("submitting rules to safari: # of rules: ", filterListRules.length);
         safari.extension.setContentBlocker(filterListRules);
     }
 
@@ -466,7 +466,7 @@ MyFilters.prototype.changeSubscription = function(id, subData, forceFetch) {
 MyFilters.prototype.fetch_and_update = function(id, isNewList) {
     var url = this._subscriptions[id].url;
     if (get_settings().safari_content_blocking) {
-        if (!this._subscriptions[id].safariJSON_URL){
+        if (!this._subscriptions[id].safariJSON_URL) {
             // Since the certain filter lists (AdBlock Custom) are embedded with the other filter lists
             // (when content blocking enabled)
             // we don't need to process it, just update the last_update timestamp.
@@ -665,11 +665,11 @@ MyFilters.prototype._loadMalwareDomains = function() {
         // Fetch file with malware-known domains
         var xhr = new XMLHttpRequest();
         var that = this;
-        xhr.onerror = function(e) {
+        xhr.onerror = function() {
             //if the request fail, retry the next time
             that._subscriptions.malware.last_update_failed_at = Date.now();
         };
-        xhr.onload = function(e) {
+        xhr.onload = function() {
             //make sure the blocking filter set exists (it may not in Safari 9)
             if (that.blocking) {
                 that.blocking.setMalwareDomains(JSON.parse(xhr.responseText));
@@ -687,7 +687,7 @@ MyFilters.prototype._loadMalwareDomains = function() {
             chrome.runtime.sendMessage({ command: "filters_updated" });
             log("Fetched " + url);
         };
-        xhr.open("GET",  url);
+        xhr.open("GET", url);
         xhr.send();
     }
 };
@@ -724,42 +724,42 @@ MyFilters.prototype._load_default_subscriptions = function() {
     function listIdForThisLocale() {
         var language = determineUserLanguage();
         switch (language) {
-            case 'ar': return 'easylist_plus_arabic';
-            case 'bg': return 'easylist_plus_bulgarian';
-            case 'cs': return 'czech';
-            case 'cu': return 'easylist_plus_bulgarian';
-            case 'da': return 'danish';
-            case 'de': return 'easylist_plus_german';
-            case 'el': return 'easylist_plus_greek';
-            case 'es': return 'easylist_plus_spanish';
-            case 'et': return 'easylist_plus_estonian';
-            case 'fi': return 'easylist_plus_finnish';
-            case 'fr': return 'easylist_plus_french';
-            case 'he': return 'israeli';
-            case 'hu': return 'hungarian';
-            case 'is': return 'icelandic';
-            case 'it': return 'italian';
-            case 'id': return 'easylist_plus_indonesian';
-            case 'ja': return 'japanese';
-            case 'ko': return 'easylist_plun_korean';
-            case 'lt': return 'easylist_plus_lithuania';
-            case 'lv': return 'latvian';
-            case 'nl': return 'dutch';
-            case 'pl': return 'easylist_plus_polish';
-            case 'ro': return 'easylist_plus_romanian';
-            case 'ru': return 'russian';
-            case 'sk': return 'czech';
-            case 'sv': return 'swedish';
-            case 'tr': return 'turkish';
-            case 'uk': return 'russian';
-            case 'zh': return 'chinese';
+            case "ar": return "easylist_plus_arabic";
+            case "bg": return "easylist_plus_bulgarian";
+            case "cs": return "czech";
+            case "cu": return "easylist_plus_bulgarian";
+            case "da": return "danish";
+            case "de": return "easylist_plus_german";
+            case "el": return "easylist_plus_greek";
+            case "es": return "easylist_plus_spanish";
+            case "et": return "easylist_plus_estonian";
+            case "fi": return "easylist_plus_finnish";
+            case "fr": return "easylist_plus_french";
+            case "he": return "israeli";
+            case "hu": return "hungarian";
+            case "is": return "icelandic";
+            case "it": return "italian";
+            case "id": return "easylist_plus_indonesian";
+            case "ja": return "japanese";
+            case "ko": return "easylist_plun_korean";
+            case "lt": return "easylist_plus_lithuania";
+            case "lv": return "latvian";
+            case "nl": return "dutch";
+            case "pl": return "easylist_plus_polish";
+            case "ro": return "easylist_plus_romanian";
+            case "ru": return "russian";
+            case "sk": return "czech";
+            case "sv": return "swedish";
+            case "tr": return "turkish";
+            case "uk": return "russian";
+            case "zh": return "chinese";
             default: return "";
         }
     }
     //Update will be done immediately after this function returns
-    result["adblock_custom"] = { subscribed: true };
-    result["easylist"] = { subscribed: true };
-    result["malware"] = { subscribed: true };
+    result.adblock_custom = { subscribed: true };
+    result.easylist = { subscribed: true };
+    result.malware = { subscribed: true };
     var list_for_lang = listIdForThisLocale();
     if (list_for_lang) {
         result[list_for_lang] = { subscribed: true };

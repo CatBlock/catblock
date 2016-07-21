@@ -332,8 +332,8 @@ if (!SAFARI) {
 
         // Issue 7178
         if (blocked && frameDomain === "www.hulu.com") {
-            if (frameData.get(tabId, 0).domain !== "www.hulu.com"
-                && /ads\.hulu\.com/.test(details.url)) { // good enough
+            if (frameData.get(tabId, 0).domain !== "www.hulu.com" &&
+                /ads\.hulu\.com/.test(details.url)) { // good enough
                 blocked = false;
             }
         }
@@ -590,7 +590,7 @@ var count_cache = (function(count_map) {
             cache[host] = this.getCustomFilterCount(host) + 1;
             _updateCustomFilterCount();
         }
-    }
+    };
 })(storage_get("custom_filter_count") || {});
 
 // Entry point for customize.js, used to update custom filter count cache.
@@ -607,7 +607,7 @@ var remove_custom_filter_for_host = function(host) {
 
 var confirm_removal_of_custom_filters_on_host = function(host, activeTab) {
     var custom_filter_count = count_cache.getCustomFilterCount(host);
-    var confirmation_text   = translate("confirm_undo_custom_filters", [custom_filter_count, host]);
+    var confirmation_text = translate("confirm_undo_custom_filters", [custom_filter_count, host]);
     if (!FIREFOX) { // Firefox doesn't support confirm() in BG page yet
         if (!window.confirm(confirmation_text)) {
             return;
@@ -816,7 +816,7 @@ var getCurrentTabInfo = function(callback, secondTime) {
 
         var result = {
             tab: tab,
-            disabled_site: disabled_site,
+            disabled_site: disabled_site
         };
 
         if (!disabled_site) {
@@ -949,10 +949,10 @@ if (!SAFARI) {
                 openTab("options/index.html");
             });
 
-            var host                = getUnicodeDomain(parseUri(info.tab.unicodeUrl).host);
+            var host = getUnicodeDomain(parseUri(info.tab.unicodeUrl).host);
             var custom_filter_count = count_cache.getCustomFilterCount(host);
             if (custom_filter_count) {
-                addMenu(translate("undo_last_block"), function(tab) {
+                addMenu(translate("undo_last_block"), function() {
                     confirm_removal_of_custom_filters_on_host(host);
                 });
             }
@@ -1038,10 +1038,11 @@ var create_page_whitelist_filter = function(url) {
 // Inputs: url:string url of the page
 // Returns: null if successful, otherwise an exception
 var create_whitelist_filter_for_youtube_channel = function(url) {
+    var yt_channel = "";
     if (/ab_channel=/.test(url)) {
-        var yt_channel = url.match(/ab_channel=([^]*)/)[1];
+        yt_channel = url.match(/ab_channel=([^]*)/)[1];
     } else {
-        var yt_channel = url.split("/").pop();
+        yt_channel = url.split("/").pop();
     }
     if (yt_channel) {
         var filter = "@@|https://www.youtube.com/*" + yt_channel + "|$document";
@@ -1148,7 +1149,7 @@ if (!SAFARI) {
         };
         return theFunction;
     })();
-};
+}
 
 // Open subscribe popup when new filter list was subscribed from site
 var launch_subscribe_popup = function(loc) {
@@ -1322,7 +1323,7 @@ var createMalwareNotification = function() {
                 }
             });
             // Pop up a notification to the user.
-            chrome.notifications.create((Math.floor(Math.random() * 3000)).toString(), notificationOptions, function(id) {
+            chrome.notifications.create((Math.floor(Math.random() * 3000)).toString(), notificationOptions, function() {
                 //do nothing in callback
             });
         }); //end of chrome.tabs.query
@@ -1490,7 +1491,6 @@ var getDebugInfo = function() {
 // Code for making a bug report
 var makeReport = function() {
     var body = [];
-    var debugInfo = getDebugInfo();
     body.push(chrome.i18n.getMessage("englishonly") + "!");
     body.push("");
     body.push("Please answer the following questions so that we can process your bug report, otherwise, we may have to ignore it.");
