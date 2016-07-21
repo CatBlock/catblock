@@ -1311,7 +1311,7 @@ var createMalwareNotification = function() {
                            iconUrl:chrome.runtime.getURL("img/icon24.png") },
                           { title:translate("malwarenotificationdisablethesemessages"),
                            iconUrl:chrome.runtime.getURL("img/icon24.png") }]
-            }
+            };
 
             // Add button click handlers to process the button click events
             chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {

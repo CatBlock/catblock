@@ -920,7 +920,7 @@ MyFilters.prototype._make_subscription_options = function() {
             url: "https://easylist-downloads.adblockplus.org/easylistspanish.txt",
             requiresList: "easylist",
             safariJSON_URL: "https://cdn.adblockcdn.com/filters/spanish.json"
-    }
+        }
     };
 };
 

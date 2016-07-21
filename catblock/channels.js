@@ -301,7 +301,7 @@ FlickrChannel.prototype = {
 function FlickrSearchChannel(query) {
     FlickrChannel.call(this);
     this._query = query;
-};
+}
 FlickrSearchChannel.prototype = {
     __proto__: FlickrChannel.prototype,
 
@@ -318,7 +318,7 @@ FlickrSearchChannel.prototype = {
 function FlickrPhotosetChannel(photoset_id) {
     FlickrChannel.call(this);
     this._id = photoset_id;
-};
+}
 FlickrPhotosetChannel.prototype = {
     __proto__: FlickrChannel.prototype,
 
@@ -333,7 +333,7 @@ FlickrPhotosetChannel.prototype = {
 
 function TheCatsOfCatBlockUsersChannel() {
     FlickrPhotosetChannel.call(this, "72157629665759768");
-};
+}
 
 TheCatsOfCatBlockUsersChannel.prototype = {
     __proto__: FlickrPhotosetChannel.prototype
