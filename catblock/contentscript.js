@@ -576,7 +576,7 @@ var picinjection = {
              x: 228, y: 249, left: 96, right: 52, top: 0, bot: 0 },
             { filename: "big3.jpg",  // big
              x: 340, y: 375, left: 159, right: 60, top: 0, bot: 0 }
-        ],
+        ]
     },
 
     enabled: function(callback) {

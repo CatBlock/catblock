@@ -1260,7 +1260,7 @@ var get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
                         sourceFrameId: 0,
                         tabId: tabDetails.id,
                         url: tabDetails.url || "about:blank"
-                    }
+                    };
 
                     // Call pop up handler.
                     onCreatedNavigationTargetHandler(details);
@@ -1399,7 +1399,7 @@ function isSafariContentBlockingAvailable() {
             safari &&
             safari.extension &&
             (typeof safari.extension.setContentBlocker === "function"));
-};
+}
 
 
 // DEBUG INFO

@@ -238,7 +238,7 @@ AprilFoolsCatsChannel.prototype = {
 // Subclass of Channel.
 function FlickrChannel() {
     Channel.call(this);
-};
+}
 // See http://www.flickr.com/services/api/misc.urls.html Size Suffixes.
 // Change this if we want a different size.
 FlickrChannel._size = "n"; // 320 on longest side

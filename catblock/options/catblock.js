@@ -114,7 +114,7 @@ BGcall("getGuide", function(guide) {
         }
     }
     chrome.runtime.onMessage.addListener(
-        function(request, sender) {
+        function(request) {
             if (request.command !== "channel-updated") {
                 return;
             }
