@@ -296,8 +296,8 @@ function createTable(domain, url, frameId) {
                 "<\/tr>" +
                 "<tr>" +
                     "<th style='height: 10px;'></th>" +
-                "<\/tr>' +
-                "<tr>' +
+                "<\/tr>" +
+                "<tr>" +
                     "<th data-column='url'>" + translate("headerresource") + "<\/th>" +
                     "<th data-column='type'>" + translate("headertype") + "<\/th>" +
                     "<th data-column='filter' style='text-align: center;'>" + translate("headerfilter") + "<\/th>" +

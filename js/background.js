@@ -1352,7 +1352,8 @@ if (!SAFARI) {
             // TODO: once we're able to get the parentFrameId, call
             // chrome.webNavigation.getAllFrames to "load" the subframes
         }
-    }
+    };
+
     chrome.tabs.query({url: "http://*/*"}, handleEarlyOpenedTabs);
     chrome.tabs.query({url: "https://*/*"}, handleEarlyOpenedTabs);
 }

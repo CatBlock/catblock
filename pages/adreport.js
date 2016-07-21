@@ -128,7 +128,7 @@ function sendReport() {
     if (problems) {
         $("html, body")
             .animate({
-                scrollTop: $("#adreport_missing_info").offset().top
+            scrollTop: $("#adreport_missing_info").offset().top
         }, 2000);
         return;
     }
@@ -744,49 +744,36 @@ $("#step_firefox_no")
     }
 });
 
-$("#step_firefox_wontcheck")
-    .click(function() {
+$("#step_firefox_wontcheck").click(function() {
     if (!SAFARI) {
         // Chrome blocking is good enough to assume the answer is 'yes'
-        $("#step_firefox_yes")
-            .click();
+        $("#step_firefox_yes").click();
     } else {
         // Safari can't do this.
-        $("#checkupdate")
-            .text(translate("fixityourself"));
+        $("#checkupdate").text(translate("fixityourself"));
     }
-    $("#step_firefox")
-        .html("<span class='answer' chosen='wont_check'>" + translate("refusetocheck") + "</span>");
+    $("#step_firefox").html("<span class='answer' chosen='wont_check'>" + translate("refusetocheck") + "</span>");
 });
 
 // STEP 6: video/flash ad (Safari-only)
 
 //If the user clicks a radio button
-$("#step_flash_yes")
-    .click(function() {
-    $("#step_flash")
-        .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
-    $("#checkupdate")
-        .text(translate("cantblockflash"));
+$("#step_flash_yes").click(function() {
+    $("#step_flash").html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
+    $("#checkupdate").text(translate("cantblockflash"));
 });
-$("#step_flash_no")
-    .click(function() {
-    $("#step_flash")
-        .html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
-    $("#step_report_DIV")
-        .fadeIn()
-        .css("display", "block");
+$("#step_flash_no").click(function() {
+    $("#step_flash").html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
+    $("#step_report_DIV").fadeIn().css("display", "block");
     if (debug_info) {
-        $("#debug-info")
-            .val(createReadableReport({
+        $("#debug-info").val(createReadableReport({
             "debug": debug_info
         }));
     }
 });
 
 // STEP 7: Ad Report
-$("#step_report_submit")
-    .click(function() {
+$("#step_report_submit").click(function() {
     sendReport();
 });
 
