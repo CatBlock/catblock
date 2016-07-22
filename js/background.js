@@ -1367,7 +1367,7 @@ if (!SAFARI) {
             !parseUri.parseSearch(tabUrl).ab_channel) {
             chrome.tabs.executeScript(tabId, { file: "js/ytchannel.js", runAt: "document_start" });
         }
-    }
+    };
 
     chrome.tabs.onCreated.addListener(function(tab) {
         if (chrome.runtime.lastError || !tab || !tab.id) {
@@ -1414,7 +1414,7 @@ var getDebugInfo = function() {
         filter_lists: [],
         settings: [],
         other_info: []
-    }
+    };
 
     // Process subscribed filter lists
     var get_subscriptions = get_subscriptions_minus_text();
@@ -1471,7 +1471,7 @@ var getDebugInfo = function() {
                 return "Developer";
             }
         }
-    }
+    };
 
     // Push AdBlock version and build to |the_debug_info| object
     the_debug_info.other_info.push("CatBlock version number: " + AdBlockVersion + " " + AdBlockBuild());

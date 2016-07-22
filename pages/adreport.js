@@ -126,8 +126,7 @@ function sendReport() {
             .css("color", "#f00");
     }
     if (problems) {
-        $("html, body")
-            .animate({
+        $("html, body").animate({
             scrollTop: $("#adreport_missing_info").offset().top
         }, 2000);
         return;
@@ -201,7 +200,7 @@ function sendReport() {
         }
     }; //end of askUserToGatherExtensionInfo
 
-    var sendData = function() {
+    function sendData() {
         var formdata = new FormData();
         formdata.append("ad_report", JSON.stringify(report_data));
 
@@ -223,15 +222,12 @@ function sendReport() {
                         var respObj = JSON.parse(text);
                         if (respObj &&
                             respObj.hasOwnProperty("helpdesk_ticket") &&
-                            respObj["helpdesk_ticket"].hasOwnProperty("display_id")) {
+                            respObj.helpdesk_ticket.hasOwnProperty("display_id")) {
                             $("#step_response_success")
                                 .parent()
                                 .fadeIn();
-                            $('html, body')
-                                .animate({
-                                scrollTop: $("#step_response_success")
-                                .offset()
-                                .top
+                            $("html, body").animate({
+                                scrollTop: $("#step_response_success").offset().top
                             }, 2000);
                         } else {
                             prepareManualReport(report_data, null, null, respObj);
@@ -276,19 +272,19 @@ function sendReport() {
     }
 
     // Handle any HTTP or server errors
-    var handleResponseError = function(respObj) {
+    function handleResponseError(respObj) {
         $("#step_response_error")
             .parent()
             .fadeIn();
         if (respObj &&
             respObj.hasOwnProperty("error_msg")) {
             $("#step_response_error_msg")
-                .text(translate(respObj["error_msg"]));
+                .text(translate(respObj.error_msg));
         }
         //re-enable the button(s) if the error is recoverable (the user can re-submit)
         if (respObj &&
             respObj.hasOwnProperty("retry_allowed") &&
-            respObj["retry_allowed"] === "true") {
+            respObj.retry_allowed === "true") {
             $("#step_report_submit")
                 .prop("disabled", false);
             $("#step_response_error_manual_submission")
@@ -301,16 +297,13 @@ function sendReport() {
             $("#step_response_error_manual_submission")
                 .show();
         }
-        $('html, body')
-            .animate({
-            scrollTop: $("#step_response_error")
-            .offset()
-            .top
+        $("html, body").animate({
+            scrollTop: $("#step_response_error").offset().top
         }, 2000);
     };
 } // end of sendReport()
 
-var createReadableReport = function(data) {
+function createReadableReport(data) {
     var body = [];
     if (data.location) {
         body.push("* Location of ad *");
@@ -362,7 +355,7 @@ var createReadableReport = function(data) {
 };
 
 // Pretty Print the data
-var prepareManualReport = function(data, status, HTTPerror, respObj) {
+function prepareManualReport(data, status, HTTPerror, respObj) {
     var body = [];
     body.push(createReadableReport(data));
     if (status) {
@@ -417,7 +410,7 @@ var checkmalware = function() {
             for (var key in loaded_resources[i]) {
                 // Push just domains, which are not already in extracted_domains array
                 if (SAFARI) {
-                    var resource = key.split(':|:');
+                    var resource = key.split(":|:");
                     if (resource &&
                         resource.length === 2 &&
                         extracted_domains.indexOf(parseUri(resource[1])
@@ -446,17 +439,17 @@ var checkmalware = function() {
                 var infected = true;
             }
         }
-        $('.loader').hide();
+        $(".loader").hide();
         if (infected) {
-            $('#step_update_filters_DIV').hide();
+            $("#step_update_filters_DIV").hide();
             $("#malwarewarning").html(translate("malwarewarning"));
             $("a", "#malwarewarning")
                 .attr("href", "http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-");
         } else {
-            $('#step_update_filters_DIV').show();
+            $("#step_update_filters_DIV").show();
             $("#malwarewarning").html(translate("malwarenotfound"));
         }
-        $('#malwarewarning').show();
+        $("#malwarewarning").show();
     });
 };
 
@@ -526,11 +519,11 @@ var fetchMalware = function() {
         }
     };
     xhr.send();
-}
+};
 
 //Attempt to get the malwareDomains from the background page first
 //if the returned domains is null, then fetch them directly from the host.
-BGcall('getMalwareDomains', function(domains) {
+BGcall("getMalwareDomains", function(domains) {
     if (domains) {
         malwareDomains = domains;
         checkAdvanceOptions();
@@ -548,8 +541,8 @@ var tabId = options.tabId.replace(/[^0-9]/g, "");
 $("#UpdateFilters").click(function() {
     $(this).prop("disabled", true);
     BGcall("update_subscriptions_now", function() {
-        $(".afterFilterUpdate input").prop('disabled', false);
-        $(".afterFilterUpdate").removeClass('afterFilterUpdate');
+        $(".afterFilterUpdate input").prop("disabled", false);
+        $(".afterFilterUpdate").removeClass("afterFilterUpdate");
     });
 });
 
@@ -589,16 +582,16 @@ $("#step_disable_extensions_yes").click(function() {
         .css("display", "block");
     if (chrome.permissions && chrome.permissions.request && extensionsDisabled.length > 0) {
         chrome.permissions.request({
-            permissions: ['management']
+            permissions: ["management"]
         }, function(granted) {
             // The callback argument will be true if the user granted the permissions.
             if (granted) {
                 for (var i = 0; i < extensionsDisabled.length; i++) {
                     chrome.management.setEnabled(extensionsDisabled[i], true);
                 }
-                alert(translate('enableotherextensionscomplete'));
+                alert(translate("enableotherextensionscomplete"));
             } else {
-                alert(translate('manuallyenableotherextensions'));
+                alert(translate("manuallyenableotherextensions"));
             }
         });
     }
@@ -609,7 +602,7 @@ $("#OtherExtensions").click(function() {
     $("#OtherExtensions").prop("disabled", true);
     if (chrome.permissions && chrome.permissions.request) {
         chrome.permissions.request({
-            permissions: ['management']
+            permissions: ["management"]
         }, function(granted) {
             // The callback argument will be true if the user granted the permissions.
             if (granted) {
@@ -626,8 +619,7 @@ $("#OtherExtensions").click(function() {
                             // If the extension is a developer version, continue, don't disable.
                             if (result[i].installType === "development" &&
                                 result[i].type === "extension" &&
-                                (result[i].name === "AdBlock with CatBlock" ||
-                                 result[i].name === "CatBlock")) {
+                                 result[i].name === "CatBlock") {
                                 continue;
                             }
                             chrome.management.setEnabled(result[i].id, false);
@@ -635,15 +627,15 @@ $("#OtherExtensions").click(function() {
                         }
                     }
                     chrome.permissions.remove({
-                        permissions: ['management']
-                    }, function(removed) {});
+                        permissions: ["management"]
+                    }, function() {});
                     var alertDisplayed = false;
-                    alert(translate('disableotherextensionscomplete'));
+                    alert(translate("disableotherextensionscomplete"));
                     chrome.runtime.onMessage.addListener(
                         function(message, sender, sendResponse) {
                             if (!alertDisplayed && message.command === "reloadcomplete") {
                                 alertDisplayed = true;
-                                alert(translate('tabreloadcomplete'));
+                                alert(translate("tabreloadcomplete"));
                                 //we're done, redisplay the Yes/No buttons
                                 $("#step_disable_extensions")
                                     .fadeIn()
@@ -665,8 +657,7 @@ $("#OtherExtensions").click(function() {
 
 //if the user clicks an item
 var contact = "";
-$("#step_language_lang")
-    .change(function() {
+$("#step_language_lang").change(function() {
     var selected = $("#step_language_lang option:selected");
     $("#step_language")
         .html("<span class='answer'>" + selected.text() + "</span>");
@@ -680,8 +671,7 @@ $("#step_language_lang")
             .attr("href", "https://adblockplus.org/en/subscriptions");
         return;
     } else {
-        var required_lists = selected.attr('value')
-        .split(';');
+        var required_lists = selected.attr("value").split(";");
         for (var i = 0; i < required_lists.length - 1; i++) {
             if (unsubscribed_default_filters[required_lists[i]]) {
                 $("#checkupdate")
@@ -709,8 +699,7 @@ $("#step_language_lang")
 // STEP 5: also in Firefox
 
 //If the user clicks a radio button
-$("#step_firefox_yes")
-    .click(function() {
+$("#step_firefox_yes").click(function() {
     $("#step_firefox")
         .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
     if (/^mailto\:/.test(contact)) {

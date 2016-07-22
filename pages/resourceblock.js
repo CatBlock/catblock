@@ -338,7 +338,7 @@ function sortTable() {
         var no = Number(item.match(/\d+$/)[0]) - 10000;
         $("tbody", table).append(rowList[no]);
     });
-};
+}
 
 // Truncate long URIs
 function truncateURI(uri) {
@@ -346,4 +346,4 @@ function truncateURI(uri) {
         return uri.substring(0, 75) + "[...]";
     }
     return uri;
-};
+}
