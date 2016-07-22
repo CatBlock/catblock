@@ -74,7 +74,7 @@ def prepareManifestFile():
         keys.update(browserData[args.browser]["key"])
 
         # Needed for determining an extension ID used for automated tests via BrowserStack
-        if args.browser == "chrome":
+        if args.browser == "chrome" and os.environ.get("TRAVIS") != None:
             keys.update({ "key": "emghbjjpdkocbmeibmkblchiognbjiji" })
         elif args.browser == "firefox":
             keys.pop("author", None)
@@ -86,7 +86,7 @@ def prepareManifestFile():
         browser_manifest.seek(0)
         browser_manifest.truncate()
 
-        # Re-create the manifest but with added "minimum_edge_version" key
+        # Re-create the manifest but with added browser-sepcific key
         browser_manifest.write(json.dumps(keys, sort_keys=True, indent=2, separators=(',', ':')))
 
         browser_manifest.close()
@@ -165,32 +165,33 @@ elif args.browser == "chrome":
     shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
     # Selenium testing
-    chop = webdriver.ChromeOptions()
-    chop.add_extension("catblock-chrome.zip")
-    chop = chop.to_capabilities()
+    if os.environ.get("TRAVIS") != None:
+        chop = webdriver.ChromeOptions()
+        chop.add_extension("catblock-chrome.zip")
+        chop = chop.to_capabilities()
 
-    chop["os"] = "OS X"
-    chop["os_version"] = "El Capitan"
-    chop["browser"] = "Chrome"
-    chop["browserstack.debug"] = "true"
+        chop["os"] = "OS X"
+        chop["os_version"] = "El Capitan"
+        chop["browser"] = "Chrome"
+        chop["browserstack.debug"] = "true"
 
-    driver = webdriver.Remote(
-        command_executor="http://"+os.environ["BS_USERNAME"]+":"+os.environ["BS_API"]+"@hub.browserstack.com:80/wd/hub",
-        desired_capabilities=chop)
+        driver = webdriver.Remote(
+            command_executor="http://"+os.environ["BS_USERNAME"]+":"+os.environ["BS_API"]+"@hub.browserstack.com:80/wd/hub",
+            desired_capabilities=chop)
 
-    driver.get("chrome-extension://pgojeaneabfggifhijmhbomgidllkfhp/tools/tests/test.html")
+        driver.get("chrome-extension://pgojeaneabfggifhijmhbomgidllkfhp/tools/tests/test.html")
 
-    time.sleep(2)
+        time.sleep(2)
 
-    failure = driver.execute_script("return failure")
+        failure = driver.execute_script("return failure")
 
-    if failure == True:
-        print(driver.execute_script("return messages"))
+        if failure == True:
+            print(driver.execute_script("return messages"))
 
-    driver.quit()
+        driver.quit()
 
-    if failure == True:
-        sys.exit(1)
+        if failure == True:
+            sys.exit(1)
     # End of Selenium testing
 
 
@@ -208,8 +209,6 @@ elif args.browser == "chrome":
     print("CatBlock for Chrome has been built!")
 
 elif args.browser == "opera":
-    # TODO: Add support for removing "minimum_chrome_version" key from manifest.json
-    # and add support for defining "minimum_opera_version" key in manifest.json
 
     print("Preparing CatBlock for Opera release...")
 
