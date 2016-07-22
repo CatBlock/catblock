@@ -33,67 +33,94 @@ os.system("find . -name '*.DS_Store' -type f -delete")
 if not os.path.exists("builds"):
     os.makedirs("builds")
 
+# Prepare manifest.json file depending on the browser
+def prepareManifestFile():
+    browserData = {
+        "firefox": {
+            "path": "catblock_firefox/manifest.json",
+            "key": {
+                "applications": {
+                    "gecko": {
+                        "id": "catblock@catblock.tk",
+                        "strict_min_version": "48.*"
+                    }
+                }
+            }
+        },
+        "edge": {
+            "path": "catblock_edge/catblock/manifest.json",
+            "key": {
+                "minimum_edge_version": "38.14342.1000.0"
+            }
+        },
+        "chrome": {
+            "path": "catblock_chrome/manifest.json",
+            "key": {
+                "minimum_chrome_version": "49"
+            }
+        },
+        "opera": {
+            "path": "catblock_opera/manifest.json",
+            "key": {
+                "minimum_opera_version": "35"
+            }
+        }
+    }
+
+    with open(browserData[args.browser]["path"], "r+") as browser_manifest:
+        keys = json.load(browser_manifest) # Creates a dict of all messages in the AdBlock file
+
+        # Update manifest file with browser-specific key
+        keys.update(browserData[args.browser]["key"])
+
+        # Needed for determining an extension ID used for automated tests via BrowserStack
+        if args.browser == "chrome":
+            keys.update({ "key": "emghbjjpdkocbmeibmkblchiognbjiji" })
+        elif args.browser == "firefox":
+            keys.pop("author", None)
+            keys.pop("optional_permissions", None)
+            keys.pop("options_page", None)
+            keys.pop("incognito", None)
+
+        # Delete the current content of the manifest
+        browser_manifest.seek(0)
+        browser_manifest.truncate()
+
+        # Re-create the manifest but with added "minimum_edge_version" key
+        browser_manifest.write(json.dumps(keys, sort_keys=True, indent=2, separators=(',', ':')))
+
+        browser_manifest.close()
+
 # Prepare a Firefox release
 if args.browser == "firefox":
 
     print("Preparing CatBlock for Firefox release...")
 
-    # Keys in manifest.json file, which should NOT be deleted
-    used = ["name", "version", "description", "content_scripts", "permissions", "manifest_version",
-        "web_accessible_resources", "background", "browser_action", "default_locale", "icons", "web_accessible_resources"]
-
-    # Set, which is mandatory in Firefox
-    FF = {
-        "gecko": {
-            "id": "catblock@catblock.tk",
-            "strict_min_version": "48.*"
-        }
-    }
-
-    # Opens the CatBlock manifest file for read-only
-    with open("manifest.json", "rU") as chrome_manifest:
-        # If /catblock_firefox folder exists, delete it
-        if os.path.exists("catblock_firefox"):
-            shutil.rmtree("catblock_firefox")
-
-        # Copy the content of the original folder into /catblock_firefox and ignore hidden files, builds and tools folders
-        shutil.copytree(os.getcwd(), "catblock_firefox", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
-
-        # Move to the /catblock_firefox directory
-        os.chdir("catblock_firefox")
-
-        # Remove keys from manifest, which are not supported yet
-        with open("manifest.json", "w") as ff_manifest:
-            keys = json.load(chrome_manifest) # Creates a dict of all messages in the AdBlock file
-            ff_keys = keys.copy()
-            for key in keys:
-                if key not in used:
-                    print("Deleting key: %s" % key)
-                    del ff_keys[key] # Delete keys, which shouldn't be included in FF manifest file
-
-            # Update FF manifest file with FF specific key
-            ff_keys.update({ "applications": FF })
-
-            # Create FF manifest in JSON format
-            ff_manifest.write(json.dumps(ff_keys, sort_keys=True, indent=2, separators=(',', ':')))
-
-        os.chdir("..")
-
-        # Create a .zip file
-        shutil.make_archive("catblock-firefox", "zip", "catblock_firefox")
-
-        # Rename to the Firefox compatible .xpi file
-        if args.extension == "y":
-            os.rename("catblock-firefox.zip", "catblock-firefox.xpi")
-
-        if os.path.isfile("catblock-firefox.zip"):
-            shutil.move("catblock-firefox.zip", "builds/catblock-firefox.zip")
-        else:
-            shutil.move("catblock-firefox.xpi", "builds/catblock-firefox.xpi")
-
+    # If /catblock_firefox folder exists, delete it
+    if os.path.exists("catblock_firefox"):
         shutil.rmtree("catblock_firefox")
 
-        print("CatBlock for Firefox has been built!")
+    # Copy the content of the original folder into /catblock_firefox and ignore hidden files, builds and tools folders
+    shutil.copytree(os.getcwd(), "catblock_firefox", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
+
+    # Prepare manifest.json file
+    prepareManifestFile()
+
+    # Create a .zip file
+    shutil.make_archive("catblock-firefox", "zip", "catblock_firefox")
+
+    # Rename to the Firefox compatible .xpi file
+    if args.extension == "y":
+        os.rename("catblock-firefox.zip", "catblock-firefox.xpi")
+
+    if os.path.isfile("catblock-firefox.zip"):
+        shutil.move("catblock-firefox.zip", "builds/catblock-firefox.zip")
+    else:
+        shutil.move("catblock-firefox.xpi", "builds/catblock-firefox.xpi")
+
+    shutil.rmtree("catblock_firefox")
+
+    print("CatBlock for Firefox has been built!")
 
 elif args.browser == "edge":
 
@@ -109,6 +136,9 @@ elif args.browser == "edge":
     # Copy instructions file and setup file into "/catblock_edge" folder
     shutil.move("catblock_edge/catblock/tools/instructions.txt", "catblock_edge")
     shutil.move("catblock_edge/catblock/tools/Setup.cmd", "catblock_edge")
+
+    # Prepare manifest.json file
+    prepareManifestFile()
 
     shutil.make_archive("catblock-edge", "zip", "catblock_edge")
 
@@ -127,39 +157,41 @@ elif args.browser == "chrome":
         shutil.rmtree("catblock_chrome")
 
     # Copy the content of the original folder into /catblock_chrome and ignore hidden files, builds and tools folders
-    #shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
     shutil.copytree(os.getcwd(), "catblock_chrome", ignore=shutil.ignore_patterns(".*", "builds"))
+
+    # Prepare manifest.json file
+    prepareManifestFile()
 
     shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
-    # Selenium testing (beta)
+    # Selenium testing
     chop = webdriver.ChromeOptions()
-    chop.add_extension('catblock-chrome.zip')
+    chop.add_extension("catblock-chrome.zip")
     chop = chop.to_capabilities()
 
-    chop['os'] = 'OS X'
-    chop['os_version'] = 'El Capitan'
-    chop['browser'] = 'Chrome'
-    chop['browserstack.debug'] = 'true'
+    chop["os"] = "OS X"
+    chop["os_version"] = "El Capitan"
+    chop["browser"] = "Chrome"
+    chop["browserstack.debug"] = "true"
 
     driver = webdriver.Remote(
-        command_executor='http://'+os.environ['BS_USERNAME']+':'+os.environ['BS_API']+'@hub.browserstack.com:80/wd/hub',
+        command_executor="http://"+os.environ["BS_USERNAME"]+":"+os.environ["BS_API"]+"@hub.browserstack.com:80/wd/hub",
         desired_capabilities=chop)
 
-    driver.get('chrome-extension://pgojeaneabfggifhijmhbomgidllkfhp/tools/tests/test.html')
+    driver.get("chrome-extension://pgojeaneabfggifhijmhbomgidllkfhp/tools/tests/test.html")
 
     time.sleep(2)
 
-    failure = driver.execute_script('return failure')
+    failure = driver.execute_script("return failure")
 
     if failure == True:
-        print(driver.execute_script('return messages'))
+        print(driver.execute_script("return messages"))
 
     driver.quit()
 
     if failure == True:
         sys.exit(1)
-    # End of Selenium testing (beta)
+    # End of Selenium testing
 
 
     # Rename to the Chrome compatible .crx file
@@ -187,6 +219,9 @@ elif args.browser == "opera":
 
     # Copy the content of the original folder into /catblock_opera and ignore hidden files, builds and tools folders
     shutil.copytree(os.getcwd(), "catblock_opera", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
+
+    # Prepare manifest.json file
+    prepareManifestFile()
 
     shutil.make_archive("catblock-opera", "zip", "catblock_opera")
 
