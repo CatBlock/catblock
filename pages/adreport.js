@@ -1,6 +1,5 @@
 var malwareDomains = null;
 var extensionsDisabled = [];
-var tabId = options.tabId.replace(/[^0-9]/g, "");
 
 $(function() {
     localizePage();
@@ -66,6 +65,7 @@ $(function() {
 
 // Fetching the options...
 var options = parseUri.parseSearch(document.location.search);
+var tabId = options.tabId.replace(/[^0-9]/g, "");
 
 // Get the list of all unsubscribed default filters
 var unsubscribed_default_filters = [];
@@ -302,7 +302,7 @@ function sendReport() {
         $("html, body").animate({
             scrollTop: $("#step_response_error").offset().top
         }, 2000);
-    };
+    }
 } // end of sendReport()
 
 function createReadableReport(data) {
@@ -472,7 +472,7 @@ var checkAdvanceOptions = function() {
         // We can't do a malware check when content blocking is enabled, so skip it.
         if (settings.safari_content_blocking) {
             $("#step_malware_checking_DIV").hide();
-            $('#step_update_filters_DIV').show();
+            $("#step_update_filters_DIV").show();
             return;
         } else if (SAFARI) {
             $("#step_malware_checking_DIV").show();
@@ -710,8 +710,7 @@ $("#step_firefox_yes").click(function() {
     $("#privacy")
         .show();
 });
-$("#step_firefox_no")
-    .click(function() {
+$("#step_firefox_no").click(function() {
     $("#step_firefox")
         .html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
     if (SAFARI) {
@@ -724,10 +723,7 @@ $("#step_firefox_no")
             .fadeIn()
             .css("display", "block");
         if (debug_info) {
-            $("#debug-info")
-                .val(createReadableReport({
-                "debug": debug_info
-            }));
+            $("#debug-info").val(createReadableReport({ "debug": debug_info }));
         }
     }
 });
