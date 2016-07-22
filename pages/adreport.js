@@ -1,5 +1,6 @@
 var malwareDomains = null;
 var extensionsDisabled = [];
+var tabId = options.tabId.replace(/[^0-9]/g, "");
 
 $(function() {
     localizePage();
@@ -248,7 +249,8 @@ function sendReport() {
             },
             type: "POST"
         });
-    };
+    }
+
     if (chrome &&
         chrome.tabs &&
         chrome.tabs.detectLanguage) {
@@ -521,8 +523,8 @@ var fetchMalware = function() {
     xhr.send();
 };
 
-//Attempt to get the malwareDomains from the background page first
-//if the returned domains is null, then fetch them directly from the host.
+// Attempt to get the malwareDomains from the background page first
+// if the returned domains is null, then fetch them directly from the host.
 BGcall("getMalwareDomains", function(domains) {
     if (domains) {
         malwareDomains = domains;
@@ -531,9 +533,6 @@ BGcall("getMalwareDomains", function(domains) {
         fetchMalware();
     }
 });
-
-var domain = parseUri(options.url).hostname.replace(/((http|https):\/\/)?(www.)?/g, "");
-var tabId = options.tabId.replace(/[^0-9]/g, "");
 
 // STEP 2: update filters
 
