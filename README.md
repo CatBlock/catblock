@@ -6,23 +6,28 @@ CatBlock
 
 CatBlock (previously known as "AdBlock with CatBlock") is like an ad blocking extension, but instead of blocking ads it shows you pictures of cats by default (configurable).
 
-You can also disable replacing ads by cats, so CatBlock can work as an ordinary ad blocking extension.
+You can also disable replacing ads by cats, so CatBlock can work as a standard ad blocking extension (useful for when you're doing presentations anywhere!)
 
-This project aims at maintaining and improving the original ["CatBlock"](http://blog.getadblock.com/2012/04/catblock-lives-on.html) project by Michael Gundlach, the creator of [AdBlock](https://getadblock.com) and CatBlock.
+This project aims at maintaining and improving the original [CatBlock](http://blog.getadblock.com/2012/04/catblock-lives-on.html) project by Michael Gundlach, the creator of [AdBlock](https://getadblock.com) and CatBlock.
 
 If you want to keep an eye on (or even contribute to) the behind-the-scenes stuff, check out our [Trello Board](https://trello.com/catblock).
 
 ## Installation:
 Available in [Chrome Web Store](https://chrome.google.com/webstore/detail/catblock/mdcgnhlfpnbeieiiccmebgkfdebafodo),
 [Opera Extensions Store](https://addons.opera.com/sk/extensions/details/adblock-with-catblock/?display=en) and [Firefox Addons Store](https://addons.mozilla.org/en/firefox/addon/adblock-with-catblock/).  
-At this time, CatBlock is neither available in [Safari Extensions Store](https://safari-extensions.apple.com), nor in Microsoft Store.
+Right now, CatBlock is not available in the [Safari Extensions Store](https://safari-extensions.apple.com), or in the Windows Store (for Edge insiders).
+
+## Tools used for testing:
+We use many different services to help keep CatBlock working! We use [Travis](http://travis-ci.org) to build new versions automatically for us. We're looking into a way of making a "nightly" version of CatBlock, with bleeding-edge (probably broken) code for testing.
+
+We also have Travis connected to [BrowserStack](http://browserstack.com), to run a few automated tests for us. If "builds:passing" shows at the top of this README, then it's probably working fine, otherwise the current version of the code might not work so well.
 
 ## Compatibility:
-Chrome: 49+    
-Opera: 35+    
-Safari: 6+    
-Firefox: 48+  
-Edge: 38.14342+  
+Chrome: 49+
+Opera: 35+
+Safari: 6+
+Firefox: 48+
+Edge: 38.14342+
 
 ## Live chat:
 [![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
