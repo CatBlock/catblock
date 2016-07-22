@@ -1,27 +1,37 @@
+// Variables "failure" and "messages" are exported via BrowserStack to our Python "make_release.py" script,
+// which handles building of our extension via Travis-CI.
+
+// Messages contains summary of failed (if any) test cases
+var messages = "";
+
+// Failure is true, when one or more test cases have failed
+var failure = false;
+
+// Settings contains enabled and disabled user settings
+// This fixes access to the settings while running test cases, e.g. "get_settings is not defined" - myfilters.js:434
+var settings = null;
+
 var get_settings = function() {
     return settings;
 };
 
-var messages = "";
-var failure = false;
-
-console.log = function(arg) {
-    messages = messages + arg + "\n";
-}
-
-var settings = null;
-
+// QUnit module intended for tracking and exporting tests failures to the "messages" variable
 (function() {
-    var module = '',
-        test = '',
-        lastModuleLogged = '',
-        lastTestLogged = '',
+    var module = "",
+        test = "",
+        lastModuleLogged = "",
+        lastTestLogged = "",
         failuresOnCurrentTest = 0,
         failureFound = false;
+
+    function log(arg) {
+        messages = messages + arg + "\n";
+    }
 
     QUnit.moduleStart(function(details) {
         module = details.name;
     });
+
     QUnit.testStart(function(details) {
         test = details.name;
     });
@@ -31,33 +41,33 @@ var settings = null;
             if (!failureFound) {
                 failureFound = true;
                 failure = true;
-                console.log('');
-                console.log('/*********************************************************************/');
-                console.log('/************************** FAILURE SUMMARY **************************/');
-                console.log('/*********************************************************************/');
+                log("");
+                log("/*********************************************************************/");
+                log("/************************** FAILURE SUMMARY **************************/");
+                log("/*********************************************************************/");
             }
 
             if (lastModuleLogged != module) {
-                console.log('');
-                console.log('-----------------------------------------------------------------------');
-                console.log('Module: ' + module);
+                log("");
+                log("-----------------------------------------------------------------------");
+                log("Module: " + module);
             }
 
             if (lastTestLogged != test) {
                 failuresOnCurrentTest = 1;
-                console.log('-----------------------------------------------------------------------');
-                console.log('Test: ' + test);
+                log("-----------------------------------------------------------------------");
+                log("Test: " + test);
             } else {
                 failuresOnCurrentTest++;
             }
 
-            console.log(' ' + failuresOnCurrentTest + ') Message: ' + details.message);
-            if (typeof details.expected !== 'undefined') {
-                console.log('    Expected: ' + details.expected);
-                console.log('    Actual: ' + details.actual);
+            log(" " + failuresOnCurrentTest + ") Message: " + details.message);
+            if (typeof details.expected !== "undefined") {
+                log("    Expected: " + details.expected);
+                log("    Actual: " + details.actual);
             }
-            if (typeof details.source !== 'undefined') {
-                console.log('    Source: ' + details.source);
+            if (typeof details.source !== "undefined") {
+                log("    Source: " + details.source);
             }
 
             lastModuleLogged = module;
