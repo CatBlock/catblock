@@ -354,7 +354,7 @@ function createReadableReport(data) {
     body.push(content.join("\n"));
     body.push("");
     return body.join("\n");
-};
+}
 
 // Pretty Print the data
 function prepareManualReport(data, status, HTTPerror, respObj) {
@@ -370,7 +370,7 @@ function prepareManualReport(data, status, HTTPerror, respObj) {
         body.push("Server error information: " + JSON.stringify(respObj));
     }
     $("#manual_submission").val(body.join("\n"));
-};
+}
 
 // Check every domain of downloaded resource against malware-known domains
 var checkmalware = function() {
