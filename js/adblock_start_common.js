@@ -1,6 +1,7 @@
 //cache a reference to window.confirm
 //so that web sites can not clobber the default implementation
 var abConfirm = window.confirm;
+
 // Return the ElementType element type of the given element.
 function typeForElement(el) {
     // TODO: handle background images that aren't just the BODY.

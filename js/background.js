@@ -1481,7 +1481,11 @@ makeReport = function() {
 };
 
 // CatBlock specific code
-channels = new Channels();
+
+// Init "Project CATS"
+CATS.init();
+
+var channels = new Channels();
 
 var addChannel = function(args) {
     return channels.add(args);
