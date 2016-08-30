@@ -81,7 +81,7 @@ function SelectorFilter(text) {
     if (typeof QUnit === undefined && storage_get("settings") && storage_get("settings").show_advanced_options) {
         this._text = text; // we are not rewriting text of a selector while unit-testing
     }
-};
+}
 
 // If !|excludeFilters|, returns filter.
 // Otherwise, returns a new SelectorFilter that is the combination of
@@ -114,7 +114,7 @@ SelectorFilter.prototype = {
 // Filters that block by URL regex or substring.
 function PatternFilter() {
     Filter.call(this); // call base constructor
-};
+}
 // Data is [rule text, allowed element types, options].
 PatternFilter.fromData = function(data) {
     var result = new PatternFilter();

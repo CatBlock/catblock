@@ -28,7 +28,7 @@ function BGcall() {
 }
 
 // Enabled in adblock_start_common.js and background.js if the user wants
-var log = function() {}
+var log = function() {};
 
 function logging(enabled) {
     if (enabled) {
@@ -116,6 +116,7 @@ function parseUri(url) {
     }
     return uri;
 }
+
 // Parses the search part of a URL into an key: value object.
 // e.g., ?hello=world&ext=adblock would become {hello:"world", ext:"adblock"}
 // Inputs: search: the search query of a URL. Must have &-separated values.
@@ -135,7 +136,8 @@ parseUri.parseSearch = function(search) {
         }
     }
     return params;
-}
+};
+
 // Strip third+ level domain names from the domain and return the result.
 // Inputs: domain: the domain that should be parsed
 //         keepDot: true if trailing dots should be preserved in the domain
@@ -146,7 +148,7 @@ parseUri.secondLevelDomainOnly = function(domain, keepDot) {
         return match[keepDot ? 0 : 1].toLowerCase();
     }
     return domain;
-}
+};
 
 // Return |domain| encoded in Unicode
 function getUnicodeDomain(domain) {

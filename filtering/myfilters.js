@@ -92,6 +92,13 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
         return;
     }
 
+    // Function that will add a new entry with updated id,
+    // and will remove old entry with outdated id.
+    function renameSubscription(old_id, new_id) {
+        that._subscriptions[new_id] = that._subscriptions[old_id];
+        delete that._subscriptions[old_id];
+    }
+
     for (var id in this._subscriptions) {
         // Delete unsubscribed ex-official lists.
         if (!this._official_options[id] && !this._subscriptions[id].user_submitted &&
@@ -122,14 +129,6 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
             }
 
             sub_to_check.user_submitted = is_user_submitted;
-
-            // Function that will add a new entry with updated id,
-            // and will remove old entry with outdated id.
-            var that = this;
-            function renameSubscription(old_id, new_id) {
-                that._subscriptions[new_id] = that._subscriptions[old_id];
-                delete that._subscriptions[old_id];
-            }
 
             // Create new id and check if new id is the same as id.
             // If not, update entry in subscriptions.

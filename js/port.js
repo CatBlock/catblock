@@ -58,7 +58,7 @@ if (typeof SAFARI === "undefined") {
                     if (messageEvent.name === messageName) {
                         handler(messageEvent);
                     }
-                };
+                }
                 listeningContext().addEventListener("message", listener, false);
                 return listener;
             }

@@ -985,7 +985,7 @@ if (!SAFARI) {
             setContextMenus(info);
             setBrowserButton(info);
         });
-    };
+    }
 }
 
 // These functions are usually only called by content scripts.

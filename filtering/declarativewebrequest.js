@@ -257,7 +257,7 @@ var DeclarativeWebRequest = (function() {
 
             function hasUpperCase(str) {
                 return str.toLowerCase() !== str;
-            };
+            }
             var rules = [];
             //step 1a, add all of the generic hiding filters (CSS selectors)
             //step 1a, add all of the generic hiding filters (CSS selectors)
