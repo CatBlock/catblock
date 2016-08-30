@@ -26,7 +26,7 @@ var STATUS = (function() {
             }
         }
         return false;
-    };
+    }
 
     function handleResponse(responseData) {
         var isNewerVersionAvailable = isNewerVersion(responseData.version);
@@ -38,7 +38,7 @@ var STATUS = (function() {
             storage_set("update_available", false);
             console.log("catblock is up-to-date");
         }
-    };
+    }
 
     // Check for an updated version of CatBlock for Edge
     function checkNow() {
@@ -51,7 +51,7 @@ var STATUS = (function() {
             }
         };
         $.ajax(ajaxOptions);
-    };
+    }
 
 
 
@@ -71,7 +71,7 @@ var STATUS = (function() {
 
         var millis = 1000 * 60 * 60 * delay_hours;
         storage_set("next_ping_time", Date.now() + millis);
-    };
+    }
 
     // Return the number of milliseconds until the next scheduled ping.
     function millisTillNextPing() {
@@ -81,7 +81,7 @@ var STATUS = (function() {
         } else {
             return Math.max(0, next_ping_time - Date.now());
         }
-    };
+    }
 
     return {
         // Ping the server when necessary.

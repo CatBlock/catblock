@@ -84,5 +84,5 @@ function beforeLoadHandler(event) {
             destroyElement(el, elType);
         }
     }
-};
+}
 beforeLoadHandler.blockCount = 0;

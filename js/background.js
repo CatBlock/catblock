@@ -191,11 +191,11 @@ function reloadTab(tabId) {
                 chrome.tabs.onUpdated.removeListener(listener);
             }, 2000);
         }
-    };
+    }
     chrome.tabs.reload(tabId, { bypassCache: true }, function() {
         chrome.tabs.onUpdated.addListener(listener);
     });
-};
+}
 
 // Implement blocking via the Chrome webRequest API.
 // Stores url, whitelisting, and blocking info for a tabid+frameid
@@ -356,7 +356,7 @@ if (!SAFARI) {
             return { redirectUrl: "about:blank" };
         }
         return { cancel: blocked };
-    };
+    }
 
     // Popup blocking
     function onCreatedNavigationTargetHandler(details) {
@@ -383,7 +383,7 @@ if (!SAFARI) {
             updateBadge(details.sourceTabId);
         }
         frameData.storeResource(details.sourceTabId, details.sourceFrameId, url, ElementTypes.popup, opener.domain);
-    };
+    }
 
     // If tabId has been replaced by Chrome, delete it's data
     if (chrome.webNavigation.onTabReplaced) {
@@ -430,7 +430,7 @@ function debug_report_elemhide(selector, matches, sender) {
             updateBadge(sender.tab.id);
         }
     }
-};
+}
 
 // UNWHITELISTING
 
@@ -475,7 +475,7 @@ function try_to_unwhitelist(url) {
         }
     }
     return false;
-};
+}
 
 // Called when Chrome blocking needs to clear the in-memory cache.
 // No-op for Safari.
@@ -487,14 +487,14 @@ function handlerBehaviorChanged() {
         chrome.webRequest.handlerBehaviorChanged();
     } catch (ex) {
     }
-};
+}
 
 // CUSTOM FILTERS
 
 // Get the custom filters text as a \n-separated text string.
 function get_custom_filters_text() {
     return storage_get("custom_filters") || "";
-};
+}
 
 // Set the custom filters to the given \n-separated text string, and
 // rebuild the filterset.
@@ -503,12 +503,12 @@ function set_custom_filters_text(filters) {
     storage_set("custom_filters", filters);
     chrome.runtime.sendMessage({ command: "filters_updated" });
     _myfilters.rebuild();
-};
+}
 
 // Get the user enterred exclude filters text as a \n-separated text string.
 function get_exclude_filters_text() {
     return storage_get("exclude_filters") || "";
-};
+}
 
 // Set the exclude filters to the given \n-separated text string, and
 // rebuild the filterset.
@@ -519,7 +519,7 @@ function set_exclude_filters(filters) {
     storage_set("exclude_filters", filters);
     FilterNormalizer.setExcludeFilters(filters);
     update_subscriptions_now();
-};
+}
 
 // Add / concatenate the exclude filter to the existing excluded filters, and
 // rebuild the filterset.
@@ -531,7 +531,7 @@ function add_exclude_filter(filter) {
     } else {
         set_exclude_filters(filter);
     }
-};
+}
 
 // Removes a custom filter entry.
 // Inputs: host:domain of the custom filters to be reset.
@@ -552,7 +552,7 @@ function remove_custom_filter(host) {
 
     text = new_custom_filters_arr.join("\n");
     set_custom_filters_text(text.trim());
-};
+}
 
 // count_cache singleton.
 var count_cache = (function(count_map) {
@@ -561,7 +561,7 @@ var count_cache = (function(count_map) {
     // Update custom filter count stored in localStorage
     function _updateCustomFilterCount() {
         storage_set("custom_filter_count", cache);
-    };
+    }
 
     return {
         // Update custom filter count cache and value stored in localStorage.
@@ -596,14 +596,14 @@ var count_cache = (function(count_map) {
 // Entry point for customize.js, used to update custom filter count cache.
 function updateCustomFilterCountMap(new_count_map) {
     count_cache.updateCustomFilterCountMap(new_count_map);
-};
+}
 
 function remove_custom_filter_for_host(host) {
     if (count_cache.getCustomFilterCount(host)) {
         remove_custom_filter(host);
         count_cache.removeCustomFilterCount(host);
     }
-};
+}
 
 function confirm_removal_of_custom_filters_on_host(host, activeTab) {
     var custom_filter_count = count_cache.getCustomFilterCount(host);
@@ -619,11 +619,11 @@ function confirm_removal_of_custom_filters_on_host(host, activeTab) {
     } else {
         activeTab.url = activeTab.url;
     }
-};
+}
 
 function get_settings() {
     return _settings.get_all();
-};
+}
 
 function set_setting(name, is_enabled) {
     _settings.set(name, is_enabled);
@@ -631,23 +631,23 @@ function set_setting(name, is_enabled) {
     if (name === "debug_logging") {
         logging(is_enabled);
     }
-};
+}
 
 function disable_setting(name) {
     _settings.set(name, false);
-};
+}
 
 // MYFILTERS PASSTHROUGHS
 
 // Rebuild the filterset based on the current settings and subscriptions.
 function update_filters() {
     _myfilters.rebuild();
-};
+}
 
 // Fetch the latest version of all subscribed lists now.
 function update_subscriptions_now() {
     _myfilters.checkFilterUpdates(true);
-};
+}
 
 // Returns map from id to subscription object.  See filters.js for
 // description of subscription object.
@@ -663,7 +663,7 @@ function get_subscriptions_minus_text() {
         }
     }
     return result;
-};
+}
 
 // Get subscribed filter lists
 function get_subscribed_filter_lists() {
@@ -675,7 +675,7 @@ function get_subscribed_filter_lists() {
         }
     }
     return subscribed_filter_names;
-};
+}
 
 // Subscribes to a filter subscription.
 // Inputs: id: id to which to subscribe.  Either a well-known
@@ -689,7 +689,7 @@ function subscribe(options) {
         requiresList: options.requires,
         title: options.title
     });
-};
+}
 
 // Unsubscribes from a filter subscription.
 // Inputs: id: id from which to unsubscribe.
@@ -700,14 +700,14 @@ function unsubscribe(options) {
         subscribed: false,
         deleteMe: (options.del ? true : undefined)
     });
-};
+}
 
 // Get the current (loaded) malware domains
 // Returns: an object with all of the malware domains
 // will return undefined, if the user is not subscribed to the Malware "filter list".
 function getMalwareDomains() {
     return _myfilters.getMalwareDomains();
-};
+}
 
 // Returns true if the url cannot be blocked
 function page_is_unblockable(url) {
@@ -717,7 +717,7 @@ function page_is_unblockable(url) {
         var scheme = parseUri(url).protocol;
         return (scheme !== "http:" && scheme !== "https:" && scheme !== "feed:");
     }
-};
+}
 
 // Get or set if AdBlock is paused
 // Inputs: newValue (optional boolean): if true, AdBlock will be paused, if
@@ -739,14 +739,14 @@ function adblock_is_paused(newValue) {
             safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/adblock_safari_beforeload.js", [], [], false);
         }
     }
-};
+}
 
 // Get if AdBlock is paused
 // called from content scripts
 // Returns: true if paused, false otherwise.
 function is_adblock_paused() {
     return adblock_is_paused();
-};
+}
 
 // INFO ABOUT CURRENT PAGE
 
@@ -825,7 +825,7 @@ function getCurrentTabInfo(callback, secondTime) {
 
         callback(result);
     }
-};
+}
 
 // Returns true if anything in whitelist matches the_domain.
 //   url: the url of the page
@@ -847,7 +847,7 @@ function page_is_whitelisted(url, type) {
     }
     var whitelist = _myfilters.blocking.whitelist;
     return whitelist.matches(url, type, parseUri(url).hostname, false);
-};
+}
 
 if (!SAFARI) {
     function setBrowserActions(options) {
@@ -857,7 +857,7 @@ if (!SAFARI) {
             }
             chrome.browserAction.setBadgeText({ text: options.badge_text, tabId: options.tabId });
             chrome.browserAction.setBadgeBackgroundColor({ color: options.color });
-        };
+        }
         // First, we need to get a badge text to check,
         // whether a new update has been found for Edge
         // If an udpate has been found, we display a "New!" badge text
@@ -869,7 +869,7 @@ if (!SAFARI) {
                 chrome.browserAction.setIcon({ tabId: options.tabId, path: options.iconPaths }, iconCallback);
             }
         });
-    };
+    }
 
     function updateBadge(tabId) {
         var display = get_settings().display_stats;
@@ -895,7 +895,7 @@ if (!SAFARI) {
             // see for more details - https://code.google.com/p/chromium/issues/detail?id=410868#c8
             setBrowserActions(browsersBadgeOptions);
         }
-    };
+    }
 
     // Set the button image and context menus according to the URL
     // of the current tab.
@@ -1013,7 +1013,7 @@ function add_custom_filter(filter) {
         // it back to content scripts
         return ex.toString();
     }
-};
+}
 
 // Injects jQuery UI
 function injectjQueryUI() {
@@ -1021,7 +1021,7 @@ function injectjQueryUI() {
         safari.extension.addContentScriptFromURL(safari.extension.baseURI + "lib/jquery-ui.custom.min.js", [], [], false);
         return true;
     }
-};
+}
 
 // Creates a custom filter entry that whitelists a given page
 // Inputs: url:string url of the page
@@ -1032,7 +1032,7 @@ function create_page_whitelist_filter(url) {
     var has_querystring = parts[2];
     var filter = "@@|" + parts[1] + (has_querystring ? "?" : "|") + "$document";
     return add_custom_filter(filter);
-};
+}
 
 // Creates a custom filter entry that whitelists a YouTube channel
 // Inputs: url:string url of the page
@@ -1048,7 +1048,7 @@ function create_whitelist_filter_for_youtube_channel(url) {
         var filter = "@@|https://www.youtube.com/*" + yt_channel + "|$document";
         return add_custom_filter(filter);
     }
-};
+}
 
 // Inputs: options object containing:
 //           domain:string the domain of the calling frame.
@@ -1081,7 +1081,7 @@ function get_content_script_data(options, sender) {
         result.selectors = _myfilters.hiding.filtersFor(options.domain);
     }
     return result;
-};
+}
 
 // Bounce messages back to content scripts.
 if (!SAFARI) {
@@ -1141,12 +1141,12 @@ if (!SAFARI) {
                 details.code = fn_name + "(" + param + ");";
                 chrome.tabs.executeScript(undefined, details);
             }
-        };
+        }
 
         // The emit_page_broadcast() function
         function theFunction(request) {
             executeOnTab(request.fn, request.options);
-        };
+        }
         return theFunction;
     })();
 }
@@ -1156,17 +1156,17 @@ function launch_subscribe_popup(loc) {
     window.open(chrome.runtime.getURL("pages/subscribe.html?" + loc),
                 "_blank",
                 "scrollbars=0, location=0, resizable=0, width=460, height=150");
-};
+}
 
 // Open the resource blocker when requested from popup.
 function launch_resourceblocker(query) {
     openTab("pages/resourceblock.html" + query, true);
-};
+}
 
 // Get the frameData for the "Report an Ad" & "Resource" page
 function get_frameData(tabId) {
     return frameData.get(tabId);
-};
+}
 
 // Process requests from "Resource" page
 // Determine, whether requests have been whitelisted/blocked
@@ -1184,13 +1184,13 @@ function process_frameData(fd) {
         }
     }
     return fd;
-};
+}
 
 // Add previously cached requests to matchCache
 // Used by "Resource" page
 function add_to_matchCache(cache) {
     _myfilters.blocking._matchCache = cache;
-};
+}
 
 // Reset matchCache
 // Used by "Resource" page
@@ -1199,7 +1199,7 @@ function reset_matchCache() {
     var matchCache = _myfilters.blocking._matchCache;
     _myfilters.blocking._matchCache = {};
     return matchCache;
-};
+}
 
 // Return chrome.i18n._getL10nData() for content scripts who cannot
 // call that function (since it loads extension files from disk.)
@@ -1328,7 +1328,7 @@ function createMalwareNotification() {
             });
         }); //end of chrome.tabs.query
     } //end of if
-}; //end of createMalwareNotification function
+} //end of createMalwareNotification function
 
 if (!SAFARI) {
     // Chrome blocking code.  Near the end so synchronous request handler
@@ -1352,7 +1352,7 @@ if (!SAFARI) {
             // TODO: once we're able to get the parentFrameId, call
             // chrome.webNavigation.getAllFrames to "load" the subframes
         }
-    };
+    }
 
     chrome.tabs.query({url: "http://*/*"}, handleEarlyOpenedTabs);
     chrome.tabs.query({url: "https://*/*"}, handleEarlyOpenedTabs);
@@ -1367,7 +1367,7 @@ if (!SAFARI) {
             !parseUri.parseSearch(tabUrl).ab_channel) {
             chrome.tabs.executeScript(tabId, { file: "js/ytchannel.js", runAt: "document_start" });
         }
-    };
+    }
 
     chrome.tabs.onCreated.addListener(function(tab) {
         if (chrome.runtime.lastError || !tab || !tab.id) {
@@ -1471,7 +1471,7 @@ function getDebugInfo() {
                 return "Developer";
             }
         }
-    };
+    }
 
     // Push AdBlock version and build to |the_debug_info| object
     the_debug_info.other_info.push("CatBlock version number: " + AdBlockVersion + " " + AdBlockBuild());
@@ -1487,7 +1487,7 @@ function getDebugInfo() {
     the_debug_info.other_info = the_debug_info.other_info.join("\n");
 
     return the_debug_info;
-};
+}
 
 // Code for making a bug report
 function makeReport() {
@@ -1523,34 +1523,34 @@ function makeReport() {
     var out = encodeURIComponent(body.join("  \n"));
 
     return out;
-};
+}
 
 // CatBlock specific code
 var channels = new Channels();
 
 function addChannel(args) {
     return channels.add(args);
-};
+}
 
 function removeChannel(id) {
     return channels.remove(id);
-};
+}
 
 function getListings(id) {
     return channels.getListings(id);
-};
+}
 
 function getGuide() {
     return channels.getGuide();
-};
+}
 
 function randomListing(args) {
     return channels.randomListing(args);
-};
+}
 
 function setEnabled(id, enabled) {
     return channels.setEnabled(id, enabled);
-};
+}
 
 // Listens for message from CatBlock content script asking to load jQuery.
 chrome.runtime.onMessage.addListener(

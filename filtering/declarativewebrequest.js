@@ -15,7 +15,7 @@ var DeclarativeWebRequest = (function() {
     // Returns true if |filter| is of type $document or $elemhide
     function isPageLevel(filter) {
         return filter._allowedElementTypes & PAGELEVEL_TYPES;
-    };
+    }
 
     // Returns false if the given filter cannot be handled by Safari 9 content blocking.
     function isSupported(filter) {
@@ -23,7 +23,7 @@ var DeclarativeWebRequest = (function() {
             return true;
         }
         return !(filter._allowedElementTypes === (filter._allowedElementTypes & UNSUPPORTED_TYPES));
-    };
+    }
 
     // Remove any characters from the filter lists that are not needed, such as |##| and |.|
     function parseSelector(selector) {
@@ -31,7 +31,7 @@ var DeclarativeWebRequest = (function() {
             selector = selector.substring(2, selector.length);
         }
         return selector;
-    };
+    }
 
     // Returns an object containing .included and .excluded lists of domains for
     // the given Filter.  If the Filter is of the form $domain=~x[,~x2,...] then
@@ -68,7 +68,7 @@ var DeclarativeWebRequest = (function() {
             }
         }
         return result;
-    };
+    }
 
     // Add the include / exclude domains to a rule
     // Note:  some filters will have both include and exclude domains, which the content blocking API doesn't allow,
@@ -81,7 +81,7 @@ var DeclarativeWebRequest = (function() {
         } else if (domains.excluded.length > 0) {
             rule.trigger["unless-domain"] = domains.excluded;
         }
-    };
+    }
 
     // Returns an array of resource types that should be checked by rules for
     // filters with the given allowedElementTypes.
@@ -109,7 +109,7 @@ var DeclarativeWebRequest = (function() {
             result.push("document");
         }
         return result;
-    };
+    }
 
     // Parse and clean up the filter's RegEx to meet WebKit's requirements.
     function getURLFilterFromFilter(filter) {
@@ -125,7 +125,7 @@ var DeclarativeWebRequest = (function() {
             rule = HTML_PREFIX + rule;
         }
         return rule;
-    };
+    }
 
     // Separates the different white list filters so they are added
     // to the final rule array in the correct order (for performance reasons)
@@ -152,7 +152,7 @@ var DeclarativeWebRequest = (function() {
                 documentWhitelistFilters.push(filter);
             }
         }
-    };
+    }
 
     // Create and return a default JavaScript rule object
     function createDefaultRule() {
@@ -162,7 +162,7 @@ var DeclarativeWebRequest = (function() {
         rule.trigger = {};
         rule.trigger["url-filter"] = HTML_PREFIX;
         return rule;
-    };
+    }
 
     // Return the rule required to represent this PatternFilter in Safari blocking syntax.
     function getRule(filter) {
@@ -179,7 +179,7 @@ var DeclarativeWebRequest = (function() {
             rule.trigger["load-type"] = ["first-party"];
         }
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this Selector Filter in Safari blocking syntax.
     function createSelectorRule(filter) {
@@ -188,7 +188,7 @@ var DeclarativeWebRequest = (function() {
         rule.action.type = "css-display-none";
         addDomainsToRule(filter, rule);
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this $elemhide Whitelist Filter in Safari blocking syntax.
     function createElemhideIgnoreRule(filter) {
@@ -206,14 +206,14 @@ var DeclarativeWebRequest = (function() {
         }
         addDomainsToRule(filter, rule);
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this Selector Filter in Safari blocking syntax.
     function createEmptySelectorRule() {
         var rule = createDefaultRule();
         rule.action.type = "css-display-none";
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this $document Whitelist Filter in Safari blocking syntax.
     function createDocumentIgnoreRule(filter) {
@@ -226,7 +226,7 @@ var DeclarativeWebRequest = (function() {
         }
         addDomainsToRule(filter, rule);
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this Whitelist Filter in Safari blocking syntax.
     function createIgnoreRule(filter) {
@@ -239,14 +239,14 @@ var DeclarativeWebRequest = (function() {
         }
         addDomainsToRule(filter, rule);
         return rule;
-    };
+    }
 
     function resetInternalArrays() {
         whitelistAnyOtherFilters = [];
         elementWhitelistFilters = [];
         documentWhitelistFilters = [];
         elemhideSelectorExceptions = {};
-    };
+    }
 
     return {
         // Converts the various Filters into Safari specific JSON entries.

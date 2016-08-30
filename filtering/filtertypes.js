@@ -1,7 +1,7 @@
 // A single filter rule.
 function Filter() {
     this.id = ++Filter._lastId;
-};
+}
 Filter._lastId = 0;
 
 // Maps filter text to Filter instances.  This is important, as it allows

@@ -45,7 +45,7 @@
         var t4 = { x: 512, y: 100 };
         var expect4 = { x: 219, y: 164, width: 219, height: 100, offsettop: 0, left: 0, top: 64, offsetleft: 147 };
         assert_eq(catblock._fit(pic, t4), expect4);
-    };
+    }
 
     console.log("Running tests");
     test_catblock();

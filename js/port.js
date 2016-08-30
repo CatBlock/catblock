@@ -52,7 +52,7 @@ if (typeof SAFARI === "undefined") {
                     addEventListener: function() {},
                     removeEventListener: function() {}
                 };
-            };
+            }
             function listenFor(messageName, handler) {
                 function listener(messageEvent) {
                     if (messageEvent.name === messageName) {
@@ -61,10 +61,10 @@ if (typeof SAFARI === "undefined") {
                 };
                 listeningContext().addEventListener("message", listener, false);
                 return listener;
-            };
+            }
             function removeListener(listener) {
                 listeningContext().removeEventListener("message", listener, false);
-            };
+            }
             // Return the object on which you can dispatch messages -- globally, or on the
             // messageEvent if specified.  If there isn't one, don't explode.
             // Make this globally available (don't use 'var') as it is used outside port.js
@@ -93,7 +93,7 @@ if (typeof SAFARI === "undefined") {
                         console.trace();
                     }
                 };
-            };
+            }
 
             // Replace the 'chrome' object with a Safari adapter.
             chrome = {
@@ -195,7 +195,7 @@ if (typeof SAFARI === "undefined") {
                                 function sendResponse(dataToSend) {
                                     var responseMessage = { callbackToken: messageEvent.message.callbackToken, data: dataToSend };
                                     dispatchContext(messageEvent).dispatchMessage("response", responseMessage);
-                                };
+                                }
                                 handler(message, sender, sendResponse);
                             });
                         }
@@ -305,7 +305,7 @@ if (typeof SAFARI === "undefined") {
                         }
 
                         var $n_re = /\$([1-9])/g;
-                        function $n_subber(_, num) { return args[num - 1]; };
+                        function $n_subber(_, num) { return args[num - 1]; }
 
                         var placeholders = {};
                         // Fill in $N in placeholders

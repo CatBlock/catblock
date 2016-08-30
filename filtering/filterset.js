@@ -123,7 +123,7 @@ function BlockingFilterSet(patternFilterSet, whitelistFilterSet) {
 
     // Caches results for this.matches()
     this._matchCache = {};
-};
+}
 
 // Checks if the two domains have the same origin
 // Inputs: the two domains

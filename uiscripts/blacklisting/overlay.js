@@ -23,7 +23,7 @@ function Overlay(options) {
     });
 
     Overlay.instances.push(this);
-};
+}
 
 Overlay.instances = [];
 

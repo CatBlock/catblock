@@ -199,7 +199,7 @@ function sendReport() {
             report_data.extensions = "Extension information not avaiable";
             sendData();
         }
-    }; //end of askUserToGatherExtensionInfo
+    } //end of askUserToGatherExtensionInfo
 
     function sendData() {
         var formdata = new FormData();
@@ -453,7 +453,7 @@ function checkmalware() {
         }
         $("#malwarewarning").show();
     });
-};
+}
 
 // Auto-scroll to bottom of the page
 $("input, select").change(function(event) {
@@ -494,7 +494,7 @@ function checkAdvanceOptions() {
             );
         }
     });
-};
+}
 
 // Fetch file with malware-known domains
 function fetchMalware() {
@@ -521,7 +521,7 @@ function fetchMalware() {
         }
     };
     xhr.send();
-};
+}
 
 // Attempt to get the malwareDomains from the background page first
 // if the returned domains is null, then fetch them directly from the host.

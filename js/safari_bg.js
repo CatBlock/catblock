@@ -1,6 +1,6 @@
 function emit_page_broadcast(request) {
     safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("page-broadcast", request);
-};
+}
 
 // frameData object for Safari
 var frameData = (function() {
@@ -274,7 +274,7 @@ safari.application.addEventListener("command", function(event) {
 
 function dispatchMessage(command) {
     safari.application.activeBrowserWindow.activeTab.page.dispatchMessage(command);
-};
+}
 
 // Open Options page upon settings checkbox click.
 safari.extension.settings.openCatBlockOptions = false;

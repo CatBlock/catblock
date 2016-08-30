@@ -129,7 +129,7 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
             function renameSubscription(old_id, new_id) {
                 that._subscriptions[new_id] = that._subscriptions[old_id];
                 delete that._subscriptions[old_id];
-            };
+            }
 
             // Create new id and check if new id is the same as id.
             // If not, update entry in subscriptions.

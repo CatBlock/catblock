@@ -40,7 +40,7 @@ if (typeof send_content_to_back === "undefined") {
                 el.style["z-index"] = 999999;
             }
         }
-    };
+    }
 
 }
 

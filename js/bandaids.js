@@ -49,12 +49,12 @@ function run_bandaids() {
         bandaids[apply_bandaid_for]();
     }
 
-};
+}
 
 
 function before_ready_bandaids() {
 
-};
+}
 
 // Safari & YouTube only
 // This function is outside the normal 'bandaids' processing

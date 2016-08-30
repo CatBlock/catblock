@@ -25,10 +25,10 @@ function BGcall() {
     var has_callback = (typeof args[args.length - 1] === "function");
     var callback = (has_callback ? args.pop() : function() {});
     chrome.runtime.sendMessage({ command: "call", fn:fn, args:args }, callback);
-};
+}
 
 // Enabled in adblock_start_common.js and background.js if the user wants
-function log() {};
+var log = function() {}
 
 function logging(enabled) {
     if (enabled) {
@@ -40,7 +40,7 @@ function logging(enabled) {
     } else {
         log = function() {};
     }
-};
+}
 logging(false); // disabled by default
 
 // Behaves very similarly to $.ready() but does not require jQuery.
@@ -50,16 +50,16 @@ function onReady(callback) {
     } else {
         window.addEventListener("load", callback, false);
     }
-};
+}
 
 function translate(messageID, args) {
     return chrome.i18n.getMessage(messageID, args);
-};
+}
 
 // Determine what language the user's browser is set to use
 function determineUserLanguage() {
     return navigator.language.match(/^[a-z]+/i)[0];
-};
+}
 
 function localizePage() {
     // Translate a page into the users language
@@ -99,7 +99,7 @@ function localizePage() {
         $(".closelegend").css("float","left");
         document.documentElement.dir = "rtl";
     }
-};
+}
 
 // Parse a URL. Based upon http://blog.stevenlevithan.com/archives/parseuri
 // parseUri 1.2.2, (c) Steven Levithan <stevenlevithan.com>, MIT License
@@ -115,7 +115,7 @@ function parseUri(url) {
         uri[keys[i]] = matches[i] || "";
     }
     return uri;
-};
+}
 // Parses the search part of a URL into an key: value object.
 // e.g., ?hello=world&ext=adblock would become {hello:"world", ext:"adblock"}
 // Inputs: search: the search query of a URL. Must have &-separated values.
@@ -135,7 +135,7 @@ parseUri.parseSearch = function(search) {
         }
     }
     return params;
-};
+}
 // Strip third+ level domain names from the domain and return the result.
 // Inputs: domain: the domain that should be parsed
 //         keepDot: true if trailing dots should be preserved in the domain
@@ -146,7 +146,7 @@ parseUri.secondLevelDomainOnly = function(domain, keepDot) {
         return match[keepDot ? 0 : 1].toLowerCase();
     }
     return domain;
-};
+}
 
 // Return |domain| encoded in Unicode
 function getUnicodeDomain(domain) {
@@ -155,7 +155,7 @@ function getUnicodeDomain(domain) {
     } else {
         return domain;
     }
-};
+}
 
 // Return |url| encoded in Unicode
 function getUnicodeUrl(url) {
@@ -167,7 +167,7 @@ function getUnicodeUrl(url) {
         return parsed.href;
     }
     return url;
-};
+}
 
 // TODO: move back into background.js since Safari can't use this
 // anywhere but in the background.  Do it after merging 6101 and 6238
@@ -189,7 +189,7 @@ function storage_get(key) {
         log("Couldn't parse json for " + key);
         return undefined;
     }
-};
+}
 
 // Inputs: key:string, value:object.
 // If value === undefined, removes key from storage.
@@ -210,7 +210,7 @@ function storage_set(key, value) {
             openTab("options/index.html#ui-tabs-2");
         }
     }
-};
+}
 
 // Return obj[value], first setting it to |defaultValue| if it is undefined.
 function setDefault(obj, value, defaultValue) {
@@ -218,7 +218,7 @@ function setDefault(obj, value, defaultValue) {
         obj[value] = defaultValue;
     }
     return obj[value];
-};
+}
 
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
@@ -233,7 +233,7 @@ function sessionstorage_get(key) {
         log("Couldn't parse json for " + key);
         return undefined;
     }
-};
+}
 
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
@@ -250,7 +250,7 @@ function sessionstorage_set(key, value) {
             openTab("options/index.html#ui-tabs-2");
         }
     }
-};
+}
 
 // Create a user notification on Safari
 //
@@ -264,4 +264,4 @@ function createRuleLimitExceededSafariNotification() {
             openTab("options/index.html?tab=0");
         };
     }
-};
+}
