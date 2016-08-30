@@ -126,7 +126,7 @@ MyFilters.prototype._updateDefaultSubscriptions = function() {
             // Function that will add a new entry with updated id,
             // and will remove old entry with outdated id.
             var that = this;
-            var renameSubscription = function(old_id, new_id) {
+            function renameSubscription(old_id, new_id) {
                 that._subscriptions[new_id] = that._subscriptions[old_id];
                 delete that._subscriptions[old_id];
             };

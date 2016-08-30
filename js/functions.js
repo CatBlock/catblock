@@ -16,7 +16,7 @@ if (EDGE) {
 //   first, a string - the name of the function to call
 //   then, any arguments to pass to the function (optional)
 //   then, a callback:function(return_value:any) (optional)
-var BGcall = function() {
+function BGcall() {
     var args = [];
     for (var i=0; i < arguments.length; i++) {
         args.push(arguments[i]);
@@ -28,9 +28,9 @@ var BGcall = function() {
 };
 
 // Enabled in adblock_start_common.js and background.js if the user wants
-var log = function() {};
+function log() {};
 
-var logging = function(enabled) {
+function logging(enabled) {
     if (enabled) {
         log = function() {
             if (VERBOSE_DEBUG || arguments[0] !== "[DEBUG]") { // comment out for verbosity
@@ -44,7 +44,7 @@ var logging = function(enabled) {
 logging(false); // disabled by default
 
 // Behaves very similarly to $.ready() but does not require jQuery.
-var onReady = function(callback) {
+function onReady(callback) {
     if (document.readyState === "complete") {
         window.setTimeout(callback, 0);
     } else {
@@ -52,16 +52,16 @@ var onReady = function(callback) {
     }
 };
 
-var translate = function(messageID, args) {
+function translate(messageID, args) {
     return chrome.i18n.getMessage(messageID, args);
 };
 
 // Determine what language the user's browser is set to use
-var determineUserLanguage = function() {
+function determineUserLanguage() {
     return navigator.language.match(/^[a-z]+/i)[0];
 };
 
-var localizePage = function() {
+function localizePage() {
     // Translate a page into the users language
     $("[i18n]:not(.i18n-replaced)").each(function() {
         try {
@@ -105,7 +105,7 @@ var localizePage = function() {
 // parseUri 1.2.2, (c) Steven Levithan <stevenlevithan.com>, MIT License
 // Inputs: url: the URL you want to parse
 // Outputs: object containing all parts of |url| as attributes
-var parseUri = function(url) {
+function parseUri(url) {
     var matches = /^(([^:]+(?::|$))(?:(?:\w+:)?\/\/)?(?:[^:@\/]*(?::[^:@\/]*)?@)?(([^:\/?#]*)(?::(\d*))?))((?:[^?#\/]*\/)*[^?#]*)(\?[^#]*)?(\#.*)?/.exec(url);
     // The key values are identical to the JS location object values for that key
     var keys = ["href", "origin", "protocol", "host", "hostname", "port",
@@ -149,7 +149,7 @@ parseUri.secondLevelDomainOnly = function(domain, keepDot) {
 };
 
 // Return |domain| encoded in Unicode
-var getUnicodeDomain = function(domain) {
+function getUnicodeDomain(domain) {
     if (domain) {
         return punycode.toUnicode(domain);
     } else {
@@ -158,7 +158,7 @@ var getUnicodeDomain = function(domain) {
 };
 
 // Return |url| encoded in Unicode
-var getUnicodeUrl = function(url) {
+function getUnicodeUrl(url) {
     // URLs encoded in Punycode contain xn-- prefix
     if (url && url.indexOf("xn--") > 0) {
         var parsed = parseUri(url);
@@ -174,7 +174,7 @@ var getUnicodeUrl = function(url) {
 // and 5912 to avoid merge conflicts.
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
-var storage_get = function(key) {
+function storage_get(key) {
     var store = (window.SAFARI ? safari.extension.settings : localStorage);
     if (store === undefined) {
         return undefined;
@@ -194,7 +194,7 @@ var storage_get = function(key) {
 // Inputs: key:string, value:object.
 // If value === undefined, removes key from storage.
 // Returns undefined.
-var storage_set = function(key, value) {
+function storage_set(key, value) {
     var store = (window.SAFARI ? safari.extension.settings : localStorage);
     if (value === undefined) {
         store.removeItem(key);
@@ -213,7 +213,7 @@ var storage_set = function(key, value) {
 };
 
 // Return obj[value], first setting it to |defaultValue| if it is undefined.
-var setDefault = function(obj, value, defaultValue) {
+function setDefault(obj, value, defaultValue) {
     if (obj[value] === undefined) {
         obj[value] = defaultValue;
     }
@@ -222,7 +222,7 @@ var setDefault = function(obj, value, defaultValue) {
 
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
-var sessionstorage_get = function(key) {
+function sessionstorage_get(key) {
     var json = sessionStorage.getItem(key);
     if (json === null) {
         return undefined;
@@ -237,7 +237,7 @@ var sessionstorage_get = function(key) {
 
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
-var sessionstorage_set = function(key, value) {
+function sessionstorage_set(key, value) {
     if (value === undefined) {
         sessionStorage.removeItem(key);
         return;
@@ -254,7 +254,7 @@ var sessionstorage_set = function(key, value) {
 
 // Create a user notification on Safari
 //
-var createRuleLimitExceededSafariNotification = function() {
+function createRuleLimitExceededSafariNotification() {
     if (SAFARI && ("Notification" in window)) {
         sessionstorage_set("contentblockingerror", translate("safaricontentblockinglimitexceeded"));
         chrome.runtime.sendMessage({command: "contentblockingmessageupdated"});

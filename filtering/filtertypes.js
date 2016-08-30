@@ -1,5 +1,5 @@
 // A single filter rule.
-var Filter = function() {
+function Filter() {
     this.id = ++Filter._lastId;
 };
 Filter._lastId = 0;
@@ -72,7 +72,7 @@ Filter._toDomainSet = function(domainText, divider) {
 };
 
 // Filters that block by CSS selector.
-var SelectorFilter = function(text) {
+function SelectorFilter(text) {
     Filter.call(this); // call base constructor
 
     var parts = text.match(/(^.*?)\#\@?\#(.+$)/);
@@ -112,7 +112,7 @@ SelectorFilter.prototype = {
 };
 
 // Filters that block by URL regex or substring.
-var PatternFilter = function() {
+function PatternFilter() {
     Filter.call(this); // call base constructor
 };
 // Data is [rule text, allowed element types, options].

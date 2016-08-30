@@ -8,7 +8,7 @@ var STATUS = (function() {
     var url = "http://catblock.tk/edge.json";
 
     // Check if newVersion is newer than AdBlockVersion
-    var isNewerVersion = function(newVersion) {
+    function isNewerVersion(newVersion) {
         // Get a version number
         var AdBlockVersion = chrome.runtime.getManifest().version;
         var versionRegex = /^(\*|\d+(\.\d+){0,2}(\.\*)?)$/;
@@ -28,7 +28,7 @@ var STATUS = (function() {
         return false;
     };
 
-    var handleResponse = function(responseData) {
+    function handleResponse(responseData) {
         var isNewerVersionAvailable = isNewerVersion(responseData.version);
         if (isNewerVersionAvailable) {
             console.log("newer version available");
@@ -41,7 +41,7 @@ var STATUS = (function() {
     };
 
     // Check for an updated version of CatBlock for Edge
-    var checkNow = function() {
+    function checkNow() {
         var ajaxOptions = {
             type: "GET",
             url: url,
@@ -56,7 +56,7 @@ var STATUS = (function() {
 
 
     // Called just after we ping the server, to schedule our next ping.
-    var scheduleNextPing = function() {
+    function scheduleNextPing() {
         var total_pings = storage_get("total_pings") || 0;
         total_pings += 1;
         storage_set("total_pings", total_pings);
@@ -74,7 +74,7 @@ var STATUS = (function() {
     };
 
     // Return the number of milliseconds until the next scheduled ping.
-    var millisTillNextPing = function() {
+    function millisTillNextPing() {
         var next_ping_time = storage_get("next_ping_time");
         if (!next_ping_time) {
             return 0;

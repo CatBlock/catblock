@@ -117,7 +117,7 @@ FilterSet.prototype = {
 };
 
 
-BlockingFilterSet = function(patternFilterSet, whitelistFilterSet) {
+function BlockingFilterSet(patternFilterSet, whitelistFilterSet) {
     this.pattern = patternFilterSet;
     this.whitelist = whitelistFilterSet;
 

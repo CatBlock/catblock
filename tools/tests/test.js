@@ -11,7 +11,7 @@ var failure = false;
 // This fixes access to the settings while running test cases, e.g. "get_settings is not defined" - myfilters.js:434
 var settings = null;
 
-var get_settings = function() {
+function get_settings() {
     return settings;
 };
 
@@ -294,14 +294,14 @@ BGcall("get_settings", function(data) {
 
     QUnit.test("subtract", function(assert) {
 
-        var _normalize = function(data) {
+        function _normalize(data) {
             var result = {};
             for (var d in data)
                 result[d === 'ALL' ? DomainSet.ALL : d] = data[d];
             return result;
         }
         // Does DomainSet(data1).subtract(DomainSet(data2)) work as expected?
-        var _test = function(data1, data2, result) {
+        function _test(data1, data2, result) {
             var set1 = new DomainSet(_normalize(data1));
             set1.subtract( new DomainSet(_normalize(data2)) );
             assert.deepEqual(set1.has, _normalize(result), JSON.stringify(data1) + ' minus ' + JSON.stringify(data2));
@@ -383,7 +383,7 @@ BGcall("get_settings", function(data) {
     QUnit.module("SelectorFilter");
 
     QUnit.test("merge", function(assert) {
-        var _testEmpty = function(a, b) {
+        function _testEmpty(a, b) {
             var first = SelectorFilter.merge(
                 Filter.fromText(a),
                 b.map(function(text) { return Filter.fromText(text); })
@@ -391,7 +391,7 @@ BGcall("get_settings", function(data) {
             var result = new DomainSet({"": false});
             assert.deepEqual(first._domains, result, a + " - " + JSON.stringify(b) + " = nothing");
         }
-        var _test = function(a, b, c) {
+        function _test(a, b, c) {
             var first = SelectorFilter.merge(
                 Filter.fromText(a),
                 b.map(function(text) { return Filter.fromText(text); })

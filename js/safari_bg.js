@@ -1,4 +1,4 @@
-var emit_page_broadcast = function(request) {
+function emit_page_broadcast(request) {
     safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("page-broadcast", request);
 };
 
@@ -272,7 +272,7 @@ safari.application.addEventListener("command", function(event) {
     }
 }, false);
 
-var dispatchMessage = function(command) {
+function dispatchMessage(command) {
     safari.application.activeBrowserWindow.activeTab.page.dispatchMessage(command);
 };
 

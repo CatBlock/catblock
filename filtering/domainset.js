@@ -62,7 +62,7 @@ DomainSet.prototype = {
     // Modify |this| by set-subtracting |other|.
     // |this| will contain the subset that was in |this| but not in |other|.
     subtract: function(other) {
-        var subtract_operator = function(a, b) { return a && !b; };
+        function subtract_operator(a, b) { return a && !b; };
         this._apply(subtract_operator, other);
     },
 

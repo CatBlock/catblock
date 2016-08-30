@@ -33,7 +33,7 @@ function weakDestroyElement(el, elType) {
     }
 }
 
-var beforeLoadHandler = function(event) {
+function beforeLoadHandler(event) {
     // Since we don't block non-HTTP requests, return
     // without asking the background page.
     if (/^(?!https?:)[\w-]+:/.test(event.url)) {

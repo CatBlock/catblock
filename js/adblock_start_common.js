@@ -153,7 +153,7 @@ function debug_print_selector_matches(data) {
 function handleABPLinkClicks() {
     // Subscribe to the list when you click an abp: link
     var elems = document.querySelectorAll("[href^='abp:'], [href^='ABP:']");
-    var abplinkhandler = function(event) {
+    function abplinkhandler(event) {
         if (event.isTrusted === false) {
             return;
         }

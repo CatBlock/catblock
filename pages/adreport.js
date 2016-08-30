@@ -160,7 +160,7 @@ function sendReport() {
     report_data.answers = the_answers.join("\n");
 
     // Retrieve extension info
-    var askUserToGatherExtensionInfo = function() {
+    function askUserToGatherExtensionInfo() {
         if (chrome &&
             chrome.permissions &&
             chrome.permissions.request) {
@@ -373,7 +373,7 @@ function prepareManualReport(data, status, HTTPerror, respObj) {
 }
 
 // Check every domain of downloaded resource against malware-known domains
-var checkmalware = function() {
+function checkmalware() {
     BGcall("get_frameData", tabId, function(frameData) {
         if (!frameData) {
             return;
@@ -464,7 +464,7 @@ $("input, select").change(function(event) {
 });
 
 // STEP 1: Malware/adware detection
-var checkAdvanceOptions = function() {
+function checkAdvanceOptions() {
     // Check, if downloaded resources are available,
     // if not, just reload tab with parsed tabId
     BGcall("get_settings", function(settings) {
@@ -497,7 +497,7 @@ var checkAdvanceOptions = function() {
 };
 
 // Fetch file with malware-known domains
-var fetchMalware = function() {
+function fetchMalware() {
     var xhr = new XMLHttpRequest();
     // The timestamp is add to the URL to prevent caching by the browser
     xhr.open("GET", "https://data.getadblock.com/filters/domains.json?timestamp=" + new Date()

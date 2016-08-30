@@ -19,7 +19,7 @@
         }
     }
 
-    var test_catblock = function() {
+    function test_catblock() {
         var pic1 = { x: 10, y: 6, left: 2, top: 2, right: 5, bot: 1 };
 
         // targets

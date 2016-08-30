@@ -1,6 +1,6 @@
 // Youtube-related code in this file based on code (c) Adblock Plus. GPLv3.
 // and https://hg.adblockplus.org/adblockpluschrome/file/aed8fd38e824/safari/include.youtube.js
-var run_bandaids = function() {
+function run_bandaids() {
     // Tests to determine whether a particular bandaid should be applied
     var apply_bandaid_for = "";
     if (/mail\.live\.com/.test(document.location.hostname)) {
@@ -52,7 +52,7 @@ var run_bandaids = function() {
 };
 
 
-var before_ready_bandaids = function() {
+function before_ready_bandaids() {
 
 };
 

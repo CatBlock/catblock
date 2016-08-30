@@ -1,4 +1,4 @@
-var Overlay = function(options) {
+function Overlay(options) {
 
     var el = $(options.dom_element);
 

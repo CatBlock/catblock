@@ -39,7 +39,7 @@ if (typeof SAFARI === "undefined") {
 
             // Return the object on which you can add/remove event listeners.
             // If there isn't one, don't explode.
-            var listeningContext = function() {
+            function listeningContext() {
                 if (safari.self && safari.self.addEventListener) {
                     return safari.self;
                 }
@@ -53,8 +53,8 @@ if (typeof SAFARI === "undefined") {
                     removeEventListener: function() {}
                 };
             };
-            var listenFor = function(messageName, handler) {
-                var listener = function(messageEvent) {
+            function listenFor(messageName, handler) {
+                function listener(messageEvent) {
                     if (messageEvent.name === messageName) {
                         handler(messageEvent);
                     }
@@ -62,13 +62,13 @@ if (typeof SAFARI === "undefined") {
                 listeningContext().addEventListener("message", listener, false);
                 return listener;
             };
-            var removeListener = function(listener) {
+            function removeListener(listener) {
                 listeningContext().removeEventListener("message", listener, false);
             };
             // Return the object on which you can dispatch messages -- globally, or on the
             // messageEvent if specified.  If there isn't one, don't explode.
             // Make this globally available (don't use 'var') as it is used outside port.js
-            var dispatchContext = function(messageEvent) {
+            function dispatchContext(messageEvent) {
                 // Can we dispatch on the messageEvent target?
                 var m = messageEvent;
                 if (m && m.target && m.target.page && m.target.page.dispatchMessage) {
@@ -192,7 +192,7 @@ if (typeof SAFARI === "undefined") {
                                     sender.url = frameInfo.url;
                                 }
 
-                                var sendResponse = function(dataToSend) {
+                                function sendResponse(dataToSend) {
                                     var responseMessage = { callbackToken: messageEvent.message.callbackToken, data: dataToSend };
                                     dispatchContext(messageEvent).dispatchMessage("response", responseMessage);
                                 };
@@ -305,7 +305,7 @@ if (typeof SAFARI === "undefined") {
                         }
 
                         var $n_re = /\$([1-9])/g;
-                        var $n_subber = function(_, num) { return args[num - 1]; };
+                        function $n_subber(_, num) { return args[num - 1]; };
 
                         var placeholders = {};
                         // Fill in $N in placeholders
