@@ -21,18 +21,11 @@ $(function() {
         determineUserLanguage() +
         "/filters";
 
-    var jqxhr = $.ajax({
+    $.ajax({
         type: "GET",
         url: syntaxURL,
         success: function() {
-            //since the ABP site uses a custom server side 404 handler, instead of returing us a 404 http status code
-            //we need to parse the response text looking for a 404 message for the user.
-            if (jqxhr.responseText &&
-                jqxhr.responseText.indexOf("404 - The requested URL was not found.") > 0) {
-                $("#tutorlink").attr("href", "https://adblockplus.org/en/filters");
-            } else {
-                $("#tutorlink").attr("href", syntaxURL);
-            }
+            $("#tutorlink").attr("href", syntaxURL);
         },
         error: function() {
             $("#tutorlink").attr("href", "https://adblockplus.org/en/filters");
