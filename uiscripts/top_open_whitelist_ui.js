@@ -169,5 +169,3 @@ function top_open_whitelist_ui() {
         bind_enter_click_to_default();
     });
 }
-
-//@ sourceURL=/uiscripts/top_open_whitelist_ui.js

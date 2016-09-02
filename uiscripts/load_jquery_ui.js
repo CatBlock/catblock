@@ -54,5 +54,3 @@ function changeTextDirection($selector) {
         $(".ui-dialog .ui-dialog-titlebar-close").css({ left: "0.3em", right: "initial" });
     }
 }
-
-//@ sourceURL=/uiscripts/load_jquery_ui.js

@@ -55,5 +55,3 @@ ElementChain.prototype.change = function(listener, callback) {
         }
     }
 };
-
-//@ sourceURL=/uiscripts/blacklisting/elementchain.js

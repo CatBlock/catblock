@@ -43,5 +43,3 @@ if (typeof send_content_to_back === "undefined") {
     }
 
 }
-
-//@ sourceURL=/uiscripts/send_content_to_back.js

@@ -209,5 +209,3 @@ ClickWatcher.prototype._build_ui = function() {
     changeTextDirection($("body .adblock-blacklist-dialog"));
     return page;
 };
-
-//@ sourceURL=/uiscripts/blacklisting/clickwatcher.js

@@ -454,5 +454,3 @@ BlacklistUi._ellipsis = function(value, size) {
 
     return value;
 };
-
-//@ sourceURL=/uiscripts/blacklisting/blacklistui.js

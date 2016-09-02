@@ -59,6 +59,3 @@ function top_open_blacklist_ui(options) {
         bind_enter_click_to_default();
     });
 }
-
-
-//@ sourceURL=/uiscripts/top_open_blacklist_ui.js
