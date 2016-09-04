@@ -1,6 +1,6 @@
 var elementPurger = {
     onPurgeRequest: function(request, sender, sendResponse) {
-        if (request.command === 'purge-elements' &&
+        if (request.command === "purge-elements" &&
             request.frameUrl === document.location.href.replace(/#.*$/, "")) {
             elementPurger._purgeElements(request);
             sendResponse({});
@@ -16,9 +16,9 @@ var elementPurger = {
         log("[DEBUG]", "Purging:", lastTry, elType, url);
 
         var tags = {};
-        tags[ElementTypes.image] = { IMG:1 };
-        tags[ElementTypes.subdocument] = { IFRAME:1, FRAME: 1 };
-        tags[ElementTypes.object] = { "OBJECT":1, EMBED:1 };
+        tags[ElementTypes.image] = { IMG: 1 };
+        tags[ElementTypes.subdocument] = { IFRAME: 1, FRAME: 1 };
+        tags[ElementTypes.object] = { "OBJECT": 1, EMBED: 1 };
 
         var srcdata = this._srcsFor(url);
         for (var i=0; i < srcdata.length; i++) {
@@ -29,12 +29,13 @@ var elementPurger = {
                 // A selector containing an object is not a valid selector (reddit.com),
                 // therefore we need to slice a processed selector
                 if (src.text.indexOf("{") > -1) {
-                    selector = tag + '[' + attr + "*=" + '"' + src.text.slice(0, src.text.indexOf("{")) + '"]';
+                    selector = tag + "[" + attr + "*='" + src.text.slice(0, src.text.indexOf("{")) + "']";
                 } else {
-                    selector = tag + '[' + attr + src.op + '"' + src.text + '"]';
+                    selector = tag + "[" + attr + src.op + "'" + src.text + "']";
                 }
 
                 var results = document.querySelectorAll(selector);
+
                 log("[DEBUG]", "  ", results.length, "results for selector:", selector);
                 if (results.length) {
                     for (var j=0; j < results.length; j++) {
@@ -70,25 +71,25 @@ var elementPurger = {
         results.push({ op:"$=", text: url.match(/\:(\/\/.*)$/)[1] });
         if (url_parts.hostname === page_parts.hostname) {
             var url_search_and_hash = url_parts.search + url_parts.hash;
-            // Case 2: The kind that starts with '/'
+            // Case 2: The kind that starts with "/"
             results.push({ op:"=", text: url_parts.pathname + url_search_and_hash });
             // Case 3: Relative URL (of the form "ab.cd", "./ab.cd", "../ab.cd" and
             // "./../ab.cd")
-            var page_dirs = page_parts.pathname.split('/');
-            var url_dirs = url_parts.pathname.split('/');
+            var page_dirs = page_parts.pathname.split("/");
+            var url_dirs = url_parts.pathname.split("/");
             var i = 0;
-            while (page_dirs[i] === url_dirs[i]
-                   && i < page_dirs.length - 1
-                   && i < url_dirs.length - 1) {
+            while (page_dirs[i] === url_dirs[i] &&
+                   i < page_dirs.length - 1 &&
+                   i < url_dirs.length - 1) {
                 i++; // i is set to first differing position
             }
             var dir = new Array(page_dirs.length - i).join("../");
             var path = url_dirs.slice(i).join("/") + url_search_and_hash;
             if (dir) {
-                results.push({ op:"$=", text: dir + path });
+                results.push({ op: "$=", text: dir + path });
             } else {
-                results.push({ op:"=", text: path });
-                results.push({ op:"=", text: "./" + path });
+                results.push({ op: "=", text: path });
+                results.push({ op: "=", text: "./" + path });
             }
         }
 
@@ -107,7 +108,8 @@ adblock_begin({
         chrome.runtime.onMessage.removeListener(elementPurger.onPurgeRequest);
     },
     handleHiding: function(data) {
-        if (data && data.hiding)
+        if (data && data.hiding) {
             block_list_via_css(data.selectors);
+        }
     }
 });

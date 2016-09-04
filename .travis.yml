@@ -7,6 +7,7 @@ before_script:
     - git config --global user.name "Tomáš Taro"
     - git remote rm origin
     - git remote add origin https://${GH_TOKEN}@github.com/CatBlock/catblock.git
+    - pip install selenium
 script:
     - python tools/make_release.py -b firefox -ext y
     - python tools/make_release.py -b edge

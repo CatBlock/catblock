@@ -7,8 +7,9 @@ adblock_begin({
         document.removeEventListener("beforeload", beforeLoadHandler, true);
     },
     handleHiding: function(data) {
-        if (data.hiding)
+        if (data.hiding) {
             block_list_via_css(data.selectors);
+        }
     },
     success: function() {
         onReady(function() { blockBackgroundImageAd(); });

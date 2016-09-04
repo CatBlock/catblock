@@ -14,7 +14,7 @@
 // still be available in Safari, and the chrome.* APIs will be
 // unchanged in Chrome.
 
-if (typeof SAFARI == "undefined") {
+if (typeof SAFARI === "undefined") {
     (function() {
         // True in Safari, false in Chrome.
         SAFARI = (function() {
@@ -39,46 +39,52 @@ if (typeof SAFARI == "undefined") {
 
             // Return the object on which you can add/remove event listeners.
             // If there isn't one, don't explode.
-            var listeningContext = function() {
-                if (safari.self && safari.self.addEventListener)
+            function listeningContext() {
+                if (safari.self && safari.self.addEventListener) {
                     return safari.self;
-                if (safari.application && safari.application.addEventListener)
+                }
+                if (safari.application && safari.application.addEventListener) {
                     return safari.application;
+                }
                 console.log("No add/remove event listener possible at this location!");
                 console.trace();
                 return {
                     addEventListener: function() {},
                     removeEventListener: function() {}
                 };
-            };
-            var listenFor = function(messageName, handler) {
-                var listener = function(messageEvent) {
-                    if (messageEvent.name == messageName)
+            }
+            function listenFor(messageName, handler) {
+                function listener(messageEvent) {
+                    if (messageEvent.name === messageName) {
                         handler(messageEvent);
-                };
+                    }
+                }
                 listeningContext().addEventListener("message", listener, false);
                 return listener;
-            };
-            var removeListener = function(listener) {
+            }
+            function removeListener(listener) {
                 listeningContext().removeEventListener("message", listener, false);
-            };
+            }
             // Return the object on which you can dispatch messages -- globally, or on the
             // messageEvent if specified.  If there isn't one, don't explode.
             // Make this globally available (don't use 'var') as it is used outside port.js
-            dispatchContext = function(messageEvent) {
+            function dispatchContext(messageEvent) {
                 // Can we dispatch on the messageEvent target?
                 var m = messageEvent;
-                if (m && m.target && m.target.page && m.target.page.dispatchMessage)
+                if (m && m.target && m.target.page && m.target.page.dispatchMessage) {
                     return m.target.page;
+                }
                 // Are we in some context where safari.self works, whatever that is?
                 var s = safari.self;
-                if (s && s.tab && s.tab.dispatchMessage)
+                if (s && s.tab && s.tab.dispatchMessage) {
                     return s.tab;
+                }
                 // Are we in the global page sending to the active tab?
                 var b = (safari.application && safari.application.activeBrowserWindow);
                 var p = (b && b.activeTab && b.activeTab.page);
-                if (p && p.dispatchMessage)
+                if (p && p.dispatchMessage) {
                     return p;
+                }
                 console.log("No dispatchMessage possible at this location!");
                 console.trace();
                 return {
@@ -87,7 +93,7 @@ if (typeof SAFARI == "undefined") {
                         console.trace();
                     }
                 };
-            };
+            }
 
             // Replace the 'chrome' object with a Safari adapter.
             chrome = {
@@ -125,8 +131,9 @@ if (typeof SAFARI == "undefined") {
                             // call .dispatchMessage() upon.
                             listenFor("onMessage registration", function(messageEvent) {
                                 var context = dispatchContext(messageEvent);
-                                if (dispatchTargets.indexOf(context) == -1)
+                                if (dispatchTargets.indexOf(context) === -1) {
                                     dispatchTargets.push(context);
+                                }
                             });
                         }
 
@@ -148,14 +155,16 @@ if (typeof SAFARI == "undefined") {
                             // Listen for a response.  When we get it, call the callback and stop
                             // listening.
                             var listener = listenFor("response", function(messageEvent) {
-                                if (messageEvent.message.callbackToken != callbackToken)
+                                if (messageEvent.message.callbackToken !== callbackToken) {
                                     return;
+                                }
                                 // Must wrap this call in a timeout to avoid crash, per Safari team
                                 window.setTimeout(function() {
                                     removeListener(listener);
                                 }, 0);
-                                if (callback)
+                                if (callback) {
                                     callback(messageEvent.message.data);
+                                }
                             });
                         }
                         return theFunction;
@@ -166,8 +175,9 @@ if (typeof SAFARI == "undefined") {
                             // If listening for messages from the global page, we must call the
                             // global page so it can get a messageEvent through which to send
                             // messages to us.
-                            if (!isOnGlobalPage)
+                            if (!isOnGlobalPage) {
                                 dispatchContext().dispatchMessage("onMessage registration", {});
+                            }
 
                             listenFor("message", function(messageEvent) {
                                 var message = messageEvent.message.data;
@@ -182,10 +192,10 @@ if (typeof SAFARI == "undefined") {
                                     sender.url = frameInfo.url;
                                 }
 
-                                var sendResponse = function(dataToSend) {
+                                function sendResponse(dataToSend) {
                                     var responseMessage = { callbackToken: messageEvent.message.callbackToken, data: dataToSend };
                                     dispatchContext(messageEvent).dispatchMessage("response", responseMessage);
-                                };
+                                }
                                 handler(message, sender, sendResponse);
                             });
                         }
@@ -230,9 +240,9 @@ if (typeof SAFARI == "undefined") {
                     // Called by the global page.
                     notice: function(tab, info) {
                         // Clean up closed tabs, to avoid memory bloat.
-                        this._tabs = this._tabs.filter(function(t) { return t.browserWindow != null; });
+                        this._tabs = this._tabs.filter(function(t) { return t.browserWindow !== null; });
 
-                        if (tab.id == undefined) {
+                        if (tab.id === undefined) {
                             // New tab
                             tab.id = this._lastAssignedTabId + 1;
                             this._lastAssignedTabId = tab.id;
@@ -240,7 +250,7 @@ if (typeof SAFARI == "undefined") {
                         }
 
                         if (info.top_level) {
-                            tab[info.visible ? 'visible_url' : 'invisible_url'] = getUnicodeUrl(info.url);
+                            tab[info.visible ? "visible_url" : "invisible_url"] = getUnicodeUrl(info.url);
                         }
                     },
 
@@ -264,7 +274,7 @@ if (typeof SAFARI == "undefined") {
                         var xhr = new XMLHttpRequest();
                         xhr.open("GET", chrome.runtime.getURL(file), false);
                         xhr.onreadystatechange = function() {
-                            if(this.readyState == 4 && this.responseText != "") {
+                            if (this.readyState === 4 && this.responseText !== "") {
                                 fn(this.responseText);
                             }
                         };
@@ -279,8 +289,9 @@ if (typeof SAFARI == "undefined") {
                     // Insert substitution args into a localized string.
                     function parseString(msgData, args) {
                         // If no substitution, just turn $$ into $ and short-circuit.
-                        if (msgData.placeholders == undefined && args == undefined)
-                            return msgData.message.replace(/\$\$/g, '$');
+                        if (msgData.placeholders === undefined && args === undefined) {
+                            return msgData.message.replace(/\$\$/g, "$");
+                        }
 
                         // Substitute a regex while understanding that $$ should be untouched
                         function safesub(txt, re, replacement) {
@@ -294,7 +305,7 @@ if (typeof SAFARI == "undefined") {
                         }
 
                         var $n_re = /\$([1-9])/g;
-                        var $n_subber = function(_, num) { return args[num - 1]; };
+                        function $n_subber(_, num) { return args[num - 1]; }
 
                         var placeholders = {};
                         // Fill in $N in placeholders
@@ -307,12 +318,13 @@ if (typeof SAFARI == "undefined") {
                         // Fill in $Place_Holder1$ in message
                         message = safesub(message, /\$(\w+?)\$/g, function(full, name) {
                             var lowered = name.toLowerCase();
-                            if (lowered in placeholders)
+                            if (lowered in placeholders) {
                                 return placeholders[lowered];
+                            }
                             return full; // e.g. '$FoO$' instead of 'foo'
                         });
                         // Replace $$ with $
-                        message = message.replace(/\$\$/g, '$');
+                        message = message.replace(/\$\$/g, "$");
 
                         return message;
                     }
@@ -340,16 +352,18 @@ if (typeof SAFARI == "undefined") {
                         _getL10nData: function() {
                             var result = { locales: [] };
 
-                            // == Find all locales we might need to pull messages from, in order
+                            // === Find all locales we might need to pull messages from, in order
                             // 1: The user's current locale, converted to match the format of
                             //    the _locales directories (e.g. "en-US" becomes "en_US"
-                            result.locales.push(navigator.language.replace('-', '_'));
+                            result.locales.push(navigator.language.replace("-", "_"));
                             // 2: Perhaps a region-agnostic version of the current locale
-                            if (navigator.language.length > 2)
+                            if (navigator.language.length > 2) {
                                 result.locales.push(navigator.language.substring(0, 2));
+                            }
                             // 3: Set English 'en' as default locale
-                            if (result.locales.indexOf("en") == -1)
+                            if (result.locales.indexOf("en") === -1) {
                                 result.locales.push("en");
+                            }
 
                             // Load all locale files that exist in that list
                             result.messages = {};
@@ -374,18 +388,20 @@ if (typeof SAFARI == "undefined") {
                         },
 
                         getMessage: function(messageID, args) {
-                            if (l10nData == undefined) {
+                            if (l10nData === undefined) {
                                 // Assume that we're not in a content script, because content
                                 // scripts are supposed to have set l10nData already
                                 chrome.i18n._setL10nData(chrome.i18n._getL10nData());
                             }
-                            if (typeof args == "string")
+                            if (typeof args === "string") {
                                 args = [args];
+                            }
                             for (var i = 0; i < l10nData.locales.length; i++) {
                                 var map = l10nData.messages[l10nData.locales[i]];
                                 // We must have the locale, and the locale must have the message
-                                if (map && messageID in map)
+                                if (map && messageID in map) {
                                     return parseString(map[messageID], args);
+                                }
                             }
                             return "";
                         }
@@ -395,10 +411,10 @@ if (typeof SAFARI == "undefined") {
                 })()
 
             };
-            //the property id is defined here so that we can invoke it without
-            //the need for parentheses
-            //for example `chrome.runtime.id`
-            //should return "com.betafish.adblockforsafari-UAMUU452D9"
+            // The property id is defined here so that we can invoke it without
+            // the need for parentheses
+            // for example `chrome.runtime.id`
+            // should return "com.betafish.adblockforsafari-UAMUU452D9"
             Object.defineProperty(chrome.runtime, "id", {
                 get: function() {
                     return parseUri(safari.extension.baseURI).host;
@@ -407,4 +423,5 @@ if (typeof SAFARI == "undefined") {
             });
         }
 
-    })(); } // end if (typeof SAFARI == "undefined") { (function() {
+    })();
+} // end if (typeof SAFARI === "undefined") { (function() {

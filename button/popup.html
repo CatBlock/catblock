@@ -1,100 +1,100 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="popup.css"/>
-    <script src="../lib/punycode.min.js"></script>
-    <script src="../lib/jquery.min.js"></script>
-    <script src="../js/port.js"></script>
-    <script src="../js/functions.js"></script>
-  </head>
-  <body style="overflow:hidden;">
-    <div id="wrapper">
-      <div id="menu-items">
-        <div id="titletext">
-          <a class="left adblock-logo">
-            <img src="../Icon.png">
-            <span>CatBlock</span>
-          </a>
-        </div>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="popup.css"/>
+        <script src="../lib/punycode.min.js"></script>
+        <script src="../lib/jquery.min.js"></script>
+        <script src="../js/port.js"></script>
+        <script src="../js/functions.js"></script>
+    </head>
+    <body style="overflow:hidden;">
+        <div id="wrapper">
+            <div id="menu-items">
+                <div id="titletext">
+                    <a class="left catblock-logo">
+                        <img src="../Icon.png">
+                        <span>CatBlock</span>
+                    </a>
+                </div>
 
-        <!-- ************ Status messages *********** -->
-        <div id="update" class="box" style="display:none;"> <!-- Edge only -->
-            A new update has been found!<br>
-            Go to Options => Support in order to get an update!
-        </div>
+                <!-- ************ Status messages *********** -->
+                <div id="update" class="box" style="display:none;"> <!-- Edge only -->
+                    A new update has been found!<br>
+                    Go to Options => Support in order to get an update!
+                </div>
 
-        <div id="block_counts" class="box" >
-          <div i18n="blocked_ads" class="header"></div>
-          <div style="padding:2px 0px 0px 2px;">
-            <div i18n="blocked_n_on_this_page" i18n_replacement_el="page_blocked_count"></div>
-            <span class="block_count_number" id="page_blocked_count"></span>
-            <div i18n="blocked_n_in_total" i18n_replacement_el="total_blocked_count"></div>
-            <span class="block_count_number" id="total_blocked_count"></span>
-          </div>
-        </div>
+                <div id="block_counts" class="box" >
+                    <div i18n="blocked_ads" class="header"></div>
+                    <div style="padding:2px 0 0 2px;">
+                        <div i18n="blocked_n_on_this_page" i18n_replacement_el="page_blocked_count"></div>
+                        <span class="block_count_number" id="page_blocked_count"></span>
+                        <div i18n="blocked_n_in_total" i18n_replacement_el="total_blocked_count"></div>
+                        <span class="block_count_number" id="total_blocked_count"></span>
+                    </div>
+                </div>
 
-        <div id="div_status_whitelisted" class="menu-status-italic">
-          <span i18n="catblock_disabled_on_this_page"></span>
-        </div>
+                <div id="div_status_whitelisted" class="menu-status-italic">
+                    <span i18n="catblock_disabled_on_this_page"></span>
+                </div>
 
-        <div id="div_status_paused" class="menu-status-italic">
-          <span i18n="catblock_status_paused"></span>
-        </div>
+                <div id="div_status_paused" class="menu-status-italic">
+                    <span i18n="catblock_status_paused"></span>
+                </div>
 
-        <!-- ************ Standard menu entries *********** -->
+                <!-- ************ Standard menu entries *********** -->
 
-        <div i18n="undo_last_block" id="div_undo" class="menu-entry">
-        </div>
+                <div i18n="undo_last_block" id="div_undo" class="menu-entry">
+                </div>
 
-        <div id="div_whitelist_channel" class="menu-entry">
-        </div>
+                <div id="div_whitelist_channel" class="menu-entry">
+                </div>
 
-        <div id="separator0" class="separator"></div>
+                <div id="separator0" class="separator"></div>
 
-        <div i18n="catblock_enable_adblock" id="div_enable_adblock_on_this_page" class="menu-entry">
-        </div>
+                <div i18n="catblock_enable_adblock" id="div_enable_adblock_on_this_page" class="menu-entry">
+                </div>
 
-        <div i18n="catblock_pause_adblock" id="div_pause_adblock" class="menu-entry">
-        </div>
+                <div i18n="catblock_pause_adblock" id="div_pause_adblock" class="menu-entry">
+                </div>
 
-        <div i18n="catblock_unpause_adblock" id="div_paused_adblock" class="menu-entry">
-        </div>
+                <div i18n="catblock_unpause_adblock" id="div_paused_adblock" class="menu-entry">
+                </div>
 
 
-        <div i18n="block_an_ad_on_this_page" id="div_blacklist" class="menu-entry">
-        </div>
+                <div i18n="block_an_ad_on_this_page" id="div_blacklist" class="menu-entry">
+                </div>
 
-        <div i18n="dont_run_on_this_page" id="div_whitelist_page" class="menu-entry">
-        </div>
+                <div i18n="dont_run_on_this_page" id="div_whitelist_page" class="menu-entry">
+                </div>
 
-        <div id="div_whitelist" class="menu-entry" i18n="dont_run_on_pages_on_domain">
-        </div>
+                <div id="div_whitelist" class="menu-entry" i18n="dont_run_on_pages_on_domain">
+                </div>
 
-        <div id="separator3" class="separator"></div>
+                <div id="separator3" class="separator"></div>
 
-        <div id="div_show_resourcelist" class="menu-entry" i18n="show_resourcelist">
-        </div>
+                <div id="div_show_resourcelist" class="menu-entry" i18n="show_resourcelist">
+                </div>
 
-        <div id="div_report_an_ad" class="menu-entry" i18n="report_ad_on_page">
-        </div>
+                <div id="div_report_an_ad" class="menu-entry" i18n="report_ad_on_page">
+                </div>
 
-        <div id="separator1" class="separator"></div>
+                <div id="separator1" class="separator"></div>
 
-        <!-- **************** Extras ************** -->
+                <!-- **************** Extras ************** -->
 
-        <div i18n="options" id="div_options" class="menu-entry">
-        </div>
+                <div i18n="options" id="div_options" class="menu-entry">
+                </div>
 
-        <div id="div_help_hide">
-          <div id="div_help_hide_start" i18n="hide_this_button" class="menu-entry"></div>
-          <div id="help_hide_explanation" class="info" i18n="chromebutton_how_to_hide2" style="display:none;">
-          </div>
-        </div>
+                <div id="div_help_hide">
+                    <div id="div_help_hide_start" i18n="hide_this_button" class="menu-entry"></div>
+                    <div id="help_hide_explanation" class="info" i18n="chromebutton_how_to_hide2" style="display:none;">
+                    </div>
+                </div>
 
-      </div> <!-- menu-items-->
-    </div> <!-- wrapper -->
+            </div> <!-- menu-items-->
+        </div> <!-- wrapper -->
 
-    <script src="popup.js"></script>
-  </body>
+        <script src="popup.js"></script>
+    </body>
 </html>

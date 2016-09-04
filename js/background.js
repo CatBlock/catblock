@@ -2,20 +2,20 @@
 // to trace down any frequent errors we can't confirm ourselves.
 window.addEventListener("error", function(e) {
     var str = "Error: " +
-        (e.filename||"anywhere").replace(chrome.runtime.getURL(""), "") +
-        ":" + (e.lineno||"anywhere") +
-        ":" + (e.colno||"anycol");
+        (e.filename || "anywhere").replace(chrome.runtime.getURL(""), "") +
+        ":" + (e.lineno || "anywhere") +
+        ":" + (e.colno || "anycol");
     if (e.error) {
         var stack = "-" + ((e.error && e.error.message) || "") +
             "-" + ((e.error && e.error.stack) || "");
         stack = stack.replace(/:/gi, ";").replace(/\n/gi, "");
-        //only append the stack info if there isn't any URL info in the stack trace
+        // Only append the stack info if there isn't any URL info in the stack trace
         if (stack.indexOf("http") === -1) {
             str += stack;
         }
-        //don't send large stack traces
+        // Don't send large stack traces
         if (str.length > 512) {
-            str = str.substr(0,511);
+            str = str.substr(0, 511);
         }
     }
     sessionStorage.setItem("errorOccurred", true);
@@ -30,12 +30,15 @@ if (!SAFARI) {
     var blockCounts = (function() {
         var key = "blockage_stats";
         var data = storage_get(key);
-        if (!data)
+        if (!data) {
             data = {};
-        if (data.start === undefined)
+        }
+        if (data.start === undefined) {
             data.start = Date.now();
-        if (data.total === undefined)
+        }
+        if (data.total === undefined) {
             data.total = 0;
+        }
         data.version = 1;
         storage_set(key, data);
 
@@ -45,18 +48,18 @@ if (!SAFARI) {
                 data.total += 1;
                 storage_set(key, data);
 
-                //code for incrementing ad blocks
-                currentTab = frameData.get(tabId);
-                if(currentTab){
+                // Code for incrementing ad blocks
+                var currentTab = frameData.get(tabId);
+                if (currentTab) {
                     currentTab.blockCount++;
                 }
             },
             get: function() {
                 return storage_get(key);
             },
-            getTotalAdsBlocked: function(tabId){
-                if(tabId){
-                    currentTab = frameData.get(tabId);
+            getTotalAdsBlocked: function(tabId) {
+                if (tabId) {
+                    var currentTab = frameData.get(tabId);
                     return currentTab ? currentTab.blockCount : 0;
                 }
                 return this.get().total;
@@ -79,30 +82,32 @@ function Settings() {
         display_stats: true,
         display_menu_stats: true
     };
-    var settings = storage_get('settings') || {};
+    var settings = storage_get("settings") || {};
     this._data = $.extend(defaults, settings);
 
-};
+}
+
 Settings.prototype = {
     set: function(name, is_enabled) {
         this._data[name] = is_enabled;
         // Don't store defaults that the user hasn't modified
         var stored_data = storage_get("settings") || {};
         stored_data[name] = is_enabled;
-        storage_set('settings', stored_data);
+        storage_set("settings", stored_data);
     },
     get_all: function() {
         return this._data;
     }
 };
-_settings = new Settings();
+
+var _settings = new Settings();
 
 // Open a new tab with a given URL.
 // Inputs:
 //   url: string - url for the tab
 //   nearActive: bool - open the tab near currently active (instead of at the end). optional, defaults to false
 //   safariWindow (Safari only): window object - window where the tab will be created. optional, defaults
-//     to active window. Because Safari supports clickthrough on extension elements, Safari code will almost
+//    to active window. Because Safari supports clickthrough on extension elements, Safari code will almost
 //    always need to pass this argument. Chrome doesn't support it, so leave this argument empty in Chrome code.
 function openTab(url, nearActive, safariWindow) {
     if (!SAFARI) {
@@ -110,10 +115,10 @@ function openTab(url, nearActive, safariWindow) {
             // Normal window - open tab in it
             if (!current.incognito) {
                 if (!nearActive) {
-                    chrome.tabs.create({url: url});
+                    chrome.tabs.create({ url: url });
                 } else {
-                    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                        chrome.tabs.create({ url: url, index: (tabs[0] ? tabs[0].index + 1 : undefined)});
+                    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+                        chrome.tabs.create({ url: url, index: (tabs[0] ? tabs[0].index + 1 : undefined) });
                     });
                 }
             } else {
@@ -132,19 +137,19 @@ function openTab(url, nearActive, safariWindow) {
                     // Create a new tab in found normal window
                     if (windowId) {
                         if (!nearActive) {
-                            chrome.tabs.create({windowId: windowId, url: url, active: true});
+                            chrome.tabs.create({ windowId: windowId, url: url, active: true });
                         } else {
-                            chrome.tabs.query({active: true, windowId: windowId}, function(tabs) {
-                                chrome.tabs.create({windowId: windowId, url: url,
-                                                    index: (tabs[0] ? tabs[0].index + 1 : undefined), active: true});
-                                chrome.windows.update(windowId, {focused: true});
+                            chrome.tabs.query({ active: true, windowId: windowId }, function(tabs) {
+                                chrome.tabs.create({ windowId: windowId, url: url,
+                                                    index: (tabs[0] ? tabs[0].index + 1 : undefined), active: true });
+                                chrome.windows.update(windowId, { focused: true });
                             });
                         }
                         chrome.windows.update(windowId, {focused: true});
                     } else {
                         // Normal window is not currently opened,
                         // so create a new one
-                        chrome.tabs.create({url: url});
+                        chrome.tabs.create({ url: url });
                     }
                 });
             }
@@ -172,17 +177,17 @@ function openTab(url, nearActive, safariWindow) {
         var relative = (!/:\/\//.test(url)); // fix relative URLs
         tab.url = (relative ? chrome.runtime.getURL(url) : url);
     }
-};
+}
 
 // Reload already opened tab
 // Input:
 //   tabId: integer - id of the tab which should be reloaded
-reloadTab = function(tabId) {
-    var listener = function(tabId, changeInfo, tab) {
+function reloadTab(tabId) {
+    function listener(tabId, changeInfo, tab) {
         if (changeInfo.status === "complete" &&
             tab.status === "complete") {
             setTimeout(function() {
-                chrome.runtime.sendMessage({command: "reloadcomplete"});
+                chrome.runtime.sendMessage({ command: "reloadcomplete" });
                 chrome.tabs.onUpdated.removeListener(listener);
             }, 2000);
         }
@@ -196,21 +201,24 @@ reloadTab = function(tabId) {
 // Stores url, whitelisting, and blocking info for a tabid+frameid
 // TODO: can we avoid making this a global?
 if (!SAFARI) {
-    frameData = {
+    var frameData = {
         // Returns the data object for the frame with ID frameId on the tab with
         // ID tabId. If frameId is not specified, it'll return the data for all
         // frames on the tab with ID tabId. Returns undefined if tabId and frameId
         // are not being tracked.
         get: function(tabId, frameId) {
-            if (frameId !== undefined)
+            if (frameId !== undefined) {
                 return (frameData[tabId] || {})[frameId];
+            }
             return frameData[tabId];
         },
 
         // Record that |tabId|, |frameId| points to |url|.
         record: function(tabId, frameId, url) {
             var fd = frameData;
-            if (!fd[tabId]) fd[tabId] = {};
+            if (!fd[tabId]) {
+                fd[tabId] = {};
+            }
             fd[tabId][frameId] = {
                 url: url,
                 // Cache these as they'll be needed once per request
@@ -231,7 +239,7 @@ if (!SAFARI) {
                 return false;
             }
 
-            if (details.type === 'main_frame') { // New tab
+            if (details.type === "main_frame") { // New tab
                 delete fd[tabId];
                 fd.record(tabId, 0, details.url);
                 fd[tabId].blockCount = 0;
@@ -249,13 +257,13 @@ if (!SAFARI) {
             // Some times e.g. Youtube create empty iframes via JavaScript and
             // inject code into them.  So requests appear from unknown frames.
             // Treat these frames as having the same URL as the tab.
-            var potentialEmptyFrameId = (details.type === 'sub_frame' ? details.parentFrameId: details.frameId);
+            var potentialEmptyFrameId = (details.type === "sub_frame" ? details.parentFrameId: details.frameId);
             if (undefined === fd.get(tabId, potentialEmptyFrameId)) {
                 fd.record(tabId, potentialEmptyFrameId, fd.get(tabId, 0).url);
                 log("[DEBUG]", "Null frame", tabId, potentialEmptyFrameId, "found; giving it the tab's URL.");
             }
 
-            if (details.type === 'sub_frame') { // New frame
+            if (details.type === "sub_frame") { // New frame
                 fd.record(tabId, details.frameId, details.url);
                 log("[DEBUG]", "=========== Tracking frame", tabId, details.parentFrameId, details.frameId, details.url);
             }
@@ -265,8 +273,9 @@ if (!SAFARI) {
 
         // Save a resource for the resource blocker.
         storeResource: function(tabId, frameId, url, elType, frameDomain) {
-            if (!get_settings().show_advanced_options)
+            if (!get_settings().show_advanced_options) {
                 return;
+            }
             var data = frameData.get(tabId, frameId);
             if (data !== undefined) {
                 data.resources[elType + ":|:" + url + ":|:" + frameDomain] = null;
@@ -280,14 +289,16 @@ if (!SAFARI) {
 
     // When a request starts, perhaps block it.
     function onBeforeRequestHandler(details) {
-        if (adblock_is_paused())
+        if (adblock_is_paused()) {
             return { cancel: false };
+        }
 
         // Convert punycode domain to Unicode - GH #472
         details.url = getUnicodeUrl(details.url);
 
-        if (!frameData.track(details))
+        if (!frameData.track(details)) {
             return { cancel: false };
+        }
 
         var tabId = details.tabId;
         var reqType = details.type;
@@ -309,7 +320,7 @@ if (!SAFARI) {
         // For most requests, Chrome and we agree on who sent the request: the frame.
         // But for iframe loads, we consider the request to be sent by the outer
         // frame, while Chrome claims it's sent by the new iframe.  Adjust accordingly.
-        var requestingFrameId = (reqType === 'sub_frame' ? details.parentFrameId : details.frameId);
+        var requestingFrameId = (reqType === "sub_frame" ? details.parentFrameId : details.frameId);
 
         var elType = ElementTypes.fromOnBeforeRequestType(reqType);
 
@@ -321,9 +332,10 @@ if (!SAFARI) {
 
         // Issue 7178
         if (blocked && frameDomain === "www.hulu.com") {
-            if (frameData.get(tabId, 0).domain !== "www.hulu.com"
-                && /ads\.hulu\.com/.test(details.url)) // good enough
+            if (frameData.get(tabId, 0).domain !== "www.hulu.com" &&
+                /ads\.hulu\.com/.test(details.url)) { // good enough
                 blocked = false;
+            }
         }
 
         var canPurge = (elType & (ElementTypes.image | ElementTypes.subdocument | ElementTypes.object));
@@ -348,17 +360,21 @@ if (!SAFARI) {
 
     // Popup blocking
     function onCreatedNavigationTargetHandler(details) {
-        if (adblock_is_paused())
+        if (adblock_is_paused()) {
             return;
+        }
         var opener = frameData.get(details.sourceTabId, details.sourceFrameId);
-        if (opener === undefined)
+        if (opener === undefined) {
             return;
-        if (frameData.get(details.sourceTabId, 0).whitelisted)
+        }
+        if (frameData.get(details.sourceTabId, 0).whitelisted) {
             return;
+        }
         // Change to opener's url in so that it would still be tested against the
-        // blocking filter's regex rule. Github issue # 69
-        if (details.url === "about:blank")
+        // blocking filter's regex rule. Github issue #69
+        if (details.url === "about:blank") {
             details.url = opener.url;
+        }
         var url = getUnicodeUrl(details.url);
         var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
         if (match) {
@@ -367,7 +383,7 @@ if (!SAFARI) {
             updateBadge(details.sourceTabId);
         }
         frameData.storeResource(details.sourceTabId, details.sourceFrameId, url, ElementTypes.popup, opener.domain);
-    };
+    }
 
     // If tabId has been replaced by Chrome, delete it's data
     if (chrome.webNavigation.onTabReplaced) {
@@ -390,7 +406,7 @@ if (!SAFARI) {
                 var tabData = frameData.get(details.tabId, details.frameId);
                 if (tabData &&
                     tabData.url !== details.url) {
-                    details.type = 'main_frame';
+                    details.type = "main_frame";
                     details.url = getUnicodeUrl(details.url);
                     frameData.track(details);
                 }
@@ -399,7 +415,7 @@ if (!SAFARI) {
     }
 }
 
-debug_report_elemhide = function(selector, matches, sender) {
+function debug_report_elemhide(selector, matches, sender) {
     if (!window.frameData) {
         return;
     }
@@ -422,9 +438,9 @@ debug_report_elemhide = function(selector, matches, sender) {
 // and if any exist, remove the first one.
 // Inputs: url:string - a URL that may be whitelisted by a custom filter
 // Returns: true if a filter was found and removed; false otherwise.
-try_to_unwhitelist = function(url) {
-    url = url.replace(/#.*$/, ''); // Whitelist ignores anchors
-    var custom_filters = get_custom_filters_text().split('\n');
+function try_to_unwhitelist(url) {
+    url = url.replace(/#.*$/, ""); // Whitelist ignores anchors
+    var custom_filters = get_custom_filters_text().split("\n");
     for (var i = 0; i < custom_filters.length; i++) {
         var text = custom_filters[i];
         var whitelist = text.search(/@@\*\$document,domain=\~/);
@@ -436,22 +452,24 @@ try_to_unwhitelist = function(url) {
             text = text + "|~" + url;
             custom_filters.splice(i, 1); // Remove the old filter text
             custom_filters.push(text); // add the new filter text to original array
-            var new_text = custom_filters.join('\n');
+            var new_text = custom_filters.join("\n");
             set_custom_filters_text(new_text);
             return true;
         } else {
-            if (!Filter.isWhitelistFilter(text))
+            if (!Filter.isWhitelistFilter(text)) {
                 continue;
+            }
             try {
                 var filter = PatternFilter.fromText(text);
             } catch (ex) {
                 continue;
             }
-            if (!filter.matches(url, ElementTypes.document, false))
+            if (!filter.matches(url, ElementTypes.document, false)) {
                 continue;
+            }
 
             custom_filters.splice(i, 1); // Remove this whitelist filter text
-            var new_text = custom_filters.join('\n');
+            var new_text = custom_filters.join("\n");
             set_custom_filters_text(new_text);
             return true;
         }
@@ -461,9 +479,10 @@ try_to_unwhitelist = function(url) {
 
 // Called when Chrome blocking needs to clear the in-memory cache.
 // No-op for Safari.
-handlerBehaviorChanged = function() {
-    if (SAFARI)
+function handlerBehaviorChanged() {
+    if (SAFARI) {
         return;
+    }
     try {
         chrome.webRequest.handlerBehaviorChanged();
     } catch (ex) {
@@ -473,37 +492,39 @@ handlerBehaviorChanged = function() {
 // CUSTOM FILTERS
 
 // Get the custom filters text as a \n-separated text string.
-get_custom_filters_text = function() {
-    return storage_get('custom_filters') || '';
+function get_custom_filters_text() {
+    return storage_get("custom_filters") || "";
 }
 
 // Set the custom filters to the given \n-separated text string, and
 // rebuild the filterset.
 // Inputs: filters:string the new filters.
-set_custom_filters_text = function(filters) {
-    storage_set('custom_filters', filters);
-    chrome.runtime.sendMessage({command: "filters_updated"});
+function set_custom_filters_text(filters) {
+    storage_set("custom_filters", filters);
+    chrome.runtime.sendMessage({ command: "filters_updated" });
     _myfilters.rebuild();
 }
 
 // Get the user enterred exclude filters text as a \n-separated text string.
-get_exclude_filters_text = function() {
-    return storage_get('exclude_filters') || '';
+function get_exclude_filters_text() {
+    return storage_get("exclude_filters") || "";
 }
+
 // Set the exclude filters to the given \n-separated text string, and
 // rebuild the filterset.
 // Inputs: filters:string the new filters.
-set_exclude_filters = function(filters) {
+function set_exclude_filters(filters) {
     filters = filters.trim();
-    filters = filters.replace(/\n\n/g, '\n');
-    storage_set('exclude_filters', filters);
+    filters = filters.replace(/\n\n/g, "\n");
+    storage_set("exclude_filters", filters);
     FilterNormalizer.setExcludeFilters(filters);
     update_subscriptions_now();
 }
+
 // Add / concatenate the exclude filter to the existing excluded filters, and
 // rebuild the filterset.
 // Inputs: filter:string the new filter.
-add_exclude_filter = function(filter) {
+function add_exclude_filter(filter) {
     var currentExcludedFilters = get_exclude_filters_text();
     if (currentExcludedFilters) {
         set_exclude_filters(currentExcludedFilters + "\n" + filter);
@@ -514,16 +535,18 @@ add_exclude_filter = function(filter) {
 
 // Removes a custom filter entry.
 // Inputs: host:domain of the custom filters to be reset.
-remove_custom_filter = function(host) {
+function remove_custom_filter(host) {
     var text = get_custom_filters_text();
     var custom_filters_arr = text ? text.split("\n"):[];
     var new_custom_filters_arr = [];
     var identifier = host;
 
-    for(var i = 0; i < custom_filters_arr.length; i++) {
+    for (var i = 0; i < custom_filters_arr.length; i++) {
         var entry = custom_filters_arr[i];
-        //Make sure that the identifier is at the start of the entry
-        if(entry.indexOf(identifier) === 0) { continue; }
+        // Make sure that the identifier is at the start of the entry
+        if (entry.indexOf(identifier) === 0) {
+            continue;
+        }
         new_custom_filters_arr.push(entry);
     }
 
@@ -534,10 +557,11 @@ remove_custom_filter = function(host) {
 // count_cache singleton.
 var count_cache = (function(count_map) {
     var cache = count_map;
+
     // Update custom filter count stored in localStorage
-    var _updateCustomFilterCount = function() {
+    function _updateCustomFilterCount() {
         storage_set("custom_filter_count", cache);
-    };
+    }
 
     return {
         // Update custom filter count cache and value stored in localStorage.
@@ -549,7 +573,7 @@ var count_cache = (function(count_map) {
         // Remove custom filter count for host
         // Inputs: host:string - url of the host
         removeCustomFilterCount: function(host) {
-            if(host && cache[host]) {
+            if (host && cache[host]) {
                 delete cache[host];
                 _updateCustomFilterCount();
             }
@@ -566,70 +590,75 @@ var count_cache = (function(count_map) {
             cache[host] = this.getCustomFilterCount(host) + 1;
             _updateCustomFilterCount();
         }
-    }
+    };
 })(storage_get("custom_filter_count") || {});
 
 // Entry point for customize.js, used to update custom filter count cache.
-updateCustomFilterCountMap = function(new_count_map) {
+function updateCustomFilterCountMap(new_count_map) {
     count_cache.updateCustomFilterCountMap(new_count_map);
 }
 
-remove_custom_filter_for_host = function(host) {
+function remove_custom_filter_for_host(host) {
     if (count_cache.getCustomFilterCount(host)) {
         remove_custom_filter(host);
         count_cache.removeCustomFilterCount(host);
     }
 }
 
-confirm_removal_of_custom_filters_on_host = function(host, activeTab) {
+function confirm_removal_of_custom_filters_on_host(host, activeTab) {
     var custom_filter_count = count_cache.getCustomFilterCount(host);
-    var confirmation_text   = translate("confirm_undo_custom_filters", [custom_filter_count, host]);
+    var confirmation_text = translate("confirm_undo_custom_filters", [custom_filter_count, host]);
     if (!FIREFOX) { // Firefox doesn't support confirm() in BG page yet
-        if (!window.confirm(confirmation_text)) { return; }
+        if (!window.confirm(confirmation_text)) {
+            return;
+        }
     }
     remove_custom_filter_for_host(host);
     if (!SAFARI) {
         chrome.tabs.update(activeTab.id, {url: activeTab.url});
     } else {
-        activeTab.url = activeTab.url
+        activeTab.url = activeTab.url;
     }
-};
+}
 
-get_settings = function() {
+function get_settings() {
     return _settings.get_all();
 }
 
-set_setting = function(name, is_enabled) {
+function set_setting(name, is_enabled) {
     _settings.set(name, is_enabled);
 
-    if (name === "debug_logging")
+    if (name === "debug_logging") {
         logging(is_enabled);
+    }
 }
 
-disable_setting = function(name) {
+function disable_setting(name) {
     _settings.set(name, false);
 }
 
 // MYFILTERS PASSTHROUGHS
 
 // Rebuild the filterset based on the current settings and subscriptions.
-update_filters = function() {
+function update_filters() {
     _myfilters.rebuild();
 }
 
 // Fetch the latest version of all subscribed lists now.
-update_subscriptions_now = function() {
+function update_subscriptions_now() {
     _myfilters.checkFilterUpdates(true);
 }
 
 // Returns map from id to subscription object.  See filters.js for
 // description of subscription object.
-get_subscriptions_minus_text = function() {
+function get_subscriptions_minus_text() {
     var result = {};
     for (var id in _myfilters._subscriptions) {
         result[id] = {};
         for (var attr in _myfilters._subscriptions[id]) {
-            if ((attr === "text") || (attr === "rules")) continue;
+            if ((attr === "text") || (attr === "rules")) {
+                continue;
+            }
             result[id][attr] = _myfilters._subscriptions[id][attr];
         }
     }
@@ -637,12 +666,13 @@ get_subscriptions_minus_text = function() {
 }
 
 // Get subscribed filter lists
-get_subscribed_filter_lists = function() {
+function get_subscribed_filter_lists() {
     var subs = get_subscriptions_minus_text();
     var subscribed_filter_names = [];
     for (var id in subs) {
-        if (subs[id].subscribed)
+        if (subs[id].subscribed) {
             subscribed_filter_names.push(id);
+        }
     }
     return subscribed_filter_names;
 }
@@ -653,7 +683,7 @@ get_subscribed_filter_lists = function() {
 //         requires: the id of a list if it is a supplementary list,
 //                   or null if nothing required
 // Returns: null, upon completion
-subscribe = function(options) {
+function subscribe(options) {
     _myfilters.changeSubscription(options.id, {
         subscribed: true,
         requiresList: options.requires,
@@ -665,7 +695,7 @@ subscribe = function(options) {
 // Inputs: id: id from which to unsubscribe.
 //         del: (bool) if the filter should be removed or not
 // Returns: null, upon completion.
-unsubscribe = function(options) {
+function unsubscribe(options) {
     _myfilters.changeSubscription(options.id, {
         subscribed: false,
         deleteMe: (options.del ? true : undefined)
@@ -674,18 +704,18 @@ unsubscribe = function(options) {
 
 // Get the current (loaded) malware domains
 // Returns: an object with all of the malware domains
-// will return undefined, if the user is not subscribed to the Malware 'filter list'.
-getMalwareDomains = function() {
+// will return undefined, if the user is not subscribed to the Malware "filter list".
+function getMalwareDomains() {
     return _myfilters.getMalwareDomains();
 }
 
 // Returns true if the url cannot be blocked
-page_is_unblockable = function(url) {
+function page_is_unblockable(url) {
     if (!url) { // Safari empty/bookmarks/top sites page
         return true;
     } else {
         var scheme = parseUri(url).protocol;
-        return (scheme !== 'http:' && scheme !== 'https:' && scheme !== 'feed:');
+        return (scheme !== "http:" && scheme !== "https:" && scheme !== "feed:");
     }
 }
 
@@ -694,11 +724,11 @@ page_is_unblockable = function(url) {
 //                  false, AdBlock will not be paused.
 // Returns: undefined if newValue was specified, otherwise it returns true
 //          if paused, false otherwise.
-adblock_is_paused = function(newValue) {
+function adblock_is_paused(newValue) {
     if (newValue === undefined) {
-        return sessionStorage.getItem('adblock_is_paused') === "true";
+        return sessionStorage.getItem("adblock_is_paused") === "true";
     }
-    sessionStorage.setItem('adblock_is_paused', newValue);
+    sessionStorage.setItem("adblock_is_paused", newValue);
     // To prevent certain web site issues that occur with the "beforeload" event listener
     // remove the Safari specific "beforeload" script when AdBlock is paused, and
     // add it back when AdBlock is un-paused
@@ -714,7 +744,7 @@ adblock_is_paused = function(newValue) {
 // Get if AdBlock is paused
 // called from content scripts
 // Returns: true if paused, false otherwise.
-is_adblock_paused = function() {
+function is_adblock_paused() {
     return adblock_is_paused();
 }
 
@@ -734,21 +764,23 @@ is_adblock_paused = function() {
 //     display_menu_stats: bool - whether block counts are displayed on the popup menu
 //   }
 // Returns: null (asynchronous)
-getCurrentTabInfo = function(callback, secondTime) {
+function getCurrentTabInfo(callback, secondTime) {
     if (!SAFARI) {
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-            if (tabs.length === 0)
+        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+            if (tabs.length === 0) {
                 return; // For example: only the background devtools or a popup are opened
+            }
 
             var tab = tabs[0];
 
             if (tab && !tab.url) {
                 // Issue 6877: tab URL is not set directly after you opened a window
                 // using window.open()
-                if (!secondTime)
+                if (!secondTime) {
                     window.setTimeout(function() {
                         getCurrentTabInfo(callback, true);
                     }, 250);
+                }
                 return;
             }
 
@@ -770,8 +802,9 @@ getCurrentTabInfo = function(callback, secondTime) {
                 display_menu_stats: display_menu_stats
             };
 
-            if (!disabled_site)
+            if (!disabled_site) {
                 result.whitelisted = page_is_whitelisted(tab.unicodeUrl);
+            }
 
             callback(result);
         });
@@ -783,11 +816,12 @@ getCurrentTabInfo = function(callback, secondTime) {
 
         var result = {
             tab: tab,
-            disabled_site: disabled_site,
+            disabled_site: disabled_site
         };
 
-        if (!disabled_site)
+        if (!disabled_site) {
             result.whitelisted = page_is_whitelisted(tab.unicodeUrl);
+        }
 
         callback(result);
     }
@@ -797,7 +831,7 @@ getCurrentTabInfo = function(callback, secondTime) {
 //   url: the url of the page
 //   type: one out of ElementTypes, default ElementTypes.document,
 //         to check what the page is whitelisted for: hiding rules or everything
-page_is_whitelisted = function(url, type) {
+function page_is_whitelisted(url, type) {
     if (!url) { // Safari empty/bookmarks/top sites page
         return true;
     }
@@ -807,41 +841,44 @@ page_is_whitelisted = function(url, type) {
         return false;
     }
     url = getUnicodeUrl(url);
-    url = url.replace(/\#.*$/, ''); // Remove anchors
-    if (!type)
+    url = url.replace(/\#.*$/, ""); // Remove anchors
+    if (!type) {
         type = ElementTypes.document;
+    }
     var whitelist = _myfilters.blocking.whitelist;
     return whitelist.matches(url, type, parseUri(url).hostname, false);
 }
 
 if (!SAFARI) {
-    var setBrowserActions = function(options) {
-        var iconCallback = function() {
+    function setBrowserActions(options) {
+        function iconCallback() {
             if (chrome.runtime.lastError) {
                 return;
             }
-            chrome.browserAction.setBadgeText({text: options.badge_text, tabId: options.tabId});
+            chrome.browserAction.setBadgeText({ text: options.badge_text, tabId: options.tabId });
             chrome.browserAction.setBadgeBackgroundColor({ color: options.color });
-        };
+        }
         // First, we need to get a badge text to check,
         // whether a new update has been found for Edge
         // If an udpate has been found, we display a "New!" badge text
         // on the popup menu and don't show the number of blocked ads
         chrome.browserAction.getBadgeText({}, function(result) {
-                if (result === "New!") {
-                    return;
-                } else {
-                    chrome.browserAction.setIcon({ tabId: options.tabId, path: options.iconPaths }, iconCallback);
-                }
+            if (result === "New!") {
+                return;
+            } else {
+                chrome.browserAction.setIcon({ tabId: options.tabId, path: options.iconPaths }, iconCallback);
+            }
         });
     }
 
-    updateBadge = function(tabId) {
+    function updateBadge(tabId) {
         var display = get_settings().display_stats;
         var badge_text = "";
         var main_frame = frameData.get(tabId, 0);
         // main_frame is undefined if the tab is a new one, so no use updating badge.
-        if (!main_frame) return;
+        if (!main_frame) {
+            return;
+        }
 
         var isBlockable = !page_is_unblockable(main_frame.url) && !page_is_whitelisted(main_frame.url) && !/chrome\/newtab/.test(main_frame.url);
 
@@ -850,25 +887,28 @@ if (!SAFARI) {
             browsersBadgeOptions.tabId = tabId;
             browsersBadgeOptions.color = "#555";
             var badge_text = blockCounts.getTotalAdsBlocked(tabId).toString();
-            if (badge_text === "0")
+            if (badge_text === "0") {
                 badge_text = ""; // Only show the user when we've done something useful
+            }
             browsersBadgeOptions.badge_text = badge_text;
-            browsersBadgeOptions.iconPaths = {'19': 'img/icon19.png', '38': 'img/icon38.png'};
-            //see for more details - https://code.google.com/p/chromium/issues/detail?id=410868#c8
+            browsersBadgeOptions.iconPaths = {"19": "img/icon19.png", "38": "img/icon38.png"};
+            // see for more details - https://code.google.com/p/chromium/issues/detail?id=410868#c8
             setBrowserActions(browsersBadgeOptions);
         }
-    };
+    }
 
     // Set the button image and context menus according to the URL
     // of the current tab.
-    updateButtonUIAndContextMenus = function() {
+    function updateButtonUIAndContextMenus() {
         function setContextMenus(info) {
             chrome.contextMenus.removeAll();
-            if (!get_settings().show_context_menu_items)
+            if (!get_settings().show_context_menu_items) {
                 return;
+            }
 
-            if (info.whitelisted || info.disabled_site)
+            if (info.whitelisted || info.disabled_site) {
                 return;
+            }
 
             function addMenu(title, callback) {
                 chrome.contextMenus.create({
@@ -893,15 +933,15 @@ if (!SAFARI) {
 
             addMenu(translate("block_this_ad"), function(tab, clickdata) {
                 emit_page_broadcast(
-                    {fn:'top_open_blacklist_ui', options:{info: clickdata}},
-                    {tab: tab}
+                    { fn:"top_open_blacklist_ui", options: { info: clickdata } },
+                    { tab: tab }
                 );
             });
 
             addMenu(translate("block_an_ad_on_this_page"), function(tab) {
                 emit_page_broadcast(
-                    {fn:'top_open_blacklist_ui', options:{nothing_clicked: true}},
-                    {tab: tab}
+                    { fn:"top_open_blacklist_ui", options: { nothing_clicked: true } },
+                    { tab: tab }
                 );
             });
 
@@ -909,10 +949,10 @@ if (!SAFARI) {
                 openTab("options/index.html");
             });
 
-            var host                = getUnicodeDomain(parseUri(info.tab.unicodeUrl).host);
+            var host = getUnicodeDomain(parseUri(info.tab.unicodeUrl).host);
             var custom_filter_count = count_cache.getCustomFilterCount(host);
             if (custom_filter_count) {
-                addMenu(translate("undo_last_block"), function(tab) {
+                addMenu(translate("undo_last_block"), function() {
                     confirm_removal_of_custom_filters_on_host(host);
                 });
             }
@@ -924,17 +964,17 @@ if (!SAFARI) {
             browsersBadgeOptions.color = "#555";
             browsersBadgeOptions.badge_text = "";
             if (adblock_is_paused()) {
-                browsersBadgeOptions.iconPaths = {'19': "img/icon19-grayscale.png", '38': "img/icon38-grayscale.png"};
+                browsersBadgeOptions.iconPaths = {"19": "img/icon19-grayscale.png", "38": "img/icon38-grayscale.png"};
                 setBrowserActions(browsersBadgeOptions);
             } else if (info.disabled_site &&
                        !/^chrome-extension:.*pages\/install\//.test(info.tab.unicodeUrl)) {
                 // Show non-disabled icon on the installation-success page so it
                 // users see how it will normally look. All other disabled pages
                 // will have the gray one
-                browsersBadgeOptions.iconPaths = {'19': "img/icon19-grayscale.png", '38': "img/icon38-grayscale.png"};
+                browsersBadgeOptions.iconPaths = {"19": "img/icon19-grayscale.png", "38": "img/icon38-grayscale.png"};
                 setBrowserActions(browsersBadgeOptions);
             } else if (info.whitelisted) {
-                browsersBadgeOptions.iconPaths = {'19': "img/icon19-whitelisted.png", '38': "img/icon38-whitelisted.png"};
+                browsersBadgeOptions.iconPaths = {"19": "img/icon19-whitelisted.png", "38": "img/icon38-whitelisted.png"};
                 setBrowserActions(browsersBadgeOptions);
             } else {
                 updateBadge(info.tab.id);
@@ -953,64 +993,66 @@ if (!SAFARI) {
 // Add a new custom filter entry.
 // Inputs: filter:string line of text to add to custom filters.
 // Returns: null if succesfull, otherwise an exception
-add_custom_filter = function(filter) {
+function add_custom_filter(filter) {
     var custom_filters = get_custom_filters_text();
     try {
         if (FilterNormalizer.normalizeLine(filter)) {
             if (Filter.isSelectorFilter(filter)) {
                 count_cache.addCustomFilterCount(filter);
-                if (!SAFARI)
+                if (!SAFARI) {
                     updateButtonUIAndContextMenus();
+                }
             }
-            custom_filters = custom_filters + '\n' + filter;
+            custom_filters = custom_filters + "\n" + filter;
             set_custom_filters_text(custom_filters);
             return null;
         }
         return "This filter is unsupported";
     } catch(ex) {
-        //convert to a string so that Safari can pass
-        //it back to content scripts
+        // Convert to a string so that Safari can pass
+        // it back to content scripts
         return ex.toString();
     }
-};
+}
 
 // Injects jQuery UI
-injectjQueryUI = function() {
+function injectjQueryUI() {
     if (SAFARI) {
         safari.extension.addContentScriptFromURL(safari.extension.baseURI + "lib/jquery-ui.custom.min.js", [], [], false);
         return true;
     }
-};
+}
 
 // Creates a custom filter entry that whitelists a given page
 // Inputs: url:string url of the page
 // Returns: null if successful, otherwise an exception
-create_page_whitelist_filter = function(url) {
-    var url = url.replace(/#.*$/, '');  // Remove anchors
+function create_page_whitelist_filter(url) {
+    var url = url.replace(/#.*$/, "");  // Remove anchors
     var parts = url.match(/^([^\?]+)(\??)/); // Detect querystring
     var has_querystring = parts[2];
-    var filter = '@@|' + parts[1] + (has_querystring ? '?' : '|') + '$document';
+    var filter = "@@|" + parts[1] + (has_querystring ? "?" : "|") + "$document";
     return add_custom_filter(filter);
 }
 
 // Creates a custom filter entry that whitelists a YouTube channel
 // Inputs: url:string url of the page
 // Returns: null if successful, otherwise an exception
-create_whitelist_filter_for_youtube_channel = function(url) {
+function create_whitelist_filter_for_youtube_channel(url) {
+    var yt_channel = "";
     if (/ab_channel=/.test(url)) {
-        var yt_channel = url.match(/ab_channel=([^]*)/)[1];
+        yt_channel = url.match(/ab_channel=([^]*)/)[1];
     } else {
-        var yt_channel = url.split('/').pop();
+        yt_channel = url.split("/").pop();
     }
     if (yt_channel) {
-        var filter = '@@|https://www.youtube.com/*' + yt_channel + '|$document';
+        var filter = "@@|https://www.youtube.com/*" + yt_channel + "|$document";
         return add_custom_filter(filter);
     }
 }
 
 // Inputs: options object containing:
 //           domain:string the domain of the calling frame.
-get_content_script_data = function(options, sender) {
+function get_content_script_data(options, sender) {
     var settings = get_settings();
     var runnable = !adblock_is_paused() && !page_is_unblockable(sender.url);
     var running_top = runnable && !page_is_whitelisted(sender.tab.url);
@@ -1039,13 +1081,13 @@ get_content_script_data = function(options, sender) {
         result.selectors = _myfilters.hiding.filtersFor(options.domain);
     }
     return result;
-};
+}
 
 // Bounce messages back to content scripts.
 if (!SAFARI) {
-    emit_page_broadcast = (function() {
+    var emit_page_broadcast = (function() {
         var injectMap = {
-            'top_open_whitelist_ui': {
+            "top_open_whitelist_ui": {
                 allFrames: false,
                 include: [
                     "lib/punycode.min.js",
@@ -1055,7 +1097,7 @@ if (!SAFARI) {
                     "uiscripts/top_open_whitelist_ui.js"
                 ]
             },
-            'top_open_blacklist_ui': {
+            "top_open_blacklist_ui": {
                 allFrames: false,
                 include: [
                     "lib/punycode.min.js",
@@ -1069,7 +1111,7 @@ if (!SAFARI) {
                     "uiscripts/top_open_blacklist_ui.js"
                 ]
             },
-            'send_content_to_back': {
+            "send_content_to_back": {
                 allFrames: true,
                 include: [
                     "uiscripts/send_content_to_back.js"
@@ -1082,7 +1124,7 @@ if (!SAFARI) {
         //         fn_name must exist in injectMap above.
         //         parameter:object to pass to fn_name.  Must be JSON.stringify()able.
         //         injectedSoFar?:int used to recursively inject required scripts.
-        var executeOnTab = function(fn_name, parameter, injectedSoFar) {
+        function executeOnTab(fn_name, parameter, injectedSoFar) {
             injectedSoFar = injectedSoFar || 0;
             var data = injectMap[fn_name];
             var details = { allFrames: data.allFrames };
@@ -1099,36 +1141,36 @@ if (!SAFARI) {
                 details.code = fn_name + "(" + param + ");";
                 chrome.tabs.executeScript(undefined, details);
             }
-        };
+        }
 
         // The emit_page_broadcast() function
-        var theFunction = function(request) {
+        function theFunction(request) {
             executeOnTab(request.fn, request.options);
-        };
+        }
         return theFunction;
     })();
 }
 
 // Open subscribe popup when new filter list was subscribed from site
-launch_subscribe_popup = function(loc) {
-    window.open(chrome.runtime.getURL('pages/subscribe.html?' + loc),
+function launch_subscribe_popup(loc) {
+    window.open(chrome.runtime.getURL("pages/subscribe.html?" + loc),
                 "_blank",
-                'scrollbars=0,location=0,resizable=0,width=460,height=150');
+                "scrollbars=0, location=0, resizable=0, width=460, height=150");
 }
 
 // Open the resource blocker when requested from popup.
-launch_resourceblocker = function(query) {
+function launch_resourceblocker(query) {
     openTab("pages/resourceblock.html" + query, true);
 }
 
-// Get the frameData for the 'Report an Ad' & 'Resource' page
-get_frameData = function(tabId) {
+// Get the frameData for the "Report an Ad" & "Resource" page
+function get_frameData(tabId) {
     return frameData.get(tabId);
 }
 
-// Process requests from 'Resource' page
+// Process requests from "Resource" page
 // Determine, whether requests have been whitelisted/blocked
-process_frameData = function(fd) {
+function process_frameData(fd) {
     for (var frameId in fd) {
         var frame = fd[frameId];
         var frameResources = frame.resources;
@@ -1145,15 +1187,15 @@ process_frameData = function(fd) {
 }
 
 // Add previously cached requests to matchCache
-// Used by 'Resource' page
-add_to_matchCache = function(cache) {
+// Used by "Resource" page
+function add_to_matchCache(cache) {
     _myfilters.blocking._matchCache = cache;
 }
 
 // Reset matchCache
-// Used by 'Resource' page
+// Used by "Resource" page
 // Returns: object with cached requests
-reset_matchCache = function() {
+function reset_matchCache() {
     var matchCache = _myfilters.blocking._matchCache;
     _myfilters.blocking._matchCache = {};
     return matchCache;
@@ -1162,17 +1204,19 @@ reset_matchCache = function() {
 // Return chrome.i18n._getL10nData() for content scripts who cannot
 // call that function (since it loads extension files from disk.)
 // Only defined in Safari.
-get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
+var get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
 
 
 // BGcall DISPATCH
 (function() {
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
-            if (request.command !== "call")
+            if (request.command !== "call") {
                 return; // not for us
-            if ((sender.tab === undefined) || (sender.tab === null))
+            }
+            if ((sender.tab === undefined) || (sender.tab === null)) {
                 return;
+            }
             var fn = window[request.fn];
             request.args.push(sender);
             var result = fn.apply(window, request.args);
@@ -1183,15 +1227,17 @@ get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
 
 // BROWSER ACTION AND CONTEXT MENU UPDATES
 (function() {
-    if (SAFARI)
+    if (SAFARI) {
         return;
+    }
 
-    //TEMP: until crbug.com/60435 is fixed, check if chrome.tabs exists.
-    //Otherwise the extension doesn't work (e.g. doesn't block ads)
+    // TEMP: until crbug.com/60435 is fixed, check if chrome.tabs exists.
+    // Otherwise the extension doesn't work (e.g. doesn't block ads)
     if (chrome.tabs) {
         chrome.tabs.onUpdated.addListener(function(tabid, changeInfo, tab) {
-            if (tab.active && changeInfo.status === "loading")
+            if (tab.active && changeInfo.status === "loading") {
                 updateButtonUIAndContextMenus();
+            }
         });
         chrome.tabs.onActivated.addListener(function() {
             updateButtonUIAndContextMenus();
@@ -1203,10 +1249,9 @@ get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
                 chrome.tabs.get(tab.id, function(tabDetails) {
                     // If tab is undefined (Which happens sometimes, weird),
                     // get out of the function
-                    if (!tabDetails || !tabDetails.openerTabId) return;
-
-                    // Should mean that tab is a popup or was
-                    // opened through a link.
+                    if (!tabDetails || !tabDetails.openerTabId) {
+                        return;
+                    }
 
                     // Manually create the details to be passed to
                     // navigation target handler.
@@ -1214,8 +1259,8 @@ get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
                         sourceTabId: tabDetails.openerTabId,
                         sourceFrameId: 0,
                         tabId: tabDetails.id,
-                        url: tabDetails.url || "about:blank",
-                    }
+                        url: tabDetails.url || "about:blank"
+                    };
 
                     // Call pop up handler.
                     onCreatedNavigationTargetHandler(details);
@@ -1225,10 +1270,11 @@ get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
     }
 })();
 
-if (get_settings().debug_logging)
+if (get_settings().debug_logging) {
     logging(true);
+}
 
-_myfilters = new MyFilters();
+var _myfilters = new MyFilters();
 _myfilters.init();
 
 // Check for a newer update on Edge
@@ -1236,57 +1282,53 @@ if (EDGE) {
     STATUS.checkLatestVersion();
 }
 
-createMalwareNotification = function() {
+function createMalwareNotification() {
     if (!SAFARI &&
         chrome &&
         chrome.notifications &&
-        storage_get('malware-notification')) {
+        storage_get("malware-notification")) {
 
-        //get the current tab, so we only create 1 notification per tab
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        // Get the current tab, so we only create 1 notification per tab
+        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
             if (tabs.length === 0) {
                 return; // For example: only the background devtools or a popup are opened
             }
 
             var tab = tabs[0];
             if (sessionStorage.getItem("malwareNotification" + tab.id)) {
-                //we've already notified the user, just return.
+                // we've already notified the user, just return.
                 return;
             } else {
                 sessionStorage.setItem("malwareNotification" + tab.id, true);
             }
             var notificationOptions = {
                 title: "CatBlock",
-                iconUrl: chrome.runtime.getURL('img/icon48.png'),
-                type: 'basic',
+                iconUrl: chrome.runtime.getURL("img/icon48.png"),
+                type: "basic",
                 priority: 2,
-                message: translate('catblock_malwarenotificationmessage'),
-                buttons: [{title:translate('malwarenotificationlearnmore'),
-                           iconUrl:chrome.runtime.getURL('img/icon24.png')},
-                          {title:translate('malwarenotificationdisablethesemessages'),
-                           iconUrl:chrome.runtime.getURL('img/icon24.png')}]
-            }
-            //OPERA currently doesn't support buttons on notifications, so remove them from the options.
-            if (OPERA) {
-                delete notificationOptions.buttons;
-            } else {
-                //But, Chrome does, so add button click handlers to process the button click events
-                chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {
-                    if (buttonIndex === 0) {
-                        openTab("http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-");
-                    }
-                    if (buttonIndex === 1) {
-                        storage_set('malware-notification', false);
-                    }
-                });
-            }
+                message: translate("catblock_malwarenotificationmessage"),
+                buttons: [{ title:translate("malwarenotificationlearnmore"),
+                           iconUrl:chrome.runtime.getURL("img/icon24.png") },
+                          { title:translate("malwarenotificationdisablethesemessages"),
+                           iconUrl:chrome.runtime.getURL("img/icon24.png") }]
+            };
+
+            // Add button click handlers to process the button click events
+            chrome.notifications.onButtonClicked.addListener(function(notificationId, buttonIndex) {
+                if (buttonIndex === 0) {
+                    openTab("http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-");
+                }
+                if (buttonIndex === 1) {
+                    storage_set("malware-notification", false);
+                }
+            });
             // Pop up a notification to the user.
-            chrome.notifications.create((Math.floor(Math.random() * 3000)).toString(), notificationOptions, function(id) {
+            chrome.notifications.create((Math.floor(Math.random() * 3000)).toString(), notificationOptions, function() {
                 //do nothing in callback
             });
-        });//end of chrome.tabs.query
-    }//end of if
-}//end of createMalwareNotification function
+        }); //end of chrome.tabs.query
+    } //end of if
+} //end of createMalwareNotification function
 
 if (!SAFARI) {
     // Chrome blocking code.  Near the end so synchronous request handler
@@ -1294,10 +1336,11 @@ if (!SAFARI) {
     chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
     chrome.tabs.onRemoved.addListener(frameData.removeTabId);
     // Popup blocking
-    if (chrome.webNavigationn && chrome.webNavigation.onCreatedNavigationTarget)
+    if (chrome.webNavigationn && chrome.webNavigation.onCreatedNavigationTarget) {
         chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
+    }
 
-    var handleEarlyOpenedTabs = function(tabs) {
+    function handleEarlyOpenedTabs(tabs) {
         log("Found", tabs.length, "tabs that were already opened");
         for (var i=0; i<tabs.length; i++) {
             var currentTab = tabs[i], tabId = currentTab.id;
@@ -1307,9 +1350,10 @@ if (!SAFARI) {
             }
             updateBadge(tabId);
             // TODO: once we're able to get the parentFrameId, call
-            // chrome.webNavigation.getAllFrames to 'load' the subframes
+            // chrome.webNavigation.getAllFrames to "load" the subframes
         }
     }
+
     chrome.tabs.query({url: "http://*/*"}, handleEarlyOpenedTabs);
     chrome.tabs.query({url: "https://*/*"}, handleEarlyOpenedTabs);
 }
@@ -1317,11 +1361,11 @@ if (!SAFARI) {
 // YouTube Channel Whitelist
 // Script injection logic for Safari is done in safari_bg.js
 if (!SAFARI) {
-    var runChannelWhitelist = function(tabUrl, tabId) {
+    function runChannelWhitelist(tabUrl, tabId) {
         if (parseUri(tabUrl).hostname === "www.youtube.com" &&
             get_settings().youtube_channel_whitelist &&
             !parseUri.parseSearch(tabUrl).ab_channel) {
-            chrome.tabs.executeScript(tabId, {file: "js/ytchannel.js", runAt: "document_start"});
+            chrome.tabs.executeScript(tabId, { file: "js/ytchannel.js", runAt: "document_start" });
         }
     }
 
@@ -1355,14 +1399,14 @@ function isSafariContentBlockingAvailable() {
     return (SAFARI &&
             safari &&
             safari.extension &&
-            (typeof safari.extension.setContentBlocker === 'function'));
+            (typeof safari.extension.setContentBlocker === "function"));
 }
 
 
 // DEBUG INFO
 
 // Get debug info for bug reporting and ad reporting - returns an object
-getDebugInfo = function() {
+function getDebugInfo() {
 
     // An object, which contains info about AdBlock like
     // subscribed filter lists, settings and other settings
@@ -1370,7 +1414,7 @@ getDebugInfo = function() {
         filter_lists: [],
         settings: [],
         other_info: []
-    }
+    };
 
     // Process subscribed filter lists
     var get_subscriptions = get_subscriptions_minus_text();
@@ -1382,7 +1426,7 @@ getDebugInfo = function() {
     }
 
     // Format info about filter lists properly
-    the_debug_info.filter_lists = the_debug_info.filter_lists.join('\n');
+    the_debug_info.filter_lists = the_debug_info.filter_lists.join("\n");
 
     // Process custom filters & excluded filters
     var adblock_custom_filters = storage_get("custom_filters");
@@ -1390,6 +1434,7 @@ getDebugInfo = function() {
     if (adblock_custom_filters) {
         the_debug_info.custom_filters = adblock_custom_filters;
     }
+
     if (get_exclude_filters_text()) {
         the_debug_info.exclude_filters = get_exclude_filters_text();
     }
@@ -1402,14 +1447,14 @@ getDebugInfo = function() {
 
     // We need to hardcode malware-notification setting,
     // because it isn't included in _settings object, but just in localStorage
-    the_debug_info.settings.push("malware-notification: " + storage_get('malware-notification') + "\n");
-    the_debug_info.settings = the_debug_info.settings.join('');
+    the_debug_info.settings.push("malware-notification: " + storage_get("malware-notification") + "\n");
+    the_debug_info.settings = the_debug_info.settings.join("");
 
     // Find out AdBlock version
     var AdBlockVersion = chrome.runtime.getManifest().version;
 
     // Is this installed build of AdBlock the official one?
-    var AdBlockBuild = function() {
+    function AdBlockBuild() {
         if (!SAFARI) {
             if (chrome.runtime.id === "pljaalgmajnlogcgiohkhdmgpomjcihk") {
                 return "Beta";
@@ -1438,15 +1483,15 @@ getDebugInfo = function() {
     }
 
     // Get & process userAgent
-    the_debug_info.other_info.push("UserAgent: " + navigator.userAgent.replace(/;/,""));
+    the_debug_info.other_info.push("UserAgent: " + navigator.userAgent.replace(/;/, ""));
     the_debug_info.other_info = the_debug_info.other_info.join("\n");
+
     return the_debug_info;
 }
 
 // Code for making a bug report
-makeReport = function() {
+function makeReport() {
     var body = [];
-    var debugInfo = getDebugInfo();
     body.push(chrome.i18n.getMessage("englishonly") + "!");
     body.push("");
     body.push("Please answer the following questions so that we can process your bug report, otherwise, we may have to ignore it.");
@@ -1475,35 +1520,35 @@ makeReport = function() {
               "Developer Mode -> Inspect views: background page -> Console. " +
               "Paste the contents here:");
     body.push("");
-    var out = encodeURIComponent(body.join('  \n'));
+    var out = encodeURIComponent(body.join("  \n"));
 
     return out;
-};
+}
 
 // CatBlock specific code
-channels = new Channels();
+var channels = new Channels();
 
-var addChannel = function(args) {
+function addChannel(args) {
     return channels.add(args);
 }
 
-var removeChannel = function(id) {
+function removeChannel(id) {
     return channels.remove(id);
 }
 
-var getListings = function(id) {
+function getListings(id) {
     return channels.getListings(id);
 }
 
-var getGuide = function() {
+function getGuide() {
     return channels.getGuide();
 }
 
-var randomListing = function(args) {
+function randomListing(args) {
     return channels.randomListing(args);
 }
 
-var setEnabled = function(id, enabled) {
+function setEnabled(id, enabled) {
     return channels.setEnabled(id, enabled);
 }
 
@@ -1513,8 +1558,7 @@ chrome.runtime.onMessage.addListener(
         if (request.command === "inject_jquery") {
             if (!SAFARI) {
                 chrome.tabs.executeScript(undefined, { allFrames: request.allFrames, file: "../lib/jquery.min.js" },
-                                          function() { sendResponse({});
-                                                     });
+                                          function() { sendResponse({}); });
             } else {
                 safari.extension.addContentScriptFromURL(safari.extension.baseURI + "lib/jquery.min.js", [], [], false);
             }

@@ -49,7 +49,7 @@ var picinjection = {
         p.left = 0; p.right = 0; p.top = 0; p.bottom = 0;
 
         // Step 1: Calculate |crop_x|: total horizontal crop needed.
-        var crop_max = Math.max(p.left + p.right, .001);
+        var crop_max = Math.max(p.left + p.right, 0.001);
         // Crop as much as we must, but not past the max allowed crop.
         var crop_x = Math.min(p.width - p.height * t_ratio, crop_max);
 
@@ -91,8 +91,8 @@ var picinjection = {
     // Rotate a picture/target about its NW<->SE axis.
     _rotate: function(o) {
 
-        var pairs = [ ["x", "y"], ["top", "left"], ["bot", "right"],
-                     ["offsettop", "offsetleft"], ["width", "height"] ];
+        var pairs = [["x", "y"], ["top", "left"], ["bot", "right"],
+                     ["offsettop", "offsetleft"], ["width", "height"]];
         pairs.forEach(function(pair) {
             var a = pair[0], b = pair[1], tmp;
             if (o[a] || o[b]) {
@@ -107,21 +107,23 @@ var picinjection = {
             // Match two or more digits; treat < 10 as missing.  This lets us set
             // dims that look good for e.g. 1px tall ad holders (cnn.com footer.)
             var match = (val || "").match(/^([1-9][0-9]+)(px)?$/);
-            if (!match)
+            if (!match) {
                 return undefined;
+            }
 
             return parseInt(match[1]);
         }
-        return ( intFor(el.getAttribute(prop)) ||
-                intFor(window.getComputedStyle(el)[prop]) );
+        return (intFor(el.getAttribute(prop)) ||
+                intFor(window.getComputedStyle(el)[prop]));
     },
 
     _parentDim: function(el, prop) {
 
         // Special hack for Facebook, so Sponsored links are huge and beautiful
         // pictures instead of tiny or missing.
-        if (/facebook/.test(document.location.href))
+        if (/facebook/.test(document.location.href)) {
             return undefined;
+        }
         var result = undefined;
         while (!result && el.parentNode) {
             result = this._dim(el.parentNode, prop);
@@ -136,15 +138,17 @@ var picinjection = {
 
         // Make it rectangular if ratio is appropriate, or if we only know one dim
         // and it's so big that the 180k pixel max will force the pic to be skinny.
-        if (t.x && !t.y && t.x > 400)
+        if (t.x && !t.y && t.x > 400) {
             t.type = "wide";
-        else if (t.y && !t.x && t.y > 400)
+        } else if (t.y && !t.x && t.y > 400) {
             t.type = "tall";
-        else if (Math.max(t.x,t.y) / Math.min(t.x,t.y) >= 2) // false unless (t.x && t.y)
+        } else if (Math.max(t.x,t.y) / Math.min(t.x,t.y) >= 2) { // false unless (t.x && t.y)
             t.type = (t.x > t.y ? "wide" : "tall");
+        }
 
-        if (!t.type) // we didn't choose wide/tall
+        if (!t.type) { // we didn't choose wide/tall
             t.type = ((t.x || t.y) > 125 ? "big" : "small");
+        }
 
         return t;
     },
@@ -217,7 +221,7 @@ var picinjection = {
                     backgroundSize: placement.x + "px " + placement.y + "px",
                     margin: placement.offsettop + "px " + placement.offsetleft + "px",
                     // nytimes.com float:right ad at top is on the left without this
-                    "float": (window.getComputedStyle(el)["float"] || undefined)
+                    "float": (window.getComputedStyle(el).float || undefined)
                 };
                 for (var k in css) {
                     newPic.style[k] = css[k];
@@ -232,8 +236,9 @@ var picinjection = {
 
                 // Prevent clicking through to ad; go to attribution page instead
                 newPic.addEventListener("click", function(e) {
-                    if (placement.attribution_url)
+                    if (placement.attribution_url) {
                         window.open(placement.attribution_url);
+                    }
                     e.preventDefault();
                     e.stopPropagation();
                     return false;
@@ -252,27 +257,35 @@ var picinjection = {
     // Add an info card to |newPic| that appears on hover.
     _addInfoCardTo: function(newPic, placement) {
 
-        if (newPic.infoCard)
+        if (newPic.infoCard) {
             return;
+        }
         // We use a direct sendMessage onmouseenter to avoid modifying
         // emit_page_broadcast.  Create card the first time we mouseover.
         // Then we can use jQuery's mouseenter and mouseleave to control when the
         // card comes and goes.
-        newPic.addEventListener("mouseover", function(e) {
-            if (newPic.infoCard)
+        newPic.addEventListener("mouseover", function() {
+            if (newPic.infoCard) {
                 return; // already created card
+            }
             function after_jquery_is_available() {
                 var cardsize = {
                     width: Math.max(placement.width, 180),
                     height: Math.max(placement.height, 100)
                 };
+
                 function position_card(card) {
                     var pos = $(newPic).offset();
                     pos.top += (placement.height - cardsize.height) / 2;
                     pos.left += (placement.width - cardsize.width) / 2;
-                    if (pos.top < 0) pos.top = 0; if (pos.left < 0) pos.left = 0;
+                    if (pos.top < 0) {
+                        pos.top = 0;
+                    }
+                    if (pos.left < 0) {
+                        pos.left = 0;
+                    }
                     card.css(pos);
-                };
+                }
 
                 newPic.infoCard = $("<div>", {
                     "class": "picinjection-infocard",
@@ -286,7 +299,7 @@ var picinjection = {
                         "border": "2px solid rgb(128, 128, 128)",
                         "font": "normal small Arial, sans-serif",
                         "color": "black",
-                        "background-color": "rgba(188, 188, 188, 0.7)",
+                        "background-color": "rgba(188, 188, 188, 0.7)"
                     } });
                 newPic.infoCard.appendTo("body");
                 var folder = "img/";
@@ -300,7 +313,7 @@ var picinjection = {
                         "font": "bold 20px sans-serif",
                         "text-decoration": "none",
                         color: "blue",
-                        "margin-left": 10,
+                        "margin-left": 10
                     },
                     click: function() {
                         newPic.infoCard.remove();
@@ -311,7 +324,7 @@ var picinjection = {
                     css: {
                         float: "right",
                         // independent.co.uk borders all imgs
-                        border: "none",
+                        border: "none"
                     },
                     src: chrome.runtime.getURL(folder + "icon19.png")
                 })).
@@ -324,7 +337,6 @@ var picinjection = {
                         "text-align": "center"
                     }
                 });
-                var translate = picinjection.translate;
                 wrapper.
                 append($("<i>", { text: placement.photo_title })).
                 append("<br/><br/>").
@@ -374,15 +386,17 @@ var picinjection = {
     _augmentHiddenSectionContaining: function(el) {
 
         // Find the top hidden node (the one AdBlock originally hid)
-        while (this._inHiddenSection(el.parentNode))
+        while (this._inHiddenSection(el.parentNode)) {
             el = el.parentNode;
+        }
 
         this._forceToOriginalSizeAndAugment(el, "block");
     },
 
     augmentBlockedElIfRightType: function(el) {
-        if (el.nodeName in { IMG: 1, IFRAME: 1, 'OBJECT': 1, EMBED: 1 })
+        if (el.nodeName in { IMG: 1, IFRAME: 1, "OBJECT": 1, EMBED: 1 }) {
             picinjection._forceToOriginalSizeAndAugment(el, "");
+        }
     },
 
     _forceToOriginalSizeAndAugment: function(el, displayValue) {
@@ -400,10 +414,11 @@ var picinjection = {
             // Restore el.width&el.height to whatever they were before AdBlock.
             var dims = { width: size[1], height: size[2] };
             for (var dim in dims) {
-                if (dims[dim] === "-1px")
+                if (dims[dim] === "-1px") {
                     el.removeAttribute(dim);
-                else
+                } else {
                     el.setAttribute(dim, dims[dim]);
+                }
             }
         }
 
@@ -411,8 +426,8 @@ var picinjection = {
             el.style.cssText = oldCssText; // Re-hide the section
             var addedImgs = document.getElementsByClassName("picinjection-image");
             for (var i = 0; i < addedImgs.length; i++) {
-                var displayVal = window.getComputedStyle(addedImgs[i])["display"];
-                if (displayVal === 'none') {
+                var displayVal = window.getComputedStyle(addedImgs[i]).display;
+                if (displayVal === "none") {
                     addedImgs[i].style.display = "";
                 }
             }
@@ -431,7 +446,7 @@ var picinjection = {
                 de: "AdBlock ersetzt ab heute Werbung durch Katzen!",
                 ru: "AdBlock теперь отображает котов вместо рекламы!",
                 nl: "AdBlock toont je nu katten in plaats van advertenties!",
-                zh: "现在显示的AdBlock猫，而不是广告！",
+                zh: "现在显示的AdBlock猫，而不是广告！"
             },
             "stop_showing": {
                 en: "Stop showing me cats!",
@@ -440,7 +455,7 @@ var picinjection = {
                 de: "Keine Katzen mehr anzeigen!",
                 ru: "Не показывать кошек!",
                 nl: "Toon geen katten meer!",
-                zh: "不显示猫图片！",
+                zh: "不显示猫图片！"
             },
             "ok_no_more": {
                 en: "OK, AdBlock will not show you any more cats.\n\nHappy April Fools' Day!",
@@ -449,7 +464,7 @@ var picinjection = {
                 de: "AdBlock wird keine Katzen mehr anzeigen.\n\nApril, April!",
                 ru: "Хорошо, AdBlock не будет отображаться кошек.\n\nЕсть счастливый День дурака",
                 nl: "1 April!!\n\nAdBlock zal vanaf nu geen katten meer tonen.",
-                zh: "OK，的AdBlock不会显示猫。\n\n幸福四月愚人节！",
+                zh: "OK，的AdBlock不会显示猫。\n\n幸福四月愚人节！"
             },
             "new": {
                 en: "New!",
@@ -458,7 +473,7 @@ var picinjection = {
                 de: "Neu!",
                 ru: "новое!",
                 nl: "Nieuw!",
-                zh: "新！",
+                zh: "新！"
             },
             "enable_picinjection": {
                 en: "Display a pretty picture in place of ads.",
@@ -467,7 +482,7 @@ var picinjection = {
                 de: "Werbung durch schöne Bilder ersetzen.",
                 ru: "Показать красивую картинку вместо объявления.",
                 nl: "Toon een leuke afbeelding op de plaats waar advertenties stonden.",
-                zh: "显示漂亮的照片，而不是广告。",
+                zh: "显示漂亮的照片，而不是广告。"
             },
             "learn_more": {
                 en: "Learn more",
@@ -476,7 +491,7 @@ var picinjection = {
                 de: "Mehr Informationen",
                 ru: "Подробнее",
                 nl: "Meer informatie",
-                zh: "了解更多信息",
+                zh: "了解更多信息"
             },
             "the_url": {
                 // don't translate into other locales
@@ -485,7 +500,7 @@ var picinjection = {
         };
         var locale = navigator.language.substring(0, 2);
         var msg = text[key] || {};
-        return msg[locale] || msg["en"];
+        return msg[locale] || msg.en;
     },
 
     _picdata: {
@@ -504,7 +519,7 @@ var picinjection = {
             { filename: "big4.jpg",
              x: 170, y: 240, left: 28, right: 87, top: 20, bot: 4 },
             { filename: "1.jpg",
-             x: 384, y: 288, left: 52, right: 121, top: 73, bot: 36 },
+             x: 384, y: 288, left: 52, right: 121, top: 73, bot: 36 }
         ],
         "small": [
             { filename: "7.jpg",
@@ -526,7 +541,7 @@ var picinjection = {
             { filename: "small7.jpg",
              x: 124, y: 96, left: 0, right: 0, top: 0, bot: 0 },
             { filename: "small8.jpg",
-             x: 119, y: 114, left: 0, right: 0, top: 0, bot: 0 },
+             x: 119, y: 114, left: 0, right: 0, top: 0, bot: 0 }
         ],
         "wide": [
             { filename: "wide1.jpg",
@@ -542,7 +557,7 @@ var picinjection = {
             { filename: "1.jpg",  // big
              x: 384, y: 288, left: 0, right: 0, top: 116, bot: 117 },
             { filename: "6.jpg",  // big
-             x: 350, y: 263, left: 0, right: 0, top: 73, bot: 100 },
+             x: 350, y: 263, left: 0, right: 0, top: 73, bot: 100 }
         ],
         "tall": [
             { filename: "8.jpg",
@@ -560,8 +575,8 @@ var picinjection = {
             { filename: "big1.jpg",  // big
              x: 228, y: 249, left: 96, right: 52, top: 0, bot: 0 },
             { filename: "big3.jpg",  // big
-             x: 340, y: 375, left: 159, right: 60, top: 0, bot: 0 },
-        ],
+             x: 340, y: 375, left: 159, right: 60, top: 0, bot: 0 }
+        ]
     },
 
     enabled: function(callback) {
@@ -578,8 +593,9 @@ if (!SAFARI) {
     // Augment blocked ads on Blink-based browsers => images/subdocuments/objects
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         if (request.command !== "purge-elements" ||
-            request.frameUrl !== document.location.href)
+            request.frameUrl !== document.location.href) {
             return;
+        }
 
         var ads = document.querySelectorAll(request.selector);
 

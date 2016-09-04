@@ -1,35 +1,43 @@
-DeclarativeWebRequest = (function() {
+var DeclarativeWebRequest = (function() {
     if (!safari ||
         !safari.extension ||
-        (typeof safari.extension.setContentBlocker !== 'function')) {
+        (typeof safari.extension.setContentBlocker !== "function")) {
         return;
     }
     const HTML_PREFIX = "^https?://.*";
-    var PAGELEVEL_TYPES = (ElementTypes.elemhide | ElementTypes.document);
-    var UNSUPPORTED_TYPES = (ElementTypes.subdocument | ElementTypes.object | ElementTypes.object_subrequest);
+    const PAGELEVEL_TYPES = (ElementTypes.elemhide | ElementTypes.document);
+    const UNSUPPORTED_TYPES = (ElementTypes.subdocument | ElementTypes.object | ElementTypes.object_subrequest);
     var whitelistAnyOtherFilters = [];
     var elementWhitelistFilters = [];
     var documentWhitelistFilters = [];
     var elemhideSelectorExceptions = {};
 
-    // Add the include / exclude domains to a rule
-    // Note:  some filters will have both include and exclude domains, which the content blocking API doesn't allow,
-    //        so we only add the exclude domains when there isn't any include domains.
-    var addDomainsToRule = function(filter, rule) {
-        var domains = getDomains(filter);
-        //since the global / ALL domain is included in the 'included' array, check for something other than undefined in the zero element
-        if (domains.included.length > 0 && domains.included[0] !== undefined) {
-            rule.trigger["if-domain"] = domains.included;
-        } else if (domains.excluded.length > 0) {
-            rule.trigger["unless-domain"] = domains.excluded;
+    // Returns true if |filter| is of type $document or $elemhide
+    function isPageLevel(filter) {
+        return filter._allowedElementTypes & PAGELEVEL_TYPES;
+    }
+
+    // Returns false if the given filter cannot be handled by Safari 9 content blocking.
+    function isSupported(filter) {
+        if (!filter.hasOwnProperty("_allowedElementTypes")) {
+            return true;
         }
-    };
+        return !(filter._allowedElementTypes === (filter._allowedElementTypes & UNSUPPORTED_TYPES));
+    }
+
+    // Remove any characters from the filter lists that are not needed, such as |##| and |.|
+    function parseSelector(selector) {
+        if (selector.indexOf("##") === 0) {
+            selector = selector.substring(2, selector.length);
+        }
+        return selector;
+    }
 
     // Returns an object containing .included and .excluded lists of domains for
     // the given Filter.  If the Filter is of the form $domain=~x[,~x2,...] then
     // add |undefined| to the .included list to represent the implied global
     // domain matched by the filter.
-    var getDomains = function(filter) {
+    function getDomains(filter) {
         var result = {
             included: [],
             excluded: []
@@ -43,31 +51,41 @@ DeclarativeWebRequest = (function() {
             result.included.push(undefined);
         }
         for (var d in has) {
-            if (d === DomainSet.ALL) {
-                continue;
-            }
-            var parsedDomain = punycode.toASCII(d).toLowerCase();
-            // Remove the leading 'www'
-            if (parsedDomain.indexOf("www.") === 0) {
-                parsedDomain = parsedDomain.substr(4);
-            }
-            if (has[d]) {
-                result['included'].push("*" + parsedDomain);
-            } else {
-                result['excluded'].push(parsedDomain);
+            if (has.hasOwnProperty(d)) {
+                if (d === DomainSet.ALL) {
+                    continue;
+                }
+                var parsedDomain = punycode.toASCII(d).toLowerCase();
+                // Remove the leading 'www'
+                if (parsedDomain.indexOf("www.") === 0) {
+                    parsedDomain = parsedDomain.substr(4);
+                }
+                if (has[d]) {
+                    result.included.push("*" + parsedDomain);
+                } else {
+                    result.excluded.push(parsedDomain);
+                }
             }
         }
         return result;
-    };
+    }
 
-    // Returns true if |filter| is of type $document or $elemhide
-    var isPageLevel = function(filter) {
-        return filter._allowedElementTypes & PAGELEVEL_TYPES;
-    };
+    // Add the include / exclude domains to a rule
+    // Note:  some filters will have both include and exclude domains, which the content blocking API doesn't allow,
+    //        so we only add the exclude domains when there isn't any include domains.
+    function addDomainsToRule(filter, rule) {
+        var domains = getDomains(filter);
+        //since the global / ALL domain is included in the 'included' array, check for something other than undefined in the zero element
+        if (domains.included.length > 0 && domains.included[0] !== undefined) {
+            rule.trigger["if-domain"] = domains.included;
+        } else if (domains.excluded.length > 0) {
+            rule.trigger["unless-domain"] = domains.excluded;
+        }
+    }
 
     // Returns an array of resource types that should be checked by rules for
     // filters with the given allowedElementTypes.
-    var getResourceTypesByElementType = function(elementTypes) {
+    function getResourceTypesByElementType(elementTypes) {
         var result = [];
         if (elementTypes & ElementTypes.image) {
             result.push("image");
@@ -91,10 +109,10 @@ DeclarativeWebRequest = (function() {
             result.push("document");
         }
         return result;
-    };
+    }
 
     // Parse and clean up the filter's RegEx to meet WebKit's requirements.
-    var getURLFilterFromFilter = function(filter) {
+    function getURLFilterFromFilter(filter) {
         //remove any whitespace
         var rule = filter._rule.source;
         rule = rule.trim();
@@ -107,11 +125,11 @@ DeclarativeWebRequest = (function() {
             rule = HTML_PREFIX + rule;
         }
         return rule;
-    };
+    }
 
     // Separates the different white list filters so they are added
     // to the final rule array in the correct order (for performance reasons)
-    var preProcessWhitelistFilters = function(whitelistFilters){
+    function preProcessWhitelistFilters(whitelistFilters) {
         for (var inx = 0; inx < whitelistFilters.length; inx++) {
             var filter = whitelistFilters[inx];
             if (isSupported(filter) &&
@@ -134,129 +152,112 @@ DeclarativeWebRequest = (function() {
                 documentWhitelistFilters.push(filter);
             }
         }
-    };
+    }
 
     // Create and return a default JavaScript rule object
-    var createDefaultRule = function() {
+    function createDefaultRule() {
         var rule = {};
         rule.action = {};
         rule.action.type = "block";
         rule.trigger = {};
         rule.trigger["url-filter"] = HTML_PREFIX;
         return rule;
-    };
+    }
 
     // Return the rule required to represent this PatternFilter in Safari blocking syntax.
-    var getRule = function(filter) {
+    function getRule(filter) {
         var rule = createDefaultRule();
-        rule.trigger["url-filter"]  =  getURLFilterFromFilter(filter);
+        rule.trigger["url-filter"] = getURLFilterFromFilter(filter);
         var resourceArray = getResourceTypesByElementType(filter._allowedElementTypes);
         if (resourceArray && resourceArray.length > 0) {
             rule.trigger["resource-type"] = resourceArray;
         }
         addDomainsToRule(filter, rule);
-        if (filter._options & FilterOptions["THIRDPARTY"]) {
-            rule["trigger"]["load-type"] = ["third-party"];
+        if (filter._options & FilterOptions.THIRDPARTY) {
+            rule.trigger["load-type"] = ["third-party"];
         } else {
-            rule["trigger"]["load-type"] = ["first-party"];
+            rule.trigger["load-type"] = ["first-party"];
         }
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this Selector Filter in Safari blocking syntax.
-    var createSelectorRule = function(filter) {
+    function createSelectorRule(filter) {
         var rule = createDefaultRule();
         rule.action.selector = parseSelector(filter.selector);
         rule.action.type = "css-display-none";
         addDomainsToRule(filter, rule);
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this $elemhide Whitelist Filter in Safari blocking syntax.
-    var createElemhideIgnoreRule = function(filter) {
+    function createElemhideIgnoreRule(filter) {
         var rule = createDefaultRule();
         rule.action.type = "ignore-previous-rules";
-        rule.trigger["url-filter"]  =  getURLFilterFromFilter(filter);
+        rule.trigger["url-filter"] = getURLFilterFromFilter(filter);
         var resourceArray = getResourceTypesByElementType(filter._allowedElementTypes);
         if (resourceArray && resourceArray.length > 0) {
             rule.trigger["resource-type"] = resourceArray;
         }
-        if (filter._options & FilterOptions["THIRDPARTY"]) {
-            rule["trigger"]["load-type"] = ["third-party"];
+        if (filter._options & FilterOptions.THIRDPARTY) {
+            rule.trigger["load-type"] = ["third-party"];
         } else {
-            rule["trigger"]["load-type"] = ["first-party"];
+            rule.trigger["load-type"] = ["first-party"];
         }
         addDomainsToRule(filter, rule);
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this Selector Filter in Safari blocking syntax.
-    var createEmptySelectorRule = function() {
+    function createEmptySelectorRule() {
         var rule = createDefaultRule();
-        rule["action"]["type"] = "css-display-none";
+        rule.action.type = "css-display-none";
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this $document Whitelist Filter in Safari blocking syntax.
-    var createDocumentIgnoreRule = function(filter) {
+    function createDocumentIgnoreRule(filter) {
         var rule = createDefaultRule();
         rule.action = {"type": "ignore-previous-rules"};
-        rule.trigger["url-filter"]  =  getURLFilterFromFilter(filter);
+        rule.trigger["url-filter"] = getURLFilterFromFilter(filter);
         var resourceArray = getResourceTypesByElementType(filter._allowedElementTypes);
         if (resourceArray && resourceArray.length > 0) {
             rule.trigger["resource-type"] = resourceArray;
         }
         addDomainsToRule(filter, rule);
         return rule;
-    };
+    }
 
     // Return the rule (JSON) required to represent this Whitelist Filter in Safari blocking syntax.
-    var createIgnoreRule = function(filter) {
+    function createIgnoreRule(filter) {
         var rule = createDefaultRule();
         rule.action = {"type": "ignore-previous-rules"};
-        rule.trigger["url-filter"]  =  getURLFilterFromFilter(filter);
+        rule.trigger["url-filter"] = getURLFilterFromFilter(filter);
         var resourceArray = getResourceTypesByElementType(filter._allowedElementTypes);
         if (resourceArray && resourceArray.length > 0) {
             rule.trigger["resource-type"] = resourceArray;
         }
         addDomainsToRule(filter, rule);
         return rule;
-    };
+    }
 
-    // Returns false if the given filter cannot be handled by Safari 9 content blocking.
-    var isSupported = function(filter) {
-        if (!filter.hasOwnProperty('_allowedElementTypes'))  {
-            return true;
-        } else {
-            return !(filter._allowedElementTypes === (filter._allowedElementTypes & UNSUPPORTED_TYPES));
-        }
-    };
-
-    // Remove any characters from the filter lists that are not needed, such as |##| and |.|
-    var parseSelector = function(selector) {
-        if (selector.indexOf('##') === 0) {
-            selector = selector.substring(2, selector.length);
-        }
-        return selector;
-    };
-
-    var resetInternalArrays = function() {
+    function resetInternalArrays() {
         whitelistAnyOtherFilters = [];
         elementWhitelistFilters = [];
         documentWhitelistFilters = [];
         elemhideSelectorExceptions = {};
-    };
+    }
 
     return {
         // Converts the various Filters into Safari specific JSON entries.
         // Returns an array of the JSON rules
-        convertFilterLists: function( patternFilters, whitelistFilters, selectorFilters, selectorFiltersAll) {
+        convertFilterLists: function(patternFilters, whitelistFilters, selectorFilters, selectorFiltersAll) {
             resetInternalArrays();
             preProcessWhitelistFilters(whitelistFilters);
 
-            var hasUpperCase = function(str) {
-                return str.toLowerCase() != str;
-            };
+            function hasUpperCase(str) {
+                return str.toLowerCase() !== str;
+            }
             var rules = [];
             //step 1a, add all of the generic hiding filters (CSS selectors)
             //step 1a, add all of the generic hiding filters (CSS selectors)
@@ -271,7 +272,7 @@ DeclarativeWebRequest = (function() {
                         // If the selector is an ID selector and contains an upper case character
                         // also add an all lower case version due to a webkit bug (#23616574)
                         var tempSelector = parseSelector(filter.selector);
-                        if ((tempSelector.charAt(0) === '#') &&
+                        if ((tempSelector.charAt(0) === "#") &&
                             hasUpperCase(tempSelector)) {
                             tempSelector = tempSelector + ", " + tempSelector.toLowerCase();
                         }
@@ -284,7 +285,7 @@ DeclarativeWebRequest = (function() {
                 }
 
                 var theRule = createEmptySelectorRule();
-                theRule["action"]["selector"] = selectorText;
+                theRule.action.selector = selectorText;
                 rules.push(theRule);
             }
 
@@ -306,7 +307,7 @@ DeclarativeWebRequest = (function() {
                     var rule = getRule(filter);
                     var is_valid = true;
                     try {
-                        new RegExp(rule["trigger"]["url-filter"]);
+                        new RegExp(rule.trigger["url-filter"]);
                     } catch(ex) {
                         is_valid = false;
                     }

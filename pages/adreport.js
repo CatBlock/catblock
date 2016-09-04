@@ -1,5 +1,6 @@
 var malwareDomains = null;
 var extensionsDisabled = [];
+
 $(function() {
     localizePage();
 
@@ -35,12 +36,24 @@ $(function() {
     // Sort the languages list
     var languageOptions = $("#step_language_lang option");
     languageOptions.sort(function(a, b) {
-        if (!a.text) return -1;
-        if (!b.text) return 1; // First one is empty
-        if (!a.value) return 1;
-        if (!b.value) return -1; // 'Other' at the end
-        if (a.getAttribute("i18n") == "lang_english") return -1; // English second
-        if (b.getAttribute("i18n") == "lang_english") return 1;
+        if (!a.text) {
+            return -1;
+        }
+        if (!b.text) {
+            return 1; // First one is empty
+        }
+        if (!a.value) {
+            return 1;
+        }
+        if (!b.value) {
+            return -1; // 'Other' at the end
+        }
+        if (a.getAttribute("i18n") === "lang_english") {
+            return -1; // English second
+        }
+        if (b.getAttribute("i18n") === "lang_english") {
+            return 1;
+        }
         return (a.text > b.text) ? 1 : -1;
     });
     $("#step_language_lang").empty().append(languageOptions);
@@ -52,6 +65,7 @@ $(function() {
 
 // Fetching the options...
 var options = parseUri.parseSearch(document.location.search);
+var tabId = options.tabId.replace(/[^0-9]/g, "");
 
 // Get the list of all unsubscribed default filters
 var unsubscribed_default_filters = [];
@@ -76,7 +90,7 @@ function sendReport() {
     var $filter = $("#step_report_filter");
     var problems = 0;
     // Reset any error messages
-    $('#screen_capture_file_label')
+    $("#screen_capture_file_label")
         .css("color", "black");
     $email.removeClass("inputError");
     $name.removeClass("inputError");
@@ -105,19 +119,16 @@ function sendReport() {
         $("#adreport_missing_info")
             .show();
     }
-    if ($('#screen_capture_file')[0].files.length === 0) {
+    if ($("#screen_capture_file")[0].files.length === 0) {
         $("#adreport_missing_screenshot")
             .show();
         problems++;
-        $('#screen_capture_file_label')
+        $("#screen_capture_file_label")
             .css("color", "#f00");
     }
     if (problems) {
-        $('html, body')
-            .animate({
-            scrollTop: $("#adreport_missing_info")
-            .offset()
-            .top
+        $("html, body").animate({
+            scrollTop: $("#adreport_missing_info").offset().top
         }, 2000);
         return;
     }
@@ -140,8 +151,8 @@ function sendReport() {
         report_data.url = options.url;
     }
     var the_answers = [];
-    var answers = $('span[class="answer"]');
-    var text = $('div[class="section"]:visible');
+    var answers = $("span[class='answer']");
+    var text = $("div[class='section']:visible");
     var minArrayLength = Math.min(answers.length, text.length);
     for (var i = 0; i < minArrayLength; i++) {
         the_answers.push((i + 1) + "." + text[i].id + ": " + answers[i].getAttribute("chosen"));
@@ -149,12 +160,12 @@ function sendReport() {
     report_data.answers = the_answers.join("\n");
 
     // Retrieve extension info
-    var askUserToGatherExtensionInfo = function() {
+    function askUserToGatherExtensionInfo() {
         if (chrome &&
             chrome.permissions &&
             chrome.permissions.request) {
             chrome.permissions.request({
-                permissions: ['management']
+                permissions: ["management"]
             }, function(granted) {
                 // The callback argument will be true if the user granted the permissions.
                 if (granted) {
@@ -165,14 +176,14 @@ function sendReport() {
                             extInfo.push("  name: " + result[i].name);
                             extInfo.push("  id: " + result[i].id);
                             extInfo.push("  version: " + result[i].version);
-                            extInfo.push("  enabled: " + result[i].enabled)
+                            extInfo.push("  enabled: " + result[i].enabled);
                             extInfo.push("  type: " + result[i].type);
                             extInfo.push("");
                         }
                         report_data.extensions = extInfo.join("\n");
                         chrome.permissions.remove({
-                            permissions: ['management']
-                        }, function(removed) {});
+                            permissions: ["management"]
+                        }, function() {});
                         sendData();
                         return;
                     });
@@ -188,14 +199,14 @@ function sendReport() {
             report_data.extensions = "Extension information not avaiable";
             sendData();
         }
-    }; //end of askUserToGatherExtensionInfo
+    } //end of askUserToGatherExtensionInfo
 
-    var sendData = function() {
+    function sendData() {
         var formdata = new FormData();
-        formdata.append('ad_report', JSON.stringify(report_data));
+        formdata.append("ad_report", JSON.stringify(report_data));
 
-        if ($('#screen_capture_file')[0].files.length > 0) {
-            formdata.append('screencapturefile', $('#screen_capture_file')[0].files[0]);
+        if ($("#screen_capture_file")[0].files.length > 0) {
+            formdata.append("screencapturefile", $("#screen_capture_file")[0].files[0]);
         }
 
         $("#debug-info").val(createReadableReport(report_data));
@@ -205,23 +216,19 @@ function sendReport() {
             contentType: false,
             processData: false,
             success: function(text) {
-                $("#step_report_submit")
-                    .prop("disabled", true);
+                $("#step_report_submit").prop("disabled", true);
                 // if a ticket was created, the response should contain a ticket id #
                 if (text) {
                     try {
                         var respObj = JSON.parse(text);
                         if (respObj &&
                             respObj.hasOwnProperty("helpdesk_ticket") &&
-                            respObj["helpdesk_ticket"].hasOwnProperty("display_id")) {
+                            respObj.helpdesk_ticket.hasOwnProperty("display_id")) {
                             $("#step_response_success")
                                 .parent()
                                 .fadeIn();
-                            $('html, body')
-                                .animate({
-                                scrollTop: $("#step_response_success")
-                                .offset()
-                                .top
+                            $("html, body").animate({
+                                scrollTop: $("#step_response_success").offset().top
                             }, 2000);
                         } else {
                             prepareManualReport(report_data, null, null, respObj);
@@ -242,7 +249,8 @@ function sendReport() {
             },
             type: "POST"
         });
-    };
+    }
+
     if (chrome &&
         chrome.tabs &&
         chrome.tabs.detectLanguage) {
@@ -266,19 +274,19 @@ function sendReport() {
     }
 
     // Handle any HTTP or server errors
-    var handleResponseError = function(respObj) {
+    function handleResponseError(respObj) {
         $("#step_response_error")
             .parent()
             .fadeIn();
         if (respObj &&
             respObj.hasOwnProperty("error_msg")) {
             $("#step_response_error_msg")
-                .text(translate(respObj["error_msg"]));
+                .text(translate(respObj.error_msg));
         }
         //re-enable the button(s) if the error is recoverable (the user can re-submit)
         if (respObj &&
             respObj.hasOwnProperty("retry_allowed") &&
-            respObj["retry_allowed"] === "true") {
+            respObj.retry_allowed === "true") {
             $("#step_report_submit")
                 .prop("disabled", false);
             $("#step_response_error_manual_submission")
@@ -291,16 +299,13 @@ function sendReport() {
             $("#step_response_error_manual_submission")
                 .show();
         }
-        $('html, body')
-            .animate({
-            scrollTop: $("#step_response_error")
-            .offset()
-            .top
+        $("html, body").animate({
+            scrollTop: $("#step_response_error").offset().top
         }, 2000);
-    };
+    }
 } // end of sendReport()
 
-var createReadableReport = function(data) {
+function createReadableReport(data) {
     var body = [];
     if (data.location) {
         body.push("* Location of ad *");
@@ -328,7 +333,7 @@ var createReadableReport = function(data) {
     if (data.custom_filters) {
         content.push("=== Custom Filters ===");
         content.push(data.debug.custom_filters);
-        content.push("")
+        content.push("");
     }
     if (data.exclude_filters) {
         content.push("=== Exclude Filters ===");
@@ -350,8 +355,9 @@ var createReadableReport = function(data) {
     body.push("");
     return body.join("\n");
 }
+
 // Pretty Print the data
-var prepareManualReport = function(data, status, HTTPerror, respObj) {
+function prepareManualReport(data, status, HTTPerror, respObj) {
     var body = [];
     body.push(createReadableReport(data));
     if (status) {
@@ -367,10 +373,11 @@ var prepareManualReport = function(data, status, HTTPerror, respObj) {
 }
 
 // Check every domain of downloaded resource against malware-known domains
-var checkmalware = function() {
+function checkmalware() {
     BGcall("get_frameData", tabId, function(frameData) {
-        if (!frameData)
+        if (!frameData) {
             return;
+        }
 
         var frames = [];
         var loaded_resources = [];
@@ -405,7 +412,7 @@ var checkmalware = function() {
             for (var key in loaded_resources[i]) {
                 // Push just domains, which are not already in extracted_domains array
                 if (SAFARI) {
-                    var resource = key.split(':|:');
+                    var resource = key.split(":|:");
                     if (resource &&
                         resource.length === 2 &&
                         extracted_domains.indexOf(parseUri(resource[1])
@@ -434,17 +441,17 @@ var checkmalware = function() {
                 var infected = true;
             }
         }
-        $('.loader').hide();
+        $(".loader").hide();
         if (infected) {
-            $('#step_update_filters_DIV').hide();
+            $("#step_update_filters_DIV").hide();
             $("#malwarewarning").html(translate("malwarewarning"));
             $("a", "#malwarewarning")
                 .attr("href", "http://help.getadblock.com/support/solutions/articles/6000055822-i-m-seeing-similar-ads-on-every-website-");
         } else {
-            $('#step_update_filters_DIV').show();
+            $("#step_update_filters_DIV").show();
             $("#malwarewarning").html(translate("malwarenotfound"));
         }
-        $('#malwarewarning').show();
+        $("#malwarewarning").show();
     });
 }
 
@@ -457,7 +464,7 @@ $("input, select").change(function(event) {
 });
 
 // STEP 1: Malware/adware detection
-var checkAdvanceOptions = function() {
+function checkAdvanceOptions() {
     // Check, if downloaded resources are available,
     // if not, just reload tab with parsed tabId
     BGcall("get_settings", function(settings) {
@@ -465,7 +472,7 @@ var checkAdvanceOptions = function() {
         // We can't do a malware check when content blocking is enabled, so skip it.
         if (settings.safari_content_blocking) {
             $("#step_malware_checking_DIV").hide();
-            $('#step_update_filters_DIV').show();
+            $("#step_update_filters_DIV").show();
             return;
         } else if (SAFARI) {
             $("#step_malware_checking_DIV").show();
@@ -490,7 +497,7 @@ var checkAdvanceOptions = function() {
 }
 
 // Fetch file with malware-known domains
-var fetchMalware = function() {
+function fetchMalware() {
     var xhr = new XMLHttpRequest();
     // The timestamp is add to the URL to prevent caching by the browser
     xhr.open("GET", "https://data.getadblock.com/filters/domains.json?timestamp=" + new Date()
@@ -516,9 +523,9 @@ var fetchMalware = function() {
     xhr.send();
 }
 
-//Attempt to get the malwareDomains from the background page first
-//if the returned domains is null, then fetch them directly from the host.
-BGcall('getMalwareDomains', function(domains) {
+// Attempt to get the malwareDomains from the background page first
+// if the returned domains is null, then fetch them directly from the host.
+BGcall("getMalwareDomains", function(domains) {
     if (domains) {
         malwareDomains = domains;
         checkAdvanceOptions();
@@ -527,17 +534,14 @@ BGcall('getMalwareDomains', function(domains) {
     }
 });
 
-var domain = parseUri(options.url).hostname.replace(/((http|https):\/\/)?(www.)?/g, "");
-var tabId = options.tabId.replace(/[^0-9]/g, '');
-
 // STEP 2: update filters
 
 // Updating the users filters
 $("#UpdateFilters").click(function() {
     $(this).prop("disabled", true);
     BGcall("update_subscriptions_now", function() {
-        $(".afterFilterUpdate input").prop('disabled', false);
-        $(".afterFilterUpdate").removeClass('afterFilterUpdate');
+        $(".afterFilterUpdate input").prop("disabled", false);
+        $(".afterFilterUpdate").removeClass("afterFilterUpdate");
     });
 });
 
@@ -577,16 +581,16 @@ $("#step_disable_extensions_yes").click(function() {
         .css("display", "block");
     if (chrome.permissions && chrome.permissions.request && extensionsDisabled.length > 0) {
         chrome.permissions.request({
-            permissions: ['management']
+            permissions: ["management"]
         }, function(granted) {
             // The callback argument will be true if the user granted the permissions.
             if (granted) {
                 for (var i = 0; i < extensionsDisabled.length; i++) {
                     chrome.management.setEnabled(extensionsDisabled[i], true);
                 }
-                alert(translate('enableotherextensionscomplete'));
+                alert(translate("enableotherextensionscomplete"));
             } else {
-                alert(translate('manuallyenableotherextensions'));
+                alert(translate("manuallyenableotherextensions"));
             }
         });
     }
@@ -597,7 +601,7 @@ $("#OtherExtensions").click(function() {
     $("#OtherExtensions").prop("disabled", true);
     if (chrome.permissions && chrome.permissions.request) {
         chrome.permissions.request({
-            permissions: ['management']
+            permissions: ["management"]
         }, function(granted) {
             // The callback argument will be true if the user granted the permissions.
             if (granted) {
@@ -614,8 +618,7 @@ $("#OtherExtensions").click(function() {
                             // If the extension is a developer version, continue, don't disable.
                             if (result[i].installType === "development" &&
                                 result[i].type === "extension" &&
-                                (result[i].name === "AdBlock with CatBlock" ||
-                                 result[i].name === "CatBlock")) {
+                                 result[i].name === "CatBlock") {
                                 continue;
                             }
                             chrome.management.setEnabled(result[i].id, false);
@@ -623,15 +626,15 @@ $("#OtherExtensions").click(function() {
                         }
                     }
                     chrome.permissions.remove({
-                        permissions: ['management']
-                    }, function(removed) {});
+                        permissions: ["management"]
+                    }, function() {});
                     var alertDisplayed = false;
-                    alert(translate('disableotherextensionscomplete'));
+                    alert(translate("disableotherextensionscomplete"));
                     chrome.runtime.onMessage.addListener(
                         function(message, sender, sendResponse) {
                             if (!alertDisplayed && message.command === "reloadcomplete") {
                                 alertDisplayed = true;
-                                alert(translate('tabreloadcomplete'));
+                                alert(translate("tabreloadcomplete"));
                                 //we're done, redisplay the Yes/No buttons
                                 $("#step_disable_extensions")
                                     .fadeIn()
@@ -653,14 +656,13 @@ $("#OtherExtensions").click(function() {
 
 //if the user clicks an item
 var contact = "";
-$("#step_language_lang")
-    .change(function() {
+$("#step_language_lang").change(function() {
     var selected = $("#step_language_lang option:selected");
     $("#step_language")
         .html("<span class='answer'>" + selected.text() + "</span>");
     $("#step_language span")
         .attr("chosen", selected.attr("i18n"));
-    if (selected.text() == translate("other")) {
+    if (selected.text() === translate("other")) {
         $("#checkupdate")
             .html(translate("nodefaultfilter1"));
         $("#link")
@@ -668,8 +670,7 @@ $("#step_language_lang")
             .attr("href", "https://adblockplus.org/en/subscriptions");
         return;
     } else {
-        var required_lists = selected.attr('value')
-        .split(';');
+        var required_lists = selected.attr("value").split(";");
         for (var i = 0; i < required_lists.length - 1; i++) {
             if (unsubscribed_default_filters[required_lists[i]]) {
                 $("#checkupdate")
@@ -697,20 +698,19 @@ $("#step_language_lang")
 // STEP 5: also in Firefox
 
 //If the user clicks a radio button
-$("#step_firefox_yes")
-    .click(function() {
+$("#step_firefox_yes").click(function() {
     $("#step_firefox")
         .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
-    if (/^mailto\:/.test(contact))
+    if (/^mailto\:/.test(contact)) {
         contact = contact.replace(" at ", "@");
-    var reportLink = "<a href='" + contact + "'>" + contact.replace(/^mailto\:/, '') + "</a>";
+    }
+    var reportLink = "<a href='" + contact + "'>" + contact.replace(/^mailto\:/, "") + "</a>";
     $("#checkupdate")
         .html(translate("reportfilterlistproblem", [reportLink]));
     $("#privacy")
         .show();
 });
-$("#step_firefox_no")
-    .click(function() {
+$("#step_firefox_no").click(function() {
     $("#step_firefox")
         .html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
     if (SAFARI) {
@@ -723,57 +723,41 @@ $("#step_firefox_no")
             .fadeIn()
             .css("display", "block");
         if (debug_info) {
-            $("#debug-info")
-                .val(createReadableReport({
-                "debug": debug_info
-            }));
+            $("#debug-info").val(createReadableReport({ "debug": debug_info }));
         }
     }
 });
 
-$("#step_firefox_wontcheck")
-    .click(function() {
+$("#step_firefox_wontcheck").click(function() {
     if (!SAFARI) {
         // Chrome blocking is good enough to assume the answer is 'yes'
-        $("#step_firefox_yes")
-            .click();
+        $("#step_firefox_yes").click();
     } else {
         // Safari can't do this.
-        $("#checkupdate")
-            .text(translate("fixityourself"));
+        $("#checkupdate").text(translate("fixityourself"));
     }
-    $("#step_firefox")
-        .html("<span class='answer' chosen='wont_check'>" + translate("refusetocheck") + "</span>");
+    $("#step_firefox").html("<span class='answer' chosen='wont_check'>" + translate("refusetocheck") + "</span>");
 });
 
 // STEP 6: video/flash ad (Safari-only)
 
 //If the user clicks a radio button
-$("#step_flash_yes")
-    .click(function() {
-    $("#step_flash")
-        .html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
-    $("#checkupdate")
-        .text(translate("cantblockflash"));
+$("#step_flash_yes").click(function() {
+    $("#step_flash").html("<span class='answer' chosen='yes'>" + translate("yes") + "</span>");
+    $("#checkupdate").text(translate("cantblockflash"));
 });
-$("#step_flash_no")
-    .click(function() {
-    $("#step_flash")
-        .html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
-    $("#step_report_DIV")
-        .fadeIn()
-        .css("display", "block");
+$("#step_flash_no").click(function() {
+    $("#step_flash").html("<span class='answer' chosen='no'>" + translate("no") + "</span>");
+    $("#step_report_DIV").fadeIn().css("display", "block");
     if (debug_info) {
-        $("#debug-info")
-            .val(createReadableReport({
+        $("#debug-info").val(createReadableReport({
             "debug": debug_info
         }));
     }
 });
 
 // STEP 7: Ad Report
-$("#step_report_submit")
-    .click(function() {
+$("#step_report_submit").click(function() {
     sendReport();
 });
 

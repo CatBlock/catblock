@@ -4,7 +4,7 @@ function FilterSet() {
     // 'global') to list of filters that specify inclusion on that domain.
     // E.g. /f/$domain=sub.foo.com,bar.com will appear in items['sub.foo.com']
     // and items['bar.com'].
-    this.items = { 'global': [] };
+    this.items = { "global": [] };
     // Map from domain to set of filter ids that specify exclusion on that domain.
     // Each filter will also appear in this.items at least once.
     // Examples:
@@ -27,16 +27,16 @@ FilterSet.fromFilters = function(data) {
 
         for (var d in filter._domains.has) {
             if (filter._domains.has[d]) {
-                var key = (d === DomainSet.ALL ? 'global' : d);
+                var key = (d === DomainSet.ALL ? "global" : d);
                 setDefault(result.items, key, []).push(filter);
-            }
-            else if (d !== DomainSet.ALL)
+            } else if (d !== DomainSet.ALL) {
                 setDefault(result.exclude, d, {})[filter.id] = true;
+            }
         }
     }
 
     return result;
-}
+};
 
 FilterSet.prototype = {
     // Return a new FilterSet containing the subset of this FilterSet's entries
@@ -45,12 +45,14 @@ FilterSet.prototype = {
     // exclude['foo.com', 'sub.foo.com'].
     _viewFor: function(domain) {
         var result = new FilterSet();
-        result.items['global'] = this.items['global'];
+        result.items.global = this.items.global;
         for (var nextDomain in DomainSet.domainAndParents(domain)) {
-            if (this.items[nextDomain])
+            if (this.items[nextDomain]) {
                 result.items[nextDomain] = this.items[nextDomain];
-            if (this.exclude[nextDomain])
+            }
+            if (this.exclude[nextDomain]) {
                 result.exclude[nextDomain] = this.exclude[nextDomain];
+            }
         }
         return result;
     },
@@ -77,8 +79,9 @@ FilterSet.prototype = {
             }
         }
         var result = [];
-        for (var k in data)
+        for (var k in data) {
             result.push(data[k].selector);
+        }
         return result;
     },
 
@@ -92,8 +95,9 @@ FilterSet.prototype = {
             var entry = limited.items[k];
             for (var i = 0; i < entry.length; i++) {
                 var filter = entry[i];
-                if (!filter.matches(url, elementType, isThirdParty))
+                if (!filter.matches(url, elementType, isThirdParty)) {
                     continue; // no match
+                }
                 // Maybe filter shouldn't match because it is excluded on our domain?
                 var excluded = false;
                 for (var k2 in limited.exclude) {
@@ -102,8 +106,9 @@ FilterSet.prototype = {
                         break;
                     }
                 }
-                if (!excluded)
+                if (!excluded) {
                     return filter;
+                }
             }
         }
 
@@ -112,7 +117,7 @@ FilterSet.prototype = {
 };
 
 
-BlockingFilterSet = function(patternFilterSet, whitelistFilterSet) {
+function BlockingFilterSet(patternFilterSet, whitelistFilterSet) {
     this.pattern = patternFilterSet;
     this.whitelist = whitelistFilterSet;
 
@@ -127,7 +132,7 @@ BlockingFilterSet.checkThirdParty = function(domain1, domain2) {
     var match1 = parseUri.secondLevelDomainOnly(domain1, false);
     var match2 = parseUri.secondLevelDomainOnly(domain2, false);
     return (match1 !== match2);
-}
+};
 
 BlockingFilterSet.prototype = {
     // True if the url is blocked by this filterset.
@@ -153,8 +158,9 @@ BlockingFilterSet.prototype = {
 
         // matchCache approach taken from ABP
         var key = url + " " + elementType + " " + isThirdParty;
-        if (key in this._matchCache)
+        if (key in this._matchCache) {
             return this._matchCache[key];
+        }
 
         var match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty);
         if (match) {
@@ -210,5 +216,5 @@ BlockingFilterSet.prototype = {
     },
     getMalwareDomains: function() {
         return this.malwareDomains;
-    },
-}
+    }
+};

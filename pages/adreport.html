@@ -5,232 +5,232 @@ chrome-extension://gighmmpiobklfepjocnamgkkbiglidom/pages/adreport.html
 -->
 <!doctype html>
 <html>
-  <head>
-    <title i18n="catblock_adblockreportinganad"></title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../options/options.css" />
-    <link rel="stylesheet" href="adreport.css" />
-    <script src="../lib/jquery.min.js" type="text/javascript"></script>
-    <script src="../lib/punycode.min.js" type="text/javascript"></script>
-    <script src="../js/port.js" type="text/javascript"></script>
-    <script src="../js/functions.js" type="text/javascript"></script>
-    <script src="../js/checkupdates.js" type="text/javascript"></script>
-  </head>
-  <body>
-    <header id="header">
-      <div class="wrap">
-        <a class="left adblock-logo">
-          <img src="../Icon.png">
-          <span>CatBlock</span>
-        </a>
-      </div>
-    </header>
+    <head>
+        <title i18n="catblock_adblockreportinganad"></title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../options/options.css" />
+        <link rel="stylesheet" href="adreport.css" />
+        <script src="../lib/jquery.min.js" type="text/javascript"></script>
+        <script src="../lib/punycode.min.js" type="text/javascript"></script>
+        <script src="../js/port.js" type="text/javascript"></script>
+        <script src="../js/functions.js" type="text/javascript"></script>
+        <script src="../js/checkupdates.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <header id="header">
+            <div class="wrap">
+                <a class="left adblock-logo">
+                    <img src="../Icon.png">
+                    <span>CatBlock</span>
+                </a>
+            </div>
+        </header>
 
-    <!--STEP 0-->
-    <div id="info">
-      <p i18n="adreportintro"></p>
-      <p i18n="adreportvoluntary"></p>
-    </div>
-
-    <!--STEP 1: malware check-->
-    <div class="step odd">
-      <div id="step_malware_checking_DIV" class="chrome_only">
-        <h2 i18n="malwarecheck" style="display: inline-block;"></h2>
-        <img class="loader" src=../img/loader.gif />
-        <br/>
-        <span id="malwarewarning" style="display: none; margin: 15px 0px 15px 19px;" i18n="malwarewarning" ></span>
-      </div>
-    </div>
-
-    <!--STEP 2: update filters-->
-    <div class="step even" >
-      <div class="section" id="step_update_filters_DIV">
-        <h2 i18n="updateyourlists"></h2>
-        <ol>
-          <li i18n="clickupdatefilters" i18n_replacement_el="UpdateFilters"></li>
-          <li i18n="reloadadpage" class="afterFilterUpdate"></li>
-        </ol>
-        <input type="button" value="Update my filters!" id="UpdateFilters" />
-        <span i18n="adstillappear" class="afterFilterUpdate" style="margin-left: 19px;"></span><br/>
-        <div id="step_update_filters" class="form afterFilterUpdate">
-          <input type="radio" id="step_update_filters_yes" name="step_update_filters" disabled="disabled" />
-          <label for="step_update_filters_yes" i18n="yes"></label>
-          <input type="radio" id="step_update_filters_no" name="step_update_filters" disabled="disabled" />
-          <label for="step_update_filters_no" i18n="no"></label>
-        </div>
-      </div>
-    </div>
-
-    <!--STEP 3: disable all extension except AdBlock-->
-    <div class="step odd" >
-      <div class="section" id="step_disable_extensions_DIV">
-        <h2 i18n="catblock_disableallextensions"></h2>
-        <div class="chrome_only">
-          <ol>
-            <li i18n="disableforchromestepone"></li>
-            <li i18n="catblock_disableforchromeandsafaristeptwo"></li>
-            <li i18n="reloadadpage"></li>
-          </ol>
-          <div id="disableotherextensions" style="margin: 15px 0px 15px 19px;">
-            <div i18n="clickdisableotherextensions" i18n_replacement_el="OtherExtensions"></div>
-            <input type="button" value="Disable other extensions!" id="OtherExtensions" />
-          </div>
-        </div>
-        <div class="safari_only">
-          <ol>
-            <li i18n="disableforsafaristepone"></li>
-            <li i18n="catblock_disableforchromeandsafaristeptwo"></li>
-            <li i18n="reloadadpage"></li>
-          </ol>
+        <!--STEP 0-->
+        <div id="info">
+            <p i18n="adreportintro"></p>
+            <p i18n="adreportvoluntary"></p>
         </div>
 
-        <span i18n="adstillappear" class="afterDisableExtensions" style="margin-left: 19px;"></span><br/>
-        <div class="form" id="step_disable_extensions">
-          <input type="radio" id="step_disable_extensions_yes" name="step_disable_extensions" />
-          <label for="step_disable_extensions_yes" i18n="yes"></label>
-          <input type="radio" id="step_disable_extensions_no" name="step_disable_extensions" />
-          <label for="step_disable_extensions_no" i18n="no"></label>
+        <!--STEP 1: malware check-->
+        <div class="step odd">
+            <div id="step_malware_checking_DIV" class="chrome_only">
+                <h2 i18n="malwarecheck" style="display: inline-block;"></h2>
+                <img class="loader" src=../img/loader.gif />
+                <br/>
+                <span id="malwarewarning" style="display: none; margin: 15px 0 15px 19px;" i18n="malwarewarning" ></span>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!--STEP 4: language-->
-    <div class="step even" >
-      <div class="section" id="step_language_DIV">
-        <h2 i18n="correctfilters" style="margin-bottom: 15px;"></h2>
-        <span i18n="pagelanguagecheck" style="margin-left: 20px;"></span>
-        <div id="step_language" class="form">
-          <select id="step_language_lang" style="margin-left: 6px;">
-            <option disabled="disabled" selected="selected"></option>
-            <option value="easylist;http://forums.lanik.us/" i18n="lang_english"></option>
-            <option value="easylist;easylist_plus_arabic;https://forums.lanik.us/viewforum.php?f=98" i18n="filtereasylist_plus_arabic"></option>
-            <option value="easylist;easylist_plus_bulgarian;mailto:alex at stanev.org" i18n="filtereasylist_plus_bulgarian"></option>
-            <option value="chinese;http://abpchina.org/forum" i18n="filterchinese"></option>
-            <option value="czech;http://adblock.sk/forum" i18n="lang_czech"></option>
-            <option value="danish;mailto:henrik at schack.dk" i18n="filterdanish"></option>
-            <option value="easylist;dutch;http://forums.lanik.us/viewforum.php?f=100" i18n="filterdutch"></option>
-            <option value="easylist;easylist_plus_estonian;mailto:adblock at gurud.ee" i18n="filtereasylist_plus_estonian"></option>
-            <option value="easylist;easylist_plus_finnish;https://www.juvander.fi/AdblockFinland" i18n="filtereasylist_plus_finnish"></option>
-            <option value="easylist;easylist_plus_french;http://forums.lanik.us/viewforum.php?f=91" i18n="filtereasylist_plus_french"></option>
-            <option value="easylist;easylist_plus_german;http://forums.lanik.us/viewforum.php?f=90" i18n="filtereasylist_plus_german"></option>
-            <option value="easylist;easylist_plus_greek;mailto:kargig at void.gr" i18n="filtereasylist_plus_greek"></option>
-            <option value="hungarian;mailto:pete at teamlupus.hu" i18n="filterhungarian"></option>
-            <option value="easylist;easylist_plus_indonesian;http://forums.lanik.us/viewforum.php?f=94" i18n="filtereasylist_plus_indonesian"></option>
-            <option value="icelandic;mailto:adblock at gardar.net" i18n="filtericelandic"></option>
-            <option value="israeli;https://github.com/AdBlockPlusIsrael/EasyListHebrew/issues" i18n="filterisraeli"></option>
-            <option value="italian;https://forums.lanik.us/viewforum.php?f=96" i18n="filteritalian"></option>
-            <option value="japanese;https://groups.google.com/forum/#!forum/adblock-plus-japanese-filter" i18n="filterjapanese"></option>
-            <option value="easylist_plun_korean;http://forums.lanik.us/" i18n="filtereasylist_plun_korean"></option>
-            <option value="easylist_plus_lithuania;https://forums.lanik.us/viewforum.php?f=101" i18n="filtereasylist_plus_lithuania"></option>
-            <option value="easylist;easylist_plus_polish;mailto:errors at certyficate.it" i18n="filtereasylist_plus_polish"></option>
-            <option value="easylist;easylist_plus_romanian;mailto:mail at zoso.ro" i18n="filtereasylist_plus_romanian"></option>
-            <option value="latvian;http://forums.lanik.us/viewforum.php?f=99" i18n="filterlatvian"></option>
-            <option value="easylist;russian;https://forums.lanik.us/viewforum.php?f=102" i18n="lang_russian"></option>
-            <option value="czech;http://adblock.sk/forum" i18n="lang_slovak"></option>
-            <option value="easylist;easylist_plus_spanish;mailto:easylist.spanish at gmail.com" i18n="lang_spanish"></option>
-            <option value="swedish;http://forums.lanik.us/" i18n="filterswedish"></option>
-            <option value="turkish;http://forums.lanik.us/" i18n="filterturkish"></option>
-            <option value="easylist;russian;https://forums.lanik.us/viewforum.php?f=102" i18n="lang_ukranian"></option>
-            <option value="" i18n="other"></option>
-          </select>
+        <!--STEP 2: update filters-->
+        <div class="step even" >
+            <div class="section" id="step_update_filters_DIV">
+                <h2 i18n="updateyourlists"></h2>
+                <ol>
+                    <li i18n="clickupdatefilters" i18n_replacement_el="UpdateFilters"></li>
+                    <li i18n="reloadadpage" class="afterFilterUpdate"></li>
+                </ol>
+                <input type="button" value="Update my filters!" id="UpdateFilters" />
+                <span i18n="adstillappear" class="afterFilterUpdate" style="margin-left: 19px;"></span><br/>
+                <div id="step_update_filters" class="form afterFilterUpdate">
+                    <input type="radio" id="step_update_filters_yes" name="step_update_filters" disabled="disabled" />
+                    <label for="step_update_filters_yes" i18n="yes"></label>
+                    <input type="radio" id="step_update_filters_no" name="step_update_filters" disabled="disabled" />
+                    <label for="step_update_filters_no" i18n="no"></label>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!--STEP 5: also in Firefox-->
-    <div class="step odd" >
-      <div class="section" id="step_firefox_DIV">
-        <h2 id="checkinfirefox"></h2>
-        <abbr id="whyFireFox" i18n_title="firefox_explanation">?</abbr>
-        <ol>
-          <li id="checkinfirefox1"></li>
-          <li id="checkinfirefox2"></li>
-          <li i18n="checkinfirefox_3"></li>
-          <li i18n="checkinfirefox_4"></li>
-        </ol>
-        <span i18n="checkinfirefox_5" style="margin-left: 19px;"></span>
-        <div class="form" id="step_firefox">
-          <input type="radio" id="step_firefox_yes" name="step_firefox"/>
-          <label for="step_firefox_yes" i18n="yes"></label>
-          <input type="radio" id="step_firefox_no" name="step_firefox" />
-          <label for="step_firefox_no" i18n="no"></label>
-          <input type="radio" id="step_firefox_wontcheck" name="step_firefox" />
-          <label for="step_firefox_wontcheck" i18n="refusetocheck"></label>
+        <!--STEP 3: disable all extension except AdBlock-->
+        <div class="step odd" >
+            <div class="section" id="step_disable_extensions_DIV">
+                <h2 i18n="catblock_disableallextensions"></h2>
+                <div class="chrome_only">
+                    <ol>
+                        <li i18n="disableforchromestepone"></li>
+                        <li i18n="catblock_disableforchromeandsafaristeptwo"></li>
+                        <li i18n="reloadadpage"></li>
+                    </ol>
+                    <div id="disableotherextensions" style="margin: 15px 0 15px 19px;">
+                        <div i18n="clickdisableotherextensions" i18n_replacement_el="OtherExtensions"></div>
+                        <input type="button" value="Disable other extensions!" id="OtherExtensions" />
+                    </div>
+                </div>
+                <div class="safari_only">
+                    <ol>
+                        <li i18n="disableforsafaristepone"></li>
+                        <li i18n="catblock_disableforchromeandsafaristeptwo"></li>
+                        <li i18n="reloadadpage"></li>
+                    </ol>
+                </div>
+
+                <span i18n="adstillappear" class="afterDisableExtensions" style="margin-left: 19px;"></span><br/>
+                <div class="form" id="step_disable_extensions">
+                    <input type="radio" id="step_disable_extensions_yes" name="step_disable_extensions" />
+                    <label for="step_disable_extensions_yes" i18n="yes"></label>
+                    <input type="radio" id="step_disable_extensions_no" name="step_disable_extensions" />
+                    <label for="step_disable_extensions_no" i18n="no"></label>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!--STEP 6: video/flash ads-->
-    <div class="step even" >
-      <div class="section" id="step_flash_DIV">
-        <h2 i18n="flashads"></h2>
-        <span i18n="cantblockflashwarning" style="margin-left: 19px;"></span>
-        <div class="form" id="step_flash">
-          <input type="radio" id="step_flash_yes" name="step_flash"/>
-          <label for="step_flash_yes" i18n="yes"></label>
-          <input type="radio" id="step_flash_no" name="step_flash" />
-          <label for="step_flash_no" i18n="no"></label>
+        <!--STEP 4: language-->
+        <div class="step even" >
+            <div class="section" id="step_language_DIV">
+                <h2 i18n="correctfilters" style="margin-bottom: 15px;"></h2>
+                <span i18n="pagelanguagecheck" style="margin-left: 20px;"></span>
+                <div id="step_language" class="form">
+                    <select id="step_language_lang" style="margin-left: 6px;">
+                        <option disabled="disabled" selected="selected"></option>
+                        <option value="easylist;http://forums.lanik.us/" i18n="lang_english"></option>
+                        <option value="easylist;easylist_plus_arabic;https://forums.lanik.us/viewforum.php?f=98" i18n="filtereasylist_plus_arabic"></option>
+                        <option value="easylist;easylist_plus_bulgarian;mailto:alex at stanev.org" i18n="filtereasylist_plus_bulgarian"></option>
+                        <option value="chinese;http://abpchina.org/forum" i18n="filterchinese"></option>
+                        <option value="czech;http://adblock.sk/forum" i18n="lang_czech"></option>
+                        <option value="danish;mailto:henrik at schack.dk" i18n="filterdanish"></option>
+                        <option value="easylist;dutch;http://forums.lanik.us/viewforum.php?f=100" i18n="filterdutch"></option>
+                        <option value="easylist;easylist_plus_estonian;mailto:adblock at gurud.ee" i18n="filtereasylist_plus_estonian"></option>
+                        <option value="easylist;easylist_plus_finnish;https://www.juvander.fi/AdblockFinland" i18n="filtereasylist_plus_finnish"></option>
+                        <option value="easylist;easylist_plus_french;http://forums.lanik.us/viewforum.php?f=91" i18n="filtereasylist_plus_french"></option>
+                        <option value="easylist;easylist_plus_german;http://forums.lanik.us/viewforum.php?f=90" i18n="filtereasylist_plus_german"></option>
+                        <option value="easylist;easylist_plus_greek;mailto:kargig at void.gr" i18n="filtereasylist_plus_greek"></option>
+                        <option value="hungarian;mailto:pete at teamlupus.hu" i18n="filterhungarian"></option>
+                        <option value="easylist;easylist_plus_indonesian;http://forums.lanik.us/viewforum.php?f=94" i18n="filtereasylist_plus_indonesian"></option>
+                        <option value="icelandic;mailto:adblock at gardar.net" i18n="filtericelandic"></option>
+                        <option value="israeli;https://github.com/AdBlockPlusIsrael/EasyListHebrew/issues" i18n="filterisraeli"></option>
+                        <option value="italian;https://forums.lanik.us/viewforum.php?f=96" i18n="filteritalian"></option>
+                        <option value="japanese;https://groups.google.com/forum/#!forum/adblock-plus-japanese-filter" i18n="filterjapanese"></option>
+                        <option value="easylist_plun_korean;http://forums.lanik.us/" i18n="filtereasylist_plun_korean"></option>
+                        <option value="easylist_plus_lithuania;https://forums.lanik.us/viewforum.php?f=101" i18n="filtereasylist_plus_lithuania"></option>
+                        <option value="easylist;easylist_plus_polish;mailto:errors at certyficate.it" i18n="filtereasylist_plus_polish"></option>
+                        <option value="easylist;easylist_plus_romanian;mailto:mail at zoso.ro" i18n="filtereasylist_plus_romanian"></option>
+                        <option value="latvian;http://forums.lanik.us/viewforum.php?f=99" i18n="filterlatvian"></option>
+                        <option value="easylist;russian;https://forums.lanik.us/viewforum.php?f=102" i18n="lang_russian"></option>
+                        <option value="czech;http://adblock.sk/forum" i18n="lang_slovak"></option>
+                        <option value="easylist;easylist_plus_spanish;mailto:easylist.spanish at gmail.com" i18n="lang_spanish"></option>
+                        <option value="swedish;http://forums.lanik.us/" i18n="filterswedish"></option>
+                        <option value="turkish;http://forums.lanik.us/" i18n="filterturkish"></option>
+                        <option value="easylist;russian;https://forums.lanik.us/viewforum.php?f=102" i18n="lang_ukranian"></option>
+                        <option value="" i18n="other"></option>
+                    </select>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-
-    <div class="step odd" >
-      <div id="step_report_DIV" class="section">
-        <h2 i18n="adreport_laststep"></h2>
-        <span class="redText" style="margin-left: 15px;">* Required information</span>
-        <div class="form" id="step_report">
-          <p class="missingInfoMessage" i18n="adreport_missing_info" id="adreport_missing_info"></p>
-          <label for="step_report_name" ><span i18n="adreport_name"></span><span class="redText">&nbsp;*</span></label><br/>
-          <input type="text" id="step_report_name" size="35" /><br/>
-          <label for="step_report_email"><span i18n="adreport_email"></span> (<span i18n="adreport_email_privacy"></span>)<span class="redText">&nbsp;*</span></label><br/>
-          <input type="email" id="step_report_email" size="35"/> <!-- Use email type for browser to verify for us --><br/>
-          <label for="step_report_location" i18n="adreport_location"></label><br/>
-          <textarea id="step_report_location" cols="80" rows="8"></textarea><br/>
-          <label for="screen_capture_file" ><span i18n="adreport_screen_cap_upload" id="screen_capture_file_label"></span><span class="redText">&nbsp;*</span></label>
-          <sup>
-            [<a id="data_collection_help" i18n="how" href="http://help.getadblock.com/solution/articles/6000107188" target="_blank"></a>]
-          </sup><br/>
-          <input type="file" id="screen_capture_file" />
-          <span class="missingInfoMessage" i18n="adreport_missing_screenshot" id="adreport_missing_screenshot"></span>
-          <br/><br/>
-          <label for="step_report_filter" i18n="adreport_filter"></label><br/>
-          <textarea id="step_report_filter" cols="80" rows="2"></textarea><br/><br/>
-          <button id="step_report_submit" i18n="buttonsubmit"></button><br/><br/>
-          <label for="debug-info" i18n="adreport_all_debug_info"></label><br/>
-          <textarea id="debug-info" cols="80" rows="5" disabled></textarea><br/>
+        <!--STEP 5: also in Firefox-->
+        <div class="step odd" >
+            <div class="section" id="step_firefox_DIV">
+                <h2 id="checkinfirefox"></h2>
+                <abbr id="whyFireFox" i18n_title="firefox_explanation">?</abbr>
+                <ol>
+                    <li id="checkinfirefox1"></li>
+                    <li id="checkinfirefox2"></li>
+                    <li i18n="checkinfirefox_3"></li>
+                    <li i18n="checkinfirefox_4"></li>
+                </ol>
+                <span i18n="checkinfirefox_5" style="margin-left: 19px;"></span>
+                <div class="form" id="step_firefox">
+                    <input type="radio" id="step_firefox_yes" name="step_firefox"/>
+                    <label for="step_firefox_yes" i18n="yes"></label>
+                    <input type="radio" id="step_firefox_no" name="step_firefox" />
+                    <label for="step_firefox_no" i18n="no"></label>
+                    <input type="radio" id="step_firefox_wontcheck" name="step_firefox" />
+                    <label for="step_firefox_wontcheck" i18n="refusetocheck"></label>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Only show if FreshDesk response success -->
-    <div class="result section">
-      <div id="step_response_success">
-        <p i18n="adreport_response_success"></p>
-      </div>
-    </div>
-
-    <!-- Only show if response error -->
-    <div class="result section">
-      <div id="step_response_error">
-        <p i18n="adreport_server_response_error_msg"></p>
-        <p id="step_response_error_msg"></p>
-        <div id="step_response_error_manual_submission">
-          <p i18n="adreport_server_response_error__manual_msg_step1"></p>
-          <p i18n="adreport_server_response_error__manual_msg_step2"></p>
-          <textarea id="manual_submission" rows="25" cols="80"></textarea>
+        <!--STEP 6: video/flash ads-->
+        <div class="step even" >
+            <div class="section" id="step_flash_DIV">
+                <h2 i18n="flashads"></h2>
+                <span i18n="cantblockflashwarning" style="margin-left: 19px;"></span>
+                <div class="form" id="step_flash">
+                    <input type="radio" id="step_flash_yes" name="step_flash"/>
+                    <label for="step_flash_yes" i18n="yes"></label>
+                    <input type="radio" id="step_flash_no" name="step_flash" />
+                    <label for="step_flash_no" i18n="no"></label>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="result">
-      <div id="checkupdate"></div>
-      <div id="checkupdatelink_DIV">
-        <a id="checkupdatelink" href="https://adblockplus.org/acceptable-ads" target="_blank"></a>
-      </div>
-      <div id="privacy" i18n="reportpubliclyavailable"></div>
-    </div>
 
-    <script src="adreport.js"></script>
-  </body>
+        <div class="step odd" >
+            <div id="step_report_DIV" class="section">
+                <h2 i18n="adreport_laststep"></h2>
+                <span class="redText" style="margin-left: 15px;">* Required information</span>
+                <div class="form" id="step_report">
+                    <p class="missingInfoMessage" i18n="adreport_missing_info" id="adreport_missing_info"></p>
+                    <label for="step_report_name" ><span i18n="adreport_name"></span><span class="redText">&nbsp;*</span></label><br/>
+                    <input type="text" id="step_report_name" size="35" /><br/>
+                    <label for="step_report_email"><span i18n="adreport_email"></span> (<span i18n="adreport_email_privacy"></span>)<span class="redText">&nbsp;*</span></label><br/>
+                    <input type="email" id="step_report_email" size="35"/> <!-- Use email type for browser to verify for us --><br/>
+                    <label for="step_report_location" i18n="adreport_location"></label><br/>
+                    <textarea id="step_report_location" cols="80" rows="8"></textarea><br/>
+                    <label for="screen_capture_file" ><span i18n="adreport_screen_cap_upload" id="screen_capture_file_label"></span><span class="redText">&nbsp;*</span></label>
+                    <sup>
+                        [<a id="data_collection_help" i18n="how" href="http://help.getadblock.com/solution/articles/6000107188" target="_blank"></a>]
+                    </sup><br/>
+                    <input type="file" id="screen_capture_file" />
+                    <span class="missingInfoMessage" i18n="adreport_missing_screenshot" id="adreport_missing_screenshot"></span>
+                    <br/><br/>
+                    <label for="step_report_filter" i18n="adreport_filter"></label><br/>
+                    <textarea id="step_report_filter" cols="80" rows="2"></textarea><br/><br/>
+                    <button id="step_report_submit" i18n="buttonsubmit"></button><br/><br/>
+                    <label for="debug-info" i18n="adreport_all_debug_info"></label><br/>
+                    <textarea id="debug-info" cols="80" rows="5" disabled></textarea><br/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Only show if FreshDesk response success -->
+        <div class="result section">
+            <div id="step_response_success">
+                <p i18n="adreport_response_success"></p>
+            </div>
+        </div>
+
+        <!-- Only show if response error -->
+        <div class="result section">
+            <div id="step_response_error">
+                <p i18n="adreport_server_response_error_msg"></p>
+                <p id="step_response_error_msg"></p>
+                <div id="step_response_error_manual_submission">
+                    <p i18n="adreport_server_response_error__manual_msg_step1"></p>
+                    <p i18n="adreport_server_response_error__manual_msg_step2"></p>
+                    <textarea id="manual_submission" rows="25" cols="80"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="result">
+            <div id="checkupdate"></div>
+            <div id="checkupdatelink_DIV">
+                <a id="checkupdatelink" href="https://adblockplus.org/acceptable-ads" target="_blank"></a>
+            </div>
+            <div id="privacy" i18n="reportpubliclyavailable"></div>
+        </div>
+
+        <script src="adreport.js"></script>
+    </body>
 </html>
