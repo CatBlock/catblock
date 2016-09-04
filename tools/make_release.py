@@ -15,12 +15,6 @@ def main():
     import shutil # Provides folders functions
     import argparse # Provides functions for parsing arguments
 
-    # Selenium testing
-    from selenium import webdriver
-    from selenium.webdriver.common.keys import Keys
-    from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-    import time
-
     # Parse passed arguments
     parser = argparse.ArgumentParser(description="This script generates Firefox and Edge versions of CatBlock")
     parser.add_argument("-b", "--browser", help="Name of the browser, which should we generate an extension for", required=True)
@@ -167,6 +161,11 @@ def main():
 
         # Selenium testing
         if os.environ.get("TRAVIS") != None:
+            from selenium import webdriver
+            from selenium.webdriver.common.keys import Keys
+            from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+            import time
+
             chop = webdriver.ChromeOptions()
             chop.add_extension("catblock-chrome.zip")
             chop = chop.to_capabilities()
