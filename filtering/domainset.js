@@ -12,66 +12,68 @@
 // "DomainSet.ALL" which represents all domains.
 // Each value is true/false, meaning "This domain is/is not in the set, and
 // all of its subdomains not otherwise mentioned are/are not in the set."
-function DomainSet(data) {
-    if (data[DomainSet.ALL] === undefined) {
-        throw new Error("DomainSet: data[DomainSet.ALL] is undefined.");
-    }
-    this.has = data; // The internal representation of our set of domains.
-}
-
-// The pseudodomain representing all domains.
-DomainSet.ALL = "";
-
-// Return the parent domain of |domain|, or DomainSet.ALL.
-DomainSet._parentDomainOf = function(domain) {
-    return domain.replace(/^.+?(?:\.|$)/, "");
-};
-
-// Return an object whose keys are |domain| and all of its parent domains, up
-// to and including the TLD.
-DomainSet.domainAndParents = function(domain) {
-    var result = {};
-    var parts = domain.split(".");
-    var nextDomain = parts[parts.length -1];
-    for (var i = parts.length-1; i >=0; i--) {
-        result[nextDomain] = 1;
-        if (i > 0) {
-            nextDomain = parts[i - 1] + "." + nextDomain;
+class DomainSet {
+    constructor(data) {
+        if (data[DomainSet.ALL] === undefined) {
+            throw new Error("DomainSet: data[DomainSet.ALL] is undefined.");
         }
+        this.has = data; // The internal representation of our set of domains.
     }
-    return result;
-};
 
-DomainSet.prototype = {
+    // The pseudodomain representing all domains.
+    static get ALL() {
+        return "";
+    }
+
+    // Return the parent domain of |domain|, or DomainSet.ALL.
+    static _parentDomainOf(domain) {
+        return domain.replace(/^.+?(?:\.|$)/, "");
+    }
+
+    // Return an object whose keys are |domain| and all of its parent domains, up
+    // to and including the TLD.
+    static domainAndParents(domain) {
+        var result = {};
+        var parts = domain.split(".");
+        var nextDomain = parts[parts.length -1];
+        for (var i = parts.length-1; i >=0; i--) {
+            result[nextDomain] = 1;
+            if (i > 0) {
+                nextDomain = parts[i - 1] + "." + nextDomain;
+            }
+        }
+        return result;
+    }
 
     // Returns a new identical DomainSet.
-    clone: function() {
+    clone() {
         return new DomainSet(JSON.parse(JSON.stringify(this.has)));
-    },
+    }
 
     // Returns true if this set contains all domains.
-    full: function() {
+    full() {
         for (var k in this.has) {
             if (!this.has[k]) {
                 return false;
             }
         }
         return true;
-    },
+    }
 
     // Modify |this| by set-subtracting |other|.
     // |this| will contain the subset that was in |this| but not in |other|.
-    subtract: function(other) {
+    subtract(other) {
         function subtract_operator(a, b) { return a && !b; }
         this._apply(subtract_operator, other);
-    },
+    }
 
     // NB: If we needed them, intersect and union are just like subtract, but use
     // a&&b and a||b respectively.  Union could be used to add two DomainSets.
 
     // Modify |this| to be the result of applying the given set |operator| (a
     // 2-param boolean function) to |this| and |other|. Returns undefined.
-    _apply: function(operator, other) {
+
+    _apply(operator, other) {
         var d; // represents a domain -- an element in .has
 
         // Make sure there's an entry in .has for every entry in other.has, so
@@ -94,17 +96,18 @@ DomainSet.prototype = {
             }
         }
         this.has = newHas;
-    },
+    }
 
     // True if |domain| is in the subset of all domains represented by |this|.
     //
     // E.g. if |this| DomainSet is the set of all domains other than a, then 'b'
     // will yield true, and both 'a' and 'sub.a' will yield false.
-    _computedHas: function(domain) {
+    _computedHas(domain) {
         if (this.has[domain] !== undefined) {
             return this.has[domain];
         } else {
             return this._computedHas(DomainSet._parentDomainOf(domain));
         }
     }
-};
+
+}
