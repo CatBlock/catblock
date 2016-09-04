@@ -113,8 +113,18 @@ var picinjection = {
 
             return parseInt(match[1]);
         }
-        return (intFor(el.getAttribute(prop)) ||
-                intFor(window.getComputedStyle(el)[prop]));
+
+        // "getAttribute" property of an element might be undefined,
+        // see github:CatBlock/catblock#65
+        if (typeof el.getAttribute === "function") {
+            return intFor(el.getAttribute(prop));
+        } else {
+            try {
+                return intFor(window.getComputedStyle(el)[prop]);
+            } catch(e) {
+                return undefined;
+            }
+        }
     },
 
     _parentDim: function(el, prop) {
