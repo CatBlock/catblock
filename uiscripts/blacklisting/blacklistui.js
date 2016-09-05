@@ -456,8 +456,3 @@ class BlacklistUi {
     }
 
 }
-
-
-
-
-BlacklistUi.;
