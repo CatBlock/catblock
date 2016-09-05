@@ -345,7 +345,7 @@ class FilterListUtil {
     // Inputs:
     //    filter_list:object - Filter list that owns the check box to be updated.
     //    id:String - Id of the filter list to be updated, also the name of the containing div in display.
-    updateCheckbox(filter_list, id) {
+    static updateCheckbox(filter_list, id) {
         var containing_div = $("div[name='" + id + "']");
         var checkbox = $(containing_div).find("input");
         // Check if subscribed and checkbox staus is equal, if not, update checkbox status according to subscribed status.
