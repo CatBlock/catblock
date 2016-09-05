@@ -242,7 +242,7 @@ class FilterListUtil {
     // Prepare filterListSections.
     // Inputs:
     //    subs:object - Map for subscription lists taken from the background.
-    getFilterListType(filter_list) {
+    static getFilterListType(filter_list) {
         var filter_list_type;
         if (filter_list.id === "adblock_custom" ||
             filter_list.id === "easylist") {
