@@ -44,7 +44,7 @@ class Filter {
         return /^\@\@/.test(text);
     }
 
-    static isCommen(text) {
+    static isComment(text) {
         return text.length === 0 ||
             text[0] === "!" ||
             (/^\[adblock/i.test(text)) ||
