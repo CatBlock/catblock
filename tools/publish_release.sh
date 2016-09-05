@@ -1,4 +1,4 @@
-if [ "$TRAVIS_PULL_REQUEST" == "false" &&  "$TRAVIS_BRANCH" == "master"]
+if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ];
 then
     echo -e "Starting to update packages on GitHub..."
 
