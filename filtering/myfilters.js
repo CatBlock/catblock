@@ -159,7 +159,7 @@ class MyFilters {
     }
 
     // Get filters that are defined in the extension.
-    static getExtensionFilters(settings) {
+    getExtensionFilters(settings) {
         var texts = [];
         if (settings.whitelist_hulu_ads) {
             // Issue 7178: FilterNormalizer removes EasyList's too-broad Hulu whitelist
