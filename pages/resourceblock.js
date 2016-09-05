@@ -50,7 +50,7 @@ BGcall("reset_matchCache", function(matchCache) {
                 BGcall("get_settings", function(settings) {
                     // Process AdBlock's own filters (if any)
                     filterLists.AdBlock = {};
-                    filterLists.AdBlock.text = MyFilters.prototype.getExtensionFilters(settings);
+                    filterLists.AdBlock.text = MyFilters.getExtensionFilters(settings);
 
                     BGcall("storage_get", "custom_filters", function(filters) {
                         // Process custom filters (if any)

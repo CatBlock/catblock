@@ -144,7 +144,7 @@ class MyFilters {
     }
 
     // When a subscription property changes, this function stores it
-    // Inputs: rebuild? boolean, true if the filterset should be rebuilt
+    // Inputs: rebuild? boolean, true if the filterset should be rebuilt.
     _onSubscriptionChange(rebuild) {
         storage_set("filter_lists", this._subscriptions);
 
@@ -158,8 +158,8 @@ class MyFilters {
         chrome.runtime.sendMessage({ command: "filters_updated" });
     }
 
-    // get filters that are defined in the extension
-    getExtensionFilters(settings) {
+    // Get filters that are defined in the extension.
+    static getExtensionFilters(settings) {
         var texts = [];
         if (settings.whitelist_hulu_ads) {
             // Issue 7178: FilterNormalizer removes EasyList's too-broad Hulu whitelist
@@ -250,9 +250,9 @@ class MyFilters {
                 for (var id in filters.whitelist) {
                     whitelistFilters.push(filters.whitelist[id]);
                 }
-                //SelectorFilters where full() === True are selectors that apply to all domains, no exceptions
+                // SelectorFilters where full() === True are selectors that apply to all domains, no exceptions
                 // these filters can be collapsed into a few large JSON rules
-                //SelectorFilters where full() === False are selectors that either:
+                // SelectorFilters where full() === False are selectors that either:
                 //    - apply to specific domain(s)
                 //    - or have exceptions domains, where the selectors are not applied
                 var selectorsFull = {};
