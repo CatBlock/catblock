@@ -447,7 +447,7 @@ BlacklistUi._ellipsis = function(value, size) {
 
     var half = size / 2 - 2; // With ellipsis, the total length will be ~= size
 
-    if (value.length > size) {
+    if (value && value.length > size) {
         value = (value.substring(0, half) + "..." +
                  value.substring(value.length - half));
     }
