@@ -374,7 +374,6 @@ class FilterListUtil {
 
 // Utility class for the language select.
 class LanguageSelectUtil {
-    constructor() {}
 
     // Insert option at specified index in the language select.
     // Inputs:
@@ -438,7 +437,6 @@ class LanguageSelectUtil {
 
 // Utility class for Subscriptions.
 class SubscriptionUtil {
-    constructor() {}
 
     // Returns true if the user knows what they are doing, subscribing to many
     // filter lists.
@@ -488,7 +486,6 @@ class SubscriptionUtil {
 
 // Utility class for custom filter list upload box.
 class CustomFilterListUploadUtil {
-    constructor() {}
 
     // Perform the subscribing part and creating checkbox for custom filter lists.
     // Inputs:
