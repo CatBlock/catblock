@@ -18,6 +18,9 @@ class Filter {
     // Throw an exception if the filter is invalid.
     static fromText(text) {
         var cache = Filter._cache;
+        if (!cache) {
+            cache = Filter._cache = {};
+        }
         if (!(text in cache)) {
             if (Filter.isSelectorFilter(text)) {
                 cache[text] = new SelectorFilter(text);
@@ -80,6 +83,7 @@ class Filter {
 // Filters that block by CSS selector.
 class SelectorFilter extends Filter {
     constructor(text) {
+        super();
         var parts = text.match(/(^.*?)\#\@?\#(.+$)/);
         this._domains = Filter._toDomainSet(parts[1], ",");
         this.selector = parts[2];
