@@ -435,7 +435,8 @@ BlacklistUi.prototype._preview = function(selector) {
 // Inputs: value:string - value to truncate
 //         size?:int - max size above which to truncate, defaults to 50
 BlacklistUi._ellipsis = function(value, size) {
-    if (value === null) {
+    console.log(value, size);
+    if (!value) {
         return value;
     }
 
