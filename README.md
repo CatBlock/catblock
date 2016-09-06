@@ -25,7 +25,7 @@ We also have Travis connected to [BrowserStack](http://browserstack.com), to run
 ## Compatibility:
 Chrome: 49+
 Opera: 35+
-Safari: 6+
+Safari: 7.1+
 Firefox: 48+
 Edge: 38.14342+
 
