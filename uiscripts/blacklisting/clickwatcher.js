@@ -44,14 +44,14 @@ class Highlighter {
 
         this.getCurrentNode = function(el) {
             return el === box[0] ? target : el;
-        }
+        };
 
         this.enable = function() {
             if (box && !enabled) {
                 $("body").bind("mousemove", handler);
             }
             enabled = true;
-        }
+        };
 
         this.disable = function() {
             if (box && enabled) {
@@ -59,7 +59,7 @@ class Highlighter {
                 $("body").unbind("mousemove", handler);
             }
             enabled = false;
-        }
+        };
 
         this.destroy = function() {
             this.disable();
@@ -67,7 +67,7 @@ class Highlighter {
                 box.remove();
                 box = null;
             }
-        }
+        };
     }
 }
 

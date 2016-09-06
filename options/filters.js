@@ -289,6 +289,7 @@ class FilterListUtil {
                 return cached_subscriptions[id];
             }
         }
+        return undefined;
     }
 
     // Updates info text for each filter list.
@@ -431,7 +432,7 @@ class LanguageSelectUtil {
         var $language_select = $("#language_select");
         $language_select.val(filter_list.id);
         $language_select.trigger("change");
-    };
+    }
 }
 
 
