@@ -72,7 +72,6 @@ class DomainSet {
 
     // Modify |this| to be the result of applying the given set |operator| (a
     // 2-param boolean function) to |this| and |other|. Returns undefined.
-
     _apply(operator, other) {
         var d; // represents a domain -- an element in .has
 

@@ -94,7 +94,7 @@ class Channels {
         return this._channelGuide[id].channel.getListings();
     }
 
-    setEnabled() {
+    setEnabled(id, enabled) {
         this._channelGuide[id].enabled = enabled;
         this._saveToStorage();
     }
