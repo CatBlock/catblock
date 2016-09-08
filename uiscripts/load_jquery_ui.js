@@ -6,7 +6,7 @@ function bind_enter_click_to_default() {
         return;
     }
     GLOBAL_ran_bind_enter_click_to_default = true;
-    $("html").bind("keypress", function(e) {
+    $("html").on("keypress", function(e) {
         if (e.keyCode === 13 && $("button:focus").size() <= 0) {
             e.preventDefault();
             $(".adblock_default_button").filter(":visible").click();

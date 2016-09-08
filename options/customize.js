@@ -156,7 +156,7 @@ $(function() {
     });
 
     // The validation functions
-    $("#txtBlacklist").bind("input", function() {
+    $("#txtBlacklist").on("input", function() {
         var blacklist = toTildePipeFormat($("#txtBlacklist").val());
 
         if (blacklist) {
@@ -176,7 +176,7 @@ $(function() {
         }
     });
 
-    $("#divUrlBlock input[type='text']").bind("input", function() {
+    $("#divUrlBlock input[type='text']").on("input", function() {
         var blockUrl = $("#txtBlockUrl").val().trim();
         var blockDomain = $("#txtBlockUrlDomain").val().trim();
         if (blockDomain === "*") {
@@ -197,7 +197,7 @@ $(function() {
         $("#btnAddUrlBlock").prop("disabled", ok ? null : true);
     });
 
-    $("#divCssBlock input[type='text']").bind("input", function() {
+    $("#divCssBlock input[type='text']").on("input", function() {
         var blockCss = $("#txtUserFilterCss").val().trim();
         var blockDomain = $("#txtUserFilterDomain").val().trim();
         if (blockDomain === "*") {
@@ -212,7 +212,7 @@ $(function() {
         $("#btnAddUserFilter").prop("disabled", ok ? null : true);
     });
 
-    $("#divExcludeBlock input[type='text']").bind("input", function() {
+    $("#divExcludeBlock input[type='text']").on("input", function() {
         var unblockUrl = $("#txtUnblock").val().trim();
         var ok = false;
         try {
