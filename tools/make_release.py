@@ -161,7 +161,7 @@ def main():
 
     elif args.browser == "chrome":
 
-        print("Generating CatBlock for Chrome release...")
+        print("Generating CatBlock for Chrome...")
 
         # If /catblock_chrome folder does exist, remove it
         if os.path.exists("catblock_chrome"):
@@ -231,7 +231,7 @@ def main():
 
     elif args.browser == "opera":
 
-        print("Generating CatBlock for Opera release...")
+        print("Generating CatBlock for Opera...")
 
         # If /catblock_opera folder does exist, remove it
         if os.path.exists("catblock_opera"):
