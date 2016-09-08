@@ -1,8 +1,10 @@
 #!/usr/bin/python
 
 """
-Prepare a release versions of CatBlock for Chrome, Opera, Firefox and Edge
-This script is compatible with Python v3.x
+This script generates a release versions of CatBlock for different platforms
+and also an unpacked development environment
+
+Compatible with Python v3.x
 
 Author: Tomas Taro
 License: GNU GPLv3
@@ -16,15 +18,21 @@ def main():
     import argparse # Provides functions for parsing arguments
 
     # Parse passed arguments
-    parser = argparse.ArgumentParser(description="This script generates Firefox and Edge versions of CatBlock")
-    parser.add_argument("-b", "--browser", help="Name of the browser, which should we generate an extension for", required=True)
+    parser = argparse.ArgumentParser(description="This script generates CatBlock for a specified browser")
+    parser.add_argument("-b", "--browser", help="What browser do you want to build an extension for?", required=True)
     parser.add_argument("-ext", "--extension", help="Generate an extension package for a particular browser?", required=False)
+    parser.add_argument("-devenv", help="Generate an unpacked development environment?", required=False)
     args = parser.parse_args()
+
+    # When nothing has been defined except the target, print an exception and return
+    if args.extension == None and args.devenv == None:
+        print("You must specify, whether to create an unpacked development environment or to generate an extension package")
+        sys.exit(1)
 
     # Remove .DS_Store files
     os.system("find . -name '*.DS_Store' -type f -delete")
 
-    # If /builds doesn't exist, create it
+    # If /builds directory doesn't exist, create it
     if not os.path.exists("builds"):
         os.makedirs("builds")
 
@@ -62,6 +70,7 @@ def main():
             }
         }
 
+        # Apply platform-specific changes
         with open(browserData[args.browser]["path"], "r+") as browser_manifest:
             keys = json.load(browser_manifest) # Creates a dict of all messages in the AdBlock file
 
@@ -89,37 +98,39 @@ def main():
     # Prepare a Firefox release
     if args.browser == "firefox":
 
-        print("Preparing CatBlock for Firefox release...")
+        print("Generating CatBlock for Firefox...")
 
         # If /catblock_firefox folder exists, delete it
         if os.path.exists("catblock_firefox"):
             shutil.rmtree("catblock_firefox")
 
-        # Copy the content of the original folder into /catblock_firefox and ignore hidden files, builds and tools folders
+        # Copy the content of the original folder into /catblock_firefox and
+        # ignore hidden files, builds and tools folders
         shutil.copytree(os.getcwd(), "catblock_firefox", ignore=shutil.ignore_patterns(".*", "builds", "tools"))
 
         # Prepare manifest.json file
         prepareManifestFile()
 
-        # Create a .zip file
-        shutil.make_archive("catblock-firefox", "zip", "catblock_firefox")
+        # Generate a packed extension
+        if args.extension != None:
+            shutil.make_archive("catblock-firefox", "zip", "catblock_firefox")
 
-        # Rename to the Firefox compatible .xpi file
-        if args.extension == "y":
-            os.rename("catblock-firefox.zip", "catblock-firefox.xpi")
+            # Rename to the Firefox compatible .xpi file
+            if args.extension == "browser":
+                os.rename("catblock-firefox.zip", "catblock-firefox.xpi")
+                shutil.move("catblock-firefox.xpi", "builds/catblock-firefox.xpi")
+            else:
+                shutil.move("catblock-firefox.zip", "builds/catblock-firefox.zip")
 
-        if os.path.isfile("catblock-firefox.zip"):
-            shutil.move("catblock-firefox.zip", "builds/catblock-firefox.zip")
-        else:
-            shutil.move("catblock-firefox.xpi", "builds/catblock-firefox.xpi")
+        # When an unpacked development environment should not be created, remove the folder
+        if args.devenv == None:
+            shutil.rmtree("catblock_firefox")
 
-        shutil.rmtree("catblock_firefox")
-
-        print("CatBlock for Firefox has been built!")
+        print("Done!")
 
     elif args.browser == "edge":
 
-        print("Preparing CatBlock for Edge release...")
+        print("Generating CatBlock for Edge...")
 
         # If /catblock_edge folder does exist, remove it
         if os.path.exists("catblock_edge"):
@@ -135,17 +146,22 @@ def main():
         # Prepare manifest.json file
         prepareManifestFile()
 
-        shutil.make_archive("catblock-edge", "zip", "catblock_edge")
+        # Edge doesn't support a special suffix of an extension,
+        # hence we ignore -ext argument
+        # Generate a packed extension
+        if args.extension != None:
+            shutil.make_archive("catblock-edge", "zip", "catblock_edge")
+            shutil.move("catblock-edge.zip", "builds/catblock-edge.zip")
 
-        shutil.move("catblock-edge.zip", "builds/catblock-edge.zip")
+        # When an unpacked development environment should not be created, remove the folder
+        if args.devenv == None:
+            shutil.rmtree("catblock_edge")
 
-        shutil.rmtree("catblock_edge")
-
-        print("CatBlock for Edge has been built!")
+        print("Done!")
 
     elif args.browser == "chrome":
 
-        print("Preparing CatBlock for Chrome release...")
+        print("Generating CatBlock for Chrome release...")
 
         # If /catblock_chrome folder does exist, remove it
         if os.path.exists("catblock_chrome"):
@@ -157,14 +173,14 @@ def main():
         # Prepare manifest.json file
         prepareManifestFile()
 
-        shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
-
-        # Selenium testing
+        # Selenium testing - enabled only on Travis-CI
         if os.environ.get("TRAVIS") != None:
             from selenium import webdriver
             from selenium.webdriver.common.keys import Keys
             from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
             import time
+
+            shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
             chop = webdriver.ChromeOptions()
             chop.add_extension("catblock-chrome.zip")
@@ -194,25 +210,30 @@ def main():
                 sys.exit(1)
         # End of Selenium testing
 
+        # Generate a packed extension
+        if args.extension != None:
+            # In Travis, catblock-chrome.zip has already been created
+            if os.environ.get("TRAVIS") == None:
+                shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
-        # Rename to the Chrome compatible .crx file
-        if args.extension == "y":
-            os.rename("catblock-chrome.zip", "catblock-chrome.crx")
+            # Rename to the Chrome's compatible .crx file
+            if args.extension == "browser":
+                os.rename("catblock-chrome.zip", "catblock-chrome.crx")
+                shutil.move("catblock-chrome.crx", "builds/catblock-chrome.crx")
+            else:
+                shutil.move("catblock-chrome.zip", "builds/catblock-chrome.zip")
 
-        if os.path.isfile("catblock-chrome.zip"):
-            shutil.move("catblock-chrome.zip", "builds/catblock-chrome.zip")
-        else:
-            shutil.move("catblock-chrome.crx", "builds/catblock-chrome.crx")
+        # When an unpacked development environment should not be created, remove the folder
+        if args.devenv == None:
+            shutil.rmtree("catblock_chrome")
 
-        shutil.rmtree("catblock_chrome")
-
-        print("CatBlock for Chrome has been built!")
+        print("Done!")
 
     elif args.browser == "opera":
 
-        print("Preparing CatBlock for Opera release...")
+        print("Generating CatBlock for Opera release...")
 
-        # If /catblock_chrome folder does exist, remove it
+        # If /catblock_opera folder does exist, remove it
         if os.path.exists("catblock_opera"):
             shutil.rmtree("catblock_opera")
 
@@ -222,20 +243,27 @@ def main():
         # Prepare manifest.json file
         prepareManifestFile()
 
-        shutil.make_archive("catblock-opera", "zip", "catblock_opera")
+        # Generate a packed extension
+        if args.extension != None:
+            shutil.make_archive("catblock-opera", "zip", "catblock_opera")
 
-        # Rename to the Opera compatible .nex file
-        if args.extension == "y":
-            os.rename("catblock-opera.zip", "catblock-opera.nex")
+            # Rename to the Opera's compatible .nex file
+            if args.extension == "browser":
+                os.rename("catblock-opera.zip", "catblock-opera.nex")
+                shutil.move("catblock-opera.nex", "builds/catblock-opera.nex")
+            else:
+                shutil.move("catblock-opera.zip", "builds/catblock-opera.zip")
 
-        if os.path.isfile("catblock-opera.zip"):
-            shutil.move("catblock-opera.zip", "builds/catblock-opera.zip")
-        else:
-            shutil.move("catblock-opera.nex", "builds/catblock-opera.nex")
+        # When an unpacked development environment should not be created, remove the folder
+        if args.devenv == None:
+            shutil.rmtree("catblock_opera")
 
-        shutil.rmtree("catblock_opera")
+        print("Done!")
 
-        print("CatBlock for Opera has been built!")
+    elif args.browser == "safari":
+
+        print("We are sorry, but building CatBlock for Safari hasn't been implemented yet.")
+
     else:
         print("You have selected an unsupported browser. Please, try again.")
 
