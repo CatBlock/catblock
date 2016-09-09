@@ -1525,14 +1525,10 @@ function makeReport() {
     return out;
 }
 
-// CatBlock specific code
-<<<<<<< HEAD
-
 // Init "Project CATS"
 CATS.init();
 
-=======
->>>>>>> master
+// CatBlock specific code
 var channels = new Channels();
 
 function addChannel(args) {
