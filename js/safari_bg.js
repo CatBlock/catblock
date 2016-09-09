@@ -1,9 +1,9 @@
-emit_page_broadcast = function(request) {
-    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage('page-broadcast', request);
-};
+function emit_page_broadcast(request) {
+    safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("page-broadcast", request);
+}
 
-//frameData object for Safari
-frameData = (function() {
+// frameData object for Safari
+var frameData = (function() {
     return {
         // Get frameData for the tab.
         // Input:
@@ -43,7 +43,7 @@ frameData = (function() {
                 frameData[tabId] = {
                     resources: {},
                     domain: domain,
-                    url: url,
+                    url: url
                 };
             }
             return tracker;
@@ -53,12 +53,13 @@ frameData = (function() {
         //   tabId: Numeric - id of the tab you want to delete in the frameData
         //   url: url of the resource
         storeResource: function(tabId, url, elType) {
-            if (!get_settings().show_advanced_options)
+            if (!get_settings().show_advanced_options) {
                 return;
+            }
             var data = this.get(tabId);
             if (data !== undefined &&
                 data.resources !== undefined) {
-                data.resources[elType + ':|:' + url] = null;
+                data.resources[elType + ":|:" + url] = null;
             }
         },
         // Delete tabId from frameData
@@ -67,7 +68,7 @@ frameData = (function() {
         close: function(tabId) {
             delete frameData[tabId];
         }
-    }
+    };
 })();
 
 // True blocking support.
@@ -88,8 +89,9 @@ safari.application.addEventListener("message", function(messageEvent) {
         return;
     }
 
-    if (messageEvent.name != "canLoad")
+    if (messageEvent.name !== "canLoad") {
         return;
+    }
 
     // In theory, this code shouldn't be needed...
     if (get_settings().safari_content_blocking) {
@@ -155,12 +157,13 @@ safari.application.addEventListener("activate", function(event) {
     if (event.target instanceof SafariBrowserTab) {
         safari.extension.popovers[0].contentWindow.location.reload();
         // Hide popover, when new tab has been opened
-        if (ABPopover.visible)
+        if (ABPopover.visible) {
             ABPopover.hide();
+        }
     }
 }, true);
 
-safari.application.addEventListener("popover", function(event) {
+safari.application.addEventListener("popover", function() {
     safari.extension.popovers[0].contentWindow.location.reload();
 }, true);
 
@@ -206,7 +209,6 @@ safari.application.addEventListener("close", function(event) {
         for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
             var item = safari.extension.toolbarItems[i];
             if (item.browserWindow === event.target) {
-                var popover = item.popover;
 
                 // Safari docs say that we must detach popover from toolbar items before removing.
                 item.popover = null;
@@ -270,14 +272,14 @@ safari.application.addEventListener("command", function(event) {
     }
 }, false);
 
-var dispatchMessage = function(command) {
+function dispatchMessage(command) {
     safari.application.activeBrowserWindow.activeTab.page.dispatchMessage(command);
-};
+}
 
 // Open Options page upon settings checkbox click.
 safari.extension.settings.openCatBlockOptions = false;
 safari.extension.settings.addEventListener("change", function(e) {
-    if (e.key == 'openCatBlockOptions') {
+    if (e.key === "openCatBlockOptions") {
         openTab("options/index.html");
     }
 }, false);

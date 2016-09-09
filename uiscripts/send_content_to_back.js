@@ -1,6 +1,6 @@
-if (typeof(send_content_to_back) == "undefined") {
+if (typeof send_content_to_back === "undefined") {
 
-    send_content_to_back = function() {
+    function send_content_to_back() {
         // Objects and embeds can catch our clicks unless we lay a div over
         // them.  But even then they can catch our clicks unless they were loaded
         // with wmode=transparent.  So, make them load that way, so that our
@@ -9,7 +9,7 @@ if (typeof(send_content_to_back) == "undefined") {
         // seen cases (e.g. mtv3.fi's right side ad) where the show was so fast
         // that the wmode=transparent hadn't been applied; thus, we delay 250ms
         // before showing.
-        var all = document.querySelectorAll("object,embed");
+        var all = document.querySelectorAll("object, embed");
         for (var i=0; i < all.length; i++) {
             var el = all[i];
             el.oldDisplay = el.style.display;
@@ -20,9 +20,9 @@ if (typeof(send_content_to_back) == "undefined") {
                 param.setAttribute("name", "wmode");
                 param.setAttribute("value", "transparent");
                 el.appendChild(param);
-            }
-            else
+            } else {
                 el.setAttribute("wmode", "transparent");
+            }
         }
 
         window.setTimeout(function() {
@@ -33,14 +33,13 @@ if (typeof(send_content_to_back) == "undefined") {
 
         // Also, anybody with a z-index over 1 million is going to get in our
         // way.  Decrease it.
-        var zIndexes = document.querySelectorAll('[style*="z-index"]');
+        var zIndexes = document.querySelectorAll("[style*='z-index']");
         for (var i = 0; i < zIndexes.length; i++) {
             var el = zIndexes[i];
-            if (el.style["z-index"] >= 1000000)
+            if (el.style["z-index"] >= 1000000) {
                 el.style["z-index"] = 999999;
+            }
         }
     }
 
 }
-
-//@ sourceURL=/uiscripts/send_content_to_back.js

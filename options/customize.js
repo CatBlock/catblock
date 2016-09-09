@@ -1,8 +1,10 @@
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.command != "filters_updated")
+chrome.runtime.onMessage.addListener(function(request) {
+    if (request.command !== "filters_updated") {
         return;
-    if ($("#txtFiltersAdvanced").prop("disabled") === false)
+    }
+    if ($("#txtFiltersAdvanced").prop("disabled") === false) {
         return;
+    }
     BGcall("get_custom_filters_text", function(text) {
         $("#txtFiltersAdvanced").val(text);
     });
@@ -19,24 +21,44 @@ $(function() {
         determineUserLanguage() +
         "/filters";
 
-    var jqxhr = $.ajax({
-        type: 'get',
+    $.ajax({
+        type: "GET",
         url: syntaxURL,
-        success: function(e) {
-            //since the ABP site uses a custom server side 404 handler, instead of returing us a 404 http status code
-            //we need to parse the response text looking for a 404 message for the user.
-            if (jqxhr.responseText &&
-                jqxhr.responseText.indexOf("404 - The requested URL was not found.") > 0) {
-                $('#tutorlink').attr("href", "https://adblockplus.org/en/filters");
-            } else {
-                $('#tutorlink').attr("href", syntaxURL);
-            }
+        success: function() {
+            $("#tutorlink").attr("href", syntaxURL);
         },
-        error: function(e) {
-            $('#tutorlink').attr("href", "https://adblockplus.org/en/filters");
-        },
+        error: function() {
+            $("#tutorlink").attr("href", "https://adblockplus.org/en/filters");
+        }
     });
 
+    function saveFilters() {
+        var custom_filters_text = $("#txtFiltersAdvanced").val();
+        var custom_filters_array = custom_filters_text.split("\n");
+        var filterErrorMessage = "";
+        $("#messagecustom").html(filterErrorMessage);
+        $("#messagecustom").hide();
+        for (var i = 0; (!filterErrorMessage && i < custom_filters_array.length); i++) {
+            var filter = custom_filters_array[i];
+            try {
+                FilterNormalizer.normalizeLine(filter);
+            } catch(ex) {
+                filterErrorMessage = translate("customfilterserrormessage", [filter, ex.message]);
+            }
+        }
+        if (!filterErrorMessage) {
+            BGcall("set_custom_filters_text", custom_filters_text);
+            updateCustomFiltersCount(custom_filters_text);
+            $("#divAddNewFilter").slideDown();
+            $("#txtFiltersAdvanced").prop("disabled", true);
+            $("#spanSaveButton").hide();
+            $("#btnEditAdvancedFilters").show();
+            $("#btnCleanUp").show();
+        } else {
+            $("#messagecustom").html(filterErrorMessage);
+            $("#messagecustom").show();
+        }
+    }
 
     // Add a custom filter to the list
     function appendCustomFilter(filter) {
@@ -49,8 +71,9 @@ $(function() {
     // Convert a messy list of domains to ~domain1.com|~domain2.com format
     function toTildePipeFormat(domainList) {
         domainList = domainList.trim().replace(/[\ \,\;\|]+\~?/g, "|~");
-        if (domainList && domainList[0] != "~")
+        if (domainList && domainList[0] !== "~") {
             domainList = "~" + domainList;
+        }
         return domainList;
     }
 
@@ -59,8 +82,9 @@ $(function() {
         // into the blacklist input.
         var customFilterText = $("#txtFiltersAdvanced").val();
         var match = customFilterText.match(/^\@\@\*\$document\,domain\=(\~.*)$/m);
-        if (match && $(this).val() == "")
+        if (match && $(this).val() === "") {
             $(this).val(match[1]);
+        }
     });
 
     // The add_filter functions
@@ -68,10 +92,11 @@ $(function() {
         var blockCss = $("#txtUserFilterCss").val().trim();
         var blockDomain = $("#txtUserFilterDomain").val().trim();
 
-        if (blockDomain == '.*' || blockDomain == "*" || blockDomain == '')
+        if (blockDomain === ".*" || blockDomain === "*" || blockDomain === "") {
             appendCustomFilter("##" + blockCss);
-        else
+        } else {
             appendCustomFilter(blockDomain + "##" + blockCss);
+        }
 
         $(this).closest(".entryTable").find("input[type='text']").val("");
         $(this).prop("disabled", true);
@@ -80,11 +105,12 @@ $(function() {
     $("#btnAddExcludeFilter").click(function() {
         var excludeUrl = $("#txtUnblock").val().trim();
 
-        //prevent regexes
-        if (/^\/.*\/$/.test(excludeUrl))
+        // Prevent regexes
+        if (/^\/.*\/$/.test(excludeUrl)) {
             excludeUrl = excludeUrl + "*";
+        }
 
-        appendCustomFilter('@@' + excludeUrl + '$document');
+        appendCustomFilter("@@" + excludeUrl + "$document");
 
         $(this).closest(".entryTable").find("input[type='text']").val("");
         $(this).prop("disabled", true);
@@ -93,32 +119,37 @@ $(function() {
     $("#btnAddBlacklist").click(function() {
         var blacklist = toTildePipeFormat($("#txtBlacklist").val());
 
-        var filters = $("#txtFiltersAdvanced").val().trim() + '\n';
+        var filters = $("#txtFiltersAdvanced").val().trim() + "\n";
         // Delete the first likely line
         filters = filters.replace(/^\@\@\*\$document,domain\=~.*\n/m, "").trim();
         $("#txtFiltersAdvanced").val(filters);
         // Add our line in its place, or if it was empty, remove the filter
-        if (blacklist)
+        if (blacklist) {
             appendCustomFilter("@@*$document,domain=" + blacklist);
-        else
+        } else {
             saveFilters(); // just record the deletion
+        }
+
         $("#btnAddBlacklist").prop("disabled", true);
     });
 
     $("#btnAddUrlBlock").click(function() {
         var blockUrl = $("#txtBlockUrl").val().trim();
         var blockDomain = $("#txtBlockUrlDomain").val().trim();
-        if (blockDomain == '*')
-            blockDomain = '';
+        if (blockDomain === "*") {
+            blockDomain = "";
+        }
 
         //prevent regexes
-        if (/^\/.*\/$/.test(blockUrl))
+        if (/^\/.*\/$/.test(blockUrl)) {
             blockUrl = blockUrl + "*";
+        }
 
-        if (blockDomain == '')
+        if (blockDomain === "") {
             appendCustomFilter(blockUrl);
-        else
+        } else {
             appendCustomFilter(blockUrl + "$domain=" + blockDomain);
+        }
 
         $(this).closest(".entryTable").find("input[type='text']").val("");
         $(this).prop("disabled", true);
@@ -128,8 +159,9 @@ $(function() {
     $("#txtBlacklist").bind("input", function() {
         var blacklist = toTildePipeFormat($("#txtBlacklist").val());
 
-        if (blacklist)
+        if (blacklist) {
             blacklist = "@@*$document,domain=" + blacklist;
+        }
         var filterErrorMessage = "";
         $("#messageBlacklist").html(filterErrorMessage);
         $("#messageBlacklist").hide();
@@ -147,16 +179,20 @@ $(function() {
     $("#divUrlBlock input[type='text']").bind("input", function() {
         var blockUrl = $("#txtBlockUrl").val().trim();
         var blockDomain = $("#txtBlockUrlDomain").val().trim();
-        if (blockDomain == '*')
-            blockDomain = '';
-        if (blockDomain)
-            blockDomain = '$domain=' + blockDomain;
+        if (blockDomain === "*") {
+            blockDomain = "";
+        }
+        if (blockDomain) {
+            blockDomain = "$domain=" + blockDomain;
+        }
         var ok = false;
         try {
-            if (FilterNormalizer.normalizeLine(blockUrl + blockDomain))
+            if (FilterNormalizer.normalizeLine(blockUrl + blockDomain)) {
                 ok = true;
-            if (Filter.isSelectorFilter(blockUrl))
+            }
+            if (Filter.isSelectorFilter(blockUrl)) {
                 ok = false;
+            }
         } catch(ex) {}
         $("#btnAddUrlBlock").prop("disabled", ok ? null : true);
     });
@@ -164,12 +200,14 @@ $(function() {
     $("#divCssBlock input[type='text']").bind("input", function() {
         var blockCss = $("#txtUserFilterCss").val().trim();
         var blockDomain = $("#txtUserFilterDomain").val().trim();
-        if (blockDomain == '*')
-            blockDomain = '';
+        if (blockDomain === "*") {
+            blockDomain = "";
+        }
         var ok = false;
         try {
-            if (FilterNormalizer.normalizeLine(blockDomain + "##" + blockCss))
+            if (FilterNormalizer.normalizeLine(blockDomain + "##" + blockCss)) {
                 ok = true;
+            }
         } catch(ex) {}
         $("#btnAddUserFilter").prop("disabled", ok ? null : true);
     });
@@ -178,10 +216,12 @@ $(function() {
         var unblockUrl = $("#txtUnblock").val().trim();
         var ok = false;
         try {
-            if (FilterNormalizer.normalizeLine('@@' + unblockUrl + '$document'))
+            if (FilterNormalizer.normalizeLine("@@" + unblockUrl + "$document")) {
                 ok = true;
-            if (!unblockUrl || Filter.isSelectorFilter(unblockUrl))
+            }
+            if (!unblockUrl || Filter.isSelectorFilter(unblockUrl)) {
                 ok = false;
+            }
         } catch(ex) {}
         $("#btnAddExcludeFilter").prop("disabled", ok ? null : true);
     });
@@ -227,10 +267,10 @@ $(function() {
         var custom_filters_array = custom_filters_text.split("\n");
         var new_count = {};
         var temp_filter_tracker = [];
-        for(var i = 0; i < custom_filters_array.length; i++) {
+        for (var i = 0; i < custom_filters_array.length; i++) {
             var filter = custom_filters_array[i];
             //Check if filter is a duplicate and that it is a hiding filter.
-            if(temp_filter_tracker.indexOf(filter) < 0 && filter.indexOf("##") > -1) {
+            if (temp_filter_tracker.indexOf(filter) < 0 && filter.indexOf("##") > -1) {
                 temp_filter_tracker.push(filter);
                 var host = filter.split("##")[0];
                 new_count[host] = (new_count[host] || 0) + 1;
@@ -239,47 +279,20 @@ $(function() {
         BGcall("updateCustomFilterCountMap", new_count);
     }
 
-    function saveFilters() {
-        var custom_filters_text = $("#txtFiltersAdvanced").val();
-        var custom_filters_array = custom_filters_text.split("\n");
-        var filterErrorMessage = "";
-        $("#messagecustom").html(filterErrorMessage);
-        $("#messagecustom").hide();
-        for(var i = 0; (!filterErrorMessage && i < custom_filters_array.length); i++) {
-            var filter = custom_filters_array[i];
-            try {
-                FilterNormalizer.normalizeLine(filter);
-            } catch(ex) {
-                filterErrorMessage = translate("customfilterserrormessage", [filter, ex.message]);
-            }
-        }
-        if (!filterErrorMessage) {
-            BGcall("set_custom_filters_text", custom_filters_text);
-            updateCustomFiltersCount(custom_filters_text);
-            $("#divAddNewFilter").slideDown();
-            $("#txtFiltersAdvanced").prop("disabled", true);
-            $("#spanSaveButton").hide();
-            $("#btnEditAdvancedFilters").show();
-            $("#btnCleanUp").show();
-        } else {
-            $("#messagecustom").html(filterErrorMessage);
-            $("#messagecustom").show();
-        }
-    }
-
     $("#btnSaveAdvancedFilters").click(saveFilters);
 
     function saveExcludeFilters() {
         var exclude_filters_text = $("#txtExcludeFiltersAdvanced").val();
-        BGcall("set_exclude_filters", exclude_filters_text, function(ex) {
+        BGcall("set_exclude_filters", exclude_filters_text, function() {
             $("#divAddNewFilter").slideDown();
             $("#txtExcludeFiltersAdvanced").attr("disabled", "disabled");
             $("#spanSaveExcludeButton").hide();
             $("#btnEditExcludeAdvancedFilters").show();
             BGcall("get_exclude_filters_text", function(text) {
                 $("#txtExcludeFiltersAdvanced").val(text);
-                if (text)
+                if (text) {
                     $("#divExcludeFilters").show();
+                }
             });
         });
 
@@ -302,16 +315,18 @@ $(function() {
 
     BGcall("get_exclude_filters_text", function(text) {
         $("#txtExcludeFiltersAdvanced").val(text);
-        if (text)
+        if (text) {
             $("#divExcludeFilters").show();
+        }
     });
 
     $("#btnCleanUp").click(function() {
         //Don't save immediately, first allow them to review changes
-        if ($("#btnEditAdvancedFilters").is(":visible"))
+        if ($("#btnEditAdvancedFilters").is(":visible")) {
             $("#btnEditAdvancedFilters").click();
+        }
         var newFilters = FilterNormalizer.normalizeList($("#txtFiltersAdvanced").val(), true);
-        newFilters = newFilters.replace(/(\n)+$/,'\n'); // Del trailing \n's
+        newFilters = newFilters.replace(/(\n)+$/,"\n"); // Del trailing \n's
         $("#txtFiltersAdvanced").val(newFilters);
     });
 });

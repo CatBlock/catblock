@@ -6,7 +6,7 @@ $(function() {
     function finished(success) {
         var message = (success ? translate("subscribingfinished") :
                        translate("subscribingfailed"));
-        $('#result').text(message);
+        $("#result").text(message);
         window.setTimeout(window.close, success ? 2000 : 3500);
     }
 
@@ -18,24 +18,26 @@ $(function() {
     }
 
     //Show the URL being subscribed.  If it's really long, make it wrap nicely.
-    $('#listUrl').text(listUrl.replace(/(.{48,64}\W)/g, '$1 '));
+    $("#listUrl").text(listUrl.replace(/(.{48,64}\W)/g, "$1 "));
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.command != "filters_updated")
+        if (request.command !== "filters_updated") {
             return;
-        if ($('#result').text())
+        }
+        if ($("#result").text()) {
             return;
+        }
 
-        BGcall('get_subscriptions_minus_text', function(subs) {
-            var sub = subs['url:' + listUrl];
+        BGcall("get_subscriptions_minus_text", function(subs) {
+            var sub = subs["url:" + listUrl];
             if (!sub || sub.last_update) {
                 // It was a well known id, so assume it succeeded, or the
                 // last_update property exists, so it succeeded
                 finished(true);
-            } else if (sub.last_update_failed_at)
+            } else if (sub.last_update_failed_at) {
                 finished(false);
+            }
         });
         sendResponse({});
     });
-
 });

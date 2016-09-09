@@ -1,501 +1,707 @@
 {
-  "questionoridea":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"Bạn có câu hỏi hoặc một ý tưởng mới?"
+  "checkinfirefox_3":{
+    "message":"Trong trình duyệt khác, đăng ký danh sách bộ lọc giống như ở đây.",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
   },
-  "options":{
-    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension",
-    "message":"Tùy chọn"
+  "failedtofetchfilter":{
+    "message":"Không thể lấy được dữ liệu của bộ lọc này!",
+    "description":"Error messagebox"
   },
-  "filtereasylist":{
-    "description":"A filter list",
-    "message":"EasyList (khuyến khích)"
+  "catblock_malwarenotificationmessage":{
+    "message":"CatBlock has blocked a download from a site known to host malware.",
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
   },
-  "blocked_n_on_this_page":{
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999.",
-    "message":"$count$ trên trang này",
-    "placeholders":{
-      "count":{
-        "content":"<a>123</a>",
-        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
-      }
-    }
+  "dont_run_on_pages_on_domain":{
+    "message":"Không chạy trên trang của những tên miền này",
+    "description":"Menu entry to open the whitelist wizard"
   },
-  "filtereasylist_plus_polish":{
-    "description":"language",
-    "message":"Tiếng Ba Lan"
+  "blacklisteroptions1":{
+    "message":"Bạn nghĩ điều gì sẽ đúng về quảng cáo này mỗi khi bạn truy cập trang này?",
+    "description":"Blacklister attribute choosing page message"
   },
-  "csstomatch":{
-    "description":"Message of the css-hiding area",
-    "message":"CSS phù hợp với"
+  "blockdomain":{
+    "message":"Tên miền của trang web để áp dụng",
+    "description":"Message of the url and css -blocking area"
   },
-  "buttonexclude":{
-    "description":"Button for excluding a domain in the whitelister dialog",
-    "message":"Loại trừ"
-  },
-  "refusetocheck":{
-    "description":"User is telling us they don't wish to investigate something for us",
-    "message":"Tôi không muốn kiểm tra cái này"
-  },
-  "browserestartrequired":{
-    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch",
-    "message":"Vui lòng khởi động lại Safari để hoàn tất việc tắt Chặn Nội Dung."
-  },
-  "filtersavewarning":{
-    "description":"Warning when blacklisting manually",
-    "message":"Hãy cẩn thận: Nếu bạn chỉnh sửa không chính xác, rất nhiều bộ lọc khác bao gồm cả bộ lọc chính thức cũng có thể bị lỗi!<br/>Bạn có thể đọc thêm về <a>cú pháp bộ lọc</a> để biết cách chỉnh sửa bộ lọc."
-  },
-  "checkinfirefox_5":{
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad",
-    "message":"Quảng cáo có xuất hiện ở trình duyệt đó không?"
-  },
-  "aamessageadreport":{
-    "description":"Acceptable Ads message on ad report page",
-    "message":"Nếu bạn không muốn nhìn thấy những quảng cáo như này, có thể bạn sẽ muốn tắt bộ lọc Quảng Cáo Chấp Nhận Được."
+  "typepage":{
+    "message":"trang",
+    "description":"A resource type"
   },
   "filtereasylist_plus_lithuania":{
-    "description":"language",
-    "message":"Tiếng Lít-va"
+    "message":"Tiếng Lít-va",
+    "description":"language"
   },
-  "retryaftersubscribe":{
-    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists",
-    "message":"Đăng ký bộ lọc này, sau đó thử lại: $list_title$",
-    "placeholders":{
-      "list_title":{
-        "content":"$1",
-        "example":"French filters"
-      }
-    }
-  },
-  "catblock_wizardcantrunonframesets":{
-    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website",
-    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page."
-  },
-  "malwarewarning":{
-    "description":"On the ad report page, the ads the user is seeing might be caused by malware/adware",
-    "message":"Máy tính của bạn có thể đã bị nhiễm mã độc. Bấm <a>vào đây</a> để biết thêm chi tiết."
-  },
-  "linkunblock":{
-    "description":"Link on the 'Customize' tab",
-    "message":"Hiển thị quảng cáo trên trang web hoặc tên miền này"
-  },
-  "lang_slovak":{
-    "description":"language",
-    "message":"Tiếng Slovakia"
-  },
-  "checkinfirefox_2":{
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad. Don't translate the name 'Adblock Plus'.",
-    "message":"Cài đặt Adblock Plus cho Firefox $chrome$ nếu bạn chưa có.",
-    "placeholders":{
-      "chrome":{
-        "content":"<span id='adblockforchrome'></span>",
-        "example":"'or AdBlock for Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
-      }
-    }
-  },
-  "nodefaultfilter1":{
-    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab.",
-    "message":"Chúng tôi không có bộ lọc mặc định cho ngôn ngữ này.<br/>Bạn vui lòng tìm kiếm bộ lọc khác có hỗ trợ ngôn ngữ này $link$ hoặc bạn có thể chặn quảng cáo này bằng tay ở thẻ 'Tùy chỉnh'.",
-    "placeholders":{
-      "link":{
-        "content":"<a id='link'></a>",
-        "example":"<a>here</a>"
-      }
-    }
-  },
-  "clickthead":{
-    "description":"When you have to click the ad to continue",
-    "message":"Nhấp vào phần quảng cáo, và tôi sẽ hướng dẫn bạn cách chặn nó."
-  },
-  "topframe":{
-    "description":"Resource list page: frame type",
-    "message":"Frame trên cùng"
-  },
-  "typestylesheet":{
-    "description":"A resource type",
-    "message":"style definition"
-  },
-  "typeunknown":{
-    "description":"A resource type",
-    "message":"không rõ"
-  },
-  "disabled_by_filter_lists":{
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list",
-    "message":"Xin lỗi, AdBlock đã bị tắt trên trang này bởi một trong số các bộ lọc của bạn."
-  },
-  "catblock_show_on_adblock_menu":{
-    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked",
-    "message":"Show number of ads blocked on CatBlock menu"
-  },
-  "thirdparty":{
-    "description":"Resource list page: column title telling if the resource originates from a different domain",
-    "message":"Bên thứ ba"
-  },
-  "blacklisternofilter":{
-    "description":"Warning if the user hasn't specified a filter",
-    "message":"Không có bộ lọc nào được chỉ định!"
-  },
-  "filtereasylist_plus_greek":{
-    "description":"language",
-    "message":"Tiếng Hy Lạp"
-  },
-  "catblock_safari50_updatenotice":{
-    "description":"A message shown to Safari 5.0 users urging them to upgrade",
-    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>."
-  },
-  "adblock_outdated_chrome":{
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'",
-    "message":"Bạn đang sử dụng phiên bản cũ của AdBlock. Vui lòng đi đến <a href='#'>tiện ích mở rộng</a>, bật 'Chế độ dành cho nhà phát triển' và nhấp 'Cập nhật'"
-  },
-  "adreport_name":{
-    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report.",
-    "message":"Bạn tên gì?"
-  },
-  "work_around_hulu_problems":{
-    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect.",
-    "message":"Không chạy trên Hulu nếu video không phát (yêu cầu khởi động lại trình duyệt)"
-  },
-  "blacklisterwarningnofilter":{
-    "description":"Warns the user that no filter was specified",
-    "message":"Cảnh báo: Không có bộ lọc nào được chỉ định!"
-  },
-  "tabcustomize":{
-    "description":"A tab on the options page",
-    "message":"Tùy chỉnh"
-  },
-  "adreportintro":{
-    "description":"Introduction of the ad reporting page",
-    "message":"Bạn tìm thấy quảng cáo trên một trang web? Chúng tôi sẽ giúp bạn tìm thấy đúng nơi để báo cáo nó!"
-  },
-  "catblock_filteradblock_custom":{
-    "description":"A filter list",
-    "message":"CatBlock custom filters (recommended)"
-  },
-  "filtereasylist_plus_estonian":{
-    "description":"language",
-    "message":"Tiếng Estonia"
-  },
-  "tabcustomizetitle":{
-    "description":"Title of the customize tab",
-    "message":"Tùy chỉnh AdBlock"
-  },
-  "filtereasylist_plus_bulgarian":{
-    "description":"language",
-    "message":"Tiếng Bulgaria"
-  },
-  "whitelistedresource":{
-    "description":"Resource list page: resource status",
-    "message":"Nguồn được cho phép"
-  },
-  "safarinotificationtitle":{
-    "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules",
-    "message":"Đã vượt quá giới hạn quy tắc của Chặn Nội Dung"
-  },
-  "catblock_check_checkbox":{
-    "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock.",
-    "message":"Check the checkbox by the sets of pictures that you want to use."
+  "framedomain":{
+    "message":"Tên miền frame: ",
+    "description":"Resource list page: domain name of the frame"
   },
   "whitelistertitle2":{
-    "description":"The title of the whitelister dialog",
-    "message":"Không chạy AdBlock trên..."
+    "message":"Không chạy AdBlock trên...",
+    "description":"The title of the whitelister dialog"
   },
-  "blockurlwithtext":{
-    "description":"Message of the url-blocking area",
-    "message":"Chặn các URL trong văn bản này"
+  "manualexcludefilteredit":{
+    "message":"Chỉnh sửa bộ lọc bị vô hiệu hóa:",
+    "description":"Subtitle on the 'Customize' tab"
   },
-  "close":{
-    "description":"Generic message for buttons that close a view or window",
-    "message":"Đóng"
+  "whats_this":{
+    "message":"Đây là gì?",
+    "description":"Text of a link pointing to the explanation of a new feature"
   },
-  "checkinfirefoxtitle":{
-    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome",
-    "message":"Kiểm tra trên Firefox $chrome$",
-    "placeholders":{
-      "chrome":{
-        "content":"<span id='chrome1'></span>",
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
-      }
-    }
+  "enable_adblock":{
+    "message":"Bật AdBlock trên trang này",
+    "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
   },
-  "blacklisteroptionstitle":{
-    "description":"Blacklister options page title",
-    "message":"Bước cuối cùng: Điều gì khiến cái này trở thành quảng cáo?"
+  "typesubdocument":{
+    "message":"frame",
+    "description":"A resource type"
   },
-  "ad_report_please":{
-    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options.",
-    "message":"Nếu bạn thấy có quảng cáo, bạn không nên dùng báo cáo lỗi, mà hãy dùng <a>báo cáo quảng cáo</a>!"
+  "catblock_safarinotificationbody":{
+    "message":"Please disable some filter lists. More information in CatBlock's Options.",
+    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
   },
-  "filtereasylist_plun_korean":{
-    "description":"language",
-    "message":"Tiếng Hàn"
+  "filterdutch":{
+    "message":"Tiếng Hà Lan",
+    "description":"language"
   },
-  "safari50_updatenotice":{
-    "description":"A message shown to Safari 5.0 users urging them to upgrade",
-    "message":"Bạn đang sử dụng phiên bản cũ của Safari. Hãy cài đặt phiên bản mới nhất để sử dụng nút AdBlock trên thanh công cụ để tạm dừng AdBlock, tạo danh sách trắng, và báo cáo quảng cáo. <a>Nâng cấp ngay</a>."
+  "adblock_click_for_details":{
+    "message":"AdBlock - bấm để biết thêm chi tiết",
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
   },
-  "filtereasylist_plus_finnish":{
-    "description":"language",
-    "message":"Tiếng Phần Lan"
+  "aalinkadreport":{
+    "message":"Tìm hiểu thêm về chương trình Quảng Cáo Chấp Nhận Được.",
+    "description":"Acceptable Ads link message on ad report page"
   },
-  "typescript":{
-    "description":"A resource type",
-    "message":"mã"
+  "yes":{
+    "message":"Có",
+    "description":"A positive response to a question"
   },
-  "lang_ukranian":{
-    "description":"language",
-    "message":"Tiếng Ukraina"
+  "filterjapanese":{
+    "message":"Tiếng Nhật",
+    "description":"language"
   },
-  "malwarenotfound":{
-    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware/adware",
-    "message":"Không tim thấy mã độc đã được nhận dạng nào."
+  "tabcustomize":{
+    "message":"Tùy chỉnh",
+    "description":"A tab on the options page"
   },
-  "safarinotificationbody":{
-    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules",
-    "message":"Vui lòng tắt một vài bộ lọc. Thông tin thêm có trong tùy chọn của AdBlock."
+  "blacklistertype":{
+    "message":"Loại",
+    "description":"node name is called 'Type'"
   },
-  "acceptable_ads_content_blocking_disbled_message":{
-    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled.",
-    "message":"Chúng tôi đã bỏ đăng ký bạn khỏi Quảng Cáo Chấp Nhận Được bởi vì bạn đã bật Chặn Nội Dung Safari. Bạn chỉ có thể chọn một trong hai cùng một lúc. (<a>Tại sao?</a>)"
+  "malwarenotificationlearnmore":{
+    "message":"Tìm hiểu thêm về malware",
+    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
   },
-  "contributors":{
-    "description":"Link to the contributors page on the Support tab of the options",
-    "message":"Chúng tôi cũng đã có một <a>trang</a> để giúp bạn tìm hiểu về những người đứng sau AdBlock!"
+  "filtereasylist":{
+    "message":"EasyList (khuyến khích)",
+    "description":"A filter list"
   },
-  "here":{
-    "description":"This message is injected in other strings as a link/button",
-    "message":"đây"
+  "blocked_ads":{
+    "message":"Số quảng cáo đã bị chặn:",
+    "description":"Title for popup menu section showing number of ads blocked"
   },
-  "typepopup":{
-    "description":"A resource type",
-    "message":"popup"
+  "headerfilter":{
+    "message":"Khớp với bộ lọc",
+    "description":"Resource list page: title of a column"
   },
-  "typexmlhttprequest":{
-    "description":"A resource type",
-    "message":"xmlhttprequest"
+  "operabutton_how_to_hide2":{
+    "message":"Để ẩn nút này, đi đến opera://extensions và chọn 'Ẩn khỏi thanh cộng cụ'. Để hiển thị trở lại bạn chỉ cần bỏ chọn tùy chọn đó.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
   },
-  "reloadpageafterwhitelist":{
-    "description":"Checkbox on whitelist wizard",
-    "message":"Tải lại trang."
+  "you_can_slide_to_change":{
+    "message":"Bạn có thể di chuyển thanh trượt dưới đây để chọn chính xác những trang nào mà AdBlock sẽ không chạy.",
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
   },
-  "pagelanguagecheck":{
-    "description":"Question on ad report page",
-    "message":"Trang đó đươc viết bằng ngôn ngữ nào?"
-  },
-  "status_paused":{
-    "description":"Message shown in toolbar button when AdBlock is paused",
-    "message":"AdBlock đã bị tạm dừng."
-  },
-  "catblock_options":{
-    "description":"Title of the CatBlock options page tab",
-    "message":"CatBlock Options"
-  },
-  "unpause_adblock":{
-    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'",
-    "message":"Hủy tạm dừng AdBlock"
-  },
-  "findingads":{
-    "description":"When you press ctrl-shift-K the blacklister searches for ads",
-    "message":"Đang tìm quảng cáo...<br/><br/><i>Chỉ mất chút thời gian thôi.</i>"
-  },
-  "disabled_on_this_page":{
-    "description":"Message shown in toolbar button on web pages that have been whitelisted",
-    "message":"AdBlock đã bị tắt trên trang này."
-  },
-  "checkinfirefox_3":{
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad",
-    "message":"Trong trình duyệt khác, đăng ký danh sách bộ lọc giống như ở đây."
-  },
-  "blockanadtitle":{
-    "description":"Title of the first two dialogs of the blacklister",
-    "message":"Chặn quảng cáo"
-  },
-  "warning_overrules_filters":{
-    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter",
-    "message":"Cảnh báo: trên tất cả những trang web khác bạn sẽ thấy có quảng cáo!<br>Điều này sẽ ghi đè tất cả các bộ lọc khác được áp dụng cho những trang này."
-  },
-  "update_available":{
-    "description":"On the Options > Support page, shows when there are updates available for AdBlock",
-    "message":"Đã có bản cập nhật mới cho AdBlock! Đi đến $here$ để cập nhật. <br> Lưu ý: Nếu bạn muốn nhận cập nhật một cách tự động, chỉ cần nhấp chuột trên Safari > Preferences > Extensions > Updates <br> và tích ô tùy chọn 'Install updates automatically'.",
+  "catblock_update_available":{
     "placeholders":{
       "here":{
         "content":"<a id='here'></a>",
         "example":"<a>here</a>"
       }
-    }
+    },
+    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'.",
+    "description":"On the Options > Support page, shows when there are updates available for CatBl"
   },
-  "subscribingfinished":{
-    "description":"abp: link subscriber result",
-    "message":"Hoàn thành!"
+  "typeobject_subrequest":{
+    "message":"object_subrequest",
+    "description":"A resource type"
   },
-  "filteradblock_custom":{
-    "description":"A filter list",
-    "message":"Bộ lọc tùy chỉnh AdBlock (khuyến khích)"
+  "typeother":{
+    "message":"khác",
+    "description":"A resource type"
   },
-  "blacklistertype":{
-    "description":"node name is called 'Type'",
-    "message":"Loại"
+  "tabsupport":{
+    "message":"Hỗ trợ",
+    "description":"A tab on the options page"
   },
-  "whats_this":{
-    "description":"Text of a link pointing to the explanation of a new feature",
-    "message":"Đây là gì?"
+  "updatedminutesago":{
+    "placeholders":{
+      "minutes":{
+        "content":"$1",
+        "example":"15"
+      }
+    },
+    "message":"đã được cập nhật $minutes$ phút trước",
+    "description":"Label for subscription"
   },
-  "filterjapanese":{
-    "description":"language",
-    "message":"Tiếng Nhật"
+  "work_around_hulu_problems":{
+    "message":"Không chạy trên Hulu nếu video không phát (yêu cầu khởi động lại trình duyệt)",
+    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
+  },
+  "checkinfirefox_5":{
+    "message":"Quảng cáo có xuất hiện ở trình duyệt đó không?",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "options":{
+    "message":"Tùy chọn",
+    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension"
+  },
+  "adblockupdates":{
+    "message":"Cập nhật AdBlock",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "storage_quota_exceeded":{
+    "message":"Bạn đã vượt quá dung lượng lưu trữ mà AdBlock có thể sử dụng. Vui lòng bỏ đăng ký một số bộ lọc của bạn!",
+    "description":"Message shown when the user uses more storage than allowed by the browser"
+  },
+  "catblock_replaceadswithcats":{
+    "message":"Replace ads with pictures of cats",
+    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
+  },
+  "reportpubliclyavailable":{
+    "message":"Lưu ý: báo cáo của bạn có thể được công bố công khai. Hãy lưu ý điều đó trước khi bạn báo cáo điều gì đó riêng tư.",
+    "description":"Ad report page string, when you're about to submit a report"
+  },
+  "checkinfirefox_1":{
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='chrome2'></span>",
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    },
+    "message":"Cài đặt Firefox $chrome$ nếu bạn chưa cài đặt 2 trình duyệt này.",
+    "description":"instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "ad_report_please":{
+    "message":"Nếu bạn thấy có quảng cáo, bạn không nên dùng báo cáo lỗi, mà hãy dùng <a>báo cáo quảng cáo</a>!",
+    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
   },
   "filterorigin":{
-    "description":"Resource list page: tooltip of matching filter, telling which filter list contains the filter",
-    "message":"Bộ lọc gốc:\n$list$",
     "placeholders":{
       "list":{
         "content":"$1",
         "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'"
       }
-    }
+    },
+    "message":"Bộ lọc gốc:\n$list$",
+    "description":"Resource list page: tooltip of matching filter, telling which filter list contains the filter"
   },
-  "filterstabtitle":{
-    "description":"Title of the filter list tab",
-    "message":"Đăng ký bộ lọc"
+  "excludedomainorurl":{
+    "message":"Tên miền hoặc url mà AdBlock không chặn bất cứ thứ gì",
+    "description":"Message of the exclude area"
   },
-  "frametype":{
-    "description":"Resource list page: followed by frame type (e.g. top frame, subframe)",
-    "message":"Kiểu frame: "
+  "how":{
+    "message":"Cách dùng?",
+    "description":"Text of a link pointing to instructions on how to do something"
   },
-  "languagedropdowndescription":{
-    "description":"Dropdown list for language-specific filters",
-    "message":"Thêm bộ lọc cho ngôn ngữ khác: "
+  "safari50_updatenotice":{
+    "message":"Bạn đang sử dụng phiên bản cũ của Safari. Hãy cài đặt phiên bản mới nhất để sử dụng nút AdBlock trên thanh công cụ để tạm dừng AdBlock, tạo danh sách trắng, và báo cáo quảng cáo. <a>Nâng cấp ngay</a>.",
+    "description":"A message shown to Safari 5.0 users urging them to upgrade"
   },
-  "headerfilter":{
-    "description":"Resource list page: title of a column",
-    "message":"Khớp với bộ lọc"
+  "catblock_enable_adblock":{
+    "message":"Enable CatBlock on this page",
+    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'"
   },
-  "filterlistsrock":{
-    "description":"Header text on the Customize tab. 'Filter lists' should be the same text as the name of the 'Filter lists' tab.",
-    "message":"Danh sách các bộ lọc đã chặn hầu hết các quảng cáo. Bạn cũng có thể:"
+  "catblock_storage_quota_exceeded":{
+    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!",
+    "description":"Message shown when the user uses more storage than allowed by the browser"
   },
-  "safaributton_how_to_hide2":{
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu.",
-    "message":"Để ẩn nút này, nhấp chuột phải vào thanh công cụ và chọn Customize Toolbar, sau đó kéo nút AdBlock ra khỏi thanh công cụ. Bạn có thể hiển thị nó trở lại bằng cách kéo trở lại thanh công cụ."
+  "safaricontentblockinglimitexceeded":{
+    "message":"Số lượng quy tắc trong danh sách bộ lọc đã vượt quá giới hạn 50,000 và đã được tự động giảm xuống. Vui lòng bỏ đăng ký một vài bộ lọc hoặc tắt Chặn Nội Dung Safari!",
+    "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
   },
-  "dropboxerrorforfilters":{
-    "description":"Message to Dropbox sync users on the Customize tab, custom filters / disabled.",
-    "message":"Bạn đã vượt quá giới hạn dung lượng của Dropbox. Hãy xóa một số mục khỏi bộ lọc tùy chỉnh hoặc tắt một số bộ lọc, sau đó thử lại."
+  "malwarenotificationdisablethesemessages":{
+    "message":"Vô hiệu hóa những thông báo này",
+    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
+  },
+  "questionoridea":{
+    "message":"Bạn có câu hỏi hoặc một ý tưởng mới?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "oradblockforchrome":{
+    "message":"hoặc AdBlock cho Chrome",
+    "description":"Used for placeholder in checkinfirefox_2 string"
+  },
+  "buttoncancel":{
+    "message":"Hủy bỏ",
+    "description":"Cancel button"
+  },
+  "selectlanguage":{
+    "message":" -- Chọn ngôn ngữ -- ",
+    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
+  },
+  "typeimage":{
+    "message":"ảnh",
+    "description":"A resource type"
+  },
+  "malwarenotfound":{
+    "message":"Không tim thấy mã độc đã được nhận dạng nào.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware/adware"
+  },
+  "buttonexclude":{
+    "message":"Loại trừ",
+    "description":"Button for excluding a domain in the whitelister dialog"
+  },
+  "close":{
+    "message":"Đóng",
+    "description":"Generic message for buttons that close a view or window"
+  },
+  "here":{
+    "message":"đây",
+    "description":"This message is injected in other strings as a link/button"
   },
   "subscribebutton":{
-    "description":"Subscribe to a list button",
-    "message":"Đăng ký"
+    "message":"Đăng ký",
+    "description":"Subscribe to a list button"
   },
-  "contentblockingwarning":{
-    "description":"Notice shown on the 'Customize' tab of the options page when Safari Content Blocking is enabled",
-    "message":"Lưu ý: Danh sách trắng (cho phép hiển thị quảng cáo) một trang hoặc địa chỉ chưa được hỗ trợ với Chặn Nội Dung Safari được bật."
+  "headertype":{
+    "message":"Loại",
+    "description":"Resource list page: title of a column"
   },
-  "blacklisterblockedelement":{
-    "description":"Tells the user what the blocked element is on the slider page",
-    "message":"Phần tử bị chặn:"
+  "adreport_missing_screenshot":{
+    "message":"Bạn quên đính kèm ảnh chụp màn hình rồi! Chúng tôi không thể giúp bạn nếu không thấy (những) quảng cáo mà bạn đang báo cáo.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
   },
-  "typepage":{
-    "description":"A resource type",
-    "message":"trang"
+  "blacklistereditfilter":{
+    "message":"Vui lòng nhập đúng bộ lọc dưới đây và bấm OK",
+    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text."
   },
-  "typeother":{
-    "description":"A resource type",
-    "message":"khác"
+  "thirdparty":{
+    "message":"Bên thứ ba",
+    "description":"Resource list page: column title telling if the resource originates from a different domain"
   },
-  "clickupdatefilters":{
-    "description":"Instruction on ad report page",
-    "message":"Nhấp vào đây: <a>Cập nhật bộ lọc của tôi!</a>"
+  "show_ads_except_for":{
+    "message":"Hiển thị quảng cáo <i>ở tất cả mọi nơi</i> trừ những tên miền này...",
+    "description":"Section title for blacklisting section of Customize tab"
   },
-  "catblock_adblock_wont_run_on_pages_matching":{
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line.",
-    "message":"CatBlock won't run on any page matching:"
+  "blacklistermatches":{
+    "placeholders":{
+      "matchcount":{
+        "content":"$1",
+        "example":"5"
+      }
+    },
+    "message":"Khớp $matchcount$ mục trên trang này.",
+    "description":"Tells the user multiple matches were found"
   },
-  "hiddenelement":{
-    "description":"Resource list page: resource status",
-    "message":"Phần tử bị ẩn"
+  "catblock_safaributton_how_to_hide2":{
+    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
   },
-  "operabutton_how_to_hide2":{
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page.",
-    "message":"Để ẩn nút này, đi đến opera://extensions và chọn 'Ẩn khỏi thanh cộng cụ'. Để hiển thị trở lại bạn chỉ cần bỏ chọn tùy chọn đó."
+  "catblock_safaricontentblockingpausemessage":{
+    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'.",
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
   },
-  "typeobject_subrequest":{
-    "description":"A resource type",
-    "message":"object_subrequest"
+  "adalreadyblocked":{
+    "message":"Tuyệt vời! Vậy là đã xong.",
+    "description":"On the ad report page, telling a user there is nothing to do"
   },
-  "modifypath":{
-    "description":"Caption for the whitelist wizard slider that modifies the path part of a URL",
-    "message":"Trang:"
+  "adreportintro":{
+    "message":"Bạn tìm thấy quảng cáo trên một trang web? Chúng tôi sẽ giúp bạn tìm thấy đúng nơi để báo cáo nó!",
+    "description":"Introduction of the ad reporting page"
   },
-  "buttonblockit":{
-    "description":"Block button",
-    "message":"Chặn!"
+  "typehiding":{
+    "message":"ẩn",
+    "description":"A resource type"
   },
-  "allow_whitelisting_youtube_channels":{
-    "description":"Checkbox on the 'General' tab of the Options page",
-    "message":"Cho phép một số kênh YouTube trong danh sách trắng"
+  "subscribingtitle":{
+    "message":"Đang đăng ký bộ lọc...",
+    "description":"abp: link subscriber title"
   },
-  "catblock_tabcustomizetitle":{
-    "description":"Title of the customize tab",
-    "message":"Customize CatBlock"
+  "blockanadtitle":{
+    "message":"Chặn quảng cáo",
+    "description":"Title of the first two dialogs of the blacklister"
   },
-  "catblock_example_flickr_search":{
-    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\".",
-    "message":"a search for photos (e.g. <i>sailboat race</i>)"
+  "disableotherextensionscomplete":{
+    "message":"Chúng tôi đã vô hiệu hoá tất cả các tiện ích khác. Bây giờ chúng tôi sẽ tải lại trang cùng với quảng cáo. Chỉ vài giây nữa thôi.",
+    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
   },
-  "cantblockflash":{
-    "description":"Result of the final ad report question",
-    "message":"Chúng tôi tạm thời không thể chặn quảng cáo bên trong Flash và các trình cắm khác. Chúng tôi đang chờ sự hỗ tợ từ các trình duyệt và WebKit."
+  "disableyoutubestreamingads":{
+    "message":"Sử dụng chế độ tương thích với ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
   },
-  "filterhungarian":{
-    "description":"language",
-    "message":"Tiếng Hungari"
+  "catblock_adblock_click_for_details":{
+    "message":"CatBlock - click for details",
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
   },
-  "block_this_ad":{
-    "description":"Context and popup menu entry",
-    "message":"Chặn quảng cáo này"
+  "filterstabtitle":{
+    "message":"Đăng ký bộ lọc",
+    "description":"Title of the filter list tab"
   },
-  "catblock_disabled_on_this_page":{
-    "description":"Message shown in toolbar button on web pages that have been whitelisted",
-    "message":"CatBlock is disabled on this page."
+  "filterantisocial":{
+    "message":"Danh sách bộ lọc chặn mạng xã hội (loại bỏ các nút bấm liên quan đến mạng xã hội)",
+    "description":"A filter list"
   },
-  "enable_adblock":{
-    "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'",
-    "message":"Bật AdBlock trên trang này"
+  "filtereasyprivacy":{
+    "message":"EasyPrivacy (bảo vệ sự riêng tư)",
+    "description":"A filter list"
   },
-  "show_on_adblock_button":{
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked",
-    "message":"Hiển thị số quảng cáo bị chặn trên nút AdBlock"
+  "catblock_latest_version":{
+    "message":"CatBlock is up-to-date!",
+    "description":"On the Options > Support page, shows when there are no updates available for CatBlock"
   },
-  "subscribingfailed":{
-    "description":"abp: link subscriber result",
-    "message":"Thất bại!"
+  "filtereasylist_plus_bulgarian":{
+    "message":"Tiếng Bulgaria",
+    "description":"language"
+  },
+  "updatedsecondsago":{
+    "placeholders":{
+      "seconds":{
+        "content":"$1",
+        "example":"15"
+      }
+    },
+    "message":"đã được cập nhật $seconds$ giây trước",
+    "description":"Label for subscription"
+  },
+  "typeunknown":{
+    "message":"không rõ",
+    "description":"A resource type"
+  },
+  "blacklisternotsure":{
+    "message":"<b>Không chắc chắn?</b> bạn chi cần bấm nút 'Chặn' dưới đây.",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "lang_russian":{
+    "message":"Tiếng Nga",
+    "description":"language"
+  },
+  "acceptableadsoption":{
+    "message":"Cho phép những quảng cáo không gây khó chịu",
+    "description":"option on the 'General' tab"
+  },
+  "catblock_you_can_slide_to_change":{
+    "message":"You can slide below to change exactly what pages CatBlock won't run on.",
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
+  },
+  "filtereasylist_plus_arabic":{
+    "message":"Tiếng Ả-Rập",
+    "description":"language"
+  },
+  "checkinfirefox_4":{
+    "message":"Trong trình duyệt đó, tải lại trang cùng với quảng cáo.",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "typeobject":{
+    "message":"interactive object",
+    "description":"A resource type"
+  },
+  "headerresource":{
+    "message":"Nguồn cấp",
+    "description":"Resource list page: title of a column"
+  },
+  "catblock_unpause_adblock":{
+    "message":"Unpause CatBlock",
+    "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'"
+  },
+  "catblock_adblocksupport":{
+    "message":"CatBlock Support",
+    "description":"Title of the support tab"
+  },
+  "show_resourcelist":{
+    "message":"Hiển thị tất cả yêu cầu",
+    "description":"Menu entry to open the resource list page"
+  },
+  "datacollectionoption":{
+    "message":"Cho phép AdBlock thu thập dữ liệu và cách sử dụng danh sách bộ lọc ẩn danh",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "hide_this_button":{
+    "message":"Ẩn nút này",
+    "description":"Toolbar button menu entry to hide the AdBlock button"
+  },
+  "lang_slovak":{
+    "message":"Tiếng Slovakia",
+    "description":"language"
+  },
+  "generaloptions":{
+    "message":"Cài đặt chung",
+    "description":"Title of first tab page"
+  },
+  "orenteraurl":{
+    "message":"Hoặc nhập một địa chỉ:",
+    "description":"Link for custom subscription"
+  },
+  "updatedrightnow":{
+    "message":"vừa được cập nhật",
+    "description":"Label for subscription"
+  },
+  "blacklisternofilter":{
+    "message":"Không có bộ lọc nào được chỉ định!",
+    "description":"Warning if the user hasn't specified a filter"
+  },
+  "legend":{
+    "message":"Chú thích: ",
+    "description":"Resource list page: followed by color codes for various resource statuses (e.g. blocked, whitelisted, hidden)"
+  },
+  "disabled_on_this_page":{
+    "message":"AdBlock đã bị tắt trên trang này.",
+    "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
   "pause_adblock":{
-    "description":"Menu entry to pause AdBlock",
-    "message":"Tạm dừng AdBlock"
+    "message":"Tạm dừng AdBlock",
+    "description":"Menu entry to pause AdBlock"
   },
-  "lang_english":{
-    "description":"language",
-    "message":"Tiếng Anh"
+  "catblock_adblockupdates":{
+    "message":"CatBlock updates",
+    "description":"Subtitle on the Support tab of the options"
   },
-  "showcontextmenus2":{
-    "description":"Checkbox on the 'General' tab of the Options page",
-    "message":"Thêm AdBlock vào menu chuột phải"
+  "englishonly":{
+    "message":"Chỉ có sẵn bằng Tiếng Anh",
+    "description":"Lets the user know that a link/page is available in English only"
   },
-  "adreport_server_response_error__manual_msg_step1":{
-    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report.",
-    "message":"Hãy vào <a>trang web hỗ trợ của chúng tôi</a>."
+  "catblock_filteradblock_custom":{
+    "message":"CatBlock custom filters (recommended)",
+    "description":"A filter list"
   },
-  "filterwarning_removal":{
-    "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically.",
-    "message":"Danh sách loại bỏ cảnh báo Adblock (loại bỏ các cảnh báo về việc sử dụng trình chặn quảng cáo)"
+  "hiddenelement":{
+    "message":"Phần tử bị ẩn",
+    "description":"Resource list page: resource status"
+  },
+  "nodefaultfilter1":{
+    "placeholders":{
+      "link":{
+        "content":"<a id='link'></a>",
+        "example":"<a>here</a>"
+      }
+    },
+    "message":"Chúng tôi không có bộ lọc mặc định cho ngôn ngữ này.<br/>Bạn vui lòng tìm kiếm bộ lọc khác có hỗ trợ ngôn ngữ này $link$ hoặc bạn có thể chặn quảng cáo này bằng tay ở thẻ 'Tùy chỉnh'.",
+    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "pwyw":{
+    "message":"Trả bất cứ thứ gì bạn muốn!",
+    "description":"Text of a payment request link"
+  },
+  "adblocksupport":{
+    "message":"Trung tâm hỗ trợ",
+    "description":"Title of the support tab"
+  },
+  "adreportvoluntary":{
+    "message":"Báo cáo quảng cáo là tự nguyện. Nó giúp những người khác bằng cách giúp chỉnh sửa bộ lọc quảng cáo để có thể chặn quảng cáo cho tất cả mọi người. Nếu bạn không muốn báo cáo, không sao cả. Bạn hãy đóng trang này lại và <a>chặn quảnq cáo</a> chỉ cho mình bạn thôi.",
+    "description":"Introduction of the ad reporting page"
+  },
+  "catblock_disabled_on_this_page":{
+    "message":"CatBlock is disabled on this page.",
+    "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
   "typemain_frame":{
-    "description":"A resource type",
-    "message":"trang"
+    "message":"trang",
+    "description":"A resource type"
+  },
+  "filtereasylist_plus_estonian":{
+    "message":"Tiếng Estonia",
+    "description":"language"
+  },
+  "unsubscribedlabel":{
+    "message":"Đã hủy đăng ký.",
+    "description":"Status label"
+  },
+  "firefox_explanation":{
+    "message":"Mục đích của câu hỏi này là để xác định ai sẽ nhận được báo cáo của bạn. Nếu bạn trả lời câu hỏi này không chính xác, báo cáo sẽ được gửi đến nhầm người. do đó nó có thể bị bỏ qua.",
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
+  },
+  "acceptableadsdisable_how_to_reenable":{
+    "message":"Bạn có thể bật lại và hỗ trợ trang web bạn yêu thích bằng cách chọn \"Cho phép những quảng cáo không gây khó chịu\" dưới đây.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "foundbug":{
+    "message":"Bạn tìm thấy lỗi?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "filtereasylist_plus_german":{
+    "message":"Tiếng Đức",
+    "description":"language"
+  },
+  "correctfilters":{
+    "message":"Hãy chắn chắn bạn dùng đúng ngôn ngữ bộ lọc:",
+    "description":"On the ad report page, label describing having the right set of filters"
+  },
+  "catblock_add_more_photos":{
+    "message":"<b>Add some photos</b> from Flickr!  You can enter:",
+    "description":"Introduction to the examples of custom image lists. Leave the <b> and </b> as they are."
+  },
+  "cleanuplist2":{
+    "message":"Dọn dẹp danh sách này",
+    "description":"Option at the bottom of the 'Customize' options tab"
+  },
+  "checkinfirefox_2":{
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='adblockforchrome'></span>",
+        "example":"'or AdBlock for Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    },
+    "message":"Cài đặt Adblock Plus cho Firefox $chrome$ nếu bạn chưa có.",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad. Don't translate the name 'Adblock Plus'."
+  },
+  "status_paused":{
+    "message":"AdBlock đã bị tạm dừng.",
+    "description":"Message shown in toolbar button when AdBlock is paused"
+  },
+  "catblock_safari50_updatenotice":{
+    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>.",
+    "description":"A message shown to Safari 5.0 users urging them to upgrade"
+  },
+  "stop_blocking_ads":{
+    "message":"Dừng chặn quảng cáo:",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "lang_english":{
+    "message":"Tiếng Anh",
+    "description":"language"
+  },
+  "adreport_response_success":{
+    "message":"Đã xong! Chúng tôi sẽ sớm liên hệ với bạn, rất có thể là ngay trong ngày, hoặc hai ngày nếu là ngày lễ. Trong khi chờ đợi, bạn hãy tìm một email từ AdBlock. Bạn sẽ thấy một liên kết đến thẻ của bạn trên trang giúp đỡ của chúng tôi tại đó. Bạn cũng có thể theo dõi qua email nếu muốn!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "customfilters":{
+    "message":"Danh sách bộ lọc tùy chỉnh",
+    "description":"List for custom filters the user subscribed to"
+  },
+  "disabled_by_filter_lists":{
+    "message":"Xin lỗi, AdBlock đã bị tắt trên trang này bởi một trong số các bộ lọc của bạn.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
+  },
+  "allow_whitelisting_youtube_channels":{
+    "message":"Cho phép một số kênh YouTube trong danh sách trắng",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "safaributton_how_to_hide2":{
+    "message":"Để ẩn nút này, nhấp chuột phải vào thanh công cụ và chọn Customize Toolbar, sau đó kéo nút AdBlock ra khỏi thanh công cụ. Bạn có thể hiển thị nó trở lại bằng cách kéo trở lại thanh công cụ.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
+  },
+  "filteradblock_custom":{
+    "message":"Bộ lọc tùy chỉnh AdBlock (khuyến khích)",
+    "description":"A filter list"
+  },
+  "slidertitle":{
+    "message":"Bước 1: Chọn phần tử để chặn",
+    "description":"Blacklister slider page title"
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"Và tự tạo một thẻ, sau đó chép và dán thông tin dưới đây vào phần \"Điền mọi thông tin chi tiết bạn nghĩ sẽ giúp chúng tôi hiểu được vấn đề của bạn\".",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "whitelist_youtube_channel":{
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    },
+    "message":"Đưa kênh $name$ vào danh sách trắng",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option"
+  },
+  "catblock_contributors":{
+    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Chúng tôi đã tắt Chặn Nội Dung Safari bởi vì bạn đã chọn cho phép những quảng cáo không gây khó chịu. Bạn chỉ có thể chọn một trong hai cùng một lúc. (<a>Tại sao?</a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "blacklisterattrwillbe":{
+    "placeholders":{
+      "value":{
+        "content":"$2",
+        "example":"AdBanner"
+      },
+      "attribute":{
+        "content":"$1",
+        "example":"class"
+      }
+    },
+    "message":"$attribute$ sẽ là $value$",
+    "description":"Checkbox label"
+  },
+  "debuginfo":{
+    "message":"Nhóm của chúng tôi đã yêu cầu một số thông tin để gỡ lỗi chưa? Bấm <a href='#' id='debug'>vào đây</a> để làm điều đó!",
+    "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "blacklisterwarningnofilter":{
+    "message":"Cảnh báo: Không có bộ lọc nào được chỉ định!",
+    "description":"Warns the user that no filter was specified"
+  },
+  "translator_credit":{
+    "message":"Việt hóa bởi:",
+    "description":"Will be followed by a list of translator names (separate string)"
+  },
+  "catblock_tabcustomizetitle":{
+    "message":"Customize CatBlock",
+    "description":"Title of the customize tab"
+  },
+  "whitelistedresource":{
+    "message":"Nguồn được cho phép",
+    "description":"Resource list page: resource status"
+  },
+  "updatedminuteago":{
+    "message":"đã được cập nhật 1 phút trước",
+    "description":"Label for subscription"
+  },
+  "blacklisterblockedelement":{
+    "message":"Phần tử bị chặn:",
+    "description":"Tells the user what the blocked element is on the slider page"
+  },
+  "disableforchromeandsafaristeptwo":{
+    "message":"Bỏ chọn ô 'Đã bật' bên cạnh tất cả các tiện ích khác <b>ngoại trừ</b> AdBlock. <b>Giữ AdBlock luôn bật</b>.",
+    "description":"Step 2 for disabling Chrome and Safari extensions"
+  },
+  "manuallyenableotherextensions":{
+    "message":"Mở trang tiện ích mở rộng để kích hoạt lại các tiện ích mở rộng đã bị vô hiệu hóa trước đây.",
+    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
+  },
+  "updateddaysago":{
+    "placeholders":{
+      "days":{
+        "content":"$1",
+        "example":"15"
+      }
+    },
+    "message":"đã được cập nhật $days$ ngày trước",
+    "description":"Label for subscription"
+  },
+  "filtermalware":{
+    "message":"Chống phần mềm độc hại",
+    "description":"A filter list"
+  },
+  "catblock_excludedomainorurl":{
+    "message":"The domain or url where CatBlock shouldn't block anything",
+    "description":"Message of the exclude area"
+  },
+  "catblock_show_on_adblock_button":{
+    "message":"Show on CatBlock button",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Đính kèm một ảnh chụp màn hình:",
+    "description":"Label next to a file upload button."
+  },
+  "dont_run_on_this_page":{
+    "message":"Không chạy trên trang này",
+    "description":"Menu entry to whitelist a page"
+  },
+  "adreport_filter":{
+    "message":"Nếu bạn đã tạo một bộ lọc sử dụng thuật sĩ \"chặn một quảng cáo\", dán nó vào hộp dưới đây:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
+  "typestylesheet":{
+    "message":"style definition",
+    "description":"A resource type"
+  },
+  "savebutton":{
+    "message":"Lưu",
+    "description":"Save button"
   },
   "confirm_undo_custom_filters":{
-    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset.",
-    "message":"Bạn có chắc chắn muốn gõ bỏ $count$ khối quảng cáo mà bạn đã chặn trên $host$?",
     "placeholders":{
       "count":{
         "content":"$1",
@@ -505,885 +711,731 @@
         "content":"$2",
         "example":"code.google.ph, ph.msn.com, stackoverflow.com"
       }
-    }
-  },
-  "legend":{
-    "description":"Resource list page: followed by color codes for various resource statuses (e.g. blocked, whitelisted, hidden)",
-    "message":"Chú thích: "
-  },
-  "catblock_storage_quota_exceeded":{
-    "description":"Message shown when the user uses more storage than allowed by the browser",
-    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!"
-  },
-  "updatedminutesago":{
-    "description":"Label for subscription",
-    "message":"đã được cập nhật $minutes$ phút trước",
-    "placeholders":{
-      "minutes":{
-        "content":"$1",
-        "example":"15"
-      }
-    }
-  },
-  "adreport_screen_cap_upload":{
-    "description":"Label next to a file upload button.",
-    "message":"Đính kèm một ảnh chụp màn hình:"
-  },
-  "filtereasylist_plus_romanian":{
-    "description":"language",
-    "message":"Tiếng Rumani"
-  },
-  "manualexcludefilteredit":{
-    "description":"Subtitle on the 'Customize' tab",
-    "message":"Chỉnh sửa bộ lọc bị vô hiệu hóa:"
-  },
-  "subframe":{
-    "description":"Resource list page: frame type",
-    "message":"Frame phụ"
-  },
-  "reloadadpage":{
-    "description":"Instruction on ad report page",
-    "message":"Tải lại trang cùng với quảng cáo."
-  },
-  "safaricontentblocking":{
-    "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9.",
-    "message":"Bật Chặn Nội Dung Safari"
-  },
-  "checkinfirefox_1":{
-    "description":"instruction for how to check Firefox/Chrome for a reported ad",
-    "message":"Cài đặt Firefox $chrome$ nếu bạn chưa cài đặt 2 trình duyệt này.",
-    "placeholders":{
-      "chrome":{
-        "content":"<span id='chrome2'></span>",
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
-      }
-    }
-  },
-  "tabfilterlists":{
-    "description":"A tab on the options page",
-    "message":"Danh sách bộ lọc"
-  },
-  "adreport_filter":{
-    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock.",
-    "message":"Nếu bạn đã tạo một bộ lọc sử dụng thuật sĩ \"chặn một quảng cáo\", dán nó vào hộp dưới đây:"
-  },
-  "adreport_response_large_file":{
-    "description":"Error message shown when the user tries to upload a large image file.",
-    "message":"Tập tin quá lớn. Hãy đảm bảo rằng tập tin của bạn nhỏ hơn 10 MB."
-  },
-  "adblock_wont_run_on_pages_matching":{
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line.",
-    "message":"AdBlock sẽ không chạy trên những trang có đường dẫn này:"
-  },
-  "filterchinese":{
-    "description":"language",
-    "message":"Tiếng Trung"
-  },
-  "blacklistereditinvalid1":{
-    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated.",
-    "message":"Bộ lọc không hợp lệ: $exception$",
-    "placeholders":{
-      "exception":{
-        "content":"$1",
-        "example":"This filter is not supported"
-      }
-    }
-  },
-  "subscribingtitle":{
-    "description":"abp: link subscriber title",
-    "message":"Đang đăng ký bộ lọc..."
-  },
-  "manuallyenableotherextensions":{
-    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions",
-    "message":"Mở trang tiện ích mở rộng để kích hoạt lại các tiện ích mở rộng đã bị vô hiệu hóa trước đây."
-  },
-  "malwarenotificationdisablethesemessages":{
-    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!",
-    "message":"Vô hiệu hóa những thông báo này"
-  },
-  "filterturkish":{
-    "description":"A filter list",
-    "message":"Tiếng Thổ Nhĩ Kỳ"
-  },
-  "filterlistlink":{
-    "description":"Explanation of the filter lists",
-    "message":"Bạn chỉ nên đăng ký những bộ lọc cần thiết -- sử dụng nhiều bộ lọc sẽ làm chậm trình duyệt của bạn! Danh sách bộ lọc bạn có thể tìm thấy <a>ở đây</a>."
-  },
-  "typesubdocument":{
-    "description":"A resource type",
-    "message":"frame"
-  },
-  "filtereasylist_plus_indonesian":{
-    "description":"A filter list",
-    "message":"Tiếng Indonesia"
-  },
-  "typeimage":{
-    "description":"A resource type",
-    "message":"ảnh"
-  },
-  "blocked_n_in_total":{
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999.",
-    "message":"$count$ trong tổng số",
-    "placeholders":{
-      "count":{
-        "content":"<a>123,456</a>",
-        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
-      }
-    }
-  },
-  "buttoncancel":{
-    "description":"Cancel button",
-    "message":"Hủy bỏ"
-  },
-  "savereminder":{
-    "description":"Reminder to press save",
-    "message":"Đừng quên lưu lại bộ lọc!"
-  },
-  "catblock_contributors":{
-    "description":"Link to the contributors page on the Support tab of the options",
-    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!"
-  },
-  "typeselector":{
-    "description":"A resource type",
-    "message":"chọn"
-  },
-  "content_blocking_acceptable_ads_disbled_message":{
-    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled.",
-    "message":"Chúng tôi đã tắt Chặn Nội Dung Safari bởi vì bạn đã chọn cho phép những quảng cáo không gây khó chịu. Bạn chỉ có thể chọn một trong hai cùng một lúc. (<a>Tại sao?</a>)"
-  },
-  "filtericelandic":{
-    "description":"language",
-    "message":"Tiếng Icecland"
-  },
-  "adblockinglist":{
-    "description":"List for subscribed ad blocking fiters",
-    "message":"Danh sách các bộ lọc chặn quảng cáo"
-  },
-  "only_block_ads_on_these_sites":{
-    "description":"Label for textbox where user enters a list of sites on Customize tab",
-    "message":"Chỉ chặn quảng cáo trên những trang web này:"
-  },
-  "resourcedomain":{
-    "description":"Resource list page: text shown when hovering over an item in the third-party column",
-    "message":"Tải trên trang với tên miền:\n$domain$",
-    "placeholders":{
-      "domain":{
-        "content":"$1",
-        "example":"example.com"
-      }
-    }
-  },
-  "enableotherextensionscomplete":{
-    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled",
-    "message":"Những tiện ích mở rộng bị vô hiệu hóa trước đây đã được kích hoạt lại."
-  },
-  "catblock_disabled_by_filter_lists":{
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list",
-    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists."
-  },
-  "cleanuplist2":{
-    "description":"Option at the bottom of the 'Customize' options tab",
-    "message":"Dọn dẹp danh sách này"
-  },
-  "spread_the_word":{
-    "description":"Text of a share link",
-    "message":"Chia sẻ!"
-  },
-  "catblock_enable_adblock":{
-    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'",
-    "message":"Enable CatBlock on this page"
-  },
-  "catblock_safarinotificationbody":{
-    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules",
-    "message":"Please disable some filter lists. More information in CatBlock's Options."
-  },
-  "optionstitle":{
-    "description":"Title for the options page",
-    "message":"Tùy chọn AdBlock"
-  },
-  "catblock_latest_version":{
-    "description":"On the Options > Support page, shows when there are no updates available for CatBlock",
-    "message":"CatBlock is up-to-date!"
-  },
-  "adreport_server_response_error_msg":{
-    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data.",
-    "message":"Đã có lỗi khi xử lý yêu cầu của bạn."
-  },
-  "updatedhourago":{
-    "description":"Label for subscription",
-    "message":"đã được cập nhật 1 giờ trước"
-  },
-  "checkforupdates":{
-    "description":"Displayed when AdBlock is checking the newest available version",
-    "message":"Đang kiểm tra cập nhật (chỉ mất vài giây thôi)..."
-  },
-  "updatedrightnow":{
-    "description":"Label for subscription",
-    "message":"vừa được cập nhật"
-  },
-  "blacklistclickmessage":{
-    "description":"Message at the top of the blacklist options tab",
-    "message":"Nhấp chuột phải vào quảng cáo để chặn -- hoặc chặn bằng tay ở đây."
-  },
-  "malwarecheck":{
-    "description":"Section header on the ad report page",
-    "message":"Kiểm tra phần mềm độc hại có thể chèn quảng cáo:"
-  },
-  "adblocksupport":{
-    "description":"Title of the support tab",
-    "message":"Trung tâm hỗ trợ"
-  },
-  "headertype":{
-    "description":"Resource list page: title of a column",
-    "message":"Loại"
-  },
-  "sliderexplanation":{
-    "description":"Blacklister slider page message",
-    "message":"Trượt thanh trượt cho đến khi chọn đúng quảng cáo cần chặn, và các phần tử bị chặn sẽ trở nên hữu ích."
-  },
-  "updatedminuteago":{
-    "description":"Label for subscription",
-    "message":"đã được cập nhật 1 phút trước"
-  },
-  "typesub_frame":{
-    "description":"A resource type",
-    "message":"frame"
-  },
-  "blockedresource":{
-    "description":"Resource list page: resource status",
-    "message":"Nguồn bị chặn"
-  },
-  "adreport_all_debug_info":{
-    "description":"Shows the user the debug information that will be sent along with their report.",
-    "message":"Thông tin sau sẽ được kèm theo trong báo cáo quảng cáo."
-  },
-  "filterdanish":{
-    "description":"language",
-    "message":"Tiếng Đan Mạch"
-  },
-  "disableaa":{
-    "description":"Section header on the ad report page",
-    "message":"Kiểm tra những bộ lọc Quảng Cáo Chấp Nhận Được:"
-  },
-  "acceptableadsdisable_how_to_reenable":{
-    "description":"Message shown to users after disabling Acceptable Ads via update page.",
-    "message":"Bạn có thể bật lại và hỗ trợ trang web bạn yêu thích bằng cách chọn \"Cho phép những quảng cáo không gây khó chịu\" dưới đây."
-  },
-  "catblock_adblockreportinganad":{
-    "description":"Title of the ad report page",
-    "message":"CatBlock - Reporting an ad"
-  },
-  "catblock_whatmakesadblocktick":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"Want to see what makes CatBlock tick?"
-  },
-  "fetchinglabel":{
-    "description":"Status label",
-    "message":"Đang lấy dữ liệu... vui lòng chờ trong giây lát."
-  },
-  "invalidListUrl":{
-    "description":"Message when you subscribe to a non-list URL",
-    "message":"Địa chỉ bộ lọc không hợp lệ. Bộ lọc sẽ bị xóa."
-  },
-  "generaloptions":{
-    "description":"Title of first tab page",
-    "message":"Cài đặt chung"
-  },
-  "catblock_status_disabled":{
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank",
-    "message":"CatBlock can not run on this domain."
-  },
-  "disableforchromeandsafaristeptwo":{
-    "description":"Step 2 for disabling Chrome and Safari extensions",
-    "message":"Bỏ chọn ô 'Đã bật' bên cạnh tất cả các tiện ích khác <b>ngoại trừ</b> AdBlock. <b>Giữ AdBlock luôn bật</b>."
-  },
-  "checkinfirefox_4":{
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad",
-    "message":"Trong trình duyệt đó, tải lại trang cùng với quảng cáo."
-  },
-  "show_ads_except_for":{
-    "description":"Section title for blacklisting section of Customize tab",
-    "message":"Hiển thị quảng cáo <i>ở tất cả mọi nơi</i> trừ những tên miền này..."
-  },
-  "adreport_missing_screenshot":{
-    "description":"Error message shown when the user doesn't attach a screenshot to an ad report.",
-    "message":"Bạn quên đính kèm ảnh chụp màn hình rồi! Chúng tôi không thể giúp bạn nếu không thấy (những) quảng cáo mà bạn đang báo cáo."
-  },
-  "catblock_debuginlogoption":{
-    "description":"Checkbox on the 'General' tab of the Options page",
-    "message":"Show debug statements in Console Log (which slows down CatBlock)"
-  },
-  "adreport_server_response_error__manual_msg_step2":{
-    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report.",
-    "message":"Và tự tạo một thẻ, sau đó chép và dán thông tin dưới đây vào phần \"Điền mọi thông tin chi tiết bạn nghĩ sẽ giúp chúng tôi hiểu được vấn đề của bạn\"."
-  },
-  "catblock_whitelistertitle2":{
-    "description":"The title of the whitelister dialog",
-    "message":"Don't run CatBlock on..."
-  },
-  "chromebutton_how_to_hide2":{
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button.",
-    "message":"Để ẩn nút này, nhấp chuột phải và chọn 'Nút ẩn'. Để hiển thị trở lại bạn bấm vào 'Nút hiển thị' ở đây chrome://chrome/extensions."
-  },
-  "catblock_you_know_thats_a_bad_idea_right":{
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel.",
-    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway."
-  },
-  "filterisraeli":{
-    "description":"language",
-    "message":"Tiếng Do Thái"
-  },
-  "wizardcantrunonframesets":{
-    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website",
-    "message":"Tính năng này của AdBlock không hoạt động trên trang này bởi vì nó sử dụng công nghệ đã lỗi thời. Bạn có thể dùng danh sách đen hoặc danh sách trắng để chặn bằng tay trong thẻ 'Tùy Chỉnh' trên trang tùy chọn."
-  },
-  "filterczech":{
-    "description":"Language names for a filter list",
-    "message":"Tiếng Séc và Slovakia"
-  },
-  "disableotherextensionscomplete":{
-    "description":"On the ad report page, alert notifying users that we've disabled all other extensions",
-    "message":"Chúng tôi đã vô hiệu hoá tất cả các tiện ích khác. Bây giờ chúng tôi sẽ tải lại trang cùng với quảng cáo. Chỉ vài giây nữa thôi."
-  },
-  "otherfilters":{
-    "description":"List for other filters the user subscribed to",
-    "message":"Các bộ lọc khác"
-  },
-  "updatenowmessage2":{
-    "description":"Update filters text + button",
-    "message":"AdBlock sẽ cập nhật bộ lọc một cách tự động; bạn cũng có thể <a>cập nhật ngay</a>"
-  },
-  "show_resourcelist":{
-    "description":"Menu entry to open the resource list page",
-    "message":"Hiển thị tất cả yêu cầu"
-  },
-  "catblock_adblock_outdated_chrome":{
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'",
-    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'"
-  },
-  "you_know_thats_a_bad_idea_right":{
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel.",
-    "message":"Bạn sử dụng càng nhiều bộ lọc thì AdBlock chạy càng chậm. Thậm chí một số website còn bị treo nếu bạn sử dụng quá nhiều bộ lọc. Nếu bạn vẫn muốn đăng ký bộ lọc này, nhấp OK."
-  },
-  "adalreadyblocked":{
-    "description":"On the ad report page, telling a user there is nothing to do",
-    "message":"Tuyệt vời! Vậy là đã xong."
-  },
-  "betalabel":{
-    "description":"Label for beta features in AdBlock Options",
-    "message":"Beta"
-  },
-  "disableforchromestepone":{
-    "description":"Step 1 for disabling Chrome extensions",
-    "message":"Mở <a href='#'>trang tiện ích</a>."
-  },
-  "adreport_response_success":{
-    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully.",
-    "message":"Đã xong! Chúng tôi sẽ sớm liên hệ với bạn, rất có thể là ngay trong ngày, hoặc hai ngày nếu là ngày lễ. Trong khi chờ đợi, bạn hãy tìm một email từ AdBlock. Bạn sẽ thấy một liên kết đến thẻ của bạn trên trang giúp đỡ của chúng tôi tại đó. Bạn cũng có thể theo dõi qua email nếu muốn!"
-  },
-  "aalinkadreport":{
-    "description":"Acceptable Ads link message on ad report page",
-    "message":"Tìm hiểu thêm về chương trình Quảng Cáo Chấp Nhận Được."
-  },
-  "malwarenotificationcheckboxmessage":{
-    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page",
-    "message":"Bạn có muốn AdBlock thông báo cho bạn khi phát hiện ra malware không?"
-  },
-  "updateddayago":{
-    "description":"Label for subscription",
-    "message":"đã được cập nhật 1 ngày trước"
-  },
-  "frameurl":{
-    "description":"Resource list page: full URL of the frame",
-    "message":"URL frame: "
-  },
-  "filtereasylist_plus_german":{
-    "description":"language",
-    "message":"Tiếng Đức"
-  },
-  "catblock_adblocksupport":{
-    "description":"Title of the support tab",
-    "message":"CatBlock Support"
-  },
-  "adreport_response_file_name":{
-    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters.",
-    "message":"Tên tập tin quá dài. Hãy đặt tên tập tin ngắn hơn."
-  },
-  "updatedsecondsago":{
-    "description":"Label for subscription",
-    "message":"đã được cập nhật $seconds$ giây trước",
-    "placeholders":{
-      "seconds":{
-        "content":"$1",
-        "example":"15"
-      }
-    }
-  },
-  "dont_run_on_this_page":{
-    "description":"Menu entry to whitelist a page",
-    "message":"Không chạy trên trang này"
-  },
-  "supportsite":{
-    "description":"Link to the support site on the Support tab of the options",
-    "message":"Hãy cho chúng tôi biết trên <a>trang hỗ trợ</a> của chúng tôi!"
-  },
-  "catblock_you_can_slide_to_change":{
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases.",
-    "message":"You can slide below to change exactly what pages CatBlock won't run on."
+    },
+    "message":"Bạn có chắc chắn muốn gõ bỏ $count$ khối quảng cáo mà bạn đã chặn trên $host$?",
+    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset."
   },
   "buttonok":{
-    "description":"OK button",
-    "message":"OK!"
+    "message":"OK!",
+    "description":"OK button"
   },
-  "tabreloadcomplete":{
-    "description":"On the ad report page, alert notifying users that we've disabled all other extensions",
-    "message":"Đã xong! Chúng tôi đã tải lại trang cùng với quảng cáo. Vui lòng kiểm tra lại trang xem quảng cáo đã mất hay chưa. Sau đó quay lại trang này và trả lời những câu hỏi dưới đây."
+  "modifypath":{
+    "message":"Trang:",
+    "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
   },
-  "resourceblocktitle":{
-    "description":"Resource list page name",
-    "message":"Tất cả nguồn"
+  "no":{
+    "message":"Không",
+    "description":"A negative response to a question"
   },
-  "whitelist_youtube_channel":{
-    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
-    "message":"Đưa kênh $name$ vào danh sách trắng",
-    "placeholders":{
-      "name":{
-        "content":"$1",
-        "example":"Name of channel"
-      }
-    }
+  "safaricontentblockingpausemessage":{
+    "message":"Để tạm dừng AdBlock với Chặn Nội Dung Safari được bật, vui lòng chọn Safari (trong thanh trình đơn) > Tùy chọn > Tiện ích mở rộng > AdBlock, và bỏ chọn 'Bật AdBlock'.",
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
   },
-  "headerresource":{
-    "description":"Resource list page: title of a column",
-    "message":"Nguồn cấp"
+  "typemedia":{
+    "message":"audio/video",
+    "description":"A resource type"
   },
-  "catblock_adblock_click_for_details":{
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button.",
-    "message":"CatBlock - click for details"
-  },
-  "show_on_adblock_menu":{
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked",
-    "message":"Hiển thị số quảng cáo bị chặn trên menu AdBlock"
-  },
-  "adblockreportinganad":{
-    "description":"Title of the ad report page",
-    "message":"AdBlock - Báo cáo một quảng cáo"
-  },
-  "how":{
-    "description":"Text of a link pointing to instructions on how to do something",
-    "message":"Cách dùng?"
-  },
-  "dont_run_on_pages_on_domain":{
-    "description":"Menu entry to open the whitelist wizard",
-    "message":"Không chạy trên trang của những tên miền này"
-  },
-  "customfilters":{
-    "description":"List for custom filters the user subscribed to",
-    "message":"Danh sách bộ lọc tùy chỉnh"
-  },
-  "blockmoreads":{
-    "description":"Section header on the 'Customize' tab",
-    "message":"Chặn thêm quảng cáo:"
-  },
-  "catblock_safaricontentblockingpausemessage":{
-    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled",
-    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'."
-  },
-  "adreport_missing_info":{
-    "description":"Error message shown when the user doesn't enter anything in some of the text fields.",
-    "message":"Thông tin được yêu cầu còn thiếu hoặc không hợp lệ. Hãy điền vào những câu hỏi có khung màu đỏ."
-  },
-  "excludedomainorurl":{
-    "description":"Message of the exclude area",
-    "message":"Tên miền hoặc url mà AdBlock không chặn bất cứ thứ gì"
-  },
-  "acceptableadsdisable_done":{
-    "description":"Message shown to users after disabling Acceptable Ads via update page.",
-    "message":"Bạn đã không còn đăng ký bộ lọc Quảng Cáo Chấp Nhận Được."
-  },
-  "filterannoyances":{
-    "description":"A filter list",
-    "message":"Fanboy's Annoyances (loại bỏ những sự khó chịu trên Web)"
-  },
-  "malwarenotificationmessage":{
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!",
-    "message":"AdBlock đã chặn tải xuống từ một trang được biết có chứa mã độc."
-  },
-  "savebutton":{
-    "description":"Save button",
-    "message":"Lưu"
-  },
-  "blacklisternotsure":{
-    "description":"Blacklister attribute choosing page message",
-    "message":"<b>Không chắc chắn?</b> bạn chi cần bấm nút 'Chặn' dưới đây."
-  },
-  "adreport_laststep":{
-    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers.",
-    "message":"Bước cuối cùng: báo cáo vấn đề cho chúng tôi."
+  "invalidListUrl":{
+    "message":"Địa chỉ bộ lọc không hợp lệ. Bộ lọc sẽ bị xóa.",
+    "description":"Message when you subscribe to a non-list URL"
   },
   "catblock_pause_adblock":{
-    "description":"Menu entry to pause CatBlock",
-    "message":"Pause CatBlock"
+    "message":"Pause CatBlock",
+    "description":"Menu entry to pause CatBlock"
   },
-  "adreport_location":{
-    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage.",
-    "message":"Chính xác thì quảng cáo ở đâu trên trang? Nó trông như thế nào?"
+  "catblock_status_paused":{
+    "message":"CatBlock is paused.",
+    "description":"Message shown in toolbar button when CatBlock is paused"
+  },
+  "lang_czech":{
+    "message":"Tiếng Séc",
+    "description":"language"
+  },
+  "checkinfirefoxtitle":{
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='chrome1'></span>",
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    },
+    "message":"Kiểm tra trên Firefox $chrome$",
+    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome"
   },
   "buttonlooksgood":{
-    "description":"Looks good button",
-    "message":"Đẹp rồi"
+    "message":"Đẹp rồi",
+    "description":"Looks good button"
   },
-  "catblock_adblockupdates":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"CatBlock updates"
+  "filtereasylist_plus_finnish":{
+    "message":"Tiếng Phần Lan",
+    "description":"language"
   },
-  "datacollectionoption":{
-    "description":"Checkbox on the 'General' tab of the Options page",
-    "message":"Cho phép AdBlock thu thập dữ liệu và cách sử dụng danh sách bộ lọc ẩn danh"
+  "adreport_all_debug_info":{
+    "message":"Thông tin sau sẽ được kèm theo trong báo cáo quảng cáo.",
+    "description":"Shows the user the debug information that will be sent along with their report."
   },
-  "checkinternetconnection":{
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page",
-    "message":"Để báo cáo một quảng cáo, bạn phải có kết nối đến internet."
+  "other":{
+    "message":"Khác",
+    "description":"Multiple choice option"
   },
-  "subscribeconfirm":{
-    "description":"Prompt question before subscribing to the filter list",
-    "message":"Bạn có chắc bạn muốn đăng ký bộ lọc $title$ không?",
+  "malwarewarning":{
+    "message":"Máy tính của bạn có thể đã bị nhiễm mã độc. Bấm <a>vào đây</a> để biết thêm chi tiết.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware/adware"
+  },
+  "bugreport":{
+    "message":"Sao bạn không gửi một <a>báo cáo lỗi</a> cho chúng tôi?",
+    "description":"Link to send a bug report on the Support tab of the options"
+  },
+  "buttonsubmit":{
+    "message":"Gửi",
+    "description":"Button to send a form."
+  },
+  "filterdanish":{
+    "message":"Tiếng Đan Mạch",
+    "description":"language"
+  },
+  "supportsite":{
+    "message":"Hãy cho chúng tôi biết trên <a>trang hỗ trợ</a> của chúng tôi!",
+    "description":"Link to the support site on the Support tab of the options"
+  },
+  "adstillappear":{
+    "message":"Quảng cáo vẫn còn xuất hiện phải không?",
+    "description":"Question on ad report page"
+  },
+  "catblock_malwarenotificationcheckboxmessage":{
+    "message":"Should CatBlock notify you when it detects malware?",
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
+  },
+  "contributors":{
+    "message":"Chúng tôi cũng đã có một <a>trang</a> để giúp bạn tìm hiểu về những người đứng sau AdBlock!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "somethingwentwrong":{
+    "message":"Đã xảy ra lỗi trong khi kiểm tra cập nhật.",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
+  },
+  "catblock_you_know_thats_a_bad_idea_right":{
+    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway.",
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
+  },
+  "subframe":{
+    "message":"Frame phụ",
+    "description":"Resource list page: frame type"
+  },
+  "adblockreportinganad":{
+    "message":"AdBlock - Báo cáo một quảng cáo",
+    "description":"Title of the ad report page"
+  },
+  "frameurl":{
+    "message":"URL frame: ",
+    "description":"Resource list page: full URL of the frame"
+  },
+  "savereminder":{
+    "message":"Đừng quên lưu lại bộ lọc!",
+    "description":"Reminder to press save"
+  },
+  "refusetocheck":{
+    "message":"Tôi không muốn kiểm tra cái này",
+    "description":"User is telling us they don't wish to investigate something for us"
+  },
+  "catblock_example_flickr_id":{
     "placeholders":{
-      "title":{
-        "content":"$1",
-        "example":"Prebake"
+      "example":{
+        "content":"<i>346406</i>"
       }
-    }
-  },
-  "updateddaysago":{
-    "description":"Label for subscription",
-    "message":"đã được cập nhật $days$ ngày trước",
-    "placeholders":{
-      "days":{
-        "content":"$1",
-        "example":"15"
-      }
-    }
-  },
-  "typeobject":{
-    "description":"A resource type",
-    "message":"interactive object"
-  },
-  "blacklisteroptions1":{
-    "description":"Blacklister attribute choosing page message",
-    "message":"Bạn nghĩ điều gì sẽ đúng về quảng cáo này mỗi khi bạn truy cập trang này?"
-  },
-  "blocked_ads":{
-    "description":"Title for popup menu section showing number of ads blocked",
-    "message":"Số quảng cáo đã bị chặn:"
-  },
-  "catblock_show_on_adblock_button":{
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked",
-    "message":"Show on CatBlock button"
-  },
-  "filtereasylist_plus_arabic":{
-    "description":"language",
-    "message":"Tiếng Ả-Rập"
-  },
-  "undo_last_block":{
-    "description":"Menu entry to let the user cancel the result of running the blacklist wizard",
-    "message":"Hủy bỏ lệnh chặn của tôi trên tên miền này"
-  },
-  "manualfilteredit":{
-    "description":"Subtitle on the 'Customize' tab",
-    "message":"Chỉnh sửa bộ lọc bằng tay:"
-  },
-  "slidertitle":{
-    "description":"Blacklister slider page title",
-    "message":"Bước 1: Chọn phần tử để chặn"
-  },
-  "blacklistereditfilter":{
-    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text.",
-    "message":"Vui lòng nhập đúng bộ lọc dưới đây và bấm OK"
-  },
-  "translator_credit":{
-    "description":"Will be followed by a list of translator names (separate string)",
-    "message":"Việt hóa bởi:"
-  },
-  "latest_version":{
-    "description":"On the Options > Support page, shows when there are no updates available for AdBlock",
-    "message":"AdBlock đã được cập nhật!"
-  },
-  "englishonly":{
-    "description":"Lets the user know that a link/page is available in English only",
-    "message":"Chỉ có sẵn bằng Tiếng Anh"
-  },
-  "clickdisableotherextensions":{
-    "description":"On the ad report page, an alternative way to disable other extensions",
-    "message":"<b>HOẶC</b>, chỉ cần kích vào nút này để chúng tôi làm tất cả những việc trên:<a>Vô hiệu hóa tất cả các tiện ích mở rộng</a>"
-  },
-  "whatsnew":{
-    "description":"Link to display the changelog on the Support tab of the options",
-    "message":"Có gì mới trong phiên bản mới nhất? Xem <a style='cursor:pointer;'>các thay đổi</a>!"
-  },
-  "filterantisocial":{
-    "description":"A filter list",
-    "message":"Danh sách bộ lọc chặn mạng xã hội (loại bỏ các nút bấm liên quan đến mạng xã hội)"
-  },
-  "filtermalware":{
-    "description":"A filter list",
-    "message":"Chống phần mềm độc hại"
-  },
-  "advanced_options2":{
-    "description":"Checkbox on the 'General' tab of the Options page",
-    "message":"Hiển thị các tùy chọn nâng cao"
-  },
-  "storage_quota_exceeded":{
-    "description":"Message shown when the user uses more storage than allowed by the browser",
-    "message":"Bạn đã vượt quá dung lượng lưu trữ mà AdBlock có thể sử dụng. Vui lòng bỏ đăng ký một số bộ lọc của bạn!"
-  },
-  "catblock_safaributton_how_to_hide2":{
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu.",
-    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar."
+    },
+    "message":"a Flickr photoset ID (e.g. $example$)",
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
   },
   "adreport_email":{
-    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report.",
-    "message":"Địa chỉ email của bạn là gì?"
+    "message":"Địa chỉ email của bạn là gì?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
   },
-  "whatmakesadblocktick":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"Bạn muốn tìm hiểu cách AdBlock hoạt động?"
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Chúng tôi đã bỏ đăng ký bạn khỏi Quảng Cáo Chấp Nhận Được bởi vì bạn đã bật Chặn Nội Dung Safari. Bạn chỉ có thể chọn một trong hai cùng một lúc. (<a>Tại sao?</a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
   },
-  "catblock_disableallextensions":{
-    "description":"Instruction on ad report page",
-    "message":"Disable all extensions except for CatBlock."
+  "catblock_check_checkbox":{
+    "message":"Check the checkbox by the sets of pictures that you want to use.",
+    "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock."
   },
-  "linkhidesection":{
-    "description":"Link on the 'Customize' tab",
-    "message":"Ẩn một phần của trang web"
+  "resourceblocktitle":{
+    "message":"Tất cả nguồn",
+    "description":"Resource list page name"
   },
-  "tabgeneral":{
-    "description":"A tab on the options page",
-    "message":"Tổng quan"
-  },
-  "oradblockforchrome":{
-    "description":"Used for placeholder in checkinfirefox_2 string",
-    "message":"hoặc AdBlock cho Chrome"
-  },
-  "flashads":{
-    "description":"Title of the final ad report question if the ad didn't appear in Firefox",
-    "message":"Video và Flash"
-  },
-  "reenableadsonebyone":{
-    "description":"Tells the user to reenable the extensions one by one",
-    "message":"Tuyệt vời! Bây giờ hãy tìm hiểu xem tiện ích nào là nguyên nhân gây ra quảng cáo. Bật lần lượt từng tiện ích một, tiện ích nào khi bật gây ra quảng cáo chính là tiện ích bạn cần gỡ bỏ để loại bỏ quảng cáo."
-  },
-  "catblock_update_available":{
-    "description":"On the Options > Support page, shows when there are updates available for CatBl",
-    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'.",
-    "placeholders":{
-      "here":{
-        "content":"<a id='here'></a>",
-        "example":"<a>here</a>"
-      }
-    }
-  },
-  "orchrome":{
-    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings",
-    "message":"hoặc Chrome"
-  },
-  "format_site1_site2_site3":{
-    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place.",
-    "message":"Cấu trúc: ~site1.com|~site2.com|~news.site3.org"
-  },
-  "pwyw":{
-    "description":"Text of a payment request link",
-    "message":"Trả bất cứ thứ gì bạn muốn!"
+  "buttonedit":{
+    "message":"Chỉnh sửa",
+    "description":"Edit filter manually button"
   },
   "reportfilterlistproblem":{
-    "description":"Telling the user to report an ad to a filter list maintainer",
-    "message":"Đây là lỗi của bộ lọc. Bạn có thể báo cáo nó ở đây: $link$",
     "placeholders":{
       "link":{
         "content":"$1",
         "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe</a>  EXAMPLE 2: <a href='http://easylist.org'>EasyList forums</a>"
       }
-    }
+    },
+    "message":"Đây là lỗi của bộ lọc. Bạn có thể báo cáo nó ở đây: $link$",
+    "description":"Telling the user to report an ad to a filter list maintainer"
   },
-  "reportpubliclyavailable":{
-    "description":"Ad report page string, when you're about to submit a report",
-    "message":"Lưu ý: báo cáo của bạn có thể được công bố công khai. Hãy lưu ý điều đó trước khi bạn báo cáo điều gì đó riêng tư."
-  },
-  "filteritalian":{
-    "description":"language",
-    "message":"Tiếng Ý"
-  },
-  "catblock_example_flickr_id":{
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\".",
-    "message":"a Flickr photoset ID (e.g. $example$)",
-    "placeholders":{
-      "example":{
-        "content":"<i>346406</i>"
-      }
-    }
-  },
-  "adstillappear":{
-    "description":"Question on ad report page",
-    "message":"Quảng cáo vẫn còn xuất hiện phải không?"
-  },
-  "correctfilters":{
-    "description":"On the ad report page, label describing having the right set of filters",
-    "message":"Hãy chắn chắn bạn dùng đúng ngôn ngữ bộ lọc:"
-  },
-  "updateyourlists":{
-    "description":"Section header on the ad report page",
-    "message":"Hãy chắc chắn rằng danh sách bộ lọc của bạn luôn được cập nhật:"
-  },
-  "somethingwentwrong":{
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs",
-    "message":"Đã xảy ra lỗi trong khi kiểm tra cập nhật."
+  "adblockinglist":{
+    "message":"Danh sách các bộ lọc chặn quảng cáo",
+    "description":"List for subscribed ad blocking fiters"
   },
   "disableforsafaristepone":{
-    "description":"Step 1 for disabling Safari extensions",
-    "message":"Nhấp vào menu Safari chọn &rarr; Preferences &rarr; Extensions."
+    "message":"Nhấp vào menu Safari chọn &rarr; Preferences &rarr; Extensions.",
+    "description":"Step 1 for disabling Safari extensions"
   },
-  "buttonsubmit":{
-    "description":"Button to send a form.",
-    "message":"Gửi"
+  "modifydomain":{
+    "message":"Trang web:",
+    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL"
   },
-  "catblock_malwarenotificationcheckboxmessage":{
-    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page",
-    "message":"Should CatBlock notify you when it detects malware?"
+  "adblock_outdated_chrome":{
+    "message":"Bạn đang sử dụng phiên bản cũ của AdBlock. Vui lòng đi đến <a href='#'>tiện ích mở rộng</a>, bật 'Chế độ dành cho nhà phát triển' và nhấp 'Cập nhật'",
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
   },
-  "catblock_example_flickr_url":{
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\".",
-    "message":"a Flickr photoset URL (e.g. $example$)",
+  "updateddayago":{
+    "message":"đã được cập nhật 1 ngày trước",
+    "description":"Label for subscription"
+  },
+  "browserestartrequired":{
+    "message":"Vui lòng khởi động lại Safari để hoàn tất việc tắt Chặn Nội Dung.",
+    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
+  },
+  "unpause_adblock":{
+    "message":"Hủy tạm dừng AdBlock",
+    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
+  },
+  "filtericelandic":{
+    "message":"Tiếng Icecland",
+    "description":"language"
+  },
+  "catblock_adblockreportinganad":{
+    "message":"CatBlock - Reporting an ad",
+    "description":"Title of the ad report page"
+  },
+  "enableotherextensionscomplete":{
+    "message":"Những tiện ích mở rộng bị vô hiệu hóa trước đây đã được kích hoạt lại.",
+    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled"
+  },
+  "orchrome":{
+    "message":"hoặc Chrome",
+    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
+  },
+  "filteracceptable_ads":{
+    "message":"Quảng Cáo Chấp Nhận Được (được khuyến khích)",
+    "description":"A filter list"
+  },
+  "filtereasylist_plus_greek":{
+    "message":"Tiếng Hy Lạp",
+    "description":"language"
+  },
+  "contentblockingwarning":{
+    "message":"Lưu ý: Danh sách trắng (cho phép hiển thị quảng cáo) một trang hoặc địa chỉ chưa được hỗ trợ với Chặn Nội Dung Safari được bật.",
+    "description":"Notice shown on the 'Customize' tab of the options page when Safari Content Blocking is enabled"
+  },
+  "blocked_n_on_this_page":{
     "placeholders":{
-      "example":{
-        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
+      "count":{
+        "content":"<a>123</a>",
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
       }
-    }
+    },
+    "message":"$count$ trên trang này",
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999."
   },
-  "unsubscribedlabel":{
-    "description":"Status label",
-    "message":"Đã hủy đăng ký."
+  "typesub_frame":{
+    "message":"frame",
+    "description":"A resource type"
   },
-  "typemedia":{
-    "description":"A resource type",
-    "message":"audio/video"
+  "filtereasylist_plus_romanian":{
+    "message":"Tiếng Rumani",
+    "description":"language"
+  },
+  "linkunblock":{
+    "message":"Hiển thị quảng cáo trên trang web hoặc tên miền này",
+    "description":"Link on the 'Customize' tab"
+  },
+  "catblock_disableallextensions":{
+    "message":"Disable all extensions except for CatBlock.",
+    "description":"Instruction on ad report page"
+  },
+  "disableforchromestepone":{
+    "message":"Mở <a href='#'>trang tiện ích</a>.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
+  "blockedresource":{
+    "message":"Nguồn bị chặn",
+    "description":"Resource list page: resource status"
+  },
+  "catblock_example_flickr_search":{
+    "message":"a search for photos (e.g. <i>sailboat race</i>)",
+    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\"."
+  },
+  "manualfilteredit":{
+    "message":"Chỉnh sửa bộ lọc bằng tay:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
+  "clickdisableotherextensions":{
+    "message":"<b>HOẶC</b>, chỉ cần kích vào nút này để chúng tôi làm tất cả những việc trên:<a>Vô hiệu hóa tất cả các tiện ích mở rộng</a>",
+    "description":"On the ad report page, an alternative way to disable other extensions"
+  },
+  "filterczech":{
+    "message":"Tiếng Séc và Slovakia",
+    "description":"Language names for a filter list"
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Hãy vào <a>trang web hỗ trợ của chúng tôi</a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "malwarecheck":{
+    "message":"Kiểm tra phần mềm độc hại có thể chèn quảng cáo:",
+    "description":"Section header on the ad report page"
+  },
+  "adreport_laststep":{
+    "message":"Bước cuối cùng: báo cáo vấn đề cho chúng tôi.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "filterwarning_removal":{
+    "message":"Danh sách loại bỏ cảnh báo Adblock (loại bỏ các cảnh báo về việc sử dụng trình chặn quảng cáo)",
+    "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
+  },
+  "betalabel":{
+    "message":"Beta",
+    "description":"Label for beta features in AdBlock Options"
+  },
+  "safarinotificationtitle":{
+    "message":"Đã vượt quá giới hạn quy tắc của Chặn Nội Dung",
+    "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
+  },
+  "adreport_server_response_error_msg":{
+    "message":"Đã có lỗi khi xử lý yêu cầu của bạn.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "sliderexplanation":{
+    "message":"Trượt thanh trượt cho đến khi chọn đúng quảng cáo cần chặn, và các phần tử bị chặn sẽ trở nên hữu ích.",
+    "description":"Blacklister slider page message"
+  },
+  "report_ad_on_page":{
+    "message":"Báo cáo một quảng cáo trên trang này",
+    "description":"Entry in the AdBlock button menu"
+  },
+  "tabcustomizetitle":{
+    "message":"Tùy chỉnh AdBlock",
+    "description":"Title of the customize tab"
+  },
+  "csstomatch":{
+    "message":"CSS phù hợp với",
+    "description":"Message of the css-hiding area"
+  },
+  "whatsnew":{
+    "message":"Có gì mới trong phiên bản mới nhất? Xem <a style='cursor:pointer;'>các thay đổi</a>!",
+    "description":"Link to display the changelog on the Support tab of the options"
+  },
+  "subscribingfailed":{
+    "message":"Thất bại!",
+    "description":"abp: link subscriber result"
+  },
+  "only_block_ads_on_these_sites":{
+    "message":"Chỉ chặn quảng cáo trên những trang web này:",
+    "description":"Label for textbox where user enters a list of sites on Customize tab"
+  },
+  "typescript":{
+    "message":"mã",
+    "description":"A resource type"
+  },
+  "lang_spanish":{
+    "message":"Tiếng Tây Ban Nha",
+    "description":"language"
+  },
+  "reloadadpage":{
+    "message":"Tải lại trang cùng với quảng cáo.",
+    "description":"Instruction on ad report page"
+  },
+  "sourcecode":{
+    "message":"Mã nguồn của AdBlock là <a>hoàn toàn miễn phí</a>!",
+    "description":"Link to the source code of AdBlock on the Support tab of the options"
+  },
+  "clickthead":{
+    "message":"Nhấp vào phần quảng cáo, và tôi sẽ hướng dẫn bạn cách chặn nó.",
+    "description":"When you have to click the ad to continue"
+  },
+  "filterannoyances":{
+    "message":"Fanboy's Annoyances (Chặn cửa sổ bật lên trong trang, widget của mạng xã hội và các trang liên quan, và các phiền toái khác)",
+    "description":"A filter list"
+  },
+  "linkhidesection":{
+    "message":"Ẩn một phần của trang web",
+    "description":"Link on the 'Customize' tab"
+  },
+  "filterlistlink":{
+    "message":"Bạn chỉ nên đăng ký những bộ lọc cần thiết -- sử dụng nhiều bộ lọc sẽ làm chậm trình duyệt của bạn! Danh sách bộ lọc bạn có thể tìm thấy <a>ở đây</a>.",
+    "description":"Explanation of the filter lists"
+  },
+  "tabfilterlists":{
+    "message":"Danh sách bộ lọc",
+    "description":"A tab on the options page"
+  },
+  "typexmlhttprequest":{
+    "message":"xmlhttprequest",
+    "description":"A resource type"
+  },
+  "catblock_debuginlogoption":{
+    "message":"Show debug statements in Console Log (which slows down CatBlock)",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "disableaa":{
+    "message":"Kiểm tra những bộ lọc Quảng Cáo Chấp Nhận Được:",
+    "description":"Section header on the ad report page"
+  },
+  "filtereasylist_plus_french":{
+    "message":"Tiếng Pháp",
+    "description":"language"
+  },
+  "clickdisableaa":{
+    "message":"Bấm vào đây: <a>Vô hiệu hóa Quảng Cáo Chấp Nhận Được:</a>",
+    "description":"Instruction on ad report page"
+  },
+  "show_on_adblock_button":{
+    "message":"Hiển thị số quảng cáo bị chặn trên nút AdBlock",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Hiển thị số quảng cáo bị chặn trên menu AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+  },
+  "description2":{
+    "message":"Tiện ích phổ biến nhất trên Chrome, với trên 40 triệu người dùng! AdBlock sẽ giúp bạn chặn tất cả quảng cáo trên internet.",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
   },
   "filterlatvian":{
-    "description":"A filter list",
-    "message":"Tiếng Latvia"
+    "message":"Tiếng Latvia",
+    "description":"A filter list"
   },
-  "block_an_ad_on_this_page":{
-    "description":"Toolbar button menu entry and context menu entry",
-    "message":"Chặn quảng cáo trên trang này"
+  "catblock_disableforchromeandsafaristeptwo":{
+    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>.",
+    "description":"Step 2 for disabling Chrome and Safari extensions"
   },
-  "stop_blocking_ads":{
-    "description":"Section header on the 'Customize' tab",
-    "message":"Dừng chặn quảng cáo:"
+  "updatedhourago":{
+    "message":"đã được cập nhật 1 giờ trước",
+    "description":"Label for subscription"
   },
-  "adreport_response_save_error":{
-    "description":"Error message shown when the server could not save an attached file.",
-    "message":"Lỗi lưu tập tin đã tải lên."
+  "typepopup":{
+    "message":"popup",
+    "description":"A resource type"
   },
-  "blacklistermatches":{
-    "description":"Tells the user multiple matches were found",
-    "message":"Khớp $matchcount$ mục trên trang này.",
-    "placeholders":{
-      "matchcount":{
-        "content":"$1",
-        "example":"5"
-      }
-    }
+  "removefromlist":{
+    "message":"Xóa khỏi danh sách",
+    "description":"Label to remove a custom filter"
   },
-  "failedtofetchfilter":{
-    "description":"Error messagebox",
-    "message":"Không thể lấy được dữ liệu của bộ lọc này!"
+  "adreport_name":{
+    "message":"Bạn tên gì?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
   },
-  "you_can_slide_to_change":{
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases.",
-    "message":"Bạn có thể di chuyển thanh trượt dưới đây để chọn chính xác những trang nào mà AdBlock sẽ không chạy."
-  },
-  "typehiding":{
-    "description":"A resource type",
-    "message":"ẩn"
-  },
-  "cantblockflashwarning":{
-    "description":"Text of the final ad report question",
-    "message":"Quảng cáo có xuất hiện trước hoặc trong khi phát video hay bất cứ plugin nào như Flash không?"
-  },
-  "filterrussian":{
-    "description":"Language names for a filter list",
-    "message":"Tiếng Nga và Ukraina"
-  },
-  "filtereasylist_plus_spanish":{
-    "description":"language",
-    "message":"Tiếng Tây Ban Nha"
+  "filterturkish":{
+    "message":"Tiếng Thổ Nhĩ Kỳ",
+    "description":"A filter list"
   },
   "blacklisterblocksalloftype":{
-    "description":"Warns the user that all elements of type X will be blocked",
-    "message":"Hãy cẩn thận: bộ lọc này sẽ chặn tất cả đối tượng $elementtype$ trên trang này!",
     "placeholders":{
       "elementtype":{
         "content":"$1",
         "example":"DIV"
       }
-    }
+    },
+    "message":"Hãy cẩn thận: bộ lọc này sẽ chặn tất cả đối tượng $elementtype$ trên trang này!",
+    "description":"Warns the user that all elements of type X will be blocked"
   },
-  "disableyoutubestreamingads":{
-    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube.",
-    "message":"Sử dụng chế độ tương thích với ClickToFlash"
+  "catblock_show_on_adblock_menu":{
+    "message":"Show number of ads blocked on CatBlock menu",
+    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked"
   },
-  "no":{
-    "description":"A negative response to a question",
-    "message":"Không"
+  "warning_overrules_filters":{
+    "message":"Cảnh báo: trên tất cả những trang web khác bạn sẽ thấy có quảng cáo!<br>Điều này sẽ ghi đè tất cả các bộ lọc khác được áp dụng cho những trang này.",
+    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
+  },
+  "blockmoreads":{
+    "message":"Chặn thêm quảng cáo:",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "otherfilters":{
+    "message":"Các bộ lọc khác",
+    "description":"List for other filters the user subscribed to"
+  },
+  "showcontextmenus2":{
+    "message":"Thêm AdBlock vào menu chuột phải",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "optionstitle":{
+    "message":"Tùy chọn AdBlock",
+    "description":"Title for the options page"
+  },
+  "findingads":{
+    "message":"Đang tìm quảng cáo...<br/><br/><i>Chỉ mất chút thời gian thôi.</i>",
+    "description":"When you press ctrl-shift-K the blacklister searches for ads"
+  },
+  "adreport_response_invalid_file":{
+    "message":"Đó không phải tập tin ảnh. Hãy tải lên tập tin .png, .gif, hoặc .jpg.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "checkinternetconnection":{
+    "message":"Để báo cáo một quảng cáo, bạn phải có kết nối đến internet.",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
+  },
+  "showlinkstolists2":{
+    "message":"Hiển thị đường dẫn đến bộ lọc",
+    "description":"Option on the 'Filter lists' tab of the Options page"
+  },
+  "adblock_wont_run_on_pages_matching":{
+    "message":"AdBlock sẽ không chạy trên những trang có đường dẫn này:",
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
+  },
+  "catblock_wizardcantrunonframesets":{
+    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page.",
+    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
+  },
+  "latest_version":{
+    "message":"AdBlock đã được cập nhật!",
+    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
+  },
+  "blacklistclickmessage":{
+    "message":"Nhấp chuột phải vào quảng cáo để chặn -- hoặc chặn bằng tay ở đây.",
+    "description":"Message at the top of the blacklist options tab"
+  },
+  "undo_last_block":{
+    "message":"Hủy bỏ lệnh chặn của tôi trên tên miền này",
+    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
+  },
+  "flashads":{
+    "message":"Video và Flash",
+    "description":"Title of the final ad report question if the ad didn't appear in Firefox"
+  },
+  "fetchinglabel":{
+    "message":"Đang lấy dữ liệu... vui lòng chờ trong giây lát.",
+    "description":"Status label"
+  },
+  "catblock_add_photos":{
+    "message":"Add Photos",
+    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
+  },
+  "reenableadsonebyone":{
+    "message":"Tuyệt vời! Bây giờ hãy tìm hiểu xem tiện ích nào là nguyên nhân gây ra quảng cáo. Bật lần lượt từng tiện ích một, tiện ích nào khi bật gây ra quảng cáo chính là tiện ích bạn cần gỡ bỏ để loại bỏ quảng cáo.",
+    "description":"Tells the user to reenable the extensions one by one"
+  },
+  "subscribingfinished":{
+    "message":"Hoàn thành!",
+    "description":"abp: link subscriber result"
+  },
+  "checkforupdates":{
+    "message":"Đang kiểm tra cập nhật (chỉ mất vài giây thôi)...",
+    "description":"Displayed when AdBlock is checking the newest available version"
+  },
+  "resourcedomain":{
+    "placeholders":{
+      "domain":{
+        "content":"$1",
+        "example":"example.com"
+      }
+    },
+    "message":"Tải trên trang với tên miền:\n$domain$",
+    "description":"Resource list page: text shown when hovering over an item in the third-party column"
+  },
+  "filtereasylist_plus_polish":{
+    "message":"Tiếng Ba Lan",
+    "description":"language"
+  },
+  "adreport_missing_info":{
+    "message":"Thông tin được yêu cầu còn thiếu hoặc không hợp lệ. Hãy điền vào những câu hỏi có khung màu đỏ.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "filtereasylist_plus_indonesian":{
+    "message":"Tiếng Indonesia",
+    "description":"A filter list"
+  },
+  "optionsversion":{
+    "placeholders":{
+      "version":{
+        "content":"$1",
+        "example":"2.0.9"
+      }
+    },
+    "message":"Phiên bản $version$",
+    "description":"Version number"
+  },
+  "adreport_location":{
+    "message":"Chính xác thì quảng cáo ở đâu trên trang? Nó trông như thế nào?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "pagelanguagecheck":{
+    "message":"Trang đó đươc viết bằng ngôn ngữ nào?",
+    "description":"Question on ad report page"
+  },
+  "catblock_whitelistertitle2":{
+    "message":"Don't run CatBlock on...",
+    "description":"The title of the whitelister dialog"
+  },
+  "cantblockflashwarning":{
+    "message":"Quảng cáo có xuất hiện trước hoặc trong khi phát video hay bất cứ plugin nào như Flash không?",
+    "description":"Text of the final ad report question"
+  },
+  "cantblockflash":{
+    "message":"Chúng tôi tạm thời không thể chặn quảng cáo bên trong Flash và các trình cắm khác. Chúng tôi đang chờ sự hỗ tợ từ các trình duyệt và WebKit.",
+    "description":"Result of the final ad report question"
+  },
+  "blockurlwithtext":{
+    "message":"Chặn các URL trong văn bản này",
+    "description":"Message of the url-blocking area"
+  },
+  "filterhungarian":{
+    "message":"Tiếng Hungari",
+    "description":"language"
+  },
+  "blacklisteroptionstitle":{
+    "message":"Bước cuối cùng: Điều gì khiến cái này trở thành quảng cáo?",
+    "description":"Blacklister options page title"
+  },
+  "reloadpageafterwhitelist":{
+    "message":"Tải lại trang.",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "catblock_example_flickr_url":{
+    "placeholders":{
+      "example":{
+        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
+      }
+    },
+    "message":"a Flickr photoset URL (e.g. $example$)",
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
+  },
+  "adreport_response_large_file":{
+    "message":"Tập tin quá lớn. Hãy đảm bảo rằng tập tin của bạn nhỏ hơn 10 MB.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "filteritalian":{
+    "message":"Tiếng Ý",
+    "description":"language"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Tính năng này của AdBlock không hoạt động trên trang này bởi vì nó sử dụng công nghệ đã lỗi thời. Bạn có thể dùng danh sách đen hoặc danh sách trắng để chặn bằng tay trong thẻ 'Tùy Chỉnh' trên trang tùy chọn.",
+    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
+  },
+  "spread_the_word":{
+    "message":"Chia sẻ!",
+    "description":"Text of a share link"
+  },
+  "tabreloadcomplete":{
+    "message":"Đã xong! Chúng tôi đã tải lại trang cùng với quảng cáo. Vui lòng kiểm tra lại trang xem quảng cáo đã mất hay chưa. Sau đó quay lại trang này và trả lời những câu hỏi dưới đây.",
+    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
+  },
+  "blacklistereditinvalid1":{
+    "placeholders":{
+      "exception":{
+        "content":"$1",
+        "example":"This filter is not supported"
+      }
+    },
+    "message":"Bộ lọc không hợp lệ: $exception$",
+    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated."
+  },
+  "catblock_status_disabled":{
+    "message":"CatBlock can not run on this domain.",
+    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
   },
   "blacklisterthefilter":{
-    "description":"Blacklister attribute choosing page message",
-    "message":"Bộ lọc này có thể được thay đổi ở trang Tùy chọn:"
+    "message":"Bộ lọc này có thể được thay đổi ở trang Tùy chọn:",
+    "description":"Blacklister attribute choosing page message"
   },
-  "hide_this_button":{
-    "description":"Toolbar button menu entry to hide the AdBlock button",
-    "message":"Ẩn nút này"
+  "filterswedish":{
+    "message":"Tiếng Thụy Điển",
+    "description":"A filter list"
   },
-  "other":{
-    "description":"Multiple choice option",
-    "message":"Khác"
+  "aamessageadreport":{
+    "message":"Nếu bạn không muốn nhìn thấy những quảng cáo như này, có thể bạn sẽ muốn tắt bộ lọc Quảng Cáo Chấp Nhận Được.",
+    "description":"Acceptable Ads message on ad report page"
   },
-  "fixityourself":{
-    "description":"Telling users who won't report an ad to us how to handle it for themselves",
-    "message":"Được rồi, bạn vẫn có thể chặn quảng cáo này bằng tay ở trang 'Tùy chọn'. Cảm ơn bạn!"
+  "languagedropdowndescription":{
+    "message":"Thêm bộ lọc cho ngôn ngữ khác: ",
+    "description":"Dropdown list for language-specific filters"
   },
-  "lang_russian":{
-    "description":"language",
-    "message":"Tiếng Nga"
+  "catblock_options":{
+    "message":"CatBlock Options",
+    "description":"Title of the CatBlock options page tab"
   },
-  "bugreport":{
-    "description":"Link to send a bug report on the Support tab of the options",
-    "message":"Sao bạn không gửi một <a>báo cáo lỗi</a> cho chúng tôi?"
+  "tabgeneral":{
+    "message":"Tổng quan",
+    "description":"A tab on the options page"
   },
-  "filtereasyprivacy":{
-    "description":"A filter list",
-    "message":"EasyPrivacy (bảo vệ sự riêng tư)"
+  "filtereasylist_plun_korean":{
+    "message":"Tiếng Hàn",
+    "description":"language"
   },
-  "blacklisterattrwillbe":{
-    "description":"Checkbox label",
-    "message":"$attribute$ sẽ là $value$",
-    "placeholders":{
-      "attribute":{
-        "content":"$1",
-        "example":"class"
-      },
-      "value":{
-        "content":"$2",
-        "example":"AdBanner"
-      }
-    }
+  "topframe":{
+    "message":"Frame trên cùng",
+    "description":"Resource list page: frame type"
   },
-  "orenteraurl":{
-    "description":"Link for custom subscription",
-    "message":"Hoặc nhập một địa chỉ:"
+  "updatenowmessage2":{
+    "message":"AdBlock sẽ cập nhật bộ lọc một cách tự động; bạn cũng có thể <a>cập nhật ngay</a>",
+    "description":"Update filters text + button"
+  },
+  "catblock_adblock_wont_run_on_pages_matching":{
+    "message":"CatBlock won't run on any page matching:",
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
+  },
+  "filterchinese":{
+    "message":"Tiếng Trung",
+    "description":"language"
+  },
+  "buttonback":{
+    "message":"Trở lại",
+    "description":"Back to previous wizard page button"
+  },
+  "whatmakesadblocktick":{
+    "message":"Bạn muốn tìm hiểu cách AdBlock hoạt động?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "lang_ukranian":{
+    "message":"Tiếng Ukraina",
+    "description":"language"
+  },
+  "malwarenotificationmessage":{
+    "message":"AdBlock đã chặn tải xuống từ một trang được biết có chứa mã độc.",
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
+  },
+  "advanced_options2":{
+    "message":"Hiển thị các tùy chọn nâng cao",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "filterisraeli":{
+    "message":"Tiếng Do Thái",
+    "description":"language"
+  },
+  "catblock_adblock_outdated_chrome":{
+    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'",
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
+  },
+  "adreport_email_privacy":{
+    "message":"Chúng tôi sẽ chỉ sử dụng địa chỉ này để liên hệ với bạn nếu cần thêm thông tin.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "typeselector":{
+    "message":"chọn",
+    "description":"A resource type"
+  },
+  "noresourcessend2":{
+    "message":"Đã xảy ra chuyện gì đó. Không có nguồn nào được gửi đi. Trang này sẽ bị đóng lại. Hãy thử tải lại trang web này.",
+    "description":"Resource list page: error message"
+  },
+  "filtereasylist_plus_spanish":{
+    "message":"Tiếng Tây Ban Nha",
+    "description":"language"
+  },
+  "block_this_ad":{
+    "message":"Chặn quảng cáo này",
+    "description":"Context and popup menu entry"
+  },
+  "you_know_thats_a_bad_idea_right":{
+    "message":"Bạn sử dụng càng nhiều bộ lọc thì AdBlock chạy càng chậm. Thậm chí một số website còn bị treo nếu bạn sử dụng quá nhiều bộ lọc. Nếu bạn vẫn muốn đăng ký bộ lọc này, nhấp OK.",
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
   },
   "customfilterserrormessage":{
-    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page",
-    "message":"Bộ lọc sau đây:<br/>$filter$<br/> đã xảy ra lỗi:<br/>$message$",
     "placeholders":{
       "message":{
         "content":"$2",
@@ -1393,206 +1445,154 @@
         "content":"$1",
         "example":"@@.ad"
       }
-    }
+    },
+    "message":"Bộ lọc sau đây:<br/>$filter$<br/> đã xảy ra lỗi:<br/>$message$",
+    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page"
+  },
+  "clickupdatefilters":{
+    "message":"Nhấp vào đây: <a>Cập nhật bộ lọc của tôi!</a>",
+    "description":"Instruction on ad report page"
   },
   "loading":{
-    "description":"Generic message displayed during processes that take some time",
-    "message":"ĐANG TẢI..."
-  },
-  "debuginfo":{
-    "description":"Users can click this link to provide debug information to AdBlock staff",
-    "message":"Nhóm của chúng tôi đã yêu cầu một số thông tin để gỡ lỗi chưa? Bấm <a href='#' id='debug'>vào đây</a> để làm điều đó!"
-  },
-  "catblock_disableforchromeandsafaristeptwo":{
-    "description":"Step 2 for disabling Chrome and Safari extensions",
-    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>."
-  },
-  "safaricontentblockinglimitexceeded":{
-    "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled",
-    "message":"Số lượng quy tắc trong danh sách bộ lọc đã vượt quá giới hạn 50,000 và đã được tự động giảm xuống. Vui lòng bỏ đăng ký một vài bộ lọc hoặc tắt Chặn Nội Dung Safari!"
-  },
-  "report_ad_on_page":{
-    "description":"Entry in the AdBlock button menu",
-    "message":"Báo cáo một quảng cáo trên trang này"
-  },
-  "debuginlogoption":{
-    "description":"Checkbox on the 'General' tab of the Options page",
-    "message":"Hiển thị báo cáo gỡ lỗi trong Console Log (sẽ làm AdBlock chậm đi)"
-  },
-  "framedomain":{
-    "description":"Resource list page: domain name of the frame",
-    "message":"Tên miền frame: "
-  },
-  "description2":{
-    "description":"Extension description in manifest. Should not exceed 132 characters.",
-    "message":"Tiện ích phổ biến nhất trên Chrome, với trên 40 triệu người dùng! AdBlock sẽ giúp bạn chặn tất cả quảng cáo trên internet."
-  },
-  "foundbug":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"Bạn tìm thấy lỗi?"
-  },
-  "lang_czech":{
-    "description":"language",
-    "message":"Tiếng Séc"
-  },
-  "catblock_excludedomainorurl":{
-    "description":"Message of the exclude area",
-    "message":"The domain or url where CatBlock shouldn't block anything"
-  },
-  "adreport_response_invalid_file":{
-    "description":"Error message shown when the user uploads an invalid file type.",
-    "message":"Đó không phải tập tin ảnh. Hãy tải lên tập tin .png, .gif, hoặc .jpg."
-  },
-  "catblock_add_more_photos":{
-    "description":"Introduction to the examples of custom image lists. Leave the <b> and </b> as they are.",
-    "message":"<b>Add some photos</b> from Flickr!  You can enter:"
-  },
-  "showlinkstolists2":{
-    "description":"Option on the 'Filter lists' tab of the Options page",
-    "message":"Hiển thị đường dẫn đến bộ lọc"
-  },
-  "acceptableadsoption":{
-    "description":"option on the 'General' tab",
-    "message":"Cho phép những quảng cáo không gây khó chịu"
-  },
-  "filterswedish":{
-    "description":"A filter list",
-    "message":"Tiếng Thụy Điển"
-  },
-  "removefromlist":{
-    "description":"Label to remove a custom filter",
-    "message":"Xóa khỏi danh sách"
-  },
-  "catblock_add_photos":{
-    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images.",
-    "message":"Add Photos"
-  },
-  "selectlanguage":{
-    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation.",
-    "message":" -- Chọn ngôn ngữ -- "
-  },
-  "filtereasylist_plus_french":{
-    "description":"language",
-    "message":"Tiếng Pháp"
-  },
-  "buttonedit":{
-    "description":"Edit filter manually button",
-    "message":"Chỉnh sửa"
-  },
-  "tabsupport":{
-    "description":"A tab on the options page",
-    "message":"Hỗ trợ"
-  },
-  "linkblockadbyurl":{
-    "description":"Link on the 'Customize' tab",
-    "message":"Chặn quảng cáo bằng URL"
-  },
-  "catblock_unpause_adblock":{
-    "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'",
-    "message":"Unpause CatBlock"
-  },
-  "optionsversion":{
-    "description":"Version number",
-    "message":"Phiên bản $version$",
-    "placeholders":{
-      "version":{
-        "content":"$1",
-        "example":"2.0.9"
-      }
-    }
-  },
-  "firefox_explanation":{
-    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter",
-    "message":"Mục đích của câu hỏi này là để xác định ai sẽ nhận được báo cáo của bạn. Nếu bạn trả lời câu hỏi này không chính xác, báo cáo sẽ được gửi đến nhầm người. do đó nó có thể bị bỏ qua."
-  },
-  "adreportvoluntary":{
-    "description":"Introduction of the ad reporting page",
-    "message":"Báo cáo quảng cáo là tự nguyện. Nó giúp những người khác bằng cách giúp chỉnh sửa bộ lọc quảng cáo để có thể chặn quảng cáo cho tất cả mọi người. Nếu bạn không muốn báo cáo, không sao cả. Bạn hãy đóng trang này lại và <a>chặn quảnq cáo</a> chỉ cho mình bạn thôi."
-  },
-  "yes":{
-    "description":"A positive response to a question",
-    "message":"Có"
-  },
-  "sourcecode":{
-    "description":"Link to the source code of AdBlock on the Support tab of the options",
-    "message":"Mã nguồn của AdBlock là <a>hoàn toàn miễn phí</a>!"
-  },
-  "filterdutch":{
-    "description":"language",
-    "message":"Tiếng Hà Lan"
-  },
-  "adreport_email_privacy":{
-    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report.",
-    "message":"Chúng tôi sẽ chỉ sử dụng địa chỉ này để liên hệ với bạn nếu cần thêm thông tin."
-  },
-  "blacklistersinglematch":{
-    "description":"Tells the user only one match was found",
-    "message":"Khớp <b>1</b> mục trên trang này."
+    "message":"ĐANG TẢI...",
+    "description":"Generic message displayed during processes that take some time"
   },
   "updatedhoursago":{
-    "description":"Label for subscription",
-    "message":"đã được cập nhật $hours$ giờ trước",
     "placeholders":{
       "hours":{
         "content":"$1",
         "example":"15"
       }
-    }
+    },
+    "message":"đã được cập nhật $hours$ giờ trước",
+    "description":"Label for subscription"
   },
-  "buttonback":{
-    "description":"Back to previous wizard page button",
-    "message":"Trở lại"
+  "filtersavewarning":{
+    "message":"Hãy cẩn thận: Nếu bạn chỉnh sửa không chính xác, rất nhiều bộ lọc khác bao gồm cả bộ lọc chính thức cũng có thể bị lỗi!<br/>Bạn có thể đọc thêm về <a>cú pháp bộ lọc</a> để biết cách chỉnh sửa bộ lọc.",
+    "description":"Warning when blacklisting manually"
   },
-  "catblock_malwarenotificationmessage":{
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!",
-    "message":"CatBlock has blocked a download from a site known to host malware."
+  "safarinotificationbody":{
+    "message":"Vui lòng tắt một vài bộ lọc. Thông tin thêm có trong tùy chọn của AdBlock.",
+    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
   },
-  "clickdisableaa":{
-    "description":"Instruction on ad report page",
-    "message":"Bấm vào đây: <a>Vô hiệu hóa Quảng Cáo Chấp Nhận Được:</a>"
+  "acceptableadsdisable_done":{
+    "message":"Bạn đã không còn đăng ký bộ lọc Quảng Cáo Chấp Nhận Được.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
   },
-  "blockdomain":{
-    "description":"Message of the url and css -blocking area",
-    "message":"Tên miền của trang web để áp dụng"
+  "updateyourlists":{
+    "message":"Hãy chắc chắn rằng danh sách bộ lọc của bạn luôn được cập nhật:",
+    "description":"Section header on the ad report page"
   },
-  "adblockupdates":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"Cập nhật AdBlock"
+  "catblock_disabled_by_filter_lists":{
+    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
-  "catblock_status_paused":{
-    "description":"Message shown in toolbar button when CatBlock is paused",
-    "message":"CatBlock is paused."
+  "subscribeconfirm":{
+    "placeholders":{
+      "title":{
+        "content":"$1",
+        "example":"Prebake"
+      }
+    },
+    "message":"Bạn có chắc bạn muốn đăng ký bộ lọc $title$ không?",
+    "description":"Prompt question before subscribing to the filter list"
   },
-  "noresourcessend2":{
-    "description":"Resource list page: error message",
-    "message":"Đã xảy ra chuyện gì đó. Không có nguồn nào được gửi đi. Trang này sẽ bị đóng lại. Hãy thử tải lại trang web này."
+  "linkblockadbyurl":{
+    "message":"Chặn quảng cáo bằng URL",
+    "description":"Link on the 'Customize' tab"
   },
-  "malwarenotificationlearnmore":{
-    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!",
-    "message":"Tìm hiểu thêm về malware"
+  "filterrussian":{
+    "message":"Tiếng Nga và Ukraina",
+    "description":"Language names for a filter list"
   },
-  "modifydomain":{
-    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL",
-    "message":"Trang web:"
+  "buttonblockit":{
+    "message":"Chặn!",
+    "description":"Block button"
   },
-  "filteracceptable_ads":{
-    "description":"A filter list",
-    "message":"Quảng Cáo Chấp Nhận Được (được khuyến khích)"
+  "safaricontentblocking":{
+    "message":"Bật Chặn Nội Dung Safari",
+    "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
-  "catblock_replaceadswithcats":{
-    "description":"Option on General tab used for enabling replacement of ads by pictures of cats",
-    "message":"Replace ads with pictures of cats"
+  "adreport_response_file_name":{
+    "message":"Tên tập tin quá dài. Hãy đặt tên tập tin ngắn hơn.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
   },
-  "safaricontentblockingpausemessage":{
-    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled",
-    "message":"Để tạm dừng AdBlock với Chặn Nội Dung Safari được bật, vui lòng chọn Safari (trong thanh trình đơn) > Tùy chọn > Tiện ích mở rộng > AdBlock, và bỏ chọn 'Bật AdBlock'."
+  "debuginlogoption":{
+    "message":"Hiển thị báo cáo gỡ lỗi trong Console Log (sẽ làm AdBlock chậm đi)",
+    "description":"Checkbox on the 'General' tab of the Options page"
   },
-  "adblock_click_for_details":{
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button.",
-    "message":"AdBlock - bấm để biết thêm chi tiết"
+  "frametype":{
+    "message":"Kiểu frame: ",
+    "description":"Resource list page: followed by frame type (e.g. top frame, subframe)"
+  },
+  "catblock_whatmakesadblocktick":{
+    "message":"Want to see what makes CatBlock tick?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "filterlistsrock":{
+    "message":"Danh sách các bộ lọc đã chặn hầu hết các quảng cáo. Bạn cũng có thể:",
+    "description":"Header text on the Customize tab. 'Filter lists' should be the same text as the name of the 'Filter lists' tab."
   },
   "disableallextensions":{
-    "description":"Instruction on ad report page",
-    "message":"Vô hiệu hóa tất cả các tiện ích khác ngoại trừ AdBlock:"
+    "message":"Vô hiệu hóa tất cả các tiện ích khác ngoại trừ AdBlock:",
+    "description":"Instruction on ad report page"
+  },
+  "malwarenotificationcheckboxmessage":{
+    "message":"Bạn có muốn AdBlock thông báo cho bạn khi phát hiện ra malware không?",
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
+  },
+  "retryaftersubscribe":{
+    "placeholders":{
+      "list_title":{
+        "content":"$1",
+        "example":"French filters"
+      }
+    },
+    "message":"Đăng ký bộ lọc này, sau đó thử lại: $list_title$",
+    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists"
+  },
+  "blocked_n_in_total":{
+    "placeholders":{
+      "count":{
+        "content":"<a>123,456</a>",
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
+      }
+    },
+    "message":"$count$ trong tổng số",
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999."
+  },
+  "chromebutton_how_to_hide2":{
+    "message":"Nhấp chuột phải vào nút AdBlock và chọn 'Ẩn trong menu Chrome'. Để hiển thị lại, nhấp vào menu Chrome, nhấp chuột phải vào nút AdBlock và chọn 'Hiển thị trên thanh công cụ'.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
+  },
+  "update_available":{
+    "placeholders":{
+      "here":{
+        "content":"<a id='here'></a>",
+        "example":"<a>here</a>"
+      }
+    },
+    "message":"Đã có bản cập nhật mới cho AdBlock! Đi đến $here$ để cập nhật. <br> Lưu ý: Nếu bạn muốn nhận cập nhật một cách tự động, chỉ cần nhấp chuột trên Safari > Preferences > Extensions > Updates <br> và tích ô tùy chọn 'Install updates automatically'.",
+    "description":"On the Options > Support page, shows when there are updates available for AdBlock"
+  },
+  "block_an_ad_on_this_page":{
+    "message":"Chặn quảng cáo trên trang này",
+    "description":"Toolbar button menu entry and context menu entry"
+  },
+  "fixityourself":{
+    "message":"Được rồi, bạn vẫn có thể chặn quảng cáo này bằng tay ở trang 'Tùy chọn'. Cảm ơn bạn!",
+    "description":"Telling users who won't report an ad to us how to handle it for themselves"
+  },
+  "adreport_response_save_error":{
+    "message":"Lỗi lưu tập tin đã tải lên.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "format_site1_site2_site3":{
+    "message":"Cấu trúc: ~site1.com|~site2.com|~news.site3.org",
+    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
+  },
+  "blacklistersinglematch":{
+    "message":"Khớp <b>1</b> mục trên trang này.",
+    "description":"Tells the user only one match was found"
   }
 }

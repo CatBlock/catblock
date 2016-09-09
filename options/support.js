@@ -9,12 +9,12 @@ $(document).ready(function() {
         content.push(the_debug_info.filter_lists);
         content.push("");
         // Custom & Excluded filters might not always be in the object
-        if (the_debug_info.custom_filters){
+        if (the_debug_info.custom_filters) {
             content.push("=== Custom Filters ===");
             content.push(the_debug_info.custom_filters);
-            content.push("")
+            content.push("");
         }
-        if (the_debug_info.exclude_filters){
+        if (the_debug_info.exclude_filters) {
             content.push("=== Exclude Filters ===");
             content.push(the_debug_info.exclude_filters);
             content.push("");
@@ -38,19 +38,19 @@ $(document).ready(function() {
     $("#checkupdate").html(translate("checkforupdates"));
     checkupdates("help");
 
-    if (navigator.language.substring(0, 2) != "en") {
+    if (navigator.language.substring(0, 2) !== "en") {
         $(".english-only").css("display", "inline");
     }
 
     // Show debug info
-    $("#debug").click(function(){
+    $("#debug").click(function() {
         $("#debugInfo").html(debug_info);
         $("#debugInfo").css({ width: "450px", height: "100px"});
         $("#debugInfo").fadeIn();
     });
 
     // Report us the bug
-    $("#report a").click(function(){
+    $("#report a").click(function() {
         var result = "https://github.com/CatBlock/catblock/issues/new?body=" + report;
         document.location.href = result;
     });

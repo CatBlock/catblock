@@ -9,7 +9,7 @@ function Listing(data) {
     this.url = data.url;
     this.title = data.title;
     this.attribution_url = data.attribution_url;
-};
+}
 
 
 // Contains and provides access to all the photo channels.
@@ -32,31 +32,34 @@ Channels.prototype = {
     //   id of newly created channel, or undefined if the channel already existed.
     add: function(data) {
         var klass = window[data.name];
-        if (!klass)
+        if (!klass) {
             return;
+        }
         var dataParam = JSON.stringify(data.param);
         for (var id in this._channelGuide) {
             var c = this._channelGuide[id];
-            if (c.name === data.name && JSON.stringify(c.param) === dataParam)
+            if (c.name === data.name && JSON.stringify(c.param) === dataParam) {
                 return;
+            }
         }
         var id = Math.floor(Math.random() * Date.now());
         var channel = new klass(data.param);
         this._channelGuide[id] = {
             name: data.name,
             param: data.param,
-            enabled: true,
+            enabled: data.enabled,
             channel: channel
         };
         this._saveToStorage();
         var that = this;
-        $(channel).bind("updated", function(event) {
+        $(channel).bind("updated", function() {
             // TODO: make sure this works in Safari.  And if you fix a bug, fix it
             // in AdBlock too -- it's keeping filter update events from showing up
             // in the AdBlock Options page I think.
             chrome.runtime.sendMessage({command: "channel-updated", id: id});
-            if (that._channelGuide[id].enabled)
+            if (that._channelGuide[id].enabled) {
                 that._channelGuide[id].channel.prefetch();
+            }
         });
         channel.refresh();
         return id;
@@ -76,7 +79,7 @@ Channels.prototype = {
             results[id] = {
                 name: c.name,
                 param: c.param,
-                enabled: c.enabled,
+                enabled: c.enabled
             };
         }
 
@@ -94,8 +97,9 @@ Channels.prototype = {
     refreshAllEnabled: function() {
         for (var id in this._channelGuide) {
             var data = this._channelGuide[id];
-            if (data.enabled)
+            if (data.enabled) {
                 data.channel.refresh();
+            }
         }
     },
 
@@ -107,8 +111,9 @@ Channels.prototype = {
 
         for (var id in this._channelGuide) {
             var data = this._channelGuide[id];
-            if (opts.channelId === id || (data.enabled && !opts.channelId))
+            if (opts.channelId === id || (data.enabled && !opts.channelId)) {
                 allListings.push.apply(allListings, data.channel.getListings());
+            }
         }
         // TODO: care about |width| and |height|
         var randomIndex = Math.floor(Math.random() * allListings.length);
@@ -135,11 +140,11 @@ Channels.prototype = {
     _saveToStorage: function() {
         var toStore = [];
         var guide = this.getGuide();
-        for (var id in guide)
+        for (var id in guide) {
             toStore.push(guide[id]);
+        }
         storage_set("channels", toStore);
-    },
-
+    }
 };
 
 
@@ -148,7 +153,8 @@ Channels.prototype = {
 // relies on that.
 function Channel() {
     this.__listings = [];
-};
+}
+
 Channel.prototype = {
     getListings: function() {
         return this.__listings.slice(0); // shallow copy
@@ -172,8 +178,8 @@ Channel.prototype = {
         });
     },
 
-    _getLatestListings: function(callback) {
-        throw "Implemented by subclass. Call callback with up-to-date listings.";
+    _getLatestListings: function() {
+        throw new Error("Implemented by subclass. Call callback with up-to-date listings.");
     }
 };
 
@@ -182,7 +188,7 @@ Channel.prototype = {
 // Subclass of Channel.
 function AprilFoolsCatsChannel() {
     Channel.call(this);
-};
+}
 AprilFoolsCatsChannel.prototype = {
     __proto__: Channel.prototype,
 
@@ -204,25 +210,25 @@ AprilFoolsCatsChannel.prototype = {
             L(340, 375, "big3.jpg"),
             L(170, 240, "big4.jpg"),
             L(384, 288, "1.jpg"),
-            L(132, 91,  "7.jpg"),
+            L(132, 91, "7.jpg"),
             L(121, 102, "9.jpg"),
             L(115, 125, "small1.jpg"),
             L(126, 131, "small2.jpg"),
-            L(105, 98,  "small3.jpg"),
+            L(105, 98, "small3.jpg"),
             L(135, 126, "small4.jpg"),
             L(133, 108, "small5.jpg"),
-            L(120, 99,  "small6.jpg"),
-            L(124, 96,  "small7.jpg"),
+            L(120, 99, "small6.jpg"),
+            L(124, 96, "small7.jpg"),
             L(119, 114, "small8.jpg"),
             L(382, 137, "wide1.jpg"),
             L(470, 102, "wide2.jpg"),
-            L(251, 90,  "wide3.jpg"),
+            L(251, 90, "wide3.jpg"),
             L(469, 162, "wide4.jpg"),
             L(240, 480, "8.jpg"),
             L(103, 272, "tall3.jpg"),
             L(139, 401, "tall4.jpg"),
             L(129, 320, "tall5.jpg"),
-            L(109, 385, "tall6.jpg"),
+            L(109, 385, "tall6.jpg")
         ]);
     }
 };
@@ -232,7 +238,7 @@ AprilFoolsCatsChannel.prototype = {
 // Subclass of Channel.
 function FlickrChannel() {
     Channel.call(this);
-};
+}
 // See http://www.flickr.com/services/api/misc.urls.html Size Suffixes.
 // Change this if we want a different size.
 FlickrChannel._size = "n"; // 320 on longest side
@@ -260,8 +266,9 @@ FlickrChannel.prototype = {
             "https://api.flickr.com/services/rest",
             params,
             function(resp) {
-                if (resp && resp.stat == "ok")
+                if (resp && resp.stat === "ok") {
                     callback(resp);
+                }
             },
             "json"
         );
@@ -278,8 +285,8 @@ FlickrChannel.prototype = {
                 height: photo["height_" + s],
                 url: photo["url_" + s],
                 title: photo.title,
-                attribution_url: 'http://www.flickr.com/photos/' +
-                (photo.owner || photos.owner) + '/' + photo.id
+                attribution_url: "http://www.flickr.com/photos/" +
+                (photo.owner || photos.owner) + "/" + photo.id
             });
             if (typeof listing.url !== "undefined") {
                 result.push(listing);
@@ -294,7 +301,7 @@ FlickrChannel.prototype = {
 function FlickrSearchChannel(query) {
     FlickrChannel.call(this);
     this._query = query;
-};
+}
 FlickrSearchChannel.prototype = {
     __proto__: FlickrChannel.prototype,
 
@@ -311,7 +318,7 @@ FlickrSearchChannel.prototype = {
 function FlickrPhotosetChannel(photoset_id) {
     FlickrChannel.call(this);
     this._id = photoset_id;
-};
+}
 FlickrPhotosetChannel.prototype = {
     __proto__: FlickrChannel.prototype,
 
@@ -326,7 +333,7 @@ FlickrPhotosetChannel.prototype = {
 
 function TheCatsOfCatBlockUsersChannel() {
     FlickrPhotosetChannel.call(this, "72157629665759768");
-};
+}
 
 TheCatsOfCatBlockUsersChannel.prototype = {
     __proto__: FlickrPhotosetChannel.prototype
