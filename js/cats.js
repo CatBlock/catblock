@@ -3,36 +3,45 @@ var CATS = {
         var self = this;
 
         // First-time running code after installation, set "CATS" to disabled by default
-        if (self.isEnabled() === undefined) {
-            //var installURL = "http://catblock.tk/project-cats.html";
-            var installURL = "https://catblock.tk/";
+        // Opening up installed page, which will determine,
+        // whether CATS should be enabled or not
+        if (self.isEnabled() === undefined && sessionstorage_get("installed")) {
+            sessionstorage_set("installed"); // present with a new user
+
+            var installURL = "https://catblock.tk/installed.html";
             chrome.tabs.create({ url: installURL }, function(data) {
                 var tabId = data.id;
                 var fileToInject = "js/cats-cs.js";
+
+                // Wait for a message from a content script,
+                // which tells us to enable "CATS"
+                chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+                    if (request.command !== "enableprojectcats" &&
+                        request.command !== "disableprojectcats") {
+                        return;
+                    }
+                    if (request.command === "enableprojectcats") {
+                        self.enable();
+                        console.log("allowing cats");
+                        callback(true);
+                    } else {
+                        self.disable();
+                        console.log("disabling cats");
+                        callback(false);
+                    }
+                });
+
+                // Inject cats-cs content script, which determines,
+                // whether Project CATS should be allowed or not
                 chrome.tabs.executeScript(tabId, { file: fileToInject });
             });
-            //self.disable(); todo
-        // When "CATS" is enabled,
-        // we don't need to have our listener running
+            // When "CATS" is enabled,
+            // we don't need to have our listener running
         } else if (self.isEnabled()) {
-            return callback();
+            return callback(true);
+        } else if (self.isEnabled() === false) {
+            return callback(false);
         }
-
-        // Wait for a message from a content script,
-        // which tells us to enable "CATS"
-        chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-            if (request.command !== "allowprojectcats" &&
-                request.command !== "disallowprojectcats") {
-                return;
-            }
-            if (request.command === "allowprojectcats") {
-                //self.enable();
-                console.log("allowing cats");
-            } else {
-                //self.disable();
-                console.log("disabling cats");
-            }
-        });
     },
     enable: function() {
         storage_set("project_cats", true);
@@ -41,6 +50,7 @@ var CATS = {
         storage_set("project_cats", false);
     },
     isEnabled: function() {
+        //return true;
         return storage_get("project_cats");
     }
 }

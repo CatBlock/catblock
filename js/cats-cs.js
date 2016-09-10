@@ -2,11 +2,10 @@
 // cez execute script
 (function() {
     var shouldEnableCats = localStorage.getItem("project-cats");
-    console.log("should enable? ", shouldEnableCats);
 
     if (shouldEnableCats) {
-        chrome.runtime.sendMessage({ command: "allowprojectcats" });
+        chrome.runtime.sendMessage({ command: "enableprojectcats" });
     } else {
-        chrome.runtime.sendMessage({ command: "disallowprojectcats" });
+        chrome.runtime.sendMessage({ command: "disableprojectcats" });
     }
 })();

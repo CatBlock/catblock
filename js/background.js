@@ -35,6 +35,7 @@ if (!SAFARI) {
         }
         if (data.start === undefined) {
             data.start = Date.now();
+            sessionstorage_set("installed", true);
         }
         if (data.total === undefined) {
             data.total = 0;
@@ -1525,11 +1526,15 @@ function makeReport() {
     return out;
 }
 
+var channels = null;
+
 // Init "Project CATS"
-CATS.init();
+CATS.init(function(enabled) {
+    channels = new Channels();
+    console.log("initialized ", enabled);
+});
 
 // CatBlock specific code
-var channels = new Channels();
 
 function addChannel(args) {
     return channels.add(args);

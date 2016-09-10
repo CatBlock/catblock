@@ -7,6 +7,9 @@ function mayDelete(channelData) {
     if (channelData.name === "TheCatsOfCatBlockUsersChannel") {
         return false;
     }
+    if (channelData.name === "TheCatsOfProjectCATS") {
+        return false;
+    }
     return true;
 }
 
