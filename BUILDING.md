@@ -14,10 +14,10 @@ Just run the following command in the project directory:
 ``` python3 tools/make_release.py -b chrome -ext browser```
 
 The packed extension will be named as ```catblock-platform.platformsuffix```, where:
-- ```platform``` is the name of the browser you are building for
+- ```platform``` is the name of the browser you are building an extension for
 - ```platformsuffix``` is either ```.zip``` or one of the following: ```.crx```, ```.xpi``` or ```.nex```
 
-Every packed extension is located in ```/builds``` folder.
+NOTE: Every packed extension is located in ```/builds``` folder.
 
 #### Creating a development environment
 Here is an example, how to build a _development environment_ intended for developing CatBlock for _Google Chrome_ browser.
@@ -28,7 +28,7 @@ Just run the following command in the project directory:
 The development environment will be created as a folder with name ```catblock_platform```, where:
 - ```platform``` is the name of the browser you are building a development environment for
 
-Every development environment is created in the project directory.
+NOTE: Every development environment is created in the project directory.
 
 ### Arguments
 This script accepts 3 arguments:
@@ -63,7 +63,7 @@ We strongly recommend, that you install CatBlock from [official extensions store
 There's also a nightly version of CatBlock called, well, CatBlock Nightly :)
 Find out more about CatBlock Nightly from a [dedicated repository](https://github.com/CatBlock/catblock-nightlies).
 
-Alright, let's proceed to the sideloading part of this doc!
+Alright, let's proceed to the sideloading!
 
 First, you will need to:
 - either create an unpacked development environment
@@ -121,7 +121,7 @@ When you've generated a packed extension:
 7. That's it!
 
 ### In Microsoft Edge
-NOTE: Currently, there is no way, how to generate a packaged .appx extension/application for Microsoft Edge browser.
+NOTE: Currently, there is no way, how to generate a packaged .appx extension/application for Microsoft Edge browser for 3rd party developers.
 
 When you've created an unpacked development environment:
 
