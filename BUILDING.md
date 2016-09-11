@@ -8,7 +8,7 @@ We've created an automated script called ```make_release.py```, which you can fi
 ### Examples
 
 #### Creating a packed extension
-Here is an example, how to build CatBlock for _Google Chrome_ as a _packed_ .crx extension.
+Here is an example, how to build CatBlock for _Google Chrome_ as a _packed_ extension.
 Just run the following command in the project directory:
 
 ``` python3 tools/make_release.py -b chrome -ext browser```
@@ -41,7 +41,7 @@ This script accepts 3 arguments:
 
 - ```-ext``` argument:
   * is optional
-  * specifies, whether a packed extension should be generated
+  * specifies, whether a packed extension should be generated or not
   * must be one of the following, when ```-ext``` is defined:
     * ```browser``` => creates a .zip file with _platform-specific_ suffix (intended for loading a packed extension in a browser)
     * ```zip``` => creates a .zip file with _.zip_ suffix (intended for uploading to extension stores)
@@ -50,7 +50,7 @@ This script accepts 3 arguments:
 
 - ```-devenv``` argument:
   * is optional
-  * specifies, whether an unpacked development environment should be created
+  * specifies, whether an unpacked development environment should be created or not
   * must be one of the following, when ```-devenv``` is defined:
     * ```yes``` => creates an unpacked development environment
     * ```no``` => doesn't create an unpacked development environment
