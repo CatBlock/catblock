@@ -1,20 +1,34 @@
-## How to build the extension and/or create a development environment?
+## Building the extension and/or creating a development environment
 
 ### Requirements
 - [Python 3.x](https://www.python.org)
 
 We've created an automated script called ```make_release.py```, which you can find in ```/tools``` directory and helps us with generating of our CatBlock extension for a specific browser and creating a development environment.
 
-### Example
+### Examples
+
+#### Creating a packed extension
 Here is an example, how to build CatBlock for _Google Chrome_ as a _packed_ .crx extension.
 Just run the following command in the project directory:
 
-``` python3 tools/make_release.py -b chrome -ext y```
+``` python3 tools/make_release.py -b chrome -ext browser```
 
-When building a packed extension, the extension will be named as ```catblock-platform.platformsuffix``` and located in ```/builds``` folder, where:
+The packed extension will be named as ```catblock-platform.platformsuffix```, where:
 - ```platform``` is the name of the browser you are building for
 - ```platformsuffix``` is either ```.zip``` or one of the following: ```.crx```, ```.xpi``` or ```.nex```
-This one specifically with a ```catblock-chrome.crx``` file in it.
+
+Every packed extension is located in ```/builds``` folder.
+
+#### Creating a development environment
+Here is an example, how to build a _development environment_ intended for developing CatBlock for _Google Chrome_ browser.
+Just run the following command in the project directory:
+
+``` python3 tools/make_releasy.py -b chrome -devenv yes```
+
+The development environment will be created as a folder with name ```catblock_platform```, where:
+- ```platform``` is the name of the browser you are building a development environment for
+
+Every development environment is created in the project directory.
 
 ### Arguments
 This script accepts 3 arguments:
@@ -43,7 +57,7 @@ This script accepts 3 arguments:
   * when ```-devenv``` argument is not defined, an unpacked environment won't be generated
 
 
-## How to sideload CatBlock?
+## Sideloading CatBlock
 We strongly recommend, that you install CatBlock from [official extensions stores](https://github.com/CatBlock/catblock#installation) but feel free to sideload CatBlock and see, how it works!
 
 There's also a nightly version of CatBlock called, well, CatBlock Nightly :)
@@ -98,7 +112,7 @@ When you've generated an unpacked development environment:
 
 When you've generated a packed extension:
 
-1: Please make sure, that you've generated packed extension with _.zip_ suffix!
+1. Please make sure, that you've generated packed extension with _.zip_ suffix!
 2. Make sure that you are running Firefox Developer Edition or Firefox Nightly!
 3. Go to ```about:config``` and set ```xpinstall.signatures.required``` to false
 4. Go to ```about:addons``` => click on settings icon
