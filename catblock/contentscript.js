@@ -116,14 +116,10 @@ var picinjection = {
 
         // "getAttribute" property of an element might be undefined,
         // see github:CatBlock/catblock#65
-        if (typeof el.getAttribute === "function") {
-            return intFor(el.getAttribute(prop));
+        if (typeof el.getAttribute !== "function") {
+            return intFor(window.getComputedStyle(el)[prop]);
         } else {
-            try {
-                return intFor(window.getComputedStyle(el)[prop]);
-            } catch(e) {
-                return undefined;
-            }
+            return intFor(el.getAttribute(prop) || window.getComputedStyle(el)[prop]);
         }
     },
 
