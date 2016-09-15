@@ -114,7 +114,7 @@ $(function() {
 
     if (SAFARI) {
         // Update the width and height of popover in Safari
-        $(window).on('load', function() {
+        $(window).on("load", function() {
             var popupheight = $("body").outerHeight();
             safari.extension.popovers[0].height = popupheight + 5;
             safari.extension.popovers[0].width = 270;
