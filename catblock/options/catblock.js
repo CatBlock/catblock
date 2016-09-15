@@ -2,11 +2,14 @@
 
 function mayDelete(channelData) {
     switch (channelData.name) {
-        case "AprilFoolsCatsChannel": return false;
-        case "TheCatsOfCatBlockUsersChannel": return false;
-        case "TheCatsOfProjectCATS": return false;
+        case "AprilFoolsCatsChannel":
+        case "TheCatsOfCatBlockUsersChannel":
+        case "TheCatsOfProjectCATS":
+            return false;
+            break;
+        default:
+            return true;
     }
-    return true;
 }
 
 function displayName(channelData) {
