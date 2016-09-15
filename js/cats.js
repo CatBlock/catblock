@@ -45,7 +45,8 @@ var CATS = {
             // we don't need to have our listener running
         } else if (self.isEnabled()) {
             return callback();
-        } else if (self.isEnabled() === false) {
+        // Existing users should not have "Project CATS" enabled
+        } else if (self.isEnabled() === false || self.isEnabled() === undefined) {
             return callback();
         }
     },
