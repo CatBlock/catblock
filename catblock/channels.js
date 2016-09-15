@@ -126,9 +126,16 @@ Channels.prototype = {
         var entries = storage_get("channels");
         if (!entries || (entries.length > 0 && !entries[0].name)) {
             // Default set of channels
-            this.add({name: "TheCatsOfCatBlockUsersChannel", param: undefined,
-                      enabled: true});
-            this.add({name: "AprilFoolsCatsChannel", param: undefined, enabled: false});
+            if (CATS.isEnabled()) {
+                this.add({ name: "TheCatsOfProjectCATS", param: undefined, enabled: true });
+                this.add({ name: "TheCatsOfCatBlockUsersChannel", param: undefined,
+                      enabled: false });
+                this.add({ name: "AprilFoolsCatsChannel", param: undefined, enabled: false });
+            } else {
+                this.add({ name: "TheCatsOfCatBlockUsersChannel", param: undefined,
+                      enabled: true });
+                this.add({ name: "AprilFoolsCatsChannel", param: undefined, enabled: true });
+            }
         }
         else {
             for (var i=0; i < entries.length; i++) {
@@ -336,5 +343,13 @@ function TheCatsOfCatBlockUsersChannel() {
 }
 
 TheCatsOfCatBlockUsersChannel.prototype = {
+    __proto__: FlickrPhotosetChannel.prototype
+};
+
+function TheCatsOfProjectCATS() {
+    FlickrPhotosetChannel.call(this, "72157672535515292");
+}
+
+TheCatsOfProjectCATS.prototype = {
     __proto__: FlickrPhotosetChannel.prototype
 };
