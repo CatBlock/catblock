@@ -1531,7 +1531,6 @@ var channels = null;
 // Init "Project CATS"
 CATS.init(function(enabled) {
     channels = new Channels();
-    console.log("initialized ", enabled);
 });
 
 // CatBlock specific code

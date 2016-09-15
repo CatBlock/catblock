@@ -8,8 +8,8 @@ var CATS = {
         if (self.isEnabled() === undefined && sessionstorage_get("installed")) {
             sessionstorage_set("installed"); // present with a new user
 
-            var installURL = "https://catblock.tk/installed.html";
-            chrome.tabs.create({ url: installURL }, function(data) {
+            var installedURL = "https://catblock.tk/installed.html";
+            chrome.tabs.create({ url: installedURL }, function(data) {
                 var tabId = data.id;
                 var fileToInject = "js/cats-cs.js";
 
@@ -22,11 +22,9 @@ var CATS = {
                     }
                     if (request.command === "enableprojectcats") {
                         self.enable();
-                        console.log("allowing cats");
                         callback(true);
                     } else {
                         self.disable();
-                        console.log("disabling cats");
                         callback(false);
                     }
                 });
