@@ -132,11 +132,23 @@ function block_list_via_css(selectors) {
 
 function debug_print_selector_matches(data) {
     var selectors = data.selectors;
+
+    // An array containing elements,
+    // which should be hidden and replaced by pictures
+    // see github:CatBlock/catblock#34
+    var elements = [];
+
     selectors.
     filter(function(selector) { return document.querySelector(selector); }).
     forEach(function(selector) {
         if (!SAFARI) {
-            augmentHiddenElements(selector);
+            var elem = document.querySelector(selector);
+            // Augment any new element, which should be replaced
+            // by picture of cats (or anything else...)
+            if (elements.indexOf(elem) === -1) {
+                elements.push(elem);
+                augmentHiddenElements(selector);
+            }
         }
         if (data.settings && data.settings.debug_logging) {
             var matches = "";
