@@ -52,7 +52,7 @@ Channels.prototype = {
         };
         this._saveToStorage();
         var that = this;
-        $(channel).bind("updated", function() {
+        $(channel).on("updated", function() {
             // TODO: make sure this works in Safari.  And if you fix a bug, fix it
             // in AdBlock too -- it's keeping filter update events from showing up
             // in the AdBlock Options page I think.
