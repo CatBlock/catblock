@@ -2,6 +2,14 @@ var CATS = {
     init: function(callback) {
         var self = this;
 
+        // Don't enable Project CATS on Safari and Edge
+        if (SAFARI || EDGE) {
+            if (self.isEnabled() === undefined) {
+                self.disable();
+                callback();
+            }
+        }
+
         // First-time running code after installation, set "CATS" to disabled by default
         // Opening up installed page, which will determine,
         // whether CATS should be enabled or not
