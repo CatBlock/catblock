@@ -22,10 +22,10 @@ var CATS = {
                     }
                     if (request.command === "enableprojectcats") {
                         self.enable();
-                        callback(true);
+                        callback();
                     } else {
                         self.disable();
-                        callback(false);
+                        callback();
                     }
                 });
 
@@ -36,9 +36,9 @@ var CATS = {
             // When "CATS" is enabled,
             // we don't need to have our listener running
         } else if (self.isEnabled()) {
-            return callback(true);
+            return callback();
         } else if (self.isEnabled() === false) {
-            return callback(false);
+            return callback();
         }
     },
     enable: function() {

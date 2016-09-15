@@ -1529,7 +1529,7 @@ function makeReport() {
 var channels = null;
 
 // Init "Project CATS"
-CATS.init(function(enabled) {
+CATS.init(function() {
     channels = new Channels();
 });
 
