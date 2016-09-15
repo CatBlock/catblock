@@ -6,7 +6,6 @@ function mayDelete(channelData) {
         case "TheCatsOfCatBlockUsersChannel":
         case "TheCatsOfProjectCATS":
             return false;
-            break;
         default:
             return true;
     }
