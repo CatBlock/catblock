@@ -15,22 +15,21 @@ nav {
 }
 
 .desktop {
-    margin-top: 35px;
-}
-
-.mobile {
-    margin-top: 18px;
+    margin-top: 20px;
 }
 
 #content {
-    max-width: 985px;
+    max-width: 795px;
     margin: 0 auto;
     position: relative;
-    margin-top: 100px;
+    margin-top: 75px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 5px;
 }
 
 nav > a, nav > div > a {
-    margin: 10px;
+    margin: 25px;
     color: #666;
 }
 
@@ -64,7 +63,7 @@ a:hover {
     display: none;
     position: absolute;
     right: 20px;
-    top: 65px;
+    top: 62px;
     text-align: right;
     background: #F1F1F1;
     padding: 0 10px 5px 10px;
@@ -99,7 +98,7 @@ a:hover {
 /* General styles */
 body {
     overflow-y: scroll;
-    background: white;
+    background: rgba(241, 241, 241, 0.55);
     font: 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 h2 {
@@ -117,7 +116,7 @@ option {
 
 /* Menu */
 img {
-    height: 55px;
+    height: 45px;
 }
 ul {
     display: block;
@@ -125,15 +124,15 @@ ul {
     -webkit-margin-before: 0;
 }
 #header {
-    background: #F1F1F1;
+    background: #ececec;
     position: fixed;
     left: 0;
     top: 0;
     right: 0;
-    height: 84px;
+    height: 60px;
     z-index: 1;
     border-bottom: 1px solid #E9E9E9;
-    box-shadow: 0 0 8px rgba(0, 0, 0, .15);
+    box-shadow: 0 0 2px rgba(0, 0, 0, .15);
 }
 #main_nav li {
     float: left;
@@ -141,7 +140,9 @@ ul {
     padding: 7px 24px;
 }
 .adblock-logo {
-    margin: 18px 0 0 15px;
+    top: 8px;
+    margin-left: 8px;
+    position: absolute;
 }
 .adblock-logo:hover {
     text-decoration: none;
@@ -163,7 +164,7 @@ ul {
 .wrap {
     position: relative;
     margin: 0 auto;
-    max-width: 1025px;
+    max-width: 830px;
     padding: 0 10px;
 }
 
@@ -364,26 +365,18 @@ label {
     }
 }
 
-/*Ã‚Â Custom inputs */
+/* Custom inputs */
 input[type="button"], select {
-    box-shadow: inset 0 1px 0 0 #ffffff;
-    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #c7c7c7) );
     background-color: #ededed;
-    text-indent: -1px;
     border: 1px solid #dcdcdc;
     display: inline-block;
-    color: #000000;
     font-size: 12px;
     font-style: normal;
-    text-decoration: none;
-    text-align: center;
-    text-shadow: 1px 1px 0 #ffffff;
-    border-radius: 2px;
+    border-radius: 3px;
+    cursor: pointer;
 }
 input[type="button"]:hover, select:hover {
-    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #c7c7c7), color-stop(1, #ededed) );
     background-color: #dfdfdf;
-    box-shadow: none;
 }
 input[type="button"]:active {
     position: relative;
@@ -394,16 +387,13 @@ input[type="button"]:focus {
     box-shadow: none;
 }
 input[type="radio"], input[type="checkbox"] {
-    height: 1.3em;
-    width: 1.3em;
+    height: 1.4em;
+    width: 1.4em;
     vertical-align: middle;
-    margin: 0 0.4em 0.3em 0;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    background: -webkit-linear-gradient(#FCFCFC, #DADADA);
+    border: 1px solid #dcdcdc;
     -webkit-appearance: none;
     -moz-appearance: none;
     transition: box-shadow 200ms;
-    box-shadow: inset 1px 1px 0 #fff, 0 1px 1px rgba(0,0,0,0.1);
 }
 input[type="radio"] {
     -webkit-border-radius:100%;
@@ -411,19 +401,11 @@ input[type="radio"] {
     margin-left: 5px;
 }
 input[type="checkbox"] {
-    -webkit-border-radius:2px;
     border-radius: 2px;
 }
 input[type="radio"]:not(:disabled):hover,
 input[type="checkbox"]:not(:disabled):hover {
-    border-color: rgba(0,0,0,0.5);
-    box-shadow: inset 1px 1px 0 #fff, 0 0 4px rgba(0,0,0,0.3);
-}
-input[type="radio"]:active:not(:disabled),
-input[type="checkbox"]:active:not(:disabled) {
-    background-image: -webkit-linear-gradient(#C2C2C2, #EFEFEF);
-    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2), inset -1px -1px 0 rgba(255,255,255,0.6);
-    border-color: rgba(0,0,0,0.5);
+    cursor: pointer;
 }
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
@@ -432,9 +414,9 @@ input[type="checkbox"]:focus {
 }
 input[type="radio"]:checked,
 input[type="checkbox"]:checked {
-    border-color: rgba(0,0,0,0.5);
-    box-shadow: inset 1px 1px 0 #fff, 0 0 4px rgba(0,0,0,0.3);
-    direction: ltr;
+     border-color: rgba(0,0,0,0.5);
+     background-color: #efefef;
+     direction: ltr;
 }
 input[type="radio"]:checked:before {
     display: block;
@@ -475,4 +457,9 @@ input[type=email]:focus, input[type=text]:focus, textarea:focus {
     margin: 5px 1px 3px 0;
     border: 1px solid #dfdfdf;
     outline: none;
+}
+input[type="radio"]:not(:checked):hover:before, input[type="checkbox"]:not(:checked):hover:before {
+    content: '\2713';
+    margin-left: 20%;
+    color: gray;
 }
