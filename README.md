@@ -9,9 +9,12 @@ CatBlock (previously known as "AdBlock with CatBlock") is like an ad blocking ex
 
 You can also disable replacing ads by cats, so CatBlock can work as a standard ad blocking extension (useful for when you're doing presentations anywhere!)
 
-This project aims at maintaining and improving the original [CatBlock](http://blog.getadblock.com/2012/04/catblock-lives-on.html) project by Michael Gundlach, the creator of [AdBlock](https://getadblock.com) and CatBlock.
-
 If you want to find out the history of this extension, you can check it out [here](https://github.com/CatBlock/catblock/wiki/History).
+
+## Goals:
+This project aims at maintaining and improving the original [CatBlock](http://blog.getadblock.com/2012/04/catblock-lives-on.html) project by Michael Gundlach (the creator of [AdBlock](https://getadblock.com) and CatBlock), which is built on top of the AdBlock code.
+
+AdBlock has recently switched to the Adblock Plus codebase in version 3.0, but instead of importing those changes to CatBlock, we think it would be better to improve the original codebase.
 
 ## Installation:
 CatBlock is available in [Chrome Web Store](https://chrome.google.com/webstore/detail/catblock/mdcgnhlfpnbeieiiccmebgkfdebafodo),
@@ -32,20 +35,18 @@ We use many different services to help keep CatBlock working! We use [Travis](ht
 
 We also have Travis connected to [BrowserStack](http://browserstack.com), to run a few automated unit tests for us. If "builds:passing" shows at the top of this README, then it's probably working fine, otherwise the current version of the code might not work so well.
 
-## How to build your extension?
-The [development guide](https://github.com/CatBlock/catblock/blob/master/BUILDING.md) will make your life easier if you need to build CatBlock and change the source code.
+## How to build the extension or create a development environment?
+The [development guide](https://github.com/CatBlock/catblock/wiki/Building-the-extension) will make your life easier if you need to build CatBlock or create an unpacked development environment and change the source code.
 
 ## What is CatBlock Nightly?
 After each commit to our ```master``` branch, "nightly" versions of our CatBlock extension are being generated (thanks to Travis) and exported to the [CatBlock Nightlies](https://github.com/CatBlock/catblock-nightlies) repository, where you can also find out more information.
 
 We're currently looking into a way of publishing CatBlock Nightly to the related extensions stores.
 
-## Do you want to know more about our project or even contribute?
-If you want to keep an eye on (or even contribute to) the behind-the-scenes stuff, check out our [Trello Board](https://trello.com/catblock).
+## Do you want to know more about our project?
+If you want to keep an eye on CatBlock or evenknow more about it, check out our [Wiki page](https://github.com/CatBlock/catblock/wiki), where you can find all important information.
 
 If you want to contribute any improvements to the code, please go ahead and send us a pull request from a fork of this repo!
-
-If you want to become an official translator, check out [this wiki page](https://github.com/CatBlock/catblock/wiki/Translators)!
 
 If we see that you are a dedicated contributor, we may provide you with contributor permissions.
 The people to contact for this project are [@kpeckett](https://github.com/kpeckett) and [@tomasko126](https://github.com/tomasko126).
