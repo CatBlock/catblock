@@ -18,11 +18,11 @@ class Overlay {
         this.click_handler = options.click_handler;
 
         this.image.
-        bind("mouseenter",function() {
+        on("mouseenter",function() {
             // crbug.com/110084
             this.style.setProperty("background-color", "rgba(130, 180, 230, 0.5)", "important");
         }).
-        bind("mouseleave",function() {
+        on("mouseleave",function() {
             // crbug.com/110084
             this.style.setProperty("background-color", "transparent", "important");
         });

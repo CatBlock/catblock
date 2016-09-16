@@ -51,12 +51,12 @@ class Channels {
         this._channelGuide[id] = {
             name: data.name,
             param: data.param,
-            enabled: true,
+            enabled: data.enabled,
             channel: channel
         };
         this._saveToStorage();
         var that = this;
-        $(channel).bind("updated", function() {
+        $(channel).on("updated", function() {
             // TODO: make sure this works in Safari.  And if you fix a bug, fix it
             // in AdBlock too -- it's keeping filter update events from showing up
             // in the AdBlock Options page I think.
@@ -131,8 +131,16 @@ class Channels {
         var entries = storage_get("channels");
         if (!entries || (entries.length > 0 && !entries[0].name)) {
             // Default set of channels
-            this.add({ name: "TheCatsOfCatBlockUsersChannel", param: undefined, enabled: true });
-            this.add({ name: "AprilFoolsCatsChannel", param: undefined, enabled: false });
+            if (CATS.isEnabled()) {
+                this.add({ name: "TheCatsOfProjectCATS", param: undefined, enabled: true });
+                this.add({ name: "TheCatsOfCatBlockUsersChannel", param: undefined,
+                      enabled: false });
+                this.add({ name: "AprilFoolsCatsChannel", param: undefined, enabled: false });
+            } else {
+                this.add({ name: "TheCatsOfCatBlockUsersChannel", param: undefined,
+                      enabled: true });
+                this.add({ name: "AprilFoolsCatsChannel", param: undefined, enabled: true });
+            }
         } else {
             for (var i=0; i < entries.length; i++) {
                 this.add(entries[i]);
@@ -337,5 +345,11 @@ class FlickrPhotosetChannel extends FlickrChannel {
 class TheCatsOfCatBlockUsersChannel extends FlickrPhotosetChannel {
     constructor() {
         super("72157629665759768");
+    }
+}
+
+class TheCatsOfProjectCATS extends FlickrPhotosetChannel {
+    constructor() {
+        super("72157672535515292");
     }
 }

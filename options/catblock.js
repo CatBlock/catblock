@@ -1,13 +1,14 @@
 // TODO: Star and remove photos in a channel
 
 function mayDelete(channelData) {
-    if (channelData.name === "AprilFoolsCatsChannel") {
-        return false;
+    switch (channelData.name) {
+        case "AprilFoolsCatsChannel":
+        case "TheCatsOfCatBlockUsersChannel":
+        case "TheCatsOfProjectCATS":
+            return false;
+        default:
+            return true;
     }
-    if (channelData.name === "TheCatsOfCatBlockUsersChannel") {
-        return false;
-    }
-    return true;
 }
 
 function displayName(channelData) {
