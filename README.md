@@ -11,18 +11,18 @@ You can also disable replacing ads by cats, so CatBlock can work as a standard a
 
 If you want to find out the history of this extension, you can check it out [here](https://github.com/CatBlock/catblock/wiki/History).
 
-## Goals:
+## Goals
 This project aims at maintaining and improving the original [CatBlock](http://blog.getadblock.com/2012/04/catblock-lives-on.html) project by Michael Gundlach (the creator of [AdBlock](https://getadblock.com) and CatBlock), which is built on top of the AdBlock code.
 
 AdBlock has recently switched to the Adblock Plus codebase in version 3.0, but instead of importing those changes to CatBlock, we think it would be better to improve the original codebase.
 
-## Installation:
+## Installation
 CatBlock is available in [Chrome Web Store](https://chrome.google.com/webstore/detail/catblock/mdcgnhlfpnbeieiiccmebgkfdebafodo),
 [Opera Extensions Store](https://addons.opera.com/sk/extensions/details/adblock-with-catblock/?display=en) and [Firefox Addons Store](https://addons.mozilla.org/en/firefox/addon/adblock-with-catblock/).
 
 Right now, CatBlock is not available in the [Safari Extensions Store](https://safari-extensions.apple.com), or in the [Windows Store](https://www.microsoft.com/en-us/windows/windows-10-apps), but we are looking into releasing CatBlock there as well!
 
-## Supported browsers:
+## Supported browsers
 CatBlock is compatible with following browsers:
 - Chrome: 49+
 - Opera: 35+
@@ -30,28 +30,26 @@ CatBlock is compatible with following browsers:
 - Firefox: 48+
 - Edge: 38.14342+
 
-## Tools we use:
+## Tools we use
 We use many different services to help keep CatBlock working! We use [Travis](http://travis-ci.org) to build new versions automatically for us.
 
 We also have Travis connected to [BrowserStack](http://browserstack.com), to run a few automated unit tests for us. If "builds:passing" shows at the top of this README, then it's probably working fine, otherwise the current version of the code might not work so well.
 
-## How to build the extension or create a development environment?
+## Developers
+
+### How to build the extension or create a development environment?
 The [development guide](https://github.com/CatBlock/catblock/wiki/Building-the-extension) will make your life easier if you need to build CatBlock or create an unpacked development environment and change the source code.
 
-## What is CatBlock Nightly?
-After each commit to our ```master``` branch, "nightly" versions of our CatBlock extension are being generated (thanks to Travis) and exported to the [CatBlock Nightlies](https://github.com/CatBlock/catblock-nightlies) repository, where you can also find out more information.
-
-We're currently looking into a way of publishing CatBlock Nightly to the related extensions stores.
-
-## Do you want to know more about our project?
-If you want to keep an eye on CatBlock or evenknow more about it, check out our [Wiki page](https://github.com/CatBlock/catblock/wiki), where you can find all important information.
-
+### Do you want to contribute?
 If you want to contribute any improvements to the code, please go ahead and send us a pull request from a fork of this repo!
 
 If we see that you are a dedicated contributor, we may provide you with contributor permissions.
 The people to contact for this project are [@kpeckett](https://github.com/kpeckett) and [@tomasko126](https://github.com/tomasko126).
 
-## Get in touch with us:
+### Do you want to know more about our project?
+If you want to keep an eye on CatBlock or even know more about it, check out our [Wiki page](https://github.com/CatBlock/catblock/wiki), where you can find all important information.
+
+## Get in touch with us
 [![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
 
 We use Slack a lot - make an account at <http://catblock-slackin.herokuapp.com> and log in at <https://catblock.slack.com>. You can ask questions there (the main contributors are all in Europe, so anyone in Australia should expect a bit of a wait).
