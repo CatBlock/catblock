@@ -12,7 +12,7 @@ You can also disable replacing ads by cats, so CatBlock can work as a standard a
 If you want to find out the history of this extension, you can check it out [here](https://github.com/CatBlock/catblock/wiki/History).
 
 ## Goals
-This project aims at maintaining and improving the original [CatBlock](http://blog.getadblock.com/2012/04/catblock-lives-on.html) project by Michael Gundlach (the creator of [AdBlock](https://getadblock.com) and CatBlock), which is built on top of the AdBlock code.
+This project aims at maintaining and improving the original [CatBlock](http://catblock.getadblock.com) project by Michael Gundlach (the creator of [AdBlock](https://getadblock.com) and CatBlock), which is built on top of the AdBlock code.
 
 AdBlock has recently switched to the Adblock Plus codebase in version 3.0, but instead of importing those changes to CatBlock, we think it would be better to improve the original codebase.
 
@@ -30,7 +30,7 @@ CatBlock is compatible with following browsers:
 - Opera: 35+
 - Safari: 6+
 - Firefox: 48+
-- Edge: 38.14342+
+- Edge: Windows 10 Anniversary - version 1607
 
 ## Tools we use
 We use many different services to help keep CatBlock working! We use [Travis](http://travis-ci.org) to build new versions automatically for us.

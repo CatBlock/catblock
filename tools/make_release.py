@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 """
 This script generates a release versions of CatBlock for different platforms
 and also an unpacked development environment
@@ -259,10 +257,6 @@ def main():
             shutil.rmtree("catblock_opera")
 
         print("Done!")
-
-    elif args.browser == "safari":
-
-        print("We are sorry, but building CatBlock for Safari hasn't been implemented yet.")
 
     else:
         print("You have selected an unsupported browser. Please, try again.")
