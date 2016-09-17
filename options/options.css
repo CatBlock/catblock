@@ -184,25 +184,13 @@ ul {
 }
 
 /* Index tab */
-#translation_credits {
-    font-size: 13px;
-    margin: 0 50%;
-    min-width: 350px;
-    left: 125px;
-    position: absolute;
-    text-align: right;
-    margin-top: 50px;
-}
-#version_number {
-    margin: 20px 50%;
-    min-width: 100px;
-    padding-left: 375px;
-    position: absolute;
-    text-align: right;
-}
 .footnote {
     font-size: small;
     font-style: italic;
+}
+footer {
+    text-align: center;
+    margin-top: 20px;
 }
 
 /* General tab */
@@ -344,18 +332,6 @@ label {
 }
 
 /* Screen resolution support */
-@media screen and (max-width: 1060px) {
-    #translation_credits {
-        right: 45px;
-        margin: 0;
-        min-width: 0;
-    }
-    #version_number {
-        margin-top: 20px;
-        margin-right: 0;
-        right: 40px;
-    }
-}
 @media screen and (max-width: 810px) {
     .desktop {
         display: none;
@@ -392,7 +368,6 @@ input[type="radio"], input[type="checkbox"] {
     vertical-align: middle;
     border: 1px solid #dcdcdc;
     -webkit-appearance: none;
-    -moz-appearance: none;
     transition: box-shadow 200ms;
 }
 input[type="radio"] {

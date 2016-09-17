@@ -70,7 +70,7 @@ function afterTabLoad() {
 
 function displayVersionNumber() {
     var versionNumber = chrome.runtime.getManifest().version;
-    $("#version_number").text(translate("optionsversion", [versionNumber]));
+    $("#version_number").text("CatBlock " + versionNumber);
 }
 
 function displayTranslationCredit() {
