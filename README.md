@@ -4,7 +4,7 @@ CatBlock
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cc8d000f77bb427caa8b0293d9b5d225)](https://www.codacy.com/app/tomastaro/catblock?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CatBlock/catblock&amp;utm_campaign=Badge_Grade)
 [![GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/CatBlock/catblock/blob/master/LICENSE.txt)
 
-## Overview
+## Overview
 CatBlock (previously known as "AdBlock with CatBlock") is like an ad blocking extension, but instead of blocking ads it shows you pictures of cats by default (configurable).
 
 You can also disable replacing ads by cats, so CatBlock can work as a standard ad blocking extension (useful for when you're doing presentations anywhere!)
@@ -21,6 +21,8 @@ CatBlock is available in [Chrome Web Store](https://chrome.google.com/webstore/d
 [Opera Extensions Store](https://addons.opera.com/sk/extensions/details/adblock-with-catblock/?display=en) and [Firefox Addons Store](https://addons.mozilla.org/en/firefox/addon/adblock-with-catblock/).
 
 Right now, CatBlock is not available in the [Safari Extensions Store](https://safari-extensions.apple.com), or in the [Windows Store](https://www.microsoft.com/en-us/windows/windows-10-apps), but we are looking into releasing CatBlock there as well!
+
+If you can't wait for an official release of CatBlock on Windows Store, [find out](https://github.com/CatBlock/catblock/wiki/Building-the-extension#in-microsoft-edge) how to sideload CatBlock on Edge right now.
 
 ## Supported browsers
 CatBlock is compatible with following browsers:

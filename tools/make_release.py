@@ -45,7 +45,7 @@ def main():
                     "applications": {
                         "gecko": {
                             "id": "catblock@catblock.tk",
-                            "strict_min_version": "48.*"
+                            "strict_min_version": "48.0"
                         }
                     }
                 }

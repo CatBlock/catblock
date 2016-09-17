@@ -47,7 +47,7 @@ function Highlighter() {
 
     this.enable = function() {
         if (box && !enabled) {
-            $("body").bind("mousemove", handler);
+            $("body").on("mousemove", handler);
         }
         enabled = true;
     };
@@ -55,7 +55,7 @@ function Highlighter() {
     this.disable = function() {
         if (box && enabled) {
             box.hide();
-            $("body").unbind("mousemove", handler);
+            $("body").off("mousemove", handler);
         }
         enabled = false;
     };
@@ -200,10 +200,10 @@ ClickWatcher.prototype._build_ui = function() {
 
     page.dialog("widget").
     css("position", "fixed").
-    bind("mouseenter", function() {
+    on("mouseenter", function() {
         that._highlighter.disable();
     }).
-    bind("mouseleave", function() {
+    on("mouseleave", function() {
         that._highlighter.enable();
     });
     changeTextDirection($("body .adblock-blacklist-dialog"));
