@@ -1,20 +1,16 @@
 var optionalSettings = {};
 
 function tabLoad() {
-    // Load different tabs
+    // Click handler for loading tabs
     $("#desktopnav > a, #mobilenav > div > a").click(function(event) {
 
-        // Highlight the tab, which is about to pop up
+        // Remove highlight of current tab and
+        // highlight tab, which is about to be shown
         $("#desktopnav > a, #mobilenav > div > a").removeClass();
         $(this).addClass("active");
 
         // Hide the current tab
         $(".options").hide();
-
-        // Remove dynamically created filter lists entries
-        $("#ad_blocking_list").children().remove();
-        $("#other_filter_lists").children().remove();
-        $("#language_list").children().remove();
 
         // Get data, what tab and scripts should we load
         var target = event.target;
@@ -28,9 +24,22 @@ function tabLoad() {
         // Load requested tab's scripts and localize tab
         scripts.split(" ").forEach(function(scriptToLoad) {
             // CSP blocks eval, which $().append(scriptTag) uses
-            var s = document.createElement("script");
-            s.src = scriptToLoad;
-            document.getElementById("content").appendChild(s);
+            var loadedScripts = document.querySelectorAll("script");
+            var allowScriptToBeLoaded = true;
+
+            var scriptTagToLoad = document.createElement("script");
+            scriptTagToLoad.src = scriptToLoad;
+
+            for (var loadedScript of loadedScripts) {
+                if (loadedScript.src === scriptTagToLoad.src) {
+                    allowScriptToBeLoaded = false;
+                    break;
+                }
+            }
+            // When script hasn't been loaded yes, execute it
+            if (allowScriptToBeLoaded) {
+                document.getElementById("content").appendChild(scriptTagToLoad);
+            }
         });
     });
 
@@ -66,7 +75,7 @@ function displayVersionNumber() {
 }
 
 function displayTranslationCredit() {
-    if (determineUserLanguage()!== "en") {
+    if (determineUserLanguage() !== "en") {
         var translators = [];
         var xhr = new XMLHttpRequest();
         xhr.open("GET", chrome.runtime.getURL("translators.json"), true);
@@ -120,5 +129,7 @@ $(document).ready(function() {
         afterTabLoad();
         displayVersionNumber();
         displayTranslationCredit();
+        // When init is complete, show the content of the page
+        $("header, #content, footer").fadeIn();
     });
 });

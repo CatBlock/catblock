@@ -585,7 +585,6 @@ function addMalwareNotificationDiv() {
 }
 
 $(function() {
-
     // Retrieves list of filter lists from the background.
     BGcall("get_subscriptions_minus_text", function(subs) {
 
