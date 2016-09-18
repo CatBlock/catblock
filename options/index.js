@@ -2,10 +2,10 @@ var optionalSettings = {};
 
 function tabLoad() {
     // Load different tabs
-    $("nav > a, nav > div > a").click(function(event) {
+    $("#desktopnav > a, #mobilenav > div > a").click(function(event) {
 
         // Highlight the tab, which is about to pop up
-        $("nav > a, nav > div > a").removeClass();
+        $("#desktopnav > a, #mobilenav > div > a").removeClass();
         $(this).addClass("active");
 
         // Hide the current tab
@@ -22,10 +22,6 @@ function tabLoad() {
         var page = target.dataset.page;
         var pageName = page.split(".")[0] === "" ? "catblock" : page.split(".")[0];
 
-        // Add a class which is different to the content of the tab
-        $("#content").removeClass();
-        $("#content").addClass(pageName);
-
         // Finally, show the chosen tab
         $("#" + pageName).show();
 
@@ -40,13 +36,9 @@ function tabLoad() {
 
     // Show general tab by default
     if ($("#toggletabs").is(":visible")) {
-        $("nav > div > a:first-child").click();
-        $(".options").hide();
-        $("#general").show();
+        $("#mobilenav > div > a:first-child").click();
     } else {
-        $("nav > a:first-child").click();
-        $(".options").hide();
-        $("#general").show();
+        $("#desktopnav > a:first-child").click();
     }
 
     // Display responsive tab options
@@ -74,7 +66,7 @@ function displayVersionNumber() {
 }
 
 function displayTranslationCredit() {
-    if (navigator.language.substring(0, 2) !== "en") {
+    if (determineUserLanguage()!== "en") {
         var translators = [];
         var xhr = new XMLHttpRequest();
         xhr.open("GET", chrome.runtime.getURL("translators.json"), true);

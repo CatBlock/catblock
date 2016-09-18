@@ -14,7 +14,7 @@ nav {
     text-align: center;
 }
 
-.desktop {
+#desktopnav {
     margin-top: 20px;
 }
 
@@ -53,13 +53,13 @@ a:hover {
     margin: 5px;
 }
 
-.mobile {
+#mobilenav {
     display: none;
     position: fixed;
     width: 100%;
     top: 0;
 }
-.mobile div {
+#mobilenav div {
     display: none;
     position: absolute;
     right: 20px;
@@ -69,7 +69,7 @@ a:hover {
     padding: 0 10px 5px 10px;
     border-radius: 2px;
 }
-.mobile button {
+#mobilenav button {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -82,13 +82,13 @@ a:hover {
     height: 30px;
     transition: all 400ms ease;
 }
-.mobile button.expanded {
+#mobilenav button.expanded {
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
     background-color: transparent;
     border: 0;
 }
-.mobile a {
+#mobilenav a {
     display: block;
 }
 
@@ -338,7 +338,7 @@ label {
 
 /* Screen resolution support */
 @media screen and (max-width: 810px) {
-    .desktop {
+    #desktopnav {
         display: none;
     }
     .mobile {
