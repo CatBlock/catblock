@@ -130,6 +130,6 @@ $(document).ready(function() {
         displayVersionNumber();
         displayTranslationCredit();
         // When init is complete, show the content of the page
-        $("header, #content, footer").fadeIn();
+        $("body").fadeIn();
     });
 });
