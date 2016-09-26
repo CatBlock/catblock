@@ -1,6 +1,7 @@
 body {
     display: none;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .active {
@@ -454,7 +455,7 @@ input[type=email]:focus, input[type=text]:focus, textarea:focus {
     border: 1px solid #dfdfdf;
     outline: none;
 }
-input[type="radio"]:not(:checked):hover:before, input[type="checkbox"]:not(:checked):hover:before {
+input[type="radio"]:not(:checked):not(:disabled):hover:before, input[type="checkbox"]:not(:checked):not(:disabled):hover:before {
     content: '\2713';
     margin-left: 20%;
     color: gray;
