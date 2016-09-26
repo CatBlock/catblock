@@ -727,9 +727,9 @@ function page_is_unblockable(url) {
 //          if paused, false otherwise.
 function adblock_is_paused(newValue) {
     if (newValue === undefined) {
-        return sessionStorage.getItem("adblock_is_paused") === "true";
+        return storage_get("adblock_is_paused") === true;
     }
-    sessionStorage.setItem("adblock_is_paused", newValue);
+    storage_set("adblock_is_paused", newValue);
     // To prevent certain web site issues that occur with the "beforeload" event listener
     // remove the Safari specific "beforeload" script when AdBlock is paused, and
     // add it back when AdBlock is un-paused
