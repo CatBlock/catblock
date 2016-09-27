@@ -76,7 +76,7 @@ function beforeLoadHandler(event) {
             }
             setTimeout(function() {
                 var evt = document.createEvent("Event");
-                evt.initEvent(eventName);
+                evt.initEvent(eventName, false, false);
                 event.target.dispatchEvent(evt);
             }, 0);
         }
