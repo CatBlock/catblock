@@ -61,6 +61,8 @@ $(function() {
 
     // add the link to the anchor in "adreport2"
     $("a", "#info").attr("href", "http://help.getadblock.com/support/solutions/articles/6000061202").attr("target", "_blank");
+
+    $("body").fadeIn();
 });
 
 // Fetching the options...
