@@ -23,7 +23,6 @@ function CheckboxForFilterList(filter_list, filter_list_type, index, container) 
     this._check_box = $("<input />").
     attr("type", "checkbox").
     attr("id", this._id).
-    css("margin-left", "2px").
     prop("checked", this._filter_list.subscribed ? true : null).
     addClass("filter_list_control");
 
