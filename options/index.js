@@ -1,7 +1,8 @@
+// Contains settings from BG fn `get_settings`
 var optionalSettings = {};
 
+// Click handler for loading different tabs
 function tabLoad() {
-    // Click handler for loading tabs
     $("#desktopnav > a, #mobilenav > div > a").click(function(event) {
 
         // Remove highlight of current tab and
@@ -56,6 +57,8 @@ function tabLoad() {
     });
 }
 
+// Shows options, which are available for specific browsers
+// and localize Options page
 function afterTabLoad() {
     // Hide advanced settings
     if (optionalSettings && !optionalSettings.show_advanced_options) {
@@ -69,11 +72,20 @@ function afterTabLoad() {
     localizePage();
 }
 
+// Scale page, when running on high-DPI display
+function scaleToFit() {
+    if (screen.availWidth > 1440) {
+        $("body").css("zoom", "125%");
+    }
+}
+
+// Display version number of CatBlock
 function displayVersionNumber() {
     var versionNumber = chrome.runtime.getManifest().version;
     $("#version_number").text("CatBlock " + versionNumber);
 }
 
+// Display translators, who translated CatBlock
 function displayTranslationCredit() {
     if (determineUserLanguage() !== "en") {
         var translators = [];
@@ -127,6 +139,7 @@ $(document).ready(function() {
         optionalSettings = settings;
         tabLoad();
         afterTabLoad();
+        scaleToFit();
         displayVersionNumber();
         displayTranslationCredit();
         // When init is complete, show the content of the page
