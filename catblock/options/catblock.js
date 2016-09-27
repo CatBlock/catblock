@@ -109,7 +109,7 @@ function addChannel(name, param) {
 }
 
 function setStatus(disabled) {
-    $("#flickr-param, #btnGo, .channel-ui > div > input").attr("disabled", disabled);
+    $("#flickr-param, #btnGo, .channel-ui > div > input").prop("disabled", disabled);
 }
 
 BGcall("getGuide", function(guide) {
