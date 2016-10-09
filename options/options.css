@@ -6,6 +6,7 @@ a {
 a:hover {
     color: #23527c;
     text-decoration: underline;
+    cursor: pointer;
 }
 body {
     overflow-y: scroll;
@@ -67,6 +68,7 @@ ul {
 }
 #desktopnav {
     margin-top: 20px;
+    position: static;
 }
 #header {
     background: #ececec;
@@ -267,7 +269,7 @@ footer {
 #editFilters {
     margin: 15px 0 8px 0;
 }
-#txtFiltersAdvanced {
+#txtFiltersAdvanced, #txtExcludeFiltersAdvanced {
     font-size: 12px;
     max-width: 100%;
     margin-left: 5px;
