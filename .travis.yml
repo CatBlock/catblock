@@ -9,10 +9,10 @@ before_script:
     - git remote add origin https://${GH_TOKEN}@github.com/CatBlock/catblock.git
     - pip install selenium
 script:
-    - python tools/make_release.py -b firefox -ext y
-    - python tools/make_release.py -b edge
-    - python tools/make_release.py -b chrome
-    - python tools/make_release.py -b opera
+    - python tools/make_release.py -b firefox -ext browser
+    - python tools/make_release.py -b edge -ext zip
+    - python tools/make_release.py -b chrome -ext zip
+    - python tools/make_release.py -b opera -ext zip
 after_success:
     - cd tools/
     - chmod +x ./publish_release.sh
