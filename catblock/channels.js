@@ -194,7 +194,6 @@ class Channel {
 }
 
 // Channel containing hard coded cats loaded from disk.
-// Subclass of Channel.
 class AprilFoolsCatsChannel extends Channel {
     constructor() {
         super();
@@ -244,7 +243,6 @@ class AprilFoolsCatsChannel extends Channel {
 
 
 // Abstract base class for Flickr-based Channels.
-// Subclass of Channel.
 class FlickrChannel extends Channel {
     constructor() {
         super();
@@ -308,7 +306,6 @@ class FlickrChannel extends Channel {
 }
 
 // Channel pulling from Flickr search results.
-// Subclass of FlickrChannel.
 class FlickrSearchChannel extends FlickrChannel {
     constructor(query) {
         super();
@@ -324,7 +321,6 @@ class FlickrSearchChannel extends FlickrChannel {
 }
 
 // Channel pulling from a Flickr photoset.
-// Subclass of FlickrChannel.
 class FlickrPhotosetChannel extends FlickrChannel {
     constructor(photoset_id) {
         super();
@@ -341,7 +337,6 @@ class FlickrPhotosetChannel extends FlickrChannel {
 }
 
 // Channel pulling from a Flickr channel "The Cats of CatBlock users"
-// Subclass of FlickrPhotosetChannel
 class TheCatsOfCatBlockUsersChannel extends FlickrPhotosetChannel {
     constructor() {
         super("72157629665759768");
