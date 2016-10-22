@@ -1,3 +1,5 @@
+@ECHO OFF
+
 SET SourcePath="%CD%\catblock"
 
 ECHO Attempting to set access permissions on directory . . .
