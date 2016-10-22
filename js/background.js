@@ -72,34 +72,34 @@ if (!SAFARI) {
 
 // OPTIONAL SETTINGS
 
-function Settings() {
-    var defaults = {
-        catblock: true,
-        debug_logging: false,
-        youtube_channel_whitelist: false,
-        whitelist_hulu_ads: false, // Issue 7178
-        show_context_menu_items: true,
-        show_advanced_options: false,
-        display_stats: true,
-        display_menu_stats: true
-    };
-    var settings = storage_get("settings") || {};
-    this._data = $.extend(defaults, settings);
+class Settings {
+    constructor() {
+        var defaults = {
+            catblock: true,
+            debug_logging: false,
+            youtube_channel_whitelist: false,
+            whitelist_hulu_ads: false, // Issue 7178
+            show_context_menu_items: true,
+            show_advanced_options: false,
+            display_stats: true,
+            display_menu_stats: true
+        };
+        var settings = storage_get("settings") || {};
+        this._data = $.extend(defaults, settings);
+    }
 
-}
-
-Settings.prototype = {
-    set: function(name, is_enabled) {
+    set(name, is_enabled) {
         this._data[name] = is_enabled;
         // Don't store defaults that the user hasn't modified
         var stored_data = storage_get("settings") || {};
         stored_data[name] = is_enabled;
         storage_set("settings", stored_data);
-    },
-    get_all: function() {
+    }
+
+    get_all() {
         return this._data;
     }
-};
+}
 
 var _settings = new Settings();
 

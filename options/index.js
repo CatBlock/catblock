@@ -1,58 +1,60 @@
 var optionalSettings = {};
 
 function tabLoad() {
-    // Load different tabs
-    $("nav > a, nav > div > a").click(function(event) {
+    // An event handler, which loads tabs
+    $("nav.desktop > a, nav.mobile > div > a").click(function(event) {
 
-        // Highlight the tab, which is about to pop up
-        $("nav > a, nav > div > a").removeClass();
+        // Highlight the name of a tab, which is about to be shown
+        $("nav.desktop > a, nav.mobile > div > a").removeClass();
         $(this).addClass("active");
 
         // Hide the current tab
         $(".options").hide();
 
-        // Remove dynamically created filter lists entries
-        $("#ad_blocking_list").children().remove();
-        $("#other_filter_lists").children().remove();
-        $("#language_list").children().remove();
-
-        // Get data, what tab and scripts should we load
+        // Get data: what tab should we show
+        //           what scripts should we execute
         var target = event.target;
         var scripts = target.dataset.scripts;
-        var page = target.dataset.page;
-        var pageName = page.split(".")[0] === "" ? "catblock" : page.split(".")[0];
+        var pageName = target.dataset.page;
 
         // Add a class which is different to the content of the tab
         $("#content").removeClass();
         $("#content").addClass(pageName);
 
-        // Finally, show the chosen tab
+        // Finally, show the tab we want
         $("#" + pageName).show();
 
         // Load requested tab's scripts and localize tab
         scripts.split(" ").forEach(function(scriptToLoad) {
             // CSP blocks eval, which $().append(scriptTag) uses
-            var s = document.createElement("script");
-            s.src = scriptToLoad;
-            document.getElementById("content").appendChild(s);
+            // Don't load a script, which has already been executed
+            var loadedScripts = document.querySelectorAll("script");
+            var allowScriptToBeLoaded = true;
+            for (var loadedScript of loadedScripts) {
+                if (loadedScript.src === chrome.runtime.getURL(scriptToLoad)) {
+                    allowScriptToBeLoaded = false;
+                    break;
+                }
+            }
+            if (allowScriptToBeLoaded) {
+                var s = document.createElement("script");
+                s.src = scriptToLoad;
+                document.getElementById("content").appendChild(s);
+            }
         });
+    });
+
+    // Display responsive tab menu
+    $("#toggletabs").click(function() {
+        $(this).toggleClass("expanded").siblings("div").slideToggle();
     });
 
     // Show general tab by default
     if ($("#toggletabs").is(":visible")) {
-        $("nav > div > a:first-child").click();
-        $(".options").hide();
-        $("#general").show();
+        $("nav.mobile > div > a:first-child").click();
     } else {
-        $("nav > a:first-child").click();
-        $(".options").hide();
-        $("#general").show();
+        $("nav.desktop > a:first-child").click();
     }
-
-    // Display responsive tab options
-    $("#toggletabs").click(function() {
-        $(this).toggleClass("expanded").siblings("div").slideToggle();
-    });
 }
 
 function afterTabLoad() {
