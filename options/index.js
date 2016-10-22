@@ -8,16 +8,17 @@ function tabLoad() {
         // Remove highlight of current tab and
         // highlight tab, which is about to be shown
         $("#desktopnav > a, #mobilenav > div > a").removeClass();
+
         $(this).addClass("active");
 
         // Hide the current tab
         $(".options").hide();
 
-        // Get data, what tab and scripts should we load
+        // Get data: what tab should we show
+        //           what scripts should we execute
         var target = event.target;
         var scripts = target.dataset.scripts;
-        var page = target.dataset.page;
-        var pageName = page.split(".")[0] === "" ? "catblock" : page.split(".")[0];
+        var pageName = target.dataset.page;
 
         // Finally, show the chosen tab
         $("#" + pageName).show();
@@ -32,16 +33,22 @@ function tabLoad() {
             scriptTagToLoad.src = scriptToLoad;
 
             for (var loadedScript of loadedScripts) {
-                if (loadedScript.src === scriptTagToLoad.src) {
+                if (loadedScript.src === chrome.runtime.getURL(scriptToLoad)) {
                     allowScriptToBeLoaded = false;
                     break;
                 }
             }
-            // When script hasn't been loaded yes, execute it
             if (allowScriptToBeLoaded) {
-                document.getElementById("content").appendChild(scriptTagToLoad);
+                var s = document.createElement("script");
+                s.src = scriptToLoad;
+                document.getElementById("content").appendChild(s);
             }
         });
+    });
+
+    // Display responsive tab menu
+    $("#toggletabs").click(function() {
+        $(this).toggleClass("expanded").siblings("div").slideToggle();
     });
 
     // Show general tab by default
@@ -50,11 +57,6 @@ function tabLoad() {
     } else {
         $("#desktopnav > a:first-child").click();
     }
-
-    // Display responsive tab options
-    $("#toggletabs").click(function() {
-        $(this).toggleClass("expanded").siblings("div").slideToggle();
-    });
 }
 
 // Shows options, which are available for specific browsers
