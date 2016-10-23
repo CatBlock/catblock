@@ -1,12 +1,12 @@
 /*!
- * QUnit 2.0.0
+ * QUnit 2.0.1
  * https://qunitjs.com/
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2016-06-16T17:09Z
+ * Date: 2016-07-23T19:39Z
  */
 
 ( function( global ) {
@@ -334,7 +334,7 @@ function runLoggingCallbacks( key, args ) {
 QUnit.isLocal = !( defined.document && window.location.protocol !== "file:" );
 
 // Expose the current QUnit version
-QUnit.version = "2.0.0";
+QUnit.version = "2.0.1";
 
 extend( QUnit, {
 
@@ -443,7 +443,7 @@ extend( QUnit, {
             );
         }
 
-        resumeProcessing();
+        scheduleBegin();
     },
 
     config: config,
@@ -467,10 +467,12 @@ extend( QUnit, {
             filter: ""
         }, true );
 
-        config.blocking = false;
+        if ( !runStarted ) {
+            config.blocking = false;
 
-        if ( config.autostart ) {
-            resumeProcessing();
+            if ( config.autostart ) {
+                scheduleBegin();
+            }
         }
     },
 
@@ -481,6 +483,20 @@ extend( QUnit, {
 } );
 
 registerLoggingCallbacks( QUnit );
+
+function scheduleBegin() {
+
+    runStarted = true;
+
+    // Add a slight delay to allow definition of more modules and tests.
+    if ( defined.setTimeout ) {
+        setTimeout( function() {
+            begin();
+        }, 13 );
+    } else {
+        begin();
+    }
+}
 
 function begin() {
     var i, l,
@@ -540,45 +556,6 @@ function process( last ) {
     config.depth--;
     if ( last && !config.blocking && !config.queue.length && config.depth === 0 ) {
         done();
-    }
-}
-
-function pauseProcessing( test ) {
-    config.blocking = true;
-
-    if ( config.testTimeout && defined.setTimeout ) {
-        clearTimeout( config.timeout );
-        config.timeout = setTimeout( function() {
-            test.semaphore = 0;
-            QUnit.pushFailure( "Test timed out", sourceFromStacktrace( 2 ) );
-            resumeProcessing( test );
-        }, config.testTimeout );
-    }
-}
-
-function resumeProcessing( test ) {
-    runStarted = true;
-
-    // A slight delay to allow this iteration of the event loop to finish (more assertions, etc.)
-    if ( defined.setTimeout ) {
-        setTimeout( function() {
-            var current = test || config.current;
-            if ( current && ( current.semaphore > 0 || current.resumed ) ) {
-                return;
-            }
-
-            if ( config.timeout ) {
-                clearTimeout( config.timeout );
-            }
-
-            if ( current ) {
-                current.resumed = true;
-            }
-
-            begin();
-        }, 13 );
-    } else {
-        begin();
     }
 }
 
@@ -723,10 +700,6 @@ Test.prototype = {
 
         config.current = this;
 
-        if ( this.async ) {
-            internalStop( this );
-        }
-
         this.callbackStarted = now();
 
         if ( config.notrycatch ) {
@@ -745,7 +718,7 @@ Test.prototype = {
 
             // Restart the tests if they're blocking
             if ( config.blocking ) {
-                internalStart( this );
+                internalRecover( this );
             }
         }
 
@@ -829,9 +802,11 @@ Test.prototype = {
         }
 
         var i,
+            skipped = !!this.skip,
             bad = 0;
 
         this.runtime = now() - this.started;
+
         config.stats.all += this.assertions.length;
         config.moduleStats.all += this.assertions.length;
 
@@ -847,11 +822,11 @@ Test.prototype = {
         runLoggingCallbacks( "testDone", {
             name: this.testName,
             module: this.module.name,
-            skipped: !!this.skip,
+            skipped: skipped,
             failed: bad,
             passed: this.assertions.length - bad,
             total: this.assertions.length,
-            runtime: this.runtime,
+            runtime: skipped ? 0 : this.runtime,
 
             // HTML Reporter use
             assertions: this.assertions,
@@ -980,15 +955,15 @@ Test.prototype = {
     },
 
     resolvePromise: function( promise, phase ) {
-        var then, message,
+        var then, resume, message,
             test = this;
         if ( promise != null ) {
             then = promise.then;
             if ( QUnit.objectType( then ) === "function" ) {
-                internalStop( test );
+                resume = internalStop( test );
                 then.call(
                     promise,
-                    function() { internalStart( test ); },
+                    function() { resume(); },
                     function( error ) {
                         message = "Promise rejected " +
                             ( !phase ? "during" : phase.replace( /Each$/, "" ) ) +
@@ -999,7 +974,7 @@ Test.prototype = {
                         saveGlobal();
 
                         // Unblock
-                        internalStart( test );
+                        resume();
                     }
                 );
             }
@@ -1247,18 +1222,41 @@ function only( testName, callback ) {
     newTest.queue();
 }
 
+// Put a hold on processing and return a function that will release it.
 function internalStop( test ) {
+    var released = false;
 
-    // If a test is running, adjust its semaphore
     test.semaphore += 1;
+    config.blocking = true;
 
-    pauseProcessing( test );
+    // Set a recovery timeout, if so configured.
+    if ( config.testTimeout && defined.setTimeout ) {
+        clearTimeout( config.timeout );
+        config.timeout = setTimeout( function() {
+            QUnit.pushFailure( "Test timed out", sourceFromStacktrace( 2 ) );
+            internalRecover( test );
+        }, config.testTimeout );
+    }
+
+    return function resume() {
+        if ( released ) {
+            return;
+        }
+
+        released = true;
+        test.semaphore -= 1;
+        internalStart( test );
+    };
 }
 
-function internalStart( test ) {
+// Forcefully release all processing holds.
+function internalRecover( test ) {
+    test.semaphore = 0;
+    internalStart( test );
+}
 
-    // If a test is running, adjust its semaphore
-    test.semaphore -= 1;
+// Release a processing hold, scheduling a resumption attempt if no holds remain.
+function internalStart( test ) {
 
     // If semaphore is non-numeric, throw error
     if ( isNaN( test.semaphore ) ) {
@@ -1287,7 +1285,25 @@ function internalStart( test ) {
         return;
     }
 
-    resumeProcessing( test );
+    // Add a slight delay to allow more assertions etc.
+    if ( defined.setTimeout ) {
+        if ( config.timeout ) {
+            clearTimeout( config.timeout );
+        }
+        config.timeout = setTimeout( function() {
+            if ( test.semaphore > 0 ) {
+                return;
+            }
+
+            if ( config.timeout ) {
+                clearTimeout( config.timeout );
+            }
+
+            begin();
+        }, 13 );
+    } else {
+        begin();
+    }
 }
 
 function numberOfTests( module ) {
@@ -1322,10 +1338,10 @@ QUnit.assert = Assert.prototype = {
         }
     },
 
-    // Increment this Test's semaphore counter, then return a function that
-    // decrements that counter a maximum of once.
+    // Put a hold on processing and return a function that will release it a maximum of once.
     async: function( count ) {
-        var test = this.test,
+        var resume,
+            test = this.test,
             popped = false,
             acceptCallCount = count;
 
@@ -1333,9 +1349,8 @@ QUnit.assert = Assert.prototype = {
             acceptCallCount = 1;
         }
 
-        test.semaphore += 1;
         test.usedAsync = true;
-        pauseProcessing( test );
+        resume = internalStop( test );
 
         return function done() {
 
@@ -1349,9 +1364,8 @@ QUnit.assert = Assert.prototype = {
                 return;
             }
 
-            test.semaphore -= 1;
             popped = true;
-            resumeProcessing( test );
+            resume();
         };
     },
 
@@ -2117,7 +2131,10 @@ QUnit.dump = ( function() {
                 date: quote,
                 regexp: literal,
                 number: literal,
-                "boolean": literal
+                "boolean": literal,
+                symbol: function( sym ) {
+                    return sym.toString();
+                }
             },
 
             // If true, entities are escaped ( <, >, \t, space and \n )
@@ -2784,7 +2801,7 @@ function toolbarModuleFilter () {
 
     // Processes selection changes
     function selectionChange( evt ) {
-        var i,
+        var i, item,
             checkbox = evt && evt.target || allCheckbox,
             modulesList = dropDownList.getElementsByTagName( "input" ),
             selectedNames = [];
@@ -2797,15 +2814,16 @@ function toolbarModuleFilter () {
            removeClass( allCheckbox.parentNode, "checked" );
         }
         for ( i = 0; i < modulesList.length; i++ )  {
+            item = modulesList[ i ];
             if ( !evt ) {
-                toggleClass( modulesList[ i ].parentNode, "checked", modulesList[ i ].checked );
+                toggleClass( item.parentNode, "checked", item.checked );
             } else if ( checkbox === allCheckbox && checkbox.checked ) {
-                modulesList[ i ].checked = false;
-                removeClass( modulesList[ i ].parentNode, "checked" );
+                item.checked = false;
+                removeClass( item.parentNode, "checked" );
             }
-            dirty = dirty || ( checkbox.checked !== checkbox.defaultChecked );
-            if ( modulesList[ i ].checked ) {
-                selectedNames.push( modulesList[ i ].parentNode.textContent );
+            dirty = dirty || ( item.checked !== item.defaultChecked );
+            if ( item.checked ) {
+                selectedNames.push( item.parentNode.textContent );
             }
         }
 
