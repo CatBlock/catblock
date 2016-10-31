@@ -29,18 +29,19 @@ function tabLoad() {
             var loadedScripts = document.querySelectorAll("script");
             var allowScriptToBeLoaded = true;
 
-            var scriptTagToLoad = document.createElement("script");
-            scriptTagToLoad.src = scriptToLoad;
+            var baseURL = chrome.runtime.getURL("");
+            var scriptURL = baseURL + scriptToLoad;
 
             for (var loadedScript of loadedScripts) {
-                if (loadedScript.src === chrome.runtime.getURL(scriptToLoad)) {
+                if (loadedScript.src === scriptURL) {
                     allowScriptToBeLoaded = false;
                     break;
                 }
             }
+
             if (allowScriptToBeLoaded) {
                 var s = document.createElement("script");
-                s.src = scriptToLoad;
+                s.src = scriptURL;
                 document.getElementById("content").appendChild(s);
             }
         });
