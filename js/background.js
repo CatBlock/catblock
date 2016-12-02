@@ -1451,30 +1451,32 @@ function getDebugInfo() {
     the_debug_info.settings.push("malware-notification: " + storage_get("malware-notification") + "\n");
     the_debug_info.settings = the_debug_info.settings.join("");
 
-    // Find out AdBlock version
+    // Find out CatBlock version
     var AdBlockVersion = chrome.runtime.getManifest().version;
 
-    // Is this installed build of AdBlock the official one?
+    // Is this installed build of CatBlock the official one?
+    // TODO: Replace ID's by getting info, how the extension was installed
     function AdBlockBuild() {
-        if (!SAFARI) {
-            if (chrome.runtime.id === "pljaalgmajnlogcgiohkhdmgpomjcihk") {
-                return "Beta";
-            } else if (chrome.runtime.id === "gighmmpiobklfepjocnamgkkbiglidom" ||
-                       chrome.runtime.id === "aobdicepooefnbaeokijohmhjlleamfj") {
+        if (!SAFARI && !FIREFOX) {
+            if (chrome.runtime.id === "mdcgnhlfpnbeieiiccmebgkfdebafodo" ||
+                chrome.runtime.id === "pejeadkbfbppoaoinpmkeonebmngpnkk") {
+                return "Stable";
+            } else {
+                return "Developer";
+            }
+        } else if (FIREFOX) {
+            if (chrome.runtime.id === "catblock@catblock.tk") {
                 return "Stable";
             } else {
                 return "Developer";
             }
         } else {
-            if (safari.extension.baseURI.indexOf("com.betafish.adblockforsafari-UAMUU4S2D9") > -1) {
-                return "Stable";
-            } else {
-                return "Developer";
-            }
+            // We don't have an official version for Safari
+            return "Developer";
         }
     }
 
-    // Push AdBlock version and build to |the_debug_info| object
+    // Push CatBlock version and build to |the_debug_info| object
     the_debug_info.other_info.push("CatBlock version number: " + AdBlockVersion + " " + AdBlockBuild());
 
     // Get & process last known error
