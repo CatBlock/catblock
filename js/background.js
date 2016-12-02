@@ -1471,7 +1471,7 @@ function getDebugInfo() {
                 return "Developer";
             }
         } else {
-            // We don't have an official version for Safari
+            // We don't have an official version for Safari and Edge
             return "Developer";
         }
     }
