@@ -108,6 +108,10 @@ function addChannel(name, param) {
     });
 }
 
+function setStatus(disabled) {
+    $("#flickr-param, #btnGo, .channel-ui > div > input").prop("disabled", disabled);
+}
+
 BGcall("getGuide", function(guide) {
     for (var id in guide) {
         if (guide.hasOwnProperty(id)) {
@@ -142,6 +146,11 @@ BGcall("getGuide", function(guide) {
         addChannel("FlickrSearchChannel", input);
     });
 
+    if (optionalSettings.catblock) {
+        setStatus(false);
+    } else {
+        setStatus(true);
+    }
 });
 
 $("#channel-options input:text").keyup(function(event) {
@@ -149,4 +158,9 @@ $("#channel-options input:text").keyup(function(event) {
         $(this).next().click();
     }
     // todo handle enter
+});
+
+// Disable CatBlock Options, when ad replacement is disabled
+$("#enable_catblock").change(function(event) {
+    setStatus(!event.target.checked);
 });

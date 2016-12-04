@@ -3,10 +3,9 @@
 $(function() {
 
     for (var name in optionalSettings) {
-        $("#enable_" + name).
-        prop("checked", optionalSettings[name]);
+        $("#enable_" + name).prop("checked", optionalSettings[name]);
     }
-    //uncheck any incompatible options with the new safari content blocking, and then hide them
+    // Uncheck any incompatible options with the new safari content blocking, and then hide them
     if (optionalSettings.safari_content_blocking) {
         $(".exclude_safari_content_blocking > input").each(function() {
             $(this).prop("checked", false);
@@ -48,7 +47,7 @@ $(function() {
         }
     }); // end of change handler
 
-    //if safari content blocking is available...
+    // If safari content blocking is available...
     //  - display option to user
     //  - check if any messages need to be displayed
     //  - add a listener to process any messages
@@ -79,8 +78,8 @@ $("#enable_show_advanced_options").change(function() {
         });
     }
     window.setTimeout(function() {
-        window.location.reload();
-    }, 50);
+        document.location.reload();
+    }, 50)
 });
 
 

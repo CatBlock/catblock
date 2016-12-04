@@ -504,7 +504,7 @@ var picinjection = {
                 en: "https://chromeadblock.com/catblock/"
             }
         };
-        var locale = navigator.language.substring(0, 2);
+        var locale = determineUserLanguage();
         var msg = text[key] || {};
         return msg[locale] || msg.en;
     },
