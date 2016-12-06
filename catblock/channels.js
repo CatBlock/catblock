@@ -17,7 +17,7 @@ class Listing {
 // Contains and provides access to all the photo channels.
 class Channels {
     constructor() {
-        var that = this;
+        const that = this;
         this._channelGuide = undefined; // maps channel ids to channels and metadata
         this._loadFromStorage();
         this.refreshAllEnabled();
@@ -38,16 +38,16 @@ class Channels {
         if (typeof eval(data.name) !== "function") {
             return;
         }
-        var klass = eval(data.name);
-        var dataParam = JSON.stringify(data.param);
-        for (var id in this._channelGuide) {
-            var c = this._channelGuide[id];
+        const klass = eval(data.name);
+        const dataParam = JSON.stringify(data.param);
+        for (let id in this._channelGuide) {
+            const c = this._channelGuide[id];
             if (c.name === data.name && JSON.stringify(c.param) === dataParam) {
                 return;
             }
         }
-        var id = Math.floor(Math.random() * Date.now());
-        var channel = new klass(data.param);
+        const id = Math.floor(Math.random() * Date.now());
+        const channel = new klass(data.param);
         this._channelGuide[id] = {
             name: data.name,
             param: data.param,
@@ -55,7 +55,7 @@ class Channels {
             channel: channel
         };
         this._saveToStorage();
-        var that = this;
+        const that = this;
         $(channel).on("updated", function() {
             // TODO: make sure this works in Safari.  And if you fix a bug, fix it
             // in AdBlock too -- it's keeping filter update events from showing up
@@ -77,9 +77,9 @@ class Channels {
     // Return read-only map from each channel ID to
     // { name, param, enabled }.
     getGuide() {
-        var results = {};
-        for (var id in this._channelGuide) {
-            var c = this._channelGuide[id];
+        let results = {};
+        for (let id in this._channelGuide) {
+            const c = this._channelGuide[id];
             results[id] = {
                 name: c.name,
                 param: c.param,
@@ -100,8 +100,8 @@ class Channels {
     }
 
     refreshAllEnabled() {
-        for (var id in this._channelGuide) {
-            var data = this._channelGuide[id];
+        for (let id in this._channelGuide) {
+            const data = this._channelGuide[id];
             if (data.enabled) {
                 data.channel.refresh();
             }
@@ -112,23 +112,23 @@ class Channels {
     // |channelId| if specified, trying to match the ratio of |width| and
     // |height| decently.  Returns undefined if there are no enabled channels.
     randomListing(opts) {
-        var allListings = [];
+        let allListings = [];
 
-        for (var id in this._channelGuide) {
-            var data = this._channelGuide[id];
+        for (let id in this._channelGuide) {
+            const data = this._channelGuide[id];
             if (opts.channelId === id || (data.enabled && !opts.channelId)) {
                 allListings.push.apply(allListings, data.channel.getListings());
             }
         }
         // TODO: care about |width| and |height|
-        var randomIndex = Math.floor(Math.random() * allListings.length);
+        const randomIndex = Math.floor(Math.random() * allListings.length);
         return allListings[randomIndex];
     }
 
     _loadFromStorage() {
         this._channelGuide = {};
 
-        var entries = storage_get("channels");
+        const entries = storage_get("channels");
         if (!entries || (entries.length > 0 && !entries[0].name)) {
             // Default set of channels
             if (CATS.isEnabled()) {
@@ -142,16 +142,16 @@ class Channels {
                 this.add({ name: "AprilFoolsCatsChannel", param: undefined, enabled: true });
             }
         } else {
-            for (var i=0; i < entries.length; i++) {
+            for (let i=0; i < entries.length; i++) {
                 this.add(entries[i]);
             }
         }
     }
 
     _saveToStorage() {
-        var toStore = [];
-        var guide = this.getGuide();
-        for (var id in guide) {
+        let toStore = [];
+        const guide = this.getGuide();
+        for (let id in guide) {
             toStore.push(guide[id]);
         }
         storage_set("channels", toStore);
@@ -172,7 +172,7 @@ class Channel {
 
     // Update the channel's listings and trigger an 'updated' event.
     refresh() {
-        var that = this;
+        const that = this;
         this._getLatestListings(function(listings) {
             that.__listings = listings;
             $(that).trigger("updated");
@@ -201,7 +201,7 @@ class AprilFoolsCatsChannel extends Channel {
 
     _getLatestListings(callback) {
         function L(w, h, f) {
-            var folder = chrome.runtime.getURL("catblock/pix/");
+            const folder = chrome.runtime.getURL("catblock/pix/");
             return new Listing({
                 width: w, height: h, url: folder + f,
                 attribution_url: "http://chromeadblock.com/catblock/credits.html",
@@ -257,7 +257,7 @@ class FlickrChannel extends Channel {
     // Hit the Flickr API |method| passing in |args| with some constants added.
     // Call callback with the resultant JSON if successful.
     _api(method, args, callback) {
-        var params = {
+        const params = {
             api_key: "01bf9d4836f9644c8b8276368388c776",
             method: method,
             license: "4,6,7",  // commercial
@@ -285,11 +285,11 @@ class FlickrChannel extends Channel {
 
     // Convert a set of photos from the Flickr API into a list of Listings.
     _toListings(photos) {
-        var s = FlickrChannel._size;
-        var result = [];
-        for (var i=0; i < photos.photo.length; i++) {
-            var photo = photos.photo[i];
-            var listing = new Listing({
+        const s = FlickrChannel._size;
+        let result = [];
+        for (let i=0; i < photos.photo.length; i++) {
+            const photo = photos.photo[i];
+            const listing = new Listing({
                 width: photo["width_" + s],
                 height: photo["height_" + s],
                 url: photo["url_" + s],
@@ -313,7 +313,7 @@ class FlickrSearchChannel extends FlickrChannel {
     }
 
     _getLatestListings(callback) {
-        var that = this;
+        const that = this;
         this._api("flickr.photos.search", { text: this._query }, function(resp) {
             callback(that._toListings(resp.photos));
         });
@@ -329,7 +329,7 @@ class FlickrPhotosetChannel extends FlickrChannel {
 
     // pulls a Flickr Set via API, gets a list of optimum-size photo data
     _getLatestListings(callback) {
-        var that = this;
+        const that = this;
         this._api("flickr.photosets.getPhotos", { photoset_id: this._id }, function(resp) {
             callback(that._toListings(resp.photoset));
         });
