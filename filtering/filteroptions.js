@@ -1,6 +1,6 @@
 // The options that can be specified on filters.  The first several options
 // specify the type of a URL request.
-var ElementTypes = {
+let ElementTypes = {
     NONE: 0,
     script: 1,
     image: 2,
@@ -36,7 +36,7 @@ ElementTypes.fromOnBeforeRequestType = function(type) {
     }
 };
 
-var FilterOptions = {
+const FilterOptions = {
     NONE: 0,
     THIRDPARTY: 1,
     MATCHCASE: 2,
