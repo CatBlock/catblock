@@ -2,7 +2,7 @@
 // Call idleHandler.scheduleItem to schedule a function for exection upon idle
 // inputs: theFunction: function to be executed
 //         seconds: maximum time to wait upon idle, in seconds. 600 if omitted.
-var idleHandler = {
+const idleHandler = {
     scheduleItemOnce: function(callback, seconds) {
         // In  Safari, execute the function with only the minimum idle delay.
         // It doesn't support idle, but at least we make sure that functions
@@ -35,10 +35,10 @@ var idleHandler = {
                     idleHandler._scheduledItems.shift().callback();
                 }
             } else {
-                var now = Date.now();
+                const now = Date.now();
                 // Inversed loop, to prevent splice() making it skip the item after an
                 // executed item.
-                for (var i=idleHandler._scheduledItems.length-1; i>=0; i--) {
+                for (let i=idleHandler._scheduledItems.length-1; i>=0; i--) {
                     if (idleHandler._scheduledItems[i].runAt <= now) {
                         idleHandler._scheduledItems.splice(i, 1)[0].callback();
                     }

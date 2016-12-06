@@ -3,7 +3,7 @@ function emit_page_broadcast(request) {
 }
 
 // frameData object for Safari
-var frameData = (function() {
+const frameData = (function() {
     return {
         // Get frameData for the tab.
         // Input:
@@ -23,7 +23,7 @@ var frameData = (function() {
         //   tabId: Integer - id of the tab you want to add in the frameData
         //   url: new URL for the tab
         reset: function(tabId, url) {
-            var domain = parseUri(url).hostname;
+            const domain = parseUri(url).hostname;
             return frameData._initializeMap(tabId, url, domain);
         },
         // Initialize map
@@ -32,13 +32,13 @@ var frameData = (function() {
         //   url: new URL for the tab
         //   domain: domain of the request
         _initializeMap: function(tabId, url, domain) {
-            var tracker = frameData[tabId];
+            const tracker = frameData[tabId];
 
             // We need to handle IDN URLs properly
             url = getUnicodeUrl(url);
             domain = getUnicodeDomain(domain);
 
-            var shouldTrack = !tracker || tracker.url !== url;
+            const shouldTrack = !tracker || tracker.url !== url;
             if (shouldTrack) {
                 frameData[tabId] = {
                     resources: {},
@@ -56,7 +56,7 @@ var frameData = (function() {
             if (!get_settings().show_advanced_options) {
                 return;
             }
-            var data = this.get(tabId);
+            const data = this.get(tabId);
             if (data !== undefined &&
                 data.resources !== undefined) {
                 data.resources[elType + ":|:" + url] = null;
@@ -79,7 +79,7 @@ safari.application.addEventListener("message", function(messageEvent) {
         messageEvent.message.data.args[1] &&
         messageEvent.message.data.args[1].tab &&
         messageEvent.message.data.args[1].tab.url) {
-        var args = messageEvent.message.data.args;
+        const args = messageEvent.message.data.args;
         if (!messageEvent.target.url ||
             messageEvent.target.url === args[1].tab.url) {
             frameData.create(messageEvent.target.id, args[1].tab.url, args[0].domain);
@@ -98,11 +98,11 @@ safari.application.addEventListener("message", function(messageEvent) {
         return;
     }
 
-    var tab = messageEvent.target;
-    var isPopup = messageEvent.message.isPopup;
-    var frameInfo = messageEvent.message.frameInfo;
+    const tab = messageEvent.target;
+    const isPopup = messageEvent.message.isPopup;
+    const frameInfo = messageEvent.message.frameInfo;
     chrome._tabInfo.notice(tab, frameInfo);
-    var sendingTab = chrome._tabInfo.info(tab, frameInfo.visible);
+    const sendingTab = chrome._tabInfo.info(tab, frameInfo.visible);
 
     if (adblock_is_paused() || page_is_unblockable(sendingTab.url) ||
         page_is_whitelisted(sendingTab.url)) {
@@ -111,17 +111,17 @@ safari.application.addEventListener("message", function(messageEvent) {
     }
 
     if (!isPopup) {
-        var url = getUnicodeUrl(messageEvent.message.url);
-        var elType = messageEvent.message.elType;
-        var frameDomain = getUnicodeDomain(messageEvent.message.frameDomain);
-        var isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain));
+        const url = getUnicodeUrl(messageEvent.message.url);
+        const elType = messageEvent.message.elType;
+        const frameDomain = getUnicodeDomain(messageEvent.message.frameDomain);
+        const isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain));
         if (isMatched) {
             log("SAFARI TRUE BLOCK " + url + ": " + isMatched);
         }
     } else {
         // Popup blocking support
         if (messageEvent.message.referrer) {
-            var isMatched = _myfilters.blocking.matches(sendingTab.url, ElementTypes.popup,
+            const isMatched = _myfilters.blocking.matches(sendingTab.url, ElementTypes.popup,
                                                         parseUri(getUnicodeUrl(messageEvent.message.referrer)).hostname);
             if (isMatched) {
                 tab.close();
@@ -135,12 +135,12 @@ safari.application.addEventListener("message", function(messageEvent) {
 }, false);
 
 // Code for creating popover
-var ABPopover = safari.extension.createPopover("CatBlock", safari.extension.baseURI + "button/popup.html");
+const ABPopover = safari.extension.createPopover("CatBlock", safari.extension.baseURI + "button/popup.html");
 
 function setPopover(popover) {
-    for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
+    for (let i = 0; i < safari.extension.toolbarItems.length; i++) {
         safari.extension.toolbarItems[i].popover = popover;
-        var toolbarItem = safari.extension.toolbarItems[i];
+        const toolbarItem = safari.extension.toolbarItems[i];
         toolbarItem.popover = popover;
         toolbarItem.toolTip = "CatBlock"; // change the tooltip on Safari 5.1+
         toolbarItem.command = null;
@@ -169,14 +169,14 @@ safari.application.addEventListener("popover", function() {
 
 safari.application.addEventListener("validate", function(event) {
     if (event.target instanceof SafariExtensionToolbarItem) {
-        var item = event.target;
+        const item = event.target;
         if (item.browserWindow && !item.popover) {
             // Check if only this item lacks a popover (which means user just opened a new window) or there are multiple items
             // lacking a popover (which only happens on browser startup or when the user removes CatBlock toolbar item and later
             // drags it back).
-            var uninitializedItems = 0;
-            for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
-                var item = safari.extension.toolbarItems[i];
+            let uninitializedItems = 0;
+            for (let i = 0; i < safari.extension.toolbarItems.length; i++) {
+                const item = safari.extension.toolbarItems[i];
                 if (!item.popover) {
                     uninitializedItems++;
                 }
@@ -184,7 +184,7 @@ safari.application.addEventListener("validate", function(event) {
             if (uninitializedItems > 1) {
                 // Browser startup or toolbar item added back to the toolbar. To prevent memory leaks in the second case,
                 // we need to remove all previously created popovers.
-                for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
+                for (let i = 0; i < safari.extension.toolbarItems.length; i++) {
                     removePopover(ABPopover);
                 }
                 // And now recreate the popover for toolbar items in all windows.
@@ -206,8 +206,8 @@ safari.application.addEventListener("close", function(event) {
 
     // Remove the popover when the window closes so we don't leak memory.
     if (event.target instanceof SafariBrowserWindow) { // don't handle tabs
-        for (var i = 0; i < safari.extension.toolbarItems.length; i++) {
-            var item = safari.extension.toolbarItems[i];
+        for (let i = 0; i < safari.extension.toolbarItems.length; i++) {
+            const item = safari.extension.toolbarItems[i];
             if (item.browserWindow === event.target) {
 
                 // Safari docs say that we must detach popover from toolbar items before removing.
@@ -249,7 +249,7 @@ safari.application.addEventListener("beforeNavigate", function(event) {
 
 // Set commands for whitelist, blacklist and undo my blocks wizards
 safari.application.addEventListener("command", function(event) {
-    var browserWindow;
+    let browserWindow;
 
     if (event.target.browserWindow) {
         // Context menu item event or button event on Safari 5.0, browserWindow is available in event.target.
@@ -259,13 +259,13 @@ safari.application.addEventListener("command", function(event) {
         browserWindow = safari.application.activeBrowserWindow;
     }
 
-    var command = event.command;
+    const command = event.command;
 
     if (command === "CatBlockOptions") {
         openTab("options/index.html", false, browserWindow);
     } else if (command === "undo-last-block") {
-        var tab = browserWindow.activeTab;
-        var host = parseUri(tab.url).host;
+        const tab = browserWindow.activeTab;
+        const host = parseUri(tab.url).host;
         confirm_removal_of_custom_filters_on_host(host, tab);
     } else if (command in {"show-whitelist-wizard": 1, "show-blacklist-wizard": 1, "show-clickwatcher-ui": 1 }) {
         browserWindow.activeTab.page.dispatchMessage(command);
@@ -294,7 +294,7 @@ safari.application.addEventListener("contextmenu", function(event) {
         return;
     }
 
-    var url = event.target.url;
+    const url = event.target.url;
 
     if (page_is_unblockable(url) || page_is_whitelisted(url)) {
         return;
@@ -303,7 +303,7 @@ safari.application.addEventListener("contextmenu", function(event) {
     event.contextMenu.appendContextMenuItem("show-blacklist-wizard", translate("block_this_ad"));
     event.contextMenu.appendContextMenuItem("show-clickwatcher-ui", translate("block_an_ad_on_this_page"));
 
-    var host = parseUri(url).host;
+    const host = parseUri(url).host;
     if (count_cache.getCustomFilterCount(host)) {
         event.contextMenu.appendContextMenuItem("undo-last-block", translate("undo_last_block"));
     }

@@ -3,14 +3,14 @@ function checkupdates(page) {
 
     // Check if newVersion is newer than AdBlockVersion
     function isNewerVersion(newVersion) {
-        var versionRegex = /^(\*|\d+(\.\d+){0,2}(\.\*)?)$/;
-        var AdBlockVersion = chrome.runtime.getManifest().version;
-        var current = AdBlockVersion.match(versionRegex);
-        var notCurrent = newVersion.match(versionRegex);
+        const versionRegex = /^(\*|\d+(\.\d+){0,2}(\.\*)?)$/;
+        const AdBlockVersion = chrome.runtime.getManifest().version;
+        const current = AdBlockVersion.match(versionRegex);
+        const notCurrent = newVersion.match(versionRegex);
         if (!current || !notCurrent) {
             return false;
         }
-        for (var i=1; i<4; i++) {
+        for (let i=1; i<4; i++) {
             if (current[i] < notCurrent[i]) {
                 return true;
             }
@@ -22,7 +22,7 @@ function checkupdates(page) {
     }
 
     if (!EDGE) {
-        var checkURL = "https://github.com/CatBlock/catblock/releases";
+        const checkURL = "https://github.com/CatBlock/catblock/releases";
 
         // Fetch the version check file
         $.ajax({
@@ -37,13 +37,13 @@ function checkupdates(page) {
                 }
             },
             success: function(response) {
-                var parser = new DOMParser();
-                var document = parser.parseFromString(response, "text/html");
-                var version = document.querySelector(".release-timeline > .label-latest > " +
+                const parser = new DOMParser();
+                const document = parser.parseFromString(response, "text/html");
+                const version = document.querySelector(".release-timeline > .label-latest > " +
                                                      ".release-meta > .tag-references >li > .css-truncate > .css-truncate-target").textContent;
                 if (isNewerVersion(version)) {
                     $("#checkupdate").html(translate("catblock_update_available"));
-                    var updateURL = $("key:contains(URL) + string", response).text();
+                    const updateURL = $("key:contains(URL) + string", response).text();
                     $("#here").html(translate("here")).attr("href", updateURL);
                     $(".step").hide();
                 } else {
@@ -55,7 +55,7 @@ function checkupdates(page) {
             }
         });
     } else {
-        var checkURL = "http://catblock.tk/edge.json";
+        const checkURL = "http://catblock.tk/edge.json";
 
         // Fetch the version check file
         $.ajax({
@@ -70,8 +70,8 @@ function checkupdates(page) {
                 }
             },
             success: function(response) {
-                var latestVersion = response.version;
-                var redirectUrl = response.redirect_url;
+                const latestVersion = response.version;
+                const redirectUrl = response.redirect_url;
                 if (isNewerVersion(latestVersion)) {
                     $("#checkupdate").html(translate("catblock_update_available"));
                     $("#here").html(translate("here")).attr("href", redirectUrl);

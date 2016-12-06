@@ -1,8 +1,8 @@
 // Run "CATS" detection code just on the dedicated page
 // cez execute script
 (function() {
-    var key = "project-cats";
-    var shouldEnableCats = localStorage.getItem(key);
+    const key = "project-cats";
+    const shouldEnableCats = localStorage.getItem(key);
 
     if (shouldEnableCats) {
         chrome.runtime.sendMessage({ command: "enableprojectcats" });

@@ -2,24 +2,24 @@
 // and https://hg.adblockplus.org/adblockpluschrome/file/aed8fd38e824/safari/include.youtube.js
 function run_bandaids() {
     // Tests to determine whether a particular bandaid should be applied
-    var apply_bandaid_for = "";
+    let apply_bandaid_for = "";
     if (/mail\.live\.com/.test(document.location.hostname)) {
         apply_bandaid_for = "hotmail";
     } else if (/mobilmania\.cz|zive\.cz|doupe\.cz|e15\.cz|sportrevue\.cz|autorevue\.cz/.test(document.location.hostname)) {
         apply_bandaid_for = "czech_sites";
     } else {
-        var hosts = [/mastertoons\.com$/];
+        const hosts = [/mastertoons\.com$/];
         hosts = hosts.filter(function(host) { return host.test(document.location.hostname); });
         if (hosts.length > 0) {
             apply_bandaid_for = "noblock";
         }
     }
-    var bandaids = {
+    const bandaids = {
         noblock: function() {
-            var styles = document.querySelectorAll("style");
-            var re = /#(\w+)\s*~\s*\*\s*{[^}]*display\s*:\s*none/;
-            for (var i = 0; i < styles.length; i++) {
-                var id = styles[i].innerText.match(re);
+            const styles = document.querySelectorAll("style");
+            const re = /#(\w+)\s*~\s*\*\s*{[^}]*display\s*:\s*none/;
+            for (let i = 0; i < styles.length; i++) {
+                const id = styles[i].innerText.match(re);
                 if (id) {
                     styles[i].innerText = "#" + id[1] + " { display: none }";
                 }
@@ -27,17 +27,17 @@ function run_bandaids() {
         },
         hotmail: function() {
             //removing the space remaining in Hotmail/WLMail
-            var css_chunk = document.createElement("style");
+            let css_chunk = document.createElement("style");
             css_chunk.type = "text/css";
             (document.head || document.documentElement).insertBefore(css_chunk, null);
             css_chunk.sheet.insertRule(".WithRightRail { right: 0 !important; }", 0);
             css_chunk.sheet.insertRule("#RightRailContainer  { display:none !important; visibility: none !important; orphans: 4321 !important; }" , 0);
         },
         czech_sites: function() {
-            var player = document.getElementsByClassName("flowplayer");
+            let player = document.getElementsByClassName("flowplayer");
             // Remove data-ad attribute from videoplayer
             if (player) {
-                for (var i=0; i<player.length; i++) {
+                for (let i=0; i<player.length; i++) {
                     player[i].removeAttribute("data-ad");
                 }
             }
@@ -69,11 +69,11 @@ function before_ready_bandaids() {
     }
 
     // a regex used to test the ytplayer config / flashvars for youtube ads, references to ads, etc.
-    var badArgumentsRegex = /^((.*_)?(ad|ads|afv|adsense)(_.*)?|(ad3|st)_module|prerolls|interstitial|infringe|iv_cta_url)$/;
+    const badArgumentsRegex = /^((.*_)?(ad|ads|afv|adsense)(_.*)?|(ad3|st)_module|prerolls|interstitial|infringe|iv_cta_url)$/;
 
     function rewriteFlashvars(flashvars) {
-        var pairs = flashvars.split("&");
-        for (var i = 0; i < pairs.length; i++) {
+        let pairs = flashvars.split("&");
+        for (let i = 0; i < pairs.length; i++) {
             if (badArgumentsRegex.test(pairs[i].split("=")[0])) {
                 pairs.splice(i--, 1);
             }
@@ -82,23 +82,23 @@ function before_ready_bandaids() {
     }
 
     function patchPlayer(player) {
-        var newPlayer = player.cloneNode(true);
-        var flashvarsChanged = false;
+        let newPlayer = player.cloneNode(true);
+        let flashvarsChanged = false;
 
-        var flashvars = newPlayer.getAttribute("flashvars");
+        const flashvars = newPlayer.getAttribute("flashvars");
         if (flashvars) {
-            var newFlashvars = rewriteFlashvars(flashvars);
+            const newFlashvars = rewriteFlashvars(flashvars);
             if (flashvars !== newFlashvars) {
                 newPlayer.setAttribute("flashvars", newFlashvars);
                 flashvarsChanged = true;
             }
         }
 
-        var param = newPlayer.querySelector("param[name=flashvars]");
+        let param = newPlayer.querySelector("param[name=flashvars]");
         if (param) {
-            var value = param.getAttribute("value");
+            const value = param.getAttribute("value");
             if (value) {
-                var newValue = rewriteFlashvars(value);
+                const newValue = rewriteFlashvars(value);
                 if (value !== newValue) {
                     param.setAttribute("value", newValue);
                     flashvarsChanged = true;
@@ -112,7 +112,7 @@ function before_ready_bandaids() {
     }
 
     function runInPage(fn, arg) {
-        var script = document.createElement("script");
+        let script = document.createElement("script");
         script.type = "application/javascript";
         script.async = false;
         script.textContent = "(" + fn + ")(" + arg + ");";
@@ -136,7 +136,7 @@ function before_ready_bandaids() {
 
         // The HTML5 player is configured via ytplayer.config.args. We have
         // to make sure that ad-related arguments are ignored as they are set.
-        var ytplayer = undefined;
+        let ytplayer = undefined;
         Object.defineProperty(window, "ytplayer", {
             configurable: true,
             get: function() {
@@ -148,7 +148,7 @@ function before_ready_bandaids() {
                     return;
                 }
 
-                var config = undefined;
+                let config = undefined;
                 ytplayer = Object.create(rawYtplayer, {
                     config: {
                         enumerable: true,
@@ -161,7 +161,7 @@ function before_ready_bandaids() {
                                 return;
                             }
 
-                            var args = undefined;
+                            let args = undefined;
                             config = Object.create(rawConfig, {
                                 args: {
                                     enumerable: true,
@@ -175,7 +175,7 @@ function before_ready_bandaids() {
                                         }
 
                                         args = {};
-                                        for (var arg in rawArgs) {
+                                        for (let arg in rawArgs) {
                                             if (rawArgs.hasOwnProperty(arg)) {
                                                 if (!badArgumentsRegex.test(arg)) {
                                                     args[arg] = rawArgs[arg];

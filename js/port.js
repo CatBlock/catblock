@@ -24,7 +24,7 @@ if (typeof SAFARI === "undefined") {
             if (typeof safari === "undefined" && typeof chrome === "undefined") {
                 // Safari bug: window.safari undefined in iframes with JS src in them.
                 // Must get it from an ancestor.
-                var w = window;
+                let w = window;
                 while (w.safari === undefined && w !== window.top) {
                     w = w.parent;
                 }
@@ -35,7 +35,7 @@ if (typeof SAFARI === "undefined") {
 
         if (SAFARI) {
 
-            var isOnGlobalPage = !!safari.extension.bars;
+            const isOnGlobalPage = !!safari.extension.bars;
 
             // Return the object on which you can add/remove event listeners.
             // If there isn't one, don't explode.
@@ -70,18 +70,18 @@ if (typeof SAFARI === "undefined") {
             // Make this globally available (don't use 'var') as it is used outside port.js
             function dispatchContext(messageEvent) {
                 // Can we dispatch on the messageEvent target?
-                var m = messageEvent;
+                const m = messageEvent;
                 if (m && m.target && m.target.page && m.target.page.dispatchMessage) {
                     return m.target.page;
                 }
                 // Are we in some context where safari.self works, whatever that is?
-                var s = safari.self;
+                const s = safari.self;
                 if (s && s.tab && s.tab.dispatchMessage) {
                     return s.tab;
                 }
                 // Are we in the global page sending to the active tab?
-                var b = (safari.application && safari.application.activeBrowserWindow);
-                var p = (b && b.activeTab && b.activeTab.page);
+                const b = (safari.application && safari.application.activeBrowserWindow);
+                const p = (b && b.activeTab && b.activeTab.page);
                 if (p && p.dispatchMessage) {
                     return p;
                 }
@@ -105,10 +105,11 @@ if (typeof SAFARI === "undefined") {
 
                 runtime: {
                     getManifest: function() {
-                        var xhr = new XMLHttpRequest();
+                        let xhr = new XMLHttpRequest();
                         xhr.open("GET", chrome.runtime.getURL("manifest.json"), false);
                         xhr.send();
-                        var object = JSON.parse(xhr.responseText);
+
+                        const object = JSON.parse(xhr.responseText);
                         return object;
                     },
 
@@ -118,7 +119,7 @@ if (typeof SAFARI === "undefined") {
 
                     sendMessage: (function() {
                         // Where to call .dispatchMessage() when sendMessage is called.
-                        var dispatchTargets = [];
+                        let dispatchTargets = [];
                         if (!isOnGlobalPage) {
                             // In a non-global context, the dispatch target is just the local
                             // object that lets you call .dispatchMessage().
@@ -130,7 +131,7 @@ if (typeof SAFARI === "undefined") {
                             // to a messageEvent object that points to their page that we can
                             // call .dispatchMessage() upon.
                             listenFor("onMessage registration", function(messageEvent) {
-                                var context = dispatchContext(messageEvent);
+                                const context = dispatchContext(messageEvent);
                                 if (dispatchTargets.indexOf(context) === -1) {
                                     dispatchTargets.push(context);
                                 }
@@ -140,11 +141,11 @@ if (typeof SAFARI === "undefined") {
                         // Dispatches a message to a list of recipients.  Calls the callback
                         // only once, using the first response received from any recipient.
                         function theFunction(data, callback) {
-                            var callbackToken = "callback" + Math.random();
+                            const callbackToken = "callback" + Math.random();
 
                             // Dispatch to each recipient.
                             dispatchTargets.forEach(function(target) {
-                                var message = {
+                                const message = {
                                     data: data,
                                     frameInfo: chrome._tabInfo.gatherFrameInfo(),
                                     callbackToken: callbackToken
@@ -154,7 +155,7 @@ if (typeof SAFARI === "undefined") {
 
                             // Listen for a response.  When we get it, call the callback and stop
                             // listening.
-                            var listener = listenFor("response", function(messageEvent) {
+                            const listener = listenFor("response", function(messageEvent) {
                                 if (messageEvent.message.callbackToken !== callbackToken) {
                                     return;
                                 }
@@ -180,12 +181,12 @@ if (typeof SAFARI === "undefined") {
                             }
 
                             listenFor("message", function(messageEvent) {
-                                var message = messageEvent.message.data;
+                                const message = messageEvent.message.data;
 
-                                var sender = {}; // Empty in onMessage in non-global contexts.
+                                let sender = {}; // Empty in onMessage in non-global contexts.
                                 if (isOnGlobalPage) { // But filled with sender data otherwise.
-                                    var tab = messageEvent.target;
-                                    var frameInfo = messageEvent.message.frameInfo;
+                                    const tab = messageEvent.target;
+                                    const frameInfo = messageEvent.message.frameInfo;
                                     chrome._tabInfo.notice(tab, frameInfo);
                                     sender.tab = chrome._tabInfo.info(tab, frameInfo.visible);
                                     // Filled with URL of frame.
@@ -193,7 +194,7 @@ if (typeof SAFARI === "undefined") {
                                 }
 
                                 function sendResponse(dataToSend) {
-                                    var responseMessage = { callbackToken: messageEvent.message.callbackToken, data: dataToSend };
+                                    const responseMessage = { callbackToken: messageEvent.message.callbackToken, data: dataToSend };
                                     dispatchContext(messageEvent).dispatchMessage("response", responseMessage);
                                 }
                                 handler(message, sender, sendResponse);
@@ -271,7 +272,7 @@ if (typeof SAFARI === "undefined") {
                 i18n: (function() {
 
                     function syncFetch(file, fn) {
-                        var xhr = new XMLHttpRequest();
+                        let xhr = new XMLHttpRequest();
                         xhr.open("GET", chrome.runtime.getURL(file), false);
                         xhr.onreadystatechange = function() {
                             if (this.readyState === 4 && this.responseText !== "") {
@@ -295,29 +296,29 @@ if (typeof SAFARI === "undefined") {
 
                         // Substitute a regex while understanding that $$ should be untouched
                         function safesub(txt, re, replacement) {
-                            var dollaRegex = /\$\$/g, dollaSub = "~~~I18N~~:";
+                            const dollaRegex = /\$\$/g, dollaSub = "~~~I18N~~:";
                             txt = txt.replace(dollaRegex, dollaSub);
                             txt = txt.replace(re, replacement);
                             // Put back in "$$" ("$$$$" somehow escapes down to "$$")
-                            var undollaRegex = /~~~I18N~~:/g, undollaSub = "$$$$";
+                            const undollaRegex = /~~~I18N~~:/g, undollaSub = "$$$$";
                             txt = txt.replace(undollaRegex, undollaSub);
                             return txt;
                         }
 
-                        var $n_re = /\$([1-9])/g;
+                        const $n_re = /\$([1-9])/g;
                         function $n_subber(_, num) { return args[num - 1]; }
 
-                        var placeholders = {};
+                        let placeholders = {};
                         // Fill in $N in placeholders
-                        for (var name in msgData.placeholders) {
-                            var content = msgData.placeholders[name].content;
+                        for (let name in msgData.placeholders) {
+                            const content = msgData.placeholders[name].content;
                             placeholders[name.toLowerCase()] = safesub(content, $n_re, $n_subber);
                         }
                         // Fill in $N in message
-                        var message = safesub(msgData.message, $n_re, $n_subber);
+                        let message = safesub(msgData.message, $n_re, $n_subber);
                         // Fill in $Place_Holder1$ in message
                         message = safesub(message, /\$(\w+?)\$/g, function(full, name) {
-                            var lowered = name.toLowerCase();
+                            const lowered = name.toLowerCase();
                             if (lowered in placeholders) {
                                 return placeholders[lowered];
                             }
@@ -329,9 +330,9 @@ if (typeof SAFARI === "undefined") {
                         return message;
                     }
 
-                    var l10nData = undefined;
+                    let l10nData = undefined;
 
-                    var theI18nObject = {
+                    const theI18nObject = {
                         // chrome.i18n.getMessage() may be used in any extension resource page
                         // without any preparation.  But if you want to use it from a content
                         // script in Safari, the content script must first run code like this:
@@ -350,7 +351,7 @@ if (typeof SAFARI === "undefined") {
                         // l10n data for itself, because it's not allowed to make the xhr
                         // call to load the message files from disk.  Sorry :(
                         _getL10nData: function() {
-                            var result = { locales: [] };
+                            let result = { locales: [] };
 
                             // === Find all locales we might need to pull messages from, in order
                             // 1: The user's current locale, converted to match the format of
@@ -367,9 +368,9 @@ if (typeof SAFARI === "undefined") {
 
                             // Load all locale files that exist in that list
                             result.messages = {};
-                            for (var i = 0; i < result.locales.length; i++) {
-                                var locale = result.locales[i];
-                                var file = "_locales/" + locale + "/messages.json";
+                            for (let i = 0; i < result.locales.length; i++) {
+                                const locale = result.locales[i];
+                                const file = "_locales/" + locale + "/messages.json";
                                 // Doesn't call the callback if file doesn't exist
                                 syncFetch(file, function(text) {
                                     result.messages[locale] = JSON.parse(text);
@@ -396,8 +397,8 @@ if (typeof SAFARI === "undefined") {
                             if (typeof args === "string") {
                                 args = [args];
                             }
-                            for (var i = 0; i < l10nData.locales.length; i++) {
-                                var map = l10nData.messages[l10nData.locales[i]];
+                            for (let i = 0; i < l10nData.locales.length; i++) {
+                                const map = l10nData.messages[l10nData.locales[i]];
                                 // We must have the locale, and the locale must have the message
                                 if (map && messageID in map) {
                                     return parseString(map[messageID], args);

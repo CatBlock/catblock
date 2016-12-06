@@ -1,6 +1,6 @@
-var CATS = {
+const CATS = {
     init: function(callback) {
-        var self = this;
+        const self = this;
 
         // Don't enable Project CATS on Safari and Edge
         if (SAFARI || EDGE) {
@@ -16,10 +16,10 @@ var CATS = {
         if (self.isEnabled() === undefined && sessionstorage_get("installed")) {
             sessionstorage_set("installed"); // present with a new user
 
-            var installedURL = "https://catblock.tk/installed.html";
+            const installedURL = "https://catblock.tk/installed.html";
             chrome.tabs.create({ url: installedURL }, function(data) {
-                var tabId = data.id;
-                var fileToInject = "js/cats-cs.js";
+                const tabId = data.id;
+                const fileToInject = "js/cats-cs.js";
 
                 // Wait for a message from a content script,
                 // which tells us to enable "CATS"

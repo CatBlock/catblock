@@ -1,10 +1,10 @@
 // Set to true to get noisier console.log statements
-var VERBOSE_DEBUG = false;
+const VERBOSE_DEBUG = false;
 
 // Global variable for detection of Opera, Edge and Firefox
-var OPERA = navigator.userAgent.indexOf("OPR") > -1;
-var EDGE = navigator.userAgent.indexOf("Edge") > -1;
-var FIREFOX = navigator.userAgent.indexOf("Firefox") > -1;
+const OPERA = navigator.userAgent.indexOf("OPR") > -1;
+const EDGE = navigator.userAgent.indexOf("Edge") > -1;
+const FIREFOX = navigator.userAgent.indexOf("Firefox") > -1;
 
 // Edge uses "browser" namespace for its API
 if (EDGE) {
@@ -17,18 +17,18 @@ if (EDGE) {
 //   then, any arguments to pass to the function (optional)
 //   then, a callback:function(return_value:any) (optional)
 function BGcall() {
-    var args = [];
-    for (var i=0; i < arguments.length; i++) {
+    let args = [];
+    for (let i=0; i < arguments.length; i++) {
         args.push(arguments[i]);
     }
-    var fn = args.shift();
-    var has_callback = (typeof args[args.length - 1] === "function");
-    var callback = (has_callback ? args.pop() : function() {});
-    chrome.runtime.sendMessage({ command: "call", fn:fn, args:args }, callback);
+    const fn = args.shift();
+    const has_callback = (typeof args[args.length - 1] === "function");
+    const callback = (has_callback ? args.pop() : function() {});
+    chrome.runtime.sendMessage({ command: "call", fn: fn, args: args }, callback);
 }
 
 // Enabled in adblock_start_common.js and background.js if the user wants
-var log = function() {};
+let log = function() {};
 
 function logging(enabled) {
     if (enabled) {
@@ -82,9 +82,9 @@ function localizePage() {
     $("[i18n_replacement_el]:not(.i18n-replaced)").each(function() {
         // Replace a dummy <a/> inside of localized text with a real element.
         // Give the real element the same text as the dummy link.
-        var dummy_link = $("a", this);
-        var text = dummy_link.text();
-        var real_el = $("#" + $(this).attr("i18n_replacement_el"));
+        const dummy_link = $("a", this);
+        const text = dummy_link.text();
+        let real_el = $("#" + $(this).attr("i18n_replacement_el"));
         real_el.text(text).val(text).replaceAll(dummy_link);
         // If localizePage is run again, don't let the [i18n] code above
         // clobber our work
@@ -92,7 +92,7 @@ function localizePage() {
     });
 
     // Make a right-to-left translation for Arabic and Hebrew languages
-    var language = determineUserLanguage();
+    const language = determineUserLanguage();
     if (language === "ar" || language === "he") {
         $("#main_nav").removeClass("right").addClass("left");
         $(".adblock-logo").removeClass("left").addClass("right");
@@ -106,12 +106,12 @@ function localizePage() {
 // Inputs: url: the URL you want to parse
 // Outputs: object containing all parts of |url| as attributes
 function parseUri(url) {
-    var matches = /^(([^:]+(?::|$))(?:(?:\w+:)?\/\/)?(?:[^:@\/]*(?::[^:@\/]*)?@)?(([^:\/?#]*)(?::(\d*))?))((?:[^?#\/]*\/)*[^?#]*)(\?[^#]*)?(\#.*)?/.exec(url);
+    const matches = /^(([^:]+(?::|$))(?:(?:\w+:)?\/\/)?(?:[^:@\/]*(?::[^:@\/]*)?@)?(([^:\/?#]*)(?::(\d*))?))((?:[^?#\/]*\/)*[^?#]*)(\?[^#]*)?(\#.*)?/.exec(url);
     // The key values are identical to the JS location object values for that key
-    var keys = ["href", "origin", "protocol", "host", "hostname", "port",
+    const keys = ["href", "origin", "protocol", "host", "hostname", "port",
                 "pathname", "search", "hash"];
-    var uri = {};
-    for (var i=0; (matches && i<keys.length); i++) {
+    let uri = {};
+    for (let i=0; (matches && i<keys.length); i++) {
         uri[keys[i]] = matches[i] || "";
     }
     return uri;
@@ -123,8 +123,8 @@ function parseUri(url) {
 parseUri.parseSearch = function(search) {
     // Fails if a key exists twice (e.g., ?a=foo&a=bar would return {a:"bar"}
     search = search.substring(search.indexOf("?")+1).split("&");
-    var params = {}, pair;
-    for (var i = 0; i < search.length; i++) {
+    let params = {}, pair;
+    for (let i = 0; i < search.length; i++) {
         pair = search[i].split("=");
         if (pair[0] && !pair[1]) {
             pair[1] = "";
@@ -144,7 +144,7 @@ parseUri.parseSearch = function(search) {
 // Returns: the parsed domain
 parseUri.secondLevelDomainOnly = function(domain, keepDot) {
     if (domain) {
-        var match = domain.match(/([^\.]+\.(?:co\.)?[^\.]+)\.?$/) || [domain, domain];
+        const match = domain.match(/([^\.]+\.(?:co\.)?[^\.]+)\.?$/) || [domain, domain];
         return match[keepDot ? 0 : 1].toLowerCase();
     }
     return domain;
@@ -163,7 +163,7 @@ function getUnicodeDomain(domain) {
 function getUnicodeUrl(url) {
     // URLs encoded in Punycode contain xn-- prefix
     if (url && url.indexOf("xn--") > 0) {
-        var parsed = parseUri(url);
+        let parsed = parseUri(url);
         // IDN domains have just hostnames encoded in punycode
         parsed.href = parsed.href.replace(parsed.hostname, punycode.toUnicode(parsed.hostname));
         return parsed.href;
@@ -177,11 +177,11 @@ function getUnicodeUrl(url) {
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
 function storage_get(key) {
-    var store = (window.SAFARI ? safari.extension.settings : localStorage);
+    const store = (window.SAFARI ? safari.extension.settings : localStorage);
     if (store === undefined) {
         return undefined;
     }
-    var json = store.getItem(key);
+    const json = store.getItem(key);
     if (json === null) {
         return undefined;
     }
@@ -197,7 +197,7 @@ function storage_get(key) {
 // If value === undefined, removes key from storage.
 // Returns undefined.
 function storage_set(key, value) {
-    var store = (window.SAFARI ? safari.extension.settings : localStorage);
+    const store = (window.SAFARI ? safari.extension.settings : localStorage);
     if (value === undefined) {
         store.removeItem(key);
         return;
@@ -225,7 +225,7 @@ function setDefault(obj, value, defaultValue) {
 // Inputs: key:string.
 // Returns value if key exists, else undefined.
 function sessionstorage_get(key) {
-    var json = sessionStorage.getItem(key);
+    const json = sessionStorage.getItem(key);
     if (json === null) {
         return undefined;
     }
@@ -260,7 +260,7 @@ function createRuleLimitExceededSafariNotification() {
     if (SAFARI && ("Notification" in window)) {
         sessionstorage_set("contentblockingerror", translate("safaricontentblockinglimitexceeded"));
         chrome.runtime.sendMessage({command: "contentblockingmessageupdated"});
-        var note = new Notification(translate("safarinotificationtitle"),
+        let note = new Notification(translate("safarinotificationtitle"),
                                     { "body" : translate("catblock_safarinotificationbody"), "tag" : 1 });
         note.onclick = function() {
             openTab("options/index.html?tab=0");

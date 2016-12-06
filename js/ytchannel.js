@@ -1,5 +1,5 @@
 // Store actual URL
-var url = document.location.href;
+const url = document.location.href;
 
 // Get id of the channel
 function getChannelId(url) {
@@ -14,7 +14,7 @@ function getVideoId(url) {
 // Function which: - adds name of the channel on the end of the URL, e.g. &ab_channel=nameofthechannel
 //                 - reload the page, so AdBlock can properly whitelist the page (just if channel is whitelisted by user)
 function updateURL(channelName, shouldReload) {
-    var updatedUrl = "";
+    let updatedUrl = "";
     if (parseUri(url).search.indexOf("?") === -1) {
         updatedUrl = url + "?&ab_channel=" + channelName.replace(/\s/g, "");
     } else {
@@ -37,14 +37,14 @@ function updateURL(channelName, shouldReload) {
 if (!/ab_channel/.test(url)) {
     // Get name of the channel by using YouTube Data v3 API
     if (/channel/.test(url)) {
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.open("GET",
                  "https://www.googleapis.com/youtube/v3/channels?part=snippet&id=" + getChannelId(url) +
                  "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), true);
         xhr.overrideMimeType("application/json");
         xhr.onload = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                var json = JSON.parse(xhr.response);
+                const json = JSON.parse(xhr.response);
                 // Got name of the channel
                 if (json.items[0]) {
                     updateURL(json.items[0].snippet.title, false);
@@ -53,14 +53,14 @@ if (!/ab_channel/.test(url)) {
         };
         xhr.send(null);
     } else if (/watch/.test(url)) {
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.open("GET",
                  "https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + getVideoId(url) +
                  "&key=" + atob("QUl6YVN5QzJKMG5lbkhJZ083amZaUUYwaVdaN3BKd3dsMFczdUlz"), true);
         xhr.overrideMimeType("application/json");
         xhr.onload = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                var json = JSON.parse(xhr.response);
+                const json = JSON.parse(xhr.response);
                 // Got name of the channel
                 if (json.items[0]) {
                     updateURL(json.items[0].snippet.channelTitle, false);
@@ -71,14 +71,14 @@ if (!/ab_channel/.test(url)) {
     } else {
         if (/user/.test(url)) {
             document.addEventListener("spfdone", function() {
-                var channelName = document.querySelector("span .qualified-channel-title-text > a").textContent;
+                const channelName = document.querySelector("span .qualified-channel-title-text > a").textContent;
                 if (channelName) {
                     updateURL(channelName, true);
                 }
             }, true);
             // Spfdone event doesn't fire, when you access YT user directly
             window.addEventListener("DOMContentLoaded", function() {
-                var channelName = document.querySelector("span .qualified-channel-title-text > a").textContent;
+                const channelName = document.querySelector("span .qualified-channel-title-text > a").textContent;
                 if (channelName) {
                     updateURL(channelName, true);
                 }
