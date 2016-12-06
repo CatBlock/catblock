@@ -129,9 +129,9 @@ class PatternFilter extends Filter {
         result._rule = new RegExp(data[0]);
         result._allowedElementTypes = data[1];
         result._options = data[2];
-        let data = {};
-        data[DomainSet.ALL] = true;
-        result._domains = new DomainSet(data);
+        let data2 = {};
+        data2[DomainSet.ALL] = true;
+        result._domains = new DomainSet(data2);
         return result;
     }
 
