@@ -20,14 +20,14 @@ class FilterSet {
     // object.  All filters should be the same type (whitelisting PatternFilters,
     // blocking PatternFilters, or SelectorFilters.)
     static fromFilters(data) {
-        var result = new FilterSet();
+        const result = new FilterSet();
 
-        for (var _ in data) {
-            var filter = data[_];
+        for (let _ in data) {
+            const filter = data[_];
 
-            for (var d in filter._domains.has) {
+            for (let d in filter._domains.has) {
                 if (filter._domains.has[d]) {
-                    var key = (d === DomainSet.ALL ? "global" : d);
+                    const key = (d === DomainSet.ALL ? "global" : d);
                     setDefault(result.items, key, []).push(filter);
                 } else if (d !== DomainSet.ALL) {
                     setDefault(result.exclude, d, {})[filter.id] = true;
@@ -43,9 +43,9 @@ class FilterSet {
     // sub.foo.com will get items['global', 'foo.com', 'sub.foo.com'] and
     // exclude['foo.com', 'sub.foo.com'].
     _viewFor(domain) {
-        var result = new FilterSet();
+        let result = new FilterSet();
         result.items.global = this.items.global;
-        for (var nextDomain in DomainSet.domainAndParents(domain)) {
+        for (let nextDomain in DomainSet.domainAndParents(domain)) {
             if (this.items[nextDomain]) {
                 result.items[nextDomain] = this.items[nextDomain];
             }
@@ -61,24 +61,24 @@ class FilterSet {
     // is for hiding rules only
     filtersFor(domain) {
         domain = getUnicodeDomain(domain);
-        var limited = this._viewFor(domain);
-        var data = {};
+        const limited = this._viewFor(domain);
+        let data = {};
         // data = set(limited.items)
-        for (var subdomain in limited.items) {
-            var entry = limited.items[subdomain];
-            for (var i = 0; i < entry.length; i++) {
-                var filter = entry[i];
+        for (let subdomain in limited.items) {
+            const entry = limited.items[subdomain];
+            for (let i = 0; i < entry.length; i++) {
+                const filter = entry[i];
                 data[filter.id] = filter;
             }
         }
         // data -= limited.exclude
-        for (var subdomain in limited.exclude) {
-            for (var filterId in limited.exclude[subdomain]) {
+        for (let subdomain in limited.exclude) {
+            for (let filterId in limited.exclude[subdomain]) {
                 delete data[filterId];
             }
         }
-        var result = [];
-        for (var k in data) {
+        let result = [];
+        for (let k in data) {
             result.push(data[k].selector);
         }
         return result;
@@ -89,17 +89,17 @@ class FilterSet {
     // relevant entry in this.exclude.
     // isThirdParty: true if url and frameDomain have different origins.
     matches(url, elementType, frameDomain, isThirdParty) {
-        var limited = this._viewFor(frameDomain);
-        for (var k in limited.items) {
-            var entry = limited.items[k];
-            for (var i = 0; i < entry.length; i++) {
-                var filter = entry[i];
+        const limited = this._viewFor(frameDomain);
+        for (let k in limited.items) {
+            const entry = limited.items[k];
+            for (let i = 0; i < entry.length; i++) {
+                const filter = entry[i];
                 if (!filter.matches(url, elementType, isThirdParty)) {
                     continue; // no match
                 }
                 // Maybe filter shouldn't match because it is excluded on our domain?
-                var excluded = false;
-                for (var k2 in limited.exclude) {
+                let excluded = false;
+                for (let k2 in limited.exclude) {
                     if (limited.exclude[k2][filter.id]) {
                         excluded = true;
                         break;
@@ -128,8 +128,8 @@ class BlockingFilterSet {
     // Inputs: the two domains
     // Returns: true if third-party, false otherwise
     static checkThirdParty(domain1, domain2) {
-        var match1 = parseUri.secondLevelDomainOnly(domain1, false);
-        var match2 = parseUri.secondLevelDomainOnly(domain2, false);
+        const match1 = parseUri.secondLevelDomainOnly(domain1, false);
+        const match2 = parseUri.secondLevelDomainOnly(domain2, false);
         return (match1 !== match2);
     }
 
@@ -151,16 +151,16 @@ class BlockingFilterSet {
     //          'blocked' - true or false
     //          'text' - text of matching pattern/whitelist filter, null if no match
     matches(url, elementType, frameDomain, returnFilter, returnTuple) {
-        var urlDomain = getUnicodeDomain(parseUri(url).hostname);
-        var isThirdParty = BlockingFilterSet.checkThirdParty(urlDomain, frameDomain);
+        const urlDomain = getUnicodeDomain(parseUri(url).hostname);
+        const isThirdParty = BlockingFilterSet.checkThirdParty(urlDomain, frameDomain);
 
         // matchCache approach taken from ABP
-        var key = url + " " + elementType + " " + isThirdParty;
+        const key = url + " " + elementType + " " + isThirdParty;
         if (key in this._matchCache) {
             return this._matchCache[key];
         }
 
-        var match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty);
+        let match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty);
         if (match) {
             log(frameDomain, ": whitelist rule", match._rule, "exempts url", url);
             if (returnTuple && returnFilter) {
@@ -202,11 +202,11 @@ class BlockingFilterSet {
             this.malwareDomains = null;
             return;
         }
-        var domains = malwareDoms.adware;
-        var result = {};
-        for (var i=0; i < domains.length; i++) {
-            var domain = domains[i];
-            var char = domain.charAt(0);
+        const domains = malwareDoms.adware;
+        let result = {};
+        for (let i=0; i < domains.length; i++) {
+            const domain = domains[i];
+            const char = domain.charAt(0);
             if (!result[char]) {
                 result[char] = [];
             }
