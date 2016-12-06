@@ -55,7 +55,7 @@ const FilterNormalizer = {
     normalizeLine: function(filter) {
         // Some rules are separated by \r\n; and hey, some rules may
         // have leading or trailing whitespace for some reason.
-        let filter = filter.replace(/\r$/, "").trim();
+        filter = filter.replace(/\r$/, "").trim();
 
         // Remove comment/empty filters.
         if (Filter.isComment(filter)) {
