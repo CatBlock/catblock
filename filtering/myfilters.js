@@ -16,7 +16,7 @@ class MyFilters {
     // Update _subscriptions and _official_options in case there are changes.
     // Should be invoked right after creating a MyFilters object.
     init() {
-        var newUser = !this._subscriptions;
+        const newUser = !this._subscriptions;
         this._updateDefaultSubscriptions();
         this._updateFieldsFromOriginalOptions();
 
@@ -25,7 +25,7 @@ class MyFilters {
 
         // On startup and then every hour, check if a list is out of date and has to
         // be updated
-        var that = this;
+        const that = this;
         if (newUser) {
             this.checkFilterUpdates();
         } else {
@@ -51,12 +51,12 @@ class MyFilters {
     _updateFieldsFromOriginalOptions() {
         // Use the stored properties, and only add any new properties and/or lists
         // if they didn't exist in this._subscriptions
-        for (var id in this._official_options) {
+        for (let id in this._official_options) {
             if (!this._subscriptions[id]) {
                 this._subscriptions[id] = {};
             }
-            var sub = this._subscriptions[id];
-            var official = this._official_options[id];
+            let sub = this._subscriptions[id];
+            const official = this._official_options[id];
 
             sub.initialUrl = sub.initialUrl || official.url;
             sub.url = sub.url || official.url;
@@ -70,7 +70,7 @@ class MyFilters {
                 sub.safariJSON_URL = official.safariJSON_URL;
             }
 
-            var isMissingRequiredList = (sub.requiresList !== official.requiresList);
+            const isMissingRequiredList = (sub.requiresList !== official.requiresList);
             if (official.requiresList && isMissingRequiredList && sub.subscribed) {
                 // A required list was added.  Make sure main list subscribers get it.
                 if (this._subscriptions[official.requiresList]) {
@@ -95,13 +95,13 @@ class MyFilters {
 
         // Function that will add a new entry with updated id,
         // and will remove old entry with outdated id.
-        var that = this;
+        const that = this;
         function renameSubscription(old_id, new_id) {
             that._subscriptions[new_id] = that._subscriptions[old_id];
             delete that._subscriptions[old_id];
         }
 
-        for (var id in this._subscriptions) {
+        for (let id in this._subscriptions) {
             // Delete unsubscribed ex-official lists.
             if (!this._official_options[id] && !this._subscriptions[id].user_submitted &&
                 !this._subscriptions[id].subscribed) {
@@ -111,14 +111,14 @@ class MyFilters {
             // Convert subscribed ex-user-submitted lists into official lists.
             else {
                 // Cache subscription that needs to be checked.
-                var sub_to_check = this._subscriptions[id];
-                var is_user_submitted = true;
-                var update_id = id;
+                let sub_to_check = this._subscriptions[id];
+                let is_user_submitted = true;
+                let update_id = id;
                 if (!this._official_options[id]) {
                     // If id is not in official options, check if there's a matching url in the
                     // official list. If there is, then the subscription is not user submitted.
-                    for (var official_id in this._official_options) {
-                        var official_url = this._official_options[official_id].url;
+                    for (let official_id in this._official_options) {
+                        const official_url = this._official_options[official_id].url;
                         if (sub_to_check.initialUrl === official_url ||
                             sub_to_check.url === official_url) {
                             is_user_submitted = false;
@@ -134,7 +134,7 @@ class MyFilters {
 
                 // Create new id and check if new id is the same as id.
                 // If not, update entry in subscriptions.
-                var new_id = is_user_submitted ? ("url:" + sub_to_check.url) : update_id;
+                const new_id = is_user_submitted ? ("url:" + sub_to_check.url) : update_id;
 
                 if (new_id !== id) {
                     renameSubscription(id, new_id);
@@ -160,7 +160,7 @@ class MyFilters {
 
     // Get filters that are defined in the extension.
     getExtensionFilters(settings) {
-        var texts = [];
+        let texts = [];
         if (settings.whitelist_hulu_ads) {
             // Issue 7178: FilterNormalizer removes EasyList's too-broad Hulu whitelist
             // entries.  If the user enables whitelist_hulu_ads, just add them back.
@@ -176,24 +176,24 @@ class MyFilters {
 
     // Rebuild filters based on the current settings and subscriptions.
     rebuild() {
-        var texts = [];
+        let texts = [];
         if (!get_settings().safari_content_blocking) {
             // Only add subscriptions in Chrome, Opera, and older version of Safari...
-            for (var id in this._subscriptions) {
+            for (let id in this._subscriptions) {
                 if (this._subscriptions[id].subscribed) {
                     texts.push(this._subscriptions[id].text);
                 }
             }
 
             // Include custom filters.
-            var customfilters = storage_get("custom_filters") || ""; // from background
+            const customfilters = storage_get("custom_filters") || ""; // from background
             if (customfilters) {
                 texts.push(FilterNormalizer.normalizeList(customfilters));
             }
 
             texts = texts.concat(this.getExtensionFilters(get_settings()));
             texts = texts.join("\n").split("\n");
-            var filters = this._splitByType(texts);
+            const filters = this._splitByType(texts);
 
             this.hiding = FilterSet.fromFilters(filters.hiding);
 
@@ -215,10 +215,10 @@ class MyFilters {
             }
         } else {
             // If Safari 9 content blocking
-            var filterListRules = [];
-            for (var id in this._subscriptions) {
+            let filterListRules = [];
+            for (let id in this._subscriptions) {
                 if (this._subscriptions[id].subscribed) {
-                    for (var item in this._subscriptions[id].rules) {
+                    for (let item in this._subscriptions[id].rules) {
                         filterListRules.push(this._subscriptions[id].rules[item]);
                     }
                 }
@@ -228,26 +228,26 @@ class MyFilters {
                 this._subscriptions.malware &&
                 this._subscriptions.malware.subscribed &&
                 this.getMalwareDomains()) {
-                var malwareDomains = this._subscriptions.malware.text.adware;
-                var malwareRules = DeclarativeWebRequest.convertMalware(malwareDomains);
+                const malwareDomains = this._subscriptions.malware.text.adware;
+                const malwareRules = DeclarativeWebRequest.convertMalware(malwareDomains);
                 //add the custom rules, with the filter list rules
-                for (var i = 0; i < malwareRules.length; i++) {
+                for (let i = 0; i < malwareRules.length; i++) {
                     filterListRules.push(malwareRules[i]);
                 }
             }
 
             // Include custom filters.
-            var customfilters = get_custom_filters_text(); // from background
+            const customfilters = get_custom_filters_text(); // from background
             if (customfilters) {
                 texts.push(FilterNormalizer.normalizeList(customfilters));
                 texts = texts.join("\n").split("\n");
-                var filters = this._splitByType(texts);
-                var patternFilters = [];
-                for (var id in filters.pattern) {
+                const filters = this._splitByType(texts);
+                let patternFilters = [];
+                for (let id in filters.pattern) {
                     patternFilters.push(filters.pattern[id]);
                 }
-                var whitelistFilters = [];
-                for (var id in filters.whitelist) {
+                let whitelistFilters = [];
+                for (let id in filters.whitelist) {
                     whitelistFilters.push(filters.whitelist[id]);
                 }
                 // SelectorFilters where full() === True are selectors that apply to all domains, no exceptions
@@ -255,25 +255,25 @@ class MyFilters {
                 // SelectorFilters where full() === False are selectors that either:
                 //    - apply to specific domain(s)
                 //    - or have exceptions domains, where the selectors are not applied
-                var selectorsFull = {};
-                var selectorsNotFull = {};
-                for (var id in filters.hiding) {
-                    var selectorFilter = filters.hiding[id];
+                let selectorsFull = {};
+                let selectorsNotFull = {};
+                for (let id in filters.hiding) {
+                    let selectorFilter = filters.hiding[id];
                     if (selectorFilter._domains.full() === true) {
                         selectorsFull[id] = selectorFilter;
                     } else {
                         selectorsNotFull[id] = selectorFilter;
                     }
                 }
-                var selectorFilters = [];
-                for (var id in selectorsNotFull) {
+                let selectorFilters = [];
+                for (let id in selectorsNotFull) {
                     selectorFilters.push(selectorsNotFull[id]);
                 }
-                selectorFiltersAll = [];
-                for (var id in selectorsFull) {
+                let selectorFiltersAll = [];
+                for (let id in selectorsFull) {
                     selectorFiltersAll.push(selectorsFull[id]);
                 }
-                var customRules = DeclarativeWebRequest.convertFilterLists(patternFilters, whitelistFilters, selectorFilters, selectorFiltersAll);
+                const customRules = DeclarativeWebRequest.convertFilterLists(patternFilters, whitelistFilters, selectorFilters, selectorFiltersAll);
                 log("customRules: ", customRules);
                 //add the custom rules, with the filter list rules
                 filterListRules.push.apply(filterListRules, customRules);
@@ -306,16 +306,16 @@ class MyFilters {
 
     _splitByType(texts) {
         // Remove duplicates and empties.
-        var unique = {};
-        for (var i = 0; i < texts.length; i++) {
+        let unique = {};
+        for (let i = 0; i < texts.length; i++) {
             unique[texts[i]] = 1;
         }
         delete unique[""];
 
-        var filters = { hidingUnmerged: [], hiding: {}, exclude: {},
+        let filters = { hidingUnmerged: [], hiding: {}, exclude: {},
                        pattern: {}, whitelist: {} };
-        for (var text in unique) {
-            var filter = Filter.fromText(text);
+        for (let text in unique) {
+            const filter = Filter.fromText(text);
             if (Filter.isSelectorExcludeFilter(text)) {
                 setDefault(filters.exclude, filter.selector, []).push(filter);
             } else if (Filter.isSelectorFilter(text)) {
@@ -326,9 +326,10 @@ class MyFilters {
                 filters.pattern[filter.id] = filter;
             }
         }
-        for (var i = 0; i < filters.hidingUnmerged.length; i++) {
-            filter = filters.hidingUnmerged[i];
-            var hider = SelectorFilter.merge(filter, filters.exclude[filter.selector]);
+
+        for (let i = 0; i < filters.hidingUnmerged.length; i++) {
+            let filter = filters.hidingUnmerged[i];
+            const hider = SelectorFilter.merge(filter, filters.exclude[filter.selector]);
             filters.hiding[hider.id] = hider;
         }
         return filters;
@@ -340,8 +341,8 @@ class MyFilters {
     //         forceFetch: if the subscriptions have to be fetched again forced
     changeSubscription(id, subData, forceFetch) {
 
-        var subscribeRequiredListToo = false;
-        var listDidntExistBefore = false;
+        let subscribeRequiredListToo = false;
+        let listDidntExistBefore = false;
 
         // Check if the list has to be updated
         function out_of_date(subscription) {
@@ -350,21 +351,21 @@ class MyFilters {
             }
             // After a failure, wait at least a day to refetch (overridden below if
             // it's a new filter list, having no .text)
-            var failed_at = subscription.last_update_failed_at || 0;
+            const failed_at = subscription.last_update_failed_at || 0;
             if (Date.now() - failed_at < HOUR_IN_MS * 24) {
                 return false;
             }
             // Don't let expiresAfterHours delay indefinitely (Issue 7443)
-            var hardStop = subscription.expiresAfterHoursHard || 240;
-            var smallerExpiry = Math.min(subscription.expiresAfterHours, hardStop);
-            var millis = Date.now() - subscription.last_update;
+            const hardStop = subscription.expiresAfterHoursHard || 240;
+            const smallerExpiry = Math.min(subscription.expiresAfterHours, hardStop);
+            const millis = Date.now() - subscription.last_update;
             return (millis > HOUR_IN_MS * smallerExpiry);
         }
 
         //since the malware ID isn't really a filter list, we need to process it seperately
         if (id === "malware") {
             // Apply all changes from subData
-            for (var property in subData) {
+            for (let property in subData) {
                 if (subData[property] !== undefined) {
                     this._subscriptions[id][property] = subData[property];
                 }
@@ -414,7 +415,7 @@ class MyFilters {
         }
 
         // Apply all changes from subData
-        for (var property in subData) {
+        for (let property in subData) {
             if (subData[property] !== undefined) {
                 this._subscriptions[id][property] = subData[property];
             }
@@ -464,7 +465,7 @@ class MyFilters {
     // isNewList: true when the list is completely new and must succeed or
     //            otherwise it'll be deleted.
     fetch_and_update(id, isNewList) {
-        var url = this._subscriptions[id].url;
+        let url = this._subscriptions[id].url;
         if (get_settings().safari_content_blocking) {
             if (!this._subscriptions[id].safariJSON_URL) {
                 // Since the certain filter lists (AdBlock Custom) are embedded with the other filter lists
@@ -476,7 +477,7 @@ class MyFilters {
             }
             url = this._subscriptions[id].safariJSON_URL;
         }
-        var that = this;
+        const that = this;
         function onError() {
             that._subscriptions[id].last_update_failed_at = Date.now();
             that._onSubscriptionChange();
@@ -490,7 +491,7 @@ class MyFilters {
                 }, 500);
             }
         }
-        var ajaxRequest = {
+        const ajaxRequest = {
             url: url,
             cache: false,
             headers: {
@@ -547,7 +548,7 @@ class MyFilters {
                 // Record how many hours until we need to update the subscription text. Defaults to 120.
                 this._subscriptions[id].expiresAfterHours = 120;
                 this._subscriptions[id].expiresAfterHoursHard = this._subscriptions[id].expiresAfterHours * 2;
-                var smear = Math.random() * 0.4 + 0.8;
+                const smear = Math.random() * 0.4 + 0.8;
                 this._subscriptions[id].expiresAfterHours *= smear;
                 this._subscriptions[id].rules = text;
                 return;
@@ -564,14 +565,14 @@ class MyFilters {
             // Record how many hours until we need to update the subscription text. This
             // can be specified in the file. Defaults to 120.
             this._subscriptions[id].expiresAfterHours = 120;
-            var checkLines = text.split("\n", 15); //15 lines should be enough
-            var expiresRegex = /(?:expires\:|expires\ after\ )\ *(\d+)\ ?(h?)/i;
-            var redirectRegex = /(?:redirect\:|redirects\ to\ )\ *(https?\:\/\/\S+)/i;
-            for (var i = 0; i < checkLines.length; i++) {
+            const checkLines = text.split("\n", 15); //15 lines should be enough
+            const expiresRegex = /(?:expires\:|expires\ after\ )\ *(\d+)\ ?(h?)/i;
+            const redirectRegex = /(?:redirect\:|redirects\ to\ )\ *(https?\:\/\/\S+)/i;
+            for (let i = 0; i < checkLines.length; i++) {
                 if (!Filter.isComment(checkLines[i])) {
                     continue;
                 }
-                var match = checkLines[i].match(redirectRegex);
+                let match = checkLines[i].match(redirectRegex);
                 if (match && match[1] !== this._subscriptions[id].url) {
                     this._subscriptions[id].url = match[1]; //assuming the URL is always correct
                     // Force an update.  Even if our refetch below fails we'll have to
@@ -580,13 +581,13 @@ class MyFilters {
                 }
                 match = checkLines[i].match(expiresRegex);
                 if (match && parseInt(match[1], 10)) {
-                    var hours = parseInt(match[1], 10) * (match[2] === "h" ? 1 : 24);
+                    const hours = parseInt(match[1], 10) * (match[2] === "h" ? 1 : 24);
                     this._subscriptions[id].expiresAfterHours = Math.min(hours, 21*24); // 3 week maximum
                 }
             }
             // Smear expiry (Issue 7443)
             this._subscriptions[id].expiresAfterHoursHard = this._subscriptions[id].expiresAfterHours * 2;
-            var smear = Math.random() * 0.4 + 0.8;
+            const smear = Math.random() * 0.4 + 0.8;
             this._subscriptions[id].expiresAfterHours *= smear;
         }
 
@@ -601,14 +602,14 @@ class MyFilters {
     // Checks if subscriptions have to be updated
     // Inputs: force? (boolean), true if every filter has to be updated
     checkFilterUpdates(force) {
-        var key = "last_subscriptions_check";
-        var now = Date.now();
-        var delta = now - (storage_get(key) || now);
-        var delta_hours = delta / HOUR_IN_MS;
+        const key = "last_subscriptions_check";
+        const now = Date.now();
+        const delta = now - (storage_get(key) || now);
+        const delta_hours = delta / HOUR_IN_MS;
         storage_set(key, now);
         if (delta_hours > 24) {
             // Extend expiration of subscribed lists (Issue 7443)
-            for (var id in this._subscriptions) {
+            for (let id in this._subscriptions) {
                 if (this._subscriptions[id].subscribed) {
                     this._subscriptions[id].expiresAfterHours += delta_hours;
                 }
@@ -616,7 +617,7 @@ class MyFilters {
             this._onSubscriptionChange(); // Store the change
         }
 
-        for (var id in this._subscriptions) {
+        for (let id in this._subscriptions) {
             if (this._subscriptions[id].subscribed) {
                 this.changeSubscription(id, {}, force);
             }
@@ -627,8 +628,8 @@ class MyFilters {
     // Inputs: id: the list id to compare
     // Returns the id that should be used
     customToDefaultId(id) {
-        var urlOfCustomList = id.substr(4);
-        for (var defaultList in this._official_options) {
+        const urlOfCustomList = id.substr(4);
+        for (let defaultList in this._official_options) {
             if (this._official_options[defaultList].url === urlOfCustomList) {
                 return defaultList;
             }
@@ -647,23 +648,23 @@ class MyFilters {
         function out_of_date(subscription) {
             // After a failure, wait at least a day to refetch (overridden below if
             // it has no .text)
-            var failed_at = subscription.last_update_failed_at || 0;
+            const failed_at = subscription.last_update_failed_at || 0;
             if (Date.now() - failed_at < HOUR_IN_MS * 24) {
                 return false;
             }
-            var hardStop = subscription.expiresAfterHoursHard || 240;
-            var smallerExpiry = Math.min((subscription.expiresAfterHours || 24), hardStop);
-            var millis = Date.now() - (subscription.last_update || 0);
+            const hardStop = subscription.expiresAfterHoursHard || 240;
+            const smallerExpiry = Math.min((subscription.expiresAfterHours || 24), hardStop);
+            const millis = Date.now() - (subscription.last_update || 0);
             return (millis > HOUR_IN_MS * smallerExpiry);
         }
 
         if (!this._subscriptions.malware.text ||
             !this.getMalwareDomains() ||
             out_of_date(this._subscriptions.malware)) {
-            var url = this._subscriptions.malware.url + "?_=" + new Date().getTime();
+            const url = this._subscriptions.malware.url + "?_=" + new Date().getTime();
             // Fetch file with malware-known domains
-            var xhr = new XMLHttpRequest();
-            var that = this;
+            let xhr = new XMLHttpRequest();
+            const that = this;
             xhr.onerror = function() {
                 //if the request fail, retry the next time
                 that._subscriptions.malware.last_update_failed_at = Date.now();
@@ -681,7 +682,7 @@ class MyFilters {
                 //since the AdBlock Malware Domains.json file is only updated once a day
                 //on the server, expiration is around 24 hours.
                 that._subscriptions.malware.expiresAfterHours = 24;
-                var smear = Math.random() * 0.4 + 0.8;
+                const smear = Math.random() * 0.4 + 0.8;
                 that._subscriptions.malware.expiresAfterHours *= smear;
                 chrome.runtime.sendMessage({ command: "filters_updated" });
                 log("Fetched " + url);
@@ -718,10 +719,10 @@ class MyFilters {
     // Inputs: none.
     // Returns an object containing the subscribed lists
     _load_default_subscriptions() {
-        var result = {};
+        let result = {};
         // Returns the ID of the list appropriate for the user's locale, or ""
         function listIdForThisLocale() {
-            var language = determineUserLanguage();
+            const language = determineUserLanguage();
             switch (language) {
                 case "ar": return "easylist_plus_arabic";
                 case "bg": return "easylist_plus_bulgarian";
@@ -759,7 +760,7 @@ class MyFilters {
         result.adblock_custom = { subscribed: true };
         result.easylist = { subscribed: true };
         result.malware = { subscribed: true };
-        var list_for_lang = listIdForThisLocale();
+        const list_for_lang = listIdForThisLocale();
         if (list_for_lang) {
             result[list_for_lang] = { subscribed: true };
         }
