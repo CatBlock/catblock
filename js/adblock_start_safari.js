@@ -1,11 +1,11 @@
 // If the background image is an ad, remove it.
 function blockBackgroundImageAd() {
-    var bgImage = getComputedStyle(document.body)["background-image"] || "";
-    var match = bgImage.match(/^url\((.+)\)$/);
+    const bgImage = getComputedStyle(document.body)["background-image"] || "";
+    const match = bgImage.match(/^url\((.+)\)$/);
     if (!match) {
         return;
     }
-    var hiddenImage = document.createElement("img");
+    let hiddenImage = document.createElement("img");
     hiddenImage.src = match[1];
     hiddenImage.setAttribute("width", "0");
     hiddenImage.setAttribute("height", "0");
@@ -39,13 +39,13 @@ function beforeLoadHandler(event) {
     if (/^(?!https?:)[\w-]+:/.test(event.url)) {
         return;
     }
-    var el = event.target;
+    const el = event.target;
     if (!el.nodeName) {
         return; // issue 6256
     }
     // Cancel the load if canLoad is false.
-    var elType = typeForElement(el);
-    var data = {
+    const elType = typeForElement(el);
+    const data = {
         url: relativeToAbsoluteUrl(event.url),
         elType: elType,
         referrer: document.referrer,
@@ -70,12 +70,12 @@ function beforeLoadHandler(event) {
             // That is a "load" event for blocked frames, and an "error" event for
             // other blocked elements. We need to dispatch those events manually here
             // to avoid breaking element collapsing and pages that rely on those events.
-            var eventName = "error";
+            let eventName = "error";
             if (event.target.localName === "iframe") {
                 eventName = "load";
             }
             setTimeout(function() {
-                var evt = document.createEvent("Event");
+                let evt = document.createEvent("Event");
                 evt.initEvent(eventName, false, false);
                 event.target.dispatchEvent(evt);
             }, 0);
