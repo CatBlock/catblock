@@ -33,10 +33,10 @@ class DomainSet {
     // Return an object whose keys are |domain| and all of its parent domains, up
     // to and including the TLD.
     static domainAndParents(domain) {
-        var result = {};
-        var parts = domain.split(".");
-        var nextDomain = parts[parts.length -1];
-        for (var i = parts.length-1; i >=0; i--) {
+        let result = {};
+        const parts = domain.split(".");
+        let nextDomain = parts[parts.length -1];
+        for (let i = parts.length-1; i >=0; i--) {
             result[nextDomain] = 1;
             if (i > 0) {
                 nextDomain = parts[i - 1] + "." + nextDomain;
@@ -52,7 +52,7 @@ class DomainSet {
 
     // Returns true if this set contains all domains.
     full() {
-        for (var k in this.has) {
+        for (let k in this.has) {
             if (!this.has[k]) {
                 return false;
             }
@@ -73,7 +73,7 @@ class DomainSet {
     // Modify |this| to be the result of applying the given set |operator| (a
     // 2-param boolean function) to |this| and |other|. Returns undefined.
     _apply(operator, other) {
-        var d; // represents a domain -- an element in .has
+        let d; // represents a domain -- an element in .has
 
         // Make sure there's an entry in .has for every entry in other.has, so
         // that we examine every pairing in the next for loop.
@@ -87,7 +87,7 @@ class DomainSet {
         }
         // Optimization: get rid of redundant entries that now exist in this.has.
         // E.g. if DomainSet.ALL, a, and sub.a all = true, delete the last 2.
-        var newHas = {};
+        let newHas = {};
         newHas[DomainSet.ALL] = this.has[DomainSet.ALL];
         for (d in this.has) {
             if (this.has[d] !== this._computedHas(DomainSet._parentDomainOf(d))) {
