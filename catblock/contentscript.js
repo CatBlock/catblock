@@ -1,4 +1,4 @@
-var picinjection = {
+const picinjection = {
 
     // Given details about a picture and a target rectangle, return details
     // about how to place the picture in the target.
@@ -27,17 +27,17 @@ var picinjection = {
     //                These are used to center a picture in a tall or wide target
     _fit: function (pic, target) {
 
-        var p=pic, t=target;
+        const p = pic, t = target;
         // Step 0: if t.ratio > p.ratio, rotate |p| and |t| about their NW<->SE axes.
 
         // Our math in Step 1 and beyond relies on |t| being skinner than |p|.  We
         // rotate |t| and |p| about their NW<->SE axis if needed to make that true.
-        var t_ratio = t.x / t.y;
-        var p_ratio = p.width / p.height;
+        const t_ratio = t.x / t.y;
+        const p_ratio = p.width / p.height;
         if (t_ratio > p_ratio) {
-            var rotate = this._rotate;
+            let rotate = this._rotate;
             rotate(pic); rotate(target);
-            var result = this._fit(pic, target);
+            let result = this._fit(pic, target);
             rotate(pic); rotate(target);
             rotate(result);
             return result;
@@ -49,9 +49,9 @@ var picinjection = {
         p.left = 0; p.right = 0; p.top = 0; p.bottom = 0;
 
         // Step 1: Calculate |crop_x|: total horizontal crop needed.
-        var crop_max = Math.max(p.left + p.right, 0.001);
+        const crop_max = Math.max(p.left + p.right, 0.001);
         // Crop as much as we must, but not past the max allowed crop.
-        var crop_x = Math.min(p.width - p.height * t_ratio, crop_max);
+        const crop_x = Math.min(p.width - p.height * t_ratio, crop_max);
 
         // Step 2: Calculate how much of that crop should be done on the left side
         // of the picture versus the right.
@@ -60,18 +60,18 @@ var picinjection = {
         // so we only have to calculate the left crop and the right crop will happen
         // naturally due to the size of the target area not fitting the entire image.
 
-        var crop_left = p.left * (crop_x / crop_max);
+        const crop_left = p.left * (crop_x / crop_max);
 
         // Step 3: Calculate how much we must scale up or down the original picture.
 
-        var scale = t.x / (p.width - crop_x);
+        const scale = t.x / (p.width - crop_x);
 
         // Scale the original picture and crop amounts in order to determine the width
         // and height of the visible display area, the x and y dimensions of the image
         // to display in it, and the crop amount to offset the image.  The end result
         // is an image positioned to show the correct pixels in the target area.
 
-        var result = {};
+        let result = {};
         result.x = Math.round(p.width * scale);
         result.y = Math.round(p.height * scale);
         result.left = Math.round(crop_left * scale);
@@ -91,10 +91,10 @@ var picinjection = {
     // Rotate a picture/target about its NW<->SE axis.
     _rotate: function(o) {
 
-        var pairs = [["x", "y"], ["top", "left"], ["bot", "right"],
+        const pairs = [["x", "y"], ["top", "left"], ["bot", "right"],
                      ["offsettop", "offsetleft"], ["width", "height"]];
         pairs.forEach(function(pair) {
-            var a = pair[0], b = pair[1], tmp;
+            let a = pair[0], b = pair[1], tmp;
             if (o[a] || o[b]) {
                 tmp = o[b]; o[b] = o[a]; o[a] = tmp; // swap
             }
@@ -106,7 +106,7 @@ var picinjection = {
         function intFor(val) {
             // Match two or more digits; treat < 10 as missing.  This lets us set
             // dims that look good for e.g. 1px tall ad holders (cnn.com footer.)
-            var match = (val || "").match(/^([1-9][0-9]+)(px)?$/);
+            const match = (val || "").match(/^([1-9][0-9]+)(px)?$/);
             if (!match) {
                 return undefined;
             }
@@ -130,7 +130,7 @@ var picinjection = {
         if (/facebook/.test(document.location.href)) {
             return undefined;
         }
-        var result = undefined;
+        let result = undefined;
         while (!result && el.parentNode) {
             result = this._dim(el.parentNode, prop);
             el = el.parentNode;
@@ -140,7 +140,7 @@ var picinjection = {
 
     _targetSize: function(el) {
 
-        var t = { x: this._dim(el, "width"), y: this._dim(el, "height") };
+        let t = { x: this._dim(el, "width"), y: this._dim(el, "height") };
 
         // Make it rectangular if ratio is appropriate, or if we only know one dim
         // and it's so big that the 180k pixel max will force the pic to be skinny.
@@ -163,10 +163,10 @@ var picinjection = {
     // have enough info.
     _getPlacementFor: function(el, callback) {
 
-        var that = this;
-        var t = this._targetSize(el);
+        const that = this;
+        let t = this._targetSize(el);
 
-        BGcall("randomListing", {width:t.x, height:t.y}, function(pic) {
+        BGcall("randomListing", { width: t.x, height: t.y }, function(pic) {
 
             if (!pic) {
                 callback();
@@ -175,15 +175,15 @@ var picinjection = {
             // If we only have one dimension, we may choose to use the picture's ratio;
             // but don't go over 180k pixels (so e.g. 1000x__ doesn't insert a 1000x1000
             // picture (cnn.com)).  And if an ancestor has a size, don't exceed that.
-            var max = 180000;
+            const max = 180000;
             if (t.x && !t.y) {
-                var newY = Math.round(Math.min(pic.height * t.x / pic.width, max / t.x));
-                var parentY = that._parentDim(el, "height");
+                const newY = Math.round(Math.min(pic.height * t.x / pic.width, max / t.x));
+                const parentY = that._parentDim(el, "height");
                 t.y = (parentY ? Math.min(newY, parentY) : newY);
             }
             if (t.y && !t.x) {
-                var newX = Math.round(Math.min(pic.width * t.y / pic.height, max / t.y));
-                var parentX = that._parentDim(el, "width");
+                const newX = Math.round(Math.min(pic.width * t.y / pic.height, max / t.y));
+                const parentX = that._parentDim(el, "width");
                 t.x = (parentX ? Math.min(newX, parentX) : newX);
             }
             if (!t.x || !t.y || t.x < 40 || t.y < 40) {
@@ -191,7 +191,7 @@ var picinjection = {
                 return; // unknown dims or too small to bother
             }
 
-            var result = that._fit(pic, t);
+            let result = that._fit(pic, t);
             result.url = pic.url;
             result.attribution_url = pic.attribution_url;
             result.photo_title = pic.title;
@@ -204,7 +204,7 @@ var picinjection = {
     // Calls callback when finished.
     _augment: function(el, callback) {
 
-        var that = this;
+        const that = this;
 
         this.enabled(function(enabled) {
             if (!enabled) {
@@ -216,10 +216,10 @@ var picinjection = {
                     callback();
                     return;
                 }
-                var newPic = document.createElement("img");
+                let newPic = document.createElement("img");
                 newPic.classList.add("picinjection-image");
 
-                var css = {
+                const css = {
                     width: placement.width + "px",
                     height: placement.height + "px",
                     background: "url(" + placement.url + ") no-repeat",
@@ -229,14 +229,14 @@ var picinjection = {
                     // nytimes.com float:right ad at top is on the left without this
                     "float": (window.getComputedStyle(el).float || undefined)
                 };
-                for (var k in css) {
+                for (let k in css) {
                     newPic.style[k] = css[k];
                 }
                 // hotmail ad is position:absolute; we must match its placement.
                 // battefield.play4free.net imgs are absolute; ad is not img. match it.
                 // reddit homepage sometimes gets a whole screenful of white if
                 // inserted <img> is inline instead of block like what it augments.
-                for (var k in {position:1,left:1,top:1,bottom:1,right:1,display:1}) {
+                for (let k in { position: 1, left: 1, top: 1, bottom: 1, right: 1, display: 1}) {
                     newPic.style[k] = window.getComputedStyle(el)[k];
                 }
 
@@ -275,13 +275,13 @@ var picinjection = {
                 return; // already created card
             }
             function after_jquery_is_available() {
-                var cardsize = {
+                const cardsize = {
                     width: Math.max(placement.width, 180),
                     height: Math.max(placement.height, 100)
                 };
 
                 function position_card(card) {
-                    var pos = $(newPic).offset();
+                    let pos = $(newPic).offset();
                     pos.top += (placement.height - cardsize.height) / 2;
                     pos.left += (placement.width - cardsize.width) / 2;
                     if (pos.top < 0) {
@@ -308,7 +308,7 @@ var picinjection = {
                         "background-color": "rgba(188, 188, 188, 0.7)"
                     } });
                 newPic.infoCard.appendTo("body");
-                var folder = "img/";
+                const folder = "img/";
                 newPic.infoCard.
                 append($("<a>", {
                     href: "#",
@@ -336,7 +336,7 @@ var picinjection = {
                 })).
                 append("<br>");
 
-                var wrapper = $("<div>", {
+                let wrapper = $("<div>", {
                     css: {
                         "max-width": 180,
                         "margin": "0 auto",
@@ -412,14 +412,14 @@ var picinjection = {
             return;
         }
 
-        var oldCssText = el.style.cssText;
+        const oldCssText = el.style.cssText;
         el.style.setProperty("visibility", "hidden", "important");
         el.style.setProperty("display", displayValue, "important");
-        var size = el.style.backgroundPosition.match(/^(\w+) (\w+)$/);
+        const size = el.style.backgroundPosition.match(/^(\w+) (\w+)$/);
         if (size) {
             // Restore el.width&el.height to whatever they were before AdBlock.
-            var dims = { width: size[1], height: size[2] };
-            for (var dim in dims) {
+            const dims = { width: size[1], height: size[2] };
+            for (let dim in dims) {
                 if (dims[dim] === "-1px") {
                     el.removeAttribute(dim);
                 } else {
@@ -430,9 +430,9 @@ var picinjection = {
 
         this._augment(el, function() {
             el.style.cssText = oldCssText; // Re-hide the section
-            var addedImgs = document.getElementsByClassName("picinjection-image");
-            for (var i = 0; i < addedImgs.length; i++) {
-                var displayVal = window.getComputedStyle(addedImgs[i]).display;
+            let addedImgs = document.getElementsByClassName("picinjection-image");
+            for (let i = 0; i < addedImgs.length; i++) {
+                const displayVal = window.getComputedStyle(addedImgs[i]).display;
                 if (displayVal === "none") {
                     addedImgs[i].style.display = "";
                 }
@@ -444,7 +444,7 @@ var picinjection = {
 
     translate: function(key) {
 
-        var text = {
+        const text = {
             "explanation": {
                 en: "AdBlock now shows you cats instead of ads!",
                 es: "AdBlock ahora muestra los gatos en lugar de anuncios!",
@@ -504,8 +504,8 @@ var picinjection = {
                 en: "https://chromeadblock.com/catblock/"
             }
         };
-        var locale = determineUserLanguage();
-        var msg = text[key] || {};
+        const locale = determineUserLanguage();
+        const msg = text[key] || {};
         return msg[locale] || msg.en;
     },
 
@@ -603,9 +603,9 @@ if (!SAFARI) {
             return;
         }
 
-        var ads = document.querySelectorAll(request.selector);
+        const ads = document.querySelectorAll(request.selector);
 
-        for (var i = 0; i < ads.length; i++) {
+        for (let i = 0; i < ads.length; i++) {
             picinjection.augmentBlockedElIfRightType(ads[i]);
         }
 
@@ -614,9 +614,9 @@ if (!SAFARI) {
 
     // Augment hidden ads on Blink-based browsers
     function augmentHiddenElements(selector) {
-        var ads = document.querySelectorAll(selector);
+        const ads = document.querySelectorAll(selector);
 
-        for (var i = 0; i < ads.length; i++) {
+        for (let i = 0; i < ads.length; i++) {
             picinjection._augmentHiddenSectionContaining(ads[i]);
         }
     }
