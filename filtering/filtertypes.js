@@ -17,7 +17,7 @@ class Filter {
     // Return a Filter instance for the given filter text.
     // Throw an exception if the filter is invalid.
     static fromText(text) {
-        var cache = Filter._cache;
+        let cache = Filter._cache;
         if (!cache) {
             cache = Filter._cache = {};
         }
@@ -57,17 +57,17 @@ class Filter {
     // Convert a comma-separated list of domain includes and excludes
     // into a DomainSet.
     static _toDomainSet(domainText, divider) {
-        var domains = domainText.split(divider);
+        const domains = domainText.split(divider);
 
-        var data = {};
+        let data = {};
         data[DomainSet.ALL] = true;
 
         if (domains == "") {
             return new DomainSet(data);
         }
 
-        for (var i = 0; i < domains.length; i++) {
-            var domain = domains[i];
+        for (let i = 0; i < domains.length; i++) {
+            const domain = domains[i];
             if (domain[0] === "~") {
                 data[domain.substring(1)] = false;
             } else {
@@ -84,7 +84,7 @@ class Filter {
 class SelectorFilter extends Filter {
     constructor(text) {
         super();
-        var parts = text.match(/(^.*?)\#\@?\#(.+$)/);
+        const parts = text.match(/(^.*?)\#\@?\#(.+$)/);
         this._domains = Filter._toDomainSet(parts[1], ",");
         this.selector = parts[2];
         if (typeof QUnit === undefined && storage_get("settings") && storage_get("settings").show_advanced_options) {
@@ -100,12 +100,12 @@ class SelectorFilter extends Filter {
             return filter;
         }
 
-        var domains = filter._domains.clone();
-        for (var i = 0; i < excludeFilters.length; i++) {
+        let domains = filter._domains.clone();
+        for (let i = 0; i < excludeFilters.length; i++) {
             domains.subtract(excludeFilters[i]._domains);
         }
 
-        var result = new SelectorFilter("_##_");
+        let result = new SelectorFilter("_##_");
         result.selector = filter.selector;
         if (filter._text) {
             result._text = filter._text;
@@ -125,11 +125,11 @@ class PatternFilter extends Filter {
 
     // Data is [rule text, allowed element types, options].
     static fromData(data) {
-        var result = new PatternFilter();
+        let result = new PatternFilter();
         result._rule = new RegExp(data[0]);
         result._allowedElementTypes = data[1];
         result._options = data[2];
-        var data = {};
+        let data = {};
         data[DomainSet.ALL] = true;
         result._domains = new DomainSet(data);
         return result;
@@ -138,9 +138,9 @@ class PatternFilter extends Filter {
     // Text is the original filter text of a blocking or whitelist filter.
     // Throws an exception if the rule is invalid
     static fromText(text) {
-        var data = PatternFilter._parseRule(text);
+        const data = PatternFilter._parseRule(text);
 
-        var result = new PatternFilter();
+        let result = new PatternFilter();
         result._domains = Filter._toDomainSet(data.domainText, "|");
         result._allowedElementTypes = data.allowedElementTypes;
         result._options = data.options;
@@ -156,7 +156,7 @@ class PatternFilter extends Filter {
     // for the given filter text.  Throws an exception if the rule is invalid.
     static _parseRule(text) {
 
-        var result = {
+        let result = {
             domainText: "",
             // TODO: when working on this code again, consider making options a
             // dictionary with boolean values instead of a bitset. This would
@@ -166,26 +166,26 @@ class PatternFilter extends Filter {
             options: FilterOptions.NONE
         };
 
-        var optionsRegex = /\$~?[\w\-]+(?:=[^,\s]+)?(?:,~?[\w\-]+(?:=[^,\s]+)?)*$/;
-        var optionsText = text.match(optionsRegex);
-        var allowedElementTypes;
+        const optionsRegex = /\$~?[\w\-]+(?:=[^,\s]+)?(?:,~?[\w\-]+(?:=[^,\s]+)?)*$/;
+        const optionsText = text.match(optionsRegex);
+        let allowedElementTypes, rule, options;
         if (!optionsText) {
-            var rule = text;
-            var options = [];
+            rule = text;
+            options = [];
         } else {
-            var options = optionsText[0].substring(1).toLowerCase().split(",");
-            var rule = text.replace(optionsText[0], "");
+            options = optionsText[0].substring(1).toLowerCase().split(",");
+            rule = text.replace(optionsText[0], "");
         }
 
-        for (var i = 0; i < options.length; i++) {
-            var option = options[i];
+        for (let i = 0; i < options.length; i++) {
+            let option = options[i];
 
             if (/^domain\=/.test(option)) {
                 result.domainText = option.substring(7);
                 continue;
             }
 
-            var inverted = (option[0] === "~");
+            const inverted = (option[0] === "~");
             if (inverted) {
                 option = option.substring(1);
             }
@@ -251,14 +251,14 @@ class PatternFilter extends Filter {
         // Convert regexy stuff.
 
         // First, check if the rule itself is in regex form.  If so, we're done.
-        var matchcase = (result.options & FilterOptions.MATCHCASE) ? "" : "i";
+        const matchcase = (result.options & FilterOptions.MATCHCASE) ? "" : "i";
         if (/^\/.+\/$/.test(rule)) {
             result.rule = rule.substr(1, rule.length - 2); // remove slashes
             result.rule = new RegExp(result.rule, matchcase);
             return result;
         }
 
-        var key = rule.match(/[\w&=]{5,}/);
+        const key = rule.match(/[\w&=]{5,}/);
         if (key) {
             result.key = new RegExp(key, matchcase);
         }
