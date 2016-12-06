@@ -1,6 +1,6 @@
 // Converts non-standard filters to a standard format, and removes
 // invalid filters.
-var FilterNormalizer = {
+const FilterNormalizer = {
 
     userExcludedFilterArray: [],
 
@@ -19,13 +19,13 @@ var FilterNormalizer = {
     // Returns: filter strings separated by "\n" with invalid filters
     //          removed or modified
     normalizeList: function(text, keepComments) {
-        var lines = text.split("\n");
+        const lines = text.split("\n");
         delete text;
-        var result = [];
-        var ignoredFilterCount = 0;
-        for (var i=0; i<lines.length; i++) {
+        let result = [];
+        let ignoredFilterCount = 0;
+        for (let i=0; i<lines.length; i++) {
             try {
-                var newfilter = FilterNormalizer.normalizeLine(lines[i]);
+                const newfilter = FilterNormalizer.normalizeLine(lines[i]);
                 if (newfilter) {
                     result.push(newfilter);
                 } else if (newfilter !== false) {
@@ -55,7 +55,7 @@ var FilterNormalizer = {
     normalizeLine: function(filter) {
         // Some rules are separated by \r\n; and hey, some rules may
         // have leading or trailing whitespace for some reason.
-        filter = filter.replace(/\r$/, "").trim();
+        let filter = filter.replace(/\r$/, "").trim();
 
         // Remove comment/empty filters.
         if (Filter.isComment(filter)) {
@@ -65,7 +65,7 @@ var FilterNormalizer = {
         // Convert old-style hiding rules to new-style.
         if (/#[\*a-z0-9_\-]*(\(|$)/.test(filter) && !/\#\@?\#./.test(filter)) {
             // Throws exception if unparseable.
-            var oldFilter = filter;
+            const oldFilter = filter;
             filter = FilterNormalizer._old_style_hiding_to_new(filter);
             log("Converted " + oldFilter + " to " + filter);
         }
@@ -77,13 +77,15 @@ var FilterNormalizer = {
             return null;
         }
 
+        let parsedFilter = "";
+
         // If it is a hiding rule...
         if (Filter.isSelectorFilter(filter)) {
             // The filter must be of a correct syntax
 
             try {
                 // Throws if the filter is invalid...
-                var selectorPart = filter.replace(/^.*?\#\@?\#/, "");
+                const selectorPart = filter.replace(/^.*?\#\@?\#/, "");
                 if (document.querySelector(selectorPart + ",html").length === 0) {
                     throw new Error("Causes other filters to fail");
                 }
@@ -98,18 +100,18 @@ var FilterNormalizer = {
             // loading the site will hang in Safari 6 while Safari creates a bunch of
             // one-off style sheets (issue 7356).
             if (/style([\^\$\*]?=|\])/.test(filter)) {
-                var excludedDomains = ["mail.google.com", "mail.yahoo.com"];
+                const excludedDomains = ["mail.google.com", "mail.yahoo.com"];
                 filter = FilterNormalizer._ensureExcluded(filter, excludedDomains);
             }
 
-            var parsedFilter = new SelectorFilter(filter);
+            parsedFilter = new SelectorFilter(filter);
 
         } else { // If it is a blocking rule...
-            var parsedFilter = PatternFilter.fromText(filter); // throws if invalid
-            var types = parsedFilter._allowedElementTypes;
+            parsedFilter = PatternFilter.fromText(filter); // throws if invalid
+            const types = parsedFilter._allowedElementTypes;
 
-            var whitelistOptions = (ElementTypes.document | ElementTypes.elemhide);
-            var hasWhitelistOptions = types & whitelistOptions;
+            const whitelistOptions = (ElementTypes.document | ElementTypes.elemhide);
+            const hasWhitelistOptions = types & whitelistOptions;
             if (!Filter.isWhitelistFilter(filter) && hasWhitelistOptions) {
                 throw new Error("$document and $elemhide may only be used on whitelist filters");
             }
@@ -145,13 +147,13 @@ var FilterNormalizer = {
     // Throws if |selectorFilterText| is not a valid filter.
     // Example: ("a.com##div", ["sub.a.com", "b.com"]) -> "a.com,~sub.a.com##div"
     _ensureExcluded: function(selectorFilterText, excludedDomains) {
-        var text = selectorFilterText;
-        var filter = new SelectorFilter(text);
-        var mustExclude = excludedDomains.filter(function(domain) {
+        let text = selectorFilterText;
+        const filter = new SelectorFilter(text);
+        const mustExclude = excludedDomains.filter(function(domain) {
             return filter._domains._computedHas(domain);
         });
         if (mustExclude.length > 0) {
-            var toPrepend = "~" + mustExclude.join(",~");
+            let toPrepend = "~" + mustExclude.join(",~");
             if (text[0] !== "#") {
                 toPrepend += ",";
             }
@@ -167,10 +169,10 @@ var FilterNormalizer = {
     _old_style_hiding_to_new: function(filter) {
         // Old-style is domain#node(attr=value) or domain#node(attr)
         // domain and node are optional, and there can be many () parts.
-        filter = filter.replace("#", "##");
-        var parts = filter.split("##"); // -> [domain, rule]
-        var domain = parts[0];
-        var rule = parts[1];
+        const filter = filter.replace("#", "##");
+        const parts = filter.split("##"); // -> [domain, rule]
+        const domain = parts[0];
+        const rule = parts[1];
 
         // Make sure the rule has only the following two things:
         // 1. a node -- this is optional and must be '*' or alphanumeric
@@ -181,14 +183,14 @@ var FilterNormalizer = {
             throw new Error("bad selector filter");
         }
 
-        var first_segment = rule.indexOf("(");
+        const first_segment = rule.indexOf("(");
 
         if (first_segment === -1) {
             return domain + "##" + rule;
         }
 
-        var node = rule.substring(0, first_segment);
-        var segments = rule.substring(first_segment);
+        const node = rule.substring(0, first_segment);
+        let segments = rule.substring(first_segment);
 
         // turn all (foo) groups into [foo]
         segments = segments.replace(/\((.*?)\)/g, "[$1]");
@@ -199,8 +201,8 @@ var FilterNormalizer = {
         // #div(adblock) means all divs with class or id adblock
         // class must be a single class, not multiple (not #*(ad listitem))
         // I haven't ever seen filters like #div(foo)(anotherfoo), so ignore these
-        var resultFilter = node + segments;
-        var match = resultFilter.match(/\[([^\=]*?)\]/);
+        let resultFilter = node + segments;
+        const match = resultFilter.match(/\[([^\=]*?)\]/);
         if (match) {
             resultFilter = resultFilter.replace(match[0], "#" + match[1]) +
                 "," + resultFilter.replace(match[0], "." + match[1]);
@@ -221,7 +223,7 @@ var FilterNormalizer = {
 
     // Throw an exception if the DomainSet |domainSet| contains invalid domains.
     verifyDomains: function(domainSet) {
-        for (var domain in domainSet.has) {
+        for (let domain in domainSet.has) {
             if (domain === DomainSet.ALL) {
                 continue;
             }
