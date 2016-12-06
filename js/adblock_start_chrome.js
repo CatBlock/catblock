@@ -1,4 +1,4 @@
-var elementPurger = {
+const elementPurger = {
     onPurgeRequest: function(request, sender, sendResponse) {
         if (request.command === "purge-elements" &&
             request.frameUrl === document.location.href.replace(/#.*$/, "")) {
@@ -10,22 +10,22 @@ var elementPurger = {
     // Remove elements on the page of |request.elType| that request
     // |request.url|.  Will try again if none are found unless |lastTry|.
     _purgeElements: function(request, lastTry) {
-        var elType = request.elType;
-        var url = getUnicodeUrl(request.url);
+        const elType = request.elType;
+        const url = getUnicodeUrl(request.url);
 
         log("[DEBUG]", "Purging:", lastTry, elType, url);
 
-        var tags = {};
+        let tags = {};
         tags[ElementTypes.image] = { IMG: 1 };
         tags[ElementTypes.subdocument] = { IFRAME: 1, FRAME: 1 };
         tags[ElementTypes.object] = { "OBJECT": 1, EMBED: 1 };
 
-        var srcdata = this._srcsFor(url);
-        for (var i=0; i < srcdata.length; i++) {
-            for (var tag in tags[elType]) {
-                var src = srcdata[i];
-                var attr = (tag === "OBJECT" ? "data" : "src");
-                var selector = "";
+        const srcdata = this._srcsFor(url);
+        for (let i=0; i < srcdata.length; i++) {
+            for (let tag in tags[elType]) {
+                const src = srcdata[i];
+                const attr = (tag === "OBJECT" ? "data" : "src");
+                let selector = "";
                 // A selector containing an object is not a valid selector (reddit.com),
                 // therefore we need to slice a processed selector
                 if (src.text.indexOf("{") > -1) {
@@ -34,11 +34,11 @@ var elementPurger = {
                     selector = tag + "[" + attr + src.op + "'" + src.text + "']";
                 }
 
-                var results = document.querySelectorAll(selector);
+                const results = document.querySelectorAll(selector);
 
                 log("[DEBUG]", "  ", results.length, "results for selector:", selector);
                 if (results.length) {
-                    for (var j=0; j < results.length; j++) {
+                    for (let j=0; j < results.length; j++) {
                         destroyElement(results[j], elType);
                     }
                     request.selector = selector;
@@ -53,7 +53,7 @@ var elementPurger = {
         // case we give up, rather than polling every second or waiting 10 secs
         // and causing a jarring page re-layout.
         if (!lastTry) {
-            var that = this;
+            const that = this;
             setTimeout(function() { that._purgeElements(request, true); }, 2000);
         }
     },
@@ -65,26 +65,26 @@ var elementPurger = {
         // NB: <img src="a#b"> causes a request for "a", not "a#b".  I'm
         // intentionally ignoring IMG tags that uselessly specify a fragment.
         // AdBlock will fail to hide them after blocking the image.
-        var url_parts = parseUri(url), page_parts = this._page_location;
-        var results = [];
+        const url_parts = parseUri(url), page_parts = this._page_location;
+        let results = [];
         // Case 1: absolute (of the form "abc://de.f/ghi" or "//de.f/ghi")
         results.push({ op:"$=", text: url.match(/\:(\/\/.*)$/)[1] });
         if (url_parts.hostname === page_parts.hostname) {
-            var url_search_and_hash = url_parts.search + url_parts.hash;
+            const url_search_and_hash = url_parts.search + url_parts.hash;
             // Case 2: The kind that starts with "/"
             results.push({ op:"=", text: url_parts.pathname + url_search_and_hash });
             // Case 3: Relative URL (of the form "ab.cd", "./ab.cd", "../ab.cd" and
             // "./../ab.cd")
-            var page_dirs = page_parts.pathname.split("/");
-            var url_dirs = url_parts.pathname.split("/");
-            var i = 0;
+            const page_dirs = page_parts.pathname.split("/");
+            const url_dirs = url_parts.pathname.split("/");
+            let i = 0;
             while (page_dirs[i] === url_dirs[i] &&
                    i < page_dirs.length - 1 &&
                    i < url_dirs.length - 1) {
                 i++; // i is set to first differing position
             }
-            var dir = new Array(page_dirs.length - i).join("../");
-            var path = url_dirs.slice(i).join("/") + url_search_and_hash;
+            const dir = new Array(page_dirs.length - i).join("../");
+            const path = url_dirs.slice(i).join("/") + url_search_and_hash;
             if (dir) {
                 results.push({ op: "$=", text: dir + path });
             } else {

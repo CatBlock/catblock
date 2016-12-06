@@ -1,6 +1,6 @@
 // Cache a reference to window.confirm
 // so that web sites can not clobber the default implementation
-var abConfirm = window.confirm;
+const abConfirm = window.confirm;
 
 // Return the ElementType element type of the given element.
 function typeForElement(el) {
@@ -52,7 +52,7 @@ function relativeToAbsoluteUrl(url) {
     }
 
     // Remove filename and add relative URL to it
-    var base = document.baseURI.match(/.+\//);
+    const base = document.baseURI.match(/.+\//);
 
     if (!base) {
         return document.baseURI + "/" + url;
@@ -64,20 +64,20 @@ function relativeToAbsoluteUrl(url) {
 // Do not make the frame display a white area
 // Not calling .remove(); as this causes some sites to reload continuesly
 function removeFrame(el) {
-    var parentEl = el.parentNode;
-    var cols = ((parentEl.getAttribute("cols") || "").indexOf(",") > 0);
+    let parentEl = el.parentNode;
+    const cols = ((parentEl.getAttribute("cols") || "").indexOf(",") > 0);
     if (!cols && (parentEl.getAttribute("rows") || "").indexOf(",") <= 0) {
         return;
     }
     // Figure out which column or row to hide
-    var index = 0;
+    let index = 0;
     while (el.previousElementSibling) {
         index++;
         el = el.previousElementSibling;
     }
     // Convert e.g. "40,20,10,10,10,10" into "40,20,10,0,10,10"
-    var attr = (cols ? "cols" : "rows");
-    var sizes = parentEl.getAttribute(attr).split(",");
+    const attr = (cols ? "cols" : "rows");
+    let sizes = parentEl.getAttribute(attr).split(",");
     sizes[index] = "0";
     parentEl.setAttribute(attr, sizes.join(","));
 }
@@ -94,8 +94,8 @@ function destroyElement(el, elType) {
         el.style.setProperty("display", "none", "important");
         el.style.setProperty("visibility", "hidden", "important");
         el.style.setProperty("opacity", "0", "important");
-        var w = (el.width === undefined ? -1 : el.width);
-        var h = (el.height === undefined ? -1 : el.height);
+        const w = (el.width === undefined ? -1 : el.width);
+        const h = (el.height === undefined ? -1 : el.height);
         el.style.setProperty("background-position", w + "px " + h + "px");
         el.setAttribute("width", 0);
         el.setAttribute("height", 0);
@@ -109,7 +109,7 @@ function block_list_via_css(selectors) {
     }
     // Issue 6480: inserting a <style> tag too quickly ignored its contents.
     // Use ABP's approach: wait for .sheet to exist before injecting rules.
-    var css_chunk = document.createElement("style");
+    let css_chunk = document.createElement("style");
     css_chunk.type = "text/css";
 
     // Documents may not have a head
@@ -120,10 +120,10 @@ function block_list_via_css(selectors) {
             window.setTimeout(fill_in_css_chunk, 0);
             return;
         }
-        var GROUPSIZE = 1000; // Hide in smallish groups to isolate bad selectors
-        for (var i = 0; i < selectors.length; i += GROUPSIZE) {
-            var line = selectors.slice(i, i + GROUPSIZE);
-            var rule = line.join(",") + " { display:none !important; visibility: hidden !important; orphans: 4321 !important; }";
+        const GROUPSIZE = 1000; // Hide in smallish groups to isolate bad selectors
+        for (let i = 0; i < selectors.length; i += GROUPSIZE) {
+            let line = selectors.slice(i, i + GROUPSIZE);
+            const rule = line.join(",") + " { display:none !important; visibility: hidden !important; orphans: 4321 !important; }";
             css_chunk.sheet.insertRule(rule, 0);
         }
     }
@@ -131,18 +131,18 @@ function block_list_via_css(selectors) {
 }
 
 function debug_print_selector_matches(data) {
-    var selectors = data.selectors;
+    const selectors = data.selectors;
 
     // An array containing elements,
     // which should be hidden and replaced by pictures
     // see github:CatBlock/catblock#34
-    var elements = [];
+    let elements = [];
 
     selectors.
     filter(function(selector) { return document.querySelector(selector); }).
     forEach(function(selector) {
         if (!SAFARI) {
-            var elem = document.querySelector(selector);
+            const elem = document.querySelector(selector);
             // Augment any new element, which should be replaced
             // by picture of cats (or anything else...)
             if (elements.indexOf(elem) === -1) {
@@ -151,10 +151,10 @@ function debug_print_selector_matches(data) {
             }
         }
         if (data.settings && data.settings.debug_logging) {
-            var matches = "";
-            var elems = document.querySelectorAll(selector);
-            for (var i=0; i<elems.length; i++) {
-                var el = elems[i];
+            let matches = "";
+            const elems = document.querySelectorAll(selector);
+            for (let i=0; i<elems.length; i++) {
+                const el = elems[i];
                 matches += "        " + el.nodeName + "#" + el.id + "." + el.className + "\n";
             }
             BGcall("debug_report_elemhide", "##" + selector, matches);
@@ -164,19 +164,19 @@ function debug_print_selector_matches(data) {
 
 function handleABPLinkClicks() {
     // Subscribe to the list when you click an abp: link
-    var elems = document.querySelectorAll("[href^='abp:'], [href^='ABP:']");
+    const elems = document.querySelectorAll("[href^='abp:'], [href^='ABP:']");
     function abplinkhandler(event) {
         if (event.isTrusted === false) {
             return;
         }
         event.preventDefault();
-        var searchquery = this.href.replace(/^.+?\?/, "?");
+        const searchquery = this.href.replace(/^.+?\?/, "?");
         if (searchquery) {
-            var queryparts = parseUri.parseSearch(searchquery);
-            var loc = queryparts.location;
-            var reqLoc = queryparts.requiresLocation;
-            var reqList = (reqLoc ? "url:" + reqLoc : undefined);
-            var title = queryparts.title;
+            const queryparts = parseUri.parseSearch(searchquery);
+            const loc = queryparts.location;
+            const reqLoc = queryparts.requiresLocation;
+            const reqList = (reqLoc ? "url:" + reqLoc : undefined);
+            const title = queryparts.title;
             BGcall("translate", "subscribeconfirm", (title || loc), function(translatedMsg) {
                 if (abConfirm(translatedMsg)) {
                     BGcall("subscribe", { id: "url:" + loc, requires: reqList, title: title });
@@ -194,7 +194,7 @@ function handleABPLinkClicks() {
             });
         }
     }
-    for (var i=0; i<elems.length; i++) {
+    for (let i=0; i<elems.length; i++) {
         elems[i].addEventListener("click", abplinkhandler, false);
     }
 }
@@ -227,7 +227,7 @@ function adblock_begin(inputs) {
 
     inputs.startPurger();
 
-    var opts = { domain: document.location.hostname };
+    const opts = { domain: document.location.hostname };
     BGcall("get_content_script_data", opts, function(data) {
 
         if (data && data.settings && data.settings.debug_logging) {
