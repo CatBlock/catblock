@@ -1,10 +1,10 @@
-//the tab object, which contains |id| and |url| (stored as unicodeUrl) of the current tab
-var tab = null;
+// The tab object, which contains |id| and |url| (stored as unicodeUrl) of the current tab
+let tab = null;
 
 $(function() {
     localizePage();
 
-    var BG = chrome.extension.getBackgroundPage();
+    const BG = chrome.extension.getBackgroundPage();
 
     // Set menu entries appropriately for the selected tab.
     $(".menu-entry, .menu-status, .separator").hide();
@@ -18,8 +18,8 @@ $(function() {
             tab.unicodeUrl = getUnicodeUrl(tab.url);
         }
 
-        var paused = BG.adblock_is_paused();
-        var shown = {};
+        const paused = BG.adblock_is_paused();
+        let shown = {};
 
         function show(L) { L.forEach(function(x) { shown[x] = true; }); }
         function hide(L) { L.forEach(function(x) { shown[x] = false; }); }
@@ -41,15 +41,15 @@ $(function() {
                   "div_report_an_ad", "separator1", "div_options",
                   "div_help_hide_start", "separator3", "block_counts"]);
 
-            var page_count = info.tab_blocked || "0";
+            const page_count = info.tab_blocked || "0";
             $("#page_blocked_count").text(page_count);
             $("#total_blocked_count").text(info.total_blocked);
         }
 
-        var host = parseUri(tab.unicodeUrl).host;
-        var advanced_option = BG.get_settings().show_advanced_options;
-        var eligible_for_undo = !paused && (info.disabled_site || !info.whitelisted);
-        var url_to_check_for_undo = info.disabled_site ? undefined : host;
+        const host = parseUri(tab.unicodeUrl).host;
+        const advanced_option = BG.get_settings().show_advanced_options;
+        const eligible_for_undo = !paused && (info.disabled_site || !info.whitelisted);
+        const url_to_check_for_undo = info.disabled_site ? undefined : host;
 
         if (eligible_for_undo &&
             BG.count_cache.getCustomFilterCount(url_to_check_for_undo)) {
@@ -104,7 +104,7 @@ $(function() {
             hide(["div_help_hide_start"]);
         }
 
-        for (var div in shown) {
+        for (let div in shown) {
             if (shown[div]) {
                 $("#" + div).show();
             }
@@ -115,7 +115,7 @@ $(function() {
     if (SAFARI) {
         // Update the width and height of popover in Safari
         $(window).on("load", function() {
-            var popupheight = $("body").outerHeight();
+            const popupheight = $("body").outerHeight();
             safari.extension.popovers[0].height = popupheight + 5;
             safari.extension.popovers[0].width = 270;
         });
@@ -138,7 +138,7 @@ $(function() {
 
     // Click handlers
     $("#titletext").click(function() {
-        var url = "https://github.com/CatBlock/catblock";
+        const url = "https://github.com/CatBlock/catblock";
         BG.openTab(url);
         closeAndReloadPopup();
     });
@@ -173,7 +173,7 @@ $(function() {
     });
 
     $("#div_undo").click(function() {
-        var host = parseUri(tab.unicodeUrl).host;
+        const host = parseUri(tab.unicodeUrl).host;
         BG.confirm_removal_of_custom_filters_on_host(host, tab);
         closeAndReloadPopup();
     });
@@ -249,7 +249,7 @@ $(function() {
     });
 
     $("#div_report_an_ad").click(function() {
-        var url = "pages/adreport.html?url=" + encodeURIComponent(tab.unicodeUrl) +
+        const url = "pages/adreport.html?url=" + encodeURIComponent(tab.unicodeUrl) +
             "&tabId=" + tab.id;
         BG.openTab(url, true);
         closeAndReloadPopup();
@@ -266,7 +266,7 @@ $(function() {
         } else if (SAFARI) {
             $("#help_hide_explanation").text(translate("catblock_safaributton_how_to_hide2")).
             slideToggle(function() {
-                var popupheight = $("body").outerHeight();
+                const popupheight = $("body").outerHeight();
                 safari.extension.popovers[0].height = popupheight;
             });
         } else {
