@@ -1457,7 +1457,7 @@ function getDebugInfo() {
     // Is this installed build of CatBlock the official one?
     // TODO: Replace ID's by getting info, how the extension was installed
     function AdBlockBuild() {
-        if (!SAFARI && !FIREFOX) {
+        if (CHROME || OPERA) {
             if (chrome.runtime.id === "mdcgnhlfpnbeieiiccmebgkfdebafodo" ||
                 chrome.runtime.id === "pejeadkbfbppoaoinpmkeonebmngpnkk") {
                 return "Stable";
