@@ -185,7 +185,7 @@ def main():
             chop = chop.to_capabilities()
 
             chop["os"] = "OS X"
-            chop["os_version"] = "El Capitan"
+            chop["os_version"] = "Sierra"
             chop["browser"] = "Chrome"
             chop["browserstack.debug"] = "true"
 
