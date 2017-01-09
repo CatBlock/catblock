@@ -97,13 +97,11 @@ if (typeof SAFARI === "undefined") {
 
             // Replace the 'chrome' object with a Safari adapter.
             chrome = {
-                extension: {
-                    getBackgroundPage: function() {
-                        return safari.extension.globalPage.contentWindow;
-                    }
-                },
-
                 runtime: {
+                    getBackgroundPage: function(callback) {
+                        callback(safari.extension.globalPage.contentWindow);
+                    },
+
                     getManifest: function() {
                         var xhr = new XMLHttpRequest();
                         xhr.open("GET", chrome.runtime.getURL("manifest.json"), false);

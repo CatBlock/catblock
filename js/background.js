@@ -1420,7 +1420,7 @@ function getDebugInfo(callback) {
 
                 var installType = selfData.installType;
 
-                if (installType === "normal") {
+                if (installType === "normal" || installType === "admin") {
                     callback("Stable");
                 } else if (installType === "development") {
                     callback("Developer");

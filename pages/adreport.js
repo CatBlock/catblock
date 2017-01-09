@@ -81,8 +81,10 @@ BGcall("get_subscriptions_minus_text", function(subs) {
 });
 
 // Get debug info
-BGcall("getDebugInfo", function(info) {
-    debug_info = info;
+chrome.runtime.getBackgroundPage(function(backgroundPage) {
+    backgroundPage.getDebugInfo(function(debugInfo) {
+        debug_info = debugInfo;
+    });
 });
 
 function sendReport() {
@@ -621,7 +623,7 @@ $("#OtherExtensions").click(function() {
                             // If the extension is a developer version, continue, don't disable.
                             if (result[i].installType === "development" &&
                                 result[i].type === "extension" &&
-                                 result[i].name === "CatBlock") {
+                                result[i].name === "CatBlock") {
                                 continue;
                             }
                             chrome.management.setEnabled(result[i].id, false);
