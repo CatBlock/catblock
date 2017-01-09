@@ -235,7 +235,7 @@ $(function() {
         }
     });
 
-    $("a.controlsLink").click(function() {
+    $("a.controlsLink").click(function(event) {
         event.preventDefault();
         var myControls = $(this).closest("div").find(".addControls");
         $(".addControls").not(myControls).slideUp();

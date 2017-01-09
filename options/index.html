@@ -1,58 +1,47 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title i18n="optionstitle"></title>
+        <title i18n="catblock_options"></title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="options.css" />
         <link rel="stylesheet" href="catblock.css" />
-        <script src="/lib/punycode.min.js"></script>
-        <script src="/lib/jquery.min.js"></script>
-        <script src="/js/port.js"></script>
-        <script src="/js/functions.js"></script>
-        <script src="/js/checkupdates.js"></script>
+        <script src="../lib/punycode.min.js"></script>
+        <script src="../lib/jquery.min.js"></script>
+        <script src="../js/port.js"></script>
+        <script src="../js/functions.js"></script>
+        <script src="../js/checkupdates.js"></script>
         <script src="index.js"></script>
     </head>
     <body>
         <header id="header">
             <div class="wrap">
-                <a class="left adblock-logo">
-                    <img src="/Icon.png">
-                    <span>CatBlock</span>
+                <a href="https://github.com/CatBlock/catblock" class="left adblock-logo" target="_blank">
+                    <img src="../Icon.png">
                 </a>
             </div>
-            <nav class="desktop">
-                <a data-scripts="/options/general.js" data-page="general" i18n="tabgeneral"></a>
-                <a data-scripts="/options/filters.js" data-page="filters" i18n="tabfilterlists"></a>
-                <a data-scripts="/options/catblock.js" data-page="catblock">CatBlock</a>
-                <a data-scripts="/filtering/domainset.js /filtering/filternormalizer.js /filtering/filtertypes.js /filtering/filteroptions.js /options/customize.js" data-page="customize" i18n="tabcustomize"></a>
-                <a data-scripts="/options/support.js" data-page="support" i18n="tabsupport"></a>
+            <nav id="desktopnav">
+                <a data-scripts="options/general.js" data-page="general" i18n="tabgeneral"></a>
+                <a data-scripts="options/filters.js" data-page="filters" i18n="tabfilterlists"></a>
+                <a data-scripts="options/catblock.js" data-page="catblock">CatBlock</a>
+                <a data-scripts="filtering/domainset.js filtering/filternormalizer.js filtering/filtertypes.js filtering/filteroptions.js options/customize.js" data-page="customize" i18n="tabcustomize"></a>
+                <a data-scripts="options/support.js" data-page="support" i18n="tabsupport"></a>
             </nav>
-            <nav class="mobile">
+            <nav id="mobilenav">
                 <button id="toggletabs"></button>
                 <div>
-                    <a data-scripts="/options/general.js" data-page="general" i18n="tabgeneral"></a>
-                    <a data-scripts="/options/filters.js" data-page="filters" i18n="tabfilterlists"></a>
-                    <a data-scripts="/options/catblock.js" data-page="catblock">CatBlock</a>
-                    <a data-scripts="/filtering/domainset.js /filtering/filternormalizer.js /filtering/filtertypes.js /filtering/filteroptions.js /options/customize.js" data-page="customize" i18n="tabcustomize"></a>
-                    <a data-scripts="/options/support.js" data-page="support" i18n="tabsupport"></a>
+                    <a data-scripts="options/general.js" data-page="general" i18n="tabgeneral"></a>
+                    <a data-scripts="options/filters.js" data-page="filters" i18n="tabfilterlists"></a>
+                    <a data-scripts="options/catblock.js" data-page="catblock">CatBlock</a>
+                    <a data-scripts="filtering/domainset.js filtering/filternormalizer.js filtering/filtertypes.js filtering/filteroptions.js options/customize.js" data-page="customize" i18n="tabcustomize"></a>
+                    <a data-scripts="options/support.js" data-page="support" i18n="tabsupport"></a>
                 </div>
             </nav>
         </header>
 
-        <div id="translation_credits">
-            <span id="translator_credit"></span>
-            <span id="translator_names"></span>
-        </div>
-
         <div id="content">
-            <div id='general' class="options">
+            <div id="general" class="options">
                 <div>
                     <h2 i18n="generaloptions"></h2>
-
-                    <p>
-                        <input type="checkbox" class="feature" id="enable_catblock"/>
-                        <label for="enable_catblock" i18n="catblock_replaceadswithcats"></label>
-                    </p>
 
                     <p class="safari-only" style="display:none" id="safari_content_blocking">
                         <input type="checkbox" class="feature" id="enable_safari_content_blocking" />
@@ -64,7 +53,7 @@
                     </p>
 
                     <p class="exclude_safari_content_blocking">
-                        <input type="checkbox" class="feature" id="enable_youtube_channel_whitelist"/>
+                        <input type="checkbox" class="feature" id="enable_youtube_channel_whitelist" />
                         <label for="enable_youtube_channel_whitelist" i18n="allow_whitelisting_youtube_channels"></label>
                     </p>
 
@@ -105,13 +94,12 @@
 
                 </div>
             </div>
-            <div id='filters' class="options">
+            <div id="filters" class="options">
                 <div>
                     <div id="message_holder" class="failed_fetch"></div>
                     <h2 i18n="filterstabtitle"></h2>
                     <p class="footnote padding" i18n="filterlistlink" i18n_replacement_el="footnotelink"></p>
-                    <a id="footnotelink" href="https://adblockplus.org/en/subscriptions"
-         target="_blank"></a>
+                    <a id="footnotelink" href="https://adblockplus.org/en/subscriptions" target="_blank"></a>
                     <span i18n="updatenowmessage2" class="padding" i18n_replacement_el="btnUpdateNow"></span>
                     <input type="button" id="btnUpdateNow" />
                     <div class="padding">
@@ -121,7 +109,7 @@
                             <div id="language_list"></div>
                             <div id="language_dropdown_container">
                                 <span i18n="languagedropdowndescription"></span>
-                                    <select id='language_select'>
+                                    <select id="language_select">
                                         <option value="" i18n="selectlanguage"></option>
                                     </select>
                             </div>
@@ -137,13 +125,17 @@
                         </div>
                     </div>
 
-                    <p id="btnShowLinks" class="advanced">
+                    <p class="advanced">
                         <span id="btnShowLinks" i18n="showlinkstolists2"></span>
                     </p>
                 </div>
             </div>
             <div id="catblock" class="options">
                 <h2 i18n="catblock_options"></h2>
+                <p>
+                    <input type="checkbox" class="feature" id="enable_catblock"/>
+                    <label for="enable_catblock" i18n="catblock_replaceadswithcats"></label>
+                </p>
                 <div id="channel_options">
                     <p i18n="catblock_check_checkbox" id="check_checkbox"></p>
                     <div id="channel-options">
@@ -161,7 +153,7 @@
                     </div>
                 </div>
             </div>
-            <div id='customize' class="options">
+            <div id="customize" class="options">
                 <div>
                     <h2 i18n="catblock_tabcustomizetitle" class="marginh2"></h2>
                     <div i18n="filterlistsrock" class="margin"></div>
@@ -209,7 +201,7 @@
                                             <td class="guide">##</td>
                                             <td>
                                                 <input id="txtUserFilterCss" type="text" style="width:300px;"
-                             placeholder='div[class*="exampleClass"][id="someBigAd"]'/>
+                             placeholder="div[class*='exampleClass'][id='someBigAd']"/>
                                             </td>
                                             <td>
                                                 <input id="btnAddUserFilter" type="button" i18n_value="buttonblockit" disabled="disabled"/>
@@ -332,13 +324,13 @@
                     </div>
                 </div>
             </div>
-            <div id='support' class="options">
+            <div id="support" class="options">
                 <h2 i18n="catblock_adblocksupport"></h2>
 
                 <h3 i18n="foundbug"></h3>
                 <p>
                     <span id="report" i18n="bugreport"></span>
-                    <span class='english-only'>(<span i18n='englishonly'></span>)</span>
+                    <span class="english-only"> (<span i18n="englishonly"></span>)</span>
                 </p>
                 <p>
                     <p i18n="debuginfo"></p>
@@ -349,7 +341,7 @@
                 <p>
                     <span i18n="supportsite" i18n_replacement_el="supportlink"></span>
                     <a id="supportlink" href="http://support.catblock.tk/home" target="_blank"></a>
-                    <span class='english-only'>(<span i18n='englishonly'></span>)</span>
+                    <span class="english-only">(<span i18n="englishonly"></span>)</span>
                 </p>
 
                 <h3 i18n="catblock_whatmakesadblocktick"></h3>
@@ -366,13 +358,20 @@
             </div>
         </div>
 
-        <div class="noticecontainer">
-            <div class="notice" id="safari50_updatenotice" i18n="catblock_safari50_updatenotice" i18n_replacement_el="safari50_update_link"></div>
-            <a id="safari50_update_link" href="https://www.apple.com/safari/" target="_blank"></a>
-        </div>
-
         <footer>
-            <span id="version_number"></span>
+            <div id="translation_credits">
+                <span id="translator_credit"></span>
+                <span id="translator_names"></span>
+            </div>
+            <div id="versioninfo">
+                <img class="smalllogo" src="../Icon.png" />
+                <a href="https://github.com/CatBlock/catblock/releases" target="_blank">
+                    <span id="version_number"></span>
+                </a>
+            </div>
+            <div id="madebyus">
+                <span>Made with <span style="color:red;">♥</span> by <a href="https://github.com/CatBlock/catblock/wiki/History" target="_blank">two ex-developers of AdBlock</a></span>
+            </div>
         </footer>
     </body>
 </html>

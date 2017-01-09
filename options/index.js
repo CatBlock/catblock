@@ -1,11 +1,14 @@
+// Contains settings from BG fn `get_settings`
 var optionalSettings = {};
 
+// Click handler for loading different tabs
 function tabLoad() {
-    // An event handler, which loads tabs
-    $("nav.desktop > a, nav.mobile > div > a").click(function(event) {
+    $("#desktopnav > a, #mobilenav > div > a").click(function(event) {
 
-        // Highlight the name of a tab, which is about to be shown
-        $("nav.desktop > a, nav.mobile > div > a").removeClass();
+        // Remove highlight of current tab and
+        // highlight tab, which is about to be shown
+        $("#desktopnav > a, #mobilenav > div > a").removeClass();
+
         $(this).addClass("active");
 
         // Hide the current tab
@@ -17,28 +20,28 @@ function tabLoad() {
         var scripts = target.dataset.scripts;
         var pageName = target.dataset.page;
 
-        // Add a class which is different to the content of the tab
-        $("#content").removeClass();
-        $("#content").addClass(pageName);
-
-        // Finally, show the tab we want
+        // Finally, show the chosen tab
         $("#" + pageName).show();
 
         // Load requested tab's scripts and localize tab
         scripts.split(" ").forEach(function(scriptToLoad) {
             // CSP blocks eval, which $().append(scriptTag) uses
-            // Don't load a script, which has already been executed
             var loadedScripts = document.querySelectorAll("script");
             var allowScriptToBeLoaded = true;
+
+            var baseURL = chrome.runtime.getURL("");
+            var scriptURL = baseURL + scriptToLoad;
+
             for (var loadedScript of loadedScripts) {
-                if (loadedScript.src === chrome.runtime.getURL(scriptToLoad)) {
+                if (loadedScript.src === scriptURL) {
                     allowScriptToBeLoaded = false;
                     break;
                 }
             }
+
             if (allowScriptToBeLoaded) {
                 var s = document.createElement("script");
-                s.src = scriptToLoad;
+                s.src = scriptURL;
                 document.getElementById("content").appendChild(s);
             }
         });
@@ -51,12 +54,14 @@ function tabLoad() {
 
     // Show general tab by default
     if ($("#toggletabs").is(":visible")) {
-        $("nav.mobile > div > a:first-child").click();
+        $("#mobilenav > div > a:first-child").click();
     } else {
-        $("nav.desktop > a:first-child").click();
+        $("#desktopnav > a:first-child").click();
     }
 }
 
+// Shows options, which are available for specific browsers
+// and localize Options page
 function afterTabLoad() {
     // Hide advanced settings
     if (optionalSettings && !optionalSettings.show_advanced_options) {
@@ -70,13 +75,22 @@ function afterTabLoad() {
     localizePage();
 }
 
-function displayVersionNumber() {
-    var versionNumber = chrome.runtime.getManifest().version;
-    $("#version_number").text(translate("optionsversion", [versionNumber]));
+// Scale page, when running on high-DPI display
+function scaleToFit() {
+    if (screen.availWidth > 1440) {
+        $("body").css("zoom", "125%");
+    }
 }
 
+// Display version number of CatBlock
+function displayVersionNumber() {
+    var versionNumber = chrome.runtime.getManifest().version;
+    $("#version_number").text("CatBlock " + versionNumber);
+}
+
+// Display translators, who translated CatBlock
 function displayTranslationCredit() {
-    if (navigator.language.substring(0, 2) !== "en") {
+    if (determineUserLanguage() !== "en") {
         var translators = [];
         var xhr = new XMLHttpRequest();
         xhr.open("GET", chrome.runtime.getURL("translators.json"), true);
@@ -128,7 +142,10 @@ $(document).ready(function() {
         optionalSettings = settings;
         tabLoad();
         afterTabLoad();
+        scaleToFit();
         displayVersionNumber();
         displayTranslationCredit();
+        // When init is complete, show the content of the page
+        $("body").fadeIn();
     });
 });

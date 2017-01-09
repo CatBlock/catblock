@@ -1,5 +1,8 @@
 "use strict";
 
+// Show resourceblock page
+$("body").fadeIn();
+
 // Get tabId from URL
 var tabId = parseUri.parseSearch(document.location.href).tabId;
 tabId = parseInt(tabId);
