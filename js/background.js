@@ -1408,34 +1408,30 @@ function isSafariContentBlockingAvailable() {
 // DEBUG INFO
 
 // Get debug info for bug reporting and ad reporting - returns an object
+// Callback: is defined for every browser except Safari
 function getDebugInfo(callback) {
 
     // Is this installed build of CatBlock the official one?
     function getBuildInfo(callback) {
-        if (!SAFARI && !EDGE) {
-            chrome.management.getSelf(function(selfData) {
-                if (!selfData || !selfData.installType) {
-                    return;
-                }
+        chrome.management.getSelf(function(selfData) {
+            if (!selfData || !selfData.installType) {
+                return;
+            }
 
-                var installType = selfData.installType;
+            var installType = selfData.installType;
 
-                if (installType === "normal" || installType === "admin") {
-                    callback("Stable");
-                } else if (installType === "development") {
-                    callback("Developer");
-                } else {
-                    callback("Unsupported");
-                }
-            });
-        } else {
-            callback("Developer");
-        }
+            if (installType === "normal" || installType === "admin") {
+                callback("Stable");
+            } else if (installType === "development") {
+                callback("Developer");
+            } else {
+                callback("Unsupported");
+            }
+        });
     }
 
     // Push CatBlock version and build to |the_debug_info| object
-    getBuildInfo(function(buildInfo) {
-
+    function processDebugInfo(buildInfo) {
         // An object, which contains info about AdBlock like
         // subscribed filter lists, settings and other settings
         var the_debug_info = {
@@ -1492,8 +1488,21 @@ function getDebugInfo(callback) {
         the_debug_info.other_info.push("UserAgent: " + navigator.userAgent.replace(/;/, ""));
         the_debug_info.other_info = the_debug_info.other_info.join("\n");
 
-        callback(the_debug_info);
-    });
+        return the_debug_info;
+    }
+
+    if (!SAFARI) {
+        getBuildInfo(function(buildInfo) {
+            var debugData = processDebugInfo(buildInfo);
+            callback(debugData);
+        });
+    } else {
+        // We don't have access to the CatBlock's BG page from other pages
+        // like we have in other browsers. Plus we rely on sync messaging,
+        // so we need to return sync message to the requesting page.
+        var debugData = processDebugInfo("Developer");
+        return debugData;
+    }
 }
 
 // Code for making a bug report

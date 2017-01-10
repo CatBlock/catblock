@@ -12,8 +12,9 @@ $(document).ready(function() {
 
     chrome.runtime.getBackgroundPage(function(backgroundPage) {
 
-        // Get debug info
-        backgroundPage.getDebugInfo(function(debugInfo) {
+        var debug_data = null;
+
+        function processDebugData(debugInfo) {
             // |debugInfo| is the debug info object from the BG page
             var content = [];
 
@@ -42,14 +43,25 @@ $(document).ready(function() {
             content.push(debugInfo.other_info);
 
             // Put it together to put into the textbox
-            var debug_data = content.join("\n");
+            debug_data = content.join("\n");
+        }
 
-            // Show debug data
-            $("#debug").click(function() {
-                $("#debugInfo").html(debug_data);
-                $("#debugInfo").css({ width: "450px", height: "100px"});
-                $("#debugInfo").fadeIn();
+        // Get debug info
+        if (!backgroundPage) {
+            BGcall("getDebugInfo", function(debugInfo) {
+                processDebugData(debugInfo);
             });
+        } else {
+            backgroundPage.getDebugInfo(function(debugInfo) {
+                processDebugData(debugInfo);
+            });
+        }
+
+        // Show debug data
+        $("#debug").click(function() {
+            $("#debugInfo").html(debug_data);
+            $("#debugInfo").css({ width: "450px", height: "100px"});
+            $("#debugInfo").fadeIn();
         });
     });
 

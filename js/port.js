@@ -99,7 +99,13 @@ if (typeof SAFARI === "undefined") {
             chrome = {
                 runtime: {
                     getBackgroundPage: function(callback) {
-                        callback(safari.extension.globalPage.contentWindow);
+                        try {
+                            callback(safari.extension.globalPage.contentWindow);
+                        } catch(e) {
+                            // BG page is not accessible from other pages
+                            // other than self & popup.html
+                            callback(undefined);
+                        }
                     },
 
                     getManifest: function() {

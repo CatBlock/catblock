@@ -82,9 +82,15 @@ BGcall("get_subscriptions_minus_text", function(subs) {
 
 // Get debug info
 chrome.runtime.getBackgroundPage(function(backgroundPage) {
-    backgroundPage.getDebugInfo(function(debugInfo) {
-        debug_info = debugInfo;
-    });
+    if (!backgroundPage) {
+        BGcall("getDebugInfo", function(debugInfo) {
+            debug_info = data;
+        });
+    } else {
+        backgroundPage.getDebugInfo(function(debugInfo) {
+            debug_info = debugInfo;
+        });
+    }
 });
 
 function sendReport() {
