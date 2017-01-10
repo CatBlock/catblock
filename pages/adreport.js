@@ -84,7 +84,7 @@ BGcall("get_subscriptions_minus_text", function(subs) {
 chrome.runtime.getBackgroundPage(function(backgroundPage) {
     if (!backgroundPage) {
         BGcall("getDebugInfo", function(debugInfo) {
-            debug_info = data;
+            debug_info = debugInfo;
         });
     } else {
         backgroundPage.getDebugInfo(function(debugInfo) {
