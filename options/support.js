@@ -47,6 +47,7 @@ $(document).ready(function() {
         }
 
         // Get debug info
+        // BG page is not defined on Safari
         if (!backgroundPage) {
             BGcall("getDebugInfo", function(debugInfo) {
                 processDebugData(debugInfo);
