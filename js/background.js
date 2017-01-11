@@ -1415,7 +1415,8 @@ function getDebugInfo(callback) {
     function getBuildInfo(callback) {
         chrome.management.getSelf(function(selfData) {
             if (!selfData || !selfData.installType || !selfData.id) {
-                return callback("Undefined");
+                callback("Undefined");
+                return;
             }
 
             var extensionID = selfData.id;
@@ -1425,6 +1426,7 @@ function getDebugInfo(callback) {
                 extensionID !== "pejeadkbfbppoaoinpmkeonebmngpnkk" &&
                 extensionID !== "catblock@catblock.tk") {
                 callback("Unsupported");
+                return;
             }
 
             if (installType === "normal" || installType === "admin") {
