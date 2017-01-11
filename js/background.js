@@ -1414,11 +1414,18 @@ function getDebugInfo(callback) {
     // Is this installed build of CatBlock the official one?
     function getBuildInfo(callback) {
         chrome.management.getSelf(function(selfData) {
-            if (!selfData || !selfData.installType) {
-                return;
+            if (!selfData || !selfData.installType || !selfData.id) {
+                return callback("Undefined");
             }
 
+            var extensionID = selfData.id;
             var installType = selfData.installType;
+
+            if (extensionID !== "mdcgnhlfpnbeieiiccmebgkfdebafodo" &&
+                extensionID !== "pejeadkbfbppoaoinpmkeonebmngpnkk" &&
+                extensionID !== "catblock@catblock.tk") {
+                callback("Unsupported");
+            }
 
             if (installType === "normal" || installType === "admin") {
                 callback("Stable");
@@ -1491,16 +1498,17 @@ function getDebugInfo(callback) {
         return the_debug_info;
     }
 
-    if (!SAFARI) {
+    if (!SAFARI && !EDGE) {
         getBuildInfo(function(buildInfo) {
             var debugData = processDebugInfo(buildInfo);
             callback(debugData);
         });
     } else {
+        // SAFARI:
         // We don't have access to the CatBlock's BG page from other pages
         // like we have in other browsers. Plus we rely on sync messaging,
         // so we need to return sync message to the requesting page.
-        var debugData = processDebugInfo("Developer");
+        var debugData = processDebugInfo("Developer"); // we have only dev version on Edge as well
         return debugData;
     }
 }
