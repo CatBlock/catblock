@@ -202,6 +202,98 @@ if (typeof SAFARI === "undefined") {
                     }
                 },
 
+                storage: {
+                    local: {
+                        get: function(key, callback) {
+                            if (!callback) {
+                                throw new Error("No callback specified!");
+                                return;
+                            }
+                            // Calling this method from content script
+                            if (!isOnGlobalPage) {
+                                // When this method is called from content script,
+                                // we need to get a value of |key| from background page
+                                safari.self.tab.dispatchMessage("get_setting", key);
+                                safari.self.addEventListener("message", function(messageEvent) {
+                                    if (messageEvent.name === "get_setting_response") {
+                                        callback(messageEvent.message);
+                                    }
+                                }, false);
+                                return;
+                            }
+                            // Return all settings when |key| is null like on Chrome
+                            if (key === null) {
+                                return callback(safari.extension.settings);
+                            }
+                            var value = safari.extension.settings.getItem(key);
+                            if (value === null) {
+                                return callback(undefined);
+                            }
+                            var obj = {};
+                            try {
+                                obj[key] = JSON.parse(value);
+                            } catch(e) {
+                                obj[key] = value;
+                            }
+                            return callback(obj);
+                        },
+                        set: function(info, callback) {
+                            var info_length = Object.keys(info).length;
+                            var i = 0;
+                            for (var key in info) {
+                                try {
+                                    var value = JSON.stringify(info[key]);
+                                } catch(e) {
+                                    var value = info[key];
+                                }
+                                i++;
+                                // Calling this method from content script
+                                if (!isOnGlobalPage) {
+                                    if (info_length === i) {
+                                        var message_data = { key: key, value: value, callback: true };
+                                    } else {
+                                        var message_data = { key: key, value: value, callback: false };
+                                    }
+                                    safari.self.tab.dispatchMessage("set_setting", message_data);
+                                } else {
+                                    safari.extension.settings.setItem(key, value);
+                                }
+                            }
+                            // Callback is optional
+                            if (callback) {
+                                if (!isOnGlobalPage) {
+                                    safari.self.addEventListener("message", function(messageEvent) {
+                                        if (messageEvent.name === "set_setting_response") {
+                                            callback();
+                                        }
+                                    }, false);
+                                } else {
+                                    callback();
+                                }
+                            }
+                        },
+                        remove: function(key, callback) {
+                            if (!isOnGlobalPage) {
+                                safari.self.tab.dispatchMessage("remove_setting", key);
+                            } else {
+                                safari.extension.settings.removeItem(key);
+                            }
+                            // Callback is optional
+                            if (callback) {
+                                if (!isOnGlobalPage) {
+                                    safari.self.addEventListener("message", function(messageEvent) {
+                                        if (messageEvent.name === "remove_setting_response") {
+                                            callback();
+                                        }
+                                    }, false);
+                                } else {
+                                    callback();
+                                }
+                            }
+                        }
+                    }
+                },
+
                 // Helper object to ensure that tabs sending messages to the global page
                 // get some extra attributes for the global page to use:
                 //   id: an ID assigned by us so we can refer to the tab by ID elsewhere.

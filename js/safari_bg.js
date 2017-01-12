@@ -89,6 +89,35 @@ safari.application.addEventListener("message", function(messageEvent) {
         return;
     }
 
+    if (messageEvent.name === "get_setting") {
+        var message = messageEvent.message;
+        // We want to get all settings
+        if (message === null) {
+            var response = safari.extension.settings;
+        } else {
+            var response = {};
+            response.message = safari.extension.settings.getItem(message);
+        }
+        safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("get_setting_response", response);
+        return;
+    }
+
+    if (messageEvent.name === "set_setting") {
+        var message = messageEvent.message;
+        safari.extension.settings.setItem(message.key, message.value);
+        if (message.callback === true) {
+          safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("set_setting_response", "");
+        }
+        return;
+    }
+
+    if (messageEvent.name === "remove_setting") {
+        var message = messageEvent.message;
+        safari.extension.settings.removeItem(message);
+        safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("remove_setting_response", "");
+        return;
+    }
+
     if (messageEvent.name !== "canLoad") {
         return;
     }
