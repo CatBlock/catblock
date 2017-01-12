@@ -250,7 +250,7 @@ if (typeof SAFARI === "undefined") {
                         }
 
                         if (info.top_level) {
-                            tab[info.visible ? "visible_url" : "invisible_url"] = parseURI.getUnicodeURL(info.url);
+                            tab[info.visible ? "visible_url" : "invisible_url"] = new parseURI(info.url).href;
                         }
                     },
 
@@ -263,7 +263,7 @@ if (typeof SAFARI === "undefined") {
                     info: function(tab, visible) {
                         return {
                             id: tab.id,
-                            url: (visible ? parseURI.getUnicodeURL(tab.visible_url) : parseURI.getUnicodeURL(tab.invisible_url))
+                            url: (visible ? new parseURI(tab.visible_url).href : new parseURI(tab.invisible_url).href)
                         };
                     }
                 },

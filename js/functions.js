@@ -136,18 +136,6 @@ class parseURI {
         return parsedURL;
     }
 
-    // Returns punycode URL encoded in Unicode
-    static getUnicodeURL(url) {
-        // URLs encoded in Punycode contain xn-- prefix
-        if (url && url.indexOf("xn--") > 0) {
-            var parsed = parseUri(url);
-            // IDN domains have just hostnames encoded in punycode
-            parsed.href = parsed.href.replace(parsed.hostname, punycode.toUnicode(parsed.hostname));
-            return parsed.href;
-        }
-        return url;
-    }
-
     // Returns punycode domain encoded in Unicode
     static getUnicodeDomain(domain) {
         return punycode.toUnicode(domain);

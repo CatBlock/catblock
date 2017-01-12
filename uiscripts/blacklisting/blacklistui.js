@@ -306,7 +306,7 @@ class BlacklistUi {
         var attrs = ["id", "class", "name", "src", "href", "data"];
         for (var i in attrs) {
             if ($("input[type='checkbox']#ck" + attrs[i], detailsDiv).is(":checked")) {
-                result.push("[" + attrs[i] + "=" + parseURI.getUnicodeURL(JSON.stringify(el.attr(attrs[i]))) + "]");
+                result.push("[" + attrs[i] + "=" + new parseURI(JSON.stringify(el.attr(attrs[i]))).href + "]");
             }
         }
 
@@ -443,7 +443,7 @@ class BlacklistUi {
             size = 50;
         }
 
-        value = parseURI.getUnicodeURL(value);
+        value = new parseURI(value).href;
 
         var half = size / 2 - 2; // With ellipsis, the total length will be ~= size
 

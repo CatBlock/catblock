@@ -295,7 +295,7 @@ if (!SAFARI) {
         }
 
         // Convert punycode domain to Unicode - GH #472
-        details.url = parseURI.getUnicodeURL(details.url);
+        details.url = new parseURI(details.url).href;
 
         if (!frameData.track(details)) {
             return { cancel: false };
@@ -376,7 +376,7 @@ if (!SAFARI) {
         if (details.url === "about:blank") {
             details.url = opener.url;
         }
-        var url = parseURI.getUnicodeURL(details.url);
+        var url = new parseURI(details.url).href;
         var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
         if (match) {
             chrome.tabs.remove(details.tabId);
@@ -408,7 +408,7 @@ if (!SAFARI) {
                 if (tabData &&
                     tabData.url !== details.url) {
                     details.type = "main_frame";
-                    details.url = parseURI.getUnicodeURL(details.url);
+                    details.url = new parseURI(details.url).href;
                     frameData.track(details);
                 }
             }
@@ -786,7 +786,7 @@ function getCurrentTabInfo(callback, secondTime) {
             }
 
             // GH #472
-            tab.unicodeUrl = parseURI.getUnicodeURL(tab.url);
+            tab.unicodeUrl = new parseURI(tab.url).href;
 
             var disabled_site = page_is_unblockable(tab.unicodeUrl);
             var total_blocked = blockCounts.getTotalAdsBlocked();
@@ -812,7 +812,7 @@ function getCurrentTabInfo(callback, secondTime) {
     } else {
         var browserWindow = safari.application.activeBrowserWindow;
         var tab = browserWindow.activeTab;
-        tab.unicodeUrl = parseURI.getUnicodeURL(tab.url); // GH #472
+        tab.unicodeUrl = new parseURI(tab.url).href; // GH #472
         var disabled_site = page_is_unblockable(tab.unicodeUrl);
 
         var result = {
@@ -841,7 +841,7 @@ function page_is_whitelisted(url, type) {
     if (get_settings().safari_content_blocking) {
         return false;
     }
-    url = parseURI.getUnicodeURL(url);
+    url = new parseURI(url).href;
     url = url.replace(/\#.*$/, ""); // Remove anchors
     if (!type) {
         type = ElementTypes.document;
@@ -1346,7 +1346,7 @@ if (!SAFARI) {
         for (var i=0; i<tabs.length; i++) {
             var currentTab = tabs[i], tabId = currentTab.id;
             if (!frameData.get(tabId)) { // unknown tab
-                currentTab.url = parseURI.getUnicodeURL(currentTab.url);
+                currentTab.url = new parseURI(currentTab.url).href;
                 frameData.track({url: currentTab.url, tabId: tabId, type: "main_frame"});
             }
             updateBadge(tabId);

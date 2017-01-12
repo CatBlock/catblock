@@ -35,7 +35,7 @@ var frameData = (function() {
             var tracker = frameData[tabId];
 
             // We need to handle IDN URLs properly
-            url = parseURI.getUnicodeURL(url);
+            url = new parseURI(url).href;
             domain = parseURI.getUnicodeDomain(domain);
 
             var shouldTrack = !tracker || tracker.url !== url;
@@ -111,7 +111,7 @@ safari.application.addEventListener("message", function(messageEvent) {
     }
 
     if (!isPopup) {
-        var url = parseURI.getUnicodeURL(messageEvent.message.url);
+        var url = new parseURI(messageEvent.message.url).href;
         var elType = messageEvent.message.elType;
         var frameDomain = parseURI.getUnicodeDomain(messageEvent.message.frameDomain);
         var isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain));

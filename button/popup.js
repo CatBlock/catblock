@@ -15,7 +15,7 @@ $(function() {
             tab = info.tab;
         } else {
             tab = safari.application.activeBrowserWindow.activeTab;
-            tab.unicodeUrl = parseURI.getUnicodeURL(tab.url);
+            tab.unicodeUrl = new parseURI(tab.url).href;
         }
 
         var paused = BG.adblock_is_paused();
