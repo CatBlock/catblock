@@ -23,7 +23,7 @@ var frameData = (function() {
         //   tabId: Integer - id of the tab you want to add in the frameData
         //   url: new URL for the tab
         reset: function(tabId, url) {
-            var domain = parseUri(url).hostname;
+            var domain = new parseURI(url).hostname;
             return frameData._initializeMap(tabId, url, domain);
         },
         // Initialize map
@@ -35,8 +35,8 @@ var frameData = (function() {
             var tracker = frameData[tabId];
 
             // We need to handle IDN URLs properly
-            url = getUnicodeUrl(url);
-            domain = getUnicodeDomain(domain);
+            url = parseURI.getUnicodeURL(url);
+            domain = parseURI.getUnicodeDomain(domain);
 
             var shouldTrack = !tracker || tracker.url !== url;
             if (shouldTrack) {
@@ -111,9 +111,9 @@ safari.application.addEventListener("message", function(messageEvent) {
     }
 
     if (!isPopup) {
-        var url = getUnicodeUrl(messageEvent.message.url);
+        var url = parseURI.getUnicodeURL(messageEvent.message.url);
         var elType = messageEvent.message.elType;
-        var frameDomain = getUnicodeDomain(messageEvent.message.frameDomain);
+        var frameDomain = parseURI.getUnicodeDomain(messageEvent.message.frameDomain);
         var isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain));
         if (isMatched) {
             log("SAFARI TRUE BLOCK " + url + ": " + isMatched);
@@ -122,7 +122,7 @@ safari.application.addEventListener("message", function(messageEvent) {
         // Popup blocking support
         if (messageEvent.message.referrer) {
             var isMatched = _myfilters.blocking.matches(sendingTab.url, ElementTypes.popup,
-                                                        parseUri(getUnicodeUrl(messageEvent.message.referrer)).hostname);
+                                                        new parseURI(messageEvent.message.referrer).hostname);
             if (isMatched) {
                 tab.close();
             }
@@ -240,7 +240,7 @@ safari.application.addEventListener("beforeNavigate", function(event) {
         safari.extension.removeContentScript(safari.extension.baseURI + "js/bandaids.js");
     }
     // YouTube Channel Whitelist
-    if (/youtube.com/.test(event.url) && get_settings().youtube_channel_whitelist && !parseUri.parseSearch(event.url).ab_channel) {
+    if (/youtube.com/.test(event.url) && get_settings().youtube_channel_whitelist && !parseURI.parseSearch(event.url).ab_channel) {
         safari.extension.addContentScriptFromURL(safari.extension.baseURI + "js/ytchannel.js", [], [], false);
     } else {
         safari.extension.removeContentScript(safari.extension.baseURI + "js/ytchannel.js");
@@ -265,7 +265,7 @@ safari.application.addEventListener("command", function(event) {
         openTab("options/index.html", false, browserWindow);
     } else if (command === "undo-last-block") {
         var tab = browserWindow.activeTab;
-        var host = parseUri(tab.url).host;
+        var host = new parseURI(tab.url).hostname;
         confirm_removal_of_custom_filters_on_host(host, tab);
     } else if (command in {"show-whitelist-wizard": 1, "show-blacklist-wizard": 1, "show-clickwatcher-ui": 1 }) {
         browserWindow.activeTab.page.dispatchMessage(command);
@@ -303,7 +303,7 @@ safari.application.addEventListener("contextmenu", function(event) {
     event.contextMenu.appendContextMenuItem("show-blacklist-wizard", translate("block_this_ad"));
     event.contextMenu.appendContextMenuItem("show-clickwatcher-ui", translate("block_an_ad_on_this_page"));
 
-    var host = parseUri(url).host;
+    var host = new parseURI(url).hostname;
     if (count_cache.getCustomFilterCount(host)) {
         event.contextMenu.appendContextMenuItem("undo-last-block", translate("undo_last_block"));
     }

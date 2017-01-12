@@ -250,7 +250,7 @@ if (typeof SAFARI === "undefined") {
                         }
 
                         if (info.top_level) {
-                            tab[info.visible ? "visible_url" : "invisible_url"] = getUnicodeUrl(info.url);
+                            tab[info.visible ? "visible_url" : "invisible_url"] = parseURI.getUnicodeURL(info.url);
                         }
                     },
 
@@ -263,7 +263,7 @@ if (typeof SAFARI === "undefined") {
                     info: function(tab, visible) {
                         return {
                             id: tab.id,
-                            url: (visible ? getUnicodeUrl(tab.visible_url) : getUnicodeUrl(tab.invisible_url))
+                            url: (visible ? parseURI.getUnicodeURL(tab.visible_url) : parseURI.getUnicodeURL(tab.invisible_url))
                         };
                     }
                 },
@@ -417,7 +417,7 @@ if (typeof SAFARI === "undefined") {
             // should return "com.betafish.adblockforsafari-UAMUU452D9"
             Object.defineProperty(chrome.runtime, "id", {
                 get: function() {
-                    return parseUri(safari.extension.baseURI).host;
+                    return new parseURI(safari.extension.baseURI).hostname;
                 },
                 set: undefined
             });

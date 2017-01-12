@@ -60,7 +60,7 @@ class FilterSet {
     // domain, and return it with the given map function applied. This function
     // is for hiding rules only
     filtersFor(domain) {
-        domain = getUnicodeDomain(domain);
+        domain = parseURI.getUnicodeDomain(domain);
         var limited = this._viewFor(domain);
         var data = {};
         // data = set(limited.items)
@@ -128,8 +128,8 @@ class BlockingFilterSet {
     // Inputs: the two domains
     // Returns: true if third-party, false otherwise
     static checkThirdParty(domain1, domain2) {
-        var match1 = parseUri.secondLevelDomainOnly(domain1, false);
-        var match2 = parseUri.secondLevelDomainOnly(domain2, false);
+        var match1 = parseURI.secondLevelDomainOnly(domain1, false);
+        var match2 = parseURI.secondLevelDomainOnly(domain2, false);
         return (match1 !== match2);
     }
 
@@ -151,7 +151,7 @@ class BlockingFilterSet {
     //          'blocked' - true or false
     //          'text' - text of matching pattern/whitelist filter, null if no match
     matches(url, elementType, frameDomain, returnFilter, returnTuple) {
-        var urlDomain = getUnicodeDomain(parseUri(url).hostname);
+        var urlDomain = new parseURI(url).hostname;
         var isThirdParty = BlockingFilterSet.checkThirdParty(urlDomain, frameDomain);
 
         // matchCache approach taken from ABP

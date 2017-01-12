@@ -15,7 +15,7 @@ $(function() {
             tab = info.tab;
         } else {
             tab = safari.application.activeBrowserWindow.activeTab;
-            tab.unicodeUrl = getUnicodeUrl(tab.url);
+            tab.unicodeUrl = parseURI.getUnicodeURL(tab.url);
         }
 
         var paused = BG.adblock_is_paused();
@@ -46,7 +46,7 @@ $(function() {
             $("#total_blocked_count").text(info.total_blocked);
         }
 
-        var host = parseUri(tab.unicodeUrl).host;
+        var host = new parseURI(tab.unicodeUrl).hostname;
         var advanced_option = BG.get_settings().show_advanced_options;
         var eligible_for_undo = !paused && (info.disabled_site || !info.whitelisted);
         var url_to_check_for_undo = info.disabled_site ? undefined : host;
@@ -69,8 +69,7 @@ $(function() {
             /ab_channel/.test(tab.unicodeUrl) &&
             eligible_for_undo &&
             BG.get_settings().youtube_channel_whitelist) {
-            $("#div_whitelist_channel").html(translate("whitelist_youtube_channel",
-                                                       parseUri.parseSearch(tab.unicodeUrl).ab_channel));
+            $("#div_whitelist_channel").html(translate("whitelist_youtube_channel", parseURI.parseSearch(tab.unicodeUrl).ab_channel));
             show(["div_whitelist_channel"]);
         }
 
@@ -173,7 +172,7 @@ $(function() {
     });
 
     $("#div_undo").click(function() {
-        var host = parseUri(tab.unicodeUrl).host;
+        var host = new parseURI(tab.unicodeUrl).hostname;
         BG.confirm_removal_of_custom_filters_on_host(host, tab);
         closeAndReloadPopup();
     });
