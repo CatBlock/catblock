@@ -10,7 +10,7 @@ function top_open_whitelist_ui() {
 
     may_open_dialog_ui = false;
 
-    var domain = getUnicodeDomain(document.location.host);
+    var domain = parseURI.getUnicodeDomain(document.location.hostname);
 
     // Safari's document.location breaks in the feed reader if the feed is fetched via https. Normal
     // feeds have URLs with scheme replaced with "feed", but HTTPS feeds have the scheme replaced with
@@ -18,7 +18,7 @@ function top_open_whitelist_ui() {
     // so its domain property will be empty; fortunately, it puts a proper https url into the pathname
     // property and we can use it.
     if (SAFARI && domain === "" && document.location.href.indexOf("feed:https") === 0) {
-        domain = parseUri(document.location.pathname).host;
+        domain = new parseURI(document.location.pathname).hostname;
     }
 
     // Get Flash objects out of the way of our UI
@@ -86,7 +86,7 @@ function top_open_whitelist_ui() {
         $(".adblock-whitelist-dialog").parent().css({ position: "relative" });
         $(".adblock-whitelist-dialog").css({ top: 200, left: 200, position: "fixed" });
 
-        var fixedDomainPart = parseUri.secondLevelDomainOnly(domain, true);
+        var fixedDomainPart = parseURI.secondLevelDomainOnly(domain, true);
         var domainparts = domain.substr(0, domain.lastIndexOf(fixedDomainPart)).split(".");
         domainparts.splice(domainparts.length-1, 1, fixedDomainPart);
 

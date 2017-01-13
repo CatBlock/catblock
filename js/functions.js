@@ -102,74 +102,78 @@ function localizePage() {
     }
 }
 
-// Parse a URL. Based upon http://blog.stevenlevithan.com/archives/parseuri
-// parseUri 1.2.2, (c) Steven Levithan <stevenlevithan.com>, MIT License
+// Parse an URL.
+// The difference between URL constructor and parseURI constructor
+// is that parseURI constructor allows us to store Unicode-encoded URIs.
 // Inputs: url: the URL you want to parse
 // Outputs: object containing all parts of |url| as attributes
-function parseUri(url) {
-    var matches = /^(([^:]+(?::|$))(?:(?:\w+:)?\/\/)?(?:[^:@\/]*(?::[^:@\/]*)?@)?(([^:\/?#]*)(?::(\d*))?))((?:[^?#\/]*\/)*[^?#]*)(\?[^#]*)?(\#.*)?/.exec(url);
-    // The key values are identical to the JS location object values for that key
-    var keys = ["href", "origin", "protocol", "host", "hostname", "port",
-                "pathname", "search", "hash"];
-    var uri = {};
-    for (var i=0; (matches && i<keys.length); i++) {
-        uri[keys[i]] = matches[i] || "";
-    }
-    return uri;
-}
+class parseURI {
+    constructor(url) {
+        // Pass given |url| to the URL constructor
+        var originURL = new URL(url);
 
-// Parses the search part of a URL into an key: value object.
-// e.g., ?hello=world&ext=adblock would become {hello:"world", ext:"adblock"}
-// Inputs: search: the search query of a URL. Must have &-separated values.
-parseUri.parseSearch = function(search) {
-    // Fails if a key exists twice (e.g., ?a=foo&a=bar would return {a:"bar"}
-    search = search.substring(search.indexOf("?")+1).split("&");
-    var params = {}, pair;
-    for (var i = 0; i < search.length; i++) {
-        pair = search[i].split("=");
-        if (pair[0] && !pair[1]) {
-            pair[1] = "";
+        // Create an object, in which we'll store
+        // href/origin/host/hostname in Unicode encoding
+        var parsedURL = {};
+
+        // Convert following values from punycode to Unicode
+        parsedURL.href = punycode.toUnicode(originURL.href);
+        parsedURL.origin = punycode.toUnicode(originURL.origin);
+        parsedURL.host = punycode.toUnicode(originURL.host);
+        parsedURL.hostname = punycode.toUnicode(originURL.hostname);
+
+        // Push every key/value from |originURL| to our |parsedURL| object
+        // except of href/origin/host/hostname, which we already have included
+        for (var key in originURL) {
+            if (key === "href" || key === "origin" || key === "host" || key === "hostname") {
+                continue;
+            }
+            parsedURL[key] = originURL[key];
         }
-        if (!params[decodeURIComponent(pair[0])] && decodeURIComponent(pair[1]) === "undefined") {
-            continue;
-        } else {
-            params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-        }
-    }
-    return params;
-};
 
-// Strip third+ level domain names from the domain and return the result.
-// Inputs: domain: the domain that should be parsed
-//         keepDot: true if trailing dots should be preserved in the domain
-// Returns: the parsed domain
-parseUri.secondLevelDomainOnly = function(domain, keepDot) {
-    if (domain) {
-        var match = domain.match(/([^\.]+\.(?:co\.)?[^\.]+)\.?$/) || [domain, domain];
-        return match[keepDot ? 0 : 1].toLowerCase();
-    }
-    return domain;
-};
+        // Delete unneeded toString() method
+        delete parsedURL.toString;
 
-// Return |domain| encoded in Unicode
-function getUnicodeDomain(domain) {
-    if (domain) {
+        return parsedURL;
+    }
+
+    // Returns punycode domain encoded in Unicode
+    static getUnicodeDomain(domain) {
         return punycode.toUnicode(domain);
-    } else {
+    }
+
+    // Parses the search part of a URL into a key: value object.
+    // e.g., ?hello=world&ext=adblock would become {hello:"world", ext:"adblock"}
+    // Inputs: search: the search query of a URL. Must have &-separated values.
+    static parseSearch(search) {
+        // Fails if a key exists twice (e.g., ?a=foo&a=bar would return {a:"bar"}
+        search = search.substring(search.indexOf("?") + 1).split("&");
+        var params = {}, pair;
+        for (var i = 0; i < search.length; i++) {
+            pair = search[i].split("=");
+            if (pair[0] && !pair[1]) {
+                pair[1] = "";
+            }
+            if (!params[decodeURIComponent(pair[0])] && decodeURIComponent(pair[1]) === "undefined") {
+                continue;
+            } else {
+                params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+            }
+        }
+        return params;
+    }
+
+    // Strip third+ level domain names from the domain and return the result.
+    // Inputs: domain: the domain that should be parsed
+    //         keepDot: true if trailing dots should be preserved in the domain
+    // Returns: the parsed domain
+    static secondLevelDomainOnly(domain, keepDot) {
+        if (domain) {
+            var match = domain.match(/([^\.]+\.(?:co\.)?[^\.]+)\.?$/) || [domain, domain];
+            return match[keepDot ? 0 : 1].toLowerCase();
+        }
         return domain;
     }
-}
-
-// Return |url| encoded in Unicode
-function getUnicodeUrl(url) {
-    // URLs encoded in Punycode contain xn-- prefix
-    if (url && url.indexOf("xn--") > 0) {
-        var parsed = parseUri(url);
-        // IDN domains have just hostnames encoded in punycode
-        parsed.href = parsed.href.replace(parsed.hostname, punycode.toUnicode(parsed.hostname));
-        return parsed.href;
-    }
-    return url;
 }
 
 // TODO: move back into background.js since Safari can't use this
