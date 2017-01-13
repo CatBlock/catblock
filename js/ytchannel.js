@@ -3,19 +3,19 @@ var url = document.location.href;
 
 // Get id of the channel
 function getChannelId(url) {
-    return parseUri(url).pathname.split("/")[2];
+    return new parseURI(url).pathname.split("/")[2];
 }
 
 // Get id of the video
 function getVideoId(url) {
-    return parseUri.parseSearch(url).v;
+    return parseURI.parseSearch(url).v;
 }
 
 // Function which: - adds name of the channel on the end of the URL, e.g. &ab_channel=nameofthechannel
 //                 - reload the page, so AdBlock can properly whitelist the page (just if channel is whitelisted by user)
 function updateURL(channelName, shouldReload) {
     var updatedUrl = "";
-    if (parseUri(url).search.indexOf("?") === -1) {
+    if (new parseURI(url).search.indexOf("?") === -1) {
         updatedUrl = url + "?&ab_channel=" + channelName.replace(/\s/g, "");
     } else {
         updatedUrl = url + "&ab_channel=" + channelName.replace(/\s/g, "");

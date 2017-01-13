@@ -67,7 +67,7 @@ $(function() {
 });
 
 // Fetching the options...
-var options = parseUri.parseSearch(document.location.search);
+var options = parseURI.parseSearch(document.location.search);
 var tabId = options.tabId.replace(/[^0-9]/g, "");
 
 // Get the list of all unsubscribed default filters
@@ -148,8 +148,7 @@ function sendReport() {
 
     var domain = "";
     if (options.url) {
-        domain = parseUri(options.url)
-            .hostname;
+        domain = new parseURI(options.url).hostname;
         report_data.title = report_data.title + ": " + domain;
         report_data.url = options.url;
     }
@@ -418,16 +417,12 @@ function checkmalware() {
                     var resource = key.split(":|:");
                     if (resource &&
                         resource.length === 2 &&
-                        extracted_domains.indexOf(parseUri(resource[1])
-                                                  .hostname) === -1) {
-                        extracted_domains.push(parseUri(resource[1])
-                                               .hostname);
+                        extracted_domains.indexOf(new parseURI(resource[1]).hostname) === -1) {
+                        extracted_domains.push(new parseURI(resource[1]).hostname);
                     }
                 } else {
-                    if (extracted_domains.indexOf(parseUri(key)
-                                                  .hostname) === -1) {
-                        extracted_domains.push(parseUri(key)
-                                               .hostname);
+                    if (extracted_domains.indexOf(new parseURI(key).hostname) === -1) {
+                        extracted_domains.push(new parseURI(key).hostname);
                     }
                 }
             }

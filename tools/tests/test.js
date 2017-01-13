@@ -85,45 +85,46 @@ BGcall("get_settings", function(data) {
     });
 
     QUnit.module("Parsing URLs: parseURI");
-    QUnit.test("parseUri", function(assert) {
+    QUnit.test("parseURI", function(assert) {
+        var searchParams = new URL("https://foo.bar/").searchParams;
         assert.expect(17);
-        assert.deepEqual(parseUri("https://foo.bar/"), {"hash": "", "host": "foo.bar", "hostname": "foo.bar", "href": "https://foo.bar/", "origin": "https://foo.bar", "pathname": "/", "port": "", "protocol": "https:", "search": ""});
-        assert.deepEqual(parseUri("https://foo.bar:80/"), {"hash": "", "host": "foo.bar:80", "hostname": "foo.bar", "href": "https://foo.bar:80/", "origin": "https://foo.bar:80", "pathname": "/", "port": "80", "protocol": "https:", "search": ""});
-        assert.deepEqual(parseUri("https://foo.bar/?http://www.google.nl/search?"), {"hash": "", "host": "foo.bar", "hostname": "foo.bar", "href": "https://foo.bar/?http://www.google.nl/search?", "origin": "https://foo.bar", "pathname": "/", "port": "", "protocol": "https:", "search": "?http://www.google.nl/search?"});
-        assert.deepEqual(parseUri("https:foo.bar/?http://www.google.nl/search?"), {"hash": "", "host": "foo.bar", "hostname": "foo.bar", "href": "https:foo.bar/?http://www.google.nl/search?", "origin": "https:foo.bar", "pathname": "/", "port": "", "protocol": "https:", "search": "?http://www.google.nl/search?"});
-        assert.deepEqual(parseUri("http://usr:@www.test.com:81/dir/dir.2/index.htm?q1=0&&test1&test2=value#top"), {"hash": "#top", "host": "www.test.com:81", "hostname": "www.test.com", "href": "http://usr:@www.test.com:81/dir/dir.2/index.htm?q1=0&&test1&test2=value#top", "origin": "http://usr:@www.test.com:81", "pathname": "/dir/dir.2/index.htm", "port": "81", "protocol": "http:", "search": "?q1=0&&test1&test2=value"});
-        assert.deepEqual(parseUri("http://usr:pass@www.test.com:81/dir/dir.2/index.htm?q1=0&&test1&test2=value#top"), {"hash": "#top", "host": "www.test.com:81", "hostname": "www.test.com", "href": "http://usr:pass@www.test.com:81/dir/dir.2/index.htm?q1=0&&test1&test2=value#top", "origin": "http://usr:pass@www.test.com:81", "pathname": "/dir/dir.2/index.htm", "port": "81", "protocol": "http:", "search": "?q1=0&&test1&test2=value"});
-        assert.deepEqual(parseUri("http://usr:pass@www.test.com/dir/dir.2/index.htm?q1=0&&test1&test2=value#top"), {"hash": "#top", "host": "www.test.com", "hostname": "www.test.com", "href": "http://usr:pass@www.test.com/dir/dir.2/index.htm?q1=0&&test1&test2=value#top", "origin": "http://usr:pass@www.test.com", "pathname": "/dir/dir.2/index.htm", "port": "", "protocol": "http:", "search": "?q1=0&&test1&test2=value"});
-        assert.deepEqual(parseUri("http://www.test.com/dir/dir.2/index.htm?q1=0&&test1&test2=value#top"), {"hash": "#top", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir.2/index.htm?q1=0&&test1&test2=value#top", "origin": "http://www.test.com", "pathname": "/dir/dir.2/index.htm", "port": "", "protocol": "http:", "search": "?q1=0&&test1&test2=value"});
-        assert.deepEqual(parseUri("http://www.test.com/dir/dir@2/index.htm#top"), {"hash": "#top", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir@2/index.htm#top", "origin": "http://www.test.com", "pathname": "/dir/dir@2/index.htm", "port": "", "protocol": "http:", "search": ""});
-        assert.deepEqual(parseUri("http://www.test.com/dir/dir@2/index#top"), {"hash": "#top", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir@2/index#top", "origin": "http://www.test.com", "pathname": "/dir/dir@2/index", "port": "", "protocol": "http:", "search": ""});
-        assert.deepEqual(parseUri("http://test.com/dir/dir@2/#top"), {"hash": "#top", "host": "test.com", "hostname": "test.com", "href": "http://test.com/dir/dir@2/#top", "origin": "http://test.com", "pathname": "/dir/dir@2/", "port": "", "protocol": "http:", "search": ""});
-        assert.deepEqual(parseUri("http://www.test.com/dir/dir@2/?top"), {"hash": "", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir@2/?top", "origin": "http://www.test.com", "pathname": "/dir/dir@2/", "port": "", "protocol": "http:", "search": "?top"});
-        assert.deepEqual(parseUri("http://www.test.com/dir/dir@2/"), {"hash": "", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir@2/", "origin": "http://www.test.com", "pathname": "/dir/dir@2/", "port": "", "protocol": "http:", "search": ""});
-        assert.deepEqual(parseUri("feed:https://www.test.com/dir/dir@2/"), {"hash": "", "host": "www.test.com", "hostname": "www.test.com", "href": "feed:https://www.test.com/dir/dir@2/", "origin": "feed:https://www.test.com", "pathname": "/dir/dir@2/", "port": "", "protocol": "feed:", "search": ""});
-        assert.deepEqual(parseUri("feed:https://www.test.com:80/dir/dir@2/"), {"hash": "", "host": "www.test.com:80", "hostname": "www.test.com", "href": "feed:https://www.test.com:80/dir/dir@2/", "origin": "feed:https://www.test.com:80", "pathname": "/dir/dir@2/", "port": "80", "protocol": "feed:", "search": ""});
-        assert.deepEqual(parseUri("feed:https://www.test.com/dir/dir2/?http://foo.bar/"), {"hash": "", "host": "www.test.com", "hostname": "www.test.com", "href": "feed:https://www.test.com/dir/dir2/?http://foo.bar/", "origin": "feed:https://www.test.com", "pathname": "/dir/dir2/", "port": "", "protocol": "feed:", "search": "?http://foo.bar/"});
-        assert.deepEqual(parseUri("chrome-extension://longidentifier/tools/tests/index.html?notrycatch=true"), {"hash": "", "host": "longidentifier", "hostname": "longidentifier", "href": "chrome-extension://longidentifier/tools/tests/index.html?notrycatch=true", "origin": "chrome-extension://longidentifier", "pathname": "/tools/tests/index.html", "port": "", "protocol": "chrome-extension:", "search": "?notrycatch=true"});
+        assert.deepEqual(new parseURI("https://foo.bar/"), {"hash": "", "host": "foo.bar", "hostname": "foo.bar", "href": "https://foo.bar/", "origin": "https://foo.bar", "pathname": "/", "password": "", "port": "", "protocol": "https:", "search": "", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("https://foo.bar:80/"), {"hash": "", "host": "foo.bar:80", "hostname": "foo.bar", "href": "https://foo.bar:80/", "origin": "https://foo.bar:80", "password": "", "pathname": "/", "port": "80", "protocol": "https:", "search": "", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("https://foo.bar/?http://www.google.nl/search?"), {"hash": "", "host": "foo.bar", "hostname": "foo.bar", "href": "https://foo.bar/?http://www.google.nl/search?", "origin": "https://foo.bar", "password": "", "pathname": "/", "port": "", "protocol": "https:", "search": "?http://www.google.nl/search?", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("https:foo.bar/?http://www.google.nl/search?"), {"hash": "", "host": "foo.bar", "hostname": "foo.bar", "href": "https://foo.bar/?http://www.google.nl/search?", "origin": "https://foo.bar", "password": "", "pathname": "/", "port": "", "protocol": "https:", "search": "?http://www.google.nl/search?", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("http://usr:@www.test.com:81/dir/dir.2/index.htm?q1=0&&test1&test2=value#top"), {"hash": "#top", "host": "www.test.com:81", "hostname": "www.test.com", "href": "http://usr@www.test.com:81/dir/dir.2/index.htm?q1=0&&test1&test2=value#top", "origin": "http://www.test.com:81", "password": "", "pathname": "/dir/dir.2/index.htm", "port": "81", "protocol": "http:", "search": "?q1=0&&test1&test2=value", "searchParams": searchParams, "username": "usr"});
+        assert.deepEqual(new parseURI("http://usr:pass@www.test.com:81/dir/dir.2/index.htm?q1=0&&test1&test2=value#top"), {"hash": "#top", "host": "www.test.com:81", "hostname": "www.test.com", "href": "http://usr:pass@www.test.com:81/dir/dir.2/index.htm?q1=0&&test1&test2=value#top", "origin": "http://www.test.com:81", "password": "pass", "pathname": "/dir/dir.2/index.htm", "port": "81", "protocol": "http:", "search": "?q1=0&&test1&test2=value", "searchParams": searchParams, "username": "usr"});
+        assert.deepEqual(new parseURI("http://usr:pass@www.test.com/dir/dir.2/index.htm?q1=0&&test1&test2=value#top"), {"hash": "#top", "host": "www.test.com", "hostname": "www.test.com", "href": "http://usr:pass@www.test.com/dir/dir.2/index.htm?q1=0&&test1&test2=value#top", "origin": "http://www.test.com", "password": "pass", "pathname": "/dir/dir.2/index.htm", "port": "", "protocol": "http:", "search": "?q1=0&&test1&test2=value", "searchParams": searchParams, "username": "usr"});
+        assert.deepEqual(new parseURI("http://www.test.com/dir/dir.2/index.htm?q1=0&&test1&test2=value#top"), {"hash": "#top", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir.2/index.htm?q1=0&&test1&test2=value#top", "origin": "http://www.test.com", "password": "", "pathname": "/dir/dir.2/index.htm", "port": "", "protocol": "http:", "search": "?q1=0&&test1&test2=value", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("http://www.test.com/dir/dir@2/index.htm#top"), {"hash": "#top", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir@2/index.htm#top", "origin": "http://www.test.com", "password": "", "pathname": "/dir/dir@2/index.htm", "port": "", "protocol": "http:", "search": "", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("http://www.test.com/dir/dir@2/index#top"), {"hash": "#top", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir@2/index#top", "origin": "http://www.test.com", "password": "", "pathname": "/dir/dir@2/index", "port": "", "protocol": "http:", "search": "", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("http://test.com/dir/dir@2/#top"), {"hash": "#top", "host": "test.com", "hostname": "test.com", "href": "http://test.com/dir/dir@2/#top", "origin": "http://test.com", "password": "", "pathname": "/dir/dir@2/", "port": "", "protocol": "http:", "search": "", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("http://www.test.com/dir/dir@2/?top"), {"hash": "", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir@2/?top", "origin": "http://www.test.com", "password": "", "pathname": "/dir/dir@2/", "port": "", "protocol": "http:", "search": "?top", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("http://www.test.com/dir/dir@2/"), {"hash": "", "host": "www.test.com", "hostname": "www.test.com", "href": "http://www.test.com/dir/dir@2/", "origin": "http://www.test.com", "password": "", "pathname": "/dir/dir@2/", "port": "", "protocol": "http:", "search": "", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("feed:https://www.test.com/dir/dir@2/"), {"hash": "", "host": "", "hostname": "", "href": "feed:https://www.test.com/dir/dir@2/", "origin": "feed://", "password": "", "pathname": "https://www.test.com/dir/dir@2/", "port": "", "protocol": "feed:", "search": "", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("feed:https://www.test.com:80/dir/dir@2/"), {"hash": "", "host": "", "hostname": "", "href": "feed:https://www.test.com:80/dir/dir@2/", "origin": "feed://", "password": "", "pathname": "https://www.test.com:80/dir/dir@2/", "port": "", "protocol": "feed:", "search": "", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("feed:https://www.test.com/dir/dir2/?http://foo.bar/"), {"hash": "", "host": "", "hostname": "", "href": "feed:https://www.test.com/dir/dir2/?http://foo.bar/", "origin": "feed://", "password": "", "pathname": "https://www.test.com/dir/dir2/", "port": "", "protocol": "feed:", "search": "?http://foo.bar/", "searchParams": searchParams, "username": ""});
+        assert.deepEqual(new parseURI("chrome-extension://longidentifier/tools/tests/index.html?notrycatch=true"), {"hash": "", "host": "longidentifier", "hostname": "longidentifier", "href": "chrome-extension://longidentifier/tools/tests/index.html?notrycatch=true", "origin": "chrome-extension://longidentifier", "password": "", "pathname": "/tools/tests/index.html", "port": "", "protocol": "chrome-extension:", "search": "?notrycatch=true", "searchParams": searchParams, "username": ""});
     });
 
     QUnit.test("parseSearch", function(assert) {
         assert.expect(11);
-        assert.deepEqual(parseUri.parseSearch("?hello=world&ext=adblock&time=bedtime"), {"ext": "adblock", "hello": "world", "time": "bedtime"});
-        assert.deepEqual(parseUri.parseSearch(""), {});
-        assert.deepEqual(parseUri.parseSearch("?"), {});
-        assert.deepEqual(parseUri.parseSearch("?hello"), {"hello": ""});
-        assert.deepEqual(parseUri.parseSearch("?hello=world"), {"hello": "world"});
-        assert.deepEqual(parseUri.parseSearch("?hello&ext=adblock"), {"ext": "adblock", "hello": ""});
-        assert.deepEqual(parseUri.parseSearch("?ext=adblock&hello"), {"ext": "adblock", "hello": ""});
-        assert.deepEqual(parseUri.parseSearch("?hello=world&hello=earth"), {"hello": "earth"});
-        assert.deepEqual(parseUri.parseSearch("?hello=&ext=adblock"), {"ext": "adblock", "hello": ""});
-        assert.deepEqual(parseUri.parseSearch("?hello=world&&ext=adblock"), {"ext": "adblock", "hello": "world"});
-        assert.deepEqual(parseUri.parseSearch("?hello&&&&ext=adblock"), {"ext": "adblock", "hello": ""});
+        assert.deepEqual(parseURI.parseSearch("?hello=world&ext=adblock&time=bedtime"), {"ext": "adblock", "hello": "world", "time": "bedtime"});
+        assert.deepEqual(parseURI.parseSearch(""), {});
+        assert.deepEqual(parseURI.parseSearch("?"), {});
+        assert.deepEqual(parseURI.parseSearch("?hello"), {"hello": ""});
+        assert.deepEqual(parseURI.parseSearch("?hello=world"), {"hello": "world"});
+        assert.deepEqual(parseURI.parseSearch("?hello&ext=adblock"), {"ext": "adblock", "hello": ""});
+        assert.deepEqual(parseURI.parseSearch("?ext=adblock&hello"), {"ext": "adblock", "hello": ""});
+        assert.deepEqual(parseURI.parseSearch("?hello=world&hello=earth"), {"hello": "earth"});
+        assert.deepEqual(parseURI.parseSearch("?hello=&ext=adblock"), {"ext": "adblock", "hello": ""});
+        assert.deepEqual(parseURI.parseSearch("?hello=world&&ext=adblock"), {"ext": "adblock", "hello": "world"});
+        assert.deepEqual(parseURI.parseSearch("?hello&&&&ext=adblock"), {"ext": "adblock", "hello": ""});
     });
 
     QUnit.test("parseSecondLevelDomain", function(assert) {
         assert.expect(5);
-        var secondLevelDomainOnly = parseUri.secondLevelDomainOnly;
+        var secondLevelDomainOnly = parseURI.secondLevelDomainOnly;
         assert.deepEqual(secondLevelDomainOnly("appspot.google.com"), "google.com");
         assert.deepEqual(secondLevelDomainOnly("foo.bar.com"), "bar.com");
         assert.deepEqual(secondLevelDomainOnly("https://www.google.com.ph"), "com.ph");
@@ -133,18 +134,17 @@ BGcall("get_settings", function(data) {
 
     QUnit.module("Parsing URLs: ");
     QUnit.test("IDN conversions", function(assert) {
-        assert.expect(11);
-        assert.equal(getUnicodeDomain('google.com'), 'google.com');
-        assert.equal(getUnicodeDomain('xn--maana-pta.com'), 'mañana.com');
-        assert.equal(getUnicodeDomain('xn--bcher-kva.com'), "bücher.com");
-        assert.equal(getUnicodeDomain('xn--bcher-kva.com'), 'b\xFCcher.com');
-        assert.equal(getUnicodeDomain('xn----dqo34k.com'), "☃-⌘.com");
-        assert.equal(getUnicodeDomain('xn--ls8h.la'), "💩.la");
-        assert.equal(getUnicodeDomain('\u0434\u0436\u0443\u043C\u043B\u0430@xn--p-8sbkgc5ag7bhce.xn--ba-lmcq'), '\u0434\u0436\u0443\u043C\u043B\u0430@\u0434\u0436p\u0443\u043C\u043B\u0430\u0442\u0435\u0441\u0442.b\u0440\u0444a');
-        assert.equal(getUnicodeUrl('http://www.xn--maana-pta.com'), "http://www.mañana.com");
-        assert.equal(getUnicodeUrl('http://www.xn----dqo34k.com'), "http://www.☃-⌘.com");
-        assert.equal(getUnicodeUrl('http://www.xn----dqo34k.com/foo/blah?t=is#here'), "http://www.☃-⌘.com/foo/blah?t=is#here");
-        assert.equal(getUnicodeUrl('http://www.google.com/foo/blah?t=is#here'), 'http://www.google.com/foo/blah?t=is#here');
+        assert.expect(10);
+        assert.equal(new parseURI("https://google.com").href, 'https://google.com/');
+        assert.equal(new parseURI('https://www.xn--maana-pta.com').href, 'https://www.mañana.com/');
+        assert.equal(new parseURI('https://www.xn--bcher-kva.com').href, "https://www.bücher.com/");
+        assert.equal(new parseURI('https://www.xn--bcher-kva.com').href, 'https://www.b\xFCcher.com/');
+        assert.equal(new parseURI('https://www.xn----dqo34k.com').href, "https://www.☃-⌘.com/");
+        assert.equal(new parseURI('https://www.xn--ls8h.la').href, "https://www.💩.la/");
+        assert.equal(new parseURI('http://www.xn--maana-pta.com').href, "http://www.mañana.com/");
+        assert.equal(new parseURI('http://www.xn----dqo34k.com').href, "http://www.☃-⌘.com/");
+        assert.equal(new parseURI('http://www.xn----dqo34k.com/foo/blah?t=is#here').href, "http://www.☃-⌘.com/foo/blah?t=is#here");
+        assert.equal(new parseURI('http://www.google.com/foo/blah?t=is#here').href, 'http://www.google.com/foo/blah?t=is#here');
     });
 
     QUnit.module("Global Functions");
@@ -737,7 +737,7 @@ BGcall("get_settings", function(data) {
             QUnit.module("Purging the remainders of ads using CSS selectors");
 
             function runme(page, url) {
-                elementPurger._page_location = parseUri(page);
+                elementPurger._page_location = new parseURI(page);
                 return elementPurger._srcsFor(url);
             }
 
@@ -760,9 +760,9 @@ BGcall("get_settings", function(data) {
                     {"op": "=", "text": "./e.html#f"}]);
                 assert.deepEqual(runme("http://a.com/b/c/#", "http://a.com/b/c/d/#"), [
                     {"op": "$=", "text": "//a.com/b/c/d/#"},
-                    {"op": "=", "text": "/b/c/d/#"},
-                    {"op": "=", "text": "d/#"},
-                    {"op": "=", "text": "./d/#"}]);
+                    {"op": "=", "text": "/b/c/d/"},
+                    {"op": "=", "text": "d/"},
+                    {"op": "=", "text": "./d/"}]);
             });
 
             QUnit.test("Ignore queryparameters in page but not in url", function(assert) {

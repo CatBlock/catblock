@@ -172,7 +172,7 @@ function handleABPLinkClicks() {
         event.preventDefault();
         var searchquery = this.href.replace(/^.+?\?/, "?");
         if (searchquery) {
-            var queryparts = parseUri.parseSearch(searchquery);
+            var queryparts = parseURI.parseSearch(searchquery);
             var loc = queryparts.location;
             var reqLoc = queryparts.requiresLocation;
             var reqList = (reqLoc ? "url:" + reqLoc : undefined);
