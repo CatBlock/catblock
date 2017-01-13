@@ -11,7 +11,7 @@ var elementPurger = {
     // |request.url|.  Will try again if none are found unless |lastTry|.
     _purgeElements: function(request, lastTry) {
         var elType = request.elType;
-        var url = getUnicodeUrl(request.url);
+        var url = new parseURI(request.url).href;
 
         log("[DEBUG]", "Purging:", lastTry, elType, url);
 
@@ -65,7 +65,7 @@ var elementPurger = {
         // NB: <img src="a#b"> causes a request for "a", not "a#b".  I'm
         // intentionally ignoring IMG tags that uselessly specify a fragment.
         // AdBlock will fail to hide them after blocking the image.
-        var url_parts = parseUri(url), page_parts = this._page_location;
+        var url_parts = new parseURI(url), page_parts = this._page_location;
         var results = [];
         // Case 1: absolute (of the form "abc://de.f/ghi" or "//de.f/ghi")
         results.push({ op:"$=", text: url.match(/\:(\/\/.*)$/)[1] });

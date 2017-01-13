@@ -4,7 +4,7 @@
 $("body").fadeIn();
 
 // Get tabId from URL
-var tabId = parseUri.parseSearch(document.location.href).tabId;
+var tabId = parseURI.parseSearch(document.location.href).tabId;
 tabId = parseInt(tabId);
 
 // Convert element type to request type
@@ -77,7 +77,7 @@ BGcall("reset_matchCache", function(matchCache) {
                                 res.frameDomain = resource.split(":|:")[2].replace("www.", "");
 
                                 if (res.elType !== "selector") {
-                                    res.thirdParty = BlockingFilterSet.checkThirdParty(parseUri(res.url).hostname, res.frameDomain);
+                                    res.thirdParty = BlockingFilterSet.checkThirdParty(new parseURI(res.url).hostname, res.frameDomain);
                                 }
                             }
                         }

@@ -194,7 +194,7 @@ class BlacklistUi {
             click: function() {
                 var rule = $("#summary", that._ui_page2).text();
                 if (rule.length > 0) {
-                    var filter = getUnicodeDomain(document.location.hostname) + "##" + rule;
+                    var filter = parseURI.getUnicodeDomain(document.location.hostname) + "##" + rule;
                     BGcall("add_custom_filter", filter, function() {
                         block_list_via_css([rule]);
                         that._ui_page2.dialog("close");
@@ -208,7 +208,7 @@ class BlacklistUi {
 
         if (that._advanced_user) {
             btns[translate("buttonedit")] = function() {
-                var custom_filter = getUnicodeDomain(document.location.hostname) + "##" + $("#summary", that._ui_page2).text();
+                var custom_filter = parseURI.getUnicodeDomain(document.location.hostname) + "##" + $("#summary", that._ui_page2).text();
                 that._ui_page2.dialog("close");
                 custom_filter = prompt(translate("blacklistereditfilter"), custom_filter);
                 if (custom_filter) { //null => user clicked cancel
@@ -306,7 +306,7 @@ class BlacklistUi {
         var attrs = ["id", "class", "name", "src", "href", "data"];
         for (var i in attrs) {
             if ($("input[type='checkbox']#ck" + attrs[i], detailsDiv).is(":checked")) {
-                result.push("[" + attrs[i] + "=" + getUnicodeUrl(JSON.stringify(el.attr(attrs[i]))) + "]");
+                result.push("[" + attrs[i] + "=" + new parseURI(JSON.stringify(el.attr(attrs[i]))).href + "]");
             }
         }
 
@@ -443,7 +443,7 @@ class BlacklistUi {
             size = 50;
         }
 
-        value = getUnicodeUrl(value);
+        value = new parseURI(value).href;
 
         var half = size / 2 - 2; // With ellipsis, the total length will be ~= size
 

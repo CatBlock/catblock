@@ -223,7 +223,7 @@ if (!SAFARI) {
             fd[tabId][frameId] = {
                 url: url,
                 // Cache these as they'll be needed once per request
-                domain: parseUri(url).hostname,
+                domain: new parseURI(url).hostname,
                 resources: {}
             };
             fd[tabId][frameId].whitelisted = page_is_whitelisted(url);
@@ -295,7 +295,7 @@ if (!SAFARI) {
         }
 
         // Convert punycode domain to Unicode - GH #472
-        details.url = getUnicodeUrl(details.url);
+        details.url = new parseURI(details.url).href;
 
         if (!frameData.track(details)) {
             return { cancel: false };
@@ -376,7 +376,7 @@ if (!SAFARI) {
         if (details.url === "about:blank") {
             details.url = opener.url;
         }
-        var url = getUnicodeUrl(details.url);
+        var url = new parseURI(details.url).href;
         var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
         if (match) {
             chrome.tabs.remove(details.tabId);
@@ -408,7 +408,7 @@ if (!SAFARI) {
                 if (tabData &&
                     tabData.url !== details.url) {
                     details.type = "main_frame";
-                    details.url = getUnicodeUrl(details.url);
+                    details.url = new parseURI(details.url).href;
                     frameData.track(details);
                 }
             }
@@ -420,7 +420,7 @@ function debug_report_elemhide(selector, matches, sender) {
     if (!window.frameData) {
         return;
     }
-    var frameDomain = parseUri(sender.url || sender.tab.url).hostname;
+    var frameDomain = new parseURI(sender.url || sender.tab.url).hostname;
     frameData.storeResource(sender.tab.id, sender.frameId || 0, selector, "selector", frameDomain);
 
     var data = frameData.get(sender.tab.id, sender.frameId || 0);
@@ -715,7 +715,7 @@ function page_is_unblockable(url) {
     if (!url) { // Safari empty/bookmarks/top sites page
         return true;
     } else {
-        var scheme = parseUri(url).protocol;
+        var scheme = new parseURI(url).protocol;
         return (scheme !== "http:" && scheme !== "https:" && scheme !== "feed:");
     }
 }
@@ -786,7 +786,7 @@ function getCurrentTabInfo(callback, secondTime) {
             }
 
             // GH #472
-            tab.unicodeUrl = getUnicodeUrl(tab.url);
+            tab.unicodeUrl = new parseURI(tab.url).href;
 
             var disabled_site = page_is_unblockable(tab.unicodeUrl);
             var total_blocked = blockCounts.getTotalAdsBlocked();
@@ -812,7 +812,7 @@ function getCurrentTabInfo(callback, secondTime) {
     } else {
         var browserWindow = safari.application.activeBrowserWindow;
         var tab = browserWindow.activeTab;
-        tab.unicodeUrl = getUnicodeUrl(tab.url); // GH #472
+        tab.unicodeUrl = new parseURI(tab.url).href; // GH #472
         var disabled_site = page_is_unblockable(tab.unicodeUrl);
 
         var result = {
@@ -841,13 +841,13 @@ function page_is_whitelisted(url, type) {
     if (get_settings().safari_content_blocking) {
         return false;
     }
-    url = getUnicodeUrl(url);
+    url = new parseURI(url).href;
     url = url.replace(/\#.*$/, ""); // Remove anchors
     if (!type) {
         type = ElementTypes.document;
     }
     var whitelist = _myfilters.blocking.whitelist;
-    return whitelist.matches(url, type, parseUri(url).hostname, false);
+    return whitelist.matches(url, type, new parseURI(url).hostname, false);
 }
 
 if (!SAFARI) {
@@ -950,7 +950,7 @@ if (!SAFARI) {
                 openTab("options/index.html");
             });
 
-            var host = getUnicodeDomain(parseUri(info.tab.unicodeUrl).host);
+            var host = new parseURI(info.tab.unicodeUrl).hostname;
             var custom_filter_count = count_cache.getCustomFilterCount(host);
             if (custom_filter_count) {
                 addMenu(translate("undo_last_block"), function() {
@@ -1346,7 +1346,7 @@ if (!SAFARI) {
         for (var i=0; i<tabs.length; i++) {
             var currentTab = tabs[i], tabId = currentTab.id;
             if (!frameData.get(tabId)) { // unknown tab
-                currentTab.url = getUnicodeUrl(currentTab.url);
+                currentTab.url = new parseURI(currentTab.url).href;
                 frameData.track({url: currentTab.url, tabId: tabId, type: "main_frame"});
             }
             updateBadge(tabId);
@@ -1363,9 +1363,9 @@ if (!SAFARI) {
 // Script injection logic for Safari is done in safari_bg.js
 if (!SAFARI) {
     function runChannelWhitelist(tabUrl, tabId) {
-        if (parseUri(tabUrl).hostname === "www.youtube.com" &&
+        if (new parseURI(tabUrl).hostname === "www.youtube.com" &&
             get_settings().youtube_channel_whitelist &&
-            !parseUri.parseSearch(tabUrl).ab_channel) {
+            !parseURI.parseSearch(tabUrl).ab_channel) {
             chrome.tabs.executeScript(tabId, { file: "js/ytchannel.js", runAt: "document_start" });
         }
     }
