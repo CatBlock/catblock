@@ -1500,7 +1500,7 @@ function getDebugInfo(callback) {
         return the_debug_info;
     }
 
-    if !(SAFARI || EDGE) {
+    if (!(SAFARI || EDGE)) {
         getBuildInfo(function(buildInfo) {
             var debugData = processDebugInfo(buildInfo);
             callback(debugData);
