@@ -140,6 +140,7 @@ class Channels {
                 this.add({ name: "TheCatsOfCatBlockUsersChannel", param: undefined,
                       enabled: true });
                 this.add({ name: "AprilFoolsCatsChannel", param: undefined, enabled: true });
+                this.add({ name: "TheCatsOfProjectCATS", param: undefined, enabled: false });
             }
         } else {
             for (var i=0; i < entries.length; i++) {
