@@ -1221,6 +1221,7 @@ var get_l10n_data = (SAFARI ? chrome.i18n._getL10nData : undefined);
             request.args.push(sender);
             var result = fn.apply(window, request.args);
             sendResponse(result);
+            return true;
         }
     );
 })();
@@ -1406,87 +1407,111 @@ function isSafariContentBlockingAvailable() {
 // DEBUG INFO
 
 // Get debug info for bug reporting and ad reporting - returns an object
-function getDebugInfo() {
+// Callback: is defined for every browser except Safari
+function getDebugInfo(callback) {
 
-    // An object, which contains info about AdBlock like
-    // subscribed filter lists, settings and other settings
-    var the_debug_info = {
-        filter_lists: [],
-        settings: [],
-        other_info: []
-    };
-
-    // Process subscribed filter lists
-    var get_subscriptions = get_subscriptions_minus_text();
-    for (var id in get_subscriptions) {
-        if (get_subscriptions[id].subscribed) {
-            the_debug_info.filter_lists.push(id);
-            the_debug_info.filter_lists.push("  last updated: " + new Date(get_subscriptions[id].last_update).toUTCString());
-        }
-    }
-
-    // Format info about filter lists properly
-    the_debug_info.filter_lists = the_debug_info.filter_lists.join("\n");
-
-    // Process custom filters & excluded filters
-    var adblock_custom_filters = storage_get("custom_filters");
-
-    if (adblock_custom_filters) {
-        the_debug_info.custom_filters = adblock_custom_filters;
-    }
-
-    if (get_exclude_filters_text()) {
-        the_debug_info.exclude_filters = get_exclude_filters_text();
-    }
-
-    // Process settings
-    var settings = get_settings();
-    for (setting in settings) {
-        the_debug_info.settings.push(setting + ": " + JSON.stringify(settings[setting]) + "\n");
-    }
-
-    // We need to hardcode malware-notification setting,
-    // because it isn't included in _settings object, but just in localStorage
-    the_debug_info.settings.push("malware-notification: " + storage_get("malware-notification") + "\n");
-    the_debug_info.settings = the_debug_info.settings.join("");
-
-    // Find out AdBlock version
-    var AdBlockVersion = chrome.runtime.getManifest().version;
-
-    // Is this installed build of AdBlock the official one?
-    function AdBlockBuild() {
-        if (!SAFARI) {
-            if (chrome.runtime.id === "pljaalgmajnlogcgiohkhdmgpomjcihk") {
-                return "Beta";
-            } else if (chrome.runtime.id === "gighmmpiobklfepjocnamgkkbiglidom" ||
-                       chrome.runtime.id === "aobdicepooefnbaeokijohmhjlleamfj") {
-                return "Stable";
-            } else {
-                return "Developer";
+    // Is this installed build of CatBlock the official one?
+    function getBuildInfo(callback) {
+        chrome.management.getSelf(function(selfData) {
+            if (!selfData || !selfData.installType || !selfData.id) {
+                callback("Undefined");
+                return;
             }
-        } else {
-            if (safari.extension.baseURI.indexOf("com.betafish.adblockforsafari-UAMUU4S2D9") > -1) {
-                return "Stable";
+
+            var extensionID = selfData.id;
+            var installType = selfData.installType;
+
+            if (extensionID !== "mdcgnhlfpnbeieiiccmebgkfdebafodo" &&
+                extensionID !== "pejeadkbfbppoaoinpmkeonebmngpnkk" &&
+                extensionID !== "catblock@catblock.tk") {
+                callback("Unsupported");
+                return;
+            }
+
+            if (installType === "normal" || installType === "admin") {
+                callback("Stable");
+            } else if (installType === "development") {
+                callback("Developer");
             } else {
-                return "Developer";
+                callback("Unsupported");
+            }
+        });
+    }
+
+    // Push CatBlock version and build to |the_debug_info| object
+    function processDebugInfo(buildInfo) {
+        // An object, which contains info about AdBlock like
+        // subscribed filter lists, settings and other settings
+        var the_debug_info = {
+            filter_lists: [],
+            settings: [],
+            other_info: []
+        };
+
+        // Process subscribed filter lists
+        var get_subscriptions = get_subscriptions_minus_text();
+        for (var id in get_subscriptions) {
+            if (get_subscriptions[id].subscribed) {
+                the_debug_info.filter_lists.push(id);
+                the_debug_info.filter_lists.push("  last updated: " + new Date(get_subscriptions[id].last_update).toUTCString());
             }
         }
+
+        // Format info about filter lists properly
+        the_debug_info.filter_lists = the_debug_info.filter_lists.join("\n");
+
+        // Process custom filters & excluded filters
+        var adblock_custom_filters = storage_get("custom_filters");
+
+        if (adblock_custom_filters) {
+            the_debug_info.custom_filters = adblock_custom_filters;
+        }
+
+        if (get_exclude_filters_text()) {
+            the_debug_info.exclude_filters = get_exclude_filters_text();
+        }
+
+        // Process settings
+        var settings = get_settings();
+        for (setting in settings) {
+            the_debug_info.settings.push(setting + ": " + JSON.stringify(settings[setting]) + "\n");
+        }
+
+        // We need to hardcode malware-notification setting,
+        // because it isn't included in _settings object, but just in localStorage
+        the_debug_info.settings.push("malware-notification: " + storage_get("malware-notification") + "\n");
+        the_debug_info.settings = the_debug_info.settings.join("");
+
+        // Find out CatBlock version
+        var AdBlockVersion = chrome.runtime.getManifest().version;
+        the_debug_info.other_info.push("CatBlock version number: " + AdBlockVersion + " " + buildInfo);
+
+        // Get & process last known error
+        var adblock_error = storage_get("error");
+        if (adblock_error) {
+            the_debug_info.other_info.push("Last known error: " + adblock_error);
+        }
+
+        // Get & process userAgent
+        the_debug_info.other_info.push("UserAgent: " + navigator.userAgent.replace(/;/, ""));
+        the_debug_info.other_info = the_debug_info.other_info.join("\n");
+
+        return the_debug_info;
     }
 
-    // Push AdBlock version and build to |the_debug_info| object
-    the_debug_info.other_info.push("CatBlock version number: " + AdBlockVersion + " " + AdBlockBuild());
-
-    // Get & process last known error
-    var adblock_error = storage_get("error");
-    if (adblock_error) {
-        the_debug_info.other_info.push("Last known error: " + adblock_error);
+    if (!(SAFARI || EDGE)) {
+        getBuildInfo(function(buildInfo) {
+            var debugData = processDebugInfo(buildInfo);
+            callback(debugData);
+        });
+    } else {
+        // SAFARI:
+        // We don't have access to the CatBlock's BG page from other pages
+        // like we have in other browsers. Plus we rely on sync messaging,
+        // so we need to return sync message to the requesting page.
+        var debugData = processDebugInfo("Developer"); // we have only dev version on Edge as well
+        return debugData;
     }
-
-    // Get & process userAgent
-    the_debug_info.other_info.push("UserAgent: " + navigator.userAgent.replace(/;/, ""));
-    the_debug_info.other_info = the_debug_info.other_info.join("\n");
-
-    return the_debug_info;
 }
 
 // Code for making a bug report

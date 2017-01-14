@@ -97,13 +97,17 @@ if (typeof SAFARI === "undefined") {
 
             // Replace the 'chrome' object with a Safari adapter.
             chrome = {
-                extension: {
-                    getBackgroundPage: function() {
-                        return safari.extension.globalPage.contentWindow;
-                    }
-                },
-
                 runtime: {
+                    getBackgroundPage: function(callback) {
+                        try {
+                            callback(safari.extension.globalPage.contentWindow);
+                        } catch(e) {
+                            // BG page is not accessible from other pages
+                            // other than self & popup.html
+                            callback(undefined);
+                        }
+                    },
+
                     getManifest: function() {
                         var xhr = new XMLHttpRequest();
                         xhr.open("GET", chrome.runtime.getURL("manifest.json"), false);
