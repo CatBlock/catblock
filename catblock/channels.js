@@ -131,7 +131,7 @@ class Channels {
         var entries = storage_get("channels");
         if (!entries || (entries.length > 0 && !entries[0].name)) {
             // Default set of channels
-            if (CATS.isEnabled()) {
+            if (storage_get("project_cats")) {
                 this.add({ name: "TheCatsOfProjectCATS", param: undefined, enabled: true });
                 this.add({ name: "TheCatsOfCatBlockUsersChannel", param: undefined,
                       enabled: false });
@@ -140,6 +140,7 @@ class Channels {
                 this.add({ name: "TheCatsOfCatBlockUsersChannel", param: undefined,
                       enabled: true });
                 this.add({ name: "AprilFoolsCatsChannel", param: undefined, enabled: true });
+                this.add({ name: "TheCatsOfProjectCATS", param: undefined, enabled: false });
             }
         } else {
             for (var i=0; i < entries.length; i++) {
