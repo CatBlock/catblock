@@ -10,38 +10,57 @@ $(document).ready(function() {
         $(".english-only").css("display", "inline");
     }
 
-    // Show debug info
-    $("#debug").click(function() {
-        BGcall("getDebugInfo", function(the_debug_info) {
-            // the_debug_info is the debug info object from the BG page
-            content = [];
+    chrome.runtime.getBackgroundPage(function(backgroundPage) {
+
+        var debug_data = null;
+
+        function processDebugData(debugInfo) {
+            // |debugInfo| is the debug info object from the BG page
+            var content = [];
+
             content.push("=== Filter Lists ===");
-            content.push(the_debug_info.filter_lists);
+            content.push(debugInfo.filter_lists);
             content.push("");
 
             // Custom & Excluded filters might not always be in the object
-            if (the_debug_info.custom_filters) {
+            if (debugInfo.custom_filters) {
                 content.push("=== Custom Filters ===");
-                content.push(the_debug_info.custom_filters);
+                content.push(debugInfo.custom_filters);
                 content.push("");
             }
 
-            if (the_debug_info.exclude_filters) {
+            if (debugInfo.exclude_filters) {
                 content.push("=== Exclude Filters ===");
-                content.push(the_debug_info.exclude_filters);
+                content.push(debugInfo.exclude_filters);
                 content.push("");
             }
 
             content.push("=== Settings ===");
-            content.push(the_debug_info.settings);
+            content.push(debugInfo.settings);
             content.push("");
+
             content.push("=== Other Info ===");
-            content.push(the_debug_info.other_info);
+            content.push(debugInfo.other_info);
 
             // Put it together to put into the textbox
-            debug_info = content.join("\n");
+            debug_data = content.join("\n");
+        }
 
-            $("#debugInfo").html(debug_info);
+        // Get debug info
+        // BG page is not defined on Safari
+        if (!backgroundPage) {
+            BGcall("getDebugInfo", function(debugInfo) {
+                processDebugData(debugInfo);
+            });
+        } else {
+            backgroundPage.getDebugInfo(function(debugInfo) {
+                processDebugData(debugInfo);
+            });
+        }
+
+        // Show debug data
+        $("#debug").click(function() {
+            $("#debugInfo").html(debug_data);
             $("#debugInfo").css({ width: "450px", height: "100px"});
             $("#debugInfo").fadeIn();
         });
