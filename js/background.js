@@ -326,7 +326,12 @@ if (!SAFARI) {
 
         // May the URL be loaded by the requesting frame?
         var frameDomain = frameData.get(tabId, requestingFrameId).domain;
-        var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain);
+
+        // If |matchGeneric| is null, don't test request against blocking generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(top_frame.url, ElementTypes.genericblock, top_frame.url);
+
+        // Should we block this URL?
+        var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric);
 
         frameData.storeResource(tabId, requestingFrameId, details.url, elType, frameDomain);
 
@@ -376,12 +381,19 @@ if (!SAFARI) {
             details.url = opener.url;
         }
         var url = new parseURI(details.url).href;
-        var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
+
+        // If |matchGeneric| is null, don't test request against blocking generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(url, ElementTypes.genericblock, url);
+
+        // Should we block this popup?
+        var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain, false, false, matchGeneric);
+
         if (match) {
             chrome.tabs.remove(details.tabId);
             blockCounts.recordOneAdBlocked(details.sourceTabId);
             updateBadge(details.sourceTabId);
         }
+
         frameData.storeResource(details.sourceTabId, details.sourceFrameId, url, ElementTypes.popup, opener.domain);
     }
 
@@ -1078,7 +1090,10 @@ function get_content_script_data(options, sender) {
         _myfilters.hiding &&
         settings &&
         !settings.safari_content_blocking) {
-        result.selectors = _myfilters.hiding.filtersFor(options.domain);
+        // If |matchGeneric| is , don't test request against hiding generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
+
+        result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
     }
     return result;
 }
