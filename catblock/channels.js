@@ -35,9 +35,6 @@ class Channels {
     //   id of newly created channel, or undefined if the channel already existed.
     add(data) {
         // Check, whether such a class exists
-        if (new Function("return typeof " + data.name + " !== 'function'")()) {
-            return;
-        }
         var klass = null;
         switch (data.name) {
             case "TheCatsOfCatBlockUsersChannel": klass = TheCatsOfCatBlockUsersChannel;
@@ -50,6 +47,7 @@ class Channels {
                 break;
             case "FlickrPhotosetChannel": klass = FlickrPhotosetChannel;
                 break;
+            default: return;
         }
         var dataParam = JSON.stringify(data.param);
         for (var id in this._channelGuide) {
