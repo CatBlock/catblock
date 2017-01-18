@@ -158,7 +158,6 @@ class BlockingFilterSet {
 
         // matchCache approach taken from ABP
         var key = url + " " + elementType + " " + isThirdParty + " " + topFrameDomain;
-
         if (key in this._matchCache) {
             return this._matchCache[key];
         }

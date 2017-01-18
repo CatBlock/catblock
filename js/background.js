@@ -327,8 +327,16 @@ if (!SAFARI) {
         // May the URL be loaded by the requesting frame?
         var frameDomain = frameData.get(tabId, requestingFrameId).domain;
 
-        // If |matchGeneric| is null, don't test request against blocking generic rules
+        // If |matchGeneric| is null, test request against blocking generic rules
         var matchGeneric = _myfilters.blocking.whitelist.matches(top_frame.url, ElementTypes.genericblock, top_frame.url);
+
+        if (details.frameId !== 0) {
+            if (!matchGeneric) {
+                // When genericblock doesn't apply to the top frame,
+                // check, whether it applies to the current sub frame
+                matchGeneric = _myfilters.blocking.whitelist.matches(sub_frame.url, ElementTypes.genericblock, sub_frame.url);
+            }
+        }
 
         // Should we block this URL?
         var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric, top_frame.domain);
@@ -382,7 +390,7 @@ if (!SAFARI) {
         }
         var url = new parseURI(details.url).href;
 
-        // If |matchGeneric| is null, don't test request against blocking generic rules
+        // If |matchGeneric| is null, test request against blocking generic rules
         var matchGeneric = _myfilters.blocking.whitelist.matches(url, ElementTypes.genericblock, url);
 
         // Should we block this popup?
@@ -1090,24 +1098,19 @@ function get_content_script_data(options, sender) {
         _myfilters.hiding &&
         settings &&
         !settings.safari_content_blocking) {
+        // If |matchGeneric| is null, test request against blocking generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
+
         // We are in a top frame
         if (sender.tab.url === sender.url) {
-            var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
             result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
         } else {
             // We are in a sub frame
-            // We need to check, whether generichide applies to the top frame.
-            // If yes, we won't hide generic ads in this frame.
-            // if no, check, whether this sub frame is affected by generichide.
-            var matchGenericTopFrame = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
-
-            if (matchGenericTopFrame) {
-                result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGenericTopFrame);
-            } else {
-                var matchGenericSubFrame = _myfilters.blocking.whitelist.matches(sender.url, ElementTypes.generichide, sender.url);
-                result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGenericSubFrame);
+            // We need to check, whether generichide applies to the sub frame.
+            if (!matchGeneric) {
+                matchGeneric = _myfilters.blocking.whitelist.matches(sender.url, ElementTypes.generichide, sender.url);
             }
-
+            result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
         }
     }
     return result;
