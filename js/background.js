@@ -383,11 +383,10 @@ if (!SAFARI) {
         var url = new parseURI(details.url).href;
 
         // If |matchGeneric| is null, don't test request against blocking generic rules
-        console.log("URL: ", url, opener);
         var matchGeneric = _myfilters.blocking.whitelist.matches(url, ElementTypes.genericblock, url);
 
         // Should we block this popup?
-        var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain, false, false, matchGeneric);
+        var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain, false, false, matchGeneric, null);
 
         if (match) {
             chrome.tabs.remove(details.tabId);
@@ -1091,10 +1090,25 @@ function get_content_script_data(options, sender) {
         _myfilters.hiding &&
         settings &&
         !settings.safari_content_blocking) {
-        // If |matchGeneric| is null, don't test request against hiding generic rules
-        // TODO + bug with cache
-        var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
-        result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
+        // We are in a top frame
+        if (sender.tab.url === sender.url) {
+            var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
+            result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
+        } else {
+            // We are in a sub frame
+            // We need to check, whether generichide applies to the top frame.
+            // If yes, we won't hide generic ads in this frame.
+            // if no, check, whether this sub frame is affected by generichide.
+            var matchGenericTopFrame = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
+
+            if (matchGenericTopFrame) {
+                result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGenericTopFrame);
+            } else {
+                var matchGenericSubFrame = _myfilters.blocking.whitelist.matches(sender.url, ElementTypes.generichide, sender.url);
+                result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGenericSubFrame);
+            }
+
+        }
     }
     return result;
 }
