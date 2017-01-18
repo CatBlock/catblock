@@ -383,6 +383,7 @@ if (!SAFARI) {
         var url = new parseURI(details.url).href;
 
         // If |matchGeneric| is null, don't test request against blocking generic rules
+        console.log("URL: ", url, opener);
         var matchGeneric = _myfilters.blocking.whitelist.matches(url, ElementTypes.genericblock, url);
 
         // Should we block this popup?
@@ -1090,9 +1091,9 @@ function get_content_script_data(options, sender) {
         _myfilters.hiding &&
         settings &&
         !settings.safari_content_blocking) {
-        // If |matchGeneric| is , don't test request against hiding generic rules
+        // If |matchGeneric| is null, don't test request against hiding generic rules
+        // TODO + bug with cache
         var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
-
         result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
     }
     return result;
@@ -1352,7 +1353,7 @@ if (!SAFARI) {
     chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
     chrome.tabs.onRemoved.addListener(frameData.removeTabId);
     // Popup blocking
-    if (chrome.webNavigationn && chrome.webNavigation.onCreatedNavigationTarget) {
+    if (chrome.webNavigation && chrome.webNavigation.onCreatedNavigationTarget) {
         chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
     }
 

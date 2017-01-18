@@ -152,17 +152,17 @@ class BlockingFilterSet {
     //       returns an object containing two properties:
     //          'blocked' - true or false
     //          'text' - text of matching pattern/whitelist filter, null if no match
-    matches(url, elementType, frameDomain, returnFilter, returnTuple) {
+    matches(url, elementType, frameDomain, returnFilter, returnTuple, matchGeneric) {
         var urlDomain = new parseURI(url).hostname;
         var isThirdParty = BlockingFilterSet.checkThirdParty(urlDomain, frameDomain);
 
         // matchCache approach taken from ABP
-        var key = url + " " + elementType + " " + isThirdParty;
+        var key = url + " " + frameDomain + " " + elementType + " " + isThirdParty;
         if (key in this._matchCache) {
             return this._matchCache[key];
         }
 
-        var match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty);
+        var match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty, matchGeneric);
         if (match) {
             log(frameDomain, ": whitelist rule", match._rule, "exempts url", url);
             if (returnTuple && returnFilter) {
@@ -172,7 +172,7 @@ class BlockingFilterSet {
             }
             return this._matchCache[key];
         }
-        match = this.pattern.matches(url, elementType, frameDomain, isThirdParty);
+        match = this.pattern.matches(url, elementType, frameDomain, isThirdParty, matchGeneric);
         if (match) {
             log(frameDomain, ": matched", match._rule, "to url", url);
             if (returnTuple && returnFilter) {
