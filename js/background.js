@@ -1101,11 +1101,11 @@ function get_content_script_data(options, sender) {
         // If |matchGeneric| is null, test request against blocking generic rules
         var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
 
-        // We are in a top frame
+        // Request comes from a top frame
         if (sender.tab.url === sender.url) {
             result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
         } else {
-            // We are in a sub frame
+            // Request comes from a sub frame
             // We need to check, whether generichide applies to the sub frame.
             if (!matchGeneric) {
                 matchGeneric = _myfilters.blocking.whitelist.matches(sender.url, ElementTypes.generichide, sender.url);
