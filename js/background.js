@@ -331,7 +331,7 @@ if (!SAFARI) {
         var matchGeneric = _myfilters.blocking.whitelist.matches(top_frame.url, ElementTypes.genericblock, top_frame.url);
 
         // Should we block this URL?
-        var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric);
+        var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric, top_frame.domain);
 
         frameData.storeResource(tabId, requestingFrameId, details.url, elType, frameDomain);
 
