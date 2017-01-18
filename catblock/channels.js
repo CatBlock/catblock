@@ -34,11 +34,23 @@ class Channels {
     // Returns:
     //   id of newly created channel, or undefined if the channel already existed.
     add(data) {
-        // Using eval, since classes can't be reached in "window" scope
-        if (typeof eval(data.name) !== "function") {
+        // Check, whether such a class exists
+        if (new Function("return typeof " + data.name + " !== 'function'")()) {
             return;
         }
-        var klass = eval(data.name);
+        var klass = null;
+        switch (data.name) {
+            case "TheCatsOfCatBlockUsersChannel": klass = TheCatsOfCatBlockUsersChannel;
+                break;
+            case "AprilFoolsCatsChannel": klass = AprilFoolsCatsChannel;
+                break;
+            case "TheCatsOfProjectCATS": klass = TheCatsOfProjectCATS;
+                break;
+            case "FlickrSearchChannel": klass = FlickrSearchChannel;
+                break;
+            case "FlickrPhotosetChannel": klass = FlickrPhotosetChannel;
+                break;
+        }
         var dataParam = JSON.stringify(data.param);
         for (var id in this._channelGuide) {
             var c = this._channelGuide[id];
