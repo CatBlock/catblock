@@ -421,17 +421,11 @@ function checkmalware() {
         for (var i = 0; i < loaded_resources.length; i++) {
             for (var key in loaded_resources[i]) {
                 // Push just domains, which are not already in extracted_domains array
-                if (SAFARI) {
-                    var resource = key.split(":|:");
-                    if (resource &&
-                        resource.length === 2 &&
-                        extracted_domains.indexOf(new parseURI(resource[1]).hostname) === -1) {
-                        extracted_domains.push(new parseURI(resource[1]).hostname);
-                    }
-                } else {
-                    if (extracted_domains.indexOf(new parseURI(key).hostname) === -1) {
-                        extracted_domains.push(new parseURI(key).hostname);
-                    }
+                var resource = key.split(":|:");
+                if (resource &&
+                    resource.length === 2 &&
+                    extracted_domains.indexOf(new parseURI(resource[1]).hostname) === -1) {
+                    extracted_domains.push(new parseURI(resource[1]).hostname);
                 }
             }
         }
