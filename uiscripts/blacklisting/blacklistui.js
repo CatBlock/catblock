@@ -436,14 +436,17 @@ class BlacklistUi {
     //         size?:int - max size above which to truncate, defaults to 50
     static _ellipsis(value, size) {
         if (!value) {
-            return value;
+            return undefined;
         }
 
         if (size === undefined) {
             size = 50;
         }
 
-        value = new parseURI(value).href;
+        // If we are processing an URL, convert it from punycode to Unicode
+        if (value.indexOf("http://") > -1 || value.indexOf("https://") > -1) {
+            value = new parseURI(value).href;
+        }
 
         var half = size / 2 - 2; // With ellipsis, the total length will be ~= size
 
