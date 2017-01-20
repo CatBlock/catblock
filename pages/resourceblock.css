@@ -1,3 +1,70 @@
+body {
+    background-color: white;
+    font-size: 12px;
+}
+#main_nav li {
+    padding: 11px 24px;
+}
+#title {
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding-top: 20px;
+}
+#legend {
+    min-width: 1195px;
+    margin: 80px auto 15px auto;
+    text-align: center;
+    display: none;
+}
+#frameselect {
+    margin: 0 auto;
+    max-width: 1195px;
+}
+#frameselect {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+#frame {
+    max-width: 400px;
+}
+table {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+    background: #F1F1F1;
+    border-collapse: collapse;
+    cursor: default;
+    display: none;
+    margin: 0 auto 20px auto;
+    max-width: 1195px;
+    width: 100%;
+}
+tbody {
+    width: 100%;
+}
+th {
+    border: 1px solid #ccc;
+    font-weight: 500;
+}
+th[data-column="type"] {
+    cursor: pointer;
+}
+th[data-column="filter"] {
+    cursor: pointer;
+}
+th[data-column="url"] {
+    cursor: pointer;
+}
+th[data-column="thirdparty"] {
+    cursor: pointer;
+}
+.framedomain, .frameurl, .frametype {
+    text-align: left;
+    font-size: small;
+    padding-left: 25px;
+}
+.frametype {
+    padding-top: 20px;
+}
 td {
     border: 1px solid #ccc;
     min-width: 0.5em;
@@ -9,93 +76,27 @@ td {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-th {
-    border: 1px solid #ccc;
-}
-body {
-    background-color: white;
-    font-size: 12px;
-}
-#title {
-    width: 100%;
-    display: block;
-    text-align: center;
-    padding-top: 20px;
-}
-table {
-    box-shadow: 0 0 5px rgba(0, 0, 0, .15);
-    background: #F1F1F1;
-    border-collapse: collapse;
-    cursor: default;
-    display: none;
-}
-th {
-    font-weight: 500;
-}
-#legend {
-    min-width: 1195px;
-    margin: 80px auto 15px auto;
-    text-align: center;
-    display: none;
-}
-#main_nav li {
-    padding: 11px 24px;
-}
-.resourceslist {
-    margin: 0 auto 20px auto;
-    max-width: 1195px;
-    width: 100%;
-}
-.loader {
-    display: block;
-    margin: 120px auto auto;
-    height: 25px;
-}
-.framedomain, .frameurl, .frametype {
-    text-align: left;
-    font-size: small;
-    padding-left: 25px;
-}
-.frametype {
-    padding-top: 20px;
-}
-th[data-column="url"] {
-    cursor: pointer;
-}
-th[data-column="type"] {
-    cursor: pointer;
-}
 td[data-column="type"] {
     text-align: left;
     width: 100px;
 }
-th[data-column="filter"] {
-    cursor: pointer;
+td[data-column="filter"] {
+    width: 200px;
 }
-th[data-column="thirdparty"] {
-    cursor: pointer;
-}
-td[data-column="thirdparty"] {
-    text-align: center;
-    width: 60px;
-}
-
 td[data-column="url"] {
-    /* padding-left: 25px; */
-    /* overflow: hidden; */
-    /* text-overflow: ellipsis; */
-    /* overflow: hidden; */
-    /* text-overflow: ellipsis; */
-    /* white-space: nowrap; */
-    /* word-wrap: normal; */
-    /* word-break: normal; */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 350px;
 }
-td[data-column="filter"] {
-    width: 200px;
+td[data-column="thirdparty"] {
+    text-align: center;
+    width: 60px;
+}
+.loader {
+    display: block;
+    margin: 120px auto auto;
+    height: 25px;
 }
 .blocked {
     color: red;
@@ -105,18 +106,4 @@ td[data-column="filter"] {
 }
 .hiding {
     color: blue;
-}
-tbody {
-    width:100%;
-}
-#tabselect, #frameselect {
-    margin: 0 auto;
-    max-width: 1195px;
-}
-#frameselect {
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-#tab, #frame {
-    max-width: 400px;
 }

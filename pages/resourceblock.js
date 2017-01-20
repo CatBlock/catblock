@@ -27,28 +27,11 @@ function reqTypeForElement(elType) {
     }
 }
 
-function prepopulateTabSelect() {
-    BGcall("get_frameData", null, function(fdTabs) {
-        chrome.tabs.query({}, function(tabs) {
-            for (let tab of tabs) {
-                for (let id in fdTabs) {
-                    if (fdTabs[id][0].url === tab.url) {
-                        $("#tab").append($("<option>", { value: id, text: tab.title }));
-                        break;
-                    }
-                }
-            }
-            $("#tab").val(tabId); // |tabId| is defined globally
-        });
-    });
-}
-
 function prepopulateFrameSelect(tabId) {
     // Remove all frame options
     $("#frame").find("option").remove();
 
     BGcall("get_frameData", tabId, function(tabFrames) {
-        console.log("tab info is: ", tab);
         for (let id in tabFrames) {
             if (isNaN(id)) {
                 return;
@@ -62,21 +45,15 @@ function prepopulateFrameSelect(tabId) {
     });
 }
 
-prepopulateTabSelect();
 prepopulateFrameSelect(tabId);
 
-// Tab was changed, load frames and reload table
-$("#tab").change(function(event) {
-    let tabId = event.target.value;
-    prepopulateFrameSelect(tabId);
-});
-
-// Frame was changed, show requested frame
+// Frame was changed, hide all tables
+// and display table for a requested frame
 $("#frame").change(function(event) {
     $(".resourceslist").hide();
+
     let frameId = event.target.value;
     $(".resourceslist[data-frameid='" + frameId + "']").css("display", "table");
-    console.log("frame change");
 });
 
 
@@ -237,6 +214,7 @@ function addRequestsToTables(frames) {
             // Create a row for each request
             var row = $("<tr>");
 
+            // Add a class according to the request's status
             if (reqTypeForElement(res.elType) === "selector") {
                 row.addClass("hiding");
             } else if (res.blockedData) {
@@ -247,33 +225,29 @@ function addRequestsToTables(frames) {
                 }
             }
 
-            // Cell 1: URL
-
-
-            // Cell 2: Type
+            // Cell 1: Type
             $("<td>").
             attr("data-column", "type").
-            //css("text-align", "center").
             text(translate("type" + reqTypeForElement(res.elType))).
             appendTo(row);
 
-            // Cell 3: Matching filter
+            // Cell 2: Matching filter
             var cell = $("<td>").
             attr("data-column", "filter").
             css("text-align", "left");
             if (res.blockedData && res.blockedData.text && res.blockedData.filterList) {
                 $("<span>").
-                text(truncateURI(res.blockedData.text)).
+                text(res.blockedData.text).
                 attr("title", translate("filterorigin", translate("filter" + res.blockedData.filterList))).
                 appendTo(cell);
             }
             row.append(cell);
 
-
+            // Cell 3: URL
             $("<td>").
             attr("title", res.url).
             attr("data-column", "url").
-            text(truncateURI(res.url)).
+            text(res.url).
             appendTo(row);
 
             // Cell 4: third-party or not
@@ -283,6 +257,7 @@ function addRequestsToTables(frames) {
             attr("data-column", "thirdparty").
             css("text-align", "center");
             row.append(cell);
+
             // Finally, append processed resource to the relevant table
             $("[data-href='" + frameObject.domain + "'] tbody").append(row);
         }
@@ -310,7 +285,7 @@ function addRequestsToTables(frames) {
     // Sort table to see, what was either blocked/whitelisted or hidden
     $("th[data-column='filter']").click();
 
-    // Finally, show us the tables!
+    // Finally, show us the main frame table
     $(".resourceslist[data-frameid='0']").css("display", "table");
 }
 
@@ -382,20 +357,4 @@ function sortTable() {
         var no = Number(item.match(/\d+$/)[0]) - 10000;
         $("tbody", table).append(rowList[no]);
     });
-}
-
-// Truncate long URIs
-function truncateURI(uri) {
-    return uri;
-    if (uri.length > 80) {
-        return uri.substring(0, 75) + "[...]";
-    }
-    return uri;
-}
-
-function truncateURIFrameURL(uri) {
-    if (uri.length > 80) {
-        return uri.substring(0, 75) + "[...]";
-    }
-    return uri;
 }
