@@ -112,6 +112,7 @@ BGcall("reset_matchCache", function(matchCache) {
                                 res.elType = resource.split(":|:")[0];
                                 res.url = resource.split(":|:")[1];
                                 res.frameDomain = resource.split(":|:")[2].replace("www.", "");
+                                res.time = resource.split(":|:")[3];
 
                                 if (res.elType !== "selector") {
                                     res.thirdParty = BlockingFilterSet.checkThirdParty(new parseURI(res.url).hostname, res.frameDomain);
@@ -239,13 +240,20 @@ function addRequestsToTables(frames) {
                 }
             }
 
-            // Cell 1: Type
+            console.log("Res: ", res);
+            // Cell 1: Time
+            $("<td>").
+            attr("data-column", "time").
+            text(res.time).
+            appendTo(row);
+
+            // Cell 2: Type
             $("<td>").
             attr("data-column", "type").
             text(translate("type" + reqTypeForElement(res.elType))).
             appendTo(row);
 
-            // Cell 2: Matching filter
+            // Cell 3: Matching filter
             var cell = $("<td>").
             attr("data-column", "filter").
             css("text-align", "left");
@@ -257,14 +265,14 @@ function addRequestsToTables(frames) {
             }
             row.append(cell);
 
-            // Cell 3: URL
+            // Cell 4: URL
             $("<td>").
             attr("title", res.url).
             attr("data-column", "url").
             text(res.url).
             appendTo(row);
 
-            // Cell 4: third-party or not
+            // Cell 5: third-party or not
             var cell = $("<td>").
             text(res.thirdParty ? translate("yes") : translate("no")).
             attr("title", translate("resourcedomain", res.frameDomain)).
@@ -291,13 +299,14 @@ function addRequestsToTables(frames) {
     $("#legend").fadeIn();
 
     // Enable table sorting
+    $("th[data-column='time']").click(sortTable);
     $("th[data-column='url']").click(sortTable);
     $("th[data-column='type']").click(sortTable);
     $("th[data-column='filter']").click(sortTable);
     $("th[data-column='thirdparty']").click(sortTable);
 
-    // Sort table to see, what was either blocked/whitelisted or hidden
-    $("th[data-column='filter']").click();
+    // Sort table according to time
+    $("th[data-column='time']").click();
 
     // Finally, show us the main frame table
     $(".resourceslist[data-frameid='0']").css("display", "table");
@@ -331,10 +340,11 @@ function createTable(domain, url, frameId) {
         "<table data-href=" + domain + " data-frameid=" + frameId + " class='resourceslist'>" +
         "<thead>" +
         "<tr>" +
+        "<th data-column='time'>" + "Time" + "<\/th>" +
         "<th data-column='type'>" + translate("headertype") + "<\/th>" +
-        "<th data-column='filter' style='text-align: center;'>" + translate("headerfilter") + "<\/th>" +
+        "<th data-column='filter'>" + translate("headerfilter") + "<\/th>" +
         "<th data-column='url'>" + translate("headerresource") + "<\/th>" +
-        "<th data-column='thirdparty' style='text-align: center;'>" + translate("thirdparty") + "<\/th>" +
+        "<th data-column='thirdparty'>" + translate("thirdparty") + "<\/th>" +
         "<\/tr>" +
         "<\/thead>" +
         "<tbody>" +

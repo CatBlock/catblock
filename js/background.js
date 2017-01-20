@@ -272,13 +272,16 @@ if (!SAFARI) {
         },
 
         // Save a resource for the resource blocker.
-        storeResource: function(tabId, frameId, url, elType, frameDomain) {
+        storeResource: function(tabId, frameId, url, elType, frameDomain, time) {
             if (!get_settings().show_advanced_options) {
                 return;
             }
             var data = frameData.get(tabId, frameId);
             if (data !== undefined) {
-                data.resources[elType + ":|:" + url + ":|:" + frameDomain] = null;
+                if (time !== "N/A") {
+                    time = new Date(time).toISOString().slice(11, -1);
+                }
+                data.resources[elType + ":|:" + url + ":|:" + frameDomain + ":|:" + time] = null;
             }
         },
 
@@ -293,6 +296,7 @@ if (!SAFARI) {
             return { cancel: false };
         }
 
+        console.log(details);
         // Convert punycode domain to Unicode - GH #472
         details.url = new parseURI(details.url).href;
 
@@ -302,6 +306,7 @@ if (!SAFARI) {
 
         var tabId = details.tabId;
         var reqType = details.type;
+        var time = details.timeStamp;
 
         var top_frame = frameData.get(tabId, 0);
         var sub_frame = (details.frameId !== 0 ? frameData.get(tabId, details.frameId) : null);
@@ -328,7 +333,7 @@ if (!SAFARI) {
         var frameDomain = frameData.get(tabId, requestingFrameId).domain;
         var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain);
 
-        frameData.storeResource(tabId, requestingFrameId, details.url, elType, frameDomain);
+        frameData.storeResource(tabId, requestingFrameId, details.url, elType, frameDomain, time);
 
         // Issue 7178
         if (blocked && frameDomain === "www.hulu.com") {
@@ -377,12 +382,13 @@ if (!SAFARI) {
         }
         var url = new parseURI(details.url).href;
         var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
+        var time = details.timeStamp;
         if (match) {
             chrome.tabs.remove(details.tabId);
             blockCounts.recordOneAdBlocked(details.sourceTabId);
             updateBadge(details.sourceTabId);
         }
-        frameData.storeResource(details.sourceTabId, details.sourceFrameId, url, ElementTypes.popup, opener.domain);
+        frameData.storeResource(details.sourceTabId, details.sourceFrameId, url, ElementTypes.popup, opener.domain, time);
     }
 
     // If tabId has been replaced by Chrome, delete it's data
@@ -420,7 +426,9 @@ function debug_report_elemhide(selector, matches, sender) {
         return;
     }
     var frameDomain = new parseURI(sender.url || sender.tab.url).hostname;
-    frameData.storeResource(sender.tab.id, sender.frameId || 0, selector, "selector", frameDomain);
+    var time = "N/A";
+
+    frameData.storeResource(sender.tab.id, sender.frameId || 0, selector, "selector", frameDomain, time);
 
     var data = frameData.get(sender.tab.id, sender.frameId || 0);
     if (data) {
