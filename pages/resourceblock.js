@@ -221,11 +221,6 @@ function addRequestsToTables(frames) {
         for (var resource in frameObject.resources) {
             var res = frameObject.resources[resource];
 
-            // Don't show main_frame resource, unless it's excluded by $document or $elemhide
-            if ((reqTypeForElement(res.elType) === "main_frame") && (!res.blockedData || !res.blockedData.blocked)) {
-                continue;
-            }
-
             // Create a row for each request
             var row = $("<tr>");
 
@@ -240,7 +235,6 @@ function addRequestsToTables(frames) {
                 }
             }
 
-            console.log("Res: ", res);
             // Cell 1: Time
             $("<td>").
             attr("data-column", "time").
@@ -328,11 +322,9 @@ function createTable(domain, url, frameId) {
     // Main frame table is always on top of the page
     if (frameId === "0") {
         elem = "#warning";
-        frameType = translate("topframe");
     } else {
         var len = document.querySelectorAll(".resourceslist").length;
         elem = document.querySelectorAll(".resourceslist")[len-1];
-        frameType = translate("subframe");
     }
 
     // Insert table to page
