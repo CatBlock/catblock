@@ -1164,8 +1164,20 @@ function launch_resourceblocker(query) {
 }
 
 // Get the frameData for the "Report an Ad" & "Resource" page
+// If tabId is null, return all tabIDs
+// If tabId is defined, return only the requested tab
 function get_frameData(tabId) {
-    return frameData.get(tabId);
+    if (!tabId) {
+        let tabs = {};
+        for (let tabId in frameData) {
+            if (!isNaN(tabId)) {
+                tabs[tabId] = frameData[tabId];
+            }
+        }
+        return tabs;
+    } else {
+        return frameData.get(tabId);
+    }
 }
 
 // Process requests from "Resource" page

@@ -27,6 +27,59 @@ function reqTypeForElement(elType) {
     }
 }
 
+function prepopulateTabSelect() {
+    BGcall("get_frameData", null, function(fdTabs) {
+        chrome.tabs.query({}, function(tabs) {
+            for (let tab of tabs) {
+                for (let id in fdTabs) {
+                    if (fdTabs[id][0].url === tab.url) {
+                        $("#tab").append($("<option>", { value: id, text: tab.title }));
+                        break;
+                    }
+                }
+            }
+            $("#tab").val(tabId); // |tabId| is defined globally
+        });
+    });
+}
+
+function prepopulateFrameSelect(tabId) {
+    // Remove all frame options
+    $("#frame").find("option").remove();
+
+    BGcall("get_frameData", tabId, function(tabFrames) {
+        console.log("tab info is: ", tab);
+        for (let id in tabFrames) {
+            if (isNaN(id)) {
+                return;
+            }
+            if (id === "0") {
+                $("#frame").append($("<option>", { value: id, text: "Main frame" }));
+            } else {
+                $("#frame").append($("<option>", { value: id, text: tabFrames[id].url }));
+            }
+        }
+    });
+}
+
+prepopulateTabSelect();
+prepopulateFrameSelect(tabId);
+
+// Tab was changed, load frames and reload table
+$("#tab").change(function(event) {
+    let tabId = event.target.value;
+    prepopulateFrameSelect(tabId);
+});
+
+// Frame was changed, show requested frame
+$("#frame").change(function(event) {
+    $(".resourceslist").hide();
+    let frameId = event.target.value;
+    $(".resourceslist[data-frameid='" + frameId + "']").css("display", "table");
+    console.log("frame change");
+});
+
+
 // Reset cache for getting matched filter text properly
 BGcall("reset_matchCache", function(matchCache) {
     // Get frameData object
@@ -195,23 +248,19 @@ function addRequestsToTables(frames) {
             }
 
             // Cell 1: URL
-            $("<td>").
-            attr("title", res.url).
-            attr("data-column", "url").
-            text(truncateURI(res.url)).
-            appendTo(row);
+
 
             // Cell 2: Type
             $("<td>").
             attr("data-column", "type").
-            css("text-align", "center").
+            //css("text-align", "center").
             text(translate("type" + reqTypeForElement(res.elType))).
             appendTo(row);
 
             // Cell 3: Matching filter
             var cell = $("<td>").
             attr("data-column", "filter").
-            css("text-align", "center");
+            css("text-align", "left");
             if (res.blockedData && res.blockedData.text && res.blockedData.filterList) {
                 $("<span>").
                 text(truncateURI(res.blockedData.text)).
@@ -220,6 +269,13 @@ function addRequestsToTables(frames) {
             }
             row.append(cell);
 
+
+            $("<td>").
+            attr("title", res.url).
+            attr("data-column", "url").
+            text(truncateURI(res.url)).
+            appendTo(row);
+
             // Cell 4: third-party or not
             var cell = $("<td>").
             text(res.thirdParty ? translate("yes") : translate("no")).
@@ -227,7 +283,6 @@ function addRequestsToTables(frames) {
             attr("data-column", "thirdparty").
             css("text-align", "center");
             row.append(cell);
-
             // Finally, append processed resource to the relevant table
             $("[data-href='" + frameObject.domain + "'] tbody").append(row);
         }
@@ -256,7 +311,7 @@ function addRequestsToTables(frames) {
     $("th[data-column='filter']").click();
 
     // Finally, show us the tables!
-    $("table").fadeIn();
+    $(".resourceslist[data-frameid='0']").css("display", "table");
 }
 
 // Create a new table for frame
@@ -274,7 +329,7 @@ function createTable(domain, url, frameId) {
 
     // Main frame table is always on top of the page
     if (frameId === "0") {
-        elem = "#legend";
+        elem = "#frameselect";
         frameType = translate("topframe");
     } else {
         var len = document.querySelectorAll(".resourceslist").length;
@@ -285,30 +340,16 @@ function createTable(domain, url, frameId) {
     // Insert table to page
     $(elem).after(
         "<table data-href=" + domain + " data-frameid=" + frameId + " class='resourceslist'>" +
-            "<thead>" +
-                "<tr>" +
-                    "<th class='frametype'>" + translate("frametype") + frameType + "<\/th>" +
-                "<\/tr>" +
-                "<tr>" +
-                    "<th class='framedomain'>" + translate("framedomain") + domain + "<\/th>" +
-                "<\/tr>" +
-                "<tr>" +
-                    "<th class='frameurl' title='" + decodeURIComponent(url) + "'>" +
-                        translate("frameurl") + truncateURI(url) +
-                    "<\/th>" +
-                "<\/tr>" +
-                "<tr>" +
-                    "<th style='height: 10px;'></th>" +
-                "<\/tr>" +
-                "<tr>" +
-                    "<th data-column='url'>" + translate("headerresource") + "<\/th>" +
-                    "<th data-column='type'>" + translate("headertype") + "<\/th>" +
-                    "<th data-column='filter' style='text-align: center;'>" + translate("headerfilter") + "<\/th>" +
-                    "<th data-column='thirdparty' style='text-align: center;'>" + translate("thirdparty") + "<\/th>" +
-                "<\/tr>" +
-            "<\/thead>" +
-            "<tbody>" +
-            "<\/tbody>" +
+        "<thead>" +
+        "<tr>" +
+        "<th data-column='type'>" + translate("headertype") + "<\/th>" +
+        "<th data-column='filter' style='text-align: center;'>" + translate("headerfilter") + "<\/th>" +
+        "<th data-column='url'>" + translate("headerresource") + "<\/th>" +
+        "<th data-column='thirdparty' style='text-align: center;'>" + translate("thirdparty") + "<\/th>" +
+        "<\/tr>" +
+        "<\/thead>" +
+        "<tbody>" +
+        "<\/tbody>" +
         "<\/table>"
     );
 }
@@ -345,6 +386,14 @@ function sortTable() {
 
 // Truncate long URIs
 function truncateURI(uri) {
+    return uri;
+    if (uri.length > 80) {
+        return uri.substring(0, 75) + "[...]";
+    }
+    return uri;
+}
+
+function truncateURIFrameURL(uri) {
     if (uri.length > 80) {
         return uri.substring(0, 75) + "[...]";
     }

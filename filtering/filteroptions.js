@@ -32,6 +32,10 @@ ElementTypes.fromOnBeforeRequestType = function(type) {
             // See http://src.chromium.org/viewvc/chrome/trunk/src/webkit/glue/resource_type.h?view=markup
             // for what 'other' includes
         case "other": return ElementTypes.other;
+            // Retype "font" request to "other"
+        case "font": return ElementTypes.other;
+            // Retype "ping" request to "xmlhttprequest"
+        case "ping": return ElementTypes.xmlhttprequest;
         default: return ElementTypes[type];
     }
 };

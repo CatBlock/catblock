@@ -1,3 +1,17 @@
+td {
+    border: 1px solid #ccc;
+    min-width: 0.5em;
+    padding: 3px;
+    vertical-align: top;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+th {
+    border: 1px solid #ccc;
+}
 body {
     background-color: white;
     font-size: 12px;
@@ -20,7 +34,7 @@ th {
 }
 #legend {
     min-width: 1195px;
-    margin: 118px auto 20px auto;
+    margin: 80px auto 15px auto;
     text-align: center;
     display: none;
 }
@@ -28,9 +42,9 @@ th {
     padding: 11px 24px;
 }
 .resourceslist {
-    position: relative;
     margin: 0 auto 20px auto;
-    min-width: 1195px;
+    max-width: 1195px;
+    width: 100%;
 }
 .loader {
     display: block;
@@ -49,19 +63,39 @@ th[data-column="url"] {
     cursor: pointer;
 }
 th[data-column="type"] {
-    width: 100px;
     cursor: pointer;
 }
+td[data-column="type"] {
+    text-align: left;
+    width: 100px;
+}
 th[data-column="filter"] {
-    width: 290px;
     cursor: pointer;
 }
 th[data-column="thirdparty"] {
-    width: 100px;
     cursor: pointer;
 }
+td[data-column="thirdparty"] {
+    text-align: center;
+    width: 60px;
+}
+
 td[data-column="url"] {
-    padding-left: 25px;
+    /* padding-left: 25px; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
+    /* word-wrap: normal; */
+    /* word-break: normal; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 350px;
+}
+td[data-column="filter"] {
+    width: 200px;
 }
 .blocked {
     color: red;
@@ -71,4 +105,18 @@ td[data-column="url"] {
 }
 .hiding {
     color: blue;
+}
+tbody {
+    width:100%;
+}
+#tabselect, #frameselect {
+    margin: 0 auto;
+    max-width: 1195px;
+}
+#frameselect {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+#tab, #frame {
+    max-width: 400px;
 }
