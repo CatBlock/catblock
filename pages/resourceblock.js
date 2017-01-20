@@ -53,7 +53,14 @@ $("#frame").change(function(event) {
     $(".resourceslist").hide();
 
     let frameId = event.target.value;
-    $(".resourceslist[data-frameid='" + frameId + "']").css("display", "table");
+    let selector = document.querySelector(".resourceslist[data-frameid='" + frameId + "']")
+
+    if (!selector) {
+        $("#warning").fadeIn();
+    } else {
+        $("#warning").hide();
+        $(".resourceslist[data-frameid='" + frameId + "']").css("display", "table");
+    }
 });
 
 
@@ -199,6 +206,13 @@ function addRequestsToTables(frames) {
             continue;
         }
 
+        var resLength = Object.keys(frameObject.resources).length;
+
+        // Don't create a table with 0 requests
+        if (resLength === 0) {
+            continue;
+        }
+
         // Create a table for each frame
         createTable(frameObject.domain, frameObject.url, frame);
 
@@ -304,7 +318,7 @@ function createTable(domain, url, frameId) {
 
     // Main frame table is always on top of the page
     if (frameId === "0") {
-        elem = "#frameselect";
+        elem = "#warning";
         frameType = translate("topframe");
     } else {
         var len = document.querySelectorAll(".resourceslist").length;
