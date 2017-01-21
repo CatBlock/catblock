@@ -22,9 +22,17 @@ body {
     max-width: 1195px;
     margin-top: 10px;
     margin-bottom: 20px;
+    display: none;
 }
 #frame {
     max-width: 400px;
+}
+#searchresources {
+    margin: 0 auto;
+    max-width: 1195px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: none;
 }
 #warning {
     margin: 0 auto;
@@ -81,9 +89,6 @@ td[data-column="filter"] {
     text-align: center;
 }
 td[data-column="url"] {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     max-width: 350px;
 }
 td[data-column="thirdparty"] {

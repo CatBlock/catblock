@@ -27,6 +27,7 @@ function reqTypeForElement(elType) {
     }
 }
 
+// Fill in frame URLs into frame selector
 function prepopulateFrameSelect(tabId) {
     // Remove all frame options
     $("#frame").find("option").remove();
@@ -44,12 +45,12 @@ function prepopulateFrameSelect(tabId) {
         }
     });
 }
-
 prepopulateFrameSelect(tabId);
 
 // Frame was changed, hide all tables
 // and display table for a requested frame
 $("#frame").change(function(event) {
+    $("#search").val("");
     $(".resourceslist").hide();
 
     let frameId = event.target.value;
@@ -63,6 +64,18 @@ $("#frame").change(function(event) {
     }
 });
 
+// Resources search handler
+$("#search").on("input", function() {
+   let value = $("#search").val();
+
+    $(".resourceslist:visible").find("td[data-column='url']").each(function(index, elem) {
+        if (elem.innerText.indexOf(value) === -1) {
+            $(elem.parentElement).hide();
+        } else {
+            $(elem.parentElement).show();
+        }
+    });
+});
 
 // Reset cache for getting matched filter text properly
 BGcall("reset_matchCache", function(matchCache) {
@@ -269,8 +282,7 @@ function addRequestsToTables(frames) {
             var cell = $("<td>").
             text(res.thirdParty ? translate("yes") : translate("no")).
             attr("title", translate("resourcedomain", res.frameDomain)).
-            attr("data-column", "thirdparty").
-            css("text-align", "center");
+            attr("data-column", "thirdparty");
             row.append(cell);
 
             // Finally, append processed resource to the relevant table
@@ -302,6 +314,7 @@ function addRequestsToTables(frames) {
     $("th[data-column='time']").click();
 
     // Finally, show us the main frame table
+    $("#frameselect, #searchresources").fadeIn();
     $(".resourceslist[data-frameid='0']").css("display", "table");
 }
 
