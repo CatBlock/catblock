@@ -47,17 +47,6 @@ tbody {
 th {
     border: 1px solid #ccc;
     font-weight: 500;
-}
-th[data-column="type"] {
-    cursor: pointer;
-}
-th[data-column="filter"] {
-    cursor: pointer;
-}
-th[data-column="url"] {
-    cursor: pointer;
-}
-th[data-column="thirdparty"] {
     cursor: pointer;
 }
 .framedomain, .frameurl, .frametype {
@@ -81,13 +70,14 @@ td {
 }
 td[data-column="time"] {
     width: 75px;
+    text-align: center;
 }
 td[data-column="type"] {
     text-align: center;
     max-width: 45px;
 }
 td[data-column="filter"] {
-    max-width: 150px;
+    max-width: 100px;
     text-align: center;
 }
 td[data-column="url"] {

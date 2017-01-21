@@ -249,8 +249,7 @@ function addRequestsToTables(frames) {
 
             // Cell 3: Matching filter
             var cell = $("<td>").
-            attr("data-column", "filter").
-            css("text-align", "left");
+            attr("data-column", "filter");
             if (res.blockedData && res.blockedData.text && res.blockedData.filterList) {
                 $("<span>").
                 text(res.blockedData.text).
