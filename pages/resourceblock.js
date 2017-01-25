@@ -15,12 +15,12 @@ function reqTypeForElement(elType) {
         case 4:    return "background";
         case 8:    return "stylesheet";
         case 16:   return "object";
-        case 32:   return "sub_frame";
-        case 64:   return "object_subrequest";
+        case 32:   return "subdocument";
+        case 64:   return "object-subrequest";
         case 128:  return "media";
         case 256:  return "other";
         case 512:  return "xmlhttprequest";
-        case 1024: return "main_frame";
+        case 1024: return "document";
         case 2048: return "elemhide";
         case 4096: return "popup";
         default:   return "selector";
@@ -257,7 +257,7 @@ function addRequestsToTables(frames) {
             // Cell 2: Type
             $("<td>").
             attr("data-column", "type").
-            text(translate("type" + reqTypeForElement(res.elType))).
+            text(reqTypeForElement(res.elType)).
             appendTo(row);
 
             // Cell 3: Matching filter
