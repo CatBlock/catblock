@@ -4,18 +4,18 @@ var abConfirm = window.confirm;
 
 // Return the ElementType element type of the given element.
 function typeForElement(el) {
-    // TODO: handle background images that aren"t just the BODY.
+    // TODO: handle background images that aren't just the BODY.
     switch (el.nodeName.toUpperCase()) {
+        case "IMG":
         case "INPUT":
-        case "IMG": return ElementTypes.image;
-        case "SCRIPT": return ElementTypes.script;
-        case "OBJECT":
-        case "EMBED": return ElementTypes.object;
-        case "VIDEO":
+        case "PICTURE": return ElementTypes.image;
         case "AUDIO":
-        case "SOURCE": return ElementTypes.media;
+        case "VIDEO": return ElementTypes.media;
+        case "SCRIPT": return ElementTypes.script;
         case "FRAME":
         case "IFRAME": return ElementTypes.subdocument;
+        case "OBJECT":
+        case "EMBED": return ElementTypes.object;
         case "LINK":
             // favicons are reported as 'other' by onBeforeRequest.
             // if this is changed, we should update this too.
@@ -23,7 +23,7 @@ function typeForElement(el) {
                 return ElementTypes.other;
             }
             return ElementTypes.stylesheet;
-        case "BODY": return ElementTypes.background;
+        case "BODY": return ElementTypes.image;
         default: return ElementTypes.NONE;
     }
 }

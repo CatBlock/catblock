@@ -23,7 +23,7 @@ function blockBackgroundImageAd() {
 // Remove background images and purged elements.
 // Return true if the element has been handled.
 function weakDestroyElement(el, elType) {
-    if (elType & ElementTypes.background) {
+    if (elType & ElementTypes.image) {
         el.style.setProperty("background-image", "none", "important");
         return true;
     } else if (elType === ElementTypes.script) {

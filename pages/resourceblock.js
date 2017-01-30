@@ -12,17 +12,17 @@ function reqTypeForElement(elType) {
     switch (parseInt(elType)) {
         case 1:    return "script";
         case 2:    return "image";
-        case 4:    return "background";
-        case 8:    return "stylesheet";
-        case 16:   return "object";
-        case 32:   return "subdocument";
-        case 64:   return "object-subrequest";
-        case 128:  return "media";
-        case 256:  return "other";
-        case 512:  return "xmlhttprequest";
-        case 1024: return "document";
-        case 2048: return "elemhide";
-        case 4096: return "popup";
+        case 4:    return "stylesheet";
+        case 8:    return "object";
+        case 16:   return "subdocument";
+        case 32:   return "object_subrequest";
+        case 64:   return "other";
+        case 128:  return "xmlhttprequest";
+        case 256:  return "document";
+        case 512:  return "elemhide";
+        case 1024: return "popup";
+        case 2048: return "ping";
+        case 4096: return "media";
         default:   return "selector";
     }
 }

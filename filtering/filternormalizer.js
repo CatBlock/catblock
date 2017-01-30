@@ -111,7 +111,7 @@ var FilterNormalizer = {
             var whitelistOptions = (ElementTypes.document | ElementTypes.elemhide);
             var hasWhitelistOptions = types & whitelistOptions;
             if (!Filter.isWhitelistFilter(filter) && hasWhitelistOptions) {
-                throw new Error("$document and $elemhide may only be used on whitelist filters");
+                throw new Error("$document, $elemhide, $genericblock and $generichide may only be used on whitelist filters");
             }
 
             // We are ignoring Hulu whitelist filter, so user won't see ads in videos

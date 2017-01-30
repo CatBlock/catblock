@@ -199,11 +199,6 @@ class PatternFilter extends Filter {
                 option = "object";
             }
 
-            // "background" is a synonym for "image".
-            if (option === "background") {
-                option = "image";
-            }
-
             if (option in ElementTypes) { // this option is a known element type
                 if (inverted) {
                     if (allowedElementTypes === undefined) {
