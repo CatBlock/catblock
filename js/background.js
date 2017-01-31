@@ -275,6 +275,9 @@ if (!SAFARI) {
         storeResource: function(details) {
             var data = frameData.get(details.tabId, details.frameId);
             if (data !== undefined) {
+                // Used by Ad-report page
+                data.resources[details.elType + ":|:" + details.url + ":|:" + details.frameDomain] = null;
+                // Used by Resource viewer page
                 let time = new Date(details.time).toISOString().slice(11, -1);
                 let dataToSend = {
                     tabId: details.tabId,
