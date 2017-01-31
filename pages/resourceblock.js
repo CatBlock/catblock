@@ -27,43 +27,6 @@ function reqTypeForElement(elType) {
     }
 }
 
-// Fill in frame URLs into frame selector
-function prepopulateFrameSelect(tabId) {
-    // Remove all frame options
-    $("#frame").find("option").remove();
-
-    BGcall("get_frameData", tabId, function(tabFrames) {
-        for (let id in tabFrames) {
-            if (isNaN(id)) {
-                return;
-            }
-            if (id === "0") {
-                $("#frame").append($("<option>", { value: id, text: "Main frame" }));
-            } else {
-                $("#frame").append($("<option>", { value: id, text: tabFrames[id].url }));
-            }
-        }
-    });
-}
-prepopulateFrameSelect(tabId);
-
-// Frame was changed, hide all tables
-// and display table for a requested frame
-$("#frame").change(function(event) {
-    $("#search").val("");
-    $(".resourceslist").hide();
-
-    let frameId = event.target.value;
-    let selector = document.querySelector(".resourceslist[data-frameid='" + frameId + "']")
-
-    if (!selector) {
-        $("#warning").fadeIn();
-    } else {
-        $("#warning").hide();
-        $(".resourceslist[data-frameid='" + frameId + "']").css("display", "table");
-    }
-});
-
 // Resources search handler
 $("#search").on("input", function() {
    let value = $("#search").val();
@@ -212,6 +175,10 @@ BGcall("reset_matchCache", function(matchCache) {
 
 // Process each request and add it to table
 function addRequestsToTables(frames) {
+
+    // Create a table for each frame
+    createTable(frames[0].url);
+
     for (var frame in frames) {
         var frameObject = frames[frame];
 
@@ -226,9 +193,6 @@ function addRequestsToTables(frames) {
         if (resLength === 0) {
             continue;
         }
-
-        // Create a table for each frame
-        createTable(frameObject.domain, frameObject.url, frame);
 
         // Process each request
         for (var resource in frameObject.resources) {
@@ -286,7 +250,7 @@ function addRequestsToTables(frames) {
             row.append(cell);
 
             // Finally, append processed resource to the relevant table
-            $("[data-href='" + frameObject.domain + "'] tbody").append(row);
+            $("table > tbody").append(row);
         }
     }
 
@@ -313,35 +277,16 @@ function addRequestsToTables(frames) {
     // Sort table according to time
     $("th[data-column='time']").click();
 
-    // Finally, show us the main frame table
-    $("#frameselect, #searchresources").fadeIn();
-    $(".resourceslist[data-frameid='0']").css("display", "table");
+    // Finally, show us the table
+    $("#searchresources").fadeIn();
+    $(".resourceslist").css("display", "table");
 }
 
-// Create a new table for frame
-function createTable(domain, url, frameId) {
-    var elem = null, frameType = null, frameUrls = $(".frameurl");
-
-    // Don't create another table with the same url,
-    // when we've already created one
-    for (var i=0; i<frameUrls.length; i++) {
-        var frameUrl = frameUrls[i].title;
-        if (url === frameUrl) {
-            return;
-        }
-    }
-
-    // Main frame table is always on top of the page
-    if (frameId === "0") {
-        elem = "#warning";
-    } else {
-        var len = document.querySelectorAll(".resourceslist").length;
-        elem = document.querySelectorAll(".resourceslist")[len-1];
-    }
-
+// Create a new table for a given topframe url
+function createTable(url) {
     // Insert table to page
-    $(elem).after(
-        "<table data-href=" + domain + " data-frameid=" + frameId + " class='resourceslist'>" +
+    $("#searchresources").after(
+        "<table data-href=" + url + " class='resourceslist'>" +
         "<thead>" +
         "<tr>" +
         "<th data-column='time'>" + "Time" + "<\/th>" +
