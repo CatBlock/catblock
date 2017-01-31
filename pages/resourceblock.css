@@ -26,7 +26,6 @@ body {
 }
 table {
     box-shadow: 0 0 5px rgba(0, 0, 0, .15);
-    background: #F1F1F1;
     border-collapse: collapse;
     cursor: default;
     display: none;
@@ -41,6 +40,7 @@ th {
     border: 1px solid #ccc;
     font-weight: 500;
     cursor: pointer;
+    background: #F1F1F1;
 }
 .framedomain, .frameurl, .frametype {
     text-align: left;
@@ -86,11 +86,11 @@ td[data-column="thirdparty"] {
     height: 25px;
 }
 .blocked {
-    color: red;
+    background: rgba(255, 0, 0, 0.1);
 }
 .whitelisted {
-    color: green;
+    background: rgba(0, 128, 0, 0.2);
 }
 .hiding {
-    color: blue;
+    background: rgba(51, 122, 183, 0.1);
 }

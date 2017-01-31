@@ -263,6 +263,26 @@ function addRequestToTable(request) {
     $("table[data-tabid='" + request.tabId + "']").prepend(row);
 }
 
+// When new tab gets opened, create a table for it
+// and add it to the tab selector
+chrome.tabs.onCreated.addListener(function(tab) {
+    createTable(tab.id);
+    $("#tab").append($("<option>", { value: tab.id, text: tab.title }));
+});
+
+// When title was updated, update it in tab selector as well
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
+    if (changeInfo.title) {
+        $("option[value='" + tabId + "']").text(changeInfo.title);
+    }
+});
+
+// When a tab gets closed, remove it from tab selector
+chrome.tabs.onRemoved.addListener(function(tabId) {
+    $("option[value='" + tabId + "']").remove();
+    $("#tab").change();
+});
+
 // Remove loading icon
 $(".loader").fadeOut();
 
