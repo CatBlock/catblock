@@ -278,9 +278,7 @@ if (!SAFARI) {
             }
             var data = frameData.get(tabId, frameId);
             if (data !== undefined) {
-                if (time !== "N/A") {
-                    time = new Date(time).toISOString().slice(11, -1);
-                }
+                time = new Date(time).toISOString().slice(11, -1);
                 data.resources[elType + ":|:" + url + ":|:" + frameDomain + ":|:" + time] = null;
             }
         },
@@ -426,7 +424,7 @@ function debug_report_elemhide(selector, matches, sender) {
         return;
     }
     var frameDomain = new parseURI(sender.url || sender.tab.url).hostname;
-    var time = "N/A";
+    var time = Date.now();
 
     frameData.storeResource(sender.tab.id, sender.frameId || 0, selector, "selector", frameDomain, time);
 
