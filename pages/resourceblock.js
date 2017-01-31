@@ -11,6 +11,12 @@ tabId = parseInt(tabId);
 $("#tab").on("change", function(event) {
     var tabId = event.target.value;
     showTable(tabId);
+
+    if (tabId === "0") {
+        $("#reload").prop("disabled", true);
+    } else {
+        $("#reload").prop("disabled", false);
+    }
 });
 
 // Resources search handler
@@ -60,6 +66,7 @@ function prepopulateTabSelect(tabId) {
     $("#tab").find("option").remove();
 
     chrome.tabs.query({}, function(tabs) {
+        // Create an option for every tab
         for (let tab of tabs) {
             if (tab.url === document.location.href) {
                 continue;
@@ -67,6 +74,11 @@ function prepopulateTabSelect(tabId) {
             createTable(tab.id);
             $("#tab").append($("<option>", { value: tab.id, text: tab.title }));
         }
+
+        // Append a table, where ALL requests will be visible from ALL pages
+        $("#tab").prepend($("<option>", { value: 0, text: "All requests" }));
+        createTable(0);
+
         // Select tab
         $("#tab").val(tabId);
         $("#tab").change();
@@ -260,7 +272,8 @@ function addRequestToTable(request) {
     row.append(cell);
 
     // Finally, append processed resource to the relevant table
-    $("table[data-tabid='" + request.tabId + "']").prepend(row);
+    // and to the ALL requests table
+    $("table[data-tabid='" + request.tabId + "'], table[data-tabid='0']").prepend(row);
 }
 
 // When new tab gets opened, create a table for it

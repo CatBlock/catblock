@@ -273,13 +273,10 @@ if (!SAFARI) {
 
         // Save a resource for the resource blocker.
         storeResource: function(details) {
-            if (!get_settings().show_advanced_options) {
-                return;
-            }
             var data = frameData.get(details.tabId, details.frameId);
             if (data !== undefined) {
-                time = new Date(details.time).toISOString().slice(11, -1);
-                data.resources[details.url] = {
+                let time = new Date(details.time).toISOString().slice(11, -1);
+                let dataToSend = {
                     tabId: details.tabId,
                     frameId: details.frameId,
                     url: details.url,
@@ -288,7 +285,7 @@ if (!SAFARI) {
                     time: time,
                     matchData: details.matchData
                 }
-                chrome.runtime.sendMessage({ command: "send-request", data: data.resources[details.url] });
+                chrome.runtime.sendMessage({ command: "send-request", data: dataToSend });
             }
         },
 
@@ -340,17 +337,19 @@ if (!SAFARI) {
         var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain);
         var blocked = blockedData.blocked;
 
-        var data = {
-            tabId: tabId,
-            frameId: details.frameId,
-            url: details.url,
-            elType: elType,
-            frameDomain: frameDomain,
-            time: details.timeStamp,
-            matchData: blockedData
-        };
+        if (get_settings().show_advanced_options) {
+            var data = {
+                tabId: tabId,
+                frameId: details.frameId,
+                url: details.url,
+                elType: elType,
+                frameDomain: frameDomain,
+                time: details.timeStamp,
+                matchData: blockedData
+            };
 
-        frameData.storeResource(data);
+            frameData.storeResource(data);
+        }
 
         // Issue 7178
         if (blocked && frameDomain === "www.hulu.com") {
@@ -409,17 +408,19 @@ if (!SAFARI) {
             updateBadge(details.sourceTabId);
         }
 
-        var data = {
-            tabId: details.sourceTabId,
-            frameId: details.sourceFrameId,
-            url: url,
-            elType: ElementTypes.popup,
-            frameDomain: opener.domain,
-            time: details.timeStamp,
-            matchData: matchData
-        };
+        if (get_settings().show_advanced_options) {
+            var data = {
+                tabId: details.sourceTabId,
+                frameId: details.sourceFrameId,
+                url: url,
+                elType: ElementTypes.popup,
+                frameDomain: opener.domain,
+                time: details.timeStamp,
+                matchData: matchData
+            };
 
-        frameData.storeResource(data);
+            frameData.storeResource(data);
+        }
     }
 
     // If tabId has been replaced by Chrome, delete it's data
@@ -457,22 +458,24 @@ function debug_report_elemhide(selector, matches, sender) {
         return;
     }
 
-    var frameDomain = new parseURI(sender.url || sender.tab.url).hostname;
+    if (get_settings().show_advanced_options) {
+        var frameDomain = new parseURI(sender.url || sender.tab.url).hostname;
 
-    var data = {
-        tabId: sender.tab.id,
-        frameId: sender.frameId || 0,
-        url: selector,
-        elType: "selector",
-        frameDomain: frameDomain,
-        time: Date.now(),
-        matchData: {
-            blocked: true,
-            text: selector
-        }
-    };
+        var data = {
+            tabId: sender.tab.id,
+            frameId: sender.frameId || 0,
+            url: selector,
+            elType: "selector",
+            frameDomain: frameDomain,
+            time: Date.now(),
+            matchData: {
+                blocked: true,
+                text: selector
+            }
+        };
 
-    frameData.storeResource(data);
+        frameData.storeResource(data);
+    }
 
     var data = frameData.get(sender.tab.id, sender.frameId || 0);
     if (data) {
@@ -1218,39 +1221,6 @@ function launch_resourceblocker(query) {
 // Get the frameData for the "Report an Ad" & "Resource" page
 function get_frameData(tabId) {
     return frameData.get(tabId);
-}
-
-// Process requests from "Resource" page
-// Determine, whether requests have been whitelisted/blocked
-function process_frameData(fd) {
-    for (var frameId in fd) {
-        var frame = fd[frameId];
-        var frameResources = frame.resources;
-        for (var resource in frameResources) {
-            var res = frameResources[resource];
-            // We are processing selectors in resource viewer page
-            if (res.elType === "selector") {
-                continue;
-            }
-            res.blockedData = _myfilters.blocking.matches(res.url, res.elType, res.frameDomain);
-        }
-    }
-    return fd;
-}
-
-// Add previously cached requests to matchCache
-// Used by "Resource" page
-function add_to_matchCache(cache) {
-    _myfilters.blocking._matchCache = cache;
-}
-
-// Reset matchCache
-// Used by "Resource" page
-// Returns: object with cached requests
-function reset_matchCache() {
-    var matchCache = _myfilters.blocking._matchCache;
-    _myfilters.blocking._matchCache = {};
-    return matchCache;
 }
 
 // Return chrome.i18n._getL10nData() for content scripts who cannot
