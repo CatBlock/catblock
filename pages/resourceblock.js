@@ -7,6 +7,12 @@ $("body").fadeIn();
 var tabId = parseURI.parseSearch(document.location.href).tabId;
 tabId = parseInt(tabId);
 
+// Tab was changed, load frames and reload table
+$("#tab").on("change", function(event) {
+    var tabId = event.target.value;
+    showTable(tabId);
+});
+
 // Resources search handler
 $("#search").on("input", function() {
     let value = $("#search").val();
@@ -20,10 +26,12 @@ $("#search").on("input", function() {
     });
 });
 
-// Tab was changed, load frames and reload table
-$("#tab").on("change", function(event) {
-    var tabId = event.target.value;
-    showTable(tabId);
+// Reload desired tab
+$("#reload").on("click", function() {
+    let tabId = $("#tab").val();
+    tabId = parseInt(tabId);
+
+    chrome.tabs.reload(tabId);
 });
 
 // Convert element type to request type
