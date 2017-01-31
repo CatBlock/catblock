@@ -27,6 +27,64 @@ function reqTypeForElement(elType) {
     }
 }
 
+// Tab was changed, load frames and reload table
+$("#tab").on("change", function(event) {
+    var tabId = event.target.value;
+    showTable(tabId);
+});
+
+// Fill in frame URLs into frame selector
+function prepopulateTabSelect(tabId) {
+    // Remove all frame options
+    $("#tab").find("option").remove();
+
+    chrome.tabs.query({}, function(tabs) {
+        for (let tab of tabs) {
+            if (tab.url === document.location.href) {
+                continue;
+            }
+            createTable(tab.id);
+            $("#tab").append($("<option>", { value: tab.id, text: tab.title }));
+        }
+        // Select tab
+        $("#tab").val(tabId);
+        $("#tab").change();
+    });
+}
+prepopulateTabSelect(tabId);
+
+// Create a new table for a given tabId
+function createTable(id) {
+    let table = document.querySelector("table[data-tabid='" + id + "']");
+
+    if (table) {
+        return;
+    }
+
+    // Insert table to page
+    $("#searchresources").after(
+        "<table data-tabid=" + id + " class='resourceslist'>" +
+        "<thead>" +
+        "<tr>" +
+        "<th data-column='time'>" + "Time" + "<\/th>" +
+        "<th data-column='type'>" + translate("headertype") + "<\/th>" +
+        "<th data-column='filter'>" + translate("headerfilter") + "<\/th>" +
+        "<th data-column='url'>" + translate("headerresource") + "<\/th>" +
+        "<th data-column='thirdparty'>" + translate("thirdparty") + "<\/th>" +
+        "<\/tr>" +
+        "<\/thead>" +
+        "<tbody>" +
+        "<\/tbody>" +
+        "<\/table>"
+    );
+}
+
+// Hide all tables and display only the desired one
+function showTable(tabId) {
+    $("table").hide();
+    $("table[data-tabid='" + tabId + "']").css("display", "table");
+}
+
 // Resources search handler
 $("#search").on("input", function() {
     let value = $("#search").val();
@@ -77,7 +135,7 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
 
                 //console.log("Request: ", request.data);
 
-                createTable(request.data.tabId);
+                //createTable(request.data.tabId);
 
                 // Find out, where the particular filter comes from
                 var filter = request.data.matchData.text;
@@ -121,12 +179,13 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
                                     if ((filter.split("##")[0] === "" && filter === request.data.url) ||
                                         filter.split("##")[0].indexOf(request.data.frameDomain) > -1) {
                                         // Shorten lengthy selector filters
+                                        console.log("FILTER: ", filter);
                                         if (filter.split("##")[0] !== "") {
                                             filter = request.data.frameDomain + request.data.url;
                                         }
                                         //res.blockedData = {};
                                         request.data.matchData.filterList = filterList;
-                                        //res.blockedData.text = filter;
+                                        request.data.matchData.text = filter;
                                         //res.frameUrl = frame.url;
                                         break;
                                     }
@@ -205,34 +264,6 @@ function addRequestToTable(request) {
     $("table[data-tabid='" + request.tabId + "']").prepend(row);
 }
 
-// Create a new table for a given tabId
-function createTable(tabId) {
-    let table = document.querySelector("table[data-tabid='" + tabId + "']");
-
-    if (table) {
-        return;
-    }
-
-    // Insert table to page
-    $("#searchresources").after(
-        "<table data-tabid=" + tabId + " class='resourceslist'>" +
-        "<thead>" +
-        "<tr>" +
-        "<th data-column='time'>" + "Time" + "<\/th>" +
-        "<th data-column='type'>" + translate("headertype") + "<\/th>" +
-        "<th data-column='filter'>" + translate("headerfilter") + "<\/th>" +
-        "<th data-column='url'>" + translate("headerresource") + "<\/th>" +
-        "<th data-column='thirdparty'>" + translate("thirdparty") + "<\/th>" +
-        "<\/tr>" +
-        "<\/thead>" +
-        "<tbody>" +
-        "<\/tbody>" +
-        "<\/table>"
-    );
-
-    $("table[data-tabid='" + tabId + "']").css("display", "table");
-}
-
 // Remove loading icon
 $(".loader").fadeOut();
 
@@ -244,5 +275,4 @@ $("span.whitelisted").text(translate("whitelistedresource"));
 $("span.hiding").text(translate("hiddenelement"));
 
 // Show us the legend and search
-$("#legend").fadeIn();
-$("#searchresources").fadeIn();
+$("#legend, #tabselect, #searchresources").fadeIn();
