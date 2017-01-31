@@ -272,14 +272,23 @@ if (!SAFARI) {
         },
 
         // Save a resource for the resource blocker.
-        storeResource: function(tabId, frameId, url, elType, frameDomain, time) {
+        storeResource: function(details) {
             if (!get_settings().show_advanced_options) {
                 return;
             }
-            var data = frameData.get(tabId, frameId);
+            var data = frameData.get(details.tabId, details.frameId);
             if (data !== undefined) {
-                time = new Date(time).toISOString().slice(11, -1);
-                data.resources[elType + ":|:" + url + ":|:" + frameDomain + ":|:" + time] = null;
+                time = new Date(details.time).toISOString().slice(11, -1);
+                data.resources[details.url] = {
+                    tabId: details.tabId,
+                    frameId: details.frameId,
+                    url: details.url,
+                    elType: details.elType,
+                    frameDomain: details.frameDomain,
+                    time: time,
+                    matchData: details.matchData
+                }
+                chrome.runtime.sendMessage({ command: "send-request", data: data.resources[details.url] });
             }
         },
 
@@ -294,7 +303,6 @@ if (!SAFARI) {
             return { cancel: false };
         }
 
-        console.log(details);
         // Convert punycode domain to Unicode - GH #472
         details.url = new parseURI(details.url).href;
 
@@ -304,7 +312,6 @@ if (!SAFARI) {
 
         var tabId = details.tabId;
         var reqType = details.type;
-        var time = details.timeStamp;
 
         var top_frame = frameData.get(tabId, 0);
         var sub_frame = (details.frameId !== 0 ? frameData.get(tabId, details.frameId) : null);
@@ -329,9 +336,21 @@ if (!SAFARI) {
 
         // May the URL be loaded by the requesting frame?
         var frameDomain = frameData.get(tabId, requestingFrameId).domain;
-        var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain);
 
-        frameData.storeResource(tabId, requestingFrameId, details.url, elType, frameDomain, time);
+        var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain);
+        var blocked = blockedData.blocked;
+
+        var data = {
+            tabId: tabId,
+            frameId: details.frameId,
+            url: details.url,
+            elType: elType,
+            frameDomain: frameDomain,
+            time: details.timeStamp,
+            matchData: blockedData
+        };
+
+        frameData.storeResource(data);
 
         // Issue 7178
         if (blocked && frameDomain === "www.hulu.com") {
@@ -378,15 +397,29 @@ if (!SAFARI) {
         if (details.url === "about:blank") {
             details.url = opener.url;
         }
+
         var url = new parseURI(details.url).href;
-        var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
-        var time = details.timeStamp;
+
+        var matchData = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
+        var match = matchData.blocked;
+
         if (match) {
             chrome.tabs.remove(details.tabId);
             blockCounts.recordOneAdBlocked(details.sourceTabId);
             updateBadge(details.sourceTabId);
         }
-        frameData.storeResource(details.sourceTabId, details.sourceFrameId, url, ElementTypes.popup, opener.domain, time);
+
+        var data = {
+            tabId: details.sourceTabId,
+            frameId: details.sourceFrameId,
+            url: url,
+            elType: ElementTypes.popup,
+            frameDomain: opener.domain,
+            time: details.timeStamp,
+            matchData: matchData
+        };
+
+        frameData.storeResource(data);
     }
 
     // If tabId has been replaced by Chrome, delete it's data
@@ -423,10 +456,23 @@ function debug_report_elemhide(selector, matches, sender) {
     if (!window.frameData) {
         return;
     }
-    var frameDomain = new parseURI(sender.url || sender.tab.url).hostname;
-    var time = Date.now();
 
-    frameData.storeResource(sender.tab.id, sender.frameId || 0, selector, "selector", frameDomain, time);
+    var frameDomain = new parseURI(sender.url || sender.tab.url).hostname;
+
+    var data = {
+        tabId: sender.tab.id,
+        frameId: sender.frameId || 0,
+        url: selector,
+        elType: "selector",
+        frameDomain: frameDomain,
+        time: Date.now(),
+        matchData: {
+            blocked: true,
+            text: selector
+        }
+    };
+
+    frameData.storeResource(data);
 
     var data = frameData.get(sender.tab.id, sender.frameId || 0);
     if (data) {
@@ -1186,7 +1232,7 @@ function process_frameData(fd) {
             if (res.elType === "selector") {
                 continue;
             }
-            res.blockedData = _myfilters.blocking.matches(res.url, res.elType, res.frameDomain, true, true);
+            res.blockedData = _myfilters.blocking.matches(res.url, res.elType, res.frameDomain);
         }
     }
     return fd;

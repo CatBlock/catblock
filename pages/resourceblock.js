@@ -3,6 +3,21 @@
 // Show resourceblock page
 $("body").fadeIn();
 
+// Remove loading icon
+$(".loader").fadeOut();
+
+// Localize page
+localizePage();
+$(".legendtext").text(translate("legend"));
+$("span.blocked").text(translate("blockedresource"));
+$("span.whitelisted").text(translate("whitelistedresource"));
+$("span.hiding").text(translate("hiddenelement"));
+
+// Show us the legend
+$("#legend").fadeIn();
+$("#searchresources").fadeIn();
+
+
 // Get tabId from URL
 var tabId = parseURI.parseSearch(document.location.href).tabId;
 tabId = parseInt(tabId);
@@ -29,7 +44,7 @@ function reqTypeForElement(elType) {
 
 // Resources search handler
 $("#search").on("input", function() {
-   let value = $("#search").val();
+    let value = $("#search").val();
 
     $(".resourceslist:visible").find("td[data-column='url']").each(function(index, elem) {
         if (elem.innerText.indexOf(value) === -1) {
@@ -40,8 +55,19 @@ $("#search").on("input", function() {
     });
 });
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.command !== "send-request") {
+        return;
+    }
+    console.log("Request: ", request.data);
+
+    createTable(request.data.tabId);
+    addRequestToTable(request.data);
+
+});
+
 // Reset cache for getting matched filter text properly
-BGcall("reset_matchCache", function(matchCache) {
+/*BGcall("reset_matchCache", function(matchCache) {
     // Get frameData object
     BGcall("get_frameData", tabId, function(frameData) {
         if (!frameData || Object.keys(frameData["0"].resources).length === 0) {
@@ -171,7 +197,69 @@ BGcall("reset_matchCache", function(matchCache) {
         }
     });
 });
+*/
 
+function addRequestToTable(request) {
+    // Create a row for each request
+    var row = $("<tr>");
+
+    // Add a class according to the request's status
+    if (request.elType === "selector") {
+        row.addClass("hiding");
+    } else {
+        if (request.matchData.blocked === true) {
+            row.addClass("blocked");
+        } else if (request.matchData.blocked === false && request.matchData.text) {
+            row.addClass("whitelisted");
+        }
+    }
+
+    // Cell 1: Time
+    $("<td>").
+    attr("data-column", "time").
+    text(request.time).
+    appendTo(row);
+
+    // Cell 2: Type
+    $("<td>").
+    attr("data-column", "type").
+    text(reqTypeForElement(request.elType)).
+    appendTo(row);
+
+    // Cell 3: Matching filter
+    // TODO: Filter list
+    request.matchData.filterList = "Easylist";
+
+    var cell = $("<td>").
+    attr("data-column", "filter");
+    if (request.matchData && request.matchData.text && request.matchData.filterList) {
+        $("<span>").
+        text(request.matchData.text).
+        attr("title", translate("filterorigin", translate("filter" + request.matchData.filterList))).
+        appendTo(cell);
+    }
+    row.append(cell);
+
+    // Cell 4: URL
+    $("<td>").
+    attr("title", request.url).
+    attr("data-column", "url").
+    text(request.url).
+    appendTo(row);
+
+    // Cell 5: third-party or not
+    // TODO: Thirdparty
+    request.thirdParty = false;
+
+    var cell = $("<td>").
+    text(request.thirdParty ? translate("yes") : translate("no")).
+    attr("title", translate("resourcedomain", request.frameDomain)).
+    attr("data-column", "thirdparty");
+    row.append(cell);
+
+    // Finally, append processed resource to the relevant table
+    $("table[data-tabid='" + request.tabId + "']").prepend(row);
+}
 
 // Process each request and add it to table
 function addRequestsToTables(frames) {
@@ -275,7 +363,7 @@ function addRequestsToTables(frames) {
     $("th[data-column='thirdparty']").click(sortTable);
 
     // Sort table according to time
-    $("th[data-column='time']").click();
+    //$("th[data-column='time']").click();
 
     // Finally, show us the table
     $("#searchresources").fadeIn();
@@ -283,10 +371,16 @@ function addRequestsToTables(frames) {
 }
 
 // Create a new table for a given topframe url
-function createTable(url) {
+function createTable(tabId) {
+    let table = document.querySelector("table[data-tabid='" + tabId + "']");
+
+    if (table) {
+        return;
+    }
+
     // Insert table to page
     $("#searchresources").after(
-        "<table data-href=" + url + " class='resourceslist'>" +
+        "<table data-tabid=" + tabId + " class='resourceslist'>" +
         "<thead>" +
         "<tr>" +
         "<th data-column='time'>" + "Time" + "<\/th>" +
@@ -300,6 +394,15 @@ function createTable(url) {
         "<\/tbody>" +
         "<\/table>"
     );
+
+    // TODO
+    /*$("table[data-tabid='" + tabId + "'][data-column='time']").click(sortTable);
+    $("th[data-column='url']").click(sortTable);
+    $("th[data-column='type']").click(sortTable);
+    $("th[data-column='filter']").click(sortTable);
+    $("th[data-column='thirdparty']").click(sortTable);*/
+
+    $("table[data-tabid='" + tabId + "']").css("display", "table");
 }
 
 // Click event for the column titles (<th>) of a table.
