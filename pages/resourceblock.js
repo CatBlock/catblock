@@ -7,6 +7,25 @@ $("body").fadeIn();
 var tabId = parseURI.parseSearch(document.location.href).tabId;
 tabId = parseInt(tabId);
 
+// Resources search handler
+$("#search").on("input", function() {
+    let value = $("#search").val();
+
+    $(".resourceslist:visible").find("td[data-column='url']").each(function(index, elem) {
+        if (elem.innerText.indexOf(value) === -1) {
+            $(elem.parentElement).hide();
+        } else {
+            $(elem.parentElement).show();
+        }
+    });
+});
+
+// Tab was changed, load frames and reload table
+$("#tab").on("change", function(event) {
+    var tabId = event.target.value;
+    showTable(tabId);
+});
+
 // Convert element type to request type
 function reqTypeForElement(elType) {
     switch (parseInt(elType)) {
@@ -26,12 +45,6 @@ function reqTypeForElement(elType) {
         default:   return "selector";
     }
 }
-
-// Tab was changed, load frames and reload table
-$("#tab").on("change", function(event) {
-    var tabId = event.target.value;
-    showTable(tabId);
-});
 
 // Fill in frame URLs into frame selector
 function prepopulateTabSelect(tabId) {
@@ -85,19 +98,6 @@ function showTable(tabId) {
     $("table[data-tabid='" + tabId + "']").css("display", "table");
 }
 
-// Resources search handler
-$("#search").on("input", function() {
-    let value = $("#search").val();
-
-    $(".resourceslist:visible").find("td[data-column='url']").each(function(index, elem) {
-        if (elem.innerText.indexOf(value) === -1) {
-            $(elem.parentElement).hide();
-        } else {
-            $(elem.parentElement).show();
-        }
-    });
-});
-
 // Reset cache for getting matched filter text properly
 BGcall("storage_get", "filter_lists", function(filterLists) {
     // TODO: Excluded filters & excluded hiding filters?
@@ -133,9 +133,8 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
                     return;
                 }
 
-                //console.log("Request: ", request.data);
-
-                //createTable(request.data.tabId);
+                // Remove www. from frameDomain in order to detect right filter
+                request.data.frameDomain = request.data.frameDomain.replace("www.", "");
 
                 // Find out, where the particular filter comes from
                 var filter = request.data.matchData.text;
@@ -155,9 +154,6 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
                                     }
                                 }
                             }
-                        }
-                        if (!request.data.matchData.filterList) {
-                            console.log(filterLists.Custom, request.data);
                         }
                     } else {
                         for (var filterList in filterLists) {
@@ -179,11 +175,9 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
                                     if ((filter.split("##")[0] === "" && filter === request.data.url) ||
                                         filter.split("##")[0].indexOf(request.data.frameDomain) > -1) {
                                         // Shorten lengthy selector filters
-                                        console.log("FILTER: ", filter);
                                         if (filter.split("##")[0] !== "") {
                                             filter = request.data.frameDomain + request.data.url;
                                         }
-                                        //res.blockedData = {};
                                         request.data.matchData.filterList = filterList;
                                         request.data.matchData.text = filter;
                                         //res.frameUrl = frame.url;
@@ -191,9 +185,6 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
                                     }
                                 }
                             }
-                        }
-                        if (!request.data.matchData.filterList) {
-                            console.log(filterLists.Custom, request.data);
                         }
                     }
                 }
