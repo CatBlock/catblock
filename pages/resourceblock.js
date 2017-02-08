@@ -158,12 +158,18 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
 
                 // Find out, where the particular filter comes from
                 var filter = request.data.matchData.text;
+                var shouldBreak = false;
                 if (filter) {
                     if (request.data.elType !== "selector") {
                         for (var filterList in filterLists) {
+                            if (shouldBreak) {
+                                break;
+                            }
                             if (filterList === "malware") {
                                 if (filterLists[filterList].text.adware.indexOf(filter) > -1) {
                                     request.data.matchData.filterList = filterList;
+                                    shouldBreak = true;
+                                    break;
                                 }
                             } else {
                                 var filterListText = filterLists[filterList].text;
@@ -171,37 +177,62 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
                                     var filterls = filterListText[i];
                                     if (filterls === filter) {
                                         request.data.matchData.filterList = filterList;
+                                        shouldBreak = true;
+                                        break;
                                     }
                                 }
                             }
                         }
                     } else {
                         for (var filterList in filterLists) {
+                            if (shouldBreak) {
+                                break;
+                            }
                             // Don't check selector against malware filter list
                             if (filterList === "malware") {
                                 continue;
                             }
                             var filterListText = filterLists[filterList].text;
                             for (var i=0; i<filterListText.length; i++) {
+                                if (shouldBreak) {
+                                    break;
+                                }
                                 var filter = filterListText[i];
                                 // Don't check selector against non-selector filters
                                 if (!Filter.isSelectorFilter(filter)) {
                                     continue;
                                 }
-                                if (filter.indexOf(request.data.url) > -1) {
+                                if (filter.endsWith(request.data.url)) {
                                     // If |filter| is global selector filter,
                                     // it needs to be the same as |resource|.
                                     // If it is not the same as |resource|, keep searching for a right |filter|
-                                    if ((filter.split("##")[0] === "" && filter === request.data.url) ||
-                                        filter.split("##")[0].indexOf(request.data.frameDomain) > -1) {
-                                        // Shorten lengthy selector filters
-                                        if (filter.split("##")[0] !== "") {
-                                            filter = request.data.frameDomain + request.data.url;
-                                        }
+                                    var filterDomains = filter.split("##")[0];
+
+                                    // Filter is a global selector filter (without any domain prefix)
+                                    // E.g.: ###ads
+                                    if (filterDomains === "" && filter === request.data.url) {
                                         request.data.matchData.filterList = filterList;
                                         request.data.matchData.text = filter;
-                                        //res.frameUrl = frame.url;
+                                        shouldBreak = true;
                                         break;
+                                    } else {
+                                        // Filter is a domain selector filter
+                                        // E.g.: somedomain.com###selectors
+                                        var frameSubDomains = DomainSet.domainAndParents(request.data.frameDomain);
+                                        var filterSubDomains = filterDomains.split(",");
+
+                                        Object.keys(frameSubDomains).forEach(function(frameDomain) {
+                                            if (filterSubDomains.indexOf(frameDomain) > -1) {
+                                                // Shorten lengthy selector filters
+                                                // E.g.: abc.com,xyz.com###selector to xyz.com###selector
+                                                if (filterDomains !== "") {
+                                                    filter = frameDomain + request.data.url;
+                                                }
+                                                request.data.matchData.filterList = filterList;
+                                                request.data.matchData.text = filter;
+                                                shouldBreak = true;
+                                            }
+                                        });
                                     }
                                 }
                             }
