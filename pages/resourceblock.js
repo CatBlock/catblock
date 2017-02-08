@@ -3,10 +3,6 @@
 // Show resourceblock page
 $("body").fadeIn();
 
-// Get tabId from URL
-var tabId = parseURI.parseSearch(document.location.href).tabId;
-tabId = parseInt(tabId);
-
 // Tab was changed, load frames and reload table
 $("#tab").on("change", function(event) {
     var tabId = event.target.value;
@@ -61,7 +57,7 @@ function reqTypeForElement(elType) {
 }
 
 // Fill in frame URLs into frame selector
-function prepopulateTabSelect(tabId) {
+function prepopulateTabSelect() {
     // Remove all frame options
     $("#tab").find("option").remove();
 
@@ -80,11 +76,11 @@ function prepopulateTabSelect(tabId) {
         createTable(0);
 
         // Select tab
-        $("#tab").val(tabId);
+        $("#tab").val(0);
         $("#tab").change();
     });
 }
-prepopulateTabSelect(tabId);
+prepopulateTabSelect();
 
 // Create a new table for a given tabId
 function createTable(id) {

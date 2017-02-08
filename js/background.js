@@ -1217,8 +1217,8 @@ function launch_subscribe_popup(loc) {
 }
 
 // Open the resource blocker when requested from popup.
-function launch_resourceblocker(query) {
-    openTab("pages/resourceblock.html" + query, true);
+function launch_resourceblocker() {
+    openTab("pages/resourceblock.html", true);
 }
 
 // Get the frameData for the "Report an Ad" & "Resource" page
