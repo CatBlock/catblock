@@ -72,7 +72,7 @@ function prepopulateTabSelect() {
         }
 
         // Append a table, where ALL requests will be visible from ALL pages
-        $("#tab").prepend($("<option>", { value: 0, text: "All requests" }));
+        $("#tab").prepend($("<option>", { value: 0, text: translate("catblock_allrequests") }));
         createTable(0);
 
         // Select tab
@@ -95,7 +95,7 @@ function createTable(id) {
         "<table data-tabid=" + id + " class='resourceslist'>" +
         "<thead>" +
         "<tr>" +
-        "<th data-column='time'>" + "Time" + "<\/th>" +
+        "<th data-column='time'>" + translate("catblock_time") + "<\/th>" +
         "<th data-column='type'>" + translate("headertype") + "<\/th>" +
         "<th data-column='filter'>" + translate("headerfilter") + "<\/th>" +
         "<th data-column='url'>" + translate("headerresource") + "<\/th>" +
