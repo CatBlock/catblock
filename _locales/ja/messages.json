@@ -1,633 +1,51 @@
 {
-  "catblock_example_flickr_search":{
-    "message":"a search for photos (e.g. <i>sailboat race</i>)",
-    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\"."
-  },
-  "tabcustomize":{
-    "message":"カスタマイズ",
+  "tabfilterlists":{
+    "message":"フィルターリスト",
     "description":"A tab on the options page"
-  },
-  "catblock_example_flickr_id":{
-    "message":"a Flickr photoset ID (e.g. $example$)",
-    "placeholders":{
-      "example":{
-        "content":"<i>346406</i>"
-      }
-    },
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
-  },
-  "lang_czech":{
-    "message":"チェコ語",
-    "description":"language"
-  },
-  "filtereasylist_plus_romanian":{
-    "message":"ルーマニア語",
-    "description":"language"
-  },
-  "dont_run_on_pages_on_domain":{
-    "message":"このドメイン上のページで稼動させない",
-    "description":"Menu entry to open the whitelist wizard"
-  },
-  "catblock_debuginlogoption":{
-    "description":"Checkbox on the 'General' tab of the Options page",
-    "message":"Show debug statements in Console Log (which slows down CatBlock)"
-  },
-  "adblockupdates":{
-    "message":"AdBlock アップデート",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "catblock_safarinotificationbody":{
-    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules",
-    "message":"Please disable some filter lists. More information in CatBlock's Options."
-  },
-  "filterjapanese":{
-    "message":"日本語",
-    "description":"language"
-  },
-  "sourcecode":{
-    "message":"ソースコードは <a>自由に入手できます</a>！",
-    "description":"Link to the source code of AdBlock on the Support tab of the options"
-  },
-  "no":{
-    "message":"いいえ",
-    "description":"A negative response to a question"
-  },
-  "typexmlhttprequest":{
-    "message":"xmlhttprequest",
-    "description":"A resource type"
-  },
-  "fetchinglabel":{
-    "message":"取得中・・・しばらくお待ちください。",
-    "description":"Status label"
-  },
-  "filterisraeli":{
-    "message":"ヘブライ語",
-    "description":"language"
-  },
-  "filtermalware":{
-    "message":"マルウェア対策",
-    "description":"A filter list"
-  },
-  "catblock_adblockupdates":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"CatBlock updates"
-  },
-  "invalidListUrl":{
-    "message":"URLのリストが無効です。自動的に削除されます。",
-    "description":"Message when you subscribe to a non-list URL"
-  },
-  "catblock_disableforchromeandsafaristeptwo":{
-    "description":"Step 2 for disabling Chrome and Safari extensions",
-    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>."
-  },
-  "typeimage":{
-    "message":"image",
-    "description":"A resource type"
-  },
-  "catblock_adblock_outdated_chrome":{
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'",
-    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'"
-  },
-  "excludedomainorurl":{
-    "message":"ブロックしないドメインやURLを指定",
-    "description":"Message of the exclude area"
-  },
-  "typescript":{
-    "message":"script",
-    "description":"A resource type"
-  },
-  "adblockreportinganad":{
-    "message":"AdBlock - 広告を報告",
-    "description":"Title of the ad report page"
-  },
-  "catblock_add_more_photos":{
-    "message":"<b>Add some photos</b> from Flickr!  You can enter:",
-    "description":"Introduction to the examples of custom image lists. Leave the <b> and </b> as they are."
-  },
-  "buttonback":{
-    "message":"戻る",
-    "description":"Back to previous wizard page button"
-  },
-  "lang_english":{
-    "message":"英語",
-    "description":"language"
-  },
-  "filterczech":{
-    "message":"チェコ語およびスロバキア語",
-    "description":"Language names for a filter list"
-  },
-  "cleanuplist2":{
-    "message":"このリストを掃除:",
-    "description":"Option at the bottom of the 'Customize' options tab"
-  },
-  "block_this_ad":{
-    "message":"この広告をブロック",
-    "description":"Context and popup menu entry"
-  },
-  "blockanadtitle":{
-    "message":"広告をブロック",
-    "description":"Title of the first two dialogs of the blacklister"
-  },
-  "stop_blocking_ads":{
-    "message":"広告ブロックをやめる：",
-    "description":"Section header on the 'Customize' tab"
-  },
-  "catblock_filteradblock_custom":{
-    "description":"A filter list",
-    "message":"CatBlock custom filters (recommended)"
-  },
-  "warning_overrules_filters":{
-    "message":"注意： on all other sites you will see ads!<br>This overrules all other filters for those sites.",
-    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
-  },
-  "catblock_storage_quota_exceeded":{
-    "description":"Message shown when the user uses more storage than allowed by the browser",
-    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!"
-  },
-  "blacklisteroptions1":{
-    "message":"このページにアクセスする度に表示される要素について、どれが該当すると思いますか？",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "catblock_malwarenotificationmessage":{
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!",
-    "message":"CatBlock has blocked a download from a site known to host malware."
-  },
-  "catblock_show_on_adblock_button":{
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked",
-    "message":"Show on CatBlock button"
-  },
-  "format_site1_site2_site3":{
-    "message":"例： ~site1.com|~site2.com|~news.site3.org",
-    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
-  },
-  "catblock_disableallextensions":{
-    "description":"Instruction on ad report page",
-    "message":"Disable all extensions except for CatBlock."
-  },
-  "filtereasylist_plun_korean":{
-    "message":"韓国語",
-    "description":"language"
-  },
-  "here":{
-    "message":"こちら",
-    "description":"This message is injected in other strings as a link/button"
-  },
-  "debuginlogoption":{
-    "message":"デバック情報を更新履歴に表示(AdBlockの動作が重くなります)",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "adblocksupport":{
-    "message":"AdBlock サポート",
-    "description":"Title of the support tab"
-  },
-  "you_know_thats_a_bad_idea_right":{
-    "message":"フィルターリストの使用頻度が高くなるにつれ、AdBlockの動作が重くなります。たくさんのフィルターリストはブラウザがクラッシュする原因となりえます。それでも追加する場合はOKを押してください。",
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
-  },
-  "generaloptions":{
-    "message":"一般設定",
-    "description":"Title of first tab page"
-  },
-  "catblock_allrequests":{
-    "description":"All requests",
-    "message":"A message in dropdown selection on Resource viewer page"
-  },
-  "checkinfirefox_1":{
-    "message":"Firefoxをお持ちではない場合は $chrome$ インストールしてください。",
-    "placeholders":{
-      "chrome":{
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='chrome2'></span>"
-      }
-    },
-    "description":"instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "update_available":{
-    "message":"AdBlock のアップデートがあります！ $here$ を開いてアップデートしてください。 <br> 注意: アップデートを自動受信したい場合は、 Safari > 設定 > 拡張機能 > アップデートをクリックしてください。 <br> そしてオプション「自動的にアップデートをインストールする」にチェックを入れてください。",
-    "placeholders":{
-      "here":{
-        "example":"<a>here</a>",
-        "content":"<a id='here'></a>"
-      }
-    },
-    "description":"On the Options > Support page, shows when there are updates available for AdBlock"
-  },
-  "catblock_replaceadswithcats":{
-    "message":"Replace ads with pictures of cats",
-    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
-  },
-  "pause_adblock":{
-    "message":"AdBlockを一時停止",
-    "description":"Menu entry to pause AdBlock"
-  },
-  "betalabel":{
-    "message":"ベータ",
-    "description":"Label for beta features in AdBlock Options"
-  },
-  "filtereasyprivacy":{
-    "message":"EasyPrivacy (プライバシー保護)",
-    "description":"A filter list"
-  },
-  "updatedminuteago":{
-    "message":"1分前アップデートしました",
-    "description":"Label for subscription"
-  },
-  "contributors":{
-    "message":"AdBlock に携わる人々を見つけ出す助けになる<a>ページ</a>もあります！",
-    "description":"Link to the contributors page on the Support tab of the options"
-  },
-  "checkforupdates":{
-    "message":"アップデートを確認中 (数秒しかからないはずです)...",
-    "description":"Displayed when AdBlock is checking the newest available version"
-  },
-  "englishonly":{
-    "message":"英語のみ",
-    "description":"Lets the user know that a link/page is available in English only"
-  },
-  "advanced_options2":{
-    "message":"私は上級者ユーザーです。詳細設定を見せてください。",
-    "description":"Checkbox on the 'General' tab of the Options page"
   },
   "filterstabtitle":{
     "message":"フィルターリストの登録",
     "description":"Title of the filter list tab"
   },
-  "linkblockadbyurl":{
-    "message":"URLで広告をブロック",
-    "description":"Link on the 'Customize' tab"
+  "updatenowmessage2":{
+    "message":"自動的にアップデートを取得します。<a>今すぐアップデート</a>することも可能です。",
+    "description":"Update filters text + button"
+  },
+  "buttonback":{
+    "message":"戻る",
+    "description":"Back to previous wizard page button"
   },
   "catblock_unpause_adblock":{
     "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'",
     "message":"Unpause CatBlock"
   },
-  "buttonlooksgood":{
-    "message":"決定",
-    "description":"Looks good button"
-  },
-  "operabutton_how_to_hide2":{
-    "message":"ボタンを非表示にするには、 opera://extensions を開き、「ツールバーから非表示にする」オプションにチェックを入れてください。そのオプションのチェックを外すと再び表示されるようになります。",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
-  },
-  "unsubscribedlabel":{
-    "message":"無効にしました。",
-    "description":"Status label"
-  },
-  "catblock_you_can_slide_to_change":{
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases.",
-    "message":"You can slide below to change exactly what pages CatBlock won't run on."
-  },
-  "catblock_example_flickr_url":{
-    "message":"a Flickr photoset URL (e.g. $example$)",
-    "placeholders":{
-      "example":{
-        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
-      }
-    },
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
-  },
-  "catblock_contributors":{
-    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!",
-    "description":"Link to the contributors page on the Support tab of the options"
-  },
-  "blacklisterattrwillbe":{
-    "message":"$attribute$ will be $value$",
-    "placeholders":{
-      "value":{
-        "example":"AdBanner",
-        "content":"$2"
-      },
-      "attribute":{
-        "example":"class",
-        "content":"$1"
-      }
-    },
-    "description":"Checkbox label"
-  },
-  "reportfilterlistproblem":{
-    "message":"フィルターリストの問題です。報告はこちら： $link$",
-    "placeholders":{
-      "link":{
-        "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe</a>  EXAMPLE 2: <a href='http://easylist.org'>EasyList forums</a>",
-        "content":"$1"
-      }
-    },
-    "description":"Telling the user to report an ad to a filter list maintainer"
-  },
-  "only_block_ads_on_these_sites":{
-    "message":"これらのサイトの広告をブロックする：",
-    "description":"Label for textbox where user enters a list of sites on Customize tab"
-  },
-  "clickthead":{
-    "message":"ブロックする広告をクリックして下さい。ウィザードでご案内します。",
-    "description":"When you have to click the ad to continue"
-  },
-  "cantblockflashwarning":{
-    "message":"Does the ad appear in or before a film or any other plugin like a Flash game?",
-    "description":"Text of the final ad report question"
-  },
-  "updateddaysago":{
-    "message":"$days$日前にアップデートしました",
-    "placeholders":{
-      "days":{
-        "example":"15",
-        "content":"$1"
-      }
-    },
-    "description":"Label for subscription"
-  },
-  "failedtofetchfilter":{
-    "message":"フィルターの取得に失敗しました！",
-    "description":"Error messagebox"
-  },
-  "disableforchromeandsafaristeptwo":{
-    "message":"AdBlock <b>以外</b>の全ての拡張機能の隣にある「有効」チェックボックスのチェックを外してください。  <b>AdBlock は有効のままにしてください</b>。",
-    "description":"Step 2 for disabling Chrome and Safari extensions"
-  },
-  "linkhidesection":{
-    "message":"ウェブページの一部を隠す",
-    "description":"Link on the 'Customize' tab"
-  },
-  "catblock_show_on_adblock_menu":{
-    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked",
-    "message":"Show number of ads blocked on CatBlock menu"
-  },
-  "tabfilterlists":{
-    "message":"フィルターリスト",
-    "description":"A tab on the options page"
-  },
-  "catblock_disabled_by_filter_lists":{
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list",
-    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists."
-  },
-  "you_can_slide_to_change":{
-    "message":"You can slide below to change exactly what pages AdBlock won't run on.",
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
-  },
-  "lang_russian":{
-    "message":"ロシア語",
-    "description":"language"
-  },
-  "lang_slovak":{
-    "message":"スロバキア語",
-    "description":"language"
-  },
-  "blockdomain":{
-    "message":"適用するドメインを入力",
-    "description":"Message of the url and css -blocking area"
-  },
-  "blocked_n_on_this_page":{
-    "message":"このページで $count$ 件",
-    "placeholders":{
-      "count":{
-        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
-        "content":"<a>123</a>"
-      }
-    },
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999."
-  },
-  "blockurlwithtext":{
-    "message":"入力されたテキストを含むURLをブロック",
-    "description":"Message of the url-blocking area"
-  },
-  "block_an_ad_on_this_page":{
-    "message":"このページにある広告をブロック",
-    "description":"Toolbar button menu entry and context menu entry"
-  },
-  "languagedropdowndescription":{
-    "message":"別の言語用のフィルターを追加: ",
-    "description":"Dropdown list for language-specific filters"
-  },
-  "filterdutch":{
-    "message":"オランダ語",
-    "description":"language"
-  },
-  "filterantisocial":{
-    "message":"Antisocial フィルターリスト（ソーシャルメディアボタンを削除します）",
-    "description":"A filter list"
-  },
-  "buttonexclude":{
-    "message":"除外",
-    "description":"Button for excluding a domain in the whitelister dialog"
-  },
-  "catblock_wizardcantrunonframesets":{
-    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website",
-    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page."
-  },
-  "filterhungarian":{
-    "message":"ハンガリー語",
-    "description":"language"
-  },
-  "modifydomain":{
-    "message":"サイト：",
-    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL"
-  },
-  "catblock_malwarenotificationcheckboxmessage":{
-    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page",
-    "message":"Should CatBlock notify you when it detects malware?"
-  },
-  "close":{
-    "message":"閉じる",
-    "description":"Generic message for buttons that close a view or window"
-  },
-  "blockmoreads":{
-    "message":"もっと広告をブロック：",
-    "description":"Section header on the 'Customize' tab"
-  },
-  "orchrome":{
-    "message":"または Chrome",
-    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
-  },
-  "checkinfirefoxtitle":{
-    "message":"Firefoxでも表示されるかどうかをチェックしてください $chrome$",
-    "placeholders":{
-      "chrome":{
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='chrome1'></span>"
-      }
-    },
-    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome"
-  },
-  "blacklisternotsure":{
-    "message":"<b>よく分かりませんか？</b>とりあえず、「ブロック！」を押してください。",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "filteradblock_custom":{
-    "message":"AdBlockカスタムフィルター (推奨)",
-    "description":"A filter list"
-  },
-  "catblock_whatmakesadblocktick":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"Want to see what makes CatBlock tick?"
-  },
-  "typeother":{
-    "message":"others",
-    "description":"A resource type"
-  },
-  "orenteraurl":{
-    "message":"URL直接指定：",
-    "description":"Link for custom subscription"
-  },
-  "blocked_ads":{
-    "message":"ブロックされた広告数:",
-    "description":"Title for popup menu section showing number of ads blocked"
-  },
-  "dont_run_on_this_page":{
-    "message":"このページでは実行しない",
-    "description":"Menu entry to whitelist a page"
-  },
-  "typeobject_subrequest":{
-    "message":"object_subrequest",
-    "description":"A resource type"
-  },
-  "findingads":{
-    "message":"広告を検索中・・・<br/><br/><i>少々お待ちください。</i>",
-    "description":"When you press ctrl-shift-K the blacklister searches for ads"
-  },
-  "supportsite":{
-    "message":"<a>サポートサイト</a>でお知らせください！",
-    "description":"Link to the support site on the Support tab of the options"
-  },
-  "customfilters":{
-    "message":"カスタムフィルターリスト",
-    "description":"List for custom filters the user subscribed to"
-  },
-  "show_ads_except_for":{
-    "message":"Show ads <i>everywhere</i> except for these domains...",
-    "description":"Section title for blacklisting section of Customize tab"
-  },
-  "updateddayago":{
-    "message":"1日前アップデートしました",
-    "description":"Label for subscription"
-  },
-  "updatedminutesago":{
-    "message":"$minutes$分前にアップデートしました",
-    "placeholders":{
-      "minutes":{
-        "example":"15",
-        "content":"$1"
-      }
-    },
-    "description":"Label for subscription"
-  },
-  "checkinfirefox_5":{
-    "message":"Firefoxでも広告は表示されますか？",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "catblock_you_know_thats_a_bad_idea_right":{
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel.",
-    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway."
-  },
-  "checkinfirefox_4":{
-    "message":"Ｆｉｒｅｆｏｘdで広告のあるページを読み込みください。",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "catblock_time":{
-    "description":"Time",
-    "message":"Name of the table header on Resources viewer page"
-  },
-  "whats_this":{
-    "message":"これは何ですか?",
-    "description":"Text of a link pointing to the explanation of a new feature"
-  },
-  "storage_quota_exceeded":{
-    "message":"AdBlockで使用できる容量を超えました。フィルターリストにあるフィルターを幾つか除外してください！",
-    "description":"Message shown when the user uses more storage than allowed by the browser"
-  },
-  "pwyw":{
-    "message":"支払える分だけお支払いください！",
-    "description":"Text of a payment request link"
-  },
-  "oradblockforchrome":{
-    "message":"または Chrome 用 AdBlock",
-    "description":"Used for placeholder in checkinfirefox_2 string"
-  },
-  "questionoridea":{
-    "message":"質問、または新たなアイディアがありますか？",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "lang_ukranian":{
-    "message":"ウクライナ語",
-    "description":"language"
+  "catblock_safaributton_how_to_hide2":{
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu.",
+    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar."
   },
   "subscribingtitle":{
     "message":"フィルターリストに登録・・・",
     "description":"abp: link subscriber title"
   },
-  "typemedia":{
-    "message":"audio/video",
-    "description":"A resource type"
+  "catblock_storage_quota_exceeded":{
+    "description":"Message shown when the user uses more storage than allowed by the browser",
+    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!"
   },
-  "filtereasylist_plus_finnish":{
-    "message":"フィンランド語",
-    "description":"language"
-  },
-  "firefox_explanation":{
-    "message":"この質問の目的は、誰があなたの報告を受け取るべきか決定することです。この質問に不適切に回答した場合、間違った人物に報告が送られてしまい、そのために、無視されてしまうことになる場合があります。",
-    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
-  },
-  "filtereasylist":{
-    "message":"EasyList (推奨)",
-    "description":"A filter list"
-  },
-  "catblock_status_paused":{
-    "description":"Message shown in toolbar button when CatBlock is paused",
-    "message":"CatBlock is paused."
-  },
-  "adblock_wont_run_on_pages_matching":{
-    "message":"AdBlock won't run on any page matching:",
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
-  },
-  "catblock_safaricontentblockingpausemessage":{
-    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled",
-    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'."
-  },
-  "filtereasylist_plus_greek":{
-    "message":"ギリシャ語",
-    "description":"language"
-  },
-  "reportpubliclyavailable":{
-    "message":"注意: 報告は公開される場合があります。私的な情報を含める前にご留意ください。",
-    "description":"Ad report page string, when you're about to submit a report"
-  },
-  "buttonok":{
-    "message":"OK！",
-    "description":"OK button"
-  },
-  "other":{
-    "message":"その他",
-    "description":"Multiple choice option"
-  },
-  "filtereasylist_plus_spanish":{
-    "message":"スペイン語",
-    "description":"language"
-  },
-  "typehiding":{
-    "message":"hiding",
-    "description":"A resource type"
-  },
-  "linkunblock":{
-    "message":"ウェブページとドメインにある広告を表示",
-    "description":"Link on the 'Customize' tab"
-  },
-  "hide_this_button":{
-    "message":"ボタンを隠す",
-    "description":"Toolbar button menu entry to hide the AdBlock button"
-  },
-  "adblockinglist":{
-    "message":"広告ブロックフィルターのリスト",
-    "description":"List for subscribed ad blocking fiters"
-  },
-  "catblock_add_photos":{
-    "message":"Add Photos",
-    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
+  "excludedomainorurl":{
+    "message":"ブロックしないドメインやURLを指定",
+    "description":"Message of the exclude area"
   },
   "removefromlist":{
     "message":"リストから削除",
     "description":"Label to remove a custom filter"
   },
-  "whitelistertitle2":{
-    "message":"Don't run AdBlock on...",
-    "description":"The title of the whitelister dialog"
+  "catblock_disabled_on_this_page":{
+    "description":"Message shown in toolbar button on web pages that have been whitelisted",
+    "message":"CatBlock is disabled on this page."
+  },
+  "catblock_you_know_thats_a_bad_idea_right":{
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel.",
+    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway."
   },
   "filtersavewarning":{
     "message":"警告： ここで作成したフィルターに問題がある場合、公式フィルターを含む他のフィルターが破損する場合があります。<br/>ブラックリスト、ホワイトリストの詳細な記法は<a>こちら（英語）</a>です。",
@@ -637,550 +55,1132 @@
     "message":"こちらをクリック： <a>フィルターをアップデート！</a>",
     "description":"Instruction on ad report page"
   },
-  "blacklistermatches":{
-    "message":"$matchcount$個のアイテムを発見しました。",
-    "placeholders":{
-      "matchcount":{
-        "example":"5",
-        "content":"$1"
-      }
-    },
-    "description":"Tells the user multiple matches were found"
+  "catblock_wizardcantrunonframesets":{
+    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website",
+    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page."
   },
-  "cantblockflash":{
-    "message":"まだ、フラッシュ内とプラグインにより出てくる広告はブロックができません。これらの広告の対処ついてはブラウザのサポートとWebKitの対応待ちです。",
-    "description":"Result of the final ad report question"
+  "buttonlooksgood":{
+    "message":"決定",
+    "description":"Looks good button"
   },
-  "retryaftersubscribe":{
-    "message":"このフィルターリストを適用し、ページを更新して要素が消去できたか確認してください。 $list_title$",
-    "placeholders":{
-      "list_title":{
-        "example":"French filters",
-        "content":"$1"
-      }
-    },
-    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists"
+  "buttonexclude":{
+    "message":"除外",
+    "description":"Button for excluding a domain in the whitelister dialog"
   },
-  "catblock_excludedomainorurl":{
-    "description":"Message of the exclude area",
-    "message":"The domain or url where CatBlock shouldn't block anything"
-  },
-  "typemain_frame":{
-    "message":"page",
-    "description":"A resource type"
-  },
-  "loading":{
-    "message":"読み込み中・・・",
-    "description":"Generic message displayed during processes that take some time"
-  },
-  "foundbug":{
-    "message":"バグが有りましたか？",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "undo_last_block":{
-    "message":"このドメイン上の自分のブロックを取り消し",
-    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
-  },
-  "refusetocheck":{
-    "message":"これを確認したくありません。",
-    "description":"User is telling us they don't wish to investigate something for us"
-  },
-  "whatsnew":{
-    "message":"最新版では何が変わりましたか？<a style='cursor:pointer;'>変更履歴</a>をご確認ください！",
-    "description":"Link to display the changelog on the Support tab of the options"
-  },
-  "slidertitle":{
-    "message":"ステップ1： ブロック対象の指定",
-    "description":"Blacklister slider page title"
-  },
-  "catblock_pause_adblock":{
-    "description":"Menu entry to pause CatBlock",
-    "message":"Pause CatBlock"
-  },
-  "catblock_adblockreportinganad":{
-    "description":"Title of the ad report page",
-    "message":"CatBlock - Reporting an ad"
+  "adblock_outdated_chrome":{
+    "message":"古いバージョンの AdBlock を使用しています。 <a href='#'>拡張機能ページ</a> を開き、「デベロッパーモード」を有効にし、「今すぐ拡張機能をアップデート」をクリックしてください。",
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
   },
   "pagelanguagecheck":{
     "message":"どの言語でページは書かれていますか？",
     "description":"Question on ad report page"
   },
-  "catblock_searchresources":{
-    "description":"Search resources by URL:",
-    "message":"A text shown on Resources viewer page"
-  },
-  "checkinternetconnection":{
-    "message":"広告を報告するには、インターネットに接続されていなければなりません。",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
+  "cantblockflash":{
+    "message":"まだ、フラッシュ内とプラグインにより出てくる広告はブロックができません。これらの広告の対処ついてはブラウザのサポートとWebKitの対応待ちです。",
+    "description":"Result of the final ad report question"
   },
   "enable_adblock":{
     "message":"このページで AdBlock を有効にする",
     "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
   },
-  "allow_whitelisting_youtube_channels":{
-    "message":"特定の YouTube チャンネルのホワイトリスト化を許可する",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "status_paused":{
-    "message":"AdBlockは一時停止しています。",
-    "description":"Message shown in toolbar button when AdBlock is paused"
-  },
-  "blocked_n_in_total":{
-    "message":"合計 $count$ 件",
-    "placeholders":{
-      "count":{
-        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
-        "content":"<a>123,456</a>"
-      }
-    },
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999."
-  },
-  "tabgeneral":{
-    "message":"一般",
-    "description":"A tab on the options page"
-  },
-  "blacklistclickmessage":{
-    "message":"ページ内にある広告を右クリックし、ブロックをしてください。または、こちらでマニュアルでブロック。",
-    "description":"Message at the top of the blacklist options tab"
-  },
-  "latest_version":{
-    "message":"AdBlock は最新版です！",
-    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
-  },
-  "nodefaultfilter1":{
-    "message":"指定された言語のフィルターリストがありません。<br/>この言語をサポートする適切なリストを。$link$ もしくはこの要素をブロックするようにブラックリストを編集してください。",
-    "placeholders":{
-      "link":{
-        "example":"<a>here</a>",
-        "content":"<a id='link'></a>"
-      }
-    },
-    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab."
-  },
-  "typepage":{
-    "message":"page",
-    "description":"A resource type"
-  },
-  "buttoncancel":{
-    "message":"キャンセル",
-    "description":"Cancel button"
-  },
-  "filterlistlink":{
-    "message":"必要以上に登録をしないでください。追加する度に重くなりますので！リストの作成者、その他のリストは<a>こちら</a>。",
-    "description":"Explanation of the filter lists"
-  },
-  "filterturkish":{
-    "message":"トルコ語",
-    "description":"A filter list"
-  },
-  "filterswedish":{
-    "message":"スウェーデン語",
-    "description":"A filter list"
-  },
   "catblock_reloadtab":{
-    "description":"Reload tab",
-    "message":"Button on Resources viewer page, which reloads selected tab from dropdown menu"
+    "message":"Reload tab",
+    "description":"Button on Resources viewer page, which reloads selected tab from dropdown menu"
   },
-  "disableforsafaristepone":{
-    "message":"Safari のメニュー&rarr; 設定 &rarr; 拡張機能をクリックしてください。",
-    "description":"Step 1 for disabling Safari extensions"
+  "block_an_ad_on_this_page":{
+    "message":"このページにある広告をブロック",
+    "description":"Toolbar button menu entry and context menu entry"
   },
-  "somethingwentwrong":{
-    "message":"アップデートを確認中に不具合が発生しました。",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
-  },
-  "manualfilteredit":{
-    "message":"手動でフィルターを編集：",
-    "description":"Subtitle on the 'Customize' tab"
-  },
-  "adblock_click_for_details":{
-    "message":"AdBlock - 詳細はこちら",
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
-  },
-  "catblock_adblock_wont_run_on_pages_matching":{
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line.",
-    "message":"CatBlock won't run on any page matching:"
-  },
-  "filtereasylist_plus_indonesian":{
-    "message":"インドネシア語",
-    "description":"A filter list"
-  },
-  "blacklisterblockedelement":{
-    "message":"ブロックされている要素：",
-    "description":"Tells the user what the blocked element is on the slider page"
-  },
-  "blacklisteroptionstitle":{
-    "message":"最終ステップ： 何故これは広告になるのでしょうか？",
-    "description":"Blacklister options page title"
-  },
-  "filterchinese":{
-    "message":"中国語",
-    "description":"language"
-  },
-  "confirm_undo_custom_filters":{
-    "message":"$host$ に関して作成した  $count$ 個のブロックを本当に削除しますか？",
-    "placeholders":{
-      "count":{
-        "example":"The number of custom blocks for a domain.",
-        "content":"$1"
-      },
-      "host":{
-        "example":"code.google.ph, ph.msn.com, stackoverflow.com",
-        "content":"$2"
-      }
-    },
-    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset."
-  },
-  "updatedhourago":{
-    "message":"1時間前アップデートしました",
+  "updatedminuteago":{
+    "message":"1分前アップデートしました",
     "description":"Label for subscription"
   },
-  "yes":{
-    "message":"はい",
-    "description":"A positive response to a question"
-  },
-  "disabled_on_this_page":{
-    "message":"AdBlockはこのページでは無効になっています。",
-    "description":"Message shown in toolbar button on web pages that have been whitelisted"
-  },
-  "otherfilters":{
-    "message":"その他のフィルターリスト",
-    "description":"List for other filters the user subscribed to"
-  },
-  "filtereasylist_plus_polish":{
-    "message":"ポーランド語",
-    "description":"language"
-  },
-  "fixityourself":{
-    "message":"設定ページを使って自分で広告をブロックします！",
-    "description":"Telling users who won't report an ad to us how to handle it for themselves"
-  },
-  "catblock_status_disabled":{
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank",
-    "message":"CatBlock can not run on this domain."
-  },
-  "typeobject":{
-    "message":"interactive object",
-    "description":"A resource type"
-  },
-  "flashads":{
-    "message":"動画とフラッシュ",
-    "description":"Title of the final ad report question if the ad didn't appear in Firefox"
-  },
-  "tabsupport":{
-    "message":"サポート",
-    "description":"A tab on the options page"
-  },
-  "catblock_latest_version":{
-    "description":"On the Options > Support page, shows when there are no updates available for CatBlock",
-    "message":"CatBlock is up-to-date!"
-  },
-  "blacklistersinglematch":{
-    "message":"<b>1</b>個のアイテムを発見しました。",
-    "description":"Tells the user only one match was found"
-  },
-  "ad_report_please":{
-    "message":"広告を見つけたら、バグ報告ではなく、<a>広告報告</a>をしてください！",
-    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
-  },
-  "buttonblockit":{
-    "message":"ブロック！",
-    "description":"Block button"
-  },
-  "filteritalian":{
-    "message":"イタリア語",
-    "description":"language"
-  },
-  "typestylesheet":{
-    "message":"style definition",
-    "description":"A resource type"
-  },
-  "reloadadpage":{
-    "message":"広告のあるページを更新してください。",
-    "description":"Instruction on ad report page"
-  },
-  "blacklistertype":{
-    "message":"Type",
-    "description":"node name is called 'Type'"
-  },
-  "spread_the_word":{
-    "message":"周りに広める",
-    "description":"Text of a share link"
+  "blocked_n_on_this_page":{
+    "placeholders":{
+      "count":{
+        "content":"<a>123</a>",
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
+      }
+    },
+    "message":"このページで $count$ 件",
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999."
   },
   "filterlatvian":{
     "message":"ラトビア語",
     "description":"A filter list"
   },
-  "blacklisterthefilter":{
-    "message":"フィルターは設定ページで変更可能：",
-    "description":"Blacklister attribute choosing page message"
+  "catblock_disabled_by_filter_lists":{
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list",
+    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists."
   },
-  "whatmakesadblocktick":{
-    "message":"AdBlock の仕組みを確認したいですか？",
+  "typemain_frame":{
+    "message":"page",
+    "description":"A resource type"
+  },
+  "checkinfirefox_1":{
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='chrome2'></span>",
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    },
+    "message":"Firefoxをお持ちではない場合は $chrome$ インストールしてください。",
+    "description":"instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "latest_version":{
+    "message":"AdBlock は最新版です！",
+    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
+  },
+  "pwyw":{
+    "message":"支払える分だけお支払いください！",
+    "description":"Text of a payment request link"
+  },
+  "clickthead":{
+    "message":"ブロックする広告をクリックして下さい。ウィザードでご案内します。",
+    "description":"When you have to click the ad to continue"
+  },
+  "generaloptions":{
+    "message":"一般設定",
+    "description":"Title of first tab page"
+  },
+  "adblockupdates":{
+    "message":"AdBlock アップデート",
     "description":"Subtitle on the Support tab of the options"
   },
-  "optionsversion":{
-    "message":"バージョン $version$",
-    "placeholders":{
-      "version":{
-        "example":"2.0.9",
-        "content":"$1"
-      }
-    },
-    "description":"Version number"
+  "catblock_adblockreportinganad":{
+    "description":"Title of the ad report page",
+    "message":"CatBlock - Reporting an ad"
   },
-  "updatenowmessage2":{
-    "message":"自動的にアップデートを取得します。<a>今すぐアップデート</a>することも可能です。",
-    "description":"Update filters text + button"
-  },
-  "showcontextmenus2":{
-    "message":"右クリックメニューに項目を追加する。",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "lang_spanish":{
-    "message":"スペイン語",
-    "description":"language"
-  },
-  "savereminder":{
-    "message":"保存を忘れずに！",
-    "description":"Reminder to press save"
-  },
-  "report_ad_on_page":{
-    "message":"このページにある広告をレポート",
-    "description":"Entry in the AdBlock button menu"
-  },
-  "work_around_hulu_problems":{
-    "message":"Hulu.com のビデオが再生されないのを回避する (ブラウザの再起動が必要です)",
-    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
-  },
-  "filtereasylist_plus_french":{
-    "message":"フランス語",
-    "description":"language"
-  },
-  "catblock_tabcustomizetitle":{
-    "description":"Title of the customize tab",
-    "message":"Customize CatBlock"
-  },
-  "updatedrightnow":{
-    "message":"アップデートされました",
-    "description":"Label for subscription"
-  },
-  "modifypath":{
-    "message":"ページ：",
-    "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
-  },
-  "updatedsecondsago":{
-    "message":"$seconds$秒前にアップデートしました",
-    "placeholders":{
-      "seconds":{
-        "example":"15",
-        "content":"$1"
-      }
-    },
-    "description":"Label for subscription"
-  },
-  "csstomatch":{
-    "message":"CSS指定",
-    "description":"Message of the css-hiding area"
-  },
-  "catblock_check_checkbox":{
-    "message":"Check the checkbox by the sets of pictures that you want to use.",
-    "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock."
+  "whatsnew":{
+    "message":"最新版では何が変わりましたか？<a style='cursor:pointer;'>変更履歴</a>をご確認ください！",
+    "description":"Link to display the changelog on the Support tab of the options"
   },
   "typepopup":{
     "message":"popup",
     "description":"A resource type"
   },
-  "sliderexplanation":{
-    "message":"スライダーを広告が見えなくなるまでスライドをしてください。",
-    "description":"Blacklister slider page message"
+  "blacklisteroptions1":{
+    "message":"このページにアクセスする度に表示される要素について、どれが該当すると思いますか？",
+    "description":"Blacklister attribute choosing page message"
   },
-  "catblock_options":{
-    "message":"CatBlock Options",
-    "description":"Title of the CatBlock options page tab"
+  "show_ads_except_for":{
+    "message":"Show ads <i>everywhere</i> except for these domains...",
+    "description":"Section title for blacklisting section of Customize tab"
   },
-  "unpause_adblock":{
-    "message":"AdBlock の一時停止を解除",
-    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
+  "filtereasylist_plus_german":{
+    "message":"ドイツ語",
+    "description":"language"
   },
-  "filterrussian":{
-    "message":"ロシア語およびウクライナ語",
-    "description":"Language names for a filter list"
+  "questionoridea":{
+    "message":"質問、または新たなアイディアがありますか？",
+    "description":"Subtitle on the Support tab of the options"
   },
-  "optionstitle":{
-    "message":"AdBlock設定",
-    "description":"Title for the options page"
+  "catblock_you_can_slide_to_change":{
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases.",
+    "message":"You can slide below to change exactly what pages CatBlock won't run on."
   },
-  "savebutton":{
-    "message":"保存",
-    "description":"Save button"
+  "checkforupdates":{
+    "message":"アップデートを確認中 (数秒しかからないはずです)...",
+    "description":"Displayed when AdBlock is checking the newest available version"
   },
-  "catblock_safaributton_how_to_hide2":{
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu.",
-    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar."
+  "catblock_allrequests":{
+    "message":"All requests",
+    "description":"A message in dropdown selection on Resource viewer page"
   },
-  "adstillappear":{
-    "message":"広告はまだ表示されますか？",
-    "description":"Question on ad report page"
+  "lang_english":{
+    "message":"英語",
+    "description":"language"
   },
-  "selectlanguage":{
-    "message":" -- 言語を選択 -- ",
-    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
+  "otherfilters":{
+    "message":"その他のフィルターリスト",
+    "description":"List for other filters the user subscribed to"
   },
-  "translator_credit":{
-    "message":"翻訳者：",
-    "description":"Will be followed by a list of translator names (separate string)"
-  },
-  "catblock_safari50_updatenotice":{
-    "description":"A message shown to Safari 5.0 users urging them to upgrade",
-    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>."
-  },
-  "safari50_updatenotice":{
-    "message":"あなたは古いバージョンのSafariを使用しています。AdBlockの全機能を利用していただくには最新バージョンが必要です。<a>今すぐアップデート</a>.",
-    "description":"A message shown to Safari 5.0 users urging them to upgrade"
-  },
-  "blacklistereditinvalid1":{
-    "message":"フィルターが無効： $exception$",
+  "blacklisterattrwillbe":{
     "placeholders":{
-      "exception":{
-        "example":"This filter is not supported",
-        "content":"$1"
+      "value":{
+        "content":"$2",
+        "example":"AdBanner"
+      },
+      "attribute":{
+        "content":"$1",
+        "example":"class"
       }
     },
-    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated."
+    "message":"$attribute$ will be $value$",
+    "description":"Checkbox label"
+  },
+  "disabled_on_this_page":{
+    "message":"AdBlockはこのページでは無効になっています。",
+    "description":"Message shown in toolbar button on web pages that have been whitelisted"
+  },
+  "filtereasylist_plus_romanian":{
+    "message":"ルーマニア語",
+    "description":"language"
+  },
+  "blockdomain":{
+    "message":"適用するドメインを入力",
+    "description":"Message of the url and css -blocking area"
+  },
+  "filteritalian":{
+    "message":"イタリア語",
+    "description":"language"
+  },
+  "catblock_disableallextensions":{
+    "description":"Instruction on ad report page",
+    "message":"Disable all extensions except for CatBlock."
+  },
+  "catblock_time":{
+    "message":"Time",
+    "description":"Name of the table header on Resources viewer page"
+  },
+  "englishonly":{
+    "message":"英語のみ",
+    "description":"Lets the user know that a link/page is available in English only"
+  },
+  "adblockinglist":{
+    "message":"広告ブロックフィルターのリスト",
+    "description":"List for subscribed ad blocking fiters"
   },
   "blacklisterwarningnofilter":{
     "message":"注意： フィルターが指定されていません！",
     "description":"Warns the user that no filter was specified"
   },
-  "filtereasylist_plus_bulgarian":{
-    "message":"ブルガリア語",
+  "filterjapanese":{
+    "message":"日本語",
+    "description":"language"
+  },
+  "filtereasylist":{
+    "message":"EasyList (推奨)",
+    "description":"A filter list"
+  },
+  "checkinternetconnection":{
+    "message":"広告を報告するには、インターネットに接続されていなければなりません。",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
+  },
+  "supportsite":{
+    "message":"<a>サポートサイト</a>でお知らせください！",
+    "description":"Link to the support site on the Support tab of the options"
+  },
+  "headertype":{
+    "message":"Type",
+    "description":"Resource list page: title of a column"
+  },
+  "filtereasylist_plus_spanish":{
+    "message":"スペイン語",
+    "description":"language"
+  },
+  "showcontextmenus2":{
+    "message":"右クリックメニューに項目を追加する。",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "blacklistclickmessage":{
+    "message":"ページ内にある広告を右クリックし、ブロックをしてください。または、こちらでマニュアルでブロック。",
+    "description":"Message at the top of the blacklist options tab"
+  },
+  "languagedropdowndescription":{
+    "message":"別の言語用のフィルターを追加: ",
+    "description":"Dropdown list for language-specific filters"
+  },
+  "sourcecode":{
+    "message":"ソースコードは <a>自由に入手できます</a>！",
+    "description":"Link to the source code of AdBlock on the Support tab of the options"
+  },
+  "tabcustomize":{
+    "message":"カスタマイズ",
+    "description":"A tab on the options page"
+  },
+  "slidertitle":{
+    "message":"ステップ1： ブロック対象の指定",
+    "description":"Blacklister slider page title"
+  },
+  "blockurlwithtext":{
+    "message":"入力されたテキストを含むURLをブロック",
+    "description":"Message of the url-blocking area"
+  },
+  "catblock_latest_version":{
+    "description":"On the Options > Support page, shows when there are no updates available for CatBlock",
+    "message":"CatBlock is up-to-date!"
+  },
+  "updatedrightnow":{
+    "message":"アップデートされました",
+    "description":"Label for subscription"
+  },
+  "modifydomain":{
+    "message":"サイト：",
+    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL"
+  },
+  "ad_report_please":{
+    "message":"広告を見つけたら、バグ報告ではなく、<a>広告報告</a>をしてください！",
+    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
+  },
+  "checkinfirefoxtitle":{
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='chrome1'></span>",
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    },
+    "message":"Firefoxでも表示されるかどうかをチェックしてください $chrome$",
+    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome"
+  },
+  "dont_run_on_pages_on_domain":{
+    "message":"このドメイン上のページで稼動させない",
+    "description":"Menu entry to open the whitelist wizard"
+  },
+  "filtereasyprivacy":{
+    "message":"EasyPrivacy (プライバシー保護)",
+    "description":"A filter list"
+  },
+  "blockanadtitle":{
+    "message":"広告をブロック",
+    "description":"Title of the first two dialogs of the blacklister"
+  },
+  "manualfilteredit":{
+    "message":"手動でフィルターを編集：",
+    "description":"Subtitle on the 'Customize' tab"
+  },
+  "adblockreportinganad":{
+    "message":"AdBlock - 広告を報告",
+    "description":"Title of the ad report page"
+  },
+  "filterdanish":{
+    "message":"デンマーク語",
+    "description":"language"
+  },
+  "reloadadpage":{
+    "message":"広告のあるページを更新してください。",
+    "description":"Instruction on ad report page"
+  },
+  "catblock_malwarenotificationcheckboxmessage":{
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page",
+    "message":"Should CatBlock notify you when it detects malware?"
+  },
+  "filtereasylist_plus_greek":{
+    "message":"ギリシャ語",
+    "description":"language"
+  },
+  "modifypath":{
+    "message":"ページ：",
+    "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
+  },
+  "lang_ukranian":{
+    "message":"ウクライナ語",
+    "description":"language"
+  },
+  "adblock_click_for_details":{
+    "message":"AdBlock - 詳細はこちら",
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
+  },
+  "you_know_thats_a_bad_idea_right":{
+    "message":"フィルターリストの使用頻度が高くなるにつれ、AdBlockの動作が重くなります。たくさんのフィルターリストはブラウザがクラッシュする原因となりえます。それでも追加する場合はOKを押してください。",
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
+  },
+  "blacklistertype":{
+    "message":"Type",
+    "description":"node name is called 'Type'"
+  },
+  "findingads":{
+    "message":"広告を検索中・・・<br/><br/><i>少々お待ちください。</i>",
+    "description":"When you press ctrl-shift-K the blacklister searches for ads"
+  },
+  "adstillappear":{
+    "message":"広告はまだ表示されますか？",
+    "description":"Question on ad report page"
+  },
+  "format_site1_site2_site3":{
+    "message":"例： ~site1.com|~site2.com|~news.site3.org",
+    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
+  },
+  "catblock_add_more_photos":{
+    "message":"<b>Add some photos</b> from Flickr!  You can enter:",
+    "description":"Introduction to the examples of custom image lists. Leave the <b> and </b> as they are."
+  },
+  "only_block_ads_on_these_sites":{
+    "message":"これらのサイトの広告をブロックする：",
+    "description":"Label for textbox where user enters a list of sites on Customize tab"
+  },
+  "catblock_searchresources":{
+    "message":"Search resources by URL:",
+    "description":"A text shown on Resources viewer page"
+  },
+  "catblock_adblocksupport":{
+    "description":"Title of the support tab",
+    "message":"CatBlock Support"
+  },
+  "cleanuplist2":{
+    "message":"このリストを掃除:",
+    "description":"Option at the bottom of the 'Customize' options tab"
+  },
+  "work_around_hulu_problems":{
+    "message":"Hulu.com のビデオが再生されないのを回避する (ブラウザの再起動が必要です)",
+    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
+  },
+  "filterhungarian":{
+    "message":"ハンガリー語",
+    "description":"language"
+  },
+  "typexmlhttprequest":{
+    "message":"xmlhttprequest",
+    "description":"A resource type"
+  },
+  "other":{
+    "message":"その他",
+    "description":"Multiple choice option"
+  },
+  "typeunknown":{
+    "message":"unknown",
+    "description":"A resource type"
+  },
+  "blocked_n_in_total":{
+    "placeholders":{
+      "count":{
+        "content":"<a>123,456</a>",
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
+      }
+    },
+    "message":"合計 $count$ 件",
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999."
+  },
+  "filterrussian":{
+    "message":"ロシア語およびウクライナ語",
+    "description":"Language names for a filter list"
+  },
+  "operabutton_how_to_hide2":{
+    "message":"ボタンを非表示にするには、 opera://extensions を開き、「ツールバーから非表示にする」オプションにチェックを入れてください。そのオプションのチェックを外すと再び表示されるようになります。",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
+  },
+  "loading":{
+    "message":"読み込み中・・・",
+    "description":"Generic message displayed during processes that take some time"
+  },
+  "debuginfo":{
+    "message":"私たちのチームがデバッグ情報をいくらか要求しましたか？ それについては <a href='#' id='debug'>こちら</a>をクリック！",
+    "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "lang_slovak":{
+    "message":"スロバキア語",
+    "description":"language"
+  },
+  "filterantisocial":{
+    "message":"Antisocial フィルターリスト（ソーシャルメディアボタンを削除します）",
+    "description":"A filter list"
+  },
+  "checkinfirefox_5":{
+    "message":"Firefoxでも広告は表示されますか？",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "buttoncancel":{
+    "message":"キャンセル",
+    "description":"Cancel button"
+  },
+  "catblock_tabcustomizetitle":{
+    "description":"Title of the customize tab",
+    "message":"Customize CatBlock"
+  },
+  "reportpubliclyavailable":{
+    "message":"注意: 報告は公開される場合があります。私的な情報を含める前にご留意ください。",
+    "description":"Ad report page string, when you're about to submit a report"
+  },
+  "report_ad_on_page":{
+    "message":"このページにある広告をレポート",
+    "description":"Entry in the AdBlock button menu"
+  },
+  "lang_czech":{
+    "message":"チェコ語",
+    "description":"language"
+  },
+  "whitelistertitle2":{
+    "message":"Don't run AdBlock on...",
+    "description":"The title of the whitelister dialog"
+  },
+  "adblock_wont_run_on_pages_matching":{
+    "message":"AdBlock won't run on any page matching:",
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
+  },
+  "catblock_add_photos":{
+    "message":"Add Photos",
+    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
+  },
+  "catblock_excludedomainorurl":{
+    "description":"Message of the exclude area",
+    "message":"The domain or url where CatBlock shouldn't block anything"
+  },
+  "whatmakesadblocktick":{
+    "message":"AdBlock の仕組みを確認したいですか？",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "allow_whitelisting_youtube_channels":{
+    "message":"特定の YouTube チャンネルのホワイトリスト化を許可する",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "catblock_debuginlogoption":{
+    "description":"Checkbox on the 'General' tab of the Options page",
+    "message":"Show debug statements in Console Log (which slows down CatBlock)"
+  },
+  "catblock_malwarenotificationmessage":{
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!",
+    "message":"CatBlock has blocked a download from a site known to host malware."
+  },
+  "typesub_frame":{
+    "message":"frame",
+    "description":"A resource type"
+  },
+  "lang_russian":{
+    "message":"ロシア語",
+    "description":"language"
+  },
+  "catblock_adblock_click_for_details":{
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button.",
+    "message":"CatBlock - click for details"
+  },
+  "yes":{
+    "message":"はい",
+    "description":"A positive response to a question"
+  },
+  "safari50_updatenotice":{
+    "message":"あなたは古いバージョンのSafariを使用しています。AdBlockの全機能を利用していただくには最新バージョンが必要です。<a>今すぐアップデート</a>.",
+    "description":"A message shown to Safari 5.0 users urging them to upgrade"
+  },
+  "filterlistsrock":{
+    "message":"ほとんどの広告はフィルターリストでブロックされます。オプションとして更に：",
+    "description":"Header text on the Customize tab. 'Filter lists' should be the same text as the name of the 'Filter lists' tab."
+  },
+  "catblock_show_on_adblock_button":{
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked",
+    "message":"Show on CatBlock button"
+  },
+  "orchrome":{
+    "message":"または Chrome",
+    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
+  },
+  "storage_quota_exceeded":{
+    "message":"AdBlockで使用できる容量を超えました。フィルターリストにあるフィルターを幾つか除外してください！",
+    "description":"Message shown when the user uses more storage than allowed by the browser"
+  },
+  "block_this_ad":{
+    "message":"この広告をブロック",
+    "description":"Context and popup menu entry"
+  },
+  "optionsversion":{
+    "placeholders":{
+      "version":{
+        "content":"$1",
+        "example":"2.0.9"
+      }
+    },
+    "message":"バージョン $version$",
+    "description":"Version number"
+  },
+  "catblock_safaricontentblockingpausemessage":{
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled",
+    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'."
+  },
+  "typeother":{
+    "message":"others",
+    "description":"A resource type"
+  },
+  "catblock_status_disabled":{
+    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank",
+    "message":"CatBlock can not run on this domain."
+  },
+  "fixityourself":{
+    "message":"設定ページを使って自分で広告をブロックします！",
+    "description":"Telling users who won't report an ad to us how to handle it for themselves"
+  },
+  "catblock_example_flickr_url":{
+    "placeholders":{
+      "example":{
+        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
+      }
+    },
+    "message":"a Flickr photoset URL (e.g. $example$)",
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
+  },
+  "sliderexplanation":{
+    "message":"スライダーを広告が見えなくなるまでスライドをしてください。",
+    "description":"Blacklister slider page message"
+  },
+  "tabgeneral":{
+    "message":"一般",
+    "description":"A tab on the options page"
+  },
+  "nodefaultfilter1":{
+    "placeholders":{
+      "link":{
+        "content":"<a id='link'></a>",
+        "example":"<a>here</a>"
+      }
+    },
+    "message":"指定された言語のフィルターリストがありません。<br/>この言語をサポートする適切なリストを。$link$ もしくはこの要素をブロックするようにブラックリストを編集してください。",
+    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "linkblockadbyurl":{
+    "message":"URLで広告をブロック",
+    "description":"Link on the 'Customize' tab"
+  },
+  "contributors":{
+    "message":"AdBlock に携わる人々を見つけ出す助けになる<a>ページ</a>もあります！",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "blacklisteroptionstitle":{
+    "message":"最終ステップ： 何故これは広告になるのでしょうか？",
+    "description":"Blacklister options page title"
+  },
+  "hide_this_button":{
+    "message":"ボタンを隠す",
+    "description":"Toolbar button menu entry to hide the AdBlock button"
+  },
+  "filtermalware":{
+    "message":"マルウェア対策",
+    "description":"A filter list"
+  },
+  "subscribingfinished":{
+    "message":"完了！",
+    "description":"abp: link subscriber result"
+  },
+  "catblock_contributors":{
+    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "filteradblock_custom":{
+    "message":"AdBlockカスタムフィルター (推奨)",
+    "description":"A filter list"
+  },
+  "oradblockforchrome":{
+    "message":"または Chrome 用 AdBlock",
+    "description":"Used for placeholder in checkinfirefox_2 string"
+  },
+  "filtereasylist_plun_korean":{
+    "message":"韓国語",
+    "description":"language"
+  },
+  "filterczech":{
+    "message":"チェコ語およびスロバキア語",
+    "description":"Language names for a filter list"
+  },
+  "typemedia":{
+    "message":"audio/video",
+    "description":"A resource type"
+  },
+  "foundbug":{
+    "message":"バグが有りましたか？",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "catblock_update_available":{
+    "placeholders":{
+      "here":{
+        "content":"<a id='here'></a>",
+        "example":"<a>here</a>"
+      }
+    },
+    "description":"On the Options > Support page, shows when there are updates available for CatBl",
+    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'."
+  },
+  "filterlistlink":{
+    "message":"必要以上に登録をしないでください。追加する度に重くなりますので！リストの作成者、その他のリストは<a>こちら</a>。",
+    "description":"Explanation of the filter lists"
+  },
+  "filtereasylist_plus_finnish":{
+    "message":"フィンランド語",
+    "description":"language"
+  },
+  "unsubscribedlabel":{
+    "message":"無効にしました。",
+    "description":"Status label"
+  },
+  "catblock_replaceadswithcats":{
+    "message":"Replace ads with pictures of cats",
+    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
+  },
+  "confirm_undo_custom_filters":{
+    "placeholders":{
+      "count":{
+        "content":"$1",
+        "example":"The number of custom blocks for a domain."
+      },
+      "host":{
+        "content":"$2",
+        "example":"code.google.ph, ph.msn.com, stackoverflow.com"
+      }
+    },
+    "message":"$host$ に関して作成した  $count$ 個のブロックを本当に削除しますか？",
+    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset."
+  },
+  "typescript":{
+    "message":"script",
+    "description":"A resource type"
+  },
+  "filterturkish":{
+    "message":"トルコ語",
+    "description":"A filter list"
+  },
+  "blacklistermatches":{
+    "placeholders":{
+      "matchcount":{
+        "content":"$1",
+        "example":"5"
+      }
+    },
+    "message":"$matchcount$個のアイテムを発見しました。",
+    "description":"Tells the user multiple matches were found"
+  },
+  "filterchinese":{
+    "message":"中国語",
+    "description":"language"
+  },
+  "tabsupport":{
+    "message":"サポート",
+    "description":"A tab on the options page"
+  },
+  "catblock_example_flickr_search":{
+    "message":"a search for photos (e.g. <i>sailboat race</i>)",
+    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\"."
+  },
+  "blacklisterblocksalloftype":{
+    "placeholders":{
+      "elementtype":{
+        "content":"$1",
+        "example":"DIV"
+      }
+    },
+    "message":"警告： 指定されたフィルターはページの$elementtype$要素をすべてブロックします！",
+    "description":"Warns the user that all elements of type X will be blocked"
+  },
+  "options":{
+    "message":"設定",
+    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension"
+  },
+  "blacklisterthefilter":{
+    "message":"フィルターは設定ページで変更可能：",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "undo_last_block":{
+    "message":"このドメイン上の自分のブロックを取り消し",
+    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
+  },
+  "you_can_slide_to_change":{
+    "message":"You can slide below to change exactly what pages AdBlock won't run on.",
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
+  },
+  "catblock_adblock_wont_run_on_pages_matching":{
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line.",
+    "message":"CatBlock won't run on any page matching:"
+  },
+  "failedtofetchfilter":{
+    "message":"フィルターの取得に失敗しました！",
+    "description":"Error messagebox"
+  },
+  "catblock_pause_adblock":{
+    "description":"Menu entry to pause CatBlock",
+    "message":"Pause CatBlock"
+  },
+  "blacklisterblockedelement":{
+    "message":"ブロックされている要素：",
+    "description":"Tells the user what the blocked element is on the slider page"
+  },
+  "buttonblockit":{
+    "message":"ブロック！",
+    "description":"Block button"
+  },
+  "filterisraeli":{
+    "message":"ヘブライ語",
+    "description":"language"
+  },
+  "close":{
+    "message":"閉じる",
+    "description":"Generic message for buttons that close a view or window"
+  },
+  "optionstitle":{
+    "message":"AdBlock設定",
+    "description":"Title for the options page"
+  },
+  "invalidListUrl":{
+    "message":"URLのリストが無効です。自動的に削除されます。",
+    "description":"Message when you subscribe to a non-list URL"
+  },
+  "showlinkstolists2":{
+    "message":"フィルターリストへのリンクを表示する：",
+    "description":"Option on the 'Filter lists' tab of the Options page"
+  },
+  "linkhidesection":{
+    "message":"ウェブページの一部を隠す",
+    "description":"Link on the 'Customize' tab"
+  },
+  "csstomatch":{
+    "message":"CSS指定",
+    "description":"Message of the css-hiding area"
+  },
+  "blacklistersinglematch":{
+    "message":"<b>1</b>個のアイテムを発見しました。",
+    "description":"Tells the user only one match was found"
+  },
+  "spread_the_word":{
+    "message":"周りに広める",
+    "description":"Text of a share link"
+  },
+  "fetchinglabel":{
+    "message":"取得中・・・しばらくお待ちください。",
+    "description":"Status label"
+  },
+  "typepage":{
+    "message":"page",
+    "description":"A resource type"
+  },
+  "blocked_ads":{
+    "message":"ブロックされた広告数:",
+    "description":"Title for popup menu section showing number of ads blocked"
+  },
+  "filterswedish":{
+    "message":"スウェーデン語",
+    "description":"A filter list"
+  },
+  "somethingwentwrong":{
+    "message":"アップデートを確認中に不具合が発生しました。",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
+  },
+  "updatedminutesago":{
+    "placeholders":{
+      "minutes":{
+        "content":"$1",
+        "example":"15"
+      }
+    },
+    "message":"$minutes$分前にアップデートしました",
+    "description":"Label for subscription"
+  },
+  "flashads":{
+    "message":"動画とフラッシュ",
+    "description":"Title of the final ad report question if the ad didn't appear in Firefox"
+  },
+  "catblock_disableforchromeandsafaristeptwo":{
+    "description":"Step 2 for disabling Chrome and Safari extensions",
+    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>."
+  },
+  "warning_overrules_filters":{
+    "message":"注意： on all other sites you will see ads!<br>This overrules all other filters for those sites.",
+    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
+  },
+  "whats_this":{
+    "message":"これは何ですか?",
+    "description":"Text of a link pointing to the explanation of a new feature"
+  },
+  "lang_spanish":{
+    "message":"スペイン語",
     "description":"language"
   },
   "catblock_whitelistertitle2":{
     "description":"The title of the whitelister dialog",
     "message":"Don't run CatBlock on..."
   },
-  "adblock_outdated_chrome":{
-    "message":"古いバージョンの AdBlock を使用しています。 <a href='#'>拡張機能ページ</a> を開き、「デベロッパーモード」を有効にし、「今すぐ拡張機能をアップデート」をクリックしてください。",
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
+  "refusetocheck":{
+    "message":"これを確認したくありません。",
+    "description":"User is telling us they don't wish to investigate something for us"
   },
-  "headertype":{
-    "message":"Type",
-    "description":"Resource list page: title of a column"
+  "adblocksupport":{
+    "message":"AdBlock サポート",
+    "description":"Title of the support tab"
+  },
+  "here":{
+    "message":"こちら",
+    "description":"This message is injected in other strings as a link/button"
+  },
+  "blockmoreads":{
+    "message":"もっと広告をブロック：",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "catblock_adblock_outdated_chrome":{
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'",
+    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'"
+  },
+  "buttonok":{
+    "message":"OK！",
+    "description":"OK button"
+  },
+  "customfilters":{
+    "message":"カスタムフィルターリスト",
+    "description":"List for custom filters the user subscribed to"
+  },
+  "selectlanguage":{
+    "message":" -- 言語を選択 -- ",
+    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
+  },
+  "pause_adblock":{
+    "message":"AdBlockを一時停止",
+    "description":"Menu entry to pause AdBlock"
   },
   "disabled_by_filter_lists":{
     "message":"申し訳ありませんが、あなたが設定したフィルターリストによってAdBlockがこのページで無効となっています。",
     "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
   },
-  "catblock_disabled_on_this_page":{
-    "description":"Message shown in toolbar button on web pages that have been whitelisted",
-    "message":"CatBlock is disabled on this page."
-  },
-  "filterdanish":{
-    "message":"デンマーク語",
-    "description":"language"
+  "retryaftersubscribe":{
+    "placeholders":{
+      "list_title":{
+        "content":"$1",
+        "example":"French filters"
+      }
+    },
+    "message":"このフィルターリストを適用し、ページを更新して要素が消去できたか確認してください。 $list_title$",
+    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists"
   },
   "buttonedit":{
     "message":"編集",
     "description":"Edit filter manually button"
   },
-  "blacklisterblocksalloftype":{
-    "message":"警告： 指定されたフィルターはページの$elementtype$要素をすべてブロックします！",
+  "dont_run_on_this_page":{
+    "message":"このページでは実行しない",
+    "description":"Menu entry to whitelist a page"
+  },
+  "updatedsecondsago":{
     "placeholders":{
-      "elementtype":{
-        "example":"DIV",
-        "content":"$1"
+      "seconds":{
+        "content":"$1",
+        "example":"15"
       }
     },
-    "description":"Warns the user that all elements of type X will be blocked"
-  },
-  "catblock_enable_adblock":{
-    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'",
-    "message":"Enable CatBlock on this page"
-  },
-  "updatedhoursago":{
-    "message":"$hours$時間前にアップデートしました",
-    "placeholders":{
-      "hours":{
-        "example":"15",
-        "content":"$1"
-      }
-    },
+    "message":"$seconds$秒前にアップデートしました",
     "description":"Label for subscription"
   },
-  "tabcustomizetitle":{
-    "message":"AdBlockをカスタマイズ",
-    "description":"Title of the customize tab"
+  "savereminder":{
+    "message":"保存を忘れずに！",
+    "description":"Reminder to press save"
   },
-  "catblock_adblocksupport":{
-    "description":"Title of the support tab",
-    "message":"CatBlock Support"
+  "catblock_safari50_updatenotice":{
+    "description":"A message shown to Safari 5.0 users urging them to upgrade",
+    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>."
   },
-  "subscribingfailed":{
-    "message":"失敗！",
-    "description":"abp: link subscriber result"
+  "catblock_options":{
+    "message":"CatBlock Options",
+    "description":"Title of the CatBlock options page tab"
   },
-  "blacklistereditfilter":{
-    "message":"手動でフィルターを入力して、OKを押してください。",
-    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text."
+  "filterdutch":{
+    "message":"オランダ語",
+    "description":"language"
   },
-  "filterlistsrock":{
-    "message":"ほとんどの広告はフィルターリストでブロックされます。オプションとして更に：",
-    "description":"Header text on the Customize tab. 'Filter lists' should be the same text as the name of the 'Filter lists' tab."
+  "filtereasylist_plus_bulgarian":{
+    "message":"ブルガリア語",
+    "description":"language"
+  },
+  "reportfilterlistproblem":{
+    "placeholders":{
+      "link":{
+        "content":"$1",
+        "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe</a>  EXAMPLE 2: <a href='http://easylist.org'>EasyList forums</a>"
+      }
+    },
+    "message":"フィルターリストの問題です。報告はこちら： $link$",
+    "description":"Telling the user to report an ad to a filter list maintainer"
+  },
+  "typeobject_subrequest":{
+    "message":"object_subrequest",
+    "description":"A resource type"
+  },
+  "catblock_whatmakesadblocktick":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"Want to see what makes CatBlock tick?"
   },
   "typesubdocument":{
     "message":"frame",
     "description":"A resource type"
   },
-  "subscribingfinished":{
-    "message":"完了！",
+  "subscribingfailed":{
+    "message":"失敗！",
     "description":"abp: link subscriber result"
   },
-  "debuginfo":{
-    "message":"私たちのチームがデバッグ情報をいくらか要求しましたか？ それについては <a href='#' id='debug'>こちら</a>をクリック！",
-    "description":"Users can click this link to provide debug information to AdBlock staff"
+  "linkunblock":{
+    "message":"ウェブページとドメインにある広告を表示",
+    "description":"Link on the 'Customize' tab"
   },
-  "showlinkstolists2":{
-    "message":"フィルターリストへのリンクを表示する：",
-    "description":"Option on the 'Filter lists' tab of the Options page"
+  "updatedhoursago":{
+    "placeholders":{
+      "hours":{
+        "content":"$1",
+        "example":"15"
+      }
+    },
+    "message":"$hours$時間前にアップデートしました",
+    "description":"Label for subscription"
   },
-  "options":{
-    "message":"設定",
-    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension"
+  "orenteraurl":{
+    "message":"URL直接指定：",
+    "description":"Link for custom subscription"
   },
-  "filtereasylist_plus_german":{
-    "message":"ドイツ語",
-    "description":"language"
+  "typestylesheet":{
+    "message":"style definition",
+    "description":"A resource type"
+  },
+  "catblock_adblockupdates":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"CatBlock updates"
+  },
+  "catblock_example_flickr_id":{
+    "placeholders":{
+      "example":{
+        "content":"<i>346406</i>"
+      }
+    },
+    "message":"a Flickr photoset ID (e.g. $example$)",
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
+  },
+  "catblock_show_on_adblock_menu":{
+    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked",
+    "message":"Show number of ads blocked on CatBlock menu"
+  },
+  "catblock_enable_adblock":{
+    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'",
+    "message":"Enable CatBlock on this page"
   },
   "subscribebutton":{
     "message":"登録",
     "description":"Subscribe to a list button"
   },
-  "catblock_adblock_click_for_details":{
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button.",
-    "message":"CatBlock - click for details"
+  "filtereasylist_plus_polish":{
+    "message":"ポーランド語",
+    "description":"language"
   },
-  "catblock_update_available":{
-    "description":"On the Options > Support page, shows when there are updates available for CatBl",
+  "firefox_explanation":{
+    "message":"この質問の目的は、誰があなたの報告を受け取るべきか決定することです。この質問に不適切に回答した場合、間違った人物に報告が送られてしまい、そのために、無視されてしまうことになる場合があります。",
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
+  },
+  "updateddaysago":{
     "placeholders":{
-      "here":{
-        "example":"<a>here</a>",
-        "content":"<a id='here'></a>"
+      "days":{
+        "content":"$1",
+        "example":"15"
       }
     },
-    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'."
+    "message":"$days$日前にアップデートしました",
+    "description":"Label for subscription"
+  },
+  "catblock_check_checkbox":{
+    "message":"Check the checkbox by the sets of pictures that you want to use.",
+    "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock."
+  },
+  "catblock_filteradblock_custom":{
+    "description":"A filter list",
+    "message":"CatBlock custom filters (recommended)"
+  },
+  "betalabel":{
+    "message":"ベータ",
+    "description":"Label for beta features in AdBlock Options"
+  },
+  "blacklisternotsure":{
+    "message":"<b>よく分かりませんか？</b>とりあえず、「ブロック！」を押してください。",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "filtereasylist_plus_french":{
+    "message":"フランス語",
+    "description":"language"
+  },
+  "filtereasylist_plus_indonesian":{
+    "message":"インドネシア語",
+    "description":"A filter list"
+  },
+  "checkinfirefox_4":{
+    "message":"Ｆｉｒｅｆｏｘdで広告のあるページを読み込みください。",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "tabcustomizetitle":{
+    "message":"AdBlockをカスタマイズ",
+    "description":"Title of the customize tab"
+  },
+  "blacklistereditinvalid1":{
+    "placeholders":{
+      "exception":{
+        "content":"$1",
+        "example":"This filter is not supported"
+      }
+    },
+    "message":"フィルターが無効： $exception$",
+    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated."
+  },
+  "updateddayago":{
+    "message":"1日前アップデートしました",
+    "description":"Label for subscription"
+  },
+  "typeobject":{
+    "message":"interactive object",
+    "description":"A resource type"
+  },
+  "savebutton":{
+    "message":"保存",
+    "description":"Save button"
+  },
+  "advanced_options2":{
+    "message":"私は上級者ユーザーです。詳細設定を見せてください。",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "updatedhourago":{
+    "message":"1時間前アップデートしました",
+    "description":"Label for subscription"
   },
   "blacklisternofilter":{
     "message":"フィルターが指定されていません！",
     "description":"Warning if the user hasn't specified a filter"
   },
-  "typesub_frame":{
-    "message":"frame",
+  "unpause_adblock":{
+    "message":"AdBlock の一時停止を解除",
+    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
+  },
+  "update_available":{
+    "placeholders":{
+      "here":{
+        "content":"<a id='here'></a>",
+        "example":"<a>here</a>"
+      }
+    },
+    "message":"AdBlock のアップデートがあります！ $here$ を開いてアップデートしてください。 <br> 注意: アップデートを自動受信したい場合は、 Safari > 設定 > 拡張機能 > アップデートをクリックしてください。 <br> そしてオプション「自動的にアップデートをインストールする」にチェックを入れてください。",
+    "description":"On the Options > Support page, shows when there are updates available for AdBlock"
+  },
+  "blacklistereditfilter":{
+    "message":"手動でフィルターを入力して、OKを押してください。",
+    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text."
+  },
+  "catblock_safarinotificationbody":{
+    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules",
+    "message":"Please disable some filter lists. More information in CatBlock's Options."
+  },
+  "translator_credit":{
+    "message":"翻訳者：",
+    "description":"Will be followed by a list of translator names (separate string)"
+  },
+  "stop_blocking_ads":{
+    "message":"広告ブロックをやめる：",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "disableforchromeandsafaristeptwo":{
+    "message":"AdBlock <b>以外</b>の全ての拡張機能の隣にある「有効」チェックボックスのチェックを外してください。  <b>AdBlock は有効のままにしてください</b>。",
+    "description":"Step 2 for disabling Chrome and Safari extensions"
+  },
+  "status_paused":{
+    "message":"AdBlockは一時停止しています。",
+    "description":"Message shown in toolbar button when AdBlock is paused"
+  },
+  "cantblockflashwarning":{
+    "message":"Does the ad appear in or before a film or any other plugin like a Flash game?",
+    "description":"Text of the final ad report question"
+  },
+  "typehiding":{
+    "message":"hiding",
     "description":"A resource type"
   },
-  "typeunknown":{
-    "message":"unknown",
+  "disableforsafaristepone":{
+    "message":"Safari のメニュー&rarr; 設定 &rarr; 拡張機能をクリックしてください。",
+    "description":"Step 1 for disabling Safari extensions"
+  },
+  "debuginlogoption":{
+    "message":"デバック情報を更新履歴に表示(AdBlockの動作が重くなります)",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "typeimage":{
+    "message":"image",
     "description":"A resource type"
+  },
+  "catblock_status_paused":{
+    "description":"Message shown in toolbar button when CatBlock is paused",
+    "message":"CatBlock is paused."
+  },
+  "no":{
+    "message":"いいえ",
+    "description":"A negative response to a question"
   }
 }

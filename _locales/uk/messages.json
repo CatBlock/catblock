@@ -1,1606 +1,1606 @@
 {
-  "tabgeneral":{
-    "message":"Основні",
-    "description":"A tab on the options page"
+  "filterstabtitle":{
+    "message":"Підписатись на список фільтрів",
+    "description":"Title of the filter list tab"
   },
-  "disableotherextensionscomplete":{
-    "message":"Ми вимкнули усі інші розширення. Зараз ми перезавантажимо сторінку з рекламою. Зачекайте секунду, будь ласка.",
-    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
+  "updatenowmessage2":{
+    "message":"Списки оновлюватимуться автоматично, але ви можете <a>оновити їх</a> просто зараз",
+    "description":"Update filters text + button"
   },
-  "adreportvoluntary":{
-    "message":"Повідомлення про наявність реклами є добровільним. Це допоможе іншим людям, додавання до списку фільтрів заблокує рекламу кожному користувачу. Якщо ви не відчуваєте себе альтруїстом прямо зараз - це нормально. Закрийте цю сторінку та <a>заблокуйте рекламу</a> тільки для себе.",
-    "description":"Introduction of the ad reporting page"
+  "blockedresource":{
+    "message":"Заблокований ресурс",
+    "description":"Resource list page: resource status"
   },
-  "lang_czech":{
-    "message":"Чеською",
+  "safaricontentblocking":{
+    "message":"Увімкнути блокування вмісту в Safari",
+    "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
+  },
+  "adreport_all_debug_info":{
+    "message":"Наступні відомості будуть також включені у звіт про рекламу.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "catblock_you_know_thats_a_bad_idea_right":{
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel.",
+    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway."
+  },
+  "filtereasylist_plus_arabic":{
+    "message":"Арабською",
     "description":"language"
-  },
-  "filtereasylist_plus_romanian":{
-    "message":"Румунською",
-    "description":"language"
-  },
-  "dont_run_on_pages_on_domain":{
-    "message":"Не виконувати на сторінках цього домена",
-    "description":"Menu entry to open the whitelist wizard"
-  },
-  "disableforsafaristepone":{
-    "message":"Клацніть на меню «Safari» &rarr; «Налаштування» &rarr; «Розширення».",
-    "description":"Step 1 for disabling Safari extensions"
-  },
-  "adreport_response_large_file":{
-    "message":"Цей файл завеликий. Переконайтесь, що ваш файл менш ніж 10 МБ.",
-    "description":"Error message shown when the user tries to upload a large image file."
-  },
-  "somethingwentwrong":{
-    "message":"Під час перевірки оновлень щось пішло не так.",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
-  },
-  "checkinfirefox_2":{
-    "message":"Встановіть Adblock Plus для Firefox $chrome$, якщо ви досі не маєте його.",
-    "placeholders":{
-      "chrome":{
-        "example":"'or AdBlock for Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='adblockforchrome'></span>"
-      }
-    },
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad. Don't translate the name 'Adblock Plus'."
-  },
-  "filtermalware":{
-    "message":"Захист від шкідливих програм",
-    "description":"A filter list"
-  },
-  "typehiding":{
-    "message":"приховане",
-    "description":"A resource type"
-  },
-  "adblock_click_for_details":{
-    "message":"AdBlock — натисніть щоб побачити деталі",
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
-  },
-  "adreport_server_response_error_msg":{
-    "message":"При обробці Вашого запиту сталася помилка.",
-    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
-  },
-  "typeimage":{
-    "message":"зображення",
-    "description":"A resource type"
-  },
-  "resourcedomain":{
-    "message":"Завантажено на сторінці із доменом:\n$domain$",
-    "placeholders":{
-      "domain":{
-        "example":"example.com",
-        "content":"$1"
-      }
-    },
-    "description":"Resource list page: text shown when hovering over an item in the third-party column"
-  },
-  "enableotherextensionscomplete":{
-    "message":"Розширення, які були раніше вимкнуті були повторно увімкнено.",
-    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled"
-  },
-  "catblock_add_more_photos":{
-    "message":"<b>Add some photos</b> from Flickr!  You can enter:",
-    "description":"Introduction to the examples of custom image lists. Leave the <b> and </b> as they are."
-  },
-  "filterczech":{
-    "message":"Чеською та словацькою",
-    "description":"Language names for a filter list"
-  },
-  "cleanuplist2":{
-    "message":"Очистити цей список",
-    "description":"Option at the bottom of the 'Customize' options tab"
-  },
-  "malwarenotfound":{
-    "message":"Не знайдено жодної відомої шкідливої програми.",
-    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware/adware"
-  },
-  "block_this_ad":{
-    "message":"Заблокувати цю рекламу",
-    "description":"Context and popup menu entry"
-  },
-  "warning_overrules_filters":{
-    "message":"Увага: на всіх інших сайтах ви бачитимете рекламу!<br>Ці правила важливіші за інші фільтри для вказаних сайтів.",
-    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
-  },
-  "filtereasylist_plus_indonesian":{
-    "message":"Індонезійською",
-    "description":"A filter list"
   },
   "clickupdatefilters":{
     "message":"Натисніть: <a>Оновити мої списки фільтрів!</a>",
     "description":"Instruction on ad report page"
   },
-  "format_site1_site2_site3":{
-    "message":"Формат: ~site1.com|~site2.com|~novyny.site3.org",
-    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
+  "catblock_wizardcantrunonframesets":{
+    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website",
+    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page."
   },
-  "manualexcludefilteredit":{
-    "message":"Відредагуйте вимкнені фільтри:",
-    "description":"Subtitle on the 'Customize' tab"
+  "buttonlooksgood":{
+    "message":"Так краще",
+    "description":"Looks good button"
   },
-  "catblock_adblocksupport":{
-    "description":"Title of the support tab",
-    "message":"CatBlock Support"
+  "buttonexclude":{
+    "message":"Виключити",
+    "description":"Button for excluding a domain in the whitelister dialog"
+  },
+  "disableallextensions":{
+    "message":"Вимкніть усі розширення, окрім AdBlock:",
+    "description":"Instruction on ad report page"
   },
   "correctfilters":{
     "message":"Переконайтеся, що ви використовуєте правильний мовний фільтр(и):",
     "description":"On the ad report page, label describing having the right set of filters"
   },
-  "filtereasylist_plun_korean":{
-    "message":"Корейською",
-    "description":"language"
+  "catblock_reloadtab":{
+    "message":"Reload tab",
+    "description":"Button on Resources viewer page, which reloads selected tab from dropdown menu"
   },
-  "typexmlhttprequest":{
-    "message":"xmlhttprequest",
-    "description":"A resource type"
+  "malwarewarning":{
+    "message":"Ваш комп'ютер може бути заражений шкідливими програмами. Натисніть <a>тут</a> для отримання додаткової інформації.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware/adware"
   },
-  "debuginlogoption":{
-    "message":"Показувати інформацію для налагодження в Журналі Консолі (уповільнює роботу AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
+  "updatedminuteago":{
+    "message":"оновлено хвилину тому",
+    "description":"Label for subscription"
   },
-  "generaloptions":{
-    "message":"Основні настройки",
-    "description":"Title of first tab page"
-  },
-  "catblock_allrequests":{
-    "description":"All requests",
-    "message":"A message in dropdown selection on Resource viewer page"
-  },
-  "pause_adblock":{
-    "message":"Призупинити AdBlock",
-    "description":"Menu entry to pause AdBlock"
-  },
-  "betalabel":{
-    "message":"Бета",
-    "description":"Label for beta features in AdBlock Options"
-  },
-  "filterantisocial":{
-    "message":"Антисоціальний список фільтрів (прибирає кнопки соціальних мереж)",
-    "description":"A filter list"
-  },
-  "catblock_safaricontentblockingpausemessage":{
-    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled",
-    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'."
-  },
-  "catblock_unpause_adblock":{
-    "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'",
-    "message":"Unpause CatBlock"
-  },
-  "catblock_example_flickr_url":{
-    "message":"a Flickr photoset URL (e.g. $example$)",
+  "blocked_n_on_this_page":{
     "placeholders":{
-      "example":{
-        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
+      "count":{
+        "content":"<a>123</a>",
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
       }
     },
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
+    "message":"$count$ на цій сторінці",
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999."
   },
-  "catblock_contributors":{
-    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!",
-    "description":"Link to the contributors page on the Support tab of the options"
+  "filterlatvian":{
+    "message":"Латиською",
+    "description":"A filter list"
+  },
+  "catblock_time":{
+    "message":"Time",
+    "description":"Name of the table header on Resources viewer page"
+  },
+  "typeselector":{
+    "message":"селектор",
+    "description":"A resource type"
+  },
+  "latest_version":{
+    "message":"AdBlock оновлено до найсвіжішої версії!",
+    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
+  },
+  "typeobject":{
+    "message":"інтерактивний об’єкт",
+    "description":"A resource type"
+  },
+  "clickthead":{
+    "message":"Натисніть на рекламі, і я допоможу вам її позбутися.",
+    "description":"When you have to click the ad to continue"
+  },
+  "whitelistedresource":{
+    "message":"Дозволений ресурс",
+    "description":"Resource list page: resource status"
+  },
+  "adreport_missing_screenshot":{
+    "message":"Ви забули прикріпити знімок екрану! Ми не зможемо допомогти Вам не побачивши рекламу, про яку ви повідомляєте.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "adblockupdates":{
+    "message":"Оновлення AdBlock",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "catblock_enable_adblock":{
+    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'",
+    "message":"Enable CatBlock on this page"
+  },
+  "blacklistermatches":{
+    "placeholders":{
+      "matchcount":{
+        "content":"$1",
+        "example":"5"
+      }
+    },
+    "message":"Елементів під фільтром на поточній сторінці: $matchcount$.",
+    "description":"Tells the user multiple matches were found"
+  },
+  "update_available":{
+    "placeholders":{
+      "here":{
+        "content":"<a id='here'></a>",
+        "example":"<a>here</a>"
+      }
+    },
+    "message":"З’явилося оновлення AdBlock! Перейдіть $here$, щоб оновити його. <br> Зауважте: якщо ви хочете отримувати автоматичні оновлення, просто натисніть на «Safari» > «Налаштування» > «Розширення» > «Оновлення» <br> та відзначте прапорець «Встановлювати оновлення автоматично».",
+    "description":"On the Options > Support page, shows when there are updates available for AdBlock"
+  },
+  "safarinotificationbody":{
+    "message":"Будь ласка, вимкніть деякі списки фільтрів. Більше інформації дивіться в Параметрах AdBlock.",
+    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
+  },
+  "safarinotificationtitle":{
+    "message":"Перевищено обмеження правил Блокування Вмісту",
+    "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
   },
   "otherfilters":{
     "message":"Інші списки фільтрів",
     "description":"List for other filters the user subscribed to"
   },
-  "cantblockflashwarning":{
-    "message":"Чи з’являється ця реклама усередині чи перед початком відео, або ж у рамках якихось інших плаґінів на кшталт ігр на Flash?",
-    "description":"Text of the final ad report question"
-  },
-  "disableforchromestepone":{
-    "message":"Відкрити <a href='#'>сторінку розширень</a>.",
-    "description":"Step 1 for disabling Chrome extensions"
-  },
-  "failedtofetchfilter":{
-    "message":"Помилка отримання фільтру!",
-    "description":"Error messagebox"
-  },
-  "filtereasylist_plus_bulgarian":{
-    "message":"Болгарською",
-    "description":"language"
-  },
-  "lang_russian":{
-    "message":"Російською",
+  "filtereasylist_plus_romanian":{
+    "message":"Румунською",
     "description":"language"
   },
   "blockdomain":{
     "message":"Домен чи сторінка для обробки",
     "description":"Message of the url and css -blocking area"
   },
-  "typeselector":{
-    "message":"селектор",
-    "description":"A resource type"
-  },
-  "malwarenotificationcheckboxmessage":{
-    "message":"Чи показувати сповіщення AdBlock при виявленні шкідливих програм?",
-    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
-  },
-  "catblock_adblockupdates":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"CatBlock updates"
-  },
-  "report_ad_on_page":{
-    "message":"Поскаржитись на рекламу на цій сторінці",
-    "description":"Entry in the AdBlock button menu"
-  },
-  "topframe":{
-    "message":"Топ фрейм",
-    "description":"Resource list page: frame type"
-  },
-  "buttonexclude":{
-    "message":"Виключити",
-    "description":"Button for excluding a domain in the whitelister dialog"
-  },
-  "legend":{
-    "message":"Умовні позначення: ",
-    "description":"Resource list page: followed by color codes for various resource statuses (e.g. blocked, whitelisted, hidden)"
-  },
-  "adreport_email_privacy":{
-    "message":"Ми будемо використовувати його тільки для зв'язку з Вами, якщо нам потрібно буде більше інформації.",
-    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
-  },
-  "blacklisterattrwillbe":{
-    "message":"$attribute$ відповідатиме $value$",
-    "placeholders":{
-      "value":{
-        "example":"AdBanner",
-        "content":"$2"
-      },
-      "attribute":{
-        "example":"class",
-        "content":"$1"
-      }
-    },
-    "description":"Checkbox label"
-  },
-  "blockedresource":{
-    "message":"Заблокований ресурс",
-    "description":"Resource list page: resource status"
-  },
-  "aamessageadreport":{
-    "message":"Якщо ви не бажаєте бачити рекламу на зразок цієї, вам необхідно залишити фільтр Прийнятних рекламних оголошень вимкнутим.",
-    "description":"Acceptable Ads message on ad report page"
-  },
-  "safaributton_how_to_hide2":{
-    "message":"Щоб приховати кнопку, клацніть правою кнопкою мишки по панелі інструментів Safari і виберіть Кастомізувати Тулбар, а потім перетягніть кнопку AdBlock з панелі інструментів. Ви можете відобразити її знову, перетягнувши назад на панель інструментів.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
-  },
-  "whitelist_youtube_channel":{
-    "message":"Додати $name$ в білий список",
-    "placeholders":{
-      "name":{
-        "example":"Name of channel",
-        "content":"$1"
-      }
-    },
-    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option"
-  },
-  "ad_report_please":{
-    "message":"Якщо Ви бачите рекламу, не відправляйте звіт про помилки, відправте <a> звіт про рекламу </a> !",
-    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
-  },
-  "customfilters":{
-    "message":"Додатковий список фільтрів",
-    "description":"List for custom filters the user subscribed to"
-  },
-  "pagelanguagecheck":{
-    "message":"Якою мовою складено цю сторінку?",
-    "description":"Question on ad report page"
-  },
-  "adalreadyblocked":{
-    "message":"Чудово! Все налаштовано.",
-    "description":"On the ad report page, telling a user there is nothing to do"
-  },
-  "status_paused":{
-    "message":"AdBlock призупинено.",
-    "description":"Message shown in toolbar button when AdBlock is paused"
-  },
-  "safarinotificationbody":{
-    "message":"Будь ласка, вимкніть деякі списки фільтрів. Більше інформації дивіться в Параметрах AdBlock.",
-    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
-  },
-  "linkhidesection":{
-    "message":"Приховати частину веб-сторінки",
-    "description":"Link on the 'Customize' tab"
-  },
-  "reloadadpage":{
-    "message":"Оновіть сторінку з рекламою.",
-    "description":"Instruction on ad report page"
-  },
-  "filtersavewarning":{
-    "message":"Будьте обережні: якщо тут припуститися помилки, багато інших фільтрів, включаючи офіційні, можуть працювати некоректно!<br/>Читайте <a>порадник із синтаксису фільтрів (англ.)</a>, аби навчитися керувати чорними та білими списками фільтрів.",
-    "description":"Warning when blacklisting manually"
-  },
-  "filterdanish":{
-    "message":"Датською",
-    "description":"language"
-  },
-  "oradblockforchrome":{
-    "message":"або AdBlock для Chrome",
-    "description":"Used for placeholder in checkinfirefox_2 string"
-  },
-  "questionoridea":{
-    "message":"Є питання чи нова ідея?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "headertype":{
-    "message":"Тип",
-    "description":"Resource list page: title of a column"
-  },
-  "whitelistedresource":{
-    "message":"Дозволений ресурс",
-    "description":"Resource list page: resource status"
-  },
-  "filteracceptable_ads":{
-    "message":"Прийнятні рекламні оголошення (рекомендуємо)",
-    "description":"A filter list"
-  },
-  "firefox_explanation":{
-    "message":"Мета цього питання визначити, хто має отримати вашу скаргу. Якщо ви дасте хибну відповідь, скарга потрапить не у ті руки і, у такому випадку, може бути проігнорована.",
-    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
-  },
-  "checkinfirefox_3":{
-    "message":"У цьому браузері підпишіться на той же список фільтрів, як у вас тут.",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "adblock_wont_run_on_pages_matching":{
-    "message":"AdBlock не працюватиме на сторінках, що містять:",
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
-  },
-  "filterorigin":{
-    "message":"Походження фільтру: $list$",
-    "placeholders":{
-      "list":{
-        "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'",
-        "content":"$1"
-      }
-    },
-    "description":"Resource list page: tooltip of matching filter, telling which filter list contains the filter"
-  },
-  "reportpubliclyavailable":{
-    "message":"Зауважте: ваша скарга може стати публічно доступною. Пам’ятайте про це, залишаючи будь-яку особисту інформацію.",
-    "description":"Ad report page string, when you're about to submit a report"
-  },
-  "updateddayago":{
-    "message":"оновлено день тому",
-    "description":"Label for subscription"
-  },
-  "malwarenotificationmessage":{
-    "message":"AdBlock заблокував завантаження з сайту, який містить шкідливі програми.",
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
-  },
-  "blacklisteroptionstitle":{
-    "message":"Останній крок: що робить це рекламою?",
-    "description":"Blacklister options page title"
-  },
-  "adblockreportinganad":{
-    "message":"AdBlock — скарга на рекламу",
-    "description":"Title of the ad report page"
-  },
-  "subscribeconfirm":{
-    "message":"Ви впевнені, що бажаєте підписатися на список фільтрів $title$?",
-    "placeholders":{
-      "title":{
-        "example":"Prebake",
-        "content":"$1"
-      }
-    },
-    "description":"Prompt question before subscribing to the filter list"
-  },
-  "linkunblock":{
-    "message":"Показувати рекламу на веб-сторінці або домені",
-    "description":"Link on the 'Customize' tab"
-  },
-  "hide_this_button":{
-    "message":"Сховати цю кнопку",
-    "description":"Toolbar button menu entry to hide the AdBlock button"
-  },
-  "adreport_response_save_error":{
-    "message":"Помилка під час збереження завантаженого файлу.",
-    "description":"Error message shown when the server could not save an attached file."
-  },
-  "adblockinglist":{
-    "message":"Списки фільтрів реклами",
-    "description":"List for subscribed ad blocking fiters"
-  },
-  "catblock_add_photos":{
-    "message":"Add Photos",
-    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
-  },
-  "show_on_adblock_menu":{
-    "message":"Показати кількість заблокованих оголошень в меню AdBlock",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
-  },
-  "framedomain":{
-    "message":"Домен фрейму: ",
-    "description":"Resource list page: domain name of the frame"
-  },
-  "cantblockflash":{
-    "message":"Поки що ми не маємо змоги блокувати рекламу всередині Flash або інших плаґінів. Ми очікуємо на пітримку таких технологій від веб-переглядача та рушія виведення веб-сторінок WebKit.",
-    "description":"Result of the final ad report question"
-  },
-  "subscribingfailed":{
-    "message":"Невдало!",
-    "description":"abp: link subscriber result"
-  },
-  "whatsnew":{
-    "message":"Що нового в останній версії? Дивіться  <a style='cursor:pointer;'>список змін</a>!",
-    "description":"Link to display the changelog on the Support tab of the options"
-  },
-  "slidertitle":{
-    "message":"Крок 1: З’ясуймо, що слід заблокувати",
-    "description":"Blacklister slider page title"
-  },
-  "adreport_laststep":{
-    "message":"Останній крок: повідомте нам про проблему.",
-    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
-  },
-  "catblock_pause_adblock":{
-    "description":"Menu entry to pause CatBlock",
-    "message":"Pause CatBlock"
-  },
-  "advanced_options2":{
-    "message":"Я досвідчений користувач, покажіть мені просунуті налаштування",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "catblock_searchresources":{
-    "description":"Search resources by URL:",
-    "message":"A text shown on Resources viewer page"
-  },
-  "enable_adblock":{
-    "message":"Увімкнути AdBlock на цій сторінці",
-    "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
-  },
-  "whatmakesadblocktick":{
-    "message":"Хочете побачити, хто робить AdBlock живим?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "blacklistclickmessage":{
-    "message":"Натисніть правою кнопкою миші на рекламі, щоб заблокувати її, або зробіть це тут вручну.",
-    "description":"Message at the top of the blacklist options tab"
-  },
-  "nodefaultfilter1":{
-    "message":"У нас немає стандартного списку фільтрів для цієї мови.<br/>Будь ласка, спробуйте знайти гожий список з підтримкою цієї мови $link$ або заблокуйте цю рекламу самотужки на вкладці «Налаштування».",
-    "placeholders":{
-      "link":{
-        "example":"<a>here</a>",
-        "content":"<a id='link'></a>"
-      }
-    },
-    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab."
-  },
-  "typepage":{
-    "message":"сторінка",
-    "description":"A resource type"
-  },
-  "clickdisableotherextensions":{
-    "message":"<b>ЧИ</b>, просто натисніть цю кнопку щоб ми зробили все що вище: <a>Вимкнути всі інші розширення</a>",
-    "description":"On the ad report page, an alternative way to disable other extensions"
-  },
-  "filterlistlink":{
-    "message":"Не підписуйтесь на більше ніж потрібно — кожен з них трохи уповільнює роботу! Першоджерела та додаткові списки Ви можете знайти <a>тут<a>.",
-    "description":"Explanation of the filter lists"
-  },
-  "filterturkish":{
-    "message":"Турецькою",
-    "description":"A filter list"
-  },
-  "filtereasyprivacy":{
-    "message":"EasyPrivacy (для захисту приватності)",
-    "description":"A filter list"
-  },
-  "adreport_location":{
-    "message":"Де саме на цій сторінці з'являється реклама? Як це виглядає?",
-    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
-  },
-  "catblock_reloadtab":{
-    "description":"Reload tab",
-    "message":"Button on Resources viewer page, which reloads selected tab from dropdown menu"
-  },
-  "catblock_safarinotificationbody":{
-    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules",
-    "message":"Please disable some filter lists. More information in CatBlock's Options."
-  },
-  "manualfilteredit":{
-    "message":"Налаштувати фільтри вручну:",
-    "description":"Subtitle on the 'Customize' tab"
-  },
-  "invalidListUrl":{
-    "message":"Неприпустимий список URL. Його буде видалено.",
-    "description":"Message when you subscribe to a non-list URL"
-  },
-  "blacklisterblockedelement":{
-    "message":"Заблокований елемент:",
-    "description":"Tells the user what the blocked element is on the slider page"
-  },
-  "confirm_undo_custom_filters":{
-    "message":"Ви впевнені, що хочете видалити блокування, створені на $host$? Кількість створених блокувань: $count$",
-    "placeholders":{
-      "count":{
-        "example":"The number of custom blocks for a domain.",
-        "content":"$1"
-      },
-      "host":{
-        "example":"code.google.ph, ph.msn.com, stackoverflow.com",
-        "content":"$2"
-      }
-    },
-    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset."
-  },
-  "updatedhourago":{
-    "message":"оновлено годину тому",
-    "description":"Label for subscription"
-  },
-  "yes":{
-    "message":"Так",
-    "description":"A positive response to a question"
-  },
-  "aalinkadreport":{
-    "message":"Дізнайтесь більше про програму Прийнятних рекламних оголошень.",
-    "description":"Acceptable Ads link message on ad report page"
-  },
-  "fixityourself":{
-    "message":"Гаразд, ви все ще можете заблокувати цю рекламу лише для себе на сторінці настройок. Дякуємо!",
-    "description":"Telling users who won't report an ad to us how to handle it for themselves"
-  },
-  "catblock_status_disabled":{
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank",
-    "message":"CatBlock can not run on this domain."
-  },
-  "typeobject":{
-    "message":"інтерактивний об’єкт",
-    "description":"A resource type"
-  },
-  "flashads":{
-    "message":"Відео та Flash",
-    "description":"Title of the final ad report question if the ad didn't appear in Firefox"
-  },
-  "subframe":{
-    "message":"Субфрейм",
-    "description":"Resource list page: frame type"
-  },
-  "whats_this":{
-    "message":"Що це таке?",
-    "description":"Text of a link pointing to the explanation of a new feature"
-  },
-  "typeobject_subrequest":{
-    "message":"object_subrequest",
-    "description":"A resource type"
-  },
-  "show_on_adblock_button":{
-    "message":"Показати кількість заблокованих оголошень на кнопці AdBlock",
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
-  },
-  "buttonblockit":{
-    "message":"Заблокувати!",
-    "description":"Block button"
-  },
-  "savereminder":{
-    "message":"Не забудьте зберегти!",
-    "description":"Reminder to press save"
-  },
-  "safaricontentblocking":{
-    "message":"Увімкнути блокування вмісту в Safari",
-    "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
-  },
-  "adreport_name":{
-    "message":"Як Вас звуть?",
-    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
-  },
-  "customfilterserrormessage":{
-    "message":"Наступний фільтр: <br/> $filter$ <br/> містить помилку: <br/> $message$",
-    "placeholders":{
-      "message":{
-        "example":"invalid filter",
-        "content":"$2"
-      },
-      "filter":{
-        "example":"@@.ad",
-        "content":"$1"
-      }
-    },
-    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page"
-  },
-  "blocked_n_in_total":{
-    "message":"$count$ загалом",
-    "placeholders":{
-      "count":{
-        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
-        "content":"<a>123,456</a>"
-      }
-    },
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999."
-  },
-  "subscribingtitle":{
-    "message":"Підписка на список фільтрів...",
-    "description":"abp: link subscriber title"
-  },
-  "updatenowmessage2":{
-    "message":"Списки оновлюватимуться автоматично, але ви можете <a>оновити їх</a> просто зараз",
-    "description":"Update filters text + button"
-  },
-  "showcontextmenus2":{
-    "message":"Керувати AdBlock за допомогою контекстного меню",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "blockmoreads":{
-    "message":"Блокувати більше реклами:",
-    "description":"Section header on the 'Customize' tab"
-  },
-  "adreport_response_invalid_file":{
-    "message":"Цей файл не є зображенням. Будь ласка, завантажте файл .png, .gif, або .jpg.",
-    "description":"Error message shown when the user uploads an invalid file type."
-  },
-  "buttonsubmit":{
-    "message":"Надіслати",
-    "description":"Button to send a form."
-  },
-  "blocked_ads":{
-    "message":"Заблокована реклама:",
-    "description":"Title for popup menu section showing number of ads blocked"
-  },
-  "filtereasylist_plus_french":{
-    "message":"Французькою",
-    "description":"language"
-  },
-  "blacklisteroptions1":{
-    "message":"Які ознаки на вашу думку найкраще характеризуватимуть цю рекламу?",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "catblock_tabcustomizetitle":{
-    "description":"Title of the customize tab",
-    "message":"Customize CatBlock"
-  },
-  "acceptable_ads_content_blocking_disbled_message":{
-    "message":"Ми відписали Вас від Прийнятної Реклами, тому що Ви вимкнули блокування вмісту в Safari. Ви можете одночасно обрати лише одне. (<a>Чому?</a>)",
-    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
-  },
-  "sourcecode":{
-    "message":"Вихідний код знаходиться у <a>вільному доступі</a>!",
-    "description":"Link to the source code of AdBlock on the Support tab of the options"
-  },
-  "catblock_check_checkbox":{
-    "message":"Check the checkbox by the sets of pictures that you want to use.",
-    "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock."
-  },
-  "dont_run_on_this_page":{
-    "message":"Не запускати на цій сторінці",
-    "description":"Menu entry to whitelist a page"
-  },
-  "typepopup":{
-    "message":"зринаючий",
-    "description":"A resource type"
-  },
-  "catblock_safaributton_how_to_hide2":{
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu.",
-    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar."
-  },
-  "sliderexplanation":{
-    "message":"Перетягуйте повзунок доти, доки реклама не зникне, проте не переборщіть.",
-    "description":"Blacklister slider page message"
-  },
-  "wizardcantrunonframesets":{
-    "message":"Ця функція AdBlock не працює на цьому сайті, тому що він використовує застарілі технології. Ви можете додати в чорний або білий список самостійно через вкладку 'Налаштування' на сторінці налаштувань.",
-    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
-  },
-  "optionstitle":{
-    "message":"Налаштування AdBlock",
-    "description":"Title for the options page"
-  },
-  "thirdparty":{
-    "message":"Сторонні",
-    "description":"Resource list page: column title telling if the resource originates from a different domain"
-  },
-  "clickthead":{
-    "message":"Натисніть на рекламі, і я допоможу вам її позбутися.",
-    "description":"When you have to click the ad to continue"
-  },
-  "catblock_safari50_updatenotice":{
-    "description":"A message shown to Safari 5.0 users urging them to upgrade",
-    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>."
-  },
-  "blacklistereditinvalid1":{
-    "message":"Помилка введення фільтру: $exception$",
-    "placeholders":{
-      "exception":{
-        "example":"This filter is not supported",
-        "content":"$1"
-      }
-    },
-    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated."
-  },
-  "updateyourlists":{
-    "message":"Переконайтесь, що списки фільтрів свіжі:",
-    "description":"Section header on the ad report page"
-  },
-  "clickdisableaa":{
-    "message":"Натисніть сюди:  <a>Вимкнути Прийнятні рекламні оголошення</a>",
-    "description":"Instruction on ad report page"
-  },
-  "catblock_whitelistertitle2":{
-    "description":"The title of the whitelister dialog",
-    "message":"Don't run CatBlock on..."
-  },
-  "checkinfirefox_5":{
-    "message":"Чи з’являється реклама на нововідкритій сторінці?",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "blacklistersinglematch":{
-    "message":"Під фільтр потрапляє <b>1</b> елемент на поточній сторінці.",
-    "description":"Tells the user only one match was found"
-  },
-  "catblock_disabled_on_this_page":{
-    "description":"Message shown in toolbar button on web pages that have been whitelisted",
-    "message":"CatBlock is disabled on this page."
-  },
-  "filterwarning_removal":{
-    "message":"Список Попереджень про видалення AdBlock (видаляє попередження про використання блокувальника реклами)",
-    "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
-  },
-  "updatedhoursago":{
-    "message":"оновлено $hours$ годин(и) тому",
-    "placeholders":{
-      "hours":{
-        "example":"15",
-        "content":"$1"
-      }
-    },
-    "description":"Label for subscription"
-  },
-  "safarinotificationtitle":{
-    "message":"Перевищено обмеження правил Блокування Вмісту",
-    "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
-  },
-  "tabcustomizetitle":{
-    "message":"Налаштувати AdBlock",
-    "description":"Title of the customize tab"
-  },
-  "reloadpageafterwhitelist":{
-    "message":"Перезавантажте сторінку.",
-    "description":"Checkbox on whitelist wizard"
-  },
-  "blacklistereditfilter":{
-    "message":"Будь ласка, введіть вірний фільтр та натисніть «ОК»",
-    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text."
-  },
-  "disableaa":{
-    "message":"Перевіряємо фільтр Прийнятних рекламних оголошень:",
-    "description":"Section header on the ad report page"
-  },
-  "filterlistsrock":{
-    "message":"Списки фільтрів блокують майже всю рекламу в інтернеті. Проте ви можете:",
-    "description":"Header text on the Customize tab. 'Filter lists' should be the same text as the name of the 'Filter lists' tab."
-  },
-  "subscribingfinished":{
-    "message":"Готово!",
-    "description":"abp: link subscriber result"
-  },
-  "debuginfo":{
-    "message":"Наша команда запросила деяку налагоджувальну інформацію? Натисніть <a href='#' id='debug'>тут</a>!",
-    "description":"Users can click this link to provide debug information to AdBlock staff"
-  },
-  "options":{
-    "message":"Параметри",
-    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension"
-  },
-  "updatedrightnow":{
-    "message":"щойно оновлено",
-    "description":"Label for subscription"
-  },
-  "adreport_filter":{
-    "message":"Якщо ви створили робочий фільтр за допомогою майстра \"блокування реклами\", вставте його в поле нижче:",
-    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
-  },
-  "catblock_example_flickr_search":{
-    "message":"a search for photos (e.g. <i>sailboat race</i>)",
-    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\"."
-  },
-  "tabcustomize":{
-    "message":"Налаштувати",
-    "description":"A tab on the options page"
-  },
-  "catblock_example_flickr_id":{
-    "message":"a Flickr photoset ID (e.g. $example$)",
-    "placeholders":{
-      "example":{
-        "content":"<i>346406</i>"
-      }
-    },
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
-  },
-  "catblock_malwarenotificationmessage":{
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!",
-    "message":"CatBlock has blocked a download from a site known to host malware."
-  },
-  "catblock_debuginlogoption":{
-    "description":"Checkbox on the 'General' tab of the Options page",
-    "message":"Show debug statements in Console Log (which slows down CatBlock)"
-  },
-  "adreport_server_response_error__manual_msg_step1":{
-    "message":"Будь ласка, перейдіть на <a>наш сайт підтримки</a>.",
-    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
-  },
-  "adblockupdates":{
-    "message":"Оновлення AdBlock",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "other":{
-    "message":"Іншою",
-    "description":"Multiple choice option"
-  },
-  "filterjapanese":{
-    "message":"Японською",
-    "description":"language"
-  },
-  "csstomatch":{
-    "message":"захопити CSS",
-    "description":"Message of the css-hiding area"
-  },
-  "no":{
-    "message":"Ні",
-    "description":"A negative response to a question"
-  },
-  "fetchinglabel":{
-    "message":"Забираємо... будь ласка, чекайте.",
-    "description":"Status label"
-  },
-  "filterisraeli":{
-    "message":"Івритом",
-    "description":"language"
-  },
-  "filterhungarian":{
-    "message":"Угорською",
-    "description":"language"
-  },
-  "checkinfirefoxtitle":{
-    "message":"Перевірте у Firefox $chrome$",
-    "placeholders":{
-      "chrome":{
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='chrome1'></span>"
-      }
-    },
-    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome"
-  },
-  "headerfilter":{
-    "message":"Підпадає під фільтр",
-    "description":"Resource list page: title of a column"
-  },
-  "catblock_disableforchromeandsafaristeptwo":{
-    "description":"Step 2 for disabling Chrome and Safari extensions",
-    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>."
-  },
-  "adreport_response_success":{
-    "message":"Все готово! Ми скоро зв'яжемося з Вами, найімовірніше протягом одного-двох днів, якщо це не свята. Також, знайдіть в електронній пошті лист від AdBlock. Ви знайдете там посилання на Ваш запит на нашому сайті допомоги. Якщо Ви віддаєте перевагу стежити за результатами по електронній пошті, Ви можете робити це також!",
-    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
-  },
-  "excludedomainorurl":{
-    "message":"Домен або URL, на якому AdBlock не працюватиме",
-    "description":"Message of the exclude area"
-  },
-  "typescript":{
-    "message":"скрипт",
-    "description":"A resource type"
-  },
-  "filterswedish":{
-    "message":"Шведською",
-    "description":"A filter list"
-  },
-  "buttonback":{
-    "message":"Назад",
-    "description":"Back to previous wizard page button"
-  },
-  "lang_english":{
-    "message":"Англійською",
-    "description":"language"
-  },
-  "stop_blocking_ads":{
-    "message":"Припинити блокувати рекламу:",
-    "description":"Section header on the 'Customize' tab"
-  },
-  "catblock_filteradblock_custom":{
-    "description":"A filter list",
-    "message":"CatBlock custom filters (recommended)"
-  },
-  "malwarenotificationdisablethesemessages":{
-    "message":"Відключити ці сповіщення",
-    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
-  },
-  "catblock_show_on_adblock_button":{
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked",
-    "message":"Show on CatBlock button"
-  },
   "catblock_disableallextensions":{
     "description":"Instruction on ad report page",
     "message":"Disable all extensions except for CatBlock."
   },
-  "filtereasylist_plus_arabic":{
-    "message":"Арабською",
-    "description":"language"
-  },
-  "here":{
-    "message":"сюди",
-    "description":"This message is injected in other strings as a link/button"
-  },
-  "adblocksupport":{
-    "message":"Підтримка користувачів AdBlock",
-    "description":"Title of the support tab"
-  },
-  "update_available":{
-    "message":"З’явилося оновлення AdBlock! Перейдіть $here$, щоб оновити його. <br> Зауважте: якщо ви хочете отримувати автоматичні оновлення, просто натисніть на «Safari» > «Налаштування» > «Розширення» > «Оновлення» <br> та відзначте прапорець «Встановлювати оновлення автоматично».",
-    "placeholders":{
-      "here":{
-        "example":"<a>here</a>",
-        "content":"<a id='here'></a>"
-      }
-    },
-    "description":"On the Options > Support page, shows when there are updates available for AdBlock"
-  },
-  "datacollectionoption":{
-    "message":"Дозволити AdBlock збирати інформацію про використання списку анонімного фільтра та дані",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "checkinfirefox_1":{
-    "message":"Встановіть Firefox$chrome$, якщо",
-    "placeholders":{
-      "chrome":{
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='chrome2'></span>"
-      }
-    },
-    "description":"instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "malwarewarning":{
-    "message":"Ваш комп'ютер може бути заражений шкідливими програмами. Натисніть <a>тут</a> для отримання додаткової інформації.",
-    "description":"On the ad report page, the ads the user is seeing might be caused by malware/adware"
-  },
-  "hiddenelement":{
-    "message":"Прихований елемент",
-    "description":"Resource list page: resource status"
+  "adreport_response_large_file":{
+    "message":"Цей файл завеликий. Переконайтесь, що ваш файл менш ніж 10 МБ.",
+    "description":"Error message shown when the user tries to upload a large image file."
   },
   "malwarenotificationlearnmore":{
     "message":"Дізнатися більше про шкідливі програми",
     "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
   },
-  "catblock_replaceadswithcats":{
-    "message":"Replace ads with pictures of cats",
-    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
-  },
-  "blockanadtitle":{
-    "message":"Заблокувати рекламу",
-    "description":"Title of the first two dialogs of the blacklister"
-  },
-  "tabfilterlists":{
-    "message":"Список фільтрів",
-    "description":"A tab on the options page"
-  },
-  "filtereasylist_plus_lithuania":{
-    "message":"Литовською",
-    "description":"language"
-  },
-  "tabsupport":{
-    "message":"Підтримка",
-    "description":"A tab on the options page"
-  },
-  "updatedminuteago":{
-    "message":"оновлено хвилину тому",
-    "description":"Label for subscription"
-  },
-  "contributors":{
-    "message":"Ми маємо <a>сторінку</a>, яка допоможе вам дізнатись про людей, які створили AdBlock!",
-    "description":"Link to the contributors page on the Support tab of the options"
-  },
-  "checkforupdates":{
-    "message":"Перевіряю оновлення (має зайняти лиш декілька секунд)...",
-    "description":"Displayed when AdBlock is checking the newest available version"
-  },
-  "englishonly":{
-    "message":"Лише англійською мовою",
-    "description":"Lets the user know that a link/page is available in English only"
-  },
-  "linkblockadbyurl":{
-    "message":"Заблокувати рекламу за її URL",
-    "description":"Link on the 'Customize' tab"
-  },
-  "buttonlooksgood":{
-    "message":"Так краще",
-    "description":"Looks good button"
-  },
-  "operabutton_how_to_hide2":{
-    "message":"Щоб приховати цю кнопку, перейдіть на сторінку opera://extensions і позначте «Приховати з панелі інструментів». Кнопку можна буде повернути, знявши позначку.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
-  },
-  "unsubscribedlabel":{
-    "message":"Підписку скасовано.",
-    "description":"Status label"
-  },
-  "reenableadsonebyone":{
-    "message":"Чудово! Тепер давайте визначимо яке з розширень є причиною. Перевірте це вмикаючи розширення одне за одним. Розширення, яке поверне рекламні оголошення необхідно видалити, щоб позбавитися від реклами.",
-    "description":"Tells the user to reenable the extensions one by one"
-  },
-  "frametype":{
-    "message":"Тип фрейму: ",
-    "description":"Resource list page: followed by frame type (e.g. top frame, subframe)"
-  },
-  "reportfilterlistproblem":{
-    "message":"Проблема у списку фільтрів. Поскаржіться тут: $link$",
-    "placeholders":{
-      "link":{
-        "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe</a>  EXAMPLE 2: <a href='http://easylist.org'>EasyList forums</a>",
-        "content":"$1"
-      }
-    },
-    "description":"Telling the user to report an ad to a filter list maintainer"
-  },
-  "only_block_ads_on_these_sites":{
-    "message":"Блокувати рекламу лише на цих сайтах:",
-    "description":"Label for textbox where user enters a list of sites on Customize tab"
-  },
-  "adreport_email":{
-    "message":"Адреса Вашої електронної пошти?",
-    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
-  },
-  "filtereasylist_plus_greek":{
-    "message":"Грецькою",
-    "description":"language"
-  },
-  "updateddaysago":{
-    "message":"оновлено $days$ дні(в) тому",
-    "placeholders":{
-      "days":{
-        "example":"15",
-        "content":"$1"
-      }
-    },
-    "description":"Label for subscription"
-  },
-  "malwarecheck":{
-    "message":"Перевірка наявності шкідливих програм, які можуть додавати рекламу:",
-    "description":"Section header on the ad report page"
-  },
-  "disableallextensions":{
-    "message":"Вимкніть усі розширення, окрім AdBlock:",
-    "description":"Instruction on ad report page"
-  },
-  "catblock_show_on_adblock_menu":{
-    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked",
-    "message":"Show number of ads blocked on CatBlock menu"
-  },
-  "translator_credit":{
-    "message":"Переклад українською:",
-    "description":"Will be followed by a list of translator names (separate string)"
-  },
-  "catblock_disabled_by_filter_lists":{
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list",
-    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists."
-  },
-  "you_can_slide_to_change":{
-    "message":"Перетягніть, щоб визначити, чого саме не чіпатиме AdBlock.",
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
-  },
-  "lang_slovak":{
-    "message":"Словацькою",
-    "description":"language"
-  },
-  "content_blocking_acceptable_ads_disbled_message":{
-    "message":"Ми вимкнули блокування вмісту Safari, тому що Ви дозволити показ ненав'язливої реклами. Ви можете обрати одночасно лише одне. (<a>Чому?</a>)",
-    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
-  },
-  "acceptableadsdisable_done":{
-    "message":"Ви більше не підписані на список фільтрів Прийнятної реклами.",
-    "description":"Message shown to users after disabling Acceptable Ads via update page."
-  },
-  "block_an_ad_on_this_page":{
-    "message":"Заблокувати рекламу на цій сторінці",
-    "description":"Toolbar button menu entry and context menu entry"
-  },
-  "filterdutch":{
-    "message":"Голландською",
-    "description":"language"
-  },
-  "adreport_all_debug_info":{
-    "message":"Наступні відомості будуть також включені у звіт про рекламу.",
-    "description":"Shows the user the debug information that will be sent along with their report."
-  },
   "acceptableadsoption":{
     "message":"Дозволити деяку ненав’язливу рекламу",
     "description":"option on the 'General' tab"
   },
-  "blacklisterwarningnofilter":{
-    "message":"Увага: фільтр не вказано!",
-    "description":"Warns the user that no filter was specified"
+  "safaricontentblockinglimitexceeded":{
+    "message":"Кількість правил списку фільтрів перевищує обмеження в 50 000 і автоматично зменшена. Будь ласка, відпишіться від деяких списків фільтрів або вимкніть блокування вмісту Safari!",
+    "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
   },
-  "catblock_wizardcantrunonframesets":{
-    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website",
-    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page."
+  "subscribingtitle":{
+    "message":"Підписка на список фільтрів...",
+    "description":"abp: link subscriber title"
   },
-  "modifydomain":{
-    "message":"Сайт:",
-    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL"
+  "filterjapanese":{
+    "message":"Японською",
+    "description":"language"
   },
-  "catblock_malwarenotificationcheckboxmessage":{
-    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page",
-    "message":"Should CatBlock notify you when it detects malware?"
+  "catblock_add_photos":{
+    "message":"Add Photos",
+    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
   },
-  "close":{
-    "message":"Закрити",
-    "description":"Generic message for buttons that close a view or window"
+  "buttonsubmit":{
+    "message":"Надіслати",
+    "description":"Button to send a form."
   },
-  "disableforchromeandsafaristeptwo":{
-    "message":"Зніміть позначку «Увімкнено» навпроти кожного розширення <b>за виключенням</b> AdBlock. <b>Залиште AdBlock увімкненим</b>.",
-    "description":"Step 2 for disabling Chrome and Safari extensions"
+  "checkinternetconnection":{
+    "message":"Щоб надіслати скаргу на рекламу, потрібне підключення до інтернету.",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
   },
-  "orchrome":{
-    "message":"або Chrome",
-    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
-  },
-  "browserestartrequired":{
-    "message":"Будь ласка, перезавантажте Safari, щоб закінчити вимкнення блокування вмісту.",
-    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
-  },
-  "blacklisternotsure":{
-    "message":"<b>Не певні?</b> просто натисніть «Заблокувати!» нижче.",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "languagedropdowndescription":{
-    "message":"Додати фільтри для сторінок іншою мовою: ",
-    "description":"Dropdown list for language-specific filters"
-  },
-  "catblock_whatmakesadblocktick":{
-    "description":"Subtitle on the Support tab of the options",
-    "message":"Want to see what makes CatBlock tick?"
-  },
-  "adreport_server_response_error__manual_msg_step2":{
-    "message":"І вручну створити картку, а також копіювати та вставити інформацію нижче в розділ «Fill in any details you think will help us understand your issue».",
-    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
-  },
-  "typeother":{
-    "message":"інший",
-    "description":"A resource type"
-  },
-  "orenteraurl":{
-    "message":"Введіть URL додаткового списку:",
-    "description":"Link for custom subscription"
-  },
-  "updatedsecondsago":{
-    "message":"оновлено $seconds$ секунд(и) тому",
-    "placeholders":{
-      "seconds":{
-        "example":"15",
-        "content":"$1"
-      }
-    },
-    "description":"Label for subscription"
-  },
-  "findingads":{
-    "message":"Пошук реклами...<br/><br/><i>Це триватиме недовго.</i>",
-    "description":"When you press ctrl-shift-K the blacklister searches for ads"
-  },
-  "supportsite":{
-    "message":"Дайте нам знати на нашому <a>сайті підтримки</a>!",
-    "description":"Link to the support site on the Support tab of the options"
-  },
-  "show_ads_except_for":{
-    "message":"Показувати рекламу <i>всюди,</i> за винятком цих доменів...",
-    "description":"Section title for blacklisting section of Customize tab"
-  },
-  "updatedminutesago":{
-    "message":"оновлено $minutes$ хвилин(и) тому",
-    "placeholders":{
-      "minutes":{
-        "example":"15",
-        "content":"$1"
-      }
-    },
-    "description":"Label for subscription"
-  },
-  "adblock_outdated_chrome":{
-    "message":"Ви користуєтесь старою версією AdBlock. Будь ласка, перейдіть на сторінку <a href='#'>розширень</a>, увімкніть «Режим розробника» та натисніть «Оновити розширення зараз».",
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
-  },
-  "catblock_you_know_thats_a_bad_idea_right":{
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel.",
-    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway."
-  },
-  "noresourcessend2":{
-    "message":"Щось пішло не так. Не було відпревлено жодних ресурсів. Цю сторінку буде закрито. Спробуйте перезавантажити сайт.",
-    "description":"Resource list page: error message"
-  },
-  "catblock_time":{
-    "description":"Time",
-    "message":"Name of the table header on Resources viewer page"
-  },
-  "storage_quota_exceeded":{
-    "message":"Перевищено ліміт місця, яке для AdBlock виділяється веб-переглядачем. Будь ласка, скасуйте передплату кількох списків фільтрів!",
-    "description":"Message shown when the user uses more storage than allowed by the browser"
-  },
-  "lang_ukranian":{
-    "message":"Українською",
+  "filterchinese":{
+    "message":"Китайською",
     "description":"language"
   },
   "adreport_response_file_name":{
     "message":"Це ім'я файлу занадто довге. Будь ласка, дайте Вашому файлу більш коротке ім'я.",
     "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
   },
-  "typemedia":{
-    "message":"аудіо/відео",
-    "description":"A resource type"
-  },
-  "disabled_by_filter_lists":{
-    "message":"Перепрошуємо, AdBlock вимкнено на цій сторінці одним зі списків фільтрів.",
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
-  },
-  "bugreport":{
-    "message":"Чому б Вам не відправити нам <a>повідомлення про помилку</a>?",
-    "description":"Link to send a bug report on the Support tab of the options"
-  },
-  "filtereasylist":{
-    "message":"EasyList (рекомендуємо)",
-    "description":"A filter list"
-  },
-  "catblock_status_paused":{
-    "description":"Message shown in toolbar button when CatBlock is paused",
-    "message":"CatBlock is paused."
-  },
-  "filterstabtitle":{
-    "message":"Підписатись на список фільтрів",
-    "description":"Title of the filter list tab"
-  },
-  "you_know_thats_a_bad_idea_right":{
-    "message":"Що більше списків фільтрів ви використовуєте, то повільніше працює AdBlock. На деяких сайтах надмірне використання списків може навіть призвести до аварійного завершення роботи браузера. Натисніть OK, щоб все одно підписатись на цей список.",
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
-  },
-  "buttonok":{
-    "message":"OK!",
-    "description":"OK button"
-  },
-  "buttonedit":{
-    "message":"Змінити",
-    "description":"Edit filter manually button"
-  },
-  "manuallyenableotherextensions":{
-    "message":"Відкрийте сторінку розширень, щоб увімкнути розширення, які раніше були відключені.",
-    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
-  },
-  "blacklisterblocksalloftype":{
-    "message":"Будьте обережні: цей фільтр заблокує усі елементи $elementtype$ на цій сторінці!",
-    "placeholders":{
-      "elementtype":{
-        "example":"DIV",
-        "content":"$1"
-      }
-    },
-    "description":"Warns the user that all elements of type X will be blocked"
-  },
-  "safaricontentblockingpausemessage":{
-    "message":"Щоб призупинити AdBlock з увімкненим Блокуванням Вмісту, будь ласка, оберіть Safari (в меню) > Вподобання > Розширення > AdBlock та зніміть прапорець 'Увімкнути AdBlock'.",
-    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
-  },
-  "removefromlist":{
-    "message":"Видалити зі списку",
-    "description":"Label to remove a custom filter"
-  },
-  "blacklistermatches":{
-    "message":"Елементів під фільтром на поточній сторінці: $matchcount$.",
-    "placeholders":{
-      "matchcount":{
-        "example":"5",
-        "content":"$1"
-      }
-    },
-    "description":"Tells the user multiple matches were found"
-  },
-  "blocked_n_on_this_page":{
-    "message":"$count$ на цій сторінці",
-    "placeholders":{
-      "count":{
-        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
-        "content":"<a>123</a>"
-      }
-    },
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999."
-  },
-  "headerresource":{
-    "message":"Ресурс",
-    "description":"Resource list page: title of a column"
-  },
-  "retryaftersubscribe":{
-    "message":"Передплатіть список фільтрів «$list_title$» та спробуйте знов.",
-    "placeholders":{
-      "list_title":{
-        "example":"French filters",
-        "content":"$1"
-      }
-    },
-    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists"
-  },
-  "catblock_excludedomainorurl":{
-    "description":"Message of the exclude area",
-    "message":"The domain or url where CatBlock shouldn't block anything"
-  },
-  "catblock_adblock_outdated_chrome":{
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'",
-    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'"
-  },
-  "typemain_frame":{
-    "message":"сторінка",
-    "description":"A resource type"
-  },
-  "adreport_screen_cap_upload":{
-    "message":"Прикріпити знімок:",
-    "description":"Label next to a file upload button."
-  },
-  "foundbug":{
-    "message":"Знайшли помилку?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "undo_last_block":{
-    "message":"Скасувати обмеження, запроваджені мною на цьому домені",
-    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
-  },
-  "refusetocheck":{
-    "message":"Мені ліньки перевіряти",
-    "description":"User is telling us they don't wish to investigate something for us"
-  },
-  "adreportintro":{
-    "message":"Знайшли рекламу на сторінці? Ми допоможемо вам знайти правильне місце, щоб повідомити про це!",
-    "description":"Introduction of the ad reporting page"
-  },
-  "contentblockingwarning":{
-    "message":"Примітка: Білий список (дозволяє рекламу) на сторінці чи сайті не підтримується, коли блокування вмісту Safari увімкнено.",
-    "description":"Notice shown on the 'Customize' tab of the options page when Safari Content Blocking is enabled"
-  },
-  "adreport_missing_screenshot":{
-    "message":"Ви забули прикріпити знімок екрану! Ми не зможемо допомогти Вам не побачивши рекламу, про яку ви повідомляєте.",
-    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
-  },
-  "catblock_adblockreportinganad":{
-    "description":"Title of the ad report page",
-    "message":"CatBlock - Reporting an ad"
-  },
-  "checkinternetconnection":{
-    "message":"Щоб надіслати скаргу на рекламу, потрібне підключення до інтернету.",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
-  },
-  "allow_whitelisting_youtube_channels":{
-    "message":"Дозволити рекламу на вподобаних вами каналах YouTube",
+  "showcontextmenus2":{
+    "message":"Керувати AdBlock за допомогою контекстного меню",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
-  "whitelistertitle2":{
-    "message":"Не застосовувати AdBlock до...",
-    "description":"The title of the whitelister dialog"
+  "tabcustomize":{
+    "message":"Налаштувати",
+    "description":"A tab on the options page"
   },
-  "catblock_update_available":{
-    "description":"On the Options > Support page, shows when there are updates available for CatBl",
-    "placeholders":{
-      "here":{
-        "example":"<a>here</a>",
-        "content":"<a id='here'></a>"
-      }
-    },
-    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'."
-  },
-  "buttoncancel":{
-    "message":"Скасувати",
-    "description":"Cancel button"
-  },
-  "resourceblocktitle":{
-    "message":"Всі ресурси",
-    "description":"Resource list page name"
-  },
-  "typestylesheet":{
-    "message":"визначення стилю",
-    "description":"A resource type"
-  },
-  "catblock_adblock_wont_run_on_pages_matching":{
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line.",
-    "message":"CatBlock won't run on any page matching:"
-  },
-  "pwyw":{
-    "message":"Заплатіть стільки, скільки готові!",
-    "description":"Text of a payment request link"
-  },
-  "filtereasylist_plus_polish":{
-    "message":"Польською",
-    "description":"language"
-  },
-  "show_resourcelist":{
-    "message":"Показати всі запити",
-    "description":"Menu entry to open the resource list page"
-  },
-  "acceptableadsdisable_how_to_reenable":{
-    "message":"Ви можете знову увімкнути це і підтримати улюблені веб-сайти, просто оберіть \"Дозволити деяку ненав’язливу рекламу\" нижче.",
-    "description":"Message shown to users after disabling Acceptable Ads via update page."
-  },
-  "catblock_latest_version":{
-    "description":"On the Options > Support page, shows when there are no updates available for CatBlock",
-    "message":"CatBlock is up-to-date!"
-  },
-  "filteradblock_custom":{
-    "message":"Власні фільтри AdBlock (рекомендуємо)",
-    "description":"A filter list"
-  },
-  "frameurl":{
-    "message":"URL фрейму: ",
-    "description":"Resource list page: full URL of the frame"
-  },
-  "filteritalian":{
-    "message":"Італійською",
-    "description":"language"
-  },
-  "safari50_updatenotice":{
-    "message":"Ви користуєтесь застарілою версією Safari. Встановіть найновішу версію, аби користуватися кнопкою на панелі інструментів для призупинки AdBlock, занесення сайтів у білий список, та подання скарг на рекламу. <a>Оновити зараз</a>.",
-    "description":"A message shown to Safari 5.0 users urging them to upgrade"
-  },
-  "blacklistertype":{
-    "message":"Тип",
-    "description":"node name is called 'Type'"
-  },
-  "spread_the_word":{
-    "message":"Допоможіть розказати всім!",
-    "description":"Text of a share link"
-  },
-  "filterlatvian":{
-    "message":"Латиською",
-    "description":"A filter list"
-  },
-  "blacklisterthefilter":{
-    "message":"Фільтр, який можна змінити на сторінці «Налаштувати»:",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "catblock_options":{
-    "message":"CatBlock Options",
-    "description":"Title of the CatBlock options page tab"
-  },
-  "optionsversion":{
-    "message":"Версія $version$",
-    "placeholders":{
-      "version":{
-        "example":"2.0.9",
-        "content":"$1"
-      }
-    },
-    "description":"Version number"
-  },
-  "filterchinese":{
-    "message":"Китайською",
-    "description":"language"
-  },
-  "lang_spanish":{
-    "message":"Іспанською",
-    "description":"language"
+  "slidertitle":{
+    "message":"Крок 1: З’ясуймо, що слід заблокувати",
+    "description":"Blacklister slider page title"
   },
   "blockurlwithtext":{
     "message":"Блокувати URL’и, що містять такий текст",
     "description":"Message of the url-blocking area"
   },
-  "work_around_hulu_problems":{
-    "message":"Полагодити відео з Hulu.com, що не хочуть відтворюватися (потребує перезапуску вашого переглядача)",
-    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
+  "ad_report_please":{
+    "message":"Якщо Ви бачите рекламу, не відправляйте звіт про помилки, відправте <a> звіт про рекламу </a> !",
+    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
   },
-  "tabreloadcomplete":{
-    "message":"Готово! Ми перезавантажили сторінку з рекламою. Будь ласка, перевірте чи зникла реклама на тій сторінці. Потім поверніться на цю сторінку та дайте відповіді на наступні запитання.",
-    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
+  "catblock_disabled_on_this_page":{
+    "description":"Message shown in toolbar button on web pages that have been whitelisted",
+    "message":"CatBlock is disabled on this page."
+  },
+  "operabutton_how_to_hide2":{
+    "message":"Щоб приховати цю кнопку, перейдіть на сторінку opera://extensions і позначте «Приховати з панелі інструментів». Кнопку можна буде повернути, знявши позначку.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
+  },
+  "status_paused":{
+    "message":"AdBlock призупинено.",
+    "description":"Message shown in toolbar button when AdBlock is paused"
+  },
+  "filterdanish":{
+    "message":"Датською",
+    "description":"language"
+  },
+  "filtereasylist_plus_greek":{
+    "message":"Грецькою",
+    "description":"language"
   },
   "modifypath":{
     "message":"Сторінка:",
     "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
   },
-  "latest_version":{
-    "message":"AdBlock оновлено до найсвіжішої версії!",
-    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
-  },
-  "checkinfirefox_4":{
-    "message":"У тому переглядачі відкрийте сторінку із рекламою.",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "catblock_enable_adblock":{
-    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'",
-    "message":"Enable CatBlock on this page"
-  },
-  "filtereasylist_plus_finnish":{
-    "message":"Фінською",
+  "lang_ukranian":{
+    "message":"Українською",
     "description":"language"
   },
-  "catblock_storage_quota_exceeded":{
-    "description":"Message shown when the user uses more storage than allowed by the browser",
-    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!"
+  "close":{
+    "message":"Закрити",
+    "description":"Generic message for buttons that close a view or window"
   },
-  "unpause_adblock":{
-    "message":"Запустити AdBlock",
-    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
+  "you_know_thats_a_bad_idea_right":{
+    "message":"Що більше списків фільтрів ви використовуєте, то повільніше працює AdBlock. На деяких сайтах надмірне використання списків може навіть призвести до аварійного завершення роботи браузера. Натисніть OK, щоб все одно підписатись на цей список.",
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
   },
-  "filterrussian":{
-    "message":"Українською та російською",
-    "description":"Language names for a filter list"
-  },
-  "savebutton":{
-    "message":"Зберегти",
-    "description":"Save button"
+  "manuallyenableotherextensions":{
+    "message":"Відкрийте сторінку розширень, щоб увімкнути розширення, які раніше були відключені.",
+    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
   },
   "adstillappear":{
     "message":"Ви все ще її бачите?",
     "description":"Question on ad report page"
   },
-  "selectlanguage":{
-    "message":" -- Оберіть якою -- ",
-    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
+  "catblock_add_more_photos":{
+    "message":"<b>Add some photos</b> from Flickr!  You can enter:",
+    "description":"Introduction to the examples of custom image lists. Leave the <b> and </b> as they are."
   },
-  "adreport_missing_info":{
-    "message":"Обов'язкова інформація відсутня або неприпустима.  Будь ласка, дайте відповідь на запитання в червоних рамках.",
-    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  "only_block_ads_on_these_sites":{
+    "message":"Блокувати рекламу лише на цих сайтах:",
+    "description":"Label for textbox where user enters a list of sites on Customize tab"
   },
-  "filtericelandic":{
-    "message":"Ісландською",
+  "findingads":{
+    "message":"Пошук реклами...<br/><br/><i>Це триватиме недовго.</i>",
+    "description":"When you press ctrl-shift-K the blacklister searches for ads"
+  },
+  "cleanuplist2":{
+    "message":"Очистити цей список",
+    "description":"Option at the bottom of the 'Customize' options tab"
+  },
+  "other":{
+    "message":"Іншою",
+    "description":"Multiple choice option"
+  },
+  "spread_the_word":{
+    "message":"Допоможіть розказати всім!",
+    "description":"Text of a share link"
+  },
+  "blocked_n_in_total":{
+    "placeholders":{
+      "count":{
+        "content":"<a>123,456</a>",
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating."
+      }
+    },
+    "message":"$count$ загалом",
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999."
+  },
+  "thirdparty":{
+    "message":"Сторонні",
+    "description":"Resource list page: column title telling if the resource originates from a different domain"
+  },
+  "contentblockingwarning":{
+    "message":"Примітка: Білий список (дозволяє рекламу) на сторінці чи сайті не підтримується, коли блокування вмісту Safari увімкнено.",
+    "description":"Notice shown on the 'Customize' tab of the options page when Safari Content Blocking is enabled"
+  },
+  "subframe":{
+    "message":"Субфрейм",
+    "description":"Resource list page: frame type"
+  },
+  "csstomatch":{
+    "message":"захопити CSS",
+    "description":"Message of the css-hiding area"
+  },
+  "buttoncancel":{
+    "message":"Скасувати",
+    "description":"Cancel button"
+  },
+  "catblock_tabcustomizetitle":{
+    "description":"Title of the customize tab",
+    "message":"Customize CatBlock"
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Будь ласка, перейдіть на <a>наш сайт підтримки</a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "catblock_adblockupdates":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"CatBlock updates"
+  },
+  "lang_czech":{
+    "message":"Чеською",
     "description":"language"
   },
-  "filtereasylist_plus_spanish":{
-    "message":"Іспанською",
-    "description":"language"
+  "whitelistertitle2":{
+    "message":"Не застосовувати AdBlock до...",
+    "description":"The title of the whitelister dialog"
   },
-  "loading":{
-    "message":"ЗАВАНТАЖЕННЯ...",
-    "description":"Generic message displayed during processes that take some time"
+  "savebutton":{
+    "message":"Зберегти",
+    "description":"Save button"
   },
-  "disableyoutubestreamingads":{
-    "message":"Увімкнути режим сумісності ClickToFlash",
-    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
+  "show_resourcelist":{
+    "message":"Показати всі запити",
+    "description":"Menu entry to open the resource list page"
   },
-  "safaricontentblockinglimitexceeded":{
-    "message":"Кількість правил списку фільтрів перевищує обмеження в 50 000 і автоматично зменшена. Будь ласка, відпишіться від деяких списків фільтрів або вимкніть блокування вмісту Safari!",
-    "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
+  "frameurl":{
+    "message":"URL фрейму: ",
+    "description":"Resource list page: full URL of the frame"
   },
-  "disabled_on_this_page":{
-    "message":"AdBlock вимкнено на цій сторінці.",
-    "description":"Message shown in toolbar button on web pages that have been whitelisted"
+  "catblock_debuginlogoption":{
+    "description":"Checkbox on the 'General' tab of the Options page",
+    "message":"Show debug statements in Console Log (which slows down CatBlock)"
   },
-  "typesubdocument":{
-    "message":"фрейм",
-    "description":"A resource type"
-  },
-  "how":{
-    "message":"Як?",
-    "description":"Text of a link pointing to instructions on how to do something"
-  },
-  "filtereasylist_plus_estonian":{
-    "message":"Естонською",
-    "description":"language"
-  },
-  "showlinkstolists2":{
-    "message":"Показати посилання на списки фільтрів",
-    "description":"Option on the 'Filter lists' tab of the Options page"
-  },
-  "filtereasylist_plus_german":{
-    "message":"Німецькою",
-    "description":"language"
-  },
-  "subscribebutton":{
-    "message":"Додати",
-    "description":"Subscribe to a list button"
-  },
-  "description2":{
-    "message":"Найпопулярніше розширення для Chrome, яким користуються понад 40 мільйонів людей! Заблокуйте рекламу по всьому інтернету.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
-  },
-  "catblock_adblock_click_for_details":{
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button.",
-    "message":"CatBlock - click for details"
-  },
-  "catblock_you_can_slide_to_change":{
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases.",
-    "message":"You can slide below to change exactly what pages CatBlock won't run on."
-  },
-  "blacklisternofilter":{
-    "message":"Фільтр не вказано!",
-    "description":"Warning if the user hasn't specified a filter"
+  "catblock_malwarenotificationmessage":{
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!",
+    "message":"CatBlock has blocked a download from a site known to host malware."
   },
   "typesub_frame":{
     "message":"фрейм",
     "description":"A resource type"
   },
+  "checkinfirefox_2":{
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='adblockforchrome'></span>",
+        "example":"'or AdBlock for Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    },
+    "message":"Встановіть Adblock Plus для Firefox $chrome$, якщо ви досі не маєте його.",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad. Don't translate the name 'Adblock Plus'."
+  },
+  "browserestartrequired":{
+    "message":"Будь ласка, перезавантажте Safari, щоб закінчити вимкнення блокування вмісту.",
+    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
+  },
+  "lang_russian":{
+    "message":"Російською",
+    "description":"language"
+  },
+  "adreport_filter":{
+    "message":"Якщо ви створили робочий фільтр за допомогою майстра \"блокування реклами\", вставте його в поле нижче:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
+  "questionoridea":{
+    "message":"Є питання чи нова ідея?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Прикріпити знімок:",
+    "description":"Label next to a file upload button."
+  },
+  "storage_quota_exceeded":{
+    "message":"Перевищено ліміт місця, яке для AdBlock виділяється веб-переглядачем. Будь ласка, скасуйте передплату кількох списків фільтрів!",
+    "description":"Message shown when the user uses more storage than allowed by the browser"
+  },
+  "tabreloadcomplete":{
+    "message":"Готово! Ми перезавантажили сторінку з рекламою. Будь ласка, перевірте чи зникла реклама на тій сторінці. Потім поверніться на цю сторінку та дайте відповіді на наступні запитання.",
+    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
+  },
+  "fixityourself":{
+    "message":"Гаразд, ви все ще можете заблокувати цю рекламу лише для себе на сторінці настройок. Дякуємо!",
+    "description":"Telling users who won't report an ad to us how to handle it for themselves"
+  },
+  "subscribingfailed":{
+    "message":"Невдало!",
+    "description":"abp: link subscriber result"
+  },
+  "catblock_example_flickr_url":{
+    "placeholders":{
+      "example":{
+        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
+      }
+    },
+    "message":"a Flickr photoset URL (e.g. $example$)",
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
+  },
+  "clickdisableaa":{
+    "message":"Натисніть сюди:  <a>Вимкнути Прийнятні рекламні оголошення</a>",
+    "description":"Instruction on ad report page"
+  },
+  "sliderexplanation":{
+    "message":"Перетягуйте повзунок доти, доки реклама не зникне, проте не переборщіть.",
+    "description":"Blacklister slider page message"
+  },
+  "tabgeneral":{
+    "message":"Основні",
+    "description":"A tab on the options page"
+  },
+  "nodefaultfilter1":{
+    "placeholders":{
+      "link":{
+        "content":"<a id='link'></a>",
+        "example":"<a>here</a>"
+      }
+    },
+    "message":"У нас немає стандартного списку фільтрів для цієї мови.<br/>Будь ласка, спробуйте знайти гожий список з підтримкою цієї мови $link$ або заблокуйте цю рекламу самотужки на вкладці «Налаштування».",
+    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "linkblockadbyurl":{
+    "message":"Заблокувати рекламу за її URL",
+    "description":"Link on the 'Customize' tab"
+  },
+  "blacklisteroptionstitle":{
+    "message":"Останній крок: що робить це рекламою?",
+    "description":"Blacklister options page title"
+  },
+  "resourceblocktitle":{
+    "message":"Всі ресурси",
+    "description":"Resource list page name"
+  },
+  "adreport_missing_info":{
+    "message":"Обов'язкова інформація відсутня або неприпустима.  Будь ласка, дайте відповідь на запитання в червоних рамках.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "filterczech":{
+    "message":"Чеською та словацькою",
+    "description":"Language names for a filter list"
+  },
+  "foundbug":{
+    "message":"Знайшли помилку?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "description2":{
+    "message":"Найпопулярніше розширення для Chrome, яким користуються понад 40 мільйонів людей! Заблокуйте рекламу по всьому інтернету.",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
+  "catblock_update_available":{
+    "placeholders":{
+      "here":{
+        "content":"<a id='here'></a>",
+        "example":"<a>here</a>"
+      }
+    },
+    "description":"On the Options > Support page, shows when there are updates available for CatBl",
+    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'."
+  },
+  "unsubscribedlabel":{
+    "message":"Підписку скасовано.",
+    "description":"Status label"
+  },
+  "catblock_replaceadswithcats":{
+    "message":"Replace ads with pictures of cats",
+    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
+  },
+  "adblock_wont_run_on_pages_matching":{
+    "message":"AdBlock не працюватиме на сторінках, що містять:",
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
+  },
+  "typescript":{
+    "message":"скрипт",
+    "description":"A resource type"
+  },
+  "filterturkish":{
+    "message":"Турецькою",
+    "description":"A filter list"
+  },
+  "whitelist_youtube_channel":{
+    "placeholders":{
+      "name":{
+        "content":"$1",
+        "example":"Name of channel"
+      }
+    },
+    "message":"Додати $name$ в білий список",
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option"
+  },
+  "catblock_example_flickr_search":{
+    "message":"a search for photos (e.g. <i>sailboat race</i>)",
+    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\"."
+  },
+  "filteracceptable_ads":{
+    "message":"Прийнятні рекламні оголошення (рекомендуємо)",
+    "description":"A filter list"
+  },
+  "blacklisterblocksalloftype":{
+    "placeholders":{
+      "elementtype":{
+        "content":"$1",
+        "example":"DIV"
+      }
+    },
+    "message":"Будьте обережні: цей фільтр заблокує усі елементи $elementtype$ на цій сторінці!",
+    "description":"Warns the user that all elements of type X will be blocked"
+  },
+  "show_on_adblock_menu":{
+    "message":"Показати кількість заблокованих оголошень в меню AdBlock",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+  },
+  "manualexcludefilteredit":{
+    "message":"Відредагуйте вимкнені фільтри:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
+  "you_can_slide_to_change":{
+    "message":"Перетягніть, щоб визначити, чого саме не чіпатиме AdBlock.",
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
+  },
+  "aamessageadreport":{
+    "message":"Якщо ви не бажаєте бачити рекламу на зразок цієї, вам необхідно залишити фільтр Прийнятних рекламних оголошень вимкнутим.",
+    "description":"Acceptable Ads message on ad report page"
+  },
+  "catblock_adblock_outdated_chrome":{
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'",
+    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'"
+  },
+  "buttonblockit":{
+    "message":"Заблокувати!",
+    "description":"Block button"
+  },
+  "invalidListUrl":{
+    "message":"Неприпустимий список URL. Його буде видалено.",
+    "description":"Message when you subscribe to a non-list URL"
+  },
+  "linkhidesection":{
+    "message":"Приховати частину веб-сторінки",
+    "description":"Link on the 'Customize' tab"
+  },
+  "filterantisocial":{
+    "message":"Антисоціальний список фільтрів (прибирає кнопки соціальних мереж)",
+    "description":"A filter list"
+  },
+  "allow_whitelisting_youtube_channels":{
+    "message":"Дозволити рекламу на вподобаних вами каналах YouTube",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "typepage":{
+    "message":"сторінка",
+    "description":"A resource type"
+  },
+  "filterswedish":{
+    "message":"Шведською",
+    "description":"A filter list"
+  },
+  "updatedminutesago":{
+    "placeholders":{
+      "minutes":{
+        "content":"$1",
+        "example":"15"
+      }
+    },
+    "message":"оновлено $minutes$ хвилин(и) тому",
+    "description":"Label for subscription"
+  },
+  "catblock_disableforchromeandsafaristeptwo":{
+    "description":"Step 2 for disabling Chrome and Safari extensions",
+    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>."
+  },
+  "warning_overrules_filters":{
+    "message":"Увага: на всіх інших сайтах ви бачитимете рекламу!<br>Ці правила важливіші за інші фільтри для вказаних сайтів.",
+    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
+  },
+  "whats_this":{
+    "message":"Що це таке?",
+    "description":"Text of a link pointing to the explanation of a new feature"
+  },
+  "catblock_whitelistertitle2":{
+    "description":"The title of the whitelister dialog",
+    "message":"Don't run CatBlock on..."
+  },
+  "adblocksupport":{
+    "message":"Підтримка користувачів AdBlock",
+    "description":"Title of the support tab"
+  },
+  "generaloptions":{
+    "message":"Основні настройки",
+    "description":"Title of first tab page"
+  },
+  "buttonok":{
+    "message":"OK!",
+    "description":"OK button"
+  },
+  "selectlanguage":{
+    "message":" -- Оберіть якою -- ",
+    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
+  },
+  "resourcedomain":{
+    "placeholders":{
+      "domain":{
+        "content":"$1",
+        "example":"example.com"
+      }
+    },
+    "message":"Завантажено на сторінці із доменом:\n$domain$",
+    "description":"Resource list page: text shown when hovering over an item in the third-party column"
+  },
+  "filtereasylist_plus_indonesian":{
+    "message":"Індонезійською",
+    "description":"A filter list"
+  },
+  "buttonedit":{
+    "message":"Змінити",
+    "description":"Edit filter manually button"
+  },
+  "dont_run_on_this_page":{
+    "message":"Не запускати на цій сторінці",
+    "description":"Menu entry to whitelist a page"
+  },
+  "updatedsecondsago":{
+    "placeholders":{
+      "seconds":{
+        "content":"$1",
+        "example":"15"
+      }
+    },
+    "message":"оновлено $seconds$ секунд(и) тому",
+    "description":"Label for subscription"
+  },
+  "catblock_options":{
+    "message":"CatBlock Options",
+    "description":"Title of the CatBlock options page tab"
+  },
+  "adreport_response_invalid_file":{
+    "message":"Цей файл не є зображенням. Будь ласка, завантажте файл .png, .gif, або .jpg.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "filtereasylist_plus_bulgarian":{
+    "message":"Болгарською",
+    "description":"language"
+  },
+  "filterlistsrock":{
+    "message":"Списки фільтрів блокують майже всю рекламу в інтернеті. Проте ви можете:",
+    "description":"Header text on the Customize tab. 'Filter lists' should be the same text as the name of the 'Filter lists' tab."
+  },
+  "typesubdocument":{
+    "message":"фрейм",
+    "description":"A resource type"
+  },
+  "adreport_server_response_error_msg":{
+    "message":"При обробці Вашого запиту сталася помилка.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "malwarenotificationdisablethesemessages":{
+    "message":"Відключити ці сповіщення",
+    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
+  },
+  "updatedhoursago":{
+    "placeholders":{
+      "hours":{
+        "content":"$1",
+        "example":"15"
+      }
+    },
+    "message":"оновлено $hours$ годин(и) тому",
+    "description":"Label for subscription"
+  },
+  "lang_english":{
+    "message":"Англійською",
+    "description":"language"
+  },
+  "noresourcessend2":{
+    "message":"Щось пішло не так. Не було відпревлено жодних ресурсів. Цю сторінку буде закрито. Спробуйте перезавантажити сайт.",
+    "description":"Resource list page: error message"
+  },
+  "excludedomainorurl":{
+    "message":"Домен або URL, на якому AdBlock не працюватиме",
+    "description":"Message of the exclude area"
+  },
+  "subscribebutton":{
+    "message":"Додати",
+    "description":"Subscribe to a list button"
+  },
+  "customfilterserrormessage":{
+    "placeholders":{
+      "filter":{
+        "content":"$1",
+        "example":"@@.ad"
+      },
+      "message":{
+        "content":"$2",
+        "example":"invalid filter"
+      }
+    },
+    "message":"Наступний фільтр: <br/> $filter$ <br/> містить помилку: <br/> $message$",
+    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page"
+  },
+  "debuginfo":{
+    "message":"Наша команда запросила деяку налагоджувальну інформацію? Натисніть <a href='#' id='debug'>тут</a>!",
+    "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "updateddaysago":{
+    "placeholders":{
+      "days":{
+        "content":"$1",
+        "example":"15"
+      }
+    },
+    "message":"оновлено $days$ дні(в) тому",
+    "description":"Label for subscription"
+  },
+  "adreportvoluntary":{
+    "message":"Повідомлення про наявність реклами є добровільним. Це допоможе іншим людям, додавання до списку фільтрів заблокує рекламу кожному користувачу. Якщо ви не відчуваєте себе альтруїстом прямо зараз - це нормально. Закрийте цю сторінку та <a>заблокуйте рекламу</a> тільки для себе.",
+    "description":"Introduction of the ad reporting page"
+  },
+  "aalinkadreport":{
+    "message":"Дізнайтесь більше про програму Прийнятних рекламних оголошень.",
+    "description":"Acceptable Ads link message on ad report page"
+  },
+  "blacklisternotsure":{
+    "message":"<b>Не певні?</b> просто натисніть «Заблокувати!» нижче.",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "filtereasylist_plus_french":{
+    "message":"Французькою",
+    "description":"language"
+  },
+  "clickdisableotherextensions":{
+    "message":"<b>ЧИ</b>, просто натисніть цю кнопку щоб ми зробили все що вище: <a>Вимкнути всі інші розширення</a>",
+    "description":"On the ad report page, an alternative way to disable other extensions"
+  },
+  "retryaftersubscribe":{
+    "placeholders":{
+      "list_title":{
+        "content":"$1",
+        "example":"French filters"
+      }
+    },
+    "message":"Передплатіть список фільтрів «$list_title$» та спробуйте знов.",
+    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists"
+  },
+  "tabcustomizetitle":{
+    "message":"Налаштувати AdBlock",
+    "description":"Title of the customize tab"
+  },
+  "blacklistereditinvalid1":{
+    "placeholders":{
+      "exception":{
+        "content":"$1",
+        "example":"This filter is not supported"
+      }
+    },
+    "message":"Помилка введення фільтру: $exception$",
+    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated."
+  },
+  "supportsite":{
+    "message":"Дайте нам знати на нашому <a>сайті підтримки</a>!",
+    "description":"Link to the support site on the Support tab of the options"
+  },
+  "datacollectionoption":{
+    "message":"Дозволити AdBlock збирати інформацію про використання списку анонімного фільтра та дані",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "updatedhourago":{
+    "message":"оновлено годину тому",
+    "description":"Label for subscription"
+  },
+  "blacklisternofilter":{
+    "message":"Фільтр не вказано!",
+    "description":"Warning if the user hasn't specified a filter"
+  },
+  "unpause_adblock":{
+    "message":"Запустити AdBlock",
+    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
+  },
+  "blacklistereditfilter":{
+    "message":"Будь ласка, введіть вірний фільтр та натисніть «ОК»",
+    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text."
+  },
+  "catblock_safarinotificationbody":{
+    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules",
+    "message":"Please disable some filter lists. More information in CatBlock's Options."
+  },
+  "disabled_by_filter_lists":{
+    "message":"Перепрошуємо, AdBlock вимкнено на цій сторінці одним зі списків фільтрів.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
+  },
+  "filterorigin":{
+    "placeholders":{
+      "list":{
+        "content":"$1",
+        "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'"
+      }
+    },
+    "message":"Походження фільтру: $list$",
+    "description":"Resource list page: tooltip of matching filter, telling which filter list contains the filter"
+  },
+  "contributors":{
+    "message":"Ми маємо <a>сторінку</a>, яка допоможе вам дізнатись про людей, які створили AdBlock!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "debuginlogoption":{
+    "message":"Показувати інформацію для налагодження в Журналі Консолі (уповільнює роботу AdBlock)",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "catblock_status_paused":{
+    "description":"Message shown in toolbar button when CatBlock is paused",
+    "message":"CatBlock is paused."
+  },
+  "tabfilterlists":{
+    "message":"Список фільтрів",
+    "description":"A tab on the options page"
+  },
+  "subscribeconfirm":{
+    "placeholders":{
+      "title":{
+        "content":"$1",
+        "example":"Prebake"
+      }
+    },
+    "message":"Ви впевнені, що бажаєте підписатися на список фільтрів $title$?",
+    "description":"Prompt question before subscribing to the filter list"
+  },
+  "how":{
+    "message":"Як?",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
+  "buttonback":{
+    "message":"Назад",
+    "description":"Back to previous wizard page button"
+  },
+  "catblock_unpause_adblock":{
+    "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'",
+    "message":"Unpause CatBlock"
+  },
+  "catblock_safaributton_how_to_hide2":{
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu.",
+    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar."
+  },
+  "catblock_storage_quota_exceeded":{
+    "description":"Message shown when the user uses more storage than allowed by the browser",
+    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!"
+  },
+  "removefromlist":{
+    "message":"Видалити зі списку",
+    "description":"Label to remove a custom filter"
+  },
+  "checkinfirefoxtitle":{
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='chrome1'></span>",
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    },
+    "message":"Перевірте у Firefox $chrome$",
+    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome"
+  },
+  "disableyoutubestreamingads":{
+    "message":"Увімкнути режим сумісності ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
+  },
+  "filtersavewarning":{
+    "message":"Будьте обережні: якщо тут припуститися помилки, багато інших фільтрів, включаючи офіційні, можуть працювати некоректно!<br/>Читайте <a>порадник із синтаксису фільтрів (англ.)</a>, аби навчитися керувати чорними та білими списками фільтрів.",
+    "description":"Warning when blacklisting manually"
+  },
+  "typexmlhttprequest":{
+    "message":"xmlhttprequest",
+    "description":"A resource type"
+  },
+  "adblock_outdated_chrome":{
+    "message":"Ви користуєтесь старою версією AdBlock. Будь ласка, перейдіть на сторінку <a href='#'>розширень</a>, увімкніть «Режим розробника» та натисніть «Оновити розширення зараз».",
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
+  },
+  "pagelanguagecheck":{
+    "message":"Якою мовою складено цю сторінку?",
+    "description":"Question on ad report page"
+  },
+  "adreport_response_save_error":{
+    "message":"Помилка під час збереження завантаженого файлу.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "cantblockflash":{
+    "message":"Поки що ми не маємо змоги блокувати рекламу всередині Flash або інших плаґінів. Ми очікуємо на пітримку таких технологій від веб-переглядача та рушія виведення веб-сторінок WebKit.",
+    "description":"Result of the final ad report question"
+  },
+  "enable_adblock":{
+    "message":"Увімкнути AdBlock на цій сторінці",
+    "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "block_an_ad_on_this_page":{
+    "message":"Заблокувати рекламу на цій сторінці",
+    "description":"Toolbar button menu entry and context menu entry"
+  },
+  "filteritalian":{
+    "message":"Італійською",
+    "description":"language"
+  },
+  "catblock_disabled_by_filter_lists":{
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list",
+    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists."
+  },
+  "typemain_frame":{
+    "message":"сторінка",
+    "description":"A resource type"
+  },
+  "checkinfirefox_1":{
+    "placeholders":{
+      "chrome":{
+        "content":"<span id='chrome2'></span>",
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)"
+      }
+    },
+    "message":"Встановіть Firefox$chrome$, якщо",
+    "description":"instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "adreportintro":{
+    "message":"Знайшли рекламу на сторінці? Ми допоможемо вам знайти правильне місце, щоб повідомити про це!",
+    "description":"Introduction of the ad reporting page"
+  },
+  "pwyw":{
+    "message":"Заплатіть стільки, скільки готові!",
+    "description":"Text of a payment request link"
+  },
+  "catblock_adblockreportinganad":{
+    "description":"Title of the ad report page",
+    "message":"CatBlock - Reporting an ad"
+  },
+  "whatsnew":{
+    "message":"Що нового в останній версії? Дивіться  <a style='cursor:pointer;'>список змін</a>!",
+    "description":"Link to display the changelog on the Support tab of the options"
+  },
+  "blacklisteroptions1":{
+    "message":"Які ознаки на вашу думку найкраще характеризуватимуть цю рекламу?",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "show_ads_except_for":{
+    "message":"Показувати рекламу <i>всюди,</i> за винятком цих доменів...",
+    "description":"Section title for blacklisting section of Customize tab"
+  },
+  "filtereasylist_plus_german":{
+    "message":"Німецькою",
+    "description":"language"
+  },
+  "checkforupdates":{
+    "message":"Перевіряю оновлення (має зайняти лиш декілька секунд)...",
+    "description":"Displayed when AdBlock is checking the newest available version"
+  },
+  "catblock_allrequests":{
+    "message":"All requests",
+    "description":"A message in dropdown selection on Resource viewer page"
+  },
+  "blacklisterattrwillbe":{
+    "placeholders":{
+      "value":{
+        "content":"$2",
+        "example":"AdBanner"
+      },
+      "attribute":{
+        "content":"$1",
+        "example":"class"
+      }
+    },
+    "message":"$attribute$ відповідатиме $value$",
+    "description":"Checkbox label"
+  },
+  "disabled_on_this_page":{
+    "message":"AdBlock вимкнено на цій сторінці.",
+    "description":"Message shown in toolbar button on web pages that have been whitelisted"
+  },
+  "legend":{
+    "message":"Умовні позначення: ",
+    "description":"Resource list page: followed by color codes for various resource statuses (e.g. blocked, whitelisted, hidden)"
+  },
+  "updatedrightnow":{
+    "message":"щойно оновлено",
+    "description":"Label for subscription"
+  },
+  "disableforchromeandsafaristeptwo":{
+    "message":"Зніміть позначку «Увімкнено» навпроти кожного розширення <b>за виключенням</b> AdBlock. <b>Залиште AdBlock увімкненим</b>.",
+    "description":"Step 2 for disabling Chrome and Safari extensions"
+  },
+  "englishonly":{
+    "message":"Лише англійською мовою",
+    "description":"Lets the user know that a link/page is available in English only"
+  },
+  "adblockinglist":{
+    "message":"Списки фільтрів реклами",
+    "description":"List for subscribed ad blocking fiters"
+  },
+  "blacklisterwarningnofilter":{
+    "message":"Увага: фільтр не вказано!",
+    "description":"Warns the user that no filter was specified"
+  },
+  "filtereasylist":{
+    "message":"EasyList (рекомендуємо)",
+    "description":"A filter list"
+  },
+  "headerfilter":{
+    "message":"Підпадає під фільтр",
+    "description":"Resource list page: title of a column"
+  },
+  "acceptableadsdisable_how_to_reenable":{
+    "message":"Ви можете знову увімкнути це і підтримати улюблені веб-сайти, просто оберіть \"Дозволити деяку ненав’язливу рекламу\" нижче.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "show_on_adblock_button":{
+    "message":"Показати кількість заблокованих оголошень на кнопці AdBlock",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  },
+  "headertype":{
+    "message":"Тип",
+    "description":"Resource list page: title of a column"
+  },
+  "filtereasylist_plus_spanish":{
+    "message":"Іспанською",
+    "description":"language"
+  },
+  "malwarenotificationmessage":{
+    "message":"AdBlock заблокував завантаження з сайту, який містить шкідливі програми.",
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
+  },
+  "safaricontentblockingpausemessage":{
+    "message":"Щоб призупинити AdBlock з увімкненим Блокуванням Вмісту, будь ласка, оберіть Safari (в меню) > Вподобання > Розширення > AdBlock та зніміть прапорець 'Увімкнути AdBlock'.",
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
+  },
+  "optionsversion":{
+    "placeholders":{
+      "version":{
+        "content":"$1",
+        "example":"2.0.9"
+      }
+    },
+    "message":"Версія $version$",
+    "description":"Version number"
+  },
+  "languagedropdowndescription":{
+    "message":"Додати фільтри для сторінок іншою мовою: ",
+    "description":"Dropdown list for language-specific filters"
+  },
+  "sourcecode":{
+    "message":"Вихідний код знаходиться у <a>вільному доступі</a>!",
+    "description":"Link to the source code of AdBlock on the Support tab of the options"
+  },
+  "catblock_you_can_slide_to_change":{
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases.",
+    "message":"You can slide below to change exactly what pages CatBlock won't run on."
+  },
+  "catblock_latest_version":{
+    "description":"On the Options > Support page, shows when there are no updates available for CatBlock",
+    "message":"CatBlock is up-to-date!"
+  },
+  "catblock_show_on_adblock_button":{
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked",
+    "message":"Show on CatBlock button"
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"І вручну створити картку, а також копіювати та вставити інформацію нижче в розділ «Fill in any details you think will help us understand your issue».",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "catblock_pause_adblock":{
+    "description":"Menu entry to pause CatBlock",
+    "message":"Pause CatBlock"
+  },
+  "filtereasyprivacy":{
+    "message":"EasyPrivacy (для захисту приватності)",
+    "description":"A filter list"
+  },
+  "blockanadtitle":{
+    "message":"Заблокувати рекламу",
+    "description":"Title of the first two dialogs of the blacklister"
+  },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Ми відписали Вас від Прийнятної Реклами, тому що Ви вимкнули блокування вмісту в Safari. Ви можете одночасно обрати лише одне. (<a>Чому?</a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "manualfilteredit":{
+    "message":"Налаштувати фільтри вручну:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
+  "adblockreportinganad":{
+    "message":"AdBlock — скарга на рекламу",
+    "description":"Title of the ad report page"
+  },
+  "reloadadpage":{
+    "message":"Оновіть сторінку з рекламою.",
+    "description":"Instruction on ad report page"
+  },
+  "catblock_malwarenotificationcheckboxmessage":{
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page",
+    "message":"Should CatBlock notify you when it detects malware?"
+  },
+  "acceptableadsdisable_done":{
+    "message":"Ви більше не підписані на список фільтрів Прийнятної реклами.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "adreport_email":{
+    "message":"Адреса Вашої електронної пошти?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
+  },
+  "blacklistertype":{
+    "message":"Тип",
+    "description":"node name is called 'Type'"
+  },
+  "modifydomain":{
+    "message":"Сайт:",
+    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL"
+  },
+  "format_site1_site2_site3":{
+    "message":"Формат: ~site1.com|~site2.com|~novyny.site3.org",
+    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
+  },
+  "catblock_searchresources":{
+    "message":"Search resources by URL:",
+    "description":"A text shown on Resources viewer page"
+  },
+  "catblock_adblocksupport":{
+    "description":"Title of the support tab",
+    "message":"CatBlock Support"
+  },
+  "work_around_hulu_problems":{
+    "message":"Полагодити відео з Hulu.com, що не хочуть відтворюватися (потребує перезапуску вашого переглядача)",
+    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
+  },
+  "filterhungarian":{
+    "message":"Угорською",
+    "description":"language"
+  },
+  "enableotherextensionscomplete":{
+    "message":"Розширення, які були раніше вимкнуті були повторно увімкнено.",
+    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled"
+  },
+  "adreport_laststep":{
+    "message":"Останній крок: повідомте нам про проблему.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
   "typeunknown":{
     "message":"невідомо",
+    "description":"A resource type"
+  },
+  "typeimage":{
+    "message":"зображення",
+    "description":"A resource type"
+  },
+  "filterrussian":{
+    "message":"Українською та російською",
+    "description":"Language names for a filter list"
+  },
+  "tabsupport":{
+    "message":"Підтримка",
+    "description":"A tab on the options page"
+  },
+  "loading":{
+    "message":"ЗАВАНТАЖЕННЯ...",
+    "description":"Generic message displayed during processes that take some time"
+  },
+  "lang_slovak":{
+    "message":"Словацькою",
+    "description":"language"
+  },
+  "checkinfirefox_5":{
+    "message":"Чи з’являється реклама на нововідкритій сторінці?",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "betalabel":{
+    "message":"Бета",
+    "description":"Label for beta features in AdBlock Options"
+  },
+  "report_ad_on_page":{
+    "message":"Поскаржитись на рекламу на цій сторінці",
+    "description":"Entry in the AdBlock button menu"
+  },
+  "filterwarning_removal":{
+    "message":"Список Попереджень про видалення AdBlock (видаляє попередження про використання блокувальника реклами)",
+    "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
+  },
+  "filtereasylist_plus_lithuania":{
+    "message":"Литовською",
+    "description":"language"
+  },
+  "frametype":{
+    "message":"Тип фрейму: ",
+    "description":"Resource list page: followed by frame type (e.g. top frame, subframe)"
+  },
+  "catblock_excludedomainorurl":{
+    "description":"Message of the exclude area",
+    "message":"The domain or url where CatBlock shouldn't block anything"
+  },
+  "whatmakesadblocktick":{
+    "message":"Хочете побачити, хто робить AdBlock живим?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "adreport_location":{
+    "message":"Де саме на цій сторінці з'являється реклама? Як це виглядає?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "reloadpageafterwhitelist":{
+    "message":"Перезавантажте сторінку.",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "catblock_adblock_click_for_details":{
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button.",
+    "message":"CatBlock - click for details"
+  },
+  "yes":{
+    "message":"Так",
+    "description":"A positive response to a question"
+  },
+  "safari50_updatenotice":{
+    "message":"Ви користуєтесь застарілою версією Safari. Встановіть найновішу версію, аби користуватися кнопкою на панелі інструментів для призупинки AdBlock, занесення сайтів у білий список, та подання скарг на рекламу. <a>Оновити зараз</a>.",
+    "description":"A message shown to Safari 5.0 users urging them to upgrade"
+  },
+  "orchrome":{
+    "message":"або Chrome",
+    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
+  },
+  "block_this_ad":{
+    "message":"Заблокувати цю рекламу",
+    "description":"Context and popup menu entry"
+  },
+  "blacklistclickmessage":{
+    "message":"Натисніть правою кнопкою миші на рекламі, щоб заблокувати її, або зробіть це тут вручну.",
+    "description":"Message at the top of the blacklist options tab"
+  },
+  "typeother":{
+    "message":"інший",
+    "description":"A resource type"
+  },
+  "catblock_status_disabled":{
+    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank",
+    "message":"CatBlock can not run on this domain."
+  },
+  "hide_this_button":{
+    "message":"Сховати цю кнопку",
+    "description":"Toolbar button menu entry to hide the AdBlock button"
+  },
+  "adreport_email_privacy":{
+    "message":"Ми будемо використовувати його тільки для зв'язку з Вами, якщо нам потрібно буде більше інформації.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "filtermalware":{
+    "message":"Захист від шкідливих програм",
+    "description":"A filter list"
+  },
+  "subscribingfinished":{
+    "message":"Готово!",
+    "description":"abp: link subscriber result"
+  },
+  "catblock_contributors":{
+    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "filteradblock_custom":{
+    "message":"Власні фільтри AdBlock (рекомендуємо)",
+    "description":"A filter list"
+  },
+  "oradblockforchrome":{
+    "message":"або AdBlock для Chrome",
+    "description":"Used for placeholder in checkinfirefox_2 string"
+  },
+  "filtereasylist_plun_korean":{
+    "message":"Корейською",
+    "description":"language"
+  },
+  "typemedia":{
+    "message":"аудіо/відео",
+    "description":"A resource type"
+  },
+  "malwarenotfound":{
+    "message":"Не знайдено жодної відомої шкідливої програми.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware/adware"
+  },
+  "filterlistlink":{
+    "message":"Не підписуйтесь на більше ніж потрібно — кожен з них трохи уповільнює роботу! Першоджерела та додаткові списки Ви можете знайти <a>тут<a>.",
+    "description":"Explanation of the filter lists"
+  },
+  "filtereasylist_plus_finnish":{
+    "message":"Фінською",
+    "description":"language"
+  },
+  "typestylesheet":{
+    "message":"визначення стилю",
+    "description":"A resource type"
+  },
+  "confirm_undo_custom_filters":{
+    "placeholders":{
+      "count":{
+        "content":"$1",
+        "example":"The number of custom blocks for a domain."
+      },
+      "host":{
+        "content":"$2",
+        "example":"code.google.ph, ph.msn.com, stackoverflow.com"
+      }
+    },
+    "message":"Ви впевнені, що хочете видалити блокування, створені на $host$? Кількість створених блокувань: $count$",
+    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset."
+  },
+  "catblock_check_checkbox":{
+    "message":"Check the checkbox by the sets of pictures that you want to use.",
+    "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock."
+  },
+  "topframe":{
+    "message":"Топ фрейм",
+    "description":"Resource list page: frame type"
+  },
+  "adreport_name":{
+    "message":"Як Вас звуть?",
+    "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
+  },
+  "options":{
+    "message":"Параметри",
+    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension"
+  },
+  "blacklisterthefilter":{
+    "message":"Фільтр, який можна змінити на сторінці «Налаштувати»:",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "undo_last_block":{
+    "message":"Скасувати обмеження, запроваджені мною на цьому домені",
+    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
+  },
+  "filtereasylist_plus_estonian":{
+    "message":"Естонською",
+    "description":"language"
+  },
+  "disableaa":{
+    "message":"Перевіряємо фільтр Прийнятних рекламних оголошень:",
+    "description":"Section header on the ad report page"
+  },
+  "catblock_adblock_wont_run_on_pages_matching":{
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line.",
+    "message":"CatBlock won't run on any page matching:"
+  },
+  "failedtofetchfilter":{
+    "message":"Помилка отримання фільтру!",
+    "description":"Error messagebox"
+  },
+  "blacklisterblockedelement":{
+    "message":"Заблокований елемент:",
+    "description":"Tells the user what the blocked element is on the slider page"
+  },
+  "filterisraeli":{
+    "message":"Івритом",
+    "description":"language"
+  },
+  "hiddenelement":{
+    "message":"Прихований елемент",
+    "description":"Resource list page: resource status"
+  },
+  "adblock_click_for_details":{
+    "message":"AdBlock — натисніть щоб побачити деталі",
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
+  },
+  "optionstitle":{
+    "message":"Налаштування AdBlock",
+    "description":"Title for the options page"
+  },
+  "framedomain":{
+    "message":"Домен фрейму: ",
+    "description":"Resource list page: domain name of the frame"
+  },
+  "showlinkstolists2":{
+    "message":"Показати посилання на списки фільтрів",
+    "description":"Option on the 'Filter lists' tab of the Options page"
+  },
+  "reportpubliclyavailable":{
+    "message":"Зауважте: ваша скарга може стати публічно доступною. Пам’ятайте про це, залишаючи будь-яку особисту інформацію.",
+    "description":"Ad report page string, when you're about to submit a report"
+  },
+  "filtericelandic":{
+    "message":"Ісландською",
+    "description":"language"
+  },
+  "fetchinglabel":{
+    "message":"Забираємо... будь ласка, чекайте.",
+    "description":"Status label"
+  },
+  "blocked_ads":{
+    "message":"Заблокована реклама:",
+    "description":"Title for popup menu section showing number of ads blocked"
+  },
+  "headerresource":{
+    "message":"Ресурс",
+    "description":"Resource list page: title of a column"
+  },
+  "somethingwentwrong":{
+    "message":"Під час перевірки оновлень щось пішло не так.",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
+  },
+  "flashads":{
+    "message":"Відео та Flash",
+    "description":"Title of the final ad report question if the ad didn't appear in Firefox"
+  },
+  "updateyourlists":{
+    "message":"Переконайтесь, що списки фільтрів свіжі:",
+    "description":"Section header on the ad report page"
+  },
+  "disableotherextensionscomplete":{
+    "message":"Ми вимкнули усі інші розширення. Зараз ми перезавантажимо сторінку з рекламою. Зачекайте секунду, будь ласка.",
+    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
+  },
+  "lang_spanish":{
+    "message":"Іспанською",
+    "description":"language"
+  },
+  "disableforchromestepone":{
+    "message":"Відкрити <a href='#'>сторінку розширень</a>.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
+  "refusetocheck":{
+    "message":"Мені ліньки перевіряти",
+    "description":"User is telling us they don't wish to investigate something for us"
+  },
+  "here":{
+    "message":"сюди",
+    "description":"This message is injected in other strings as a link/button"
+  },
+  "blockmoreads":{
+    "message":"Блокувати більше реклами:",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "adreport_response_success":{
+    "message":"Все готово! Ми скоро зв'яжемося з Вами, найімовірніше протягом одного-двох днів, якщо це не свята. Також, знайдіть в електронній пошті лист від AdBlock. Ви знайдете там посилання на Ваш запит на нашому сайті допомоги. Якщо Ви віддаєте перевагу стежити за результатами по електронній пошті, Ви можете робити це також!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "customfilters":{
+    "message":"Додатковий список фільтрів",
+    "description":"List for custom filters the user subscribed to"
+  },
+  "pause_adblock":{
+    "message":"Призупинити AdBlock",
+    "description":"Menu entry to pause AdBlock"
+  },
+  "updateddayago":{
+    "message":"оновлено день тому",
+    "description":"Label for subscription"
+  },
+  "savereminder":{
+    "message":"Не забудьте зберегти!",
+    "description":"Reminder to press save"
+  },
+  "catblock_safari50_updatenotice":{
+    "description":"A message shown to Safari 5.0 users urging them to upgrade",
+    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>."
+  },
+  "stop_blocking_ads":{
+    "message":"Припинити блокувати рекламу:",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "reportfilterlistproblem":{
+    "placeholders":{
+      "link":{
+        "content":"$1",
+        "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe</a>  EXAMPLE 2: <a href='http://easylist.org'>EasyList forums</a>"
+      }
+    },
+    "message":"Проблема у списку фільтрів. Поскаржіться тут: $link$",
+    "description":"Telling the user to report an ad to a filter list maintainer"
+  },
+  "typeobject_subrequest":{
+    "message":"object_subrequest",
+    "description":"A resource type"
+  },
+  "catblock_whatmakesadblocktick":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"Want to see what makes CatBlock tick?"
+  },
+  "linkunblock":{
+    "message":"Показувати рекламу на веб-сторінці або домені",
+    "description":"Link on the 'Customize' tab"
+  },
+  "orenteraurl":{
+    "message":"Введіть URL додаткового списку:",
+    "description":"Link for custom subscription"
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Ми вимкнули блокування вмісту Safari, тому що Ви дозволити показ ненав'язливої реклами. Ви можете обрати одночасно лише одне. (<a>Чому?</a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "wizardcantrunonframesets":{
+    "message":"Ця функція AdBlock не працює на цьому сайті, тому що він використовує застарілі технології. Ви можете додати в чорний або білий список самостійно через вкладку 'Налаштування' на сторінці налаштувань.",
+    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
+  },
+  "catblock_example_flickr_id":{
+    "placeholders":{
+      "example":{
+        "content":"<i>346406</i>"
+      }
+    },
+    "message":"a Flickr photoset ID (e.g. $example$)",
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
+  },
+  "catblock_show_on_adblock_menu":{
+    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked",
+    "message":"Show number of ads blocked on CatBlock menu"
+  },
+  "blacklistersinglematch":{
+    "message":"Під фільтр потрапляє <b>1</b> елемент на поточній сторінці.",
+    "description":"Tells the user only one match was found"
+  },
+  "catblock_safaricontentblockingpausemessage":{
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled",
+    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'."
+  },
+  "filtereasylist_plus_polish":{
+    "message":"Польською",
+    "description":"language"
+  },
+  "malwarenotificationcheckboxmessage":{
+    "message":"Чи показувати сповіщення AdBlock при виявленні шкідливих програм?",
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
+  },
+  "firefox_explanation":{
+    "message":"Мета цього питання визначити, хто має отримати вашу скаргу. Якщо ви дасте хибну відповідь, скарга потрапить не у ті руки і, у такому випадку, може бути проігнорована.",
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
+  },
+  "catblock_filteradblock_custom":{
+    "description":"A filter list",
+    "message":"CatBlock custom filters (recommended)"
+  },
+  "bugreport":{
+    "message":"Чому б Вам не відправити нам <a>повідомлення про помилку</a>?",
+    "description":"Link to send a bug report on the Support tab of the options"
+  },
+  "checkinfirefox_4":{
+    "message":"У тому переглядачі відкрийте сторінку із рекламою.",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "safaributton_how_to_hide2":{
+    "message":"Щоб приховати кнопку, клацніть правою кнопкою мишки по панелі інструментів Safari і виберіть Кастомізувати Тулбар, а потім перетягніть кнопку AdBlock з панелі інструментів. Ви можете відобразити її знову, перетягнувши назад на панель інструментів.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
+  },
+  "reenableadsonebyone":{
+    "message":"Чудово! Тепер давайте визначимо яке з розширень є причиною. Перевірте це вмикаючи розширення одне за одним. Розширення, яке поверне рекламні оголошення необхідно видалити, щоб позбавитися від реклами.",
+    "description":"Tells the user to reenable the extensions one by one"
+  },
+  "malwarecheck":{
+    "message":"Перевірка наявності шкідливих програм, які можуть додавати рекламу:",
+    "description":"Section header on the ad report page"
+  },
+  "adalreadyblocked":{
+    "message":"Чудово! Все налаштовано.",
+    "description":"On the ad report page, telling a user there is nothing to do"
+  },
+  "advanced_options2":{
+    "message":"Я досвідчений користувач, покажіть мені просунуті налаштування",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "dont_run_on_pages_on_domain":{
+    "message":"Не виконувати на сторінках цього домена",
+    "description":"Menu entry to open the whitelist wizard"
+  },
+  "checkinfirefox_3":{
+    "message":"У цьому браузері підпишіться на той же список фільтрів, як у вас тут.",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "translator_credit":{
+    "message":"Переклад українською:",
+    "description":"Will be followed by a list of translator names (separate string)"
+  },
+  "filterdutch":{
+    "message":"Голландською",
+    "description":"language"
+  },
+  "cantblockflashwarning":{
+    "message":"Чи з’являється ця реклама усередині чи перед початком відео, або ж у рамках якихось інших плаґінів на кшталт ігр на Flash?",
+    "description":"Text of the final ad report question"
+  },
+  "typehiding":{
+    "message":"приховане",
+    "description":"A resource type"
+  },
+  "disableforsafaristepone":{
+    "message":"Клацніть на меню «Safari» &rarr; «Налаштування» &rarr; «Розширення».",
+    "description":"Step 1 for disabling Safari extensions"
+  },
+  "no":{
+    "message":"Ні",
+    "description":"A negative response to a question"
+  },
+  "typepopup":{
+    "message":"зринаючий",
     "description":"A resource type"
   }
 }
