@@ -1,352 +1,527 @@
 {
-  "catblock_adblockupdates":{
-    "message":"CatBlock updates",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "adreport_location":{
-    "message":"Exactament, on es troba l'anunci? Quin aspecte té?",
-    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
-  },
-  "resourcedomain":{
-    "message":"Carregat a la pàgina amb el domini: $domain$",
-    "description":"Resource list page: text shown when hovering over an item in the third-party column",
-    "placeholders":{
-      "domain":{
-        "example":"example.com",
-        "content":"$1"
-      }
-    }
-  },
-  "adblocksupport":{
-    "message":"Suport d'AdBlock",
-    "description":"Title of the support tab"
-  },
-  "optionsversion":{
-    "message":"Versió $version$",
-    "description":"Version number",
-    "placeholders":{
-      "version":{
-        "example":"2.0.9",
-        "content":"$1"
-      }
-    }
-  },
-  "filterswedish":{
-    "message":"Suec",
-    "description":"A filter list"
+  "tabgeneral":{
+    "message":"General",
+    "description":"A tab on the options page"
   },
   "disableotherextensionscomplete":{
     "message":"Hem desactivat totes les altres extensions. Ara recarregarem la pàgina amb l'anunci. Un segon, si us plau.",
     "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
   },
-  "lang_spanish":{
-    "message":"Espanyol",
-    "description":"language"
-  },
-  "options":{
-    "message":"Opcions",
-    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension"
-  },
-  "buttoncancel":{
-    "message":"Cancel·lar",
-    "description":"Cancel button"
-  },
-  "adreport_server_response_error__manual_msg_step1":{
-    "message":"Si us plau dirigiu-vos a <a>la nostra web de suport</a>.",
-    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
-  },
-  "malwarewarning":{
-    "message":"El vostre ordinador potser està infectat per programari maliciós. Cliqueu <a>aquí</a> per obtenir més informació.",
-    "description":"On the ad report page, the ads the user is seeing might be caused by malware/adware"
-  },
-  "reportfilterlistproblem":{
-    "message":"Això és un problema de la llista de filtres. Informeu-ne aquí: $link$",
-    "description":"Telling the user to report an ad to a filter list maintainer",
-    "placeholders":{
-      "link":{
-        "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe</a>  EXAMPLE 2: <a href='http://easylist.org'>EasyList forums</a>",
-        "content":"$1"
-      }
-    }
-  },
-  "adreport_missing_screenshot":{
-    "message":"Heu oblidat d'adjuntar una captura de pantalla! Nosaltres no us podrem ajudar sense veure l'anunci què informeu.",
-    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
-  },
-  "oradblockforchrome":{
-    "message":"o bé AdBlock per a Chrome",
-    "description":"Used for placeholder in checkinfirefox_2 string"
-  },
-  "tabsupport":{
-    "message":"Suport",
-    "description":"A tab on the options page"
-  },
-  "browserestartrequired":{
-    "message":"Reinicieu Safari per acabar de desactivar el bloqueig de contingut.",
-    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
-  },
-  "catblock_debuginlogoption":{
-    "message":"Show debug statements in Console Log (which slows down CatBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "show_on_adblock_menu":{
-    "message":"Mostrar el nombre d'anuncis blocats al menú",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
-  },
-  "filtericelandic":{
-    "message":"Islandès",
-    "description":"language"
-  },
-  "buttonok":{
-    "message":"D'acord!",
-    "description":"OK button"
-  },
-  "enable_adblock":{
-    "message":"Activar AdBlock en aquesta pàgina",
-    "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
-  },
-  "filtereasylist_plus_romanian":{
-    "message":"Romanès",
-    "description":"language"
-  },
-  "typeselector":{
-    "message":"selector",
-    "description":"A resource type"
-  },
-  "typestylesheet":{
-    "message":"definició d'estil",
-    "description":"A resource type"
-  },
-  "excludedomainorurl":{
-    "message":"El domini o URL en el qual l'AdBlock no hauria de bloquejar res",
-    "description":"Message of the exclude area"
-  },
-  "filtereasylist_plus_estonian":{
-    "message":"Estonià",
-    "description":"language"
-  },
-  "firefox_explanation":{
-    "message":"El propòsit d'aquesta pregunta és determinar qui ha de rebre el seu informe. Si contesteu aquesta pregunta de forma incorrecta, l'informe s'enviarà a les persones equivocades, i potser sou ignorats.",
-    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
-  },
-  "acceptableadsdisable_done":{
-    "message":"Ja no esteu subscrits a la llista de filtres dels Anuncis Acceptables.",
-    "description":"Message shown to users after disabling Acceptable Ads via update page."
-  },
-  "whatmakesadblocktick":{
-    "message":"Voleu veure els engranatges que mouen l'AdBlock?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "update_available":{
-    "message":"Hi ha una actualització disponible per a AdBlock! Dirigiu-vos $here$ per dur-la a terme. <br> Atenció: si voleu rebre actualitzacions automàticament, cliqueu a Safari > Preferències  > Ampliacions > Actualitzacions <br> i marqueu l'opció  ' Instal·lar actualitzacions automàticament'.",
-    "description":"On the Options > Support page, shows when there are updates available for AdBlock",
-    "placeholders":{
-      "here":{
-        "example":"<a>here</a>",
-        "content":"<a id='here'></a>"
-      }
-    }
-  },
-  "adblockreportinganad":{
-    "message":"AdBlock - Informant sobre un anunci",
-    "description":"Title of the ad report page"
-  },
-  "warning_overrules_filters":{
-    "message":"Alerta: a tots els altres llocs veureu anuncis!<br>Això es salta les normes de tots els altres filtres per a aquests llocs.",
-    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
-  },
-  "adreport_laststep":{
-    "message":"Darrer pas: informeu-nos del problema.",
-    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
-  },
-  "catblock_whatmakesadblocktick":{
-    "message":"Want to see what makes CatBlock tick?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "reportpubliclyavailable":{
-    "message":"Nota: el vostre informe pot ser que esdevingui públic. Recordeu això abans d'incloure quelcom privat.",
-    "description":"Ad report page string, when you're about to submit a report"
-  },
-  "headertype":{
-    "message":"Tipus",
-    "description":"Resource list page: title of a column"
-  },
-  "updatedminutesago":{
-    "message":"actualitzat fa $minutes$ minuts",
-    "description":"Label for subscription",
-    "placeholders":{
-      "minutes":{
-        "example":"15",
-        "content":"$1"
-      }
-    }
-  },
-  "catblock_replaceadswithcats":{
-    "message":"Replace ads with pictures of cats",
-    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
-  },
-  "headerfilter":{
-    "message":"Filtre relacionat",
-    "description":"Resource list page: title of a column"
-  },
-  "checkinfirefox_4":{
-    "message":"En aquell navegador, carregueu la pàgina amb l'anunci.",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "whitelistedresource":{
-    "message":"Recurs permès",
-    "description":"Resource list page: resource status"
-  },
-  "whats_this":{
-    "message":"Què és això?",
-    "description":"Text of a link pointing to the explanation of a new feature"
-  },
-  "close":{
-    "message":"Tancar",
-    "description":"Generic message for buttons that close a view or window"
-  },
-  "catblock_adblock_outdated_chrome":{
-    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'",
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
-  },
-  "updatedminuteago":{
-    "message":"actualitzat fa 1 minut",
-    "description":"Label for subscription"
-  },
-  "resourceblocktitle":{
-    "message":"Tots els recursos",
-    "description":"Resource list page name"
-  },
-  "report_ad_on_page":{
-    "message":"Informar sobre un anunci en aquesta pàgina",
-    "description":"Entry in the AdBlock button menu"
-  },
-  "filterczech":{
-    "message":"Txec i eslovac",
-    "description":"Language names for a filter list"
-  },
-  "reloadpageafterwhitelist":{
-    "message":"Recarregar la pàgina.",
-    "description":"Checkbox on whitelist wizard"
+  "adreportvoluntary":{
+    "message":"Informar sobre anuncis és voluntari. Ajuda a d'altres persones amb l'activació dels mantenidors de les llistes de filtres per tal de bloquejar l'anunci per a tothom. Si ara no et sents altruista, d'acord; tanca aquesta pàgina i <a>bloqueja l'anunci</a> només per tu.",
+    "description":"Introduction of the ad reporting page"
   },
   "lang_czech":{
     "message":"Txec",
     "description":"language"
   },
-  "blacklistereditinvalid1":{
-    "message":"El filtre no és vàlid: $exception$",
-    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated.",
+  "filtereasylist_plus_romanian":{
+    "message":"Romanès",
+    "description":"language"
+  },
+  "dont_run_on_pages_on_domain":{
+    "message":"No actuar en les pàgines d'aquest domini",
+    "description":"Menu entry to open the whitelist wizard"
+  },
+  "adreport_response_large_file":{
+    "message":"Aquest fitxer és massa gran. Assegureu-vos que el fitxer és de menys de 10 MB.",
+    "description":"Error message shown when the user tries to upload a large image file."
+  },
+  "somethingwentwrong":{
+    "message":"Quelcom ha anat malament durant la comprovació d'actualitzacions.",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
+  },
+  "checkinfirefox_2":{
+    "message":"Instal·leu-vos l'Adblock Plus per a Firefox $chrome$ si no el teniu.",
     "placeholders":{
-      "exception":{
-        "example":"This filter is not supported",
+      "chrome":{
+        "example":"'or AdBlock for Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
+        "content":"<span id='adblockforchrome'></span>"
+      }
+    },
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad. Don't translate the name 'Adblock Plus'."
+  },
+  "filtermalware":{
+    "message":"Protecció contra el programari maliciós",
+    "description":"A filter list"
+  },
+  "typehiding":{
+    "message":"amagant",
+    "description":"A resource type"
+  },
+  "adblock_click_for_details":{
+    "message":"AdBlock – cliqueu per obtenir més detalls",
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
+  },
+  "adreport_server_response_error_msg":{
+    "message":"S'ha produït un error en processar la vostra sol·licitud.",
+    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
+  },
+  "typeimage":{
+    "message":"imatge",
+    "description":"A resource type"
+  },
+  "resourcedomain":{
+    "message":"Carregat a la pàgina amb el domini: $domain$",
+    "placeholders":{
+      "domain":{
+        "example":"example.com",
         "content":"$1"
       }
-    }
+    },
+    "description":"Resource list page: text shown when hovering over an item in the third-party column"
   },
-  "whatsnew":{
-    "message":"Què hi ha de nou en l'últim llançament? Vegeu <a style='cursor:pointer;'>el conjunt de canvis</a>!",
-    "description":"Link to display the changelog on the Support tab of the options"
+  "enableotherextensionscomplete":{
+    "message":"Les extensions que anteriorment estaven desactivades han estat reactivades.",
+    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled"
   },
-  "clickdisableaa":{
-    "message":"Clica a: <a>Desactivar Anuncis Acceptables</a>",
-    "description":"Instruction on ad report page"
+  "catblock_add_more_photos":{
+    "message":"<b>Add some photos</b> from Flickr!  You can enter:",
+    "description":"Introduction to the examples of custom image lists. Leave the <b> and </b> as they are."
   },
-  "buttonlooksgood":{
-    "message":"Té bon aspecte",
-    "description":"Looks good button"
+  "filterczech":{
+    "message":"Txec i eslovac",
+    "description":"Language names for a filter list"
   },
-  "adreportintro":{
-    "message":"Has trobat un anunci en una pàgina web? T'ajudarem a trobar el lloc idoni per informar-ne!",
-    "description":"Introduction of the ad reporting page"
+  "cleanuplist2":{
+    "message":"Netejar aquesta llista",
+    "description":"Option at the bottom of the 'Customize' options tab"
   },
-  "catblock_enable_adblock":{
-    "message":"Enable CatBlock on this page",
-    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'"
+  "malwarenotfound":{
+    "message":"No s'ha trobat programari maliciós conegut.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware/adware"
   },
-  "catblock_example_flickr_search":{
-    "message":"a search for photos (e.g. <i>sailboat race</i>)",
-    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\"."
+  "block_this_ad":{
+    "message":"Bloquegeu aquest anunci",
+    "description":"Context and popup menu entry"
   },
-  "lang_ukranian":{
-    "message":"Ucraïnès",
-    "description":"language"
-  },
-  "catblock_example_flickr_url":{
-    "message":"a Flickr photoset URL (e.g. $example$)",
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\".",
-    "placeholders":{
-      "example":{
-        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
-      }
-    }
-  },
-  "filtereasylist_plus_polish":{
-    "message":"Polonès",
-    "description":"language"
-  },
-  "catblock_show_on_adblock_menu":{
-    "message":"Show number of ads blocked on CatBlock menu",
-    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked"
-  },
-  "manualexcludefilteredit":{
-    "message":"Editar els filtres desactivats:",
-    "description":"Subtitle on the 'Customize' tab"
-  },
-  "malwarenotificationlearnmore":{
-    "message":"Aprendre'n més sobre programari maliciós",
-    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
-  },
-  "legend":{
-    "message":"Llegenda: ",
-    "description":"Resource list page: followed by color codes for various resource statuses (e.g. blocked, whitelisted, hidden)"
-  },
-  "flashads":{
-    "message":"Vídeos i Flash",
-    "description":"Title of the final ad report question if the ad didn't appear in Firefox"
-  },
-  "adreportvoluntary":{
-    "message":"Informar sobre anuncis és voluntari. Ajuda a d'altres persones amb l'activació dels mantenidors de les llistes de filtres per tal de bloquejar l'anunci per a tothom. Si ara no et sents altruista, d'acord; tanca aquesta pàgina i <a>bloqueja l'anunci</a> només per tu.",
-    "description":"Introduction of the ad reporting page"
-  },
-  "blacklisterthefilter":{
-    "message":"El filtre, el qual es pot canviar a la pàgina d'opcions:",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "catblock_adblocksupport":{
-    "message":"CatBlock Support",
-    "description":"Title of the support tab"
+  "warning_overrules_filters":{
+    "message":"Alerta: a tots els altres llocs veureu anuncis!<br>Això es salta les normes de tots els altres filtres per a aquests llocs.",
+    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
   },
   "filtereasylist_plus_indonesian":{
     "message":"Indonesi",
     "description":"A filter list"
   },
-  "manuallyenableotherextensions":{
-    "message":"Obriu la pàgina de les extensions per activar les que anteriorment estaven desactivades.",
-    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
+  "clickupdatefilters":{
+    "message":"Feu clic aquí: <a>Actualitzar els meus filtres!</a>",
+    "description":"Instruction on ad report page"
   },
-  "adreport_response_success":{
-    "message":"Tot a punt! Estarem en contacte aviat, molt probablement en un dia, dos si és festa. Mentrestant, cerqueu un correu electrònic de l'AdBlock. Trobareu un enllaç al vostre tiquet a la nostra pàgina de suport. Si preferiu seguir el correu electrònic, també ho podeu fer!",
-    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  "format_site1_site2_site3":{
+    "message":"Format: ~lloc1.com|~lloc2.com|~notícies.lloc3.org",
+    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
   },
-  "lang_russian":{
-    "message":"Rus",
+  "manualexcludefilteredit":{
+    "message":"Editar els filtres desactivats:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
+  "catblock_adblocksupport":{
+    "description":"Title of the support tab",
+    "message":"CatBlock Support"
+  },
+  "correctfilters":{
+    "message":"Assegureu-vos que esteu fent servir els filtres d'idioma correctes:",
+    "description":"On the ad report page, label describing having the right set of filters"
+  },
+  "filtereasylist_plun_korean":{
+    "message":"Coreà",
     "description":"language"
+  },
+  "typexmlhttprequest":{
+    "message":"xmlhttprequest",
+    "description":"A resource type"
+  },
+  "debuginlogoption":{
+    "message":"Mostrar les dades de depuració al registre de la consola (això alentirà l'AdBlock)",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "generaloptions":{
+    "message":"Opcions generals",
+    "description":"Title of first tab page"
+  },
+  "catblock_allrequests":{
+    "description":"All requests",
+    "message":"A message in dropdown selection on Resource viewer page"
+  },
+  "pause_adblock":{
+    "message":"Pausar l'AdBlock",
+    "description":"Menu entry to pause AdBlock"
+  },
+  "betalabel":{
+    "message":"Beta",
+    "description":"Label for beta features in AdBlock Options"
+  },
+  "filterantisocial":{
+    "message":"Llista de filtres antisocials (suprimeix els botons de les xarxes socials)",
+    "description":"A filter list"
+  },
+  "modifydomain":{
+    "message":"Lloc:",
+    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL"
+  },
+  "catblock_safaricontentblockingpausemessage":{
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled",
+    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'."
+  },
+  "catblock_unpause_adblock":{
+    "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'",
+    "message":"Unpause CatBlock"
+  },
+  "catblock_example_flickr_url":{
+    "message":"a Flickr photoset URL (e.g. $example$)",
+    "placeholders":{
+      "example":{
+        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
+      }
+    },
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
+  },
+  "catblock_contributors":{
+    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "otherfilters":{
+    "message":"Altres llistes de filtres",
+    "description":"List for other filters the user subscribed to"
+  },
+  "cantblockflashwarning":{
+    "message":"Quan apareix l'anunci: abans o durant un vídeo o algun plugin com ara un joc Flash?",
+    "description":"Text of the final ad report question"
+  },
+  "disableforchromestepone":{
+    "message":"Obriu la <a href='#'>pàgina de les extensions</a>.",
+    "description":"Step 1 for disabling Chrome extensions"
+  },
+  "failedtofetchfilter":{
+    "message":"S'ha produït un error al obtenir aquest filtre!",
+    "description":"Error messagebox"
+  },
+  "filtereasylist_plus_bulgarian":{
+    "message":"Búlgar",
+    "description":"language"
+  },
+  "blockdomain":{
+    "message":"El domini de la pàgina a on s'ha d'aplicar",
+    "description":"Message of the url and css -blocking area"
+  },
+  "typeselector":{
+    "message":"selector",
+    "description":"A resource type"
+  },
+  "malwarenotificationcheckboxmessage":{
+    "message":"Us hauria de notificar l'AdBlock quan detecti programari maliciós?",
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
+  },
+  "catblock_adblockupdates":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"CatBlock updates"
+  },
+  "report_ad_on_page":{
+    "message":"Informar sobre un anunci en aquesta pàgina",
+    "description":"Entry in the AdBlock button menu"
+  },
+  "topframe":{
+    "message":"Marc superior",
+    "description":"Resource list page: frame type"
+  },
+  "buttonexclude":{
+    "message":"Excloure",
+    "description":"Button for excluding a domain in the whitelister dialog"
+  },
+  "legend":{
+    "message":"Llegenda: ",
+    "description":"Resource list page: followed by color codes for various resource statuses (e.g. blocked, whitelisted, hidden)"
+  },
+  "adreport_email_privacy":{
+    "message":"Només la farem servir per contactar-te si necessitem més informació.",
+    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
+  },
+  "blacklisterattrwillbe":{
+    "message":"$attribute$ serà $value$",
+    "placeholders":{
+      "value":{
+        "example":"AdBanner",
+        "content":"$2"
+      },
+      "attribute":{
+        "example":"class",
+        "content":"$1"
+      }
+    },
+    "description":"Checkbox label"
+  },
+  "blockedresource":{
+    "message":"Recurs bloquejat",
+    "description":"Resource list page: resource status"
+  },
+  "aamessageadreport":{
+    "message":"Si no t'agrada veure anuncis com aquest, potser voldries desactivar el filtre d'Anucis Acceptables.",
+    "description":"Acceptable Ads message on ad report page"
+  },
+  "safaributton_how_to_hide2":{
+    "message":"Per ocultar el botó, feu clic dret a la barra d'eines de Safari i escolliu Personalitzar la barra d'eines, a continuació arrosegueu el botó d'AdBlock fora de la barra d'eines. El podeu fer tornar a aparèixer arrosegant-lo cap a la barra d'eines.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
+  },
+  "whitelist_youtube_channel":{
+    "message":"El canal $name$ té permís",
+    "placeholders":{
+      "name":{
+        "example":"Name of channel",
+        "content":"$1"
+      }
+    },
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option"
+  },
+  "ad_report_please":{
+    "message":"Si veieu un anunci, no feu un informe d'errors, feu un <a>Informe d'anunci</a>!",
+    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
+  },
+  "customfilters":{
+    "message":"Llistes de filtres personalitzades",
+    "description":"List for custom filters the user subscribed to"
+  },
+  "pagelanguagecheck":{
+    "message":"En quin idioma està escrita la pàgina web?",
+    "description":"Question on ad report page"
+  },
+  "adalreadyblocked":{
+    "message":"Fantàstic! Esteu a punt.",
+    "description":"On the ad report page, telling a user there is nothing to do"
+  },
+  "status_paused":{
+    "message":"L'AdBlock està en pausa.",
+    "description":"Message shown in toolbar button when AdBlock is paused"
+  },
+  "safarinotificationbody":{
+    "message":"Desactiveu algunes llistes de filtres. Més informació a les opcions d'AdBlock.",
+    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
+  },
+  "linkhidesection":{
+    "message":"Amagar una secció d'una pàgina web",
+    "description":"Link on the 'Customize' tab"
+  },
+  "reloadadpage":{
+    "message":"Tornar a carregar la pàgina amb l'anunci.",
+    "description":"Instruction on ad report page"
+  },
+  "filtersavewarning":{
+    "message":"Aneu amb compte: Si cometeu un error aquí molts filtres, incloent els oficials, es podrien malmetre!<br/>Llegiu-vos el <a>tutorial de sintaxi per a filtres</a> per aprendre com afegir filtres avançats de restricció o permissió.",
+    "description":"Warning when blacklisting manually"
+  },
+  "filterdanish":{
+    "message":"Danès",
+    "description":"language"
+  },
+  "oradblockforchrome":{
+    "message":"o bé AdBlock per a Chrome",
+    "description":"Used for placeholder in checkinfirefox_2 string"
+  },
+  "questionoridea":{
+    "message":"Teniu alguna pregunta i/o suggeriment?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "headertype":{
+    "message":"Tipus",
+    "description":"Resource list page: title of a column"
+  },
+  "whitelistedresource":{
+    "message":"Recurs permès",
+    "description":"Resource list page: resource status"
+  },
+  "filteracceptable_ads":{
+    "message":"Anuncis Acceptables (recomanat)",
+    "description":"A filter list"
+  },
+  "firefox_explanation":{
+    "message":"El propòsit d'aquesta pregunta és determinar qui ha de rebre el seu informe. Si contesteu aquesta pregunta de forma incorrecta, l'informe s'enviarà a les persones equivocades, i potser sou ignorats.",
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
+  },
+  "checkinfirefox_3":{
+    "message":"En aquell navegador, subscriviu-vos a les mateixes listes de filtres que teniu aquí.",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "adblock_wont_run_on_pages_matching":{
+    "message":"L'AdBlock no s'executarà en cap pàgina del següent domini:",
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
+  },
+  "filterorigin":{
+    "message":"Origen del filtre:\n$list$",
+    "placeholders":{
+      "list":{
+        "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'",
+        "content":"$1"
+      }
+    },
+    "description":"Resource list page: tooltip of matching filter, telling which filter list contains the filter"
+  },
+  "reportpubliclyavailable":{
+    "message":"Nota: el vostre informe pot ser que esdevingui públic. Recordeu això abans d'incloure quelcom privat.",
+    "description":"Ad report page string, when you're about to submit a report"
+  },
+  "updateddayago":{
+    "message":"actualitzat fa 1 dia",
+    "description":"Label for subscription"
+  },
+  "malwarenotificationmessage":{
+    "message":"L'AdBlock ha bloquejat una descàrrega d'un lloc del qual se sap que conté malware.",
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
+  },
+  "blacklisteroptionstitle":{
+    "message":"Pas final: què fa això un anunci?",
+    "description":"Blacklister options page title"
+  },
+  "adblockreportinganad":{
+    "message":"AdBlock - Informant sobre un anunci",
+    "description":"Title of the ad report page"
+  },
+  "subscribeconfirm":{
+    "message":"Segur que us voleu subscriure a la llista de filtres $title$?",
+    "placeholders":{
+      "title":{
+        "example":"Prebake",
+        "content":"$1"
+      }
+    },
+    "description":"Prompt question before subscribing to the filter list"
+  },
+  "linkunblock":{
+    "message":"Mostrar els anuncis en una pàgina web o domini",
+    "description":"Link on the 'Customize' tab"
+  },
+  "hide_this_button":{
+    "message":"Amagar aquest botó",
+    "description":"Toolbar button menu entry to hide the AdBlock button"
+  },
+  "adreport_response_save_error":{
+    "message":"Error en desar l'arxiu carregat.",
+    "description":"Error message shown when the server could not save an attached file."
+  },
+  "adblockinglist":{
+    "message":"Llistes de filtres per bloquejar anuncis",
+    "description":"List for subscribed ad blocking fiters"
+  },
+  "catblock_add_photos":{
+    "message":"Add Photos",
+    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
+  },
+  "show_on_adblock_menu":{
+    "message":"Mostrar el nombre d'anuncis blocats al menú",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+  },
+  "framedomain":{
+    "message":"Domini del marc: ",
+    "description":"Resource list page: domain name of the frame"
   },
   "cantblockflash":{
     "message":"Encara no podem bloquejar els anuncis que es troben dins d'aplicacions Flash o bé dins d'altres complements. Estem a l'espera de la compatibilitat del navegador i del 'WebKit'.",
     "description":"Result of the final ad report question"
   },
-  "datacollectionoption":{
-    "message":"Permet que l'AdBlock reculli anònimament dades i ús de les llistes de filtres",
+  "subscribingfailed":{
+    "message":"Error!",
+    "description":"abp: link subscriber result"
+  },
+  "whatsnew":{
+    "message":"Què hi ha de nou en l'últim llançament? Vegeu <a style='cursor:pointer;'>el conjunt de canvis</a>!",
+    "description":"Link to display the changelog on the Support tab of the options"
+  },
+  "slidertitle":{
+    "message":"Pas 1: Identifiqueu el que s'ha de bloquejar",
+    "description":"Blacklister slider page title"
+  },
+  "adreport_laststep":{
+    "message":"Darrer pas: informeu-nos del problema.",
+    "description":"Heading on the ad report page. Shown when the ad needs to be reported to AdBlock, and not filter list maintainers."
+  },
+  "catblock_pause_adblock":{
+    "description":"Menu entry to pause CatBlock",
+    "message":"Pause CatBlock"
+  },
+  "advanced_options2":{
+    "message":"Sóc un usuari avançat, mostrar opcions avançades",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
-  "disabled_on_this_page":{
-    "message":"L'AdBlock està desactivat en aquesta pàgina.",
-    "description":"Message shown in toolbar button on web pages that have been whitelisted"
+  "catblock_searchresources":{
+    "description":"Search resources by URL:",
+    "message":"A text shown on Resources viewer page"
+  },
+  "enable_adblock":{
+    "message":"Activar AdBlock en aquesta pàgina",
+    "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "whatmakesadblocktick":{
+    "message":"Voleu veure els engranatges que mouen l'AdBlock?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "blacklistclickmessage":{
+    "message":"Feu clic dret a un anunci en una pàgina per bloquejar-lo –– o bé bloquejeu-lo aquí manualment.",
+    "description":"Message at the top of the blacklist options tab"
+  },
+  "nodefaultfilter1":{
+    "message":"No tenim una llista de filtres per a aquest idioma.<br/>Intenteu trobar una llista que sigui compatible amb aquest idioma $link$ o bé bloquegi aquest anunci vostè mateix a la pestanya 'Personalitzar'.",
+    "placeholders":{
+      "link":{
+        "example":"<a>here</a>",
+        "content":"<a id='link'></a>"
+      }
+    },
+    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "typepage":{
+    "message":"pàgina",
+    "description":"A resource type"
+  },
+  "clickdisableotherextensions":{
+    "message":"<b>O BÉ</b>, només cliqueu aquest botó per fer tot el que figura anteriorment: <a>Desactivar totes les altres extensions</a>",
+    "description":"On the ad report page, an alternative way to disable other extensions"
+  },
+  "filterlistlink":{
+    "message":"No us subscrigueu més del que necessiteu –– cada llista us fa anar una mica més lent! Els crèdits i més llistes es poden trobar <a>aquí</a>.",
+    "description":"Explanation of the filter lists"
+  },
+  "filterturkish":{
+    "message":"Turc",
+    "description":"A filter list"
+  },
+  "filtereasyprivacy":{
+    "message":"EasyPrivacy (protecció de la privadesa)",
+    "description":"A filter list"
+  },
+  "catblock_update_available":{
+    "description":"On the Options > Support page, shows when there are updates available for CatBl",
+    "placeholders":{
+      "here":{
+        "example":"<a>here</a>",
+        "content":"<a id='here'></a>"
+      }
+    },
+    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'."
+  },
+  "catblock_reloadtab":{
+    "description":"Reload tab",
+    "message":"Button on Resources viewer page, which reloads selected tab from dropdown menu"
+  },
+  "catblock_safarinotificationbody":{
+    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules",
+    "message":"Please disable some filter lists. More information in CatBlock's Options."
+  },
+  "manualfilteredit":{
+    "message":"Editar manualment els vostres filtres:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
+  "invalidListUrl":{
+    "message":"URL de llista no vàlida. Serà suprimida.",
+    "description":"Message when you subscribe to a non-list URL"
+  },
+  "blacklisterblockedelement":{
+    "message":"Element bloquejat:",
+    "description":"Tells the user what the blocked element is on the slider page"
+  },
+  "loading":{
+    "message":"CARREGANT...",
+    "description":"Generic message displayed during processes that take some time"
   },
   "confirm_undo_custom_filters":{
     "message":"Esteu segur que voleu eliminar els $count$ blocatges que heu creat a $host$?",
-    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset.",
     "placeholders":{
       "count":{
         "example":"The number of custom blocks for a domain.",
@@ -356,774 +531,71 @@
         "example":"code.google.ph, ph.msn.com, stackoverflow.com",
         "content":"$2"
       }
-    }
-  },
-  "whitelist_youtube_channel":{
-    "message":"El canal $name$ té permís",
-    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
-    "placeholders":{
-      "name":{
-        "example":"Name of channel",
-        "content":"$1"
-      }
-    }
-  },
-  "acceptableadsdisable_how_to_reenable":{
-    "message":"Podeu reactivar-ho i donar suport a les vostres pàgines web preferides seleccionant \"Permetre publicitat no intrusiva\".",
-    "description":"Message shown to users after disabling Acceptable Ads via update page."
-  },
-  "filtereasylist_plun_korean":{
-    "message":"Coreà",
-    "description":"language"
-  },
-  "fetchinglabel":{
-    "message":"S'està obtenint... espereu-vos.",
-    "description":"Status label"
-  },
-  "filterdutch":{
-    "message":"Holandès",
-    "description":"language"
-  },
-  "pwyw":{
-    "message":"Pagueu el que desitgeu!",
-    "description":"Text of a payment request link"
-  },
-  "disableaa":{
-    "message":"Comprova el filtre d'Anuncis Acceptables:",
-    "description":"Section header on the ad report page"
-  },
-  "catblock_safaributton_how_to_hide2":{
-    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
-  },
-  "filtereasylist_plus_german":{
-    "message":"Alemany",
-    "description":"language"
-  },
-  "typescript":{
-    "message":"script",
-    "description":"A resource type"
-  },
-  "buttonedit":{
-    "message":"Editar",
-    "description":"Edit filter manually button"
-  },
-  "adreport_filter":{
-    "message":"Si has creat un filtre de treball mitjançant l'assistent \"bloqueja un anunci\", enganxeu-lo al següent quadre:",
-    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
-  },
-  "no":{
-    "message":"No",
-    "description":"A negative response to a question"
-  },
-  "catblock_tabcustomizetitle":{
-    "message":"Customize CatBlock",
-    "description":"Title of the customize tab"
-  },
-  "catblock_disableallextensions":{
-    "message":"Disable all extensions except for CatBlock.",
-    "description":"Instruction on ad report page"
-  },
-  "debuginlogoption":{
-    "message":"Mostrar les dades de depuració al registre de la consola (això alentirà l'AdBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
+    },
+    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset."
   },
   "updatedhourago":{
     "message":"actualitzat fa 1 hora",
     "description":"Label for subscription"
   },
-  "typehiding":{
-    "message":"amagant",
-    "description":"A resource type"
-  },
   "yes":{
     "message":"Sí",
     "description":"A positive response to a question"
   },
-  "tabcustomize":{
-    "message":"Personalitzar",
-    "description":"A tab on the options page"
-  },
-  "dont_run_on_pages_on_domain":{
-    "message":"No actuar en les pàgines d'aquest domini",
-    "description":"Menu entry to open the whitelist wizard"
-  },
-  "filterhungarian":{
-    "message":"Hongarès",
-    "description":"language"
-  },
-  "typeobject_subrequest":{
-    "message":"object_subrequest",
-    "description":"A resource type"
-  },
-  "buttonsubmit":{
-    "message":"Enviar",
-    "description":"Button to send a form."
-  },
-  "adreport_response_file_name":{
-    "message":"Aquest nom de fitxer és massa llarg. Si us plau, canvieu-lo a un de més curt.",
-    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
-  },
-  "noresourcessend2":{
-    "message":"Alguna cosa no ha anat bé. No s'ha enviat cap recurs. Aquesta pàgina ara es tancarà. Intenteu tornar a carregar la pàgina web.",
-    "description":"Resource list page: error message"
-  },
-  "hide_this_button":{
-    "message":"Amagar aquest botó",
-    "description":"Toolbar button menu entry to hide the AdBlock button"
-  },
-  "malwarenotificationcheckboxmessage":{
-    "message":"Us hauria de notificar l'AdBlock quan detecti programari maliciós?",
-    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
-  },
-  "filterlatvian":{
-    "message":"Letó",
-    "description":"A filter list"
-  },
-  "filterantisocial":{
-    "message":"Llista de filtres antisocials (suprimeix els botons de les xarxes socials)",
-    "description":"A filter list"
-  },
-  "adreport_server_response_error_msg":{
-    "message":"S'ha produït un error en processar la vostra sol·licitud.",
-    "description":"Error message shown when an new ticket is sumbitted for an ad or bug report, and the server had an issue while processing the data."
-  },
-  "pause_adblock":{
-    "message":"Pausar l'AdBlock",
-    "description":"Menu entry to pause AdBlock"
-  },
-  "linkunblock":{
-    "message":"Mostrar els anuncis en una pàgina web o domini",
-    "description":"Link on the 'Customize' tab"
-  },
-  "filterlistsrock":{
-    "message":"Les llistes de filtres bloquejen la majoria d'anuncis de la xarxa. També podeu:",
-    "description":"Header text on the Customize tab. 'Filter lists' should be the same text as the name of the 'Filter lists' tab."
-  },
-  "adblockupdates":{
-    "message":"Actualització d'AdBlock",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "blocked_n_on_this_page":{
-    "message":"$count$ en aquesta pàgina",
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999.",
-    "placeholders":{
-      "count":{
-        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
-        "content":"<a>123</a>"
-      }
-    }
+  "aalinkadreport":{
+    "message":"Saber-ne més sobre el programa d'anuncis acceptables.",
+    "description":"Acceptable Ads link message on ad report page"
   },
   "fixityourself":{
     "message":"D'acord, encara podeu bloquejar aquest anunci vosaltres mateixos a la pàgina d'opcions. Gràcies!",
     "description":"Telling users who won't report an ad to us how to handle it for themselves"
   },
-  "storage_quota_exceeded":{
-    "message":"Heu sobrepassat el límit d'emmagatzematge que l'AdBlock pot fer servir. Deixeu la subscripció d'algunes llistes de filtres!",
-    "description":"Message shown when the user uses more storage than allowed by the browser"
+  "catblock_status_disabled":{
+    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank",
+    "message":"CatBlock can not run on this domain."
   },
-  "show_ads_except_for":{
-    "message":"Mostrar els anuncis <i>a tot arreu</i> excepte en aquests dominis...",
-    "description":"Section title for blacklisting section of Customize tab"
-  },
-  "catblock_latest_version":{
-    "message":"CatBlock is up-to-date!",
-    "description":"On the Options > Support page, shows when there are no updates available for CatBlock"
-  },
-  "filtereasylist_plus_lithuania":{
-    "message":"Lituà",
-    "description":"language"
-  },
-  "findingads":{
-    "message":"Trobant els anuncis…<br/><br/><i>Això només tardarà uns instants.</i>",
-    "description":"When you press ctrl-shift-K the blacklister searches for ads"
-  },
-  "filterturkish":{
-    "message":"Turc",
-    "description":"A filter list"
-  },
-  "catblock_wizardcantrunonframesets":{
-    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page.",
-    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
-  },
-  "description2":{
-    "message":"L'extensió més popular de Chrome, amb més de 40 milions d'usuaris! Bloqueja els anuncis de tota la xarxa.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
-  },
-  "safaricontentblockinglimitexceeded":{
-    "message":"El nombre de normes de filtres de llista sobrepassa el límit de 50.000, i ha estat reduïda automàticament. Deixeu algunes subscripcions a llistes de filtres o desactiveu el bloqueig de continguts de Safari!",
-    "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
-  },
-  "acceptableadsoption":{
-    "message":"Permet la publicitat no intrusiva",
-    "description":"option on the 'General' tab"
-  },
-  "framedomain":{
-    "message":"Domini del marc: ",
-    "description":"Resource list page: domain name of the frame"
-  },
-  "typeunknown":{
-    "message":"desconegut",
+  "typeobject":{
+    "message":"objecte interactiu",
     "description":"A resource type"
   },
-  "linkblockadbyurl":{
-    "message":"Bloquejar un anunci mitjançant la seva URL",
-    "description":"Link on the 'Customize' tab"
-  },
-  "checkinfirefox_2":{
-    "message":"Instal·leu-vos l'Adblock Plus per a Firefox $chrome$ si no el teniu.",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad. Don't translate the name 'Adblock Plus'.",
-    "placeholders":{
-      "chrome":{
-        "example":"'or AdBlock for Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='adblockforchrome'></span>"
-      }
-    }
-  },
-  "filtereasylist_plus_bulgarian":{
-    "message":"Búlgar",
-    "description":"language"
-  },
-  "blacklistersinglematch":{
-    "message":"Això es relaciona amb <b>1</b> ítem en aquesta pàgina.",
-    "description":"Tells the user only one match was found"
-  },
-  "filterwarning_removal":{
-    "message":"Llista d'eliminació d'avisos d'AdBlocks (elimina els avisos sobre l'utilització de bloquejadors de publicitat)",
-    "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
-  },
-  "block_this_ad":{
-    "message":"Bloquegeu aquest anunci",
-    "description":"Context and popup menu entry"
-  },
-  "contributors":{
-    "message":"Tenim una <a>pàgina</a> per tal que descobriu les persones que fan possible l'AdBlock!",
-    "description":"Link to the contributors page on the Support tab of the options"
-  },
-  "catblock_contributors":{
-    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!",
-    "description":"Link to the contributors page on the Support tab of the options"
-  },
-  "catblock_add_more_photos":{
-    "message":"<b>Add some photos</b> from Flickr!  You can enter:",
-    "description":"Introduction to the examples of custom image lists. Leave the <b> and </b> as they are."
-  },
-  "updatedsecondsago":{
-    "message":"actualitzat fa $seconds$ segons",
-    "description":"Label for subscription",
-    "placeholders":{
-      "seconds":{
-        "example":"15",
-        "content":"$1"
-      }
-    }
-  },
-  "operabutton_how_to_hide2":{
-    "message":"Per ocultar el botó, dirigiu-vos a opera://extensions i seleccioneu l'opció 'Ocultar de la barra d'eines'. El podeu fer tornar a aperèixer desmarcant aquella opció.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
-  },
-  "allow_whitelisting_youtube_channels":{
-    "message":"Permeteu la permissió d'anuncis en canals específics de YouTube",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "blacklisterblocksalloftype":{
-    "message":"Aneu amb compte: aquest filtre bloqueja tots els elements $elementtype$ de la pàgina!",
-    "description":"Warns the user that all elements of type X will be blocked",
-    "placeholders":{
-      "elementtype":{
-        "example":"DIV",
-        "content":"$1"
-      }
-    }
-  },
-  "status_paused":{
-    "message":"L'AdBlock està en pausa.",
-    "description":"Message shown in toolbar button when AdBlock is paused"
-  },
-  "aamessageadreport":{
-    "message":"Si no t'agrada veure anuncis com aquest, potser voldries desactivar el filtre d'Anucis Acceptables.",
-    "description":"Acceptable Ads message on ad report page"
-  },
-  "tabreloadcomplete":{
-    "message":"Fet! Hem recarregat la pàgina amb l'anunci. Aneu a la pàgina per comprovar si l'anunci ha marxat. Llavors torneu a aquesta pàgina i responeu la pregunta que es formula a continuació.",
-    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
-  },
-  "catblock_malwarenotificationmessage":{
-    "message":"CatBlock has blocked a download from a site known to host malware.",
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
-  },
-  "headerresource":{
-    "message":"Recurs",
-    "description":"Resource list page: title of a column"
-  },
-  "typexmlhttprequest":{
-    "message":"xmlhttprequest",
-    "description":"A resource type"
-  },
-  "removefromlist":{
-    "message":"Suprimir de la llista",
-    "description":"Label to remove a custom filter"
-  },
-  "adreport_screen_cap_upload":{
-    "message":"Adjunta una captura de pantalla:",
-    "description":"Label next to a file upload button."
-  },
-  "adreport_response_save_error":{
-    "message":"Error en desar l'arxiu carregat.",
-    "description":"Error message shown when the server could not save an attached file."
-  },
-  "disableforchromeandsafaristeptwo":{
-    "message":"Desactiveu les caselles de selecció que es troben al costat de cada extensió <b>excepte</b> la de l'AdBlock. <b>Deixeu la casella de l'AdBlock seleccionada</b>.",
-    "description":"Step 2 for disabling Chrome and Safari extensions"
-  },
-  "blacklisteroptionstitle":{
-    "message":"Pas final: què fa això un anunci?",
-    "description":"Blacklister options page title"
-  },
-  "catblock_excludedomainorurl":{
-    "message":"The domain or url where CatBlock shouldn't block anything",
-    "description":"Message of the exclude area"
-  },
-  "filterrussian":{
-    "message":"Rus i ucraïnès",
-    "description":"Language names for a filter list"
-  },
-  "updatedrightnow":{
-    "message":"actualitzat ara mateix",
-    "description":"Label for subscription"
-  },
-  "tabcustomizetitle":{
-    "message":"Personalitzar l'AdBlock",
-    "description":"Title of the customize tab"
-  },
-  "catblock_malwarenotificationcheckboxmessage":{
-    "message":"Should CatBlock notify you when it detects malware?",
-    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
-  },
-  "subscribingfinished":{
-    "message":"Acabat!",
-    "description":"abp: link subscriber result"
-  },
-  "catblock_unpause_adblock":{
-    "message":"Unpause CatBlock",
-    "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'"
-  },
-  "typeimage":{
-    "message":"imatge",
-    "description":"A resource type"
-  },
-  "filteritalian":{
-    "message":"Italià",
-    "description":"language"
-  },
-  "linkhidesection":{
-    "message":"Amagar una secció d'una pàgina web",
-    "description":"Link on the 'Customize' tab"
-  },
-  "clickdisableotherextensions":{
-    "message":"<b>O BÉ</b>, només cliqueu aquest botó per fer tot el que figura anteriorment: <a>Desactivar totes les altres extensions</a>",
-    "description":"On the ad report page, an alternative way to disable other extensions"
-  },
-  "disableallextensions":{
-    "message":"Desactiveu totes les extensions excepte l'AdBlock:",
-    "description":"Instruction on ad report page"
-  },
-  "whitelistertitle2":{
-    "message":"No executar l'AdBlock a...",
-    "description":"The title of the whitelister dialog"
-  },
-  "catblock_you_can_slide_to_change":{
-    "message":"You can slide below to change exactly what pages CatBlock won't run on.",
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
-  },
-  "blockurlwithtext":{
-    "message":"Bloquejar les URL que continguin aquest text",
-    "description":"Message of the url-blocking area"
-  },
-  "catblock_add_photos":{
-    "message":"Add Photos",
-    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
-  },
-  "otherfilters":{
-    "message":"Altres llistes de filtres",
-    "description":"List for other filters the user subscribed to"
-  },
-  "filtereasylist_plus_arabic":{
-    "message":"Àrab",
-    "description":"language"
-  },
-  "blacklistclickmessage":{
-    "message":"Feu clic dret a un anunci en una pàgina per bloquejar-lo –– o bé bloquejeu-lo aquí manualment.",
-    "description":"Message at the top of the blacklist options tab"
-  },
-  "unsubscribedlabel":{
-    "message":"Subscripció cancel·lada.",
-    "description":"Status label"
-  },
-  "clickupdatefilters":{
-    "message":"Feu clic aquí: <a>Actualitzar els meus filtres!</a>",
-    "description":"Instruction on ad report page"
-  },
-  "adreport_email_privacy":{
-    "message":"Només la farem servir per contactar-te si necessitem més informació.",
-    "description":"Let the user know that their email address won't be used for reasons other than contacting them about their bug or ad report."
-  },
-  "enableotherextensionscomplete":{
-    "message":"Les extensions que anteriorment estaven desactivades han estat reactivades.",
-    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled"
-  },
-  "reloadadpage":{
-    "message":"Tornar a carregar la pàgina amb l'anunci.",
-    "description":"Instruction on ad report page"
-  },
-  "ad_report_please":{
-    "message":"Si veieu un anunci, no feu un informe d'errors, feu un <a>Informe d'anunci</a>!",
-    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
-  },
-  "subscribingfailed":{
-    "message":"Error!",
-    "description":"abp: link subscriber result"
-  },
-  "catblock_options":{
-    "message":"CatBlock Options",
-    "description":"Title of the CatBlock options page tab"
-  },
-  "how":{
-    "message":"Com?",
-    "description":"Text of a link pointing to instructions on how to do something"
-  },
-  "showlinkstolists2":{
-    "message":"Mostrar els enllaços a les llistes de filtres",
-    "description":"Option on the 'Filter lists' tab of the Options page"
-  },
-  "blacklistertype":{
-    "message":"Tipus",
-    "description":"node name is called 'Type'"
-  },
-  "blockedresource":{
-    "message":"Recurs bloquejat",
-    "description":"Resource list page: resource status"
-  },
-  "frametype":{
-    "message":"Tipus de marc: ",
-    "description":"Resource list page: followed by frame type (e.g. top frame, subframe)"
-  },
-  "catblock_adblock_click_for_details":{
-    "message":"CatBlock - click for details",
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
-  },
-  "filtereasylist_plus_finnish":{
-    "message":"Finès",
-    "description":"language"
-  },
-  "blockanadtitle":{
-    "message":"Bloquejar un anunci",
-    "description":"Title of the first two dialogs of the blacklister"
-  },
-  "blacklisternofilter":{
-    "message":"No s'ha especificat cap filtre!",
-    "description":"Warning if the user hasn't specified a filter"
-  },
-  "filterisraeli":{
-    "message":"Hebreu",
-    "description":"language"
-  },
-  "catblock_example_flickr_id":{
-    "message":"a Flickr photoset ID (e.g. $example$)",
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\".",
-    "placeholders":{
-      "example":{
-        "content":"<i>346406</i>"
-      }
-    }
-  },
-  "other":{
-    "message":"Altres",
-    "description":"Multiple choice option"
-  },
-  "work_around_hulu_problems":{
-    "message":"Treballar amb els vídeos de Hulu.com que no es reprodueixin (requereix el reinici del navegador)",
-    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
-  },
-  "blacklisternotsure":{
-    "message":"<b>No n'esteu segurs?</b>doncs premeu 'Bloquejar-ho!' a continuació.",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "show_resourcelist":{
-    "message":"Mostra totes les sol·licituds",
-    "description":"Menu entry to open the resource list page"
-  },
-  "catblock_status_paused":{
-    "message":"CatBlock is paused.",
-    "description":"Message shown in toolbar button when CatBlock is paused"
-  },
-  "updatenowmessage2":{
-    "message":"Obtindré les actualitzacions automàticament; si voleu podeu <a>actualitzar ara</a>",
-    "description":"Update filters text + button"
-  },
-  "refusetocheck":{
-    "message":"No vull comprovar això",
-    "description":"User is telling us they don't wish to investigate something for us"
+  "flashads":{
+    "message":"Vídeos i Flash",
+    "description":"Title of the final ad report question if the ad didn't appear in Firefox"
   },
   "subframe":{
     "message":"Premarc",
     "description":"Resource list page: frame type"
   },
-  "blacklisteroptions1":{
-    "message":"Què creieu que serà veritat sobre aquest anunci cada cop que visiteu aquesta pàgina?",
-    "description":"Blacklister attribute choosing page message"
+  "whats_this":{
+    "message":"Què és això?",
+    "description":"Text of a link pointing to the explanation of a new feature"
   },
-  "generaloptions":{
-    "message":"Opcions generals",
-    "description":"Title of first tab page"
+  "typeobject_subrequest":{
+    "message":"object_subrequest",
+    "description":"A resource type"
   },
-  "loading":{
-    "message":"CARREGANT...",
-    "description":"Generic message displayed during processes that take some time"
-  },
-  "manualfilteredit":{
-    "message":"Editar manualment els vostres filtres:",
-    "description":"Subtitle on the 'Customize' tab"
-  },
-  "acceptable_ads_content_blocking_disbled_message":{
-    "message":"Hem cancel·lat la seva subscripció dels anuncis acceptables, ja que heu activat el bloqueig de contingut de Safari. Només en podeu seleccionar un a la vegada. (<a> Per què? </a>)",
-    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
-  },
-  "catblock_show_on_adblock_button":{
-    "message":"Show on CatBlock button",
+  "show_on_adblock_button":{
+    "message":"Mostrar el nombre d'anuncis blocats al botó",
     "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
   },
-  "typepopup":{
-    "message":"element emergent",
-    "description":"A resource type"
+  "buttonblockit":{
+    "message":"Bloquejar-ho!",
+    "description":"Block button"
   },
-  "frameurl":{
-    "message":"URL del marc: ",
-    "description":"Resource list page: full URL of the frame"
-  },
-  "topframe":{
-    "message":"Marc superior",
-    "description":"Resource list page: frame type"
-  },
-  "catblock_filteradblock_custom":{
-    "message":"CatBlock custom filters (recommended)",
-    "description":"A filter list"
-  },
-  "catblock_disableforchromeandsafaristeptwo":{
-    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>.",
-    "description":"Step 2 for disabling Chrome and Safari extensions"
-  },
-  "here":{
-    "message":"aquí",
-    "description":"This message is injected in other strings as a link/button"
-  },
-  "somethingwentwrong":{
-    "message":"Quelcom ha anat malament durant la comprovació d'actualitzacions.",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
-  },
-  "subscribeconfirm":{
-    "message":"Segur que us voleu subscriure a la llista de filtres $title$?",
-    "description":"Prompt question before subscribing to the filter list",
-    "placeholders":{
-      "title":{
-        "example":"Prebake",
-        "content":"$1"
-      }
-    }
-  },
-  "checkinternetconnection":{
-    "message":"Per informar sobre un anunci, heu d'estar connectats a internet.",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
-  },
-  "adblockinglist":{
-    "message":"Llistes de filtres per bloquejar anuncis",
-    "description":"List for subscribed ad blocking fiters"
-  },
-  "betalabel":{
-    "message":"Beta",
-    "description":"Label for beta features in AdBlock Options"
-  },
-  "adreport_email":{
-    "message":"Quina és la teva adreça de correu?",
-    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
-  },
-  "filtermalware":{
-    "message":"Protecció contra el programari maliciós",
-    "description":"A filter list"
-  },
-  "updateyourlists":{
-    "message":"Assegureu-vos que les llistes de filtres estiguin actualitzades:",
-    "description":"Section header on the ad report page"
-  },
-  "catblock_disabled_by_filter_lists":{
-    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists.",
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
-  },
-  "safaricontentblockingpausemessage":{
-    "message":"Per posar en pausa l'AdBlock amb el bloqueig de continguts activat, seleccioneu Safari (a la barra de menús) > Preferències > Extensions > AdBlock, i desmarqueu 'Activar AdBlock'.",
-    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
-  },
-  "adblock_click_for_details":{
-    "message":"AdBlock – cliqueu per obtenir més detalls",
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
-  },
-  "invalidListUrl":{
-    "message":"URL de llista no vàlida. Serà suprimida.",
-    "description":"Message when you subscribe to a non-list URL"
-  },
-  "stop_blocking_ads":{
-    "message":"Aturar el bloqueig d'anuncis:",
-    "description":"Section header on the 'Customize' tab"
-  },
-  "lang_english":{
-    "message":"Anglès",
-    "description":"language"
-  },
-  "typesubdocument":{
-    "message":"marc",
-    "description":"A resource type"
-  },
-  "bugreport":{
-    "message":"Per què no ens envieu un <a>informe d'error</a>?",
-    "description":"Link to send a bug report on the Support tab of the options"
-  },
-  "catblock_safari50_updatenotice":{
-    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>.",
-    "description":"A message shown to Safari 5.0 users urging them to upgrade"
-  },
-  "filtereasyprivacy":{
-    "message":"EasyPrivacy (protecció de la privadesa)",
-    "description":"A filter list"
-  },
-  "filterjapanese":{
-    "message":"Japonès",
-    "description":"language"
-  },
-  "blacklisterwarningnofilter":{
-    "message":"Alerta: no s'ha especificat cap filtre!",
-    "description":"Warns the user that no filter was specified"
-  },
-  "filterorigin":{
-    "message":"Origen del filtre:\n$list$",
-    "description":"Resource list page: tooltip of matching filter, telling which filter list contains the filter",
-    "placeholders":{
-      "list":{
-        "example":"A filter list name OR AdBlock OR the translation of 'tabcustomize'",
-        "content":"$1"
-      }
-    }
-  },
-  "catblock_status_disabled":{
-    "message":"CatBlock can not run on this domain.",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
-  },
-  "filtereasylist_plus_spanish":{
-    "message":"Espanyol",
-    "description":"language"
-  },
-  "adblock_wont_run_on_pages_matching":{
-    "message":"L'AdBlock no s'executarà en cap pàgina del següent domini:",
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
-  },
-  "disableforsafaristepone":{
-    "message":"Feu clic al menú de Safari &rarr; Preferències &rarr; Ampliacions.",
-    "description":"Step 1 for disabling Safari extensions"
+  "savereminder":{
+    "message":"No us oblideu de desar els canvis!",
+    "description":"Reminder to press save"
   },
   "safaricontentblocking":{
     "message":"Activar el bloqueig de contingut de Safari",
     "description":"Checkbox on the 'General' tab of the Options page. 'Content Blocking' is the name of a different way of blocking resources introduced in Safari 9."
   },
-  "updateddayago":{
-    "message":"actualitzat fa 1 dia",
-    "description":"Label for subscription"
-  },
-  "blockmoreads":{
-    "message":"Bloquejar més anuncis:",
-    "description":"Section header on the 'Customize' tab"
-  },
-  "orenteraurl":{
-    "message":"Introduïu una URL:",
-    "description":"Link for custom subscription"
-  },
-  "clickthead":{
-    "message":"Cliqueu l'anunci, i us guiaré a tavés del seu blocatje.",
-    "description":"When you have to click the ad to continue"
-  },
-  "filtersavewarning":{
-    "message":"Aneu amb compte: Si cometeu un error aquí molts filtres, incloent els oficials, es podrien malmetre!<br/>Llegiu-vos el <a>tutorial de sintaxi per a filtres</a> per aprendre com afegir filtres avançats de restricció o permissió.",
-    "description":"Warning when blacklisting manually"
-  },
-  "catblock_disabled_on_this_page":{
-    "message":"CatBlock is disabled on this page.",
-    "description":"Message shown in toolbar button on web pages that have been whitelisted"
-  },
-  "safarinotificationtitle":{
-    "message":"Límit de normes de bloqueig sobrepassat",
-    "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
-  },
-  "blacklistereditfilter":{
-    "message":"Escriviu el filtre correcte a continuació i premeu 'D'acord'",
-    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text."
-  },
-  "filterannoyances":{
-    "message":"Fanboy's Annoyances (bloqueja finestres emergents, ginys de xarxes socials i de mitjans de comunicació i altres molèsties)",
-    "description":"A filter list"
-  },
   "adreport_name":{
     "message":"Com et dius?",
     "description":"Label for a textbox where the user enters their name (or nickname) to submit a bug or ad report."
   },
-  "subscribingtitle":{
-    "message":"Subscrivint-se a la llista de filtres...",
-    "description":"abp: link subscriber title"
-  },
-  "catblock_you_know_thats_a_bad_idea_right":{
-    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway.",
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
-  },
-  "safari50_updatenotice":{
-    "message":"Esteu fent servir una versió antiga de Safari. Obteniu l'última versió per tal de fer servir el botó d'AdBlock de la barra d'eines per pausar l'AdBlock, permetre anuncis a llocs webs, o bé informar sobre algun anunci. <a>Actualitzeu-vos ara</a>.",
-    "description":"A message shown to Safari 5.0 users urging them to upgrade"
-  },
-  "disabled_by_filter_lists":{
-    "message":"Ho sentim, l'AdBlock està deshabilitat en aquesta pàgina per una de les seves llistes de filtres.",
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
-  },
-  "typepage":{
-    "message":"pàgina",
-    "description":"A resource type"
-  },
-  "adreport_response_invalid_file":{
-    "message":"Això no és un arxiu d'imatge. Si us plau carregueu un arxiu .png, .gif, o .jpg.",
-    "description":"Error message shown when the user uploads an invalid file type."
-  },
-  "malwarenotfound":{
-    "message":"No s'ha trobat programari maliciós conegut.",
-    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware/adware"
-  },
-  "savebutton":{
-    "message":"Desar",
-    "description":"Save button"
-  },
-  "adblock_outdated_chrome":{
-    "message":"Esteu utilitzant una versió antiga d'AdBlock. Aneu a la <a href='#'>pàgina d'extensions</a>, activeu el 'mode de desenvolupador' i cliqueu 'actualitza les extensions ara'",
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
-  },
-  "catblock_adblock_wont_run_on_pages_matching":{
-    "message":"CatBlock won't run on any page matching:",
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
-  },
-  "content_blocking_acceptable_ads_disbled_message":{
-    "message":"Hem desactivat el bloqueig de contingut al Safari, perquè heu optat per permetre els anuncis no intrusius. Només en podeu seleccionar un a la vegada. (<a>Per què?</a>)",
-    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
-  },
-  "checkinfirefox_5":{
-    "message":"L'anunci també apareix en aquell navegador?",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
-  },
   "customfilterserrormessage":{
     "message":"El filtre següent: <br/> $filter$ <br/> té un error: <br/>$message$",
-    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page",
     "placeholders":{
       "message":{
         "example":"invalid filter",
@@ -1133,482 +605,1010 @@
         "example":"@@.ad",
         "content":"$1"
       }
-    }
-  },
-  "subscribebutton":{
-    "message":"Subscriure's",
-    "description":"Subscribe to a list button"
-  },
-  "filterchinese":{
-    "message":"Xinès",
-    "description":"language"
-  },
-  "updatedhoursago":{
-    "message":"actualitzat fa $hours$ hores",
-    "description":"Label for subscription",
-    "placeholders":{
-      "hours":{
-        "example":"15",
-        "content":"$1"
-      }
-    }
-  },
-  "reenableadsonebyone":{
-    "message":"Fantàstic! Ara hem d'esbrinar quina extensió n'és la causant. Aneu activant les extensions una per una. L'extensió que fa retornar l'anunci(s) és la que heu de desinstal·lar per treure-us de sobre els anuncis.",
-    "description":"Tells the user to reenable the extensions one by one"
-  },
-  "foundbug":{
-    "message":"Heu trobat un error?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "filterdanish":{
-    "message":"Danès",
-    "description":"language"
-  },
-  "thirdparty":{
-    "message":"de tercers",
-    "description":"Resource list page: column title telling if the resource originates from a different domain"
-  },
-  "cantblockflashwarning":{
-    "message":"Quan apareix l'anunci: abans o durant un vídeo o algun plugin com ara un joc Flash?",
-    "description":"Text of the final ad report question"
-  },
-  "malwarenotificationdisablethesemessages":{
-    "message":"Desactivar aquestes notificacions",
-    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
-  },
-  "retryaftersubscribe":{
-    "message":"Subscriviu-vos a aquesta llista de filtres, llavors torneu-ho a intentar: $list_title$",
-    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists",
-    "placeholders":{
-      "list_title":{
-        "example":"French filters",
-        "content":"$1"
-      }
-    }
-  },
-  "advanced_options2":{
-    "message":"Sóc un usuari avançat, mostrar opcions avançades",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "questionoridea":{
-    "message":"Teniu alguna pregunta i/o suggeriment?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "supportsite":{
-    "message":"Feu-nos-ho saber en el nostre <a>lloc web de suport</a>!",
-    "description":"Link to the support site on the Support tab of the options"
+    },
+    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page"
   },
   "blocked_n_in_total":{
     "message":"$count$ en total",
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999.",
     "placeholders":{
       "count":{
         "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
         "content":"<a>123,456</a>"
       }
-    }
-  },
-  "wizardcantrunonframesets":{
-    "message":"Aquesta característica de l'AdBlock no s'executa en aquest lloc perquè utilitza tecnologia obsoleta. Podeu prohibir o permetre recursos manualment a la pestanya 'personalitzar' de la pàgina d'opcions.",
-    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
-  },
-  "disableyoutubestreamingads":{
-    "message":"Activeu el mode de compatibilitat amb ClickToFlash",
-    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
-  },
-  "adreport_server_response_error__manual_msg_step2":{
-    "message":"I creeu un tiquet de forma manual. Copieu i enganxeu la següent informació a la secció \"Completeu qualsevol detall que penseu que ens ajudarà a comprendre el seu problema\".",
-    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
-  },
-  "csstomatch":{
-    "message":"CSS a relacionar",
-    "description":"Message of the css-hiding area"
-  },
-  "buttonback":{
-    "message":"Enrere",
-    "description":"Back to previous wizard page button"
-  },
-  "catblock_allrequests":{
-    "message":"A message in dropdown selection on Resource viewer page",
-    "description":"All requests"
-  },
-  "malwarecheck":{
-    "message":"Comprova l'existència de programari maliciós sospitós d'injectar anuncis:",
-    "description":"Section header on the ad report page"
-  },
-  "correctfilters":{
-    "message":"Assegureu-vos que esteu fent servir els filtres d'idioma correctes:",
-    "description":"On the ad report page, label describing having the right set of filters"
-  },
-  "adreport_missing_info":{
-    "message":"Falta informació requerida o aquesta no es vàlida. Si us plau, respongui  les preguntes que tenen la vora vermella.",
-    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
-  },
-  "adreport_all_debug_info":{
-    "message":"També s'inclourà la següent informació a l'informe.",
-    "description":"Shows the user the debug information that will be sent along with their report."
-  },
-  "catblock_time":{
-    "message":"Name of the table header on Resources viewer page",
-    "description":"Time"
-  },
-  "updateddaysago":{
-    "message":"actualitzat fa $days$ dies",
-    "description":"Label for subscription",
-    "placeholders":{
-      "days":{
-        "example":"15",
-        "content":"$1"
-      }
-    }
-  },
-  "checkinfirefoxtitle":{
-    "message":"Comproveu-ho al Firefox $chrome$",
-    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome",
-    "placeholders":{
-      "chrome":{
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='chrome1'></span>"
-      }
-    }
-  },
-  "lang_slovak":{
-    "message":"Eslovac",
-    "description":"language"
-  },
-  "typeother":{
-    "message":"altres",
-    "description":"A resource type"
-  },
-  "filteradblock_custom":{
-    "message":"Filtres personalitzats d'AdBlock (recomanat)",
-    "description":"A filter list"
-  },
-  "tabfilterlists":{
-    "message":"Llistes de filtres",
-    "description":"A tab on the options page"
-  },
-  "catblock_whitelistertitle2":{
-    "message":"Don't run CatBlock on...",
-    "description":"The title of the whitelister dialog"
-  },
-  "catblock_adblockreportinganad":{
-    "message":"CatBlock - Reporting an ad",
-    "description":"Title of the ad report page"
-  },
-  "englishonly":{
-    "message":"Només en anglès",
-    "description":"Lets the user know that a link/page is available in English only"
-  },
-  "failedtofetchfilter":{
-    "message":"S'ha produït un error al obtenir aquest filtre!",
-    "description":"Error messagebox"
-  },
-  "hiddenelement":{
-    "message":"Element ocult",
-    "description":"Resource list page: resource status"
-  },
-  "adstillappear":{
-    "message":"Encara apareix l'anunci?",
-    "description":"Question on ad report page"
-  },
-  "optionstitle":{
-    "message":"Opcions d'AdBlock",
-    "description":"Title for the options page"
-  },
-  "checkinfirefox_1":{
-    "message":"Baixeu-vos el Firefox $chrome$ si no el teniu.",
-    "description":"instruction for how to check Firefox/Chrome for a reported ad",
-    "placeholders":{
-      "chrome":{
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='chrome2'></span>"
-      }
-    }
-  },
-  "catblock_pause_adblock":{
-    "message":"Pause CatBlock",
-    "description":"Menu entry to pause CatBlock"
-  },
-  "catblock_update_available":{
-    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'.",
-    "description":"On the Options > Support page, shows when there are updates available for CatBl",
-    "placeholders":{
-      "here":{
-        "example":"<a>here</a>",
-        "content":"<a id='here'></a>"
-      }
-    }
-  },
-  "filtereasylist_plus_french":{
-    "message":"Francès",
-    "description":"language"
-  },
-  "checkinfirefox_3":{
-    "message":"En aquell navegador, subscriviu-vos a les mateixes listes de filtres que teniu aquí.",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "catblock_safarinotificationbody":{
-    "message":"Please disable some filter lists. More information in CatBlock's Options.",
-    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
-  },
-  "buttonblockit":{
-    "message":"Bloquejar-ho!",
-    "description":"Block button"
-  },
-  "filterstabtitle":{
-    "message":"Subscriure's a llistes de filtres",
-    "description":"Title of the filter list tab"
-  },
-  "adalreadyblocked":{
-    "message":"Fantàstic! Esteu a punt.",
-    "description":"On the ad report page, telling a user there is nothing to do"
-  },
-  "typemedia":{
-    "message":"àudio/vídeo",
-    "description":"A resource type"
-  },
-  "debuginfo":{
-    "message":"El nostre equip ha solicitat informació de depuració? Cliqueu <a href='#' id='debug'>aquí</a> per satisfer la sol·licitud!",
-    "description":"Users can click this link to provide debug information to AdBlock staff"
-  },
-  "undo_last_block":{
-    "message":"Desfer els meus blocatges en aquest domini",
-    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
-  },
-  "cleanuplist2":{
-    "message":"Netejar aquesta llista",
-    "description":"Option at the bottom of the 'Customize' options tab"
-  },
-  "selectlanguage":{
-    "message":" - Seleccionar idioma - ",
-    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
-  },
-  "sliderexplanation":{
-    "message":"Feu lliscar el regulador fins que l'anunci sigui bloquejat correctament dins la pàgina i l'aspecte final sigui el desitjat.",
-    "description":"Blacklister slider page message"
-  },
-  "disableforchromestepone":{
-    "message":"Obriu la <a href='#'>pàgina de les extensions</a>.",
-    "description":"Step 1 for disabling Chrome extensions"
-  },
-  "customfilters":{
-    "message":"Llistes de filtres personalitzades",
-    "description":"List for custom filters the user subscribed to"
-  },
-  "sourcecode":{
-    "message":"El codi font està <a>totalment disponible</a>!",
-    "description":"Link to the source code of AdBlock on the Support tab of the options"
-  },
-  "checkforupdates":{
-    "message":"Comprovant l'existència d'actualitzacions (pot tardar pocs segons)...",
-    "description":"Displayed when AdBlock is checking the newest available version"
-  },
-  "typeobject":{
-    "message":"objecte interactiu",
-    "description":"A resource type"
-  },
-  "adreport_response_large_file":{
-    "message":"Aquest fitxer és massa gran. Assegureu-vos que el fitxer és de menys de 10 MB.",
-    "description":"Error message shown when the user tries to upload a large image file."
-  },
-  "blocked_ads":{
-    "message":"Anuncis bloquejats:",
-    "description":"Title for popup menu section showing number of ads blocked"
-  },
-  "safarinotificationbody":{
-    "message":"Desactiveu algunes llistes de filtres. Més informació a les opcions d'AdBlock.",
-    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
-  },
-  "typesub_frame":{
-    "message":"marc",
-    "description":"A resource type"
-  },
-  "blockdomain":{
-    "message":"El domini de la pàgina a on s'ha d'aplicar",
-    "description":"Message of the url and css -blocking area"
-  },
-  "filtereasylist":{
-    "message":"EasyList (recomanat)",
-    "description":"A filter list"
-  },
-  "blacklistermatches":{
-    "message":"Això relaciona $matchcount$ ítems en aquesta pàgina.",
-    "description":"Tells the user multiple matches were found",
-    "placeholders":{
-      "matchcount":{
-        "example":"5",
-        "content":"$1"
-      }
-    }
-  },
-  "blacklisterattrwillbe":{
-    "message":"$attribute$ serà $value$",
-    "description":"Checkbox label",
-    "placeholders":{
-      "attribute":{
-        "example":"class",
-        "content":"$1"
-      },
-      "value":{
-        "example":"AdBanner",
-        "content":"$2"
-      }
-    }
-  },
-  "chromebutton_how_to_hide2":{
-    "message":"Feu clic amb el botó dret al botó AdBlock i seleccioneu 'Amaga al menú de Chrome'. Per mostrar-ho, feu clic al menú de Chrome, feu clic al botó dret al botó AdBlock i seleccioneu 'Mantenir en la barra d'eines'.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
-  },
-  "aalinkadreport":{
-    "message":"Saber-ne més sobre el programa d'anuncis acceptables.",
-    "description":"Acceptable Ads link message on ad report page"
-  },
-  "unpause_adblock":{
-    "message":"Reactivar l'AdBlock",
-    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
-  },
-  "catblock_searchresources":{
-    "message":"A text shown on Resources viewer page",
-    "description":"Search resources by URL:"
-  },
-  "catblock_safaricontentblockingpausemessage":{
-    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'.",
-    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
-  },
-  "dont_run_on_this_page":{
-    "message":"No actuar en aquesta pàgina",
-    "description":"Menu entry to whitelist a page"
-  },
-  "latest_version":{
-    "message":"L'AdBlock està actualitzat!",
-    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
-  },
-  "tabgeneral":{
-    "message":"General",
-    "description":"A tab on the options page"
-  },
-  "catblock_reloadtab":{
-    "message":"Button on Resources viewer page, which reloads selected tab from dropdown menu",
-    "description":"Reload tab"
-  },
-  "filteracceptable_ads":{
-    "message":"Anuncis Acceptables (recomanat)",
-    "description":"A filter list"
-  },
-  "pagelanguagecheck":{
-    "message":"En quin idioma està escrita la pàgina web?",
-    "description":"Question on ad report page"
-  },
-  "filterlistlink":{
-    "message":"No us subscrigueu més del que necessiteu –– cada llista us fa anar una mica més lent! Els crèdits i més llistes es poden trobar <a>aquí</a>.",
-    "description":"Explanation of the filter lists"
-  },
-  "blacklisterblockedelement":{
-    "message":"Element bloquejat:",
-    "description":"Tells the user what the blocked element is on the slider page"
-  },
-  "nodefaultfilter1":{
-    "message":"No tenim una llista de filtres per a aquest idioma.<br/>Intenteu trobar una llista que sigui compatible amb aquest idioma $link$ o bé bloquegi aquest anunci vostè mateix a la pestanya 'Personalitzar'.",
-    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab.",
-    "placeholders":{
-      "link":{
-        "example":"<a>here</a>",
-        "content":"<a id='link'></a>"
-      }
-    }
-  },
-  "block_an_ad_on_this_page":{
-    "message":"Bloquejar un anunci en aquesta pàgina",
-    "description":"Toolbar button menu entry and context menu entry"
-  },
-  "savereminder":{
-    "message":"No us oblideu de desar els canvis!",
-    "description":"Reminder to press save"
-  },
-  "only_block_ads_on_these_sites":{
-    "message":"Només bloquejar els anuncis en aquests llocs:",
-    "description":"Label for textbox where user enters a list of sites on Customize tab"
-  },
-  "modifypath":{
-    "message":"Pàgina:",
-    "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
-  },
-  "languagedropdowndescription":{
-    "message":"Afegir filtres per a un altre idioma: ",
-    "description":"Dropdown list for language-specific filters"
-  },
-  "orchrome":{
-    "message":"o bé Chrome",
-    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
-  },
-  "modifydomain":{
-    "message":"Lloc:",
-    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL"
-  },
-  "you_know_thats_a_bad_idea_right":{
-    "message":"Com més llistes de filtres utilitzeu, amb més lentitud s'executarà l'AdBlock. L'ús de masses llistes pot arribar a fer fallar el navegador en determinats llocs web. Premeu d'acord per ser subscriptor  d'aquesta llista de totes maneres.",
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
-  },
-  "catblock_storage_quota_exceeded":{
-    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!",
-    "description":"Message shown when the user uses more storage than allowed by the browser"
-  },
-  "typemain_frame":{
-    "message":"pàgina",
-    "description":"A resource type"
-  },
-  "malwarenotificationmessage":{
-    "message":"L'AdBlock ha bloquejat una descàrrega d'un lloc del qual se sap que conté malware.",
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
-  },
-  "you_can_slide_to_change":{
-    "message":"Feu lliscar el regulador per determinar en quines pàgines del domini l'AdBlock no s'executarà.",
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
+    },
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999."
+  },
+  "subscribingtitle":{
+    "message":"Subscrivint-se a la llista de filtres...",
+    "description":"abp: link subscriber title"
+  },
+  "updatenowmessage2":{
+    "message":"Obtindré les actualitzacions automàticament; si voleu podeu <a>actualitzar ara</a>",
+    "description":"Update filters text + button"
   },
   "showcontextmenus2":{
     "message":"Afegir ítems al menú de clic amb botó dret",
     "description":"Checkbox on the 'General' tab of the Options page"
   },
+  "lang_russian":{
+    "message":"Rus",
+    "description":"language"
+  },
+  "adreport_response_invalid_file":{
+    "message":"Això no és un arxiu d'imatge. Si us plau carregueu un arxiu .png, .gif, o .jpg.",
+    "description":"Error message shown when the user uploads an invalid file type."
+  },
+  "buttonsubmit":{
+    "message":"Enviar",
+    "description":"Button to send a form."
+  },
+  "blocked_ads":{
+    "message":"Anuncis bloquejats:",
+    "description":"Title for popup menu section showing number of ads blocked"
+  },
+  "filtereasylist_plus_french":{
+    "message":"Francès",
+    "description":"language"
+  },
+  "blacklisteroptions1":{
+    "message":"Què creieu que serà veritat sobre aquest anunci cada cop que visiteu aquesta pàgina?",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "catblock_tabcustomizetitle":{
+    "description":"Title of the customize tab",
+    "message":"Customize CatBlock"
+  },
+  "acceptable_ads_content_blocking_disbled_message":{
+    "message":"Hem cancel·lat la seva subscripció dels anuncis acceptables, ja que heu activat el bloqueig de contingut de Safari. Només en podeu seleccionar un a la vegada. (<a> Per què? </a>)",
+    "description":"Warning shown when Safari Content Blocking is enabled while the Acceptable Ads filter list was already enabled."
+  },
+  "sourcecode":{
+    "message":"El codi font està <a>totalment disponible</a>!",
+    "description":"Link to the source code of AdBlock on the Support tab of the options"
+  },
   "catblock_check_checkbox":{
     "message":"Check the checkbox by the sets of pictures that you want to use.",
     "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock."
   },
-  "spread_the_word":{
-    "message":"Ajudeu a fer córrer la veu!",
-    "description":"Text of a share link"
+  "dont_run_on_this_page":{
+    "message":"No actuar en aquesta pàgina",
+    "description":"Menu entry to whitelist a page"
   },
-  "buttonexclude":{
-    "message":"Excloure",
-    "description":"Button for excluding a domain in the whitelister dialog"
+  "typepopup":{
+    "message":"element emergent",
+    "description":"A resource type"
   },
-  "contentblockingwarning":{
-    "message":"Avís: La permissivitat (permetre anuncis) a una pàgina o lloc no és compatible tenint activat el bloqueig de continguts de Safari.",
-    "description":"Notice shown on the 'Customize' tab of the options page when Safari Content Blocking is enabled"
+  "catblock_safaributton_how_to_hide2":{
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu.",
+    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar."
   },
-  "translator_credit":{
-    "message":"Traducció al català feta per:",
-    "description":"Will be followed by a list of translator names (separate string)"
+  "sliderexplanation":{
+    "message":"Feu lliscar el regulador fins que l'anunci sigui bloquejat correctament dins la pàgina i l'aspecte final sigui el desitjat.",
+    "description":"Blacklister slider page message"
   },
-  "format_site1_site2_site3":{
-    "message":"Format: ~lloc1.com|~lloc2.com|~notícies.lloc3.org",
-    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
+  "wizardcantrunonframesets":{
+    "message":"Aquesta característica de l'AdBlock no s'executa en aquest lloc perquè utilitza tecnologia obsoleta. Podeu prohibir o permetre recursos manualment a la pestanya 'personalitzar' de la pàgina d'opcions.",
+    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
   },
-  "safaributton_how_to_hide2":{
-    "message":"Per ocultar el botó, feu clic dret a la barra d'eines de Safari i escolliu Personalitzar la barra d'eines, a continuació arrosegueu el botó d'AdBlock fora de la barra d'eines. El podeu fer tornar a aparèixer arrosegant-lo cap a la barra d'eines.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
+  "optionstitle":{
+    "message":"Opcions d'AdBlock",
+    "description":"Title for the options page"
   },
-  "show_on_adblock_button":{
-    "message":"Mostrar el nombre d'anuncis blocats al botó",
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  "thirdparty":{
+    "message":"de tercers",
+    "description":"Resource list page: column title telling if the resource originates from a different domain"
+  },
+  "clickthead":{
+    "message":"Cliqueu l'anunci, i us guiaré a tavés del seu blocatje.",
+    "description":"When you have to click the ad to continue"
+  },
+  "catblock_safari50_updatenotice":{
+    "description":"A message shown to Safari 5.0 users urging them to upgrade",
+    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>."
+  },
+  "blacklistereditinvalid1":{
+    "message":"El filtre no és vàlid: $exception$",
+    "placeholders":{
+      "exception":{
+        "example":"This filter is not supported",
+        "content":"$1"
+      }
+    },
+    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated."
+  },
+  "updateyourlists":{
+    "message":"Assegureu-vos que les llistes de filtres estiguin actualitzades:",
+    "description":"Section header on the ad report page"
+  },
+  "clickdisableaa":{
+    "message":"Clica a: <a>Desactivar Anuncis Acceptables</a>",
+    "description":"Instruction on ad report page"
+  },
+  "catblock_whitelistertitle2":{
+    "description":"The title of the whitelister dialog",
+    "message":"Don't run CatBlock on..."
+  },
+  "checkinfirefox_5":{
+    "message":"L'anunci també apareix en aquell navegador?",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "blacklistersinglematch":{
+    "message":"Això es relaciona amb <b>1</b> ítem en aquesta pàgina.",
+    "description":"Tells the user only one match was found"
+  },
+  "catblock_disabled_on_this_page":{
+    "description":"Message shown in toolbar button on web pages that have been whitelisted",
+    "message":"CatBlock is disabled on this page."
+  },
+  "filterwarning_removal":{
+    "message":"Llista d'eliminació d'avisos d'AdBlocks (elimina els avisos sobre l'utilització de bloquejadors de publicitat)",
+    "description":"A filter list. \"Adblock\" is written with a lowercase B in this string as it refers to ad blocking extensions in general, not just AdBlock specifically."
+  },
+  "updatedhoursago":{
+    "message":"actualitzat fa $hours$ hores",
+    "placeholders":{
+      "hours":{
+        "example":"15",
+        "content":"$1"
+      }
+    },
+    "description":"Label for subscription"
+  },
+  "safarinotificationtitle":{
+    "message":"Límit de normes de bloqueig sobrepassat",
+    "description":"Title of a notification shown to Safari Content Blocking users with too many filter list rules"
+  },
+  "tabcustomizetitle":{
+    "message":"Personalitzar l'AdBlock",
+    "description":"Title of the customize tab"
+  },
+  "reloadpageafterwhitelist":{
+    "message":"Recarregar la pàgina.",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "blacklistereditfilter":{
+    "message":"Escriviu el filtre correcte a continuació i premeu 'D'acord'",
+    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text."
+  },
+  "disableaa":{
+    "message":"Comprova el filtre d'Anuncis Acceptables:",
+    "description":"Section header on the ad report page"
+  },
+  "filterlistsrock":{
+    "message":"Les llistes de filtres bloquejen la majoria d'anuncis de la xarxa. També podeu:",
+    "description":"Header text on the Customize tab. 'Filter lists' should be the same text as the name of the 'Filter lists' tab."
+  },
+  "subscribingfinished":{
+    "message":"Acabat!",
+    "description":"abp: link subscriber result"
+  },
+  "debuginfo":{
+    "message":"El nostre equip ha solicitat informació de depuració? Cliqueu <a href='#' id='debug'>aquí</a> per satisfer la sol·licitud!",
+    "description":"Users can click this link to provide debug information to AdBlock staff"
+  },
+  "options":{
+    "message":"Opcions",
+    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension"
+  },
+  "updatedrightnow":{
+    "message":"actualitzat ara mateix",
+    "description":"Label for subscription"
+  },
+  "adreport_filter":{
+    "message":"Si has creat un filtre de treball mitjançant l'assistent \"bloqueja un anunci\", enganxeu-lo al següent quadre:",
+    "description":"Optional question on the ad report page when the ad needs to be reported to AdBlock."
+  },
+  "catblock_example_flickr_search":{
+    "message":"a search for photos (e.g. <i>sailboat race</i>)",
+    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\"."
+  },
+  "tabcustomize":{
+    "message":"Personalitzar",
+    "description":"A tab on the options page"
+  },
+  "catblock_example_flickr_id":{
+    "message":"a Flickr photoset ID (e.g. $example$)",
+    "placeholders":{
+      "example":{
+        "content":"<i>346406</i>"
+      }
+    },
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
+  },
+  "catblock_malwarenotificationmessage":{
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!",
+    "message":"CatBlock has blocked a download from a site known to host malware."
+  },
+  "catblock_debuginlogoption":{
+    "description":"Checkbox on the 'General' tab of the Options page",
+    "message":"Show debug statements in Console Log (which slows down CatBlock)"
+  },
+  "adreport_server_response_error__manual_msg_step1":{
+    "message":"Si us plau dirigiu-vos a <a>la nostra web de suport</a>.",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "adblockupdates":{
+    "message":"Actualització d'AdBlock",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "other":{
+    "message":"Altres",
+    "description":"Multiple choice option"
+  },
+  "filterjapanese":{
+    "message":"Japonès",
+    "description":"language"
+  },
+  "csstomatch":{
+    "message":"CSS a relacionar",
+    "description":"Message of the css-hiding area"
+  },
+  "no":{
+    "message":"No",
+    "description":"A negative response to a question"
+  },
+  "fetchinglabel":{
+    "message":"S'està obtenint... espereu-vos.",
+    "description":"Status label"
+  },
+  "filterisraeli":{
+    "message":"Hebreu",
+    "description":"language"
+  },
+  "filterhungarian":{
+    "message":"Hongarès",
+    "description":"language"
+  },
+  "checkinfirefoxtitle":{
+    "message":"Comproveu-ho al Firefox $chrome$",
+    "placeholders":{
+      "chrome":{
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
+        "content":"<span id='chrome1'></span>"
+      }
+    },
+    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome"
+  },
+  "headerfilter":{
+    "message":"Filtre relacionat",
+    "description":"Resource list page: title of a column"
+  },
+  "catblock_disableforchromeandsafaristeptwo":{
+    "description":"Step 2 for disabling Chrome and Safari extensions",
+    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>."
+  },
+  "adreport_response_success":{
+    "message":"Tot a punt! Estarem en contacte aviat, molt probablement en un dia, dos si és festa. Mentrestant, cerqueu un correu electrònic de l'AdBlock. Trobareu un enllaç al vostre tiquet a la nostra pàgina de suport. Si preferiu seguir el correu electrònic, també ho podeu fer!",
+    "description":"Shown when a ticket has been sumbitted to AdBlock's support site successfully."
+  },
+  "excludedomainorurl":{
+    "message":"El domini o URL en el qual l'AdBlock no hauria de bloquejar res",
+    "description":"Message of the exclude area"
+  },
+  "typescript":{
+    "message":"script",
+    "description":"A resource type"
+  },
+  "buttonback":{
+    "message":"Enrere",
+    "description":"Back to previous wizard page button"
+  },
+  "lang_english":{
+    "message":"Anglès",
+    "description":"language"
+  },
+  "stop_blocking_ads":{
+    "message":"Aturar el bloqueig d'anuncis:",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "catblock_filteradblock_custom":{
+    "description":"A filter list",
+    "message":"CatBlock custom filters (recommended)"
+  },
+  "malwarenotificationdisablethesemessages":{
+    "message":"Desactivar aquestes notificacions",
+    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
+  },
+  "catblock_show_on_adblock_button":{
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked",
+    "message":"Show on CatBlock button"
+  },
+  "catblock_disableallextensions":{
+    "description":"Instruction on ad report page",
+    "message":"Disable all extensions except for CatBlock."
+  },
+  "filtereasylist_plus_arabic":{
+    "message":"Àrab",
+    "description":"language"
+  },
+  "here":{
+    "message":"aquí",
+    "description":"This message is injected in other strings as a link/button"
+  },
+  "adblocksupport":{
+    "message":"Suport d'AdBlock",
+    "description":"Title of the support tab"
+  },
+  "update_available":{
+    "message":"Hi ha una actualització disponible per a AdBlock! Dirigiu-vos $here$ per dur-la a terme. <br> Atenció: si voleu rebre actualitzacions automàticament, cliqueu a Safari > Preferències  > Ampliacions > Actualitzacions <br> i marqueu l'opció  ' Instal·lar actualitzacions automàticament'.",
+    "placeholders":{
+      "here":{
+        "example":"<a>here</a>",
+        "content":"<a id='here'></a>"
+      }
+    },
+    "description":"On the Options > Support page, shows when there are updates available for AdBlock"
+  },
+  "datacollectionoption":{
+    "message":"Permet que l'AdBlock reculli anònimament dades i ús de les llistes de filtres",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "checkinfirefox_1":{
+    "message":"Baixeu-vos el Firefox $chrome$ si no el teniu.",
+    "placeholders":{
+      "chrome":{
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
+        "content":"<span id='chrome2'></span>"
+      }
+    },
+    "description":"instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "malwarewarning":{
+    "message":"El vostre ordinador potser està infectat per programari maliciós. Cliqueu <a>aquí</a> per obtenir més informació.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware/adware"
+  },
+  "hiddenelement":{
+    "message":"Element ocult",
+    "description":"Resource list page: resource status"
+  },
+  "malwarenotificationlearnmore":{
+    "message":"Aprendre'n més sobre programari maliciós",
+    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
+  },
+  "catblock_replaceadswithcats":{
+    "message":"Replace ads with pictures of cats",
+    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
+  },
+  "blockanadtitle":{
+    "message":"Bloquejar un anunci",
+    "description":"Title of the first two dialogs of the blacklister"
+  },
+  "tabfilterlists":{
+    "message":"Llistes de filtres",
+    "description":"A tab on the options page"
+  },
+  "filtereasylist_plus_lithuania":{
+    "message":"Lituà",
+    "description":"language"
+  },
+  "tabsupport":{
+    "message":"Suport",
+    "description":"A tab on the options page"
+  },
+  "updatedminuteago":{
+    "message":"actualitzat fa 1 minut",
+    "description":"Label for subscription"
+  },
+  "contributors":{
+    "message":"Tenim una <a>pàgina</a> per tal que descobriu les persones que fan possible l'AdBlock!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "checkforupdates":{
+    "message":"Comprovant l'existència d'actualitzacions (pot tardar pocs segons)...",
+    "description":"Displayed when AdBlock is checking the newest available version"
+  },
+  "englishonly":{
+    "message":"Només en anglès",
+    "description":"Lets the user know that a link/page is available in English only"
+  },
+  "linkblockadbyurl":{
+    "message":"Bloquejar un anunci mitjançant la seva URL",
+    "description":"Link on the 'Customize' tab"
+  },
+  "buttonlooksgood":{
+    "message":"Té bon aspecte",
+    "description":"Looks good button"
+  },
+  "operabutton_how_to_hide2":{
+    "message":"Per ocultar el botó, dirigiu-vos a opera://extensions i seleccioneu l'opció 'Ocultar de la barra d'eines'. El podeu fer tornar a aperèixer desmarcant aquella opció.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
+  },
+  "unsubscribedlabel":{
+    "message":"Subscripció cancel·lada.",
+    "description":"Status label"
+  },
+  "whitelistertitle2":{
+    "message":"No executar l'AdBlock a...",
+    "description":"The title of the whitelister dialog"
+  },
+  "frametype":{
+    "message":"Tipus de marc: ",
+    "description":"Resource list page: followed by frame type (e.g. top frame, subframe)"
+  },
+  "reportfilterlistproblem":{
+    "message":"Això és un problema de la llista de filtres. Informeu-ne aquí: $link$",
+    "placeholders":{
+      "link":{
+        "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe</a>  EXAMPLE 2: <a href='http://easylist.org'>EasyList forums</a>",
+        "content":"$1"
+      }
+    },
+    "description":"Telling the user to report an ad to a filter list maintainer"
+  },
+  "only_block_ads_on_these_sites":{
+    "message":"Només bloquejar els anuncis en aquests llocs:",
+    "description":"Label for textbox where user enters a list of sites on Customize tab"
+  },
+  "adreport_email":{
+    "message":"Quina és la teva adreça de correu?",
+    "description":"Label for a textbox where the user enters their email address to submit a bug or ad report."
   },
   "filtereasylist_plus_greek":{
     "message":"Grec",
     "description":"language"
   },
-  "slidertitle":{
-    "message":"Pas 1: Identifiqueu el que s'ha de bloquejar",
-    "description":"Blacklister slider page title"
+  "updateddaysago":{
+    "message":"actualitzat fa $days$ dies",
+    "placeholders":{
+      "days":{
+        "example":"15",
+        "content":"$1"
+      }
+    },
+    "description":"Label for subscription"
+  },
+  "malwarecheck":{
+    "message":"Comprova l'existència de programari maliciós sospitós d'injectar anuncis:",
+    "description":"Section header on the ad report page"
+  },
+  "disableallextensions":{
+    "message":"Desactiveu totes les extensions excepte l'AdBlock:",
+    "description":"Instruction on ad report page"
+  },
+  "catblock_show_on_adblock_menu":{
+    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked",
+    "message":"Show number of ads blocked on CatBlock menu"
+  },
+  "translator_credit":{
+    "message":"Traducció al català feta per:",
+    "description":"Will be followed by a list of translator names (separate string)"
+  },
+  "catblock_disabled_by_filter_lists":{
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list",
+    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists."
+  },
+  "you_can_slide_to_change":{
+    "message":"Feu lliscar el regulador per determinar en quines pàgines del domini l'AdBlock no s'executarà.",
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
+  },
+  "lang_slovak":{
+    "message":"Eslovac",
+    "description":"language"
+  },
+  "content_blocking_acceptable_ads_disbled_message":{
+    "message":"Hem desactivat el bloqueig de contingut al Safari, perquè heu optat per permetre els anuncis no intrusius. Només en podeu seleccionar un a la vegada. (<a>Per què?</a>)",
+    "description":"Warning shown when the Acceptable Ads filter list is enabled while Safari Content Blocking was already enabled."
+  },
+  "acceptableadsdisable_done":{
+    "message":"Ja no esteu subscrits a la llista de filtres dels Anuncis Acceptables.",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "block_an_ad_on_this_page":{
+    "message":"Bloquejar un anunci en aquesta pàgina",
+    "description":"Toolbar button menu entry and context menu entry"
+  },
+  "filterdutch":{
+    "message":"Holandès",
+    "description":"language"
+  },
+  "adreport_all_debug_info":{
+    "message":"També s'inclourà la següent informació a l'informe.",
+    "description":"Shows the user the debug information that will be sent along with their report."
+  },
+  "acceptableadsoption":{
+    "message":"Permet la publicitat no intrusiva",
+    "description":"option on the 'General' tab"
+  },
+  "blacklisterwarningnofilter":{
+    "message":"Alerta: no s'ha especificat cap filtre!",
+    "description":"Warns the user that no filter was specified"
+  },
+  "catblock_wizardcantrunonframesets":{
+    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website",
+    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page."
+  },
+  "chromebutton_how_to_hide2":{
+    "message":"Feu clic amb el botó dret al botó AdBlock i seleccioneu 'Amaga al menú de Chrome'. Per mostrar-ho, feu clic al menú de Chrome, feu clic al botó dret al botó AdBlock i seleccioneu 'Mantenir en la barra d'eines'.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Chrome displays when you right click a toolbar button."
+  },
+  "catblock_malwarenotificationcheckboxmessage":{
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page",
+    "message":"Should CatBlock notify you when it detects malware?"
+  },
+  "close":{
+    "message":"Tancar",
+    "description":"Generic message for buttons that close a view or window"
+  },
+  "disableforchromeandsafaristeptwo":{
+    "message":"Desactiveu les caselles de selecció que es troben al costat de cada extensió <b>excepte</b> la de l'AdBlock. <b>Deixeu la casella de l'AdBlock seleccionada</b>.",
+    "description":"Step 2 for disabling Chrome and Safari extensions"
+  },
+  "orchrome":{
+    "message":"o bé Chrome",
+    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
+  },
+  "browserestartrequired":{
+    "message":"Reinicieu Safari per acabar de desactivar el bloqueig de contingut.",
+    "description":"Displayed after disabling Safari Content Blocking, which requres a browser relaunch"
+  },
+  "blacklisternotsure":{
+    "message":"<b>No n'esteu segurs?</b>doncs premeu 'Bloquejar-ho!' a continuació.",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "languagedropdowndescription":{
+    "message":"Afegir filtres per a un altre idioma: ",
+    "description":"Dropdown list for language-specific filters"
+  },
+  "catblock_whatmakesadblocktick":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"Want to see what makes CatBlock tick?"
+  },
+  "adreport_server_response_error__manual_msg_step2":{
+    "message":"I creeu un tiquet de forma manual. Copieu i enganxeu la següent informació a la secció \"Completeu qualsevol detall que penseu que ens ajudarà a comprendre el seu problema\".",
+    "description":"Error message shown when the server has an unrecoverable error during the submission of an ad or bug report."
+  },
+  "typeother":{
+    "message":"altres",
+    "description":"A resource type"
+  },
+  "orenteraurl":{
+    "message":"Introduïu una URL:",
+    "description":"Link for custom subscription"
+  },
+  "updatedsecondsago":{
+    "message":"actualitzat fa $seconds$ segons",
+    "placeholders":{
+      "seconds":{
+        "example":"15",
+        "content":"$1"
+      }
+    },
+    "description":"Label for subscription"
+  },
+  "findingads":{
+    "message":"Trobant els anuncis…<br/><br/><i>Això només tardarà uns instants.</i>",
+    "description":"When you press ctrl-shift-K the blacklister searches for ads"
+  },
+  "supportsite":{
+    "message":"Feu-nos-ho saber en el nostre <a>lloc web de suport</a>!",
+    "description":"Link to the support site on the Support tab of the options"
+  },
+  "show_ads_except_for":{
+    "message":"Mostrar els anuncis <i>a tot arreu</i> excepte en aquests dominis...",
+    "description":"Section title for blacklisting section of Customize tab"
+  },
+  "updatedminutesago":{
+    "message":"actualitzat fa $minutes$ minuts",
+    "placeholders":{
+      "minutes":{
+        "example":"15",
+        "content":"$1"
+      }
+    },
+    "description":"Label for subscription"
+  },
+  "adblock_outdated_chrome":{
+    "message":"Esteu utilitzant una versió antiga d'AdBlock. Aneu a la <a href='#'>pàgina d'extensions</a>, activeu el 'mode de desenvolupador' i cliqueu 'actualitza les extensions ara'",
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
+  },
+  "catblock_you_know_thats_a_bad_idea_right":{
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel.",
+    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway."
+  },
+  "noresourcessend2":{
+    "message":"Alguna cosa no ha anat bé. No s'ha enviat cap recurs. Aquesta pàgina ara es tancarà. Intenteu tornar a carregar la pàgina web.",
+    "description":"Resource list page: error message"
+  },
+  "catblock_time":{
+    "description":"Time",
+    "message":"Name of the table header on Resources viewer page"
+  },
+  "storage_quota_exceeded":{
+    "message":"Heu sobrepassat el límit d'emmagatzematge que l'AdBlock pot fer servir. Deixeu la subscripció d'algunes llistes de filtres!",
+    "description":"Message shown when the user uses more storage than allowed by the browser"
+  },
+  "lang_ukranian":{
+    "message":"Ucraïnès",
+    "description":"language"
+  },
+  "adreport_response_file_name":{
+    "message":"Aquest nom de fitxer és massa llarg. Si us plau, canvieu-lo a un de més curt.",
+    "description":"Error message shown when the file name of an attachement the user is trying to submit in a report is longer than 255 characters."
+  },
+  "typemedia":{
+    "message":"àudio/vídeo",
+    "description":"A resource type"
+  },
+  "disabled_by_filter_lists":{
+    "message":"Ho sentim, l'AdBlock està deshabilitat en aquesta pàgina per una de les seves llistes de filtres.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
+  },
+  "bugreport":{
+    "message":"Per què no ens envieu un <a>informe d'error</a>?",
+    "description":"Link to send a bug report on the Support tab of the options"
+  },
+  "filtereasylist":{
+    "message":"EasyList (recomanat)",
+    "description":"A filter list"
+  },
+  "catblock_status_paused":{
+    "description":"Message shown in toolbar button when CatBlock is paused",
+    "message":"CatBlock is paused."
+  },
+  "filterstabtitle":{
+    "message":"Subscriure's a llistes de filtres",
+    "description":"Title of the filter list tab"
+  },
+  "you_know_thats_a_bad_idea_right":{
+    "message":"Com més llistes de filtres utilitzeu, amb més lentitud s'executarà l'AdBlock. L'ús de masses llistes pot arribar a fer fallar el navegador en determinats llocs web. Premeu d'acord per ser subscriptor  d'aquesta llista de totes maneres.",
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
+  },
+  "buttonok":{
+    "message":"D'acord!",
+    "description":"OK button"
+  },
+  "buttonedit":{
+    "message":"Editar",
+    "description":"Edit filter manually button"
+  },
+  "manuallyenableotherextensions":{
+    "message":"Obriu la pàgina de les extensions per activar les que anteriorment estaven desactivades.",
+    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
+  },
+  "blacklisterblocksalloftype":{
+    "message":"Aneu amb compte: aquest filtre bloqueja tots els elements $elementtype$ de la pàgina!",
+    "placeholders":{
+      "elementtype":{
+        "example":"DIV",
+        "content":"$1"
+      }
+    },
+    "description":"Warns the user that all elements of type X will be blocked"
+  },
+  "safaricontentblockingpausemessage":{
+    "message":"Per posar en pausa l'AdBlock amb el bloqueig de continguts activat, seleccioneu Safari (a la barra de menús) > Preferències > Extensions > AdBlock, i desmarqueu 'Activar AdBlock'.",
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
+  },
+  "removefromlist":{
+    "message":"Suprimir de la llista",
+    "description":"Label to remove a custom filter"
+  },
+  "typestylesheet":{
+    "message":"definició d'estil",
+    "description":"A resource type"
+  },
+  "resourceblocktitle":{
+    "message":"Tots els recursos",
+    "description":"Resource list page name"
+  },
+  "blacklistermatches":{
+    "message":"Això relaciona $matchcount$ ítems en aquesta pàgina.",
+    "placeholders":{
+      "matchcount":{
+        "example":"5",
+        "content":"$1"
+      }
+    },
+    "description":"Tells the user multiple matches were found"
+  },
+  "blocked_n_on_this_page":{
+    "message":"$count$ en aquesta pàgina",
+    "placeholders":{
+      "count":{
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
+        "content":"<a>123</a>"
+      }
+    },
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999."
+  },
+  "headerresource":{
+    "message":"Recurs",
+    "description":"Resource list page: title of a column"
+  },
+  "retryaftersubscribe":{
+    "message":"Subscriviu-vos a aquesta llista de filtres, llavors torneu-ho a intentar: $list_title$",
+    "placeholders":{
+      "list_title":{
+        "example":"French filters",
+        "content":"$1"
+      }
+    },
+    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists"
+  },
+  "catblock_excludedomainorurl":{
+    "description":"Message of the exclude area",
+    "message":"The domain or url where CatBlock shouldn't block anything"
+  },
+  "catblock_adblock_outdated_chrome":{
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'",
+    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'"
+  },
+  "typemain_frame":{
+    "message":"pàgina",
+    "description":"A resource type"
+  },
+  "adreport_screen_cap_upload":{
+    "message":"Adjunta una captura de pantalla:",
+    "description":"Label next to a file upload button."
+  },
+  "foundbug":{
+    "message":"Heu trobat un error?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "undo_last_block":{
+    "message":"Desfer els meus blocatges en aquest domini",
+    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
+  },
+  "refusetocheck":{
+    "message":"No vull comprovar això",
+    "description":"User is telling us they don't wish to investigate something for us"
+  },
+  "adreportintro":{
+    "message":"Has trobat un anunci en una pàgina web? T'ajudarem a trobar el lloc idoni per informar-ne!",
+    "description":"Introduction of the ad reporting page"
+  },
+  "contentblockingwarning":{
+    "message":"Avís: La permissivitat (permetre anuncis) a una pàgina o lloc no és compatible tenint activat el bloqueig de continguts de Safari.",
+    "description":"Notice shown on the 'Customize' tab of the options page when Safari Content Blocking is enabled"
+  },
+  "adreport_missing_screenshot":{
+    "message":"Heu oblidat d'adjuntar una captura de pantalla! Nosaltres no us podrem ajudar sense veure l'anunci què informeu.",
+    "description":"Error message shown when the user doesn't attach a screenshot to an ad report."
+  },
+  "catblock_adblockreportinganad":{
+    "description":"Title of the ad report page",
+    "message":"CatBlock - Reporting an ad"
+  },
+  "reenableadsonebyone":{
+    "message":"Fantàstic! Ara hem d'esbrinar quina extensió n'és la causant. Aneu activant les extensions una per una. L'extensió que fa retornar l'anunci(s) és la que heu de desinstal·lar per treure-us de sobre els anuncis.",
+    "description":"Tells the user to reenable the extensions one by one"
+  },
+  "checkinternetconnection":{
+    "message":"Per informar sobre un anunci, heu d'estar connectats a internet.",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
+  },
+  "allow_whitelisting_youtube_channels":{
+    "message":"Permeteu la permissió d'anuncis en canals específics de YouTube",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "latest_version":{
+    "message":"L'AdBlock està actualitzat!",
+    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
+  },
+  "blockmoreads":{
+    "message":"Bloquejar més anuncis:",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "buttoncancel":{
+    "message":"Cancel·lar",
+    "description":"Cancel button"
+  },
+  "filterswedish":{
+    "message":"Suec",
+    "description":"A filter list"
+  },
+  "disableforsafaristepone":{
+    "message":"Feu clic al menú de Safari &rarr; Preferències &rarr; Ampliacions.",
+    "description":"Step 1 for disabling Safari extensions"
+  },
+  "catblock_adblock_wont_run_on_pages_matching":{
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line.",
+    "message":"CatBlock won't run on any page matching:"
+  },
+  "pwyw":{
+    "message":"Pagueu el que desitgeu!",
+    "description":"Text of a payment request link"
+  },
+  "filtereasylist_plus_polish":{
+    "message":"Polonès",
+    "description":"language"
+  },
+  "show_resourcelist":{
+    "message":"Mostra totes les sol·licituds",
+    "description":"Menu entry to open the resource list page"
+  },
+  "acceptableadsdisable_how_to_reenable":{
+    "message":"Podeu reactivar-ho i donar suport a les vostres pàgines web preferides seleccionant \"Permetre publicitat no intrusiva\".",
+    "description":"Message shown to users after disabling Acceptable Ads via update page."
+  },
+  "catblock_latest_version":{
+    "description":"On the Options > Support page, shows when there are no updates available for CatBlock",
+    "message":"CatBlock is up-to-date!"
+  },
+  "filteradblock_custom":{
+    "message":"Filtres personalitzats d'AdBlock (recomanat)",
+    "description":"A filter list"
+  },
+  "frameurl":{
+    "message":"URL del marc: ",
+    "description":"Resource list page: full URL of the frame"
+  },
+  "filteritalian":{
+    "message":"Italià",
+    "description":"language"
+  },
+  "safari50_updatenotice":{
+    "message":"Esteu fent servir una versió antiga de Safari. Obteniu l'última versió per tal de fer servir el botó d'AdBlock de la barra d'eines per pausar l'AdBlock, permetre anuncis a llocs webs, o bé informar sobre algun anunci. <a>Actualitzeu-vos ara</a>.",
+    "description":"A message shown to Safari 5.0 users urging them to upgrade"
+  },
+  "blacklistertype":{
+    "message":"Tipus",
+    "description":"node name is called 'Type'"
+  },
+  "spread_the_word":{
+    "message":"Ajudeu a fer córrer la veu!",
+    "description":"Text of a share link"
+  },
+  "filterlatvian":{
+    "message":"Letó",
+    "description":"A filter list"
+  },
+  "blacklisterthefilter":{
+    "message":"El filtre, el qual es pot canviar a la pàgina d'opcions:",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "catblock_options":{
+    "message":"CatBlock Options",
+    "description":"Title of the CatBlock options page tab"
+  },
+  "optionsversion":{
+    "message":"Versió $version$",
+    "placeholders":{
+      "version":{
+        "example":"2.0.9",
+        "content":"$1"
+      }
+    },
+    "description":"Version number"
+  },
+  "filterchinese":{
+    "message":"Xinès",
+    "description":"language"
+  },
+  "lang_spanish":{
+    "message":"Espanyol",
+    "description":"language"
+  },
+  "blockurlwithtext":{
+    "message":"Bloquejar les URL que continguin aquest text",
+    "description":"Message of the url-blocking area"
+  },
+  "work_around_hulu_problems":{
+    "message":"Treballar amb els vídeos de Hulu.com que no es reprodueixin (requereix el reinici del navegador)",
+    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
+  },
+  "filterannoyances":{
+    "message":"Fanboy's Annoyances (bloqueja finestres emergents, ginys de xarxes socials i de mitjans de comunicació i altres molèsties)",
+    "description":"A filter list"
+  },
+  "tabreloadcomplete":{
+    "message":"Fet! Hem recarregat la pàgina amb l'anunci. Aneu a la pàgina per comprovar si l'anunci ha marxat. Llavors torneu a aquesta pàgina i responeu la pregunta que es formula a continuació.",
+    "description":"On the ad report page, alert notifying users that we've disabled all other extensions"
+  },
+  "modifypath":{
+    "message":"Pàgina:",
+    "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
+  },
+  "checkinfirefox_4":{
+    "message":"En aquell navegador, carregueu la pàgina amb l'anunci.",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "catblock_enable_adblock":{
+    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'",
+    "message":"Enable CatBlock on this page"
+  },
+  "filtereasylist_plus_finnish":{
+    "message":"Finès",
+    "description":"language"
+  },
+  "catblock_storage_quota_exceeded":{
+    "description":"Message shown when the user uses more storage than allowed by the browser",
+    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!"
+  },
+  "unpause_adblock":{
+    "message":"Reactivar l'AdBlock",
+    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
+  },
+  "filterrussian":{
+    "message":"Rus i ucraïnès",
+    "description":"Language names for a filter list"
+  },
+  "savebutton":{
+    "message":"Desar",
+    "description":"Save button"
+  },
+  "adstillappear":{
+    "message":"Encara apareix l'anunci?",
+    "description":"Question on ad report page"
+  },
+  "selectlanguage":{
+    "message":" - Seleccionar idioma - ",
+    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
+  },
+  "adreport_missing_info":{
+    "message":"Falta informació requerida o aquesta no es vàlida. Si us plau, respongui  les preguntes que tenen la vora vermella.",
+    "description":"Error message shown when the user doesn't enter anything in some of the text fields."
+  },
+  "filtericelandic":{
+    "message":"Islandès",
+    "description":"language"
+  },
+  "filtereasylist_plus_spanish":{
+    "message":"Espanyol",
+    "description":"language"
+  },
+  "catblock_you_can_slide_to_change":{
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases.",
+    "message":"You can slide below to change exactly what pages CatBlock won't run on."
+  },
+  "disableyoutubestreamingads":{
+    "message":"Activeu el mode de compatibilitat amb ClickToFlash",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
+  },
+  "safaricontentblockinglimitexceeded":{
+    "message":"El nombre de normes de filtres de llista sobrepassa el límit de 50.000, i ha estat reduïda automàticament. Deixeu algunes subscripcions a llistes de filtres o desactiveu el bloqueig de continguts de Safari!",
+    "description":"Displayed when the number of rules in the subscribed filter lists is larger than the number supported by Safari Content Blocking, if that option is enabled"
+  },
+  "disabled_on_this_page":{
+    "message":"L'AdBlock està desactivat en aquesta pàgina.",
+    "description":"Message shown in toolbar button on web pages that have been whitelisted"
+  },
+  "typesubdocument":{
+    "message":"marc",
+    "description":"A resource type"
+  },
+  "how":{
+    "message":"Com?",
+    "description":"Text of a link pointing to instructions on how to do something"
+  },
+  "filtereasylist_plus_estonian":{
+    "message":"Estonià",
+    "description":"language"
+  },
+  "showlinkstolists2":{
+    "message":"Mostrar els enllaços a les llistes de filtres",
+    "description":"Option on the 'Filter lists' tab of the Options page"
+  },
+  "filtereasylist_plus_german":{
+    "message":"Alemany",
+    "description":"language"
+  },
+  "subscribebutton":{
+    "message":"Subscriure's",
+    "description":"Subscribe to a list button"
+  },
+  "description2":{
+    "message":"L'extensió més popular de Chrome, amb més de 40 milions d'usuaris! Bloqueja els anuncis de tota la xarxa.",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
+  "catblock_adblock_click_for_details":{
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button.",
+    "message":"CatBlock - click for details"
+  },
+  "adreport_location":{
+    "message":"Exactament, on es troba l'anunci? Quin aspecte té?",
+    "description":"Question on the ad report page asking the user to describe the ad and its location on a webpage."
+  },
+  "blacklisternofilter":{
+    "message":"No s'ha especificat cap filtre!",
+    "description":"Warning if the user hasn't specified a filter"
+  },
+  "typesub_frame":{
+    "message":"marc",
+    "description":"A resource type"
+  },
+  "typeunknown":{
+    "message":"desconegut",
+    "description":"A resource type"
   }
 }

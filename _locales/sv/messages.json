@@ -1,429 +1,567 @@
 {
-  "blockanadtitle":{
-    "message":"Blockera ett objekt",
-    "description":"Title of the first two dialogs of the blacklister"
+  "catblock_example_flickr_search":{
+    "message":"a search for photos (e.g. <i>sailboat race</i>)",
+    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\"."
   },
-  "blacklisternofilter":{
-    "message":"Inget filter specificerat!",
-    "description":"Warning if the user hasn't specified a filter"
-  },
-  "somethingwentwrong":{
-    "message":"Något gick fel vid uppdateringskontrollen.",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
-  },
-  "catblock_adblockupdates":{
-    "message":"CatBlock updates",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "malwarenotificationdisablethesemessages":{
-    "message":"Inaktivera dessa meddelanden",
-    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
-  },
-  "other":{
-    "message":"Annat",
-    "description":"Multiple choice option"
-  },
-  "work_around_hulu_problems":{
-    "message":"Fixa felet som gör att video inte spelas upp på Hulu.com (kräver omstart av webbläsaren).",
-    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
-  },
-  "retryaftersubscribe":{
-    "message":"Prenumerera på denna filterlista, och försök igen: $list_title$",
-    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists",
-    "placeholders":{
-      "list_title":{
-        "example":"French filters",
-        "content":"$1"
-      }
-    }
-  },
-  "catblock_disabled_on_this_page":{
-    "message":"CatBlock is disabled on this page.",
-    "description":"Message shown in toolbar button on web pages that have been whitelisted"
-  },
-  "catblock_contributors":{
-    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!",
-    "description":"Link to the contributors page on the Support tab of the options"
-  },
-  "filtereasylist_plun_korean":{
-    "message":"Koreanska",
-    "description":"language"
-  },
-  "catblock_status_paused":{
-    "message":"CatBlock is paused.",
-    "description":"Message shown in toolbar button when CatBlock is paused"
-  },
-  "buttonedit":{
-    "message":"Redigera",
-    "description":"Edit filter manually button"
-  },
-  "updatenowmessage2":{
-    "message":"Uppdateringar hämtas automatiskt. Du kan också <a>uppdatera nu</a>",
-    "description":"Update filters text + button"
-  },
-  "optionsversion":{
-    "message":"Version $version$",
-    "description":"Version number",
-    "placeholders":{
-      "version":{
-        "example":"2.0.9",
-        "content":"$1"
-      }
-    }
-  },
-  "refusetocheck":{
-    "message":"Jag vill inte leka testpilot just nu",
-    "description":"User is telling us they don't wish to investigate something for us"
-  },
-  "safari50_updatenotice":{
-    "message":"Du använder en gammal version av Safari. Uppgradera till senaste version för att kunna använda AdBlocks verktygsikon till att pausa AdBlock, vitlista webbsidor och rapportera reklamtillägg. <a>Uppgradera nu</a>.",
-    "description":"A message shown to Safari 5.0 users urging them to upgrade"
-  },
-  "blacklisteroptions1":{
-    "message":"Vad tror du kommer att vara sant om det här reklamtillägget varje gång du besöker sidan?",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "lang_spanish":{
-    "message":"Spanska",
-    "description":"language"
-  },
-  "options":{
-    "message":"Alternativ",
-    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension"
-  },
-  "loading":{
-    "message":"LÄSER IN...",
-    "description":"Generic message displayed during processes that take some time"
-  },
-  "adblockreportinganad":{
-    "message":"AdBlock - Rapportera ett reklamtillägg",
-    "description":"Title of the ad report page"
-  },
-  "manualfilteredit":{
-    "message":"Redigera dina filter manuellt:",
-    "description":"Subtitle on the 'Customize' tab"
-  },
-  "buttoncancel":{
-    "message":"Avbryt",
-    "description":"Cancel button"
-  },
-  "buttonexclude":{
-    "message":"Undanta",
-    "description":"Button for excluding a domain in the whitelister dialog"
-  },
-  "malwarewarning":{
-    "message":"Din dator kan vara infekterad av skadlig kod. Klicka <a>här</a> för mer information.",
-    "description":"On the ad report page, the ads the user is seeing might be caused by malware/adware"
-  },
-  "filterhungarian":{
-    "message":"Ungerska",
-    "description":"language"
-  },
-  "typepopup":{
-    "message":"popup",
-    "description":"A resource type"
-  },
-  "reportfilterlistproblem":{
-    "message":"Detta är ett filterlistproblem. Rapportera det här: $link$",
-    "description":"Telling the user to report an ad to a filter list maintainer",
-    "placeholders":{
-      "link":{
-        "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe</a>  EXAMPLE 2: <a href='http://easylist.org'>EasyList forums</a>",
-        "content":"$1"
-      }
-    }
-  },
-  "updatedhoursago":{
-    "message":"Uppdaterades för $hours$ timmar sedan",
-    "description":"Label for subscription",
-    "placeholders":{
-      "hours":{
-        "example":"15",
-        "content":"$1"
-      }
-    }
-  },
-  "format_site1_site2_site3":{
-    "message":"Format: ~sida1.com|~sida2.se|~nyheter.sida3.org",
-    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
-  },
-  "wizardcantrunonframesets":{
-    "message":"Den här AdBlock-funktionen fungerar inte på denna sida eftersom den använder utdaterad teknologi. Du kan svart-/vitlista resurser manuellt, under fliken \"Anpassa\" i inställningarna.",
-    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
-  },
-  "tabsupport":{
-    "message":"Support",
+  "tabcustomize":{
+    "message":"Anpassa",
     "description":"A tab on the options page"
   },
-  "catblock_filteradblock_custom":{
-    "message":"CatBlock custom filters (recommended)",
-    "description":"A filter list"
-  },
-  "blacklisterthefilter":{
-    "message":"Filtret, som kan ändras på Alternativ-sidan:",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "catblock_debuginlogoption":{
-    "message":"Show debug statements in Console Log (which slows down CatBlock)",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "catblock_disableforchromeandsafaristeptwo":{
-    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>.",
-    "description":"Step 2 for disabling Chrome and Safari extensions"
-  },
-  "removefromlist":{
-    "message":"Ta bort från listan",
-    "description":"Label to remove a custom filter"
-  },
-  "buttonok":{
-    "message":"OK",
-    "description":"OK button"
+  "catblock_example_flickr_id":{
+    "message":"a Flickr photoset ID (e.g. $example$)",
+    "placeholders":{
+      "example":{
+        "content":"<i>346406</i>"
+      }
+    },
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
   },
   "tabgeneral":{
     "message":"Allmänt",
     "description":"A tab on the options page"
   },
-  "enable_adblock":{
-    "message":"Aktivera AdBlock på denna sida",
-    "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
-  },
-  "checkinternetconnection":{
-    "message":"För att rapportera ett reklamtillägg, måste du vara ansluten till internet.",
-    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
-  },
-  "adblockinglist":{
-    "message":"Reklamblockerande filterlistor",
-    "description":"List for subscribed ad blocking fiters"
-  },
-  "catblock_reloadtab":{
-    "message":"Button on Resources viewer page, which reloads selected tab from dropdown menu",
-    "description":"Reload tab"
-  },
-  "here":{
-    "message":"Här",
-    "description":"This message is injected in other strings as a link/button"
-  },
-  "excludedomainorurl":{
-    "message":"Domän eller url där AdBlock inte skall blockera något",
-    "description":"Message of the exclude area"
-  },
-  "checkinfirefox_1":{
-    "message":"Installera Firefox $chrome$ om du inte redan har gjort det.",
-    "description":"instruction for how to check Firefox/Chrome for a reported ad",
-    "placeholders":{
-      "chrome":{
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='chrome2'></span>"
-      }
-    }
-  },
-  "firefox_explanation":{
-    "message":"Syftet med denna fråga, är att avgöra vem som skall ta emot din rapport. Besvarar du denna fråga felaktigt, kommer rapporten att skickas till fel personer och riskerar därmed att ignoreras.",
-    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
-  },
-  "filtermalware":{
-    "message":"Skydd mot skadlig kod",
-    "description":"A filter list"
-  },
-  "whatmakesadblocktick":{
-    "message":"Vill se vad som får AdBlock att fungera?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "update_available":{
-    "message":"Det finns en uppdatering för AdBlock! Gå till $here$ för att uppdatera. <br>Obs: om du vill få uppdateringar automatiskt, klicka bara på Safari > inställningar > Extensions > uppdateringar <br>och markera alternativet \"Installera uppdateringar automatiskt\".",
-    "description":"On the Options > Support page, shows when there are updates available for AdBlock",
-    "placeholders":{
-      "here":{
-        "example":"<a>here</a>",
-        "content":"<a id='here'></a>"
-      }
-    }
-  },
-  "catblock_disabled_by_filter_lists":{
-    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists.",
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
-  },
-  "adblocksupport":{
-    "message":"AdBlock Support",
-    "description":"Title of the support tab"
-  },
-  "dont_run_on_this_page":{
-    "message":"Undanta denna sida",
-    "description":"Menu entry to whitelist a page"
-  },
-  "adblock_click_for_details":{
-    "message":"AdBlock - Klicka för meny",
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
-  },
-  "catblock_whatmakesadblocktick":{
-    "message":"Want to see what makes CatBlock tick?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "reportpubliclyavailable":{
-    "message":"OBS! Din rapport kan komma att bli pulicerad offentligt. Håll det i minnet om du inkluderar något av privat natur.",
-    "description":"Ad report page string, when you're about to submit a report"
-  },
-  "typeimage":{
-    "message":"bild",
-    "description":"A resource type"
-  },
-  "headertype":{
-    "message":"Typ",
-    "description":"Resource list page: title of a column"
-  },
-  "catblock_disableallextensions":{
-    "message":"Disable all extensions except for CatBlock.",
-    "description":"Instruction on ad report page"
-  },
-  "filteritalian":{
-    "message":"Italienska",
+  "filtereasylist_plus_romanian":{
+    "message":"Rumänska",
     "description":"language"
   },
-  "catblock_replaceadswithcats":{
-    "message":"Replace ads with pictures of cats",
-    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
+  "dont_run_on_pages_on_domain":{
+    "message":"Undanta denna domän",
+    "description":"Menu entry to open the whitelist wizard"
   },
-  "catblock_allrequests":{
-    "message":"A message in dropdown selection on Resource viewer page",
-    "description":"All requests"
+  "catblock_debuginlogoption":{
+    "description":"Checkbox on the 'General' tab of the Options page",
+    "message":"Show debug statements in Console Log (which slows down CatBlock)"
   },
-  "checkinfirefox_4":{
-    "message":"Surfa till sidan med reklamtillägget, i den webbläsaren.",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  "savereminder":{
+    "message":"Glöm inte att spara!",
+    "description":"Reminder to press save"
   },
-  "invalidListUrl":{
-    "message":"Ogiltig listadress. Den kommer att tas bort.",
-    "description":"Message when you subscribe to a non-list URL"
+  "adblockupdates":{
+    "message":"AdBlock-uppdateringar",
+    "description":"Subtitle on the Support tab of the options"
   },
-  "lang_english":{
-    "message":"Engelska",
-    "description":"language"
-  },
-  "whats_this":{
-    "message":"Vad är detta?",
-    "description":"Text of a link pointing to the explanation of a new feature"
-  },
-  "close":{
-    "message":"Stäng",
-    "description":"Generic message for buttons that close a view or window"
-  },
-  "englishonly":{
-    "message":"Endast på engelska",
-    "description":"Lets the user know that a link/page is available in English only"
-  },
-  "catblock_safari50_updatenotice":{
-    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>.",
-    "description":"A message shown to Safari 5.0 users urging them to upgrade"
-  },
-  "filtereasyprivacy":{
-    "message":"EasyPrivacy (Integritetsskydd)",
-    "description":"A filter list"
+  "catblock_safarinotificationbody":{
+    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules",
+    "message":"Please disable some filter lists. More information in CatBlock's Options."
   },
   "filterjapanese":{
     "message":"Japanska",
     "description":"language"
   },
-  "catblock_enable_adblock":{
-    "message":"Enable CatBlock on this page",
-    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'"
+  "sourcecode":{
+    "message":"Källkoden är <a>fritt tillgänglig</a>!",
+    "description":"Link to the source code of AdBlock on the Support tab of the options"
   },
-  "blacklisterwarningnofilter":{
-    "message":"<b>OBS!</b> Inget filter specificerat!",
-    "description":"Warns the user that no filter was specified"
+  "no":{
+    "message":"Nej",
+    "description":"A negative response to a question"
   },
-  "catblock_whitelistertitle2":{
-    "message":"Don't run CatBlock on...",
-    "description":"The title of the whitelister dialog"
+  "typexmlhttprequest":{
+    "message":"xmlhttprequest",
+    "description":"A resource type"
   },
-  "catblock_status_disabled":{
-    "message":"CatBlock can not run on this domain.",
-    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank"
+  "fetchinglabel":{
+    "message":"Hämtar... vänta!",
+    "description":"Status label"
   },
-  "filtereasylist_plus_spanish":{
-    "message":"Spanska",
+  "filterisraeli":{
+    "message":"Hebreiska",
     "description":"language"
   },
-  "adblock_wont_run_on_pages_matching":{
-    "message":"AdBlock avaktiveras på alla sidor som matchar:",
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
+  "filtermalware":{
+    "message":"Skydd mot skadlig kod",
+    "description":"A filter list"
   },
-  "filterczech":{
-    "message":"Tjeckiska och Slovakiska",
-    "description":"Language names for a filter list"
+  "catblock_adblockupdates":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"CatBlock updates"
   },
-  "disableforsafaristepone":{
-    "message":"Klicka på Safari-menyn &rarr; Alternativ &rarr; Tillägg.",
-    "description":"Step 1 for disabling Safari extensions"
+  "invalidListUrl":{
+    "message":"Ogiltig listadress. Den kommer att tas bort.",
+    "description":"Message when you subscribe to a non-list URL"
   },
-  "reloadpageafterwhitelist":{
-    "message":"Uppdatera sidan.",
-    "description":"Checkbox on whitelist wizard"
+  "catblock_disableforchromeandsafaristeptwo":{
+    "description":"Step 2 for disabling Chrome and Safari extensions",
+    "message":"Uncheck the 'Enabled' checkbox next to every extension <b>except</b> for CatBlock.  <b>Leave CatBlock enabled</b>."
   },
-  "typescript":{
-    "message":"script",
+  "typeimage":{
+    "message":"bild",
     "description":"A resource type"
   },
   "lang_czech":{
     "message":"Tjeckiska",
     "description":"language"
   },
-  "orenteraurl":{
-    "message":"Eller ange en URL:",
-    "description":"Link for custom subscription"
+  "excludedomainorurl":{
+    "message":"Domän eller url där AdBlock inte skall blockera något",
+    "description":"Message of the exclude area"
   },
-  "clickthead":{
-    "message":"Klicka på objektet, så hjälper jag dig igenom blockeringen.",
-    "description":"When you have to click the ad to continue"
+  "typescript":{
+    "message":"script",
+    "description":"A resource type"
+  },
+  "adblockreportinganad":{
+    "message":"AdBlock - Rapportera ett reklamtillägg",
+    "description":"Title of the ad report page"
   },
   "catblock_add_more_photos":{
     "message":"<b>Add some photos</b> from Flickr!  You can enter:",
     "description":"Introduction to the examples of custom image lists. Leave the <b> and </b> as they are."
   },
-  "catblock_example_flickr_search":{
-    "message":"a search for photos (e.g. <i>sailboat race</i>)",
-    "description":"First example of a custom image list that a user can add. Leave the <i> and </i> as they are. e.g. is shorthand for \"for example\"."
+  "buttonback":{
+    "message":"Tillbaka",
+    "description":"Back to previous wizard page button"
   },
-  "sourcecode":{
-    "message":"Källkoden är <a>fritt tillgänglig</a>!",
-    "description":"Link to the source code of AdBlock on the Support tab of the options"
+  "lang_english":{
+    "message":"Engelska",
+    "description":"language"
   },
-  "blacklistereditinvalid1":{
-    "message":"Filtret är ogiltigt: $exception$",
-    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated.",
+  "filterczech":{
+    "message":"Tjeckiska och Slovakiska",
+    "description":"Language names for a filter list"
+  },
+  "cleanuplist2":{
+    "message":"Rensa denna lista",
+    "description":"Option at the bottom of the 'Customize' options tab"
+  },
+  "malwarenotfound":{
+    "message":"Ingen känd, skadlig kod hittades.",
+    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware/adware"
+  },
+  "block_this_ad":{
+    "message":"Blockera det här reklamtillägget",
+    "description":"Context and popup menu entry"
+  },
+  "filtereasylist_plus_finnish":{
+    "message":"Finska",
+    "description":"language"
+  },
+  "stop_blocking_ads":{
+    "message":"Sluta blockera reklamtillägg:",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "catblock_filteradblock_custom":{
+    "description":"A filter list",
+    "message":"CatBlock custom filters (recommended)"
+  },
+  "malwarenotificationdisablethesemessages":{
+    "message":"Inaktivera dessa meddelanden",
+    "description":"Button on the malware notification to disable future notifications. Message should be under 45 characters!"
+  },
+  "blacklisteroptions1":{
+    "message":"Vad tror du kommer att vara sant om det här reklamtillägget varje gång du besöker sidan?",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "catblock_malwarenotificationmessage":{
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!",
+    "message":"CatBlock has blocked a download from a site known to host malware."
+  },
+  "catblock_show_on_adblock_button":{
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked",
+    "message":"Show on CatBlock button"
+  },
+  "format_site1_site2_site3":{
+    "message":"Format: ~sida1.com|~sida2.se|~nyheter.sida3.org",
+    "description":"Example showing users how to input a list of sites on the Customize tab. You can translate the 'news' and 'siteN' but leave the '|'s and '~'s in place."
+  },
+  "manualexcludefilteredit":{
+    "message":"Redigera inaktiverade filter:",
+    "description":"Subtitle on the 'Customize' tab"
+  },
+  "catblock_disableallextensions":{
+    "description":"Instruction on ad report page",
+    "message":"Disable all extensions except for CatBlock."
+  },
+  "filtereasylist_plun_korean":{
+    "message":"Koreanska",
+    "description":"language"
+  },
+  "here":{
+    "message":"Här",
+    "description":"This message is injected in other strings as a link/button"
+  },
+  "debuginlogoption":{
+    "message":"Visa felsökningsinformation i loggen (vilket gör AdBlock långsammare)",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "adblocksupport":{
+    "message":"AdBlock Support",
+    "description":"Title of the support tab"
+  },
+  "update_available":{
+    "message":"Det finns en uppdatering för AdBlock! Gå till $here$ för att uppdatera. <br>Obs: om du vill få uppdateringar automatiskt, klicka bara på Safari > inställningar > Extensions > uppdateringar <br>och markera alternativet \"Installera uppdateringar automatiskt\".",
     "placeholders":{
-      "exception":{
-        "example":"This filter is not supported",
-        "content":"$1"
+      "here":{
+        "example":"<a>here</a>",
+        "content":"<a id='here'></a>"
       }
-    }
+    },
+    "description":"On the Options > Support page, shows when there are updates available for AdBlock"
   },
-  "whatsnew":{
-    "message":"Nyheter i den senaste versionen? Läs i <a style='cursor:pointer;'> ändringsloggen</a>!",
-    "description":"Link to display the changelog on the Support tab of the options"
+  "generaloptions":{
+    "message":"Allmäna alternativ",
+    "description":"Title of first tab page"
   },
-  "blacklistereditfilter":{
-    "message":"Redigera filter här under, och tryck 'OK'",
-    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text."
+  "catblock_allrequests":{
+    "description":"All requests",
+    "message":"A message in dropdown selection on Resource viewer page"
   },
-  "ad_report_please":{
-    "message":"Om du ser en annons, skicka inte en felrapport. Rapportera ett <a>reklamtillägg</a>!",
-    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
+  "checkinfirefox_1":{
+    "message":"Installera Firefox $chrome$ om du inte redan har gjort det.",
+    "placeholders":{
+      "chrome":{
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
+        "content":"<span id='chrome2'></span>"
+      }
+    },
+    "description":"instruction for how to check Firefox/Chrome for a reported ad"
   },
-  "disabled_on_this_page":{
-    "message":"AdBlock är inaktiverad på denna sida.",
-    "description":"Message shown in toolbar button on web pages that have been whitelisted"
+  "malwarewarning":{
+    "message":"Din dator kan vara infekterad av skadlig kod. Klicka <a>här</a> för mer information.",
+    "description":"On the ad report page, the ads the user is seeing might be caused by malware/adware"
   },
-  "disabled_by_filter_lists":{
-    "message":"Ledsen, men AdBlock är inaktiverat på den här sidan av en av dina filterlistor.",
-    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
+  "malwarenotificationlearnmore":{
+    "message":"Läs mer om skadlig kod",
+    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
   },
-  "warning_overrules_filters":{
-    "message":"Varning: Du kommer att se tillägg på alla andra sidor!<br>Det här åsidosätter också alla andra filter för dessa sidor .",
-    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
+  "catblock_replaceadswithcats":{
+    "message":"Replace ads with pictures of cats",
+    "description":"Option on General tab used for enabling replacement of ads by pictures of cats"
+  },
+  "show_on_adblock_menu":{
+    "message":"Visa antal blockerade reklamtillägg, på AdBlock-menyn",
+    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
+  },
+  "blockanadtitle":{
+    "message":"Blockera ett objekt",
+    "description":"Title of the first two dialogs of the blacklister"
+  },
+  "betalabel":{
+    "message":"Beta",
+    "description":"Label for beta features in AdBlock Options"
+  },
+  "filtereasyprivacy":{
+    "message":"EasyPrivacy (Integritetsskydd)",
+    "description":"A filter list"
+  },
+  "updatedminuteago":{
+    "message":"Uppdaterades för 1 minut sedan",
+    "description":"Label for subscription"
+  },
+  "contributors":{
+    "message":"Vi har också en <a>sida</a> som presenterar människorna bakom AdBlock!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "checkforupdates":{
+    "message":"Sök efter uppdateringar (tar bara några sekunder)...",
+    "description":"Displayed when AdBlock is checking the newest available version"
+  },
+  "englishonly":{
+    "message":"Endast på engelska",
+    "description":"Lets the user know that a link/page is available in English only"
+  },
+  "advanced_options2":{
+    "message":"Jag är avancerad användare, visa avancerade alternativ",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "filterstabtitle":{
+    "message":"Prenumerera på filterlistor",
+    "description":"Title of the filter list tab"
+  },
+  "linkblockadbyurl":{
+    "message":"Blockera ett reklamtillägg via URL",
+    "description":"Link on the 'Customize' tab"
+  },
+  "filterantisocial":{
+    "message":"Antisocial filterlista (tar bort knappar för sociala medier)",
+    "description":"A filter list"
   },
   "buttonlooksgood":{
     "message":"Ser bra ut",
     "description":"Looks good button"
+  },
+  "operabutton_how_to_hide2":{
+    "message":"Om du vill dölja knappen, gå till 'opera://extensions' och markera alternativet \"Dölj verktygsfältet\". Du kan visa den igen genom att avmarkera alternativet.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
+  },
+  "unsubscribedlabel":{
+    "message":"Prenumeration avslutad.",
+    "description":"Status label"
+  },
+  "catblock_you_can_slide_to_change":{
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases.",
+    "message":"You can slide below to change exactly what pages CatBlock won't run on."
+  },
+  "catblock_example_flickr_url":{
+    "message":"a Flickr photoset URL (e.g. $example$)",
+    "placeholders":{
+      "example":{
+        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
+      }
+    },
+    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\"."
+  },
+  "catblock_contributors":{
+    "message":"We've got a <a>page</a> to help you find out about the people behind CatBlock, as well!",
+    "description":"Link to the contributors page on the Support tab of the options"
+  },
+  "savebutton":{
+    "message":"Spara",
+    "description":"Save button"
+  },
+  "reportfilterlistproblem":{
+    "message":"Detta är ett filterlistproblem. Rapportera det här: $link$",
+    "placeholders":{
+      "link":{
+        "example":"EXAMPLE 1: <a href='mailto:someguy@list.com'>John Doe</a>  EXAMPLE 2: <a href='http://easylist.org'>EasyList forums</a>",
+        "content":"$1"
+      }
+    },
+    "description":"Telling the user to report an ad to a filter list maintainer"
+  },
+  "only_block_ads_on_these_sites":{
+    "message":"Blockera reklamtillägg, endast på dessa sidor:",
+    "description":"Label for textbox where user enters a list of sites on Customize tab"
+  },
+  "adstillappear":{
+    "message":"Är reklamtillägget fortfarande kvar?",
+    "description":"Question on ad report page"
+  },
+  "cantblockflashwarning":{
+    "message":"Framträder reklamen i eller före en film eller något annat tillägg, som ett Flash-spel?",
+    "description":"Text of the final ad report question"
+  },
+  "updateddaysago":{
+    "message":"Uppdaterades för $days$ dagar sedan",
+    "placeholders":{
+      "days":{
+        "example":"15",
+        "content":"$1"
+      }
+    },
+    "description":"Label for subscription"
+  },
+  "questionoridea":{
+    "message":"Har du en fråga eller någon ny idé?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "pause_adblock":{
+    "message":"Pausa AdBlock",
+    "description":"Menu entry to pause AdBlock"
+  },
+  "catblock_show_on_adblock_menu":{
+    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked",
+    "message":"Show number of ads blocked on CatBlock menu"
+  },
+  "catblock_check_checkbox":{
+    "message":"Check the checkbox by the sets of pictures that you want to use.",
+    "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock."
+  },
+  "tabfilterlists":{
+    "message":"Filterlistor",
+    "description":"A tab on the options page"
+  },
+  "catblock_disabled_by_filter_lists":{
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list",
+    "message":"Sorry, CatBlock is disabled on this page by one of your filter lists."
+  },
+  "you_can_slide_to_change":{
+    "message":"Du kan dra i skjutreglaget för att ändra mer exakt, på vilka sidor AdBlock skall avaktiveras.",
+    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
+  },
+  "lang_russian":{
+    "message":"Ryska",
+    "description":"language"
+  },
+  "linkhidesection":{
+    "message":"Dölj delar av en webbsida",
+    "description":"Link on the 'Customize' tab"
+  },
+  "lang_slovak":{
+    "message":"Slovakiska",
+    "description":"language"
+  },
+  "blockdomain":{
+    "message":"Domän som skall filtreras",
+    "description":"Message of the url and css -blocking area"
+  },
+  "blocked_n_on_this_page":{
+    "message":"$count$ på den här sidan",
+    "placeholders":{
+      "count":{
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
+        "content":"<a>123</a>"
+      }
+    },
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999."
+  },
+  "malwarenotificationcheckboxmessage":{
+    "message":"Vill du att AdBlock skall meddela dig när den upptäcker skadlig kod?",
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
+  },
+  "block_an_ad_on_this_page":{
+    "message":"Blockera ett objekt på denna sida",
+    "description":"Toolbar button menu entry and context menu entry"
+  },
+  "languagedropdowndescription":{
+    "message":"Lägg till filter för andra språk: ",
+    "description":"Dropdown list for language-specific filters"
+  },
+  "filterdutch":{
+    "message":"Nederländska",
+    "description":"language"
+  },
+  "tabsupport":{
+    "message":"Support",
+    "description":"A tab on the options page"
+  },
+  "catblock_options":{
+    "message":"CatBlock Options",
+    "description":"Title of the CatBlock options page tab"
+  },
+  "buttonexclude":{
+    "message":"Undanta",
+    "description":"Button for excluding a domain in the whitelister dialog"
+  },
+  "catblock_wizardcantrunonframesets":{
+    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website",
+    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page."
+  },
+  "filterhungarian":{
+    "message":"Ungerska",
+    "description":"language"
+  },
+  "modifydomain":{
+    "message":"Domän:",
+    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL"
+  },
+  "catblock_malwarenotificationcheckboxmessage":{
+    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page",
+    "message":"Should CatBlock notify you when it detects malware?"
+  },
+  "close":{
+    "message":"Stäng",
+    "description":"Generic message for buttons that close a view or window"
+  },
+  "disableforchromeandsafaristeptwo":{
+    "message":"Avaktivera alla tillägg <b>utom</b> AdBlock. <b>Lämna AdBlock aktiverat</b>.",
+    "description":"Step 2 for disabling Chrome and Safari extensions"
+  },
+  "orchrome":{
+    "message":"eller krom",
+    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
+  },
+  "checkinfirefoxtitle":{
+    "message":"Kontrollera i Firefox $chrome$",
+    "placeholders":{
+      "chrome":{
+        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
+        "content":"<span id='chrome1'></span>"
+      }
+    },
+    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome"
+  },
+  "blacklisternotsure":{
+    "message":"<b>Osäker?</b> Tryck bara 'Blockera'.",
+    "description":"Blacklister attribute choosing page message"
+  },
+  "filteradblock_custom":{
+    "message":"AdBlock-anpassat filter (Rekommenderas)",
+    "description":"A filter list"
+  },
+  "catblock_whatmakesadblocktick":{
+    "description":"Subtitle on the Support tab of the options",
+    "message":"Want to see what makes CatBlock tick?"
+  },
+  "typeother":{
+    "message":"annat",
+    "description":"A resource type"
+  },
+  "orenteraurl":{
+    "message":"Eller ange en URL:",
+    "description":"Link for custom subscription"
+  },
+  "blockurlwithtext":{
+    "message":"Blockera URL:er innehållande den här texten",
+    "description":"Message of the url-blocking area"
+  },
+  "dont_run_on_this_page":{
+    "message":"Undanta denna sida",
+    "description":"Menu entry to whitelist a page"
+  },
+  "typeobject_subrequest":{
+    "message":"object_subrequest",
+    "description":"A resource type"
+  },
+  "findingads":{
+    "message":"Söker reklamtillägg...<br/><br/><i>Det tar bara ett ögonblick!</i>",
+    "description":"When you press ctrl-shift-K the blacklister searches for ads"
+  },
+  "supportsite":{
+    "message":"Låt oss veta, på vår <a>support-sida</a>!",
+    "description":"Link to the support site on the Support tab of the options"
+  },
+  "customfilters":{
+    "message":"Anpassade filterlistor",
+    "description":"List for custom filters the user subscribed to"
+  },
+  "show_ads_except_for":{
+    "message":"Visa reklamtillägg <i>överallt</i> utom på dessa domäner...",
+    "description":"Section title for blacklisting section of Customize tab"
+  },
+  "updateddayago":{
+    "message":"Uppdaterades för 1 dag sedan",
+    "description":"Label for subscription"
+  },
+  "updatedminutesago":{
+    "message":"Uppdaterades för $minutes$ minuter sedan",
+    "placeholders":{
+      "minutes":{
+        "example":"15",
+        "content":"$1"
+      }
+    },
+    "description":"Label for subscription"
+  },
+  "checkinfirefox_5":{
+    "message":"Finns reklamtillägget i den webbläsaren också?",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "catblock_you_know_thats_a_bad_idea_right":{
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel.",
+    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway."
+  },
+  "checkinfirefox_4":{
+    "message":"Surfa till sidan med reklamtillägget, i den webbläsaren.",
+    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
+  },
+  "catblock_time":{
+    "description":"Time",
+    "message":"Name of the table header on Resources viewer page"
+  },
+  "whats_this":{
+    "message":"Vad är detta?",
+    "description":"Text of a link pointing to the explanation of a new feature"
+  },
+  "storage_quota_exceeded":{
+    "message":"Du har överskridit den maximala mängden lagringsutrymme som AdBlock kan använda. Avsluta prenumerationen på en eller flera filterlistor!",
+    "description":"Message shown when the user uses more storage than allowed by the browser"
+  },
+  "pwyw":{
+    "message":"Betala vad du vill!",
+    "description":"Text of a payment request link"
+  },
+  "safaributton_how_to_hide2":{
+    "message":"Om du vill dölja knappen, högerklicka på Safaris verktygsfält och välj \"Anpassa verktygsfältet\". Dra sedan AdBlock-knappen bort från verktygsfältet. Du kan visa den igen genom att dra den tillbaka in i verktygsfältet.",
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
+  },
+  "oradblockforchrome":{
+    "message":"eller AdBlock för Chrome",
+    "description":"Used for placeholder in checkinfirefox_2 string"
+  },
+  "safari50_updatenotice":{
+    "message":"Du använder en gammal version av Safari. Uppgradera till senaste version för att kunna använda AdBlocks verktygsikon till att pausa AdBlock, vitlista webbsidor och rapportera reklamtillägg. <a>Uppgradera nu</a>.",
+    "description":"A message shown to Safari 5.0 users urging them to upgrade"
   },
   "lang_ukranian":{
     "message":"Ukrainska",
@@ -433,170 +571,302 @@
     "message":"Prenumerera på filterlista...",
     "description":"abp: link subscriber title"
   },
-  "catblock_you_know_thats_a_bad_idea_right":{
-    "message":"The more filter lists you use, the slower CatBlock runs. Using too many lists can even crash your browser on some websites. Press OK to subscribe to this list anyway.",
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
-  },
-  "generaloptions":{
-    "message":"Allmäna alternativ",
-    "description":"Title of first tab page"
-  },
-  "updatedminuteago":{
-    "message":"Uppdaterades för 1 minut sedan",
-    "description":"Label for subscription"
-  },
-  "savereminder":{
-    "message":"Glöm inte att spara!",
-    "description":"Reminder to press save"
-  },
-  "filtereasylist_plus_romanian":{
-    "message":"Rumänska",
-    "description":"language"
-  },
-  "typepage":{
-    "message":"sida",
+  "typemedia":{
+    "message":"audio/video",
     "description":"A resource type"
   },
-  "catblock_example_flickr_url":{
-    "message":"a Flickr photoset URL (e.g. $example$)",
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\".",
-    "placeholders":{
-      "example":{
-        "content":"<i>www.flickr.com/photos/michael_hughes/sets/346406/</i>"
-      }
-    }
+  "firefox_explanation":{
+    "message":"Syftet med denna fråga, är att avgöra vem som skall ta emot din rapport. Besvarar du denna fråga felaktigt, kommer rapporten att skickas till fel personer och riskerar därmed att ignoreras.",
+    "description":"Explanation of the Check-in-Firefox or Chrome step in the ad reporter"
   },
-  "malwarenotfound":{
-    "message":"Ingen känd, skadlig kod hittades.",
-    "description":"On the ad report page, the ads the user is seeing are probably not caused by malware/adware"
-  },
-  "malwarenotificationlearnmore":{
-    "message":"Läs mer om skadlig kod",
-    "description":"Button on the malware notification that opens a page about malware on our website. Message should be under 45 characters!"
-  },
-  "adblock_outdated_chrome":{
-    "message":"Du använder en gammal version av AdBlock. Gå till <a href='#'>the extensions page</a>, bocka i 'Programerarläge' och klicka på 'Uppdatera tillägg nu'",
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
-  },
-  "catblock_adblock_wont_run_on_pages_matching":{
-    "message":"CatBlock won't run on any page matching:",
-    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
-  },
-  "modifypath":{
-    "message":"Sida:",
-    "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
-  },
-  "filtereasylist_plus_polish":{
-    "message":"Polska",
-    "description":"language"
-  },
-  "catblock_show_on_adblock_menu":{
-    "message":"Show number of ads blocked on CatBlock menu",
-    "description":"Label for checkbox letting user choose whether the CatBlock popup menu should show the number of ads blocked"
-  },
-  "manualexcludefilteredit":{
-    "message":"Redigera inaktiverade filter:",
-    "description":"Subtitle on the 'Customize' tab"
-  },
-  "savebutton":{
-    "message":"Spara",
-    "description":"Save button"
-  },
-  "checkinfirefox_5":{
-    "message":"Finns reklamtillägget i den webbläsaren också?",
+  "checkinfirefox_3":{
+    "message":"I den webbläsaren prenumererar du på samma filterlistor som du har här.",
     "description":"Instruction for how to check Firefox/Chrome for a reported ad"
   },
-  "customfilterserrormessage":{
-    "message":"Följande filter:<br/> $filter$ <br/> har ett fel: <br/> $message$",
-    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page",
-    "placeholders":{
-      "message":{
-        "example":"invalid filter",
-        "content":"$2"
-      },
-      "filter":{
-        "example":"@@.ad",
-        "content":"$1"
-      }
-    }
-  },
-  "flashads":{
-    "message":"Video och Flash",
-    "description":"Title of the final ad report question if the ad didn't appear in Firefox"
-  },
-  "typestylesheet":{
-    "message":"stil-definition",
-    "description":"A resource type"
-  },
-  "blockmoreads":{
-    "message":"Blockera fler reklamtillägg:",
-    "description":"Section header on the 'Customize' tab"
-  },
-  "filterturkish":{
-    "message":"Turkiska",
+  "filtereasylist":{
+    "message":"EasyList (Rekommenderas)",
     "description":"A filter list"
   },
-  "languagedropdowndescription":{
-    "message":"Lägg till filter för andra språk: ",
-    "description":"Dropdown list for language-specific filters"
+  "catblock_status_paused":{
+    "description":"Message shown in toolbar button when CatBlock is paused",
+    "message":"CatBlock is paused."
+  },
+  "adblock_wont_run_on_pages_matching":{
+    "message":"AdBlock avaktiveras på alla sidor som matchar:",
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line."
+  },
+  "catblock_safaricontentblockingpausemessage":{
+    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled",
+    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'."
+  },
+  "unpause_adblock":{
+    "message":"Återaktivera AdBlock",
+    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
+  },
+  "reportpubliclyavailable":{
+    "message":"OBS! Din rapport kan komma att bli pulicerad offentligt. Håll det i minnet om du inkluderar något av privat natur.",
+    "description":"Ad report page string, when you're about to submit a report"
+  },
+  "buttonok":{
+    "message":"OK",
+    "description":"OK button"
+  },
+  "malwarenotificationmessage":{
+    "message":"AdBlock har blockerat en nedladdning från en plats, känd för skadlig kod.",
+    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
+  },
+  "other":{
+    "message":"Annat",
+    "description":"Multiple choice option"
+  },
+  "filtereasylist_plus_spanish":{
+    "message":"Spanska",
+    "description":"language"
+  },
+  "subscribeconfirm":{
+    "message":"Vill du verkligen prenumerera på filterlistan $title$?",
+    "placeholders":{
+      "title":{
+        "example":"Prebake",
+        "content":"$1"
+      }
+    },
+    "description":"Prompt question before subscribing to the filter list"
+  },
+  "manuallyenableotherextensions":{
+    "message":"Öppna tilläggssidan för att aktivera de tillägg som tidigare inaktiverats.",
+    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
+  },
+  "linkunblock":{
+    "message":"Tillåt reklam på en webbsida eller domän",
+    "description":"Link on the 'Customize' tab"
+  },
+  "hide_this_button":{
+    "message":"Dölj knapp",
+    "description":"Toolbar button menu entry to hide the AdBlock button"
+  },
+  "status_paused":{
+    "message":"AdBlock är pausad.",
+    "description":"Message shown in toolbar button when AdBlock is paused"
+  },
+  "adblockinglist":{
+    "message":"Reklamblockerande filterlistor",
+    "description":"List for subscribed ad blocking fiters"
+  },
+  "catblock_add_photos":{
+    "message":"Add Photos",
+    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
+  },
+  "disableyoutubestreamingads":{
+    "message":"Aktivera ClickToFlash kompatibilitetsläge",
+    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
+  },
+  "removefromlist":{
+    "message":"Ta bort från listan",
+    "description":"Label to remove a custom filter"
+  },
+  "filtersavewarning":{
+    "message":"<b>Varning!</b> Ett misstag här, kan resultera i att andra filter, inklusive dom officiella, kan förstöras!<br/>Läs '<a>syntax-guiden</a>' för att lära hur man skapar avancerade svart- och vitlistor.",
+    "description":"Warning when blacklisting manually"
+  },
+  "clickupdatefilters":{
+    "message":"Klick här: <a>Uppdatera mina filter!</a>",
+    "description":"Instruction on ad report page"
   },
   "blacklistermatches":{
     "message":"Det matchar $matchcount$ objekt på den här sidan.",
-    "description":"Tells the user multiple matches were found",
     "placeholders":{
       "matchcount":{
         "example":"5",
         "content":"$1"
       }
-    }
+    },
+    "description":"Tells the user multiple matches were found"
   },
-  "catblock_adblocksupport":{
-    "message":"CatBlock Support",
-    "description":"Title of the support tab"
+  "cantblockflash":{
+    "message":"Vi kan inte blockera reklam i Flash och andra tillägg än. Vi väntar på stöd från webbläsaren och WebKit.",
+    "description":"Result of the final ad report question"
   },
-  "filtereasylist_plus_indonesian":{
-    "message":"Indonesiska",
+  "retryaftersubscribe":{
+    "message":"Prenumerera på denna filterlista, och försök igen: $list_title$",
+    "placeholders":{
+      "list_title":{
+        "example":"French filters",
+        "content":"$1"
+      }
+    },
+    "description":"Instructions on ad report page telling users to subscribe to a filter list and then check again to see whether the ad exists"
+  },
+  "catblock_excludedomainorurl":{
+    "description":"Message of the exclude area",
+    "message":"The domain or url where CatBlock shouldn't block anything"
+  },
+  "catblock_adblock_outdated_chrome":{
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'",
+    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'"
+  },
+  "typemain_frame":{
+    "message":"sida",
+    "description":"A resource type"
+  },
+  "loading":{
+    "message":"LÄSER IN...",
+    "description":"Generic message displayed during processes that take some time"
+  },
+  "foundbug":{
+    "message":"Hittat ett fel?",
+    "description":"Subtitle on the Support tab of the options"
+  },
+  "undo_last_block":{
+    "message":"Ångra mina blockeringar på denna domän",
+    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
+  },
+  "filtereasylist_plus_greek":{
+    "message":"Grekiska",
+    "description":"language"
+  },
+  "refusetocheck":{
+    "message":"Jag vill inte leka testpilot just nu",
+    "description":"User is telling us they don't wish to investigate something for us"
+  },
+  "whatsnew":{
+    "message":"Nyheter i den senaste versionen? Läs i <a style='cursor:pointer;'> ändringsloggen</a>!",
+    "description":"Link to display the changelog on the Support tab of the options"
+  },
+  "slidertitle":{
+    "message":"Steg 1: Ta reda på vad som skall blockeras",
+    "description":"Blacklister slider page title"
+  },
+  "catblock_pause_adblock":{
+    "description":"Menu entry to pause CatBlock",
+    "message":"Pause CatBlock"
+  },
+  "catblock_adblockreportinganad":{
+    "description":"Title of the ad report page",
+    "message":"CatBlock - Reporting an ad"
+  },
+  "pagelanguagecheck":{
+    "message":"På vilket språk är sidan skriven?",
+    "description":"Question on ad report page"
+  },
+  "catblock_searchresources":{
+    "description":"Search resources by URL:",
+    "message":"A text shown on Resources viewer page"
+  },
+  "checkinternetconnection":{
+    "message":"För att rapportera ett reklamtillägg, måste du vara ansluten till internet.",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs while reporting an ad on adreport page"
+  },
+  "enable_adblock":{
+    "message":"Aktivera AdBlock på denna sida",
+    "description":"Link text to un-whitelist a page, displayed immediately after 'AdBlock is disabled on this page'"
+  },
+  "allow_whitelisting_youtube_channels":{
+    "message":"Tillåt vitlistning av specifika YouTube-kanaler",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "whitelistertitle2":{
+    "message":"Avaktivera AdBlock på...",
+    "description":"The title of the whitelister dialog"
+  },
+  "blocked_n_in_total":{
+    "message":"$count$ totalt",
+    "placeholders":{
+      "count":{
+        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
+        "content":"<a>123,456</a>"
+      }
+    },
+    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999."
+  },
+  "blacklistclickmessage":{
+    "message":"Högerklicka ett reklamtillägg på en sida för att blockera det -- eller blockera det manuellt här.",
+    "description":"Message at the top of the blacklist options tab"
+  },
+  "latest_version":{
+    "message":"AdBlock är uppdaterad!",
+    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
+  },
+  "nodefaultfilter1":{
+    "message":"Vi har ingen filterlista för det språket.<br/>Försök hitta en passande lista som stöder språket $link$ eller blockera reklamen själv under fliken 'Anpassa'.",
+    "placeholders":{
+      "link":{
+        "example":"<a>here</a>",
+        "content":"<a id='link'></a>"
+      }
+    },
+    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab."
+  },
+  "typepage":{
+    "message":"sida",
+    "description":"A resource type"
+  },
+  "clickdisableotherextensions":{
+    "message":"<b>ELLER</b>klicka bara på denna knapp, så sköter vi allt ovanstående: <a>Inaktivera alla andra tillägg</a>",
+    "description":"On the ad report page, an alternative way to disable other extensions"
+  },
+  "buttoncancel":{
+    "message":"Avbryt",
+    "description":"Cancel button"
+  },
+  "filterlistlink":{
+    "message":"Prenumerera inte på mer än du behöver -- Varje lista gör webbläsaren en liten aning långsammare! Listornas ursprung, och fler listor hittas <a>här</a>.",
+    "description":"Explanation of the filter lists"
+  },
+  "showcontextmenus2":{
+    "message":"Lägg till AdBlock i högerklickmenyn",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "filterturkish":{
+    "message":"Turkiska",
     "description":"A filter list"
   },
   "filterswedish":{
     "message":"Svenska",
     "description":"A filter list"
   },
-  "manuallyenableotherextensions":{
-    "message":"Öppna tilläggssidan för att aktivera de tillägg som tidigare inaktiverats.",
-    "description":"On the ad report page, alert notifying users that they will need to manually reenable the extensions"
+  "catblock_reloadtab":{
+    "description":"Reload tab",
+    "message":"Button on Resources viewer page, which reloads selected tab from dropdown menu"
   },
-  "typesubdocument":{
-    "message":"frame",
-    "description":"A resource type"
+  "disableforsafaristepone":{
+    "message":"Klicka på Safari-menyn &rarr; Alternativ &rarr; Tillägg.",
+    "description":"Step 1 for disabling Safari extensions"
   },
-  "orchrome":{
-    "message":"eller krom",
-    "description":"Used for placeholder in checkinfirefoxtitle and checkinfirefox_1 strings"
+  "somethingwentwrong":{
+    "message":"Något gick fel vid uppdateringskontrollen.",
+    "description":"Displayed when AdBlock is checking the newest available version and an error occurs"
   },
-  "catblock_add_photos":{
-    "message":"Add Photos",
-    "description":"Shown on the CatBlock tab of the options page. Users click this button to add a new list of images."
+  "manualfilteredit":{
+    "message":"Redigera dina filter manuellt:",
+    "description":"Subtitle on the 'Customize' tab"
   },
-  "lang_russian":{
-    "message":"Ryska",
-    "description":"language"
+  "adblock_click_for_details":{
+    "message":"AdBlock - Klicka för meny",
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
   },
-  "cantblockflash":{
-    "message":"Vi kan inte blockera reklam i Flash och andra tillägg än. Vi väntar på stöd från webbläsaren och WebKit.",
-    "description":"Result of the final ad report question"
+  "catblock_adblock_wont_run_on_pages_matching":{
+    "description":"Message displayed when the whitelister dialog will whitelist part of an entire website, for example '*.google.com/reader/*'.  The URL will appear on the next line.",
+    "message":"CatBlock won't run on any page matching:"
   },
-  "datacollectionoption":{
-    "message":"Tillåta AdBlock att samla in anonym filteranvändning och data",
-    "description":"Checkbox on the 'General' tab of the Options page"
+  "filtereasylist_plus_indonesian":{
+    "message":"Indonesiska",
+    "description":"A filter list"
   },
-  "filterdanish":{
-    "message":"Danska",
+  "blacklisterblockedelement":{
+    "message":"Blockerade element:",
+    "description":"Tells the user what the blocked element is on the slider page"
+  },
+  "blacklisteroptionstitle":{
+    "message":"Sista steget: Vad gör det här till ett reklamtillägg?",
+    "description":"Blacklister options page title"
+  },
+  "filterchinese":{
+    "message":"Kinesiska",
     "description":"language"
   },
   "confirm_undo_custom_filters":{
     "message":"Vill du verkligen ta bort $count$ blockering(ar) som du har skapat för $host$?",
-    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset.",
     "placeholders":{
       "count":{
         "example":"The number of custom blocks for a domain.",
@@ -606,232 +876,356 @@
         "example":"code.google.ph, ph.msn.com, stackoverflow.com",
         "content":"$2"
       }
-    }
-  },
-  "whitelist_youtube_channel":{
-    "message":"Vitlista $name$",
-    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option",
-    "placeholders":{
-      "name":{
-        "example":"Name of channel",
-        "content":"$1"
-      }
-    }
-  },
-  "cantblockflashwarning":{
-    "message":"Framträder reklamen i eller före en film eller något annat tillägg, som ett Flash-spel?",
-    "description":"Text of the final ad report question"
-  },
-  "catblock_example_flickr_id":{
-    "message":"a Flickr photoset ID (e.g. $example$)",
-    "description":"Second example of a custom image list that a user can add. Leave the $example$ alone. e.g. is shorthand for \"for example\".",
-    "placeholders":{
-      "example":{
-        "content":"<i>346406</i>"
-      }
-    }
-  },
-  "nodefaultfilter1":{
-    "message":"Vi har ingen filterlista för det språket.<br/>Försök hitta en passande lista som stöder språket $link$ eller blockera reklamen själv under fliken 'Anpassa'.",
-    "description":"Instructions on ad report page pointing users to EasyList subscriptions list. 'Customize' should be the same text as the name of the 'Customize' tab.",
-    "placeholders":{
-      "link":{
-        "example":"<a>here</a>",
-        "content":"<a id='link'></a>"
-      }
-    }
-  },
-  "fetchinglabel":{
-    "message":"Hämtar... vänta!",
-    "description":"Status label"
-  },
-  "filterdutch":{
-    "message":"Nederländska",
-    "description":"language"
-  },
-  "questionoridea":{
-    "message":"Har du en fråga eller någon ny idé?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "supportsite":{
-    "message":"Låt oss veta, på vår <a>support-sida</a>!",
-    "description":"Link to the support site on the Support tab of the options"
-  },
-  "blocked_n_in_total":{
-    "message":"$count$ totalt",
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked since AdBlock was installed. $count$ will be a number between 1 and 999,999,999.",
-    "placeholders":{
-      "count":{
-        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
-        "content":"<a>123,456</a>"
-      }
-    }
-  },
-  "pwyw":{
-    "message":"Betala vad du vill!",
-    "description":"Text of a payment request link"
-  },
-  "disableyoutubestreamingads":{
-    "message":"Aktivera ClickToFlash kompatibilitetsläge",
-    "description":"Checkbox on the 'General' tab of the Options page. Allow AdBlock and the ClickToFlash Safari extension to work simultaneously on YouTube."
-  },
-  "csstomatch":{
-    "message":"CSS att matcha",
-    "description":"Message of the css-hiding area"
-  },
-  "buttonback":{
-    "message":"Tillbaka",
-    "description":"Back to previous wizard page button"
-  },
-  "catblock_safaributton_how_to_hide2":{
-    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
-  },
-  "betalabel":{
-    "message":"Beta",
-    "description":"Label for beta features in AdBlock Options"
-  },
-  "filtereasylist_plus_german":{
-    "message":"Tyska",
-    "description":"language"
-  },
-  "updateddayago":{
-    "message":"Uppdaterades för 1 dag sedan",
-    "description":"Label for subscription"
-  },
-  "filteradblock_custom":{
-    "message":"AdBlock-anpassat filter (Rekommenderas)",
-    "description":"A filter list"
-  },
-  "catblock_adblock_outdated_chrome":{
-    "message":"You are using an old version of CatBlock. Please go to <a href='#'>the extensions page</a>, enable 'Developer mode' and click 'Update extensions now'",
-    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
-  },
-  "catblock_tabcustomizetitle":{
-    "message":"Customize CatBlock",
-    "description":"Title of the customize tab"
-  },
-  "updatedminutesago":{
-    "message":"Uppdaterades för $minutes$ minuter sedan",
-    "description":"Label for subscription",
-    "placeholders":{
-      "minutes":{
-        "example":"15",
-        "content":"$1"
-      }
-    }
-  },
-  "debuginlogoption":{
-    "message":"Visa felsökningsinformation i loggen (vilket gör AdBlock långsammare)",
-    "description":"Checkbox on the 'General' tab of the Options page"
+    },
+    "description":"Confirmation message when user wants to undo their custom blocks for a domain. $count$ will be a number between 1 and 999,999,999, $host$ will be the domain where the custom blocks will be reset."
   },
   "updatedhourago":{
     "message":"Uppdaterades för 1 timma sedan",
     "description":"Label for subscription"
   },
-  "catblock_time":{
-    "message":"Name of the table header on Resources viewer page",
-    "description":"Time"
-  },
-  "cleanuplist2":{
-    "message":"Rensa denna lista",
-    "description":"Option at the bottom of the 'Customize' options tab"
-  },
-  "updateddaysago":{
-    "message":"Uppdaterades för $days$ dagar sedan",
-    "description":"Label for subscription",
-    "placeholders":{
-      "days":{
-        "example":"15",
-        "content":"$1"
-      }
-    }
-  },
-  "checkinfirefoxtitle":{
-    "message":"Kontrollera i Firefox $chrome$",
-    "description":"Tell a user to see if a reported ad also appears in Firefox/Chrome",
-    "placeholders":{
-      "chrome":{
-        "example":"'or Chrome' (This will only be shown in Safari. Chrome users will not see this.)",
-        "content":"<span id='chrome1'></span>"
-      }
-    }
-  },
   "yes":{
     "message":"Ja",
     "description":"A positive response to a question"
   },
-  "lang_slovak":{
-    "message":"Slovakiska",
+  "blacklistereditfilter":{
+    "message":"Redigera filter här under, och tryck 'OK'",
+    "description":"Text if the user wants to manually edit a filter. 'OK' is the standard javascript popup button text."
+  },
+  "otherfilters":{
+    "message":"Andra filterlistor",
+    "description":"List for other filters the user subscribed to"
+  },
+  "enableotherextensionscomplete":{
+    "message":"Tilläggen som tidigare inaktiverades, har nu återaktiverats.",
+    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled"
+  },
+  "filtereasylist_plus_polish":{
+    "message":"Polska",
     "description":"language"
   },
-  "tabcustomize":{
-    "message":"Anpassa",
-    "description":"A tab on the options page"
+  "fixityourself":{
+    "message":"OK, du kan fortfarande blockera reklamen själv på 'Alternativ-sidan'. Tack!",
+    "description":"Telling users who won't report an ad to us how to handle it for themselves"
   },
-  "typeother":{
-    "message":"annat",
+  "catblock_status_disabled":{
+    "description":"Message shown in toolbar button on web pages that disallow extensions, such as the Extensions Gallery or about:blank",
+    "message":"CatBlock can not run on this domain."
+  },
+  "typeobject":{
+    "message":"interaktivt objekt",
     "description":"A resource type"
   },
-  "dont_run_on_pages_on_domain":{
-    "message":"Undanta denna domän",
-    "description":"Menu entry to open the whitelist wizard"
+  "flashads":{
+    "message":"Video och Flash",
+    "description":"Title of the final ad report question if the ad didn't appear in Firefox"
   },
-  "catblock_show_on_adblock_button":{
-    "message":"Show on CatBlock button",
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  "report_ad_on_page":{
+    "message":"Rapportera ett tillägg på den här sidan",
+    "description":"Entry in the AdBlock button menu"
+  },
+  "catblock_latest_version":{
+    "description":"On the Options > Support page, shows when there are no updates available for CatBlock",
+    "message":"CatBlock is up-to-date!"
   },
   "blacklistersinglematch":{
     "message":"Det matchar <b>1</b> objekt på den här sidan.",
     "description":"Tells the user only one match was found"
   },
-  "typeobject_subrequest":{
-    "message":"object_subrequest",
-    "description":"A resource type"
+  "ad_report_please":{
+    "message":"Om du ser en annons, skicka inte en felrapport. Rapportera ett <a>reklamtillägg</a>!",
+    "description":"Link to the ad report page on our support site. This is found on the Support tab of the options."
   },
-  "tabfilterlists":{
-    "message":"Filterlistor",
-    "description":"A tab on the options page"
-  },
-  "buttonsubmit":{
-    "message":"Skicka",
-    "description":"Button to send a form."
-  },
-  "stop_blocking_ads":{
-    "message":"Sluta blockera reklamtillägg:",
-    "description":"Section header on the 'Customize' tab"
+  "show_on_adblock_button":{
+    "message":"Visa antal blockerade reklamtillägg, på AdBlock-ikonen",
+    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
   },
   "buttonblockit":{
     "message":"Blockera",
     "description":"Block button"
   },
-  "checkforupdates":{
-    "message":"Sök efter uppdateringar (tar bara några sekunder)...",
-    "description":"Displayed when AdBlock is checking the newest available version"
+  "filteritalian":{
+    "message":"Italienska",
+    "description":"language"
   },
-  "catblock_adblockreportinganad":{
-    "message":"CatBlock - Reporting an ad",
-    "description":"Title of the ad report page"
-  },
-  "typemain_frame":{
-    "message":"sida",
+  "typestylesheet":{
+    "message":"stil-definition",
     "description":"A resource type"
+  },
+  "reloadadpage":{
+    "message":"Uppdatera sidan med reklamen.",
+    "description":"Instruction on ad report page"
+  },
+  "blacklistertype":{
+    "message":"Typ",
+    "description":"node name is called 'Type'"
+  },
+  "subscribingfinished":{
+    "message":"Slutförd!",
+    "description":"abp: link subscriber result"
+  },
+  "spread_the_word":{
+    "message":"Hjälp till att sprida budskapet!",
+    "description":"Text of a share link"
+  },
+  "customfilterserrormessage":{
+    "message":"Följande filter:<br/> $filter$ <br/> har ett fel: <br/> $message$",
+    "placeholders":{
+      "message":{
+        "example":"invalid filter",
+        "content":"$2"
+      },
+      "filter":{
+        "example":"@@.ad",
+        "content":"$1"
+      }
+    },
+    "description":"Error message when there is an issue with a custom filter on the 'Customize' tab of the Options page"
   },
   "filterlatvian":{
     "message":"Lettiska",
     "description":"A filter list"
   },
-  "filterantisocial":{
-    "message":"Antisocial filterlista (tar bort knappar för sociala medier)",
-    "description":"A filter list"
+  "blacklisterthefilter":{
+    "message":"Filtret, som kan ändras på Alternativ-sidan:",
+    "description":"Blacklister attribute choosing page message"
   },
-  "pause_adblock":{
-    "message":"Pausa AdBlock",
-    "description":"Menu entry to pause AdBlock"
+  "whatmakesadblocktick":{
+    "message":"Vill se vad som får AdBlock att fungera?",
+    "description":"Subtitle on the Support tab of the options"
   },
-  "linkunblock":{
-    "message":"Tillåt reklam på en webbsida eller domän",
-    "description":"Link on the 'Customize' tab"
+  "optionsversion":{
+    "message":"Version $version$",
+    "placeholders":{
+      "version":{
+        "example":"2.0.9",
+        "content":"$1"
+      }
+    },
+    "description":"Version number"
+  },
+  "whitelist_youtube_channel":{
+    "message":"Vitlista $name$",
+    "placeholders":{
+      "name":{
+        "example":"Name of channel",
+        "content":"$1"
+      }
+    },
+    "description":"Entry in the AdBlock menu, when a user is browsing YouTube and has enabled the YouTube channel whitelisting option"
+  },
+  "updatenowmessage2":{
+    "message":"Uppdateringar hämtas automatiskt. Du kan också <a>uppdatera nu</a>",
+    "description":"Update filters text + button"
+  },
+  "warning_overrules_filters":{
+    "message":"Varning: Du kommer att se tillägg på alla andra sidor!<br>Det här åsidosätter också alla andra filter för dessa sidor .",
+    "description":"Message on the 'Customize' tab of the options page, explaining the danger of adding a blacklisting filter"
+  },
+  "you_know_thats_a_bad_idea_right":{
+    "message":"Ju fler filterlistor du använder, dessto långsammare arbetar AdBlock.  För många listor kan även få din webbläsare att krascha på vissa sidor.  Tryck 'OK' för att prenumerera i alla fall.",
+    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
+  },
+  "lang_spanish":{
+    "message":"Spanska",
+    "description":"language"
+  },
+  "blockmoreads":{
+    "message":"Blockera fler reklamtillägg:",
+    "description":"Section header on the 'Customize' tab"
+  },
+  "buttonsubmit":{
+    "message":"Skicka",
+    "description":"Button to send a form."
+  },
+  "blacklisterattrwillbe":{
+    "message":"$attribute$ är $value$",
+    "placeholders":{
+      "value":{
+        "example":"AdBanner",
+        "content":"$2"
+      },
+      "attribute":{
+        "example":"class",
+        "content":"$1"
+      }
+    },
+    "description":"Checkbox label"
+  },
+  "work_around_hulu_problems":{
+    "message":"Fixa felet som gör att video inte spelas upp på Hulu.com (kräver omstart av webbläsaren).",
+    "description":"Advanced Options page checkbox, which users only need to use if Hulu.com videos break. It directs the user to restart their browser in order for changes to the checkbox to take effect."
+  },
+  "filtereasylist_plus_french":{
+    "message":"Franska",
+    "description":"language"
+  },
+  "catblock_tabcustomizetitle":{
+    "description":"Title of the customize tab",
+    "message":"Customize CatBlock"
+  },
+  "updatedrightnow":{
+    "message":"Uppdaterades just nu",
+    "description":"Label for subscription"
+  },
+  "modifypath":{
+    "message":"Sida:",
+    "description":"Caption for the whitelist wizard slider that modifies the path part of a URL"
+  },
+  "updatedsecondsago":{
+    "message":"Uppdaterades för $seconds$ sekunder sedan",
+    "placeholders":{
+      "seconds":{
+        "example":"15",
+        "content":"$1"
+      }
+    },
+    "description":"Label for subscription"
+  },
+  "csstomatch":{
+    "message":"CSS att matcha",
+    "description":"Message of the css-hiding area"
+  },
+  "blocked_ads":{
+    "message":"Blockerade tillägg:",
+    "description":"Title for popup menu section showing number of ads blocked"
+  },
+  "typepopup":{
+    "message":"popup",
+    "description":"A resource type"
+  },
+  "sliderexplanation":{
+    "message":"Dra i skjutreglaget tills reklamen är korrekt blockerad, och sidan förövrigt ser använbar ut.",
+    "description":"Blacklister slider page message"
+  },
+  "catblock_storage_quota_exceeded":{
+    "description":"Message shown when the user uses more storage than allowed by the browser",
+    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!"
+  },
+  "wizardcantrunonframesets":{
+    "message":"Den här AdBlock-funktionen fungerar inte på denna sida eftersom den använder utdaterad teknologi. Du kan svart-/vitlista resurser manuellt, under fliken \"Anpassa\" i inställningarna.",
+    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
+  },
+  "filterrussian":{
+    "message":"Ryska och Ukrainska",
+    "description":"Language names for a filter list"
+  },
+  "optionstitle":{
+    "message":"AdBlock-alternativ",
+    "description":"Title for the options page"
+  },
+  "datacollectionoption":{
+    "message":"Tillåta AdBlock att samla in anonym filteranvändning och data",
+    "description":"Checkbox on the 'General' tab of the Options page"
+  },
+  "catblock_safaributton_how_to_hide2":{
+    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu.",
+    "message":"To hide the button, right click Safari's toolbar and choose Customize Toolbar, then drag the CatBlock button out of the toolbar. You can show it again by dragging it back into the toolbar."
+  },
+  "clickthead":{
+    "message":"Klicka på objektet, så hjälper jag dig igenom blockeringen.",
+    "description":"When you have to click the ad to continue"
+  },
+  "selectlanguage":{
+    "message":"-- Välj språk --",
+    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
+  },
+  "translator_credit":{
+    "message":"Översättning till Svenska:",
+    "description":"Will be followed by a list of translator names (separate string)"
+  },
+  "catblock_safari50_updatenotice":{
+    "description":"A message shown to Safari 5.0 users urging them to upgrade",
+    "message":"You are using an old version of Safari. Get the latest version in order to use the CatBlock toolbar button to pause CatBlock, whitelist websites, and report ads. <a>Upgrade now</a>."
+  },
+  "blacklistereditinvalid1":{
+    "message":"Filtret är ogiltigt: $exception$",
+    "placeholders":{
+      "exception":{
+        "example":"This filter is not supported",
+        "content":"$1"
+      }
+    },
+    "description":"Messagebox if the manually edited filter is invalid. Error messages are not translated."
+  },
+  "blacklisterwarningnofilter":{
+    "message":"<b>OBS!</b> Inget filter specificerat!",
+    "description":"Warns the user that no filter was specified"
+  },
+  "filtereasylist_plus_bulgarian":{
+    "message":"Bulgariska",
+    "description":"language"
+  },
+  "catblock_whitelistertitle2":{
+    "description":"The title of the whitelister dialog",
+    "message":"Don't run CatBlock on..."
+  },
+  "adblock_outdated_chrome":{
+    "message":"Du använder en gammal version av AdBlock. Gå till <a href='#'>the extensions page</a>, bocka i 'Programerarläge' och klicka på 'Uppdatera tillägg nu'",
+    "description":"Ad report page instructions to update AdBlock in Chrome. The link will point to 'chrome://chrome/extensions/'"
+  },
+  "headertype":{
+    "message":"Typ",
+    "description":"Resource list page: title of a column"
+  },
+  "disabled_by_filter_lists":{
+    "message":"Ledsen, men AdBlock är inaktiverat på den här sidan av en av dina filterlistor.",
+    "description":"Message shown when a user tries to unwhitelist a web page that has been whitelisted by a rule in a subscribed filter list"
+  },
+  "catblock_disabled_on_this_page":{
+    "description":"Message shown in toolbar button on web pages that have been whitelisted",
+    "message":"CatBlock is disabled on this page."
+  },
+  "filterdanish":{
+    "message":"Danska",
+    "description":"language"
+  },
+  "buttonedit":{
+    "message":"Redigera",
+    "description":"Edit filter manually button"
+  },
+  "blacklisterblocksalloftype":{
+    "message":"Varning! Detta filter blockerar alla $elementtype$-element på sidan!",
+    "placeholders":{
+      "elementtype":{
+        "example":"DIV",
+        "content":"$1"
+      }
+    },
+    "description":"Warns the user that all elements of type X will be blocked"
+  },
+  "catblock_enable_adblock":{
+    "description":"Link text to un-whitelist a page, displayed immediately after 'CatBlock is disabled on this page'",
+    "message":"Enable CatBlock on this page"
+  },
+  "updatedhoursago":{
+    "message":"Uppdaterades för $hours$ timmar sedan",
+    "placeholders":{
+      "hours":{
+        "example":"15",
+        "content":"$1"
+      }
+    },
+    "description":"Label for subscription"
+  },
+  "tabcustomizetitle":{
+    "message":"Anpassa AdBlock",
+    "description":"Title of the customize tab"
+  },
+  "catblock_adblocksupport":{
+    "description":"Title of the support tab",
+    "message":"CatBlock Support"
+  },
+  "reloadpageafterwhitelist":{
+    "message":"Uppdatera sidan.",
+    "description":"Checkbox on whitelist wizard"
+  },
+  "subscribingfailed":{
+    "message":"Misslyckades!",
+    "description":"abp: link subscriber result"
+  },
+  "disabled_on_this_page":{
+    "message":"AdBlock är inaktiverad på denna sida.",
+    "description":"Message shown in toolbar button on web pages that have been whitelisted"
   },
   "failedtofetchfilter":{
     "message":"Kunde inte hämta detta filter!",
@@ -841,460 +1235,66 @@
     "message":"Filterlistorna blockerar de flesta reklamtillägg på webben.  Du kan också:",
     "description":"Header text on the Customize tab. 'Filter lists' should be the same text as the name of the 'Filter lists' tab."
   },
-  "adblockupdates":{
-    "message":"AdBlock-uppdateringar",
-    "description":"Subtitle on the Support tab of the options"
+  "typesubdocument":{
+    "message":"frame",
+    "description":"A resource type"
   },
-  "adstillappear":{
-    "message":"Är reklamtillägget fortfarande kvar?",
-    "description":"Question on ad report page"
+  "typehiding":{
+    "message":"dold",
+    "description":"A resource type"
   },
-  "show_on_adblock_button":{
-    "message":"Visa antal blockerade reklamtillägg, på AdBlock-ikonen",
-    "description":"Label for checkbox letting user choose whether the toolbar button should show a badge with the number of ads blocked"
+  "debuginfo":{
+    "message":"Har vårt team begärt någon felinformation? Klicka <a href='#' id='debug'> här</a> för det!",
+    "description":"Users can click this link to provide debug information to AdBlock staff"
   },
-  "blacklisterblocksalloftype":{
-    "message":"Varning! Detta filter blockerar alla $elementtype$-element på sidan!",
-    "description":"Warns the user that all elements of type X will be blocked",
-    "placeholders":{
-      "elementtype":{
-        "example":"DIV",
-        "content":"$1"
-      }
-    }
+  "showlinkstolists2":{
+    "message":"Visa länk till filterlistorna",
+    "description":"Option on the 'Filter lists' tab of the Options page"
   },
-  "fixityourself":{
-    "message":"OK, du kan fortfarande blockera reklamen själv på 'Alternativ-sidan'. Tack!",
-    "description":"Telling users who won't report an ad to us how to handle it for themselves"
+  "options":{
+    "message":"Alternativ",
+    "description":"The text of the link on chrome://chrome/extensions that gets you to the Options page for an extension"
   },
-  "you_can_slide_to_change":{
-    "message":"Du kan dra i skjutreglaget för att ändra mer exakt, på vilka sidor AdBlock skall avaktiveras.",
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
+  "filtereasylist_plus_german":{
+    "message":"Tyska",
+    "description":"language"
+  },
+  "subscribebutton":{
+    "message":"Prenumerera",
+    "description":"Subscribe to a list button"
+  },
+  "description2":{
+    "message":"Det mest populära Chrome-tillägget, med över 40 miljoner användare!  Blockerar reklamtillägg över hela webben.",
+    "description":"Extension description in manifest. Should not exceed 132 characters."
+  },
+  "catblock_adblock_click_for_details":{
+    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button.",
+    "message":"CatBlock - click for details"
   },
   "catblock_update_available":{
-    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'.",
     "description":"On the Options > Support page, shows when there are updates available for CatBl",
     "placeholders":{
       "here":{
         "example":"<a>here</a>",
         "content":"<a id='here'></a>"
       }
-    }
+    },
+    "message":"There's an update for CatBlock! Go $here$ to update. <br> Note: If you want to receive updates automatically, just click on Safari > Preferences > Extensions > Updates <br> and check option 'Install updates automatically'."
   },
-  "filtereasylist_plus_french":{
-    "message":"Franska",
-    "description":"language"
+  "catblock_unpause_adblock":{
+    "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'",
+    "message":"Unpause CatBlock"
   },
-  "storage_quota_exceeded":{
-    "message":"Du har överskridit den maximala mängden lagringsutrymme som AdBlock kan använda. Avsluta prenumerationen på en eller flera filterlistor!",
-    "description":"Message shown when the user uses more storage than allowed by the browser"
-  },
-  "show_ads_except_for":{
-    "message":"Visa reklamtillägg <i>överallt</i> utom på dessa domäner...",
-    "description":"Section title for blacklisting section of Customize tab"
-  },
-  "findingads":{
-    "message":"Söker reklamtillägg...<br/><br/><i>Det tar bara ett ögonblick!</i>",
-    "description":"When you press ctrl-shift-K the blacklister searches for ads"
-  },
-  "checkinfirefox_3":{
-    "message":"I den webbläsaren prenumererar du på samma filterlistor som du har här.",
-    "description":"Instruction for how to check Firefox/Chrome for a reported ad"
-  },
-  "only_block_ads_on_these_sites":{
-    "message":"Blockera reklamtillägg, endast på dessa sidor:",
-    "description":"Label for textbox where user enters a list of sites on Customize tab"
-  },
-  "subscribebutton":{
-    "message":"Prenumerera",
-    "description":"Subscribe to a list button"
-  },
-  "catblock_wizardcantrunonframesets":{
-    "message":"This feature does not work on this site because it uses out of date technology. You can blacklist or whitelist resources manually in the 'Customize' tab of the options page.",
-    "description":"Message (alert) shown when the user tries to use a blacklist/whitelist wizard on an old website"
-  },
-  "catblock_safarinotificationbody":{
-    "message":"Please disable some filter lists. More information in CatBlock's Options.",
-    "description":"Body of a notification shown to Safari Content Blocking users with too many filter list rules"
-  },
-  "filterchinese":{
-    "message":"Kinesiska",
-    "description":"language"
-  },
-  "filterstabtitle":{
-    "message":"Prenumerera på filterlistor",
-    "description":"Title of the filter list tab"
-  },
-  "advanced_options2":{
-    "message":"Jag är avancerad användare, visa avancerade alternativ",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "typeunknown":{
-    "message":"okänd",
-    "description":"A resource type"
-  },
-  "typemedia":{
-    "message":"audio/video",
-    "description":"A resource type"
-  },
-  "linkblockadbyurl":{
-    "message":"Blockera ett reklamtillägg via URL",
-    "description":"Link on the 'Customize' tab"
-  },
-  "debuginfo":{
-    "message":"Har vårt team begärt någon felinformation? Klicka <a href='#' id='debug'> här</a> för det!",
-    "description":"Users can click this link to provide debug information to AdBlock staff"
-  },
-  "undo_last_block":{
-    "message":"Ångra mina blockeringar på denna domän",
-    "description":"Menu entry to let the user cancel the result of running the blacklist wizard"
-  },
-  "filtereasylist_plus_bulgarian":{
-    "message":"Bulgariska",
-    "description":"language"
-  },
-  "report_ad_on_page":{
-    "message":"Rapportera ett tillägg på den här sidan",
-    "description":"Entry in the AdBlock button menu"
-  },
-  "selectlanguage":{
-    "message":"-- Välj språk --",
-    "description":"Text for the first option in Langage Dropdown for Filter Lists tab in options. Include the ' -- ' on either side of your translation."
-  },
-  "no":{
-    "message":"Nej",
-    "description":"A negative response to a question"
-  },
-  "sliderexplanation":{
-    "message":"Dra i skjutreglaget tills reklamen är korrekt blockerad, och sidan förövrigt ser använbar ut.",
-    "description":"Blacklister slider page message"
-  },
-  "customfilters":{
-    "message":"Anpassade filterlistor",
-    "description":"List for custom filters the user subscribed to"
-  },
-  "block_this_ad":{
-    "message":"Blockera det här reklamtillägget",
-    "description":"Context and popup menu entry"
-  },
-  "contributors":{
-    "message":"Vi har också en <a>sida</a> som presenterar människorna bakom AdBlock!",
-    "description":"Link to the contributors page on the Support tab of the options"
-  },
-  "typehiding":{
-    "message":"dold",
-    "description":"A resource type"
-  },
-  "updatedsecondsago":{
-    "message":"Uppdaterades för $seconds$ sekunder sedan",
-    "description":"Label for subscription",
-    "placeholders":{
-      "seconds":{
-        "example":"15",
-        "content":"$1"
-      }
-    }
-  },
-  "oradblockforchrome":{
-    "message":"eller AdBlock för Chrome",
-    "description":"Used for placeholder in checkinfirefox_2 string"
-  },
-  "typeobject":{
-    "message":"interaktivt objekt",
-    "description":"A resource type"
-  },
-  "operabutton_how_to_hide2":{
-    "message":"Om du vill dölja knappen, gå till 'opera://extensions' och markera alternativet \"Dölj verktygsfältet\". Du kan visa den igen genom att avmarkera alternativet.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Hide Button' should match the text that Opera displays on the Extensions page."
-  },
-  "allow_whitelisting_youtube_channels":{
-    "message":"Tillåt vitlistning av specifika YouTube-kanaler",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "blocked_n_on_this_page":{
-    "message":"$count$ på den här sidan",
-    "description":"Shown below the 'Blocked ads:' message. Shows the number of ads blocked on this page. $count$ will be a number between 1 and 999.",
-    "placeholders":{
-      "count":{
-        "example":"The number of ads blocked. Do not make any changes to this placeholder when translating.",
-        "content":"<a>123</a>"
-      }
-    }
-  },
-  "blocked_ads":{
-    "message":"Blockerade tillägg:",
-    "description":"Title for popup menu section showing number of ads blocked"
-  },
-  "description2":{
-    "message":"Det mest populära Chrome-tillägget, med över 40 miljoner användare!  Blockerar reklamtillägg över hela webben.",
-    "description":"Extension description in manifest. Should not exceed 132 characters."
-  },
-  "catblock_latest_version":{
-    "message":"CatBlock is up-to-date!",
-    "description":"On the Options > Support page, shows when there are no updates available for CatBlock"
+  "blacklisternofilter":{
+    "message":"Inget filter specificerat!",
+    "description":"Warning if the user hasn't specified a filter"
   },
   "typesub_frame":{
     "message":"frame",
     "description":"A resource type"
   },
-  "blockdomain":{
-    "message":"Domän som skall filtreras",
-    "description":"Message of the url and css -blocking area"
-  },
-  "catblock_malwarenotificationmessage":{
-    "message":"CatBlock has blocked a download from a site known to host malware.",
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
-  },
-  "filtereasylist":{
-    "message":"EasyList (Rekommenderas)",
-    "description":"A filter list"
-  },
-  "blacklisterattrwillbe":{
-    "message":"$attribute$ är $value$",
-    "description":"Checkbox label",
-    "placeholders":{
-      "attribute":{
-        "example":"class",
-        "content":"$1"
-      },
-      "value":{
-        "example":"AdBanner",
-        "content":"$2"
-      }
-    }
-  },
-  "blacklisternotsure":{
-    "message":"<b>Osäker?</b> Tryck bara 'Blockera'.",
-    "description":"Blacklister attribute choosing page message"
-  },
-  "typexmlhttprequest":{
-    "message":"xmlhttprequest",
+  "typeunknown":{
+    "message":"okänd",
     "description":"A resource type"
-  },
-  "show_on_adblock_menu":{
-    "message":"Visa antal blockerade reklamtillägg, på AdBlock-menyn",
-    "description":"Label for checkbox letting user choose whether the AdBlock popup menu should show the number of ads blocked"
-  },
-  "hide_this_button":{
-    "message":"Dölj knapp",
-    "description":"Toolbar button menu entry to hide the AdBlock button"
-  },
-  "unpause_adblock":{
-    "message":"Återaktivera AdBlock",
-    "description":"Link text to unpause AdBlock, displayed immediately after 'AdBlock is paused'"
-  },
-  "catblock_searchresources":{
-    "message":"A text shown on Resources viewer page",
-    "description":"Search resources by URL:"
-  },
-  "disableforchromeandsafaristeptwo":{
-    "message":"Avaktivera alla tillägg <b>utom</b> AdBlock. <b>Lämna AdBlock aktiverat</b>.",
-    "description":"Step 2 for disabling Chrome and Safari extensions"
-  },
-  "blacklisteroptionstitle":{
-    "message":"Sista steget: Vad gör det här till ett reklamtillägg?",
-    "description":"Blacklister options page title"
-  },
-  "catblock_safaricontentblockingpausemessage":{
-    "message":"To pause CatBlock with Content Blocking enabled, please select Safari (in the menu bar) > Preferences > Extensions > CatBlock, and uncheck 'Enable CatBlock'.",
-    "description":"Alert displayed after clicking 'Pause AdBlock' in the AdBlock menu while Safari Content blocking is enabled"
-  },
-  "catblock_excludedomainorurl":{
-    "message":"The domain or url where CatBlock shouldn't block anything",
-    "description":"Message of the exclude area"
-  },
-  "latest_version":{
-    "message":"AdBlock är uppdaterad!",
-    "description":"On the Options > Support page, shows when there are no updates available for AdBlock"
-  },
-  "filterrussian":{
-    "message":"Ryska och Ukrainska",
-    "description":"Language names for a filter list"
-  },
-  "updatedrightnow":{
-    "message":"Uppdaterades just nu",
-    "description":"Label for subscription"
-  },
-  "tabcustomizetitle":{
-    "message":"Anpassa AdBlock",
-    "description":"Title of the customize tab"
-  },
-  "catblock_malwarenotificationcheckboxmessage":{
-    "message":"Should CatBlock notify you when it detects malware?",
-    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
-  },
-  "subscribingfinished":{
-    "message":"Slutförd!",
-    "description":"abp: link subscriber result"
-  },
-  "filterisraeli":{
-    "message":"Hebreiska",
-    "description":"language"
-  },
-  "catblock_unpause_adblock":{
-    "message":"Unpause CatBlock",
-    "description":"Link text to unpause CatBlock, displayed immediately after 'CatBlock is paused'"
-  },
-  "pagelanguagecheck":{
-    "message":"På vilket språk är sidan skriven?",
-    "description":"Question on ad report page"
-  },
-  "filterlistlink":{
-    "message":"Prenumerera inte på mer än du behöver -- Varje lista gör webbläsaren en liten aning långsammare! Listornas ursprung, och fler listor hittas <a>här</a>.",
-    "description":"Explanation of the filter lists"
-  },
-  "linkhidesection":{
-    "message":"Dölj delar av en webbsida",
-    "description":"Link on the 'Customize' tab"
-  },
-  "clickdisableotherextensions":{
-    "message":"<b>ELLER</b>klicka bara på denna knapp, så sköter vi allt ovanstående: <a>Inaktivera alla andra tillägg</a>",
-    "description":"On the ad report page, an alternative way to disable other extensions"
-  },
-  "subscribeconfirm":{
-    "message":"Vill du verkligen prenumerera på filterlistan $title$?",
-    "description":"Prompt question before subscribing to the filter list",
-    "placeholders":{
-      "title":{
-        "example":"Prebake",
-        "content":"$1"
-      }
-    }
-  },
-  "blacklisterblockedelement":{
-    "message":"Blockerade element:",
-    "description":"Tells the user what the blocked element is on the slider page"
-  },
-  "whitelistertitle2":{
-    "message":"Avaktivera AdBlock på...",
-    "description":"The title of the whitelister dialog"
-  },
-  "filtersavewarning":{
-    "message":"<b>Varning!</b> Ett misstag här, kan resultera i att andra filter, inklusive dom officiella, kan förstöras!<br/>Läs '<a>syntax-guiden</a>' för att lära hur man skapar avancerade svart- och vitlistor.",
-    "description":"Warning when blacklisting manually"
-  },
-  "block_an_ad_on_this_page":{
-    "message":"Blockera ett objekt på denna sida",
-    "description":"Toolbar button menu entry and context menu entry"
-  },
-  "catblock_you_can_slide_to_change":{
-    "message":"You can slide below to change exactly what pages CatBlock won't run on.",
-    "description":"Instructions for how to use the whitelister slider controls. Sometimes only one slider will show, and sometimes two will show, and if possible the text should handle both cases."
-  },
-  "catblock_pause_adblock":{
-    "message":"Pause CatBlock",
-    "description":"Menu entry to pause CatBlock"
-  },
-  "blockurlwithtext":{
-    "message":"Blockera URL:er innehållande den här texten",
-    "description":"Message of the url-blocking area"
-  },
-  "foundbug":{
-    "message":"Hittat ett fel?",
-    "description":"Subtitle on the Support tab of the options"
-  },
-  "otherfilters":{
-    "message":"Andra filterlistor",
-    "description":"List for other filters the user subscribed to"
-  },
-  "blacklistclickmessage":{
-    "message":"Högerklicka ett reklamtillägg på en sida för att blockera det -- eller blockera det manuellt här.",
-    "description":"Message at the top of the blacklist options tab"
-  },
-  "unsubscribedlabel":{
-    "message":"Prenumeration avslutad.",
-    "description":"Status label"
-  },
-  "clickupdatefilters":{
-    "message":"Klick här: <a>Uppdatera mina filter!</a>",
-    "description":"Instruction on ad report page"
-  },
-  "modifydomain":{
-    "message":"Domän:",
-    "description":"Caption for the whitelist wizard slider that modifies the domain part of a URL"
-  },
-  "you_know_thats_a_bad_idea_right":{
-    "message":"Ju fler filterlistor du använder, dessto långsammare arbetar AdBlock.  För många listor kan även få din webbläsare att krascha på vissa sidor.  Tryck 'OK' för att prenumerera i alla fall.",
-    "description":"Confirmation message shown to user if they try to subscribe to too many lists. The user will have two options: OK and Cancel."
-  },
-  "catblock_storage_quota_exceeded":{
-    "message":"You exceeded the amount of storage CatBlock can use. Please unsubscribe from some filter lists!",
-    "description":"Message shown when the user uses more storage than allowed by the browser"
-  },
-  "enableotherextensionscomplete":{
-    "message":"Tilläggen som tidigare inaktiverades, har nu återaktiverats.",
-    "description":"On the ad report page, alert notifying users that we've re-enabled extensions that were previously disabled"
-  },
-  "malwarenotificationmessage":{
-    "message":"AdBlock har blockerat en nedladdning från en plats, känd för skadlig kod.",
-    "description":"Notification when a malware request has been blocked. This message should be under 90 characters!"
-  },
-  "reloadadpage":{
-    "message":"Uppdatera sidan med reklamen.",
-    "description":"Instruction on ad report page"
-  },
-  "showcontextmenus2":{
-    "message":"Lägg till AdBlock i högerklickmenyn",
-    "description":"Checkbox on the 'General' tab of the Options page"
-  },
-  "catblock_check_checkbox":{
-    "message":"Check the checkbox by the sets of pictures that you want to use.",
-    "description":"Shown on the CatBlock tab on the options page. Don't translate the word CatBlock."
-  },
-  "spread_the_word":{
-    "message":"Hjälp till att sprida budskapet!",
-    "description":"Text of a share link"
-  },
-  "subscribingfailed":{
-    "message":"Misslyckades!",
-    "description":"abp: link subscriber result"
-  },
-  "malwarenotificationcheckboxmessage":{
-    "message":"Vill du att AdBlock skall meddela dig när den upptäcker skadlig kod?",
-    "description":"Checkbox displayed when subscribing to the Malware filter list on the Filter lists tab of the Options page"
-  },
-  "catblock_options":{
-    "message":"CatBlock Options",
-    "description":"Title of the CatBlock options page tab"
-  },
-  "status_paused":{
-    "message":"AdBlock är pausad.",
-    "description":"Message shown in toolbar button when AdBlock is paused"
-  },
-  "translator_credit":{
-    "message":"Översättning till Svenska:",
-    "description":"Will be followed by a list of translator names (separate string)"
-  },
-  "showlinkstolists2":{
-    "message":"Visa länk till filterlistorna",
-    "description":"Option on the 'Filter lists' tab of the Options page"
-  },
-  "safaributton_how_to_hide2":{
-    "message":"Om du vill dölja knappen, högerklicka på Safaris verktygsfält och välj \"Anpassa verktygsfältet\". Dra sedan AdBlock-knappen bort från verktygsfältet. Du kan visa den igen genom att dra den tillbaka in i verktygsfältet.",
-    "description":"Message explaining how to hide the AdBlock toolbar button. 'Customize Toolbar' should match the text that Safari displays in the toolbar's context menu."
-  },
-  "blacklistertype":{
-    "message":"Typ",
-    "description":"node name is called 'Type'"
-  },
-  "optionstitle":{
-    "message":"AdBlock-alternativ",
-    "description":"Title for the options page"
-  },
-  "filtereasylist_plus_greek":{
-    "message":"Grekiska",
-    "description":"language"
-  },
-  "slidertitle":{
-    "message":"Steg 1: Ta reda på vad som skall blockeras",
-    "description":"Blacklister slider page title"
-  },
-  "catblock_adblock_click_for_details":{
-    "message":"CatBlock - click for details",
-    "description":"Tooltip on the AdBlock button, to help users understand that they can click the button, and that they can control the number badge that appears on the button."
-  },
-  "filtereasylist_plus_finnish":{
-    "message":"Finska",
-    "description":"language"
   }
 }
