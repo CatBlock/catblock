@@ -39,48 +39,22 @@ $("#reload").on("click", function() {
 // Convert element type to request type
 function reqTypeForElement(elType) {
     switch (parseInt(elType)) {
-        case 1:    return "script";
-        case 2:    return "image";
-        case 4:    return "stylesheet";
-        case 8:    return "object";
-        case 16:   return "subdocument";
-        case 32:   return "object_subrequest";
-        case 64:   return "other";
-        case 128:  return "xmlhttprequest";
-        case 256:  return "document";
-        case 512:  return "elemhide";
+        case 1: return "script";
+        case 2: return "image";
+        case 4: return "stylesheet";
+        case 8: return "object";
+        case 16: return "subdocument";
+        case 32: return "object_subrequest";
+        case 64: return "other";
+        case 128: return "xmlhttprequest";
+        case 256: return "document";
+        case 512: return "elemhide";
         case 1024: return "popup";
         case 2048: return "ping";
         case 4096: return "media";
-        default:   return "selector";
+        default: return "selector";
     }
 }
-
-// Fill in frame URLs into frame selector
-function prepopulateTabSelect() {
-    // Remove all frame options
-    $("#tab").find("option").remove();
-
-    chrome.tabs.query({}, function(tabs) {
-        // Create an option for every tab
-        for (let tab of tabs) {
-            if (tab.url === document.location.href) {
-                continue;
-            }
-            createTable(tab.id);
-            $("#tab").append($("<option>", { value: tab.id, text: tab.title }));
-        }
-
-        // Append a table, where ALL requests will be visible from ALL pages
-        $("#tab").prepend($("<option>", { value: 0, text: translate("catblock_allrequests") }));
-        createTable(0);
-
-        // Select tab
-        $("#tab").val(0);
-        $("#tab").change();
-    });
-}
-prepopulateTabSelect();
 
 // Create a new table for a given tabId
 function createTable(id) {
@@ -144,7 +118,7 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
             // Find out, whether resource has been blocked/whitelisted,
             // if so, get the matching filter and filter list,
             // where is the matching filter coming from
-            chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+            chrome.runtime.onMessage.addListener(function(request, sender) {
                 if (request.command !== "send-request") {
                     return;
                 }
@@ -327,6 +301,32 @@ function addRequestToTable(request) {
     // and to the ALL requests table
     $("table[data-tabid='" + request.tabId + "'], table[data-tabid='0']").prepend(row);
 }
+
+// Fill in frame URLs into frame selector
+function prepopulateTabSelect() {
+    // Remove all frame options
+    $("#tab").find("option").remove();
+
+    chrome.tabs.query({}, function(tabs) {
+        // Create an option for every tab
+        for (let tab of tabs) {
+            if (tab.url === document.location.href) {
+                continue;
+            }
+            createTable(tab.id);
+            $("#tab").append($("<option>", { value: tab.id, text: tab.title }));
+        }
+
+        // Append a table, where ALL requests will be visible from ALL pages
+        $("#tab").prepend($("<option>", { value: 0, text: translate("catblock_allrequests") }));
+        createTable(0);
+
+        // Select tab
+        $("#tab").val(0);
+        $("#tab").change();
+    });
+}
+prepopulateTabSelect();
 
 // When new tab gets opened, create a table for it
 // and add it to the tab selector
