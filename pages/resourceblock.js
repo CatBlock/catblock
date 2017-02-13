@@ -172,7 +172,11 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
                                 for (var i=0; i<filterListText.length; i++) {
                                     var filterls = filterListText[i];
                                     if (filterls === filter) {
-                                        request.data.matchData.filterList = filterList;
+                                        if (filterList.startsWith("url:http")) {
+                                            request.data.matchData.filterList = filterLists[filterList].title;
+                                        } else {
+                                            request.data.matchData.filterList = filterList;
+                                        }
                                         shouldBreak = true;
                                         break;
                                     }
@@ -207,7 +211,11 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
                                     // Filter is a global selector filter (without any domain prefix)
                                     // E.g.: ###ads
                                     if (filterDomains === "" && filter === request.data.url) {
-                                        request.data.matchData.filterList = filterList;
+                                        if (filterList.startsWith("url:http")) {
+                                            request.data.matchData.filterList = filterLists[filterList].title;
+                                        } else {
+                                            request.data.matchData.filterList = filterList;
+                                        }
                                         request.data.matchData.text = filter;
                                         shouldBreak = true;
                                         break;
@@ -224,7 +232,11 @@ BGcall("storage_get", "filter_lists", function(filterLists) {
                                                 if (filterDomains !== "") {
                                                     filter = frameDomain + request.data.url;
                                                 }
-                                                request.data.matchData.filterList = filterList;
+                                                if (filterList.startsWith("url:http")) {
+                                                    request.data.matchData.filterList = filterLists[filterList].title;
+                                                } else {
+                                                    request.data.matchData.filterList = filterList;
+                                                }
                                                 request.data.matchData.text = filter;
                                                 shouldBreak = true;
                                             }
@@ -275,7 +287,20 @@ function addRequestToTable(request) {
     if (request.matchData && request.matchData.text && request.matchData.filterList) {
         $("<span>").
         text(request.matchData.text).
-        attr("title", translate("filterorigin", translate("filter" + request.matchData.filterList))).
+        attr("title", function() {
+            if (request.matchData.filterList === "Custom") {
+                return translate("filterorigin", translate("catblock_customfilters"));
+            } else {
+                let text = translate("filter" + request.matchData.filterList);
+
+                // Text may be "", when filter list is a custom one added by an user
+                if (text === "") {
+                    return translate("filterorigin", request.matchData.filterList);
+                } else {
+                    return translate("filterorigin", translate("filter" + request.matchData.filterList));
+                }
+            }
+        }).
         appendTo(cell);
     }
     row.append(cell);
