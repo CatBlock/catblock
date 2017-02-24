@@ -306,7 +306,18 @@ class BlacklistUi {
         var attrs = ["id", "class", "name", "src", "href", "data"];
         for (var i in attrs) {
             if ($("input[type='checkbox']#ck" + attrs[i], detailsDiv).is(":checked")) {
-                result.push("[" + attrs[i] + "=" + new parseURI(JSON.stringify(el.attr(attrs[i]))).href + "]");
+
+                let data = JSON.stringify(el.attr(attrs[i]));
+
+                function isURL(data) {
+                    return data.indexOf("http://") > -1 || data.indexOf("https://") > -1
+                }
+
+                if (isURL(data)) {
+                    result.push("[" + attrs[i] + "=" + new parseURI(data).href + "]");
+                } else {
+                    result.push("[" + attrs[i] + "=" + data + "]");
+                }
             }
         }
 
@@ -436,14 +447,17 @@ class BlacklistUi {
     //         size?:int - max size above which to truncate, defaults to 50
     static _ellipsis(value, size) {
         if (!value) {
-            return value;
+            return undefined;
         }
 
         if (size === undefined) {
             size = 50;
         }
 
-        value = new parseURI(value).href;
+        // If we are processing an URL, convert it from punycode to Unicode
+        if (value.indexOf("http://") > -1 || value.indexOf("https://") > -1) {
+            value = new parseURI(value).href;
+        }
 
         var half = size / 2 - 2; // With ellipsis, the total length will be ~= size
 

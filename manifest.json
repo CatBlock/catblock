@@ -23,9 +23,9 @@
     "content_scripts": [
         {
             "matches": [
+                "*://*.facebook.com/*",
                 "*://*.mail.live.com/*",
                 "*://*.mastertoons.com/*",
-                "*://*.getadblock.com/*",
                 "*://*.mobilmania.cz/*",
                 "*://*.zive.cz/*",
                 "*://*.doupe.cz/*",
@@ -65,7 +65,7 @@
         }
     ],
     "incognito": "spanning",
-    "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; frame-src 'self'; img-src *; script-src 'unsafe-eval';",
+    "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src *; img-src *;",
     "default_locale": "en",
     "manifest_version": 2,
     "options_page": "options/index.html",
