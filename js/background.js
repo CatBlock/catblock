@@ -1038,7 +1038,7 @@ function add_custom_filter(filter) {
 // Injects jQuery UI
 function injectjQueryUI() {
     if (SAFARI) {
-        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "lib/jquery-ui.custom.min.js", [], [], false);
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "lib/jquery-ui.min.js", [], [], false);
         return true;
     }
 }
@@ -1125,7 +1125,7 @@ if (!SAFARI) {
                 include: [
                     "lib/punycode.min.js",
                     "lib/jquery.min.js",
-                    "lib/jquery-ui.custom.min.js",
+                    "lib/jquery-ui.min.js",
                     "uiscripts/load_jquery_ui.js",
                     "uiscripts/top_open_whitelist_ui.js"
                 ]
@@ -1135,7 +1135,7 @@ if (!SAFARI) {
                 include: [
                     "lib/punycode.min.js",
                     "lib/jquery.min.js",
-                    "lib/jquery-ui.custom.min.js",
+                    "lib/jquery-ui.min.js",
                     "uiscripts/load_jquery_ui.js",
                     "uiscripts/blacklisting/overlay.js",
                     "uiscripts/blacklisting/clickwatcher.js",
