@@ -307,16 +307,16 @@ class BlacklistUi {
         for (var i in attrs) {
             if ($("input[type='checkbox']#ck" + attrs[i], detailsDiv).is(":checked")) {
 
-                let data = JSON.stringify(el.attr(attrs[i]));
+                let data = el.attr(attrs[i]);
 
                 function isURL(data) {
                     return data.indexOf("http://") > -1 || data.indexOf("https://") > -1
                 }
 
                 if (isURL(data)) {
-                    result.push("[" + attrs[i] + "=" + new parseURI(data).href + "]");
+                    result.push("[" + attrs[i] + "=" + JSON.stringify(new parseURI(data).href) + "]");
                 } else {
-                    result.push("[" + attrs[i] + "=" + data + "]");
+                    result.push("[" + attrs[i] + "=" + JSON.stringify(data) + "]");
                 }
             }
         }
