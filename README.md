@@ -18,7 +18,7 @@ AdBlock has recently switched to the Adblock Plus codebase in version 3.0, but i
 
 ## Installation
 CatBlock is available in [Chrome Web Store](https://chrome.google.com/webstore/detail/catblock/mdcgnhlfpnbeieiiccmebgkfdebafodo),
-[Opera Extensions Store](https://addons.opera.com/sk/extensions/details/adblock-with-catblock/?display=en) and [Firefox Addons Store](https://addons.mozilla.org/en/firefox/addon/adblock-with-catblock/).
+[Opera Extensions Store](https://addons.opera.com/sk/extensions/details/catblock/?display=en) and [Firefox Addons Store](https://addons.mozilla.org/en/firefox/addon/adblock-with-catblock/).
 
 Right now, CatBlock is not available in the [Safari Extensions Store](https://safari-extensions.apple.com), or in the [Windows Store](https://www.microsoft.com/en-us/windows/windows-10-apps), but we are looking into releasing CatBlock there as well!
 
