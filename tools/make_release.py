@@ -124,9 +124,12 @@ def main():
     # Selenium testing - enabled only on Travis-CI
     def runUnitTests(browser):
 
+        # Currently, we are not running tests for other browsers than Chrome
+        if browser != "Chrome":
+            return
+
         # Making catblock-chrome.zip file available in PRs coming from forks
-        if browser == "Chrome":
-            shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
+        shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
         if os.environ.get("BS_API") == None:
             return print("  - Running QUnit tests on BrowserStack... N/A in PRs coming from forks.")
