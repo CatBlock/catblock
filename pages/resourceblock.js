@@ -362,4 +362,4 @@ $("span.whitelisted").text(translate("whitelistedresource"));
 $("span.hiding").text(translate("hiddenelement"));
 
 // Show us the legend and search
-$("#legend, #tabselect, #searchresources").fadeIn();
+$("#legend, #note, #tabselect, #searchresources").fadeIn();
