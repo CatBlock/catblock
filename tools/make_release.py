@@ -124,15 +124,24 @@ def main():
     # Selenium testing - enabled only on Travis-CI
     def runUnitTests(browser):
 
-        if os.environ.get("TRAVIS") != None and browser == "Chrome" and os.environ.get("BS_API") != None:
+        # Currently, we are not running tests for other browsers than Chrome
+        if browser != "Chrome":
+            return
+
+        # Making catblock-chrome.zip file available in PRs coming from forks
+        shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
+
+        # BS_API key is not exported in build process for forks
+        if os.environ.get("BS_API") == None and os.environ.get("TRAVIS") != None:
+            return print("  - Running QUnit tests on BrowserStack... N/A in PRs coming from forks.")
+
+        if os.environ.get("TRAVIS") != None:
 
             from selenium import webdriver
             from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
             import time
 
             print("  - Running QUnit tests on BrowserStack...", end="")
-
-            shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
             chop = webdriver.ChromeOptions()
             chop.add_extension("catblock-chrome.zip")
