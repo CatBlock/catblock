@@ -52,6 +52,8 @@ function reqTypeForElement(elType) {
         case 1024: return "popup";
         case 2048: return "ping";
         case 4096: return "media";
+        case 8192: return "genericblock";
+        case 16384: return "generichide";
         case 32768: return "websocket";
         default: return "selector";
     }

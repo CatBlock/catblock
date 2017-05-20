@@ -2,92 +2,92 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Author</key>
-	<string>CatBlock Team</string>
-	<key>Builder Version</key>
-	<string>12603.1.20.1</string>
-	<key>CFBundleDisplayName</key>
-	<string>CatBlock</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.catblock.adblockwithcatblock</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.5.0</string>
-	<key>CFBundleVersion</key>
-	<string>101.5.0</string>
-	<key>Chrome</key>
-	<dict>
-		<key>Global Page</key>
-		<string>background_safari.html</string>
-		<key>Toolbar Items</key>
-		<array>
-			<dict>
-				<key>Command</key>
-				<string></string>
-				<key>Identifier</key>
-				<string>CatBlockOptions</string>
-				<key>Image</key>
-				<string>img/icon16_grayscale.png</string>
-				<key>Label</key>
-				<string>Options</string>
-				<key>Palette Label</key>
-				<string></string>
-				<key>Tool Tip</key>
-				<string>CatBlock Options</string>
-			</dict>
-		</array>
-	</dict>
-	<key>Content</key>
-	<dict>
-		<key>Scripts</key>
-		<dict>
-			<key>End</key>
-			<array>
-				<string>lib/punycode.min.js</string>
-				<string>uiscripts/load_jquery_ui.js</string>
-				<string>uiscripts/blacklisting/rightclick_hook.js</string>
-				<string>uiscripts/blacklisting/overlay.js</string>
-				<string>uiscripts/blacklisting/clickwatcher.js</string>
-				<string>uiscripts/blacklisting/elementchain.js</string>
-				<string>uiscripts/blacklisting/blacklistui.js</string>
-				<string>uiscripts/send_content_to_back.js</string>
-				<string>uiscripts/top_open_blacklist_ui.js</string>
-				<string>uiscripts/top_open_whitelist_ui.js</string>
-				<string>uiscripts/safari_hooks.js</string>
-			</array>
-			<key>Start</key>
-			<array>
-				<string>lib/jquery.min.js</string>
-				<string>js/port.js</string>
-				<string>js/functions.js</string>
-				<string>filtering/filteroptions.js</string>
-				<string>js/bandaids.js</string>
-				<string>js/adblock_start_common.js</string>
-				<string>js/adblock_start_safari.js</string>
-				<string>catblock/contentscript.js</string>
-			</array>
-		</dict>
-	</dict>
-	<key>Description</key>
-	<string>CatBlock is like an ad blocker, but instead of blocking ads it shows you pictures of cats (configurable)</string>
-	<key>DeveloperIdentifier</key>
-	<string>WJ8AQBVVRG</string>
-	<key>ExtensionInfoDictionaryVersion</key>
-	<string>1.0</string>
-	<key>Permissions</key>
-	<dict>
-		<key>Website Access</key>
-		<dict>
-			<key>Include Secure Pages</key>
-			<true/>
-			<key>Level</key>
-			<string>All</string>
-		</dict>
-	</dict>
-	<key>Update From Gallery</key>
-	<true/>
-	<key>Website</key>
-	<string>http://catblock.tk</string>
+    <key>Author</key>
+    <string>CatBlock Team</string>
+    <key>Builder Version</key>
+    <string>12602.4.8</string>
+    <key>CFBundleDisplayName</key>
+    <string>CatBlock</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.catblock.adblockwithcatblock</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.5.1</string>
+    <key>CFBundleVersion</key>
+    <string>101.5.1</string>
+    <key>Chrome</key>
+    <dict>
+        <key>Global Page</key>
+        <string>background_safari.html</string>
+        <key>Toolbar Items</key>
+        <array>
+            <dict>
+                <key>Command</key>
+                <string></string>
+                <key>Identifier</key>
+                <string>CatBlockOptions</string>
+                <key>Image</key>
+                <string>img/icon16_grayscale.png</string>
+                <key>Label</key>
+                <string>Options</string>
+                <key>Palette Label</key>
+                <string></string>
+                <key>Tool Tip</key>
+                <string>CatBlock Options</string>
+            </dict>
+        </array>
+    </dict>
+    <key>Content</key>
+    <dict>
+        <key>Scripts</key>
+        <dict>
+            <key>End</key>
+            <array>
+                <string>lib/punycode.min.js</string>
+                <string>uiscripts/load_jquery_ui.js</string>
+                <string>uiscripts/blacklisting/rightclick_hook.js</string>
+                <string>uiscripts/blacklisting/overlay.js</string>
+                <string>uiscripts/blacklisting/clickwatcher.js</string>
+                <string>uiscripts/blacklisting/elementchain.js</string>
+                <string>uiscripts/blacklisting/blacklistui.js</string>
+                <string>uiscripts/send_content_to_back.js</string>
+                <string>uiscripts/top_open_blacklist_ui.js</string>
+                <string>uiscripts/top_open_whitelist_ui.js</string>
+                <string>uiscripts/safari_hooks.js</string>
+            </array>
+            <key>Start</key>
+            <array>
+                <string>lib/jquery.min.js</string>
+                <string>js/port.js</string>
+                <string>js/functions.js</string>
+                <string>filtering/filteroptions.js</string>
+                <string>js/bandaids.js</string>
+                <string>js/adblock_start_common.js</string>
+                <string>js/adblock_start_safari.js</string>
+                <string>catblock/contentscript.js</string>
+            </array>
+        </dict>
+    </dict>
+    <key>Description</key>
+    <string>CatBlock is like an ad blocker, but instead of blocking ads it shows you pictures of cats (configurable)</string>
+    <key>DeveloperIdentifier</key>
+    <string>WJ8AQBVVRG</string>
+    <key>ExtensionInfoDictionaryVersion</key>
+    <string>1.0</string>
+    <key>Permissions</key>
+    <dict>
+        <key>Website Access</key>
+        <dict>
+            <key>Include Secure Pages</key>
+            <true/>
+            <key>Level</key>
+            <string>All</string>
+        </dict>
+    </dict>
+    <key>Update From Gallery</key>
+    <true/>
+    <key>Website</key>
+    <string>https://getcatblock.com</string>
 </dict>
 </plist>

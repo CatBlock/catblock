@@ -346,7 +346,20 @@ if (!SAFARI) {
         // May the URL be loaded by the requesting frame?
         var frameDomain = frameData.get(tabId, requestingFrameId).domain;
 
-        var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain);
+        // If |matchGeneric| is null, test request against blocking generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(top_frame.url, ElementTypes.genericblock, top_frame.url);
+
+        if (details.frameId !== 0) {
+            if (!matchGeneric) {
+                // When genericblock doesn't apply to the top frame,
+                // check, whether it applies to the current sub frame
+                matchGeneric = _myfilters.blocking.whitelist.matches(sub_frame.url, ElementTypes.genericblock, sub_frame.url);
+            }
+        }
+
+        var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric, top_frame.domain);
+
+        // Should we block this URL?
         var blocked = blockedData.blocked;
 
         if (get_settings().show_advanced_options) {
@@ -411,7 +424,12 @@ if (!SAFARI) {
 
         var url = new parseURI(details.url).href;
 
-        var matchData = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
+        // If |matchGeneric| is null, test request against blocking generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(url, ElementTypes.genericblock, url);
+
+        var matchData = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain, false, false, matchGeneric, null);
+
+        // Should we block this popup?
         var match = matchData.blocked;
 
         if (match) {
@@ -1012,9 +1030,11 @@ if (!SAFARI) {
                 );
             });
 
-            addMenu(translate("options"), function() {
-                openTab("options/index.html");
-            });
+            if (!CHROME && !OPERA) {
+                addMenu(translate("options"), function() {
+                    openTab("options/index.html");
+                });
+            }
 
             var host = new parseURI(info.tab.unicodeUrl).hostname;
             var custom_filter_count = count_cache.getCustomFilterCount(host);
@@ -1085,7 +1105,7 @@ function add_custom_filter(filter) {
 // Injects jQuery UI
 function injectjQueryUI() {
     if (SAFARI) {
-        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "lib/jquery-ui.custom.min.js", [], [], false);
+        safari.extension.addContentScriptFromURL(safari.extension.baseURI + "lib/jquery-ui.min.js", [], [], false);
         return true;
     }
 }
@@ -1145,7 +1165,20 @@ function get_content_script_data(options, sender) {
         _myfilters.hiding &&
         settings &&
         !settings.safari_content_blocking) {
-        result.selectors = _myfilters.hiding.filtersFor(options.domain);
+        // If |matchGeneric| is null, test request against blocking generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
+
+        // Request comes from a top frame
+        if (sender.tab.url === sender.url) {
+            result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
+        } else {
+            // Request comes from a sub frame
+            // We need to check, whether generichide applies to the sub frame.
+            if (!matchGeneric) {
+                matchGeneric = _myfilters.blocking.whitelist.matches(sender.url, ElementTypes.generichide, sender.url);
+            }
+            result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
+        }
     }
     return result;
 }
@@ -1159,7 +1192,7 @@ if (!SAFARI) {
                 include: [
                     "lib/punycode.min.js",
                     "lib/jquery.min.js",
-                    "lib/jquery-ui.custom.min.js",
+                    "lib/jquery-ui.min.js",
                     "uiscripts/load_jquery_ui.js",
                     "uiscripts/top_open_whitelist_ui.js"
                 ]
@@ -1169,7 +1202,7 @@ if (!SAFARI) {
                 include: [
                     "lib/punycode.min.js",
                     "lib/jquery.min.js",
-                    "lib/jquery-ui.custom.min.js",
+                    "lib/jquery-ui.min.js",
                     "uiscripts/load_jquery_ui.js",
                     "uiscripts/blacklisting/overlay.js",
                     "uiscripts/blacklisting/clickwatcher.js",
@@ -1394,7 +1427,7 @@ if (!SAFARI) {
         frameData.removeTabId(tabId);
     });
     // Popup blocking
-    if (chrome.webNavigationn && chrome.webNavigation.onCreatedNavigationTarget) {
+    if (chrome.webNavigation && chrome.webNavigation.onCreatedNavigationTarget) {
         chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
     }
 

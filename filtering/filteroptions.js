@@ -14,14 +14,18 @@ var ElementTypes = {
     elemhide: 512,
     popup: 1024,
     ping: 2048,
-    media: 4096
+    media: 4096,
+    genericblock: 8192,
+    generichide: 16384,
+    websocket: 32768
     // If you add something here, update .DEFAULTTYPES and .CHROMEONLY below.
 };
 // The types that are implied by a filter that doesn't explicitly specify types
 ElementTypes.DEFAULTTYPES = 1023;
 // Add here any types that Safari does not support.
 ElementTypes.CHROMEONLY = (ElementTypes.object_subrequest | ElementTypes.other |
-                           ElementTypes.xmlhttprequest | ElementTypes.ping);
+                           ElementTypes.xmlhttprequest | ElementTypes.genericblock |
+                           ElementTypes.generichide | ElementTypes.ping | ElementTypes.websocket);
 
 // Convert a webRequest.onBeforeRequest type to an ElementType.
 ElementTypes.fromOnBeforeRequestType = function(type) {

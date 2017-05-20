@@ -1,112 +1,131 @@
 {
-    "name": "CatBlock",
-    "version": "1.5.0",
-    "description": "CatBlock is like an ad blocker, but instead of blocking ads it shows you pictures of cats (configurable)",
-    "author": "CatBlock Team",
-    "icons": {
-        "16": "img/icon16.png",
-        "48": "img/icon48.png",
-        "128": "img/icon128.png"
+  "author": "CatBlock Team",
+  "background": {
+    "page": "background.html",
+    "persistent": true
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "img/icon19.png",
+      "38": "img/icon38.png"
     },
-    "background": {
-        "page": "background.html",
-        "persistent": true
+    "default_popup": "button/popup.html",
+    "default_title": "__MSG_catblock_adblock_click_for_details__"
+  },
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "js": [
+        "js/bandaids.js"
+      ],
+      "matches": [
+        "*://*.facebook.com/*",
+        "*://*.mail.live.com/*",
+        "*://*.mastertoons.com/*",
+        "*://*.mobilmania.cz/*",
+        "*://*.zive.cz/*",
+        "*://*.doupe.cz/*",
+        "*://*.e15.cz/*",
+        "*://*.sportrevue.cz/*",
+        "*://*.autorevue.cz/*",
+        "*://*.youtube.com/*"
+      ],
+      "run_at": "document_start"
     },
-    "browser_action": {
-        "default_icon": {
-            "19": "img/icon19.png",
-            "38": "img/icon38.png"
-        },
-        "default_popup": "button/popup.html",
-        "default_title": "__MSG_catblock_adblock_click_for_details__"
+    {
+      "all_frames": true,
+      "js": [
+        "lib/jquery.min.js",
+        "lib/punycode.min.js",
+        "js/port.js",
+        "js/functions.js",
+        "filtering/filteroptions.js",
+        "js/adblock_start_common.js",
+        "js/adblock_start_chrome.js",
+        "catblock/contentscript.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "run_at": "document_start"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "*://*.mail.live.com/*",
-                "*://*.mastertoons.com/*",
-                "*://*.getadblock.com/*",
-                "*://*.mobilmania.cz/*",
-                "*://*.zive.cz/*",
-                "*://*.doupe.cz/*",
-                "*://*.e15.cz/*",
-                "*://*.sportrevue.cz/*",
-                "*://*.autorevue.cz/*",
-                "*://*.youtube.com/*"
-            ],
-            "js": [
-                "js/bandaids.js"
-            ],
-            "run_at": "document_start",
-            "all_frames": true
-        },
-        {
-            "matches": ["http://*/*", "https://*/*"],
-            "js": [
-                "lib/jquery.min.js",
-                "lib/punycode.min.js",
-                "js/port.js",
-                "js/functions.js",
-                "filtering/filteroptions.js",
-                "js/adblock_start_common.js",
-                "js/adblock_start_chrome.js",
-                "catblock/contentscript.js"
-            ],
-            "run_at": "document_start",
-            "all_frames": true
-        },
-        {
-            "matches": ["http://*/*", "https://*/*"],
-            "js": [
-                "uiscripts/blacklisting/rightclick_hook.js"
-            ],
-            "run_at": "document_end",
-            "all_frames": false
-        }
-    ],
-    "incognito": "spanning",
-    "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; frame-src 'self'; img-src *; script-src 'unsafe-eval';",
-    "default_locale": "en",
-    "manifest_version": 2,
-    "options_page": "options/index.html",
-    "permissions": [
-        "http://*/*", "https://*/*", "contextMenus", "tabs", "idle", "webRequest", "webRequestBlocking", "webNavigation", "alarms", "storage", "notifications"
-    ],
-    "optional_permissions": [ "management" ],
-    "web_accessible_resources": [
-        "img/icon24.png",
-        "jquery/css/images/ui-bg_inset-hard_100_fcfdfd_1x100.png",
-        "jquery/css/images/ui-icons_056b93_256x240.png",
-        "jquery/css/images/ui-icons_d8e7f3_256x240.png",
-        "jquery/css/jquery-ui.custom.css",
-        "jquery/css/override-page.css",
-        "catblock/pix/1.jpg",
-        "catblock/pix/5.jpg",
-        "catblock/pix/6.jpg",
-        "catblock/pix/7.jpg",
-        "catblock/pix/8.jpg",
-        "catblock/pix/9.jpg",
-        "catblock/pix/big1.jpg",
-        "catblock/pix/big2.jpg",
-        "catblock/pix/big3.jpg",
-        "catblock/pix/big4.jpg",
-        "catblock/pix/small1.jpg",
-        "catblock/pix/small2.jpg",
-        "catblock/pix/small3.jpg",
-        "catblock/pix/small4.jpg",
-        "catblock/pix/small5.jpg",
-        "catblock/pix/small6.jpg",
-        "catblock/pix/small7.jpg",
-        "catblock/pix/small8.jpg",
-        "catblock/pix/tall3.jpg",
-        "catblock/pix/tall4.jpg",
-        "catblock/pix/tall5.jpg",
-        "catblock/pix/tall6.jpg",
-        "catblock/pix/wide1.jpg",
-        "catblock/pix/wide2.jpg",
-        "catblock/pix/wide3.jpg",
-        "catblock/pix/wide4.jpg",
-        "img/icon19.png",
-        "img/icon24.png"
-    ]
+    {
+      "all_frames": false,
+      "js": [
+        "uiscripts/blacklisting/rightclick_hook.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "content_security_policy": "default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src *; img-src *;",
+  "default_locale": "en",
+  "description": "CatBlock is like an ad blocker, but instead of blocking ads it shows you pictures of cats (configurable)",
+  "icons": {
+    "128": "img/icon128.png",
+    "16": "img/icon16.png",
+    "48": "img/icon48.png"
+  },
+  "incognito": "spanning",
+  "manifest_version": 2,
+  "minimum_chrome_version": "49",
+  "name": "CatBlock",
+  "optional_permissions": [
+    "management"
+  ],
+  "options_page": "options/index.html",
+  "permissions": [
+    "http://*/*",
+    "https://*/*",
+    "contextMenus",
+    "tabs",
+    "idle",
+    "webRequest",
+    "webRequestBlocking",
+    "webNavigation",
+    "alarms",
+    "storage",
+    "notifications"
+  ],
+  "version": "1.5.1",
+  "web_accessible_resources": [
+    "img/icon24.png",
+    "jquery/css/images/ui-bg_inset-hard_100_fcfdfd_1x100.png",
+    "jquery/css/images/ui-icons_056b93_256x240.png",
+    "jquery/css/images/ui-icons_d8e7f3_256x240.png",
+    "jquery/css/jquery-ui.custom.css",
+    "jquery/css/override-page.css",
+    "catblock/pix/1.jpg",
+    "catblock/pix/5.jpg",
+    "catblock/pix/6.jpg",
+    "catblock/pix/7.jpg",
+    "catblock/pix/8.jpg",
+    "catblock/pix/9.jpg",
+    "catblock/pix/big1.jpg",
+    "catblock/pix/big2.jpg",
+    "catblock/pix/big3.jpg",
+    "catblock/pix/big4.jpg",
+    "catblock/pix/small1.jpg",
+    "catblock/pix/small2.jpg",
+    "catblock/pix/small3.jpg",
+    "catblock/pix/small4.jpg",
+    "catblock/pix/small5.jpg",
+    "catblock/pix/small6.jpg",
+    "catblock/pix/small7.jpg",
+    "catblock/pix/small8.jpg",
+    "catblock/pix/tall3.jpg",
+    "catblock/pix/tall4.jpg",
+    "catblock/pix/tall5.jpg",
+    "catblock/pix/tall6.jpg",
+    "catblock/pix/wide1.jpg",
+    "catblock/pix/wide2.jpg",
+    "catblock/pix/wide3.jpg",
+    "catblock/pix/wide4.jpg",
+    "img/icon19.png",
+    "img/icon24.png"
+  ]
 }
