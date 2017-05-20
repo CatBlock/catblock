@@ -64,7 +64,7 @@ def main():
                     "applications": {
                         "gecko": {
                             "id": "catblock@catblock.tk",
-                            "strict_min_version": "48.0"
+                            "strict_min_version": "50.0"
                         }
                     },
                     "options_ui": {
@@ -82,13 +82,13 @@ def main():
             "chrome": {
                 "path": "catblock_chrome/manifest.json",
                 "key": {
-                    "minimum_chrome_version": "49"
+                    "minimum_chrome_version": "58"
                 }
             },
             "opera": {
                 "path": "catblock_opera/manifest.json",
                 "key": {
-                    "minimum_opera_version": "41"
+                    "minimum_opera_version": "44"
                 }
             }
         }
