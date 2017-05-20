@@ -42,11 +42,9 @@ class FilterSet {
     // which relate to the given domain or any of its superdomains.  E.g.
     // sub.foo.com will get items['global', 'foo.com', 'sub.foo.com'] and
     // exclude['foo.com', 'sub.foo.com'].
-    _viewFor(domain, matchGeneric) {
+    _viewFor(domain) {
         var result = new FilterSet();
-        if (!matchGeneric) {
-            result.items.global = this.items.global;
-        }
+        result.items.global = this.items.global;
         for (var nextDomain in DomainSet.domainAndParents(domain)) {
             if (this.items[nextDomain]) {
                 result.items[nextDomain] = this.items[nextDomain];
@@ -61,9 +59,9 @@ class FilterSet {
     // Get a list of all Filter objects that should be tested on the given
     // domain, and return it with the given map function applied. This function
     // is for hiding rules only
-    filtersFor(domain, matchGeneric) {
+    filtersFor(domain) {
         domain = parseURI.getUnicodeDomain(domain);
-        var limited = this._viewFor(domain, matchGeneric);
+        var limited = this._viewFor(domain);
         var data = {};
         // data = set(limited.items)
         for (var subdomain in limited.items) {
@@ -90,8 +88,8 @@ class FilterSet {
     // the filter in a relevant entry in this.items who is not also in a
     // relevant entry in this.exclude.
     // isThirdParty: true if url and frameDomain have different origins.
-    matches(url, elementType, frameDomain, isThirdParty, matchGeneric) {
-        var limited = this._viewFor(frameDomain, matchGeneric);
+    matches(url, elementType, frameDomain, isThirdParty) {
+        var limited = this._viewFor(frameDomain);
         for (var k in limited.items) {
             var entry = limited.items[k];
             for (var i = 0; i < entry.length; i++) {
@@ -152,17 +150,17 @@ class BlockingFilterSet {
     //       returns an object containing two properties:
     //          'blocked' - true or false
     //          'text' - text of matching pattern/whitelist filter, null if no match
-    matches(url, elementType, frameDomain, returnFilter, returnTuple, matchGeneric, topFrameDomain) {
+    matches(url, elementType, frameDomain, returnFilter, returnTuple) {
         var urlDomain = new parseURI(url).hostname;
         var isThirdParty = BlockingFilterSet.checkThirdParty(urlDomain, frameDomain);
 
         // matchCache approach taken from ABP
-        var key = url + " " + elementType + " " + isThirdParty + " " + topFrameDomain;
+        var key = url + " " + elementType + " " + isThirdParty;
         if (key in this._matchCache) {
             return this._matchCache[key];
         }
 
-        var match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty, matchGeneric);
+        var match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty);
         if (match) {
             log(frameDomain, ": whitelist rule", match._rule, "exempts url", url);
             if (returnTuple && returnFilter) {
@@ -172,7 +170,7 @@ class BlockingFilterSet {
             }
             return this._matchCache[key];
         }
-        match = this.pattern.matches(url, elementType, frameDomain, isThirdParty, matchGeneric);
+        match = this.pattern.matches(url, elementType, frameDomain, isThirdParty);
         if (match) {
             log(frameDomain, ": matched", match._rule, "to url", url);
             if (returnTuple && returnFilter) {
