@@ -945,9 +945,11 @@ if (!SAFARI) {
                 );
             });
 
-            addMenu(translate("options"), function() {
-                openTab("options/index.html");
-            });
+            if (!CHROME && !OPERA) {
+                addMenu(translate("options"), function() {
+                    openTab("options/index.html");
+                });
+            }
 
             var host = new parseURI(info.tab.unicodeUrl).hostname;
             var custom_filter_count = count_cache.getCustomFilterCount(host);
