@@ -125,7 +125,8 @@ def main():
     def runUnitTests(browser):
 
         # Making catblock-chrome.zip file available in PRs coming from forks
-        shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
+        if browser == "Chrome":
+            shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
         if os.environ.get("BS_API") == None:
             return print("  - Running QUnit tests on BrowserStack... N/A in PRs coming from forks.")
