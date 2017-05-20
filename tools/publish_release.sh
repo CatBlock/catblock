@@ -5,8 +5,6 @@ then
     # Go to the root of the repo
     cd ..
 
-    cd ..
-
     git clone https://${GH_TOKEN}@github.com/CatBlock/catblock-nightlies.git
 
     rm -rf /builds
