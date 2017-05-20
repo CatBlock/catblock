@@ -311,7 +311,6 @@ var picinjection = {
                 var folder = "img/";
                 newPic.infoCard.
                 append($("<a>", {
-                    href: "#",
                     text: "X",
                     title: "Remove (just this once)",
                     css: {
@@ -319,7 +318,8 @@ var picinjection = {
                         "font": "bold 20px sans-serif",
                         "text-decoration": "none",
                         color: "blue",
-                        "margin-left": 10
+                        "margin-left": 10,
+                        cursor: "pointer"
                     },
                     click: function() {
                         newPic.infoCard.remove();
