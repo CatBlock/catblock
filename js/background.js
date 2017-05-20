@@ -326,7 +326,20 @@ if (!SAFARI) {
 
         // May the URL be loaded by the requesting frame?
         var frameDomain = frameData.get(tabId, requestingFrameId).domain;
-        var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain);
+
+        // If |matchGeneric| is null, test request against blocking generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(top_frame.url, ElementTypes.genericblock, top_frame.url);
+
+        if (details.frameId !== 0) {
+            if (!matchGeneric) {
+                // When genericblock doesn't apply to the top frame,
+                // check, whether it applies to the current sub frame
+                matchGeneric = _myfilters.blocking.whitelist.matches(sub_frame.url, ElementTypes.genericblock, sub_frame.url);
+            }
+        }
+
+        // Should we block this URL?
+        var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric, top_frame.domain);
 
         frameData.storeResource(tabId, requestingFrameId, details.url, elType, frameDomain);
 
@@ -376,12 +389,19 @@ if (!SAFARI) {
             details.url = opener.url;
         }
         var url = new parseURI(details.url).href;
-        var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain);
+
+        // If |matchGeneric| is null, test request against blocking generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(url, ElementTypes.genericblock, url);
+
+        // Should we block this popup?
+        var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain, false, false, matchGeneric, null);
+
         if (match) {
             chrome.tabs.remove(details.tabId);
             blockCounts.recordOneAdBlocked(details.sourceTabId);
             updateBadge(details.sourceTabId);
         }
+
         frameData.storeResource(details.sourceTabId, details.sourceFrameId, url, ElementTypes.popup, opener.domain);
     }
 
@@ -945,9 +965,11 @@ if (!SAFARI) {
                 );
             });
 
-            addMenu(translate("options"), function() {
-                openTab("options/index.html");
-            });
+            if (!CHROME && !OPERA) {
+                addMenu(translate("options"), function() {
+                    openTab("options/index.html");
+                });
+            }
 
             var host = new parseURI(info.tab.unicodeUrl).hostname;
             var custom_filter_count = count_cache.getCustomFilterCount(host);
@@ -1078,7 +1100,20 @@ function get_content_script_data(options, sender) {
         _myfilters.hiding &&
         settings &&
         !settings.safari_content_blocking) {
-        result.selectors = _myfilters.hiding.filtersFor(options.domain);
+        // If |matchGeneric| is null, test request against blocking generic rules
+        var matchGeneric = _myfilters.blocking.whitelist.matches(sender.tab.url, ElementTypes.generichide, sender.tab.url);
+
+        // Request comes from a top frame
+        if (sender.tab.url === sender.url) {
+            result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
+        } else {
+            // Request comes from a sub frame
+            // We need to check, whether generichide applies to the sub frame.
+            if (!matchGeneric) {
+                matchGeneric = _myfilters.blocking.whitelist.matches(sender.url, ElementTypes.generichide, sender.url);
+            }
+            result.selectors = _myfilters.hiding.filtersFor(options.domain, matchGeneric);
+        }
     }
     return result;
 }
@@ -1337,7 +1372,7 @@ if (!SAFARI) {
     chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
     chrome.tabs.onRemoved.addListener(frameData.removeTabId);
     // Popup blocking
-    if (chrome.webNavigationn && chrome.webNavigation.onCreatedNavigationTarget) {
+    if (chrome.webNavigation && chrome.webNavigation.onCreatedNavigationTarget) {
         chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);
     }
 
