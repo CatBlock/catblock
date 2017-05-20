@@ -88,7 +88,7 @@ def main():
             "opera": {
                 "path": "catblock_opera/manifest.json",
                 "key": {
-                    "minimum_opera_version": "44"
+                    "minimum_opera_version": "45"
                 }
             }
         }
