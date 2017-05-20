@@ -269,7 +269,21 @@ def main():
     # End of generateBrowserPackage
 
     # Start the magic!
-    printBold("Generating browser packages...")
+    if args.devenv == True and args.extension == None:
+        if args.browser != "all":
+            printBold("Generating development environment for " + args.browser + "...")
+        else:
+            printBold("Generating development environment for all browsers...")
+    elif args.devenv == True and args.extension != None:
+        if args.browser != "all":
+            printBold("Generating development environment and browser package for " + args.browser + "...")
+        else:
+            printBold("Generating development environments and browser packages for all browsers...")
+    elif args.devenv == False and args.extension != None:
+        if args.browser != "all":
+            printBold("Generating browser package for " + args.browser + "...")
+        else:
+            printBold("Generating browser packages for all browsers...")
 
     if args.browser != "all":
         generateBrowserPackage(args.browser)
