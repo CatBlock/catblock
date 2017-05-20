@@ -102,7 +102,7 @@ def main():
 
             # Needed for determining an extension ID used for automated tests via BrowserStack
             if browser == "chrome" and os.environ.get("TRAVIS") != None:
-                keys.update({ "key": os.environ["EXTENSION_KEY"] })
+                keys.update({ "key": os.environ.get("EXTENSION_KEY") })
                 # Update content security policy in order to correctly run unit tests
                 keys.update({ "content_security_policy": keys["content_security_policy"] + " script-src 'unsafe-eval';" })
             elif browser == "firefox":
@@ -124,7 +124,7 @@ def main():
     # Selenium testing - enabled only on Travis-CI
     def runUnitTests(browser):
 
-        if os.environ.get("TRAVIS") != None and browser == "Chrome":
+        if os.environ.get("TRAVIS") != None and browser == "Chrome" and os.environ.get("BS_API") != None:
 
             from selenium import webdriver
             from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -144,7 +144,7 @@ def main():
             chop["browserstack.debug"] = "true"
 
             driver = webdriver.Remote(
-                command_executor="http://" + os.environ["BS_USERNAME"] + ":" + os.environ["BS_API"] + "@hub.browserstack.com:80/wd/hub",
+                command_executor="http://" + os.environ.get("BS_USERNAME") + ":" + os.environ.get("BS_API") + "@hub.browserstack.com:80/wd/hub",
             desired_capabilities=chop)
 
             driver.get("chrome-extension://mdcgnhlfpnbeieiiccmebgkfdebafodo/tools/tests/test.html")
