@@ -131,10 +131,11 @@ def main():
         # Making catblock-chrome.zip file available in PRs coming from forks
         shutil.make_archive("catblock-chrome", "zip", "catblock_chrome")
 
-        if os.environ.get("BS_API") == None:
+        # BS_API key is not exported in build process for forks
+        if os.environ.get("BS_API") == None and os.environ.get("TRAVIS") != None:
             return print("  - Running QUnit tests on BrowserStack... N/A in PRs coming from forks.")
 
-        if os.environ.get("TRAVIS") != None and browser == "Chrome":
+        if os.environ.get("TRAVIS") != None:
 
             from selenium import webdriver
             from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
