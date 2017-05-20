@@ -43,19 +43,25 @@ CB_DOWNLOAD_URL = ""
 # Try to get the API keys from files or from cache on Travis
 if os.environ.get("TRAVIS") == None:
 
-    if os.path.exists(os.getenv("HOME") + "/.ab_crowdin_key"):
-        AB_API_KEY = open(os.getenv("HOME") + "/.ab_crowdin_key").read()
+    if os.path.exists(os.environ.get("HOME") + "/.ab_crowdin_key"):
+        AB_API_KEY = open(os.environ.get("HOME") + "/.ab_crowdin_key").read()
     else:
         raise FileNotFoundError("File with AdBlock's API key wasn't found.")
 
-    if os.path.exists(os.getenv("HOME") + "/.cb_crowdin_key"):
-        CB_API_KEY = open(os.getenv("HOME") + "/.cb_crowdin_key").read()
+    if os.path.exists(os.environ.get("HOME") + "/.cb_crowdin_key"):
+        CB_API_KEY = open(os.environ.get("HOME") + "/.cb_crowdin_key").read()
     else:
         raise FileNotFoundError("File with CatBlock's API key wasn't found.")
 
 else:
-    AB_API_KEY = os.environ["AB_CROWDIN_KEY"]
-    CB_API_KEY = os.environ["CB_CROWDIN_KEY"]
+    if os.environ.get("AB_CROWDIN_KEY") == None or os.environ.get("CB_CROWDIN_KEY") == None:
+        # We are building from a fork, hence no private variables are exported
+        print("API keys were not found, existing from a script.")
+        # For forks, exiting this script with 0 is allowed
+        sys.exit(0)
+
+    AB_API_KEY = os.environ.get("AB_CROWDIN_KEY")
+    CB_API_KEY = os.environ.get("CB_CROWDIN_KEY")
 
 AB_EXPORT_URL = AB_API_URL + "/export?key=" + AB_API_KEY + "&json=true"
 AB_DOWNLOAD_URL = AB_API_URL + "/download/all.zip?key=" + AB_API_KEY
