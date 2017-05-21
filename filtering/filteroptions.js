@@ -17,7 +17,8 @@ var ElementTypes = {
     media: 4096,
     genericblock: 8192,
     generichide: 16384,
-    websocket: 32768
+    websocket: 32768,
+    font: 65536
     // If you add something here, update .DEFAULTTYPES and .CHROMEONLY below.
 };
 // The types that are implied by a filter that doesn't explicitly specify types
@@ -32,9 +33,9 @@ ElementTypes.fromOnBeforeRequestType = function(type) {
     switch (type) {
         case "main_frame": return ElementTypes.document;
         case "sub_frame": return ElementTypes.subdocument;
-        // Retype "font" request to "other"
-        case "font": return ElementTypes.other;
-        default: return ElementTypes[type];
+        case "beacon": return ElementTypes.ping;
+        case "imageset": return ElementTypes.image;
+        default: return ElementTypes[type] || ElementTypes.other;
     }
 };
 

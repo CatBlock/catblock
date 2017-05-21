@@ -55,6 +55,7 @@ function reqTypeForElement(elType) {
         case 8192: return "genericblock";
         case 16384: return "generichide";
         case 32768: return "websocket";
+        case 65536: return "font";
         default: return "selector";
     }
 }
