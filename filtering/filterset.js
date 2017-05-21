@@ -165,21 +165,13 @@ class BlockingFilterSet {
         var match = this.whitelist.matches(url, elementType, frameDomain, isThirdParty, matchGeneric);
         if (match) {
             log(frameDomain, ": whitelist rule", match._rule, "exempts url", url);
-            if (returnTuple && returnFilter) {
-                this._matchCache[key] = { blocked: false, text: match._text};
-            } else {
-                this._matchCache[key] = (returnFilter ? match._text : false);
-            }
+            this._matchCache[key] = { blocked: false, text: match._text};
             return this._matchCache[key];
         }
         match = this.pattern.matches(url, elementType, frameDomain, isThirdParty, matchGeneric);
         if (match) {
             log(frameDomain, ": matched", match._rule, "to url", url);
-            if (returnTuple && returnFilter) {
-                this._matchCache[key] = { blocked: true, text: match._text};
-            } else {
-                this._matchCache[key] = (returnFilter ? match._text : true);
-            }
+            this._matchCache[key] = { blocked: true, text: match._text};
             return this._matchCache[key];
         }
         if (this.malwareDomains &&
@@ -187,14 +179,14 @@ class BlockingFilterSet {
             this.malwareDomains[urlDomain.charAt(0)] &&
             this.malwareDomains[urlDomain.charAt(0)].indexOf(urlDomain) > -1) {
             log("matched malware domain", urlDomain);
-            this._matchCache[key] = (returnFilter ? urlDomain: true);
+            this._matchCache[key] = { blocked: true, text: match._text };
             // createMalwareNotification is not defined outside of BG page
             if (typeof createMalwareNotification === "function") {
                 createMalwareNotification(frameDomain);
             }
             return this._matchCache[key];
         }
-        this._matchCache[key] = false;
+        this._matchCache[key] = { blocked: false, text: null };
         return this._matchCache[key];
     }
 

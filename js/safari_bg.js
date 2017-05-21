@@ -114,7 +114,7 @@ safari.application.addEventListener("message", function(messageEvent) {
         var url = new parseURI(messageEvent.message.url).href;
         var elType = messageEvent.message.elType;
         var frameDomain = parseURI.getUnicodeDomain(messageEvent.message.frameDomain);
-        var isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain));
+        var isMatched = url && (_myfilters.blocking.matches(url, elType, frameDomain)).blocked;
         if (isMatched) {
             log("SAFARI TRUE BLOCK " + url + ": " + isMatched);
         }
@@ -122,7 +122,7 @@ safari.application.addEventListener("message", function(messageEvent) {
         // Popup blocking support
         if (messageEvent.message.referrer) {
             var isMatched = _myfilters.blocking.matches(sendingTab.url, ElementTypes.popup,
-                                                        new parseURI(messageEvent.message.referrer).hostname);
+                                                        new parseURI(messageEvent.message.referrer).hostname).blocked;
             if (isMatched) {
                 tab.close();
             }

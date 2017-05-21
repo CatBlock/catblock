@@ -199,11 +199,6 @@ class PatternFilter extends Filter {
                 option = "object";
             }
 
-            // "background" is a synonym for "image".
-            if (option === "background") {
-                option = "image";
-            }
-
             if (option in ElementTypes) { // this option is a known element type
                 if (inverted) {
                     if (allowedElementTypes === undefined) {
@@ -216,21 +211,19 @@ class PatternFilter extends Filter {
                     }
                     allowedElementTypes |= ElementTypes[option];
                 }
-            }
-            else if (option === "third_party") {
+            } else if (option === "third_party") {
                 result.options |=
                     (inverted ? FilterOptions.FIRSTPARTY : FilterOptions.THIRDPARTY);
-            }
-            else if (option === "match_case") {
+            } else if (option === "match_case") {
                 //doesn't have an inverted function
                 result.options |= FilterOptions.MATCHCASE;
-            }
-            else if (option === "collapse") {
+            } else if (option === "collapse") {
                 // We currently do not support this option. However I've never seen any
                 // reports where this was causing issues. So for now, simply skip this
                 // option, without returning that the filter was invalid.
-            }
-            else {
+            } else if (option === "genericblock" || option === "generichide") {
+                // These options don't have an inverted function
+            } else {
                 throw new Error("Unknown option '" + option + "' in filter '" + text + "'");
             }
         }

@@ -81,7 +81,8 @@ class Settings {
             show_context_menu_items: true,
             show_advanced_options: false,
             display_stats: true,
-            display_menu_stats: true
+            display_menu_stats: true,
+            opened_resourcepage: false
         };
         var settings = storage_get("settings") || {};
         this._data = $.extend(defaults, settings);
@@ -272,17 +273,35 @@ if (!SAFARI) {
         },
 
         // Save a resource for the resource blocker.
-        storeResource: function(tabId, frameId, url, elType, frameDomain) {
-            if (!get_settings().show_advanced_options) {
-                return;
-            }
-            var data = frameData.get(tabId, frameId);
+        storeResource: function(details) {
+            var data = frameData.get(details.tabId, details.frameId);
             if (data !== undefined) {
-                data.resources[elType + ":|:" + url + ":|:" + frameDomain] = null;
+                // Used by Ad-report page
+                data.resources[details.elType + ":|:" + details.url + ":|:" + details.frameDomain] = null;
+                // Don't process requests for Resource viewer page, when it's not opened
+                if (!get_settings().opened_resourcepage) {
+                    return;
+                }
+                // Used by Resource viewer page
+                let time = new Date(details.time).toISOString().slice(11, -1);
+                let dataToSend = {
+                    tabId: details.tabId,
+                    frameId: details.frameId,
+                    url: details.url,
+                    elType: details.elType,
+                    frameDomain: details.frameDomain,
+                    time: time,
+                    matchData: details.matchData
+                }
+                chrome.runtime.sendMessage({ command: "send-request", data: dataToSend });
             }
         },
 
         removeTabId: function(tabId) {
+            // When resource viewer tab gets closed, disable sending request details to it
+            if (frameData[tabId] && frameData[tabId].url === chrome.runtime.getURL("pages/resourceblock.html")) {
+                set_setting("opened_resourcepage", false);
+            }
             delete frameData[tabId];
         }
     };
@@ -338,10 +357,24 @@ if (!SAFARI) {
             }
         }
 
-        // Should we block this URL?
-        var blocked = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric, top_frame.domain);
+        var blockedData = _myfilters.blocking.matches(details.url, elType, frameDomain, false, false, matchGeneric, top_frame.domain);
 
-        frameData.storeResource(tabId, requestingFrameId, details.url, elType, frameDomain);
+        // Should we block this URL?
+        var blocked = blockedData.blocked;
+
+        if (get_settings().show_advanced_options) {
+            var data = {
+                tabId: tabId,
+                frameId: details.frameId,
+                url: details.url,
+                elType: elType,
+                frameDomain: frameDomain,
+                time: details.timeStamp,
+                matchData: blockedData
+            };
+
+            frameData.storeResource(data);
+        }
 
         // Issue 7178
         if (blocked && frameDomain === "www.hulu.com") {
@@ -388,13 +421,16 @@ if (!SAFARI) {
         if (details.url === "about:blank") {
             details.url = opener.url;
         }
+
         var url = new parseURI(details.url).href;
 
         // If |matchGeneric| is null, test request against blocking generic rules
         var matchGeneric = _myfilters.blocking.whitelist.matches(url, ElementTypes.genericblock, url);
 
+        var matchData = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain, false, false, matchGeneric, null);
+
         // Should we block this popup?
-        var match = _myfilters.blocking.matches(url, ElementTypes.popup, opener.domain, false, false, matchGeneric, null);
+        var match = matchData.blocked;
 
         if (match) {
             chrome.tabs.remove(details.tabId);
@@ -402,7 +438,19 @@ if (!SAFARI) {
             updateBadge(details.sourceTabId);
         }
 
-        frameData.storeResource(details.sourceTabId, details.sourceFrameId, url, ElementTypes.popup, opener.domain);
+        if (get_settings().show_advanced_options) {
+            var data = {
+                tabId: details.sourceTabId,
+                frameId: details.sourceFrameId,
+                url: url,
+                elType: ElementTypes.popup,
+                frameDomain: opener.domain,
+                time: details.timeStamp,
+                matchData: matchData
+            };
+
+            frameData.storeResource(data);
+        }
     }
 
     // If tabId has been replaced by Chrome, delete it's data
@@ -439,8 +487,25 @@ function debug_report_elemhide(selector, matches, sender) {
     if (!window.frameData) {
         return;
     }
-    var frameDomain = new parseURI(sender.url || sender.tab.url).hostname;
-    frameData.storeResource(sender.tab.id, sender.frameId || 0, selector, "selector", frameDomain);
+
+    if (get_settings().show_advanced_options) {
+        var frameDomain = new parseURI(sender.url || sender.tab.url).hostname;
+
+        var data = {
+            tabId: sender.tab.id,
+            frameId: sender.frameId || 0,
+            url: selector,
+            elType: "selector",
+            frameDomain: frameDomain,
+            time: Date.now(),
+            matchData: {
+                blocked: true,
+                text: selector
+            }
+        };
+
+        frameData.storeResource(data);
+    }
 
     var data = frameData.get(sender.tab.id, sender.frameId || 0);
     if (data) {
@@ -1194,46 +1259,34 @@ function launch_subscribe_popup(loc) {
 }
 
 // Open the resource blocker when requested from popup.
-function launch_resourceblocker(query) {
-    openTab("pages/resourceblock.html" + query, true);
+function launch_resourceblocker() {
+    let pageUrl = chrome.runtime.getURL("pages/resourceblock.html");
+
+    chrome.tabs.query({ url: pageUrl }, function(tabs){
+        if (tabs.length === 0) {
+            chrome.tabs.create({ url: pageUrl }, function(tab) {
+                // we create an entry in frameData due to not sending requests details
+                // to the resource viewer page, once it gets closed
+                frameData[tab.id] = {};
+                frameData[tab.id].url = pageUrl;
+                frameData[tab.id].blockCount = null;
+                frameData[tab.id].resources = {};
+                set_setting("opened_resourcepage", true);
+            });
+        } else {
+            let tab = tabs[0];
+            chrome.tabs.update(tab.id, { active: true, highlighted: true }, function() {
+                chrome.windows.update(tab.windowId, { focused: true }, function() {
+                    set_setting("opened_resourcepage", true);
+                });
+            });
+        }
+    });
 }
 
 // Get the frameData for the "Report an Ad" & "Resource" page
 function get_frameData(tabId) {
     return frameData.get(tabId);
-}
-
-// Process requests from "Resource" page
-// Determine, whether requests have been whitelisted/blocked
-function process_frameData(fd) {
-    for (var frameId in fd) {
-        var frame = fd[frameId];
-        var frameResources = frame.resources;
-        for (var resource in frameResources) {
-            var res = frameResources[resource];
-            // We are processing selectors in resource viewer page
-            if (res.elType === "selector") {
-                continue;
-            }
-            res.blockedData = _myfilters.blocking.matches(res.url, res.elType, res.frameDomain, true, true);
-        }
-    }
-    return fd;
-}
-
-// Add previously cached requests to matchCache
-// Used by "Resource" page
-function add_to_matchCache(cache) {
-    _myfilters.blocking._matchCache = cache;
-}
-
-// Reset matchCache
-// Used by "Resource" page
-// Returns: object with cached requests
-function reset_matchCache() {
-    var matchCache = _myfilters.blocking._matchCache;
-    _myfilters.blocking._matchCache = {};
-    return matchCache;
 }
 
 // Return chrome.i18n._getL10nData() for content scripts who cannot
@@ -1370,7 +1423,9 @@ if (!SAFARI) {
     // Chrome blocking code.  Near the end so synchronous request handler
     // doesn't hang Chrome while AdBlock initializes.
     chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
-    chrome.tabs.onRemoved.addListener(frameData.removeTabId);
+    chrome.tabs.onRemoved.addListener(function(tabId) {
+        frameData.removeTabId(tabId);
+    });
     // Popup blocking
     if (chrome.webNavigation && chrome.webNavigation.onCreatedNavigationTarget) {
         chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTargetHandler);

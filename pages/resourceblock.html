@@ -24,13 +24,24 @@
                     <img src="../Icon.png">
                 </a>
             </div>
-            <span id="title" i18n="resourceblocktitle"></span>
+            <h3 id="title" i18n="resourceblocktitle"></h3>
         </header>
         <div id="legend">
             <span class="legendtext"></span>
             <span class="blocked"></span>,
             <span class="whitelisted"></span>,
             <span class="hiding"></span>
+        </div>
+        <div id="note">
+            <span i18n="catblock_different_resourceblocker"></span>
+        </div>
+        <div id="tabselect">
+            <select id="tab"></select>
+            <button id="reload" i18n="catblock_reloadtab"></button>
+        </div>
+        <div id="searchresources">
+            <span i18n="catblock_searchresources"></span>
+            <input id="search" type="search">
         </div>
         <img class="loader" src=../img/loader.gif />
         <script src="resourceblock.js"></script>

@@ -2,65 +2,6 @@
 // so that web sites can not clobber the default implementation
 var abConfirm = window.confirm;
 
-// Return the ElementType element type of the given element.
-function typeForElement(el) {
-    // TODO: handle background images that aren"t just the BODY.
-    switch (el.nodeName.toUpperCase()) {
-        case "INPUT":
-        case "IMG": return ElementTypes.image;
-        case "SCRIPT": return ElementTypes.script;
-        case "OBJECT":
-        case "EMBED": return ElementTypes.object;
-        case "VIDEO":
-        case "AUDIO":
-        case "SOURCE": return ElementTypes.media;
-        case "FRAME":
-        case "IFRAME": return ElementTypes.subdocument;
-        case "LINK":
-            // favicons are reported as 'other' by onBeforeRequest.
-            // if this is changed, we should update this too.
-            if (/(^|\s)icon($|\s)/i.test(el.rel)) {
-                return ElementTypes.other;
-            }
-            return ElementTypes.stylesheet;
-        case "BODY": return ElementTypes.background;
-        default: return ElementTypes.NONE;
-    }
-}
-
-// If url is relative, convert to absolute.
-function relativeToAbsoluteUrl(url) {
-    // Author: Tom Joseph of AdThwart
-
-    if (!url) {
-        return url;
-    }
-
-    // If URL is already absolute, don't mess with it
-    if (/^[a-zA-Z\-]+\:/.test(url)) {
-        return url;
-    }
-
-    if (url[0] === "/") {
-        // Leading // means only the protocol is missing
-        if (url[1] && url[1] === "/") {
-            return document.location.protocol + url;
-        }
-
-        // Leading / means absolute path
-        return document.location.protocol + "//" + document.location.host + url;
-    }
-
-    // Remove filename and add relative URL to it
-    var base = document.baseURI.match(/.+\//);
-
-    if (!base) {
-        return document.baseURI + "/" + url;
-    }
-
-    return base[0] + url;
-}
-
 // Do not make the frame display a white area
 // Not calling .remove(); as this causes some sites to reload continuesly
 function removeFrame(el) {

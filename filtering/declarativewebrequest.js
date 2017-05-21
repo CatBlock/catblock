@@ -102,7 +102,7 @@ var DeclarativeWebRequest = (function() {
         if (elementTypes & ElementTypes.popup) {
             result.push("popup");
         }
-        if (elementTypes & (ElementTypes.xmlhttprequest | ElementTypes.other | ElementTypes.object_subrequest)) {
+        if (elementTypes & (ElementTypes.ping | ElementTypes.xmlhttprequest | ElementTypes.other | ElementTypes.object_subrequest)) {
             result.push("raw");
         }
         if (elementTypes & ElementTypes.subdocument) {
@@ -140,8 +140,9 @@ var DeclarativeWebRequest = (function() {
                   ElementTypes.object |
                   ElementTypes.subdocument |
                   ElementTypes.object_subrequest |
-                  ElementTypes.media |
                   ElementTypes.other |
+                  ElementTypes.media |
+                  ElementTypes.ping |
                   ElementTypes.xmlhttprequest))) {
                 whitelistAnyOtherFilters.push(filter);
             }

@@ -242,7 +242,7 @@ $(function() {
         });
 
         $("#div_show_resourcelist").click(function() {
-            BG.launch_resourceblocker("?tabId=" + tab.id);
+            BG.launch_resourceblocker();
             closeAndReloadPopup();
         });
 
