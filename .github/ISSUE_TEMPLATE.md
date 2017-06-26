@@ -1,6 +1,6 @@
 ### So you've found a problem in CatBlock?
 #### Answer these questions to help us solve the case!
-(If you have a problem that isn't a bug, or want to suggest a feature, do so at <http://catblock.tenderapp.com>
+(If you have a problem that isn't a bug, or want to suggest a feature, do so at <http://support.getcatblock.com>
 
 #### 1. List some steps we can follow to make the bug happen on our end.
 
