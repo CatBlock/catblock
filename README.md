@@ -35,7 +35,7 @@ CatBlock is compatible with following browsers:
 ## Tools we use
 We use many different services to help keep CatBlock working! We use [Travis](http://travis-ci.org) to build new versions automatically for us.
 
-We also have Travis connected to <img src="https://bstacksupport.zendesk.com/attachments/token/q3lgvdc6t3gMJfqDUFkqsMgrP/?name=Logo-01.svg" alt="BrowserStack" width=100 href="https://browserstack.com"/>, to run a few automated unit tests for us. If "builds:passing" shows at the top of this README, then it's probably working fine, otherwise the current version of the code might not work so well.
+We also have Travis connected to <a href="https://browserstack.com"><img src="https://bstacksupport.zendesk.com/attachments/token/q3lgvdc6t3gMJfqDUFkqsMgrP/?name=Logo-01.svg" alt="BrowserStack" width=70 href="https://browserstack.com"/></a>, to run a few automated unit tests for us. If "builds:passing" shows at the top of this README, then it's probably working fine, otherwise the current version of the code might not work so well.
 
 ## Developers
 
