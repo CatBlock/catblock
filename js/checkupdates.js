@@ -55,7 +55,7 @@ function checkupdates(page) {
             }
         });
     } else {
-        var checkURL = "http://catblock.tk/edge.json";
+        var checkURL = "http://getcatblock.com/edge.json";
 
         // Fetch the version check file
         $.ajax({
