@@ -1369,7 +1369,7 @@ function createMalwareNotification() {
 if (!SAFARI) {
     // Chrome blocking code.  Near the end so synchronous request handler
     // doesn't hang Chrome while AdBlock initializes.
-    chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, {urls: ["http://*/*", "https://*/*"]}, ["blocking"]);
+    chrome.webRequest.onBeforeRequest.addListener(onBeforeRequestHandler, {urls: ["http://*/*", "https://*/*", "ws://*/*", "wss://*/*"]}, ["blocking"]);
     chrome.tabs.onRemoved.addListener(frameData.removeTabId);
     // Popup blocking
     if (chrome.webNavigation && chrome.webNavigation.onCreatedNavigationTarget) {
