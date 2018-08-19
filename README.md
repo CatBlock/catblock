@@ -52,6 +52,6 @@ The people to contact for this project are [@kpeckett](https://github.com/kpecke
 If you want to keep an eye on CatBlock or even know more about it, check out our [Wiki page](https://github.com/CatBlock/catblock/wiki), where you can find all important information.
 
 ## Get in touch with us
-[![Slack](http://catblock-slackin.herokuapp.com/badge.svg)](http://catblock-slackin.herokuapp.com)
+[![Discord](https://img.shields.io/discord/468064596129742850.svg)](https://discord.gg/HKCNztF)
 
-We use Slack a lot - make an account at <http://catblock-slackin.herokuapp.com> and log in at <https://catblock.slack.com>. You can ask questions there (the main contributors are all in Europe, so anyone in Australia should expect a bit of a wait).
+We have a public Discord server! Ask for help, help out with development and just chat about stuff! Join the community at [This link](https://discord.gg/HKCNztF)
