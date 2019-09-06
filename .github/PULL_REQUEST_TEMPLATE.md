@@ -1,5 +1,7 @@
+<!--
 ## So you've written some code to improve CatBlock?
 ### Fill in this template to ensure we can review your code properly!
+-->
 
 ### 1. Does this fix an issue in the CatBlock issue tracker? If so, replace the 0 with its issue number below:
 Fixes #0
